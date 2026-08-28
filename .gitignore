@@ -1,0 +1,41 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.env.local
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Media assets (Large files usually shouldn't be pushed to github)
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+# If you want to push specific media, you can force add them: git add -f filename.mp4
+
+# Temporary and Workspace Specific
+temp/
+tmp/
+scratch/
+assets/cache/
+assets/processing/
+.agents/mcp_state/
+
+# IDE
+.idea/
+.vscode/
+
+# Projects Build artifacts
+projects/*/06_build/out/
+projects/*/06_build/dist/
+projects/*/06_build/node_modules/

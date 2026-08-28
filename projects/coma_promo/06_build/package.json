@@ -1,0 +1,25 @@
+{
+  "name": "super-video-maker-remotion-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync": "python ../scripts/sync_templates.py",
+    "prebuild": "npm run sync",
+    "studio": "remotion studio",
+    "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
+    "lint": "npm run sync && tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/zod-types": "^4.0.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "^4.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "typescript": "5.9.3"
+  }
+}
