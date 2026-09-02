@@ -1,11 +1,11 @@
 # Ads Collection
 > مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-08-29
+> آخر تحديث: 2026-09-02
 
 ## مشاهد (Scenes)
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `CountdownIntro` | C | `templates/scenes/cta/countdown-intro.tsx` | hook, stat |
+| `CountdownIntro` | C | `templates/scenes/cta/countdown-intro.tsx` | stat, hook |
 | `CountdownTimer` | C | `templates/scenes/cta/countdown-timer.tsx` | stat |
 | `CreditsRoll` | C | `templates/scenes/cta/credits-roll.tsx` | general_element |
 | `EndCard` | C | `templates/scenes/cta/end-card.tsx` | cta |
@@ -44,7 +44,7 @@
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
 | `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, title_reveal, caption |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, caption, title_reveal |
 | `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
 | `BounceText` | C | `templates/elements/typography/bounce-text.tsx` | title_reveal |
 | `BubblePopText` | C | `templates/elements/typography/bubble-pop-text.tsx` | title_reveal |
@@ -53,14 +53,14 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, title_reveal, badge |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, badge, title_reveal |
 
 ## تأثيرات (Effects)
 | Name | Quality | Path | Intents |
@@ -72,7 +72,7 @@
 | `ParallaxPan` | C | `templates/effects/motion/parallax-pan.tsx` | motion_effect |
 | `ParticleExplosion` | C | `templates/effects/motion/particle-explosion.tsx` | motion_effect |
 | `SoundWave` | C | `templates/effects/motion/sound-wave.tsx` | motion_effect |
-| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, emphasis, image_motion |
+| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, image_motion, emphasis |
 | `BokehCircles` | C | `templates/effects/overlays/bokeh-circles.tsx` | overlay |
 | `FilmBurn` | C | `templates/effects/overlays/film-burn.tsx` | overlay |
 | `GeometricPatterns` | C | `templates/effects/overlays/geometric-patterns.tsx` | overlay |

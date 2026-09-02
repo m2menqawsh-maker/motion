@@ -281,13 +281,18 @@ for j in sorted((DST / "recipes").glob("*.json")):
 print(f"RECIPES_INDEX: {n}")
 
 # ── 5) PLAYBOOKS_INDEX ────────────────────────────
-SKIP = {"README.md", "SKILL.md", "REFERENCE.md", "ROUTER.md", "AUDIT_REPORT.md"}
-out, n = ["| Playbook | العنوان |", "|---|---|"], 0
-for md in sorted(DST.glob("*.md")):
-    if md.name in SKIP: continue
-    first = next((l for l in md.read_text(encoding="utf-8").splitlines() if l.startswith("# ")), "# " + md.stem)
-    n += 1; out.append(f"| `{md.name}` | {first[2:].strip()} |")
-(OUT / "PLAYBOOKS_INDEX.md").write_text(hdr("PLAYBOOKS_INDEX — دفاتر التشغيل", "*.md (جذر المهارة)")
+out, n = ["| المستند | النوع | العنوان |", "|---|---|---|"], 0
+guides_dir = DST / "docs" / "guides"
+if guides_dir.exists():
+    for md in sorted(guides_dir.glob("*.md")):
+        first = next((l for l in md.read_text(encoding="utf-8").splitlines() if l.startswith("# ")), "# " + md.stem)
+        n += 1; out.append(f"| `docs/guides/{md.name}` | دليل / تشغيل | {first[2:].strip()} |")
+reports_dir = DST / "docs" / "reports"
+if reports_dir.exists():
+    for md in sorted(reports_dir.glob("*.md")):
+        first = next((l for l in md.read_text(encoding="utf-8").splitlines() if l.startswith("# ")), "# " + md.stem)
+        n += 1; out.append(f"| `docs/reports/{md.name}` | تقرير مرحلي | {first[2:].strip()} |")
+(OUT / "PLAYBOOKS_INDEX.md").write_text(hdr("PLAYBOOKS_INDEX — دفاتر التشغيل والأدلة والتقارير", "docs/guides/*.md, docs/reports/*.md")
     + f"**العدد: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"PLAYBOOKS_INDEX: {n}")
 

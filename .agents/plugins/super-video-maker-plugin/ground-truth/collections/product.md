@@ -1,6 +1,6 @@
 # Product Collection
 > مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-08-29
+> آخر تحديث: 2026-09-02
 
 ## مشاهد (Scenes)
 | Name | Quality | Path | Intents |
@@ -21,7 +21,6 @@
 | `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
-| `Audiovisualizer` | A | `templates/elements/data/AudioVisualizer.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
 | `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
 | `ComparisonChart` | C | `templates/elements/data/comparison-chart.tsx` | stat |

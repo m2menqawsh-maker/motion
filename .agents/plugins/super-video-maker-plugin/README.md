@@ -112,6 +112,10 @@ super-video-maker-plugin/
 ├── README.md                # This file
 ├── package.json             # Root JS orchestration
 ├── requirements.txt         # Python dependencies
+├── docs/                    # Central documentation & reports hub
+│   ├── README.md            # Documentation index
+│   ├── guides/              # Usage, installation, architecture & playbooks
+│   └── reports/             # Phase reports, audits & development tasks
 ├── skills/
 │   └── super-video-maker/
 │       └── SKILL.md         # Main skill instructions
@@ -121,13 +125,25 @@ super-video-maker-plugin/
 ├── tools/                   # 19 Python tools
 │   └── mcp-servers/         # 7 MCP servers
 ├── references/              # Deep reference docs & playbooks
-├── remotion-app/       # Remotion project (build target)
+├── remotion-app/            # Remotion project (build target)
 ├── hyperframes-template/    # HyperFrames alternative
 ├── workflows/               # Production workflow scripts
 ├── commands/                # Quick command templates
 ├── scripts/                 # Verification & build scripts
 └── tests/                   # Unit tests
 ```
+
+## Documentation
+
+Comprehensive guides and historical development reports are organized in the [`docs/`](docs/README.md) directory:
+
+- **[Documentation Index](docs/README.md)** — Master overview of all documentation.
+- **[Usage Guide](docs/guides/USAGE.md)** — Quickstart and detailed operational instructions.
+- **[Installation Guide](docs/guides/INSTALLATION.md)** — Prerequisites and setup walkthrough.
+- **[Architecture (v2.0)](docs/guides/ARCHITECTURE.md)** — Core design principles and engine layout.
+- **[Changelog](docs/guides/CHANGELOG.md)** — Version history and release notes.
+- **[Distribution Checklist](docs/guides/DISTRIBUTION_CHECKLIST.md)** — Pre-publish verification steps.
+- **[Reports Archive](docs/reports/)** — Phase reports (Phase 12 through 16.2), audits, and tasks.
 
 ## MCP Servers
 
