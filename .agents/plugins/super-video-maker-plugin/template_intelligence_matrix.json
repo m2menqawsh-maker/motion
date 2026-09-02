@@ -1,0 +1,5139 @@
+[
+  {
+    "templateId": "effects/motion/camera-shake",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/gradient-shift",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/grid-pulse",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/liquid-wave",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/parallax-pan",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "image"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [
+      "image"
+    ],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/particle-explosion",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/sound-wave",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/motion/zoom-pulse",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "image"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [
+      "image"
+    ],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/bokeh-circles",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "visual_overlay"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "overlay"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/film-burn",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "visual_overlay"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "overlay"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/geometric-patterns",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "visual_overlay"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "overlay"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/noise-grain",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "visual_overlay"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "overlay"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/vignette-pulse",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "visual_overlay"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "overlay"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/blinds-transition",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/blur-out-up",
+    "certification": "CERTIFIED",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "animated_text_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [
+      "text"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "FULLY_SUPPORTED",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/transitions/clock-wipe",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/cross-dissolve",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/fade-through-black",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/glass-wipe/glassWipe",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "direction"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/iris-transition",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/morph-transition",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/pixel-transition",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/push-transition",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/slide-wipe",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/type-mask/typeMask",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "text",
+      "holdFrames",
+      "maxScale",
+      "color",
+      "fontFamily"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/whip-pan",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-blur-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-bounce-drop",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-fade-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-glitch-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-scale-rotate",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-spin-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-split-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-stroke-draw",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-typewriter",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/branding/lower-third",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/captions/captions/Captions",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "captions_layer"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "captions"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/captions/text-highlight",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "captions_layer"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "captions"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/captions/typewriter-subtitle",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "captions_layer"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "captions"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/code/code-block/CodeBlock",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/code/code-diff/CodeDiff",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/code/terminal/Terminal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/area-chart",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/AudioVisualizer",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/chart-animation",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/circular-progress",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/comparison-chart",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/donut-chart",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/line-chart",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/pie-chart",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/progress-bars",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/progress-steps",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/stat-counter",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/data/StatCard",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/blur-reveal/BlurReveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/bounce-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/bubble-pop-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/caret",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/floating-bubble-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/glitch-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/popping-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/pulsing-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/rgb-glitch-text/RgbGlitchText",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/slide-text",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/text-reveal",
+    "certification": "CERTIFIED",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "text_hook"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "animated_text_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "FULLY_SUPPORTED",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/title-split",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/tracking-in/TrackingIn",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/typewriter/Typewriter",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/typewriter-remocn",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "text"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/typography/word-stagger/WordStagger",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/card-flip",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/letterbox-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/notification-pop",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/quote-card",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/remotion-bits/CardStack",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/remotion-bits/Carousel",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/split-screen/SplitScreen",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "elements/ui/spotlight-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/countdown-intro",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/countdown-timer",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/credits-roll",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/end-card",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/subscribe-reminder",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/explainers/animated-list",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/explainers/split-screen",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/animated-text",
+    "certification": "CERTIFIED",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "text_hook",
+      "hero_intro"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "animated_text_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [
+      "text"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 3,
+    "executionEligibility": "FULLY_SUPPORTED",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/hooks/chapter-title",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/cinematic-title-intro",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/matrix-rain",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/starfield",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/zoom-through",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "hero"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/product/image-comparison-slider",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/product/image-zoom-reveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/product/ken-burns/KenBurns",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "image"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [
+      "image"
+    ],
+    "evidenceCount": 3,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/product/ken-burns",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/gallery-grid",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/image-carousel",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/masonry-gallery",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/photo-stack",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/picture-in-picture",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/polaroid-frame",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/rotating-carousel",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/social-clip/index",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "body_text"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/social/SocialClip",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "body_text"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "audio/AudioManager",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "scenes"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "camera/AutoZoom",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "keyframes",
+      "getRect"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "camera/CameraRig",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "timeline",
+      "scenes",
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "cursor/Cursor",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "actions"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "cursor/CursorSprite",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "layout/LayoutContext",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "layout/LayoutWindow",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "id",
+      "zone",
+      "width",
+      "height"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/AppFromDescriptor",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "body_text"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "descriptor"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/AppShell",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Avatar",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "name"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Badge",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "label"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Button",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "label"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/DataTable",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "columns",
+      "rows"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/ListItems",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "items"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/MessageList",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "messages"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/NotificationToast",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline",
+        "body_text"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "animated_text_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [
+      "title",
+      "body"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 3,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": [
+      "Not certified"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Panel",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline",
+        "body_text"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/PanelGrid",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Placeholder",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/SearchBar",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/SidebarNav",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "items"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/StatCard",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "label",
+      "value"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/TabBar",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "tabs"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/TopNav",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/CountUp",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "to"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/EndCard",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Enter",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Exit",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "startAt",
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Headline",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Highlight",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Pulse",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/ScenePush",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "duration",
+      "overlap",
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Stagger",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "interval",
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/TrafficLights",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/TypeWriter",
+    "certification": "CERTIFIED",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "animated_text_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [
+      "text"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "FULLY_SUPPORTED",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Wallpaper",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "primitives/Window",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "headline"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "id",
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PARTIAL",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/ChaosDesktop",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "BROKEN",
+    "semanticRoles": [
+      "desktop_simulation",
+      "ui_demo"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "chaos_desktop_v1",
+    "adapterStatus": "IMPLEMENTED",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 3,
+    "executionEligibility": "BROKEN",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "PROVEN",
+    "blockingReasons": [
+      "Missing required dependencies"
+    ]
+  },
+  {
+    "templateId": "scenes/Closer",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/DynamicWindows",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "sceneId"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/FeatureShowcase",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/HeadlineResolution",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "scenes/ProductReveal",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "audio"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 2,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "ui-state/UIStateProvider",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "animated"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 1,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "PROVEN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "orphan/canvas.tsx",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [
+      "children"
+    ],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "orphan/Camera.tsx",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "orphan/Glow.tsx",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "orphan/GridField.tsx",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  },
+  {
+    "templateId": "orphan/Surface.tsx",
+    "certification": "UNKNOWN",
+    "dependencyHealth": "HEALTHY",
+    "semanticRoles": [
+      "UNKNOWN"
+    ],
+    "capabilities": {
+      "content": [
+        "UNKNOWN"
+      ],
+      "visual": [
+        "UNKNOWN"
+      ],
+      "media": [
+        "UNKNOWN"
+      ],
+      "behavior": [
+        "UNKNOWN"
+      ]
+    },
+    "adapterCapability": "UNKNOWN",
+    "adapterStatus": "UNKNOWN",
+    "propRequirements": [],
+    "mediaRequirements": [],
+    "evidenceCount": 0,
+    "executionEligibility": "CATALOG_ONLY",
+    "propConfidence": "UNKNOWN",
+    "familyConfidence": "UNKNOWN",
+    "blockingReasons": [
+      "Adapter is not implemented"
+    ]
+  }
+]

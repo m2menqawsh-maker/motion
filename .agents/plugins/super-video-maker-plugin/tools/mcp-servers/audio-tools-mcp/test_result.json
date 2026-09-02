@@ -1,0 +1,113 @@
+{
+  "full_text": "ورشة الغرز وأنواع الخيوط مع المدرب محمد محمود أبو رحمه من شركة كوما",
+  "language": "ar",
+  "language_probability": 1.0,
+  "model_device": "cpu",
+  "compute_type": "int8",
+  "model_size": "small",
+  "duration": 6.75,
+  "speech_periods": [
+    {
+      "start": 0.016,
+      "end": 6.75
+    }
+  ],
+  "silence_periods": [
+    {
+      "start": 0.0,
+      "end": 0.016
+    },
+    {
+      "start": 6.75,
+      "end": 6.75
+    }
+  ],
+  "segments": [
+    {
+      "start": 0.02,
+      "end": 6.54,
+      "text": "ورشة الغرز وأنواع الخيوط مع المدرب محمد محمود أبو رحمه من شركة كوما",
+      "confidence": 0.8256124913928946,
+      "words": [
+        {
+          "start": 0.02,
+          "end": 0.92,
+          "word": " ورشة",
+          "probability": 0.9354251176118851
+        },
+        {
+          "start": 0.92,
+          "end": 1.38,
+          "word": " الغرز",
+          "probability": 0.9029731899499893
+        },
+        {
+          "start": 1.38,
+          "end": 2.04,
+          "word": " وأنواع",
+          "probability": 0.8142328709363937
+        },
+        {
+          "start": 2.04,
+          "end": 2.58,
+          "word": " الخيوط",
+          "probability": 0.8483924716711044
+        },
+        {
+          "start": 2.58,
+          "end": 2.98,
+          "word": " مع",
+          "probability": 0.9889628291130066
+        },
+        {
+          "start": 2.98,
+          "end": 3.5,
+          "word": " المدرب",
+          "probability": 0.9706597725550333
+        },
+        {
+          "start": 3.5,
+          "end": 4.28,
+          "word": " محمد",
+          "probability": 0.9870763222376505
+        },
+        {
+          "start": 4.28,
+          "end": 4.72,
+          "word": " محمود",
+          "probability": 0.9859475096066793
+        },
+        {
+          "start": 4.72,
+          "end": 5.02,
+          "word": " أبو",
+          "probability": 0.8693569699923197
+        },
+        {
+          "start": 5.02,
+          "end": 5.44,
+          "word": " رحمه",
+          "probability": 0.8177397747834524
+        },
+        {
+          "start": 5.44,
+          "end": 5.74,
+          "word": " من",
+          "probability": 0.9773016571998596
+        },
+        {
+          "start": 5.74,
+          "end": 6.2,
+          "word": " شركة",
+          "probability": 0.9932539264361063
+        },
+        {
+          "start": 6.2,
+          "end": 6.54,
+          "word": " كوما",
+          "probability": 0.7470888594786326
+        }
+      ]
+    }
+  ]
+}

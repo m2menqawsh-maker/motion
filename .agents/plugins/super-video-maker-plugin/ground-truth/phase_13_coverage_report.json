@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-08-29T13:56:36.958Z",
+  "before": {
+    "fullySupported": 2,
+    "catalogOnly": 150
+  },
+  "after": {
+    "fullySupported": 4,
+    "catalogOnly": 148
+  },
+  "delta": {
+    "newlyExecutable": 2
+  },
+  "transitions": [
+    {
+      "templateId": "scenes/hooks/animated-text",
+      "previous": "CATALOG_ONLY",
+      "current": "FULLY_SUPPORTED",
+      "adapterFamily": "animated_text_v1",
+      "reason": [
+        "CERTIFIED",
+        "HEALTHY",
+        "IMPLEMENTED_ADAPTER",
+        "VALID_PROP_MAPPING"
+      ]
+    },
+    {
+      "templateId": "primitives/TypeWriter",
+      "previous": "CATALOG_ONLY",
+      "current": "FULLY_SUPPORTED",
+      "adapterFamily": "animated_text_v1",
+      "reason": [
+        "CERTIFIED",
+        "HEALTHY",
+        "IMPLEMENTED_ADAPTER",
+        "VALID_PROP_MAPPING"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/NotificationToast",
+      "previous": "CATALOG_ONLY",
+      "current": "CATALOG_ONLY",
+      "adapterFamily": "animated_text_v1 (Candidate)",
+      "reason": "semantic behavior does not match animated_text_v1 family",
+      "futureFamily": "UI / Notification"
+    }
+  ]
+}

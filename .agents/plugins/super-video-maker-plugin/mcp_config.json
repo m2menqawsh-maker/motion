@@ -1,0 +1,98 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "audio-tools-mcp": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp",
+      "env": {}
+    },
+    "media-sources-mcp": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp",
+      "env": {}
+    },
+    "video-tools-mcp": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp",
+      "env": {}
+    },
+    "image-tools-mcp": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp",
+      "env": {}
+    },
+    "common-tools-mcp": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp",
+      "env": {
+        "SVM_DATA_DIR": "C:/video/clean-video-workspace",
+        "SVM_PLUGIN_ROOT": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin"
+      }
+    },
+    "ffmpeg-mcp-server": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "server.js"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server",
+      "env": {}
+    },
+    "Video_Editor_MCP": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP",
+        "run",
+        "python",
+        "-m",
+        "video_editor"
+      ],
+      "cwd": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src",
+      "env": {
+        "PYTHONPATH": "C:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src"
+      }
+    }
+  }
+}

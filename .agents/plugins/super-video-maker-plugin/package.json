@@ -1,0 +1,10 @@
+{
+  "name": "super-video-maker-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent skill package for end-to-end AI video production.",
+  "scripts": {
+    "studio": "cd remotion-app && npm run studio",
+    "render": "cd remotion-app && npm run render"
+  }
+}

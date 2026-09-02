@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "super-video-maker",
+  "version": "1.0.0",
+  "description": "Commercial motion director for agentic video production. Routes between 7 MCP servers, 19 Python tools, 172 unified Remotion templates (templates/ + engine/), 17 production recipes, and a recipe-driven template router.",
+  "author": {
+    "name": "Momen",
+    "url": "https://github.com/m2menqawsh-maker"
+  },
+  "homepage": "https://github.com/m2menqawsh-maker/super-video-maker-plugin",
+  "repository": "https://github.com/m2menqawsh-maker/super-video-maker-plugin",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "remotion",
+    "ffmpeg",
+    "motion-graphics",
+    "ai-video",
+    "ugc-ads",
+    "avatar",
+    "captions"
+  ]
+}

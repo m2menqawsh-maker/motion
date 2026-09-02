@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "id": "phase-08-proof",
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "scenes": [
+    {
+      "role": "text_hook",
+      "durationSeconds": 3,
+      "content": {
+        "headline": "Compiler Architecture Complete"
+      }
+    }
+  ]
+}

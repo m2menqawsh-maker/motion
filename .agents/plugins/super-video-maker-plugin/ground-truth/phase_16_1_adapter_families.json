@@ -1,0 +1,88 @@
+{
+  "adapterFamilies": [
+    {
+      "familyId": "family_v1_1",
+      "memberCount": 2,
+      "members": [
+        "scenes/social/social-clip/index",
+        "scenes/social/SocialClip"
+      ],
+      "physicalSignature": [
+        {
+          "name": "captions",
+          "type": "array"
+        }
+      ],
+      "semanticRole": "UNKNOWN",
+      "requiredTransformations": [],
+      "sharedProps": [
+        {
+          "name": "captions",
+          "type": "array"
+        }
+      ],
+      "variableProps": [],
+      "structuralDifferences": [],
+      "confidence": "MEDIUM",
+      "adapterRequired": true,
+      "estimatedCoverageGain": 2,
+      "complexity": "MEDIUM"
+    }
+  ],
+  "singletonCandidates": [
+    "audio/AudioManager",
+    "camera/AutoZoom",
+    "camera/CameraRig",
+    "cursor/Cursor",
+    "layout/LayoutWindow",
+    "primitives/Stagger"
+  ],
+  "genericMappingCandidates": [
+    "elements/data/AudioVisualizer",
+    "scenes/FeatureShowcase",
+    "scenes/ProductReveal"
+  ],
+  "defaultFixCandidates": [
+    "effects/motion/parallax-pan",
+    "effects/motion/zoom-pulse",
+    "effects/transitions/glass-wipe/glassWipe",
+    "effects/transitions/type-mask/typeMask",
+    "elements/typography/caret",
+    "scenes/product/ken-burns",
+    "cursor/CursorSprite",
+    "primitives/app-ui/AppShell",
+    "primitives/app-ui/Avatar",
+    "primitives/app-ui/Badge",
+    "primitives/app-ui/Button",
+    "primitives/app-ui/DataTable",
+    "primitives/app-ui/ListItems",
+    "primitives/app-ui/MessageList",
+    "primitives/app-ui/PanelGrid",
+    "primitives/app-ui/Placeholder",
+    "primitives/app-ui/SearchBar",
+    "primitives/app-ui/SidebarNav",
+    "primitives/app-ui/StatCard",
+    "primitives/app-ui/TabBar",
+    "primitives/app-ui/TopNav",
+    "primitives/CountUp",
+    "primitives/EndCard",
+    "primitives/Enter",
+    "primitives/Exit",
+    "primitives/Highlight",
+    "primitives/Pulse",
+    "primitives/ScenePush",
+    "primitives/TrafficLights",
+    "primitives/Wallpaper",
+    "primitives/Window",
+    "scenes/DynamicWindows",
+    "orphan/canvas.tsx",
+    "orphan/Camera.tsx",
+    "orphan/Glow.tsx",
+    "orphan/GridField.tsx",
+    "orphan/Surface.tsx"
+  ],
+  "dependencyBlockers": [
+    "scenes/ChaosDesktop"
+  ],
+  "unresolved": []
+}

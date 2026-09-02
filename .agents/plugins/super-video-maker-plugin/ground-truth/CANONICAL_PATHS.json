@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "created": "2026-08-28",
+  "template_sources": {
+    "unified": "templates/",
+    "legacy": "templates/",
+    "cinematic_engine": "cinematic-engine/",
+    "premium": "premium-templates/"
+  },
+  "build_output": "remotion-app/src/",
+  "vendor": "vendor/",
+  "engine": "engine/",
+  "ground_truth": "ground-truth/",
+  "skills": "skills/",
+  "references": "references/",
+  "assets": {
+    "incoming": "assets/incoming",
+    "cache": "assets/cache",
+    "processing": "assets/processing",
+    "ready": "assets/ready",
+    "deprecated": ["processed", "storage"]
+  }
+}

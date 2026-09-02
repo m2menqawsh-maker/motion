@@ -1,0 +1,158 @@
+{
+  "id": "dynamic-montage-ad",
+  "name": "Dynamic Montage Ad",
+  "name_ar": "منتاج إعلاني ديناميكي",
+  "version": "1.0.0",
+  "description": "Professional 9:16 reel ad mixing motion graphics and fast montage. Voiceover-driven with camera-tracking text zoom, full-screen to square transitions, 8-10 scenes, word-level karaoke captions with emphasis markers, and strict brand color compliance.",
+  "best_for": ["إعلانات ريلز احترافية", "منتاج سريع", "إعلانات منتجات", "إعلانات خدمات"],
+  "routing_keywords": ["ريلز", "منتاج", "إعلان", "موشن جرافيك", "ريل", "منتاج إعلاني", "إعلان احترافي", "منتاج سريع", "ريلز إعلان", "montage ad", "dynamic ad", "reel ad"],
+  "platforms": ["instagram", "tiktok", "youtube_shorts"],
+  "duration_seconds": {"min": 30, "max": 60, "target": 45},
+  "aspect_ratios": ["9:16"],
+  "personality": "Energetic",
+  "motion_taste_citation": "motion-personality.md:Energetic",
+  "scenes_count": {"min": 8, "max": 10},
+  "layout_variety": {
+    "required": true,
+    "description": "كل مشهد يجب أن يكون مختلفاً في التخطيط. ممنوع تكرار نفس التخطيط (نص فوق فيديو) في كل المشاهد.",
+    "layouts": [
+      "fullscreen_text",
+      "fullscreen_video",
+      "square_video_center",
+      "text_over_video",
+      "split_screen",
+      "text_only_dark",
+      "video_with_text_overlay",
+      "fullscreen_motion_graphics"
+    ]
+  },
+  "camera_tracking_text": {
+    "required": true,
+    "description": "النص يظهر وكأن الكاميرا تتبعه. لا يظهر من اتجاه واحد ثابت. الزوم قوي على الكلمات المهمة.",
+    "zoom_strength": "strong",
+    "zoom_on_keywords": true
+  },
+  "transitions": {
+    "required": true,
+    "types": [
+      "fullscreen_to_square",
+      "square_to_fullscreen",
+      "whip_pan",
+      "push_transition",
+      "zoom_through",
+      "clock_wipe",
+      "cross_dissolve"
+    ],
+    "description": "انتقالات ديناميكية بين المشاهد. يجب أن يكون هناك على الأقل انتقال واحد من شاشة كاملة لمربع أو العكس."
+  },
+  "captions": {
+    "style": "karaoke_word_level",
+    "direction": "rtl",
+    "emphasis_markers": true,
+    "description": "كابشن كاريوكي كلمة-بكلمة، من اليمين لليسار، مع علامات تمييز على الكلمات المهمة (لون مختلف، حجم أكبر، أو توهج)."
+  },
+  "brand_colors": {
+    "required": true,
+    "description": "يجب تحديد لوحة ألوان العلامة التجارية والالتزام بها في كل المشاهد. ممنوع استخدام ألوان عشوائية."
+  },
+  "voiceover": {
+    "source": "user_upload_or_elevenlabs",
+    "description": "التعليق الصوتي هو الأساس. كل التوقيتات تُستخرج منه عبر analyze_voiceover."
+  },
+  "stages": [
+    { "id": "intake", "title": "Intake", "actions": ["Get requirements"] },
+    { "id": "script", "title": "Script", "actions": ["Write script"] },
+    { "id": "assets", "title": "Assets", "actions": ["Fetch assets"] },
+    { "id": "assembly", "title": "Assembly", "actions": ["Assemble timeline"] },
+    { "id": "ffmpeg_finishing", "title": "FFmpeg Finishing", "actions": ["Render master"] },
+    { "id": "qc", "title": "QC", "actions": ["Run quality gates"] },
+    { "id": "exports", "title": "Exports", "actions": ["Package files"] }
+  ],
+  "tools": [
+    "tools/video_recipes.py",
+    "tools/elevenlabs_voice.py",
+    "tools/fal_seedance_video.py",
+    "tools/image_provider.py",
+    "tools/video_captioner.py",
+    "tools/ffmpeg_qc.py",
+    "tools/broll_layout_qc.py",
+    "tools/ad_quality_gate.py"
+  ],
+  "providers": {
+    "avatar": "none",
+    "broll": "media-sources-mcp",
+    "transcription": "audio-tools-mcp",
+    "compose": "remotion"
+  },
+  "deliverables": [
+    "final/master_9x16.mp4",
+    "04_timings.json",
+    "05_blueprint.json"
+  ],
+  "mcp_servers": [
+    "audio-tools-mcp",
+    "media-sources-mcp",
+    "video-tools-mcp",
+    "image-tools-mcp",
+    "common-tools-mcp",
+    "ffmpeg",
+    "video-editor"
+  ],
+  "templates": [
+    "cinematic-title-intro",
+    "animated-text",
+    "text-highlight",
+    "popping-text",
+    "bounce-text",
+    "pulsing-text",
+    "slide-text",
+    "typewriter-subtitle",
+    "glitch-text",
+    "cross-dissolve",
+    "whip-pan",
+    "push-transition",
+    "clock-wipe",
+    "zoom-through",
+    "zoom-pulse",
+    "stat-counter",
+    "countdown-timer",
+    "end-card",
+    "noise-grain",
+    "film-burn",
+    "vignette-pulse",
+    "gradient-shift",
+    "logo-fade-reveal",
+    "logo-scale-rotate",
+    "lower-third",
+    "subscribe-reminder",
+    "picture-in-picture",
+    "split-screen",
+    "card-flip",
+    "notification-pop",
+    "particle-explosion",
+    "camera-shake",
+    "ken-burns",
+    "parallax-pan",
+    "letterbox-reveal",
+    "spotlight-reveal",
+    "bokeh-circles",
+    "starfield",
+    "matrix-rain",
+    "liquid-wave"
+  ],
+  "cinematic_engine_components": [
+    "CameraRig",
+    "AutoZoom",
+    "Cursor",
+    "Headline",
+    "Highlight",
+    "TypeWriter",
+    "CountUp",
+    "EndCard"
+  ],
+  "qc_gates": [
+    "ffmpeg_qc.py",
+    "broll_layout_qc.py",
+    "ad_quality_gate.py"
+  ]
+}

@@ -1,0 +1,23 @@
+[project]
+name = "media-sources-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp<2.0.0",
+    "pillow>=12.3.0",
+    "playwright>=1.62.0",
+    "pydantic>=2.13.4",
+    "pyright>=1.1.411",
+    "python-dotenv>=1.2.2",
+    "yt-dlp>=2026.7.4",
+]
+
+[project.scripts]
+media-sources-mcp = "media_sources_mcp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"

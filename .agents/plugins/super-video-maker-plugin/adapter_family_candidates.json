@@ -1,0 +1,1560 @@
+[
+  {
+    "templateId": "effects/motion/camera-shake",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/gradient-shift",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/grid-pulse",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/motion/liquid-wave",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/parallax-pan",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests image/media prop or Img usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/particle-explosion",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/sound-wave",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/motion/zoom-pulse",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests image/media prop or Img usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/bokeh-circles",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/film-burn",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/geometric-patterns",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/noise-grain",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/overlays/vignette-pulse",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/blinds-transition",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/blur-out-up",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/transitions/clock-wipe",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/cross-dissolve",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/fade-through-black",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/glass-wipe/glassWipe",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/transitions/iris-transition",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/morph-transition",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/pixel-transition",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/transitions/push-transition",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/slide-wipe",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "effects/transitions/type-mask/typeMask",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "effects/transitions/whip-pan",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-blur-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-bounce-drop",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-fade-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-glitch-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-scale-rotate",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-spin-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-split-reveal",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/branding/logo-stroke-draw",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/logo-typewriter",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/branding/lower-third",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/captions/captions/Captions",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/captions/text-highlight",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/captions/typewriter-subtitle",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/code/code-block/CodeBlock",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/code/code-diff/CodeDiff",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests title prop"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/code/terminal/Terminal",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/data/area-chart",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/data/AudioVisualizer",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/chart-animation",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/circular-progress",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/comparison-chart",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/donut-chart",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/line-chart",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/data/pie-chart",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/progress-bars",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/progress-steps",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/stat-counter",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/data/StatCard",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/blur-reveal/BlurReveal",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/bounce-text",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/bubble-pop-text",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/caret",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/floating-bubble-text",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/glitch-text",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/popping-text",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/pulsing-text",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/rgb-glitch-text/RgbGlitchText",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/slide-text",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/text-reveal",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/title-split",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/tracking-in/TrackingIn",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/typewriter/Typewriter",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/typography/typewriter-remocn",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests text prop"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/typography/word-stagger/WordStagger",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/ui/card-flip",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/ui/letterbox-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/ui/notification-pop",
+    "candidateFamilies": [
+      "ui_notification_v1"
+    ],
+    "evidence": [
+      "Matched ui_notification_v1 profile (title + subtitle or UI naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/ui/quote-card",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/ui/remotion-bits/CardStack",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/ui/remotion-bits/Carousel",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "elements/ui/split-screen/SplitScreen",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "elements/ui/spotlight-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/countdown-intro",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/countdown-timer",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/credits-roll",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/end-card",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/cta/subscribe-reminder",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/explainers/animated-list",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/explainers/split-screen",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/hooks/animated-text",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/hooks/chapter-title",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/cinematic-title-intro",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/matrix-rain",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/starfield",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/hooks/zoom-through",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/product/image-comparison-slider",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/product/image-zoom-reveal",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/product/ken-burns/KenBurns",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests image/media prop or Img usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/product/ken-burns",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests image/media prop or Img usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/gallery-grid",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/social/image-carousel",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/masonry-gallery",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/photo-stack",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/picture-in-picture",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/polaroid-frame",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/rotating-carousel",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/social-clip/index",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/social/SocialClip",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "audio/AudioManager",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "camera/AutoZoom",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "camera/CameraRig",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "cursor/Cursor",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "cursor/CursorSprite",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "layout/LayoutContext",
+    "candidateFamilies": [],
+    "evidence": [
+      "Source/Schema suggests text prop"
+    ],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "layout/LayoutWindow",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/app-ui/AppFromDescriptor",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/AppShell",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/app-ui/Avatar",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Badge",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/Button",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/DataTable",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/ListItems",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/MessageList",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/NotificationToast",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/app-ui/Panel",
+    "candidateFamilies": [
+      "ui_notification_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Source/Schema suggests subtitle prop",
+      "Matched ui_notification_v1 profile (title + subtitle or UI naming)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/app-ui/PanelGrid",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/app-ui/Placeholder",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/SearchBar",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/SidebarNav",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/StatCard",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/TabBar",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/app-ui/TopNav",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/CountUp",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/EndCard",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Enter",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Exit",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Headline",
+    "candidateFamilies": [
+      "animated_text_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Highlight",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Pulse",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/ScenePush",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Stagger",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/TrafficLights",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/TypeWriter",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "primitives/Wallpaper",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "primitives/Window",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/ChaosDesktop",
+    "candidateFamilies": [
+      "ui_notification_v1",
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage",
+      "Matched ui_notification_v1 profile (title + subtitle or UI naming)",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": [
+      "DEPENDENCY_BLOCKED"
+    ]
+  },
+  {
+    "templateId": "scenes/Closer",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/DynamicWindows",
+    "candidateFamilies": [
+      "ui_notification_v1"
+    ],
+    "evidence": [
+      "Matched ui_notification_v1 profile (title + subtitle or UI naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/FeatureShowcase",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests title prop",
+      "Source/Schema suggests audio prop or Audio usage",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "scenes/HeadlineResolution",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "scenes/ProductReveal",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests audio prop or Audio usage",
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "ui-state/UIStateProvider",
+    "candidateFamilies": [
+      "animated_text_v1"
+    ],
+    "evidence": [
+      "Source/Schema suggests text prop",
+      "Matched animated_text_v1 profile (text + animation - media)"
+    ],
+    "confidence": "MEDIUM",
+    "blockingReasons": []
+  },
+  {
+    "templateId": "orphan/canvas.tsx",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": [
+      "Source code not found for analysis"
+    ]
+  },
+  {
+    "templateId": "orphan/Camera.tsx",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": [
+      "Source code not found for analysis"
+    ]
+  },
+  {
+    "templateId": "orphan/Glow.tsx",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "Source code not found for analysis",
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "orphan/GridField.tsx",
+    "candidateFamilies": [],
+    "evidence": [],
+    "confidence": "UNKNOWN",
+    "blockingReasons": [
+      "Source code not found for analysis",
+      "NO_FAMILY_MATCH"
+    ]
+  },
+  {
+    "templateId": "orphan/Surface.tsx",
+    "candidateFamilies": [
+      "container_v1"
+    ],
+    "evidence": [
+      "Matched container_v1 profile (children or layout naming)"
+    ],
+    "confidence": "HIGH",
+    "blockingReasons": [
+      "Source code not found for analysis"
+    ]
+  }
+]

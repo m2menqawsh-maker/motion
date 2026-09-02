@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Template Proposal Schema",
+  "type": "object",
+  "required": ["proposal_id", "name", "description", "category", "author", "date", "source_project"],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "معرف فريد للقالب المقترح (مثل: dynamic-camera-with-paths)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100,
+      "description": "اسم القالب (مثل: Dynamic Camera with Paths)"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "description": "وصف مفصل للقالب واستخداماته"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Typography & Text",
+        "Code & Tech",
+        "Data & Stats",
+        "UI & Layouts",
+        "Motion Effects & Overlays",
+        "Transitions",
+        "Full Scenes & Hooks",
+        "Cinematic Engine Primitives"
+      ],
+      "description": "تصنيف القالب"
+    },
+    "author": {
+      "type": "string",
+      "description": "من أنشأ القالب (AI Agent + اسم المشروع)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "تاريخ الإنشاء"
+    },
+    "source_project": {
+      "type": "string",
+      "description": "المشروع الأصلي الذي تم فيه ابتكار القالب"
+    },
+    "source_file": {
+      "type": "string",
+      "description": "المسار الأصلي للكود المخصص"
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string", "enum": ["string", "number", "boolean", "array", "object"] },
+          "required": { "type": "boolean" },
+          "default": {},
+          "description": { "type": "string" }
+        }
+      },
+      "description": "الخصائص التي يقبلها القالب"
+    },
+    "use_cases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 2,
+      "description": "أمثلة على متى يُستخدم هذا القالب"
+    },
+    "motion_personality": {
+      "type": "string",
+      "enum": ["Cinematic", "Energetic", "Playful", "Technical", "Premium"],
+      "description": "شخصية الحركة المناسبة للقالب"
+    },
+    "duration_range": {
+      "type": "object",
+      "properties": {
+        "min_frames": { "type": "number" },
+        "max_frames": { "type": "number" }
+      },
+      "description": "نطاق المدة المناسب للقالب"
+    },
+    "sfx_recommendations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "المؤثرات الصوتية الموصى بها مع هذا القالب"
+    }
+  }
+}

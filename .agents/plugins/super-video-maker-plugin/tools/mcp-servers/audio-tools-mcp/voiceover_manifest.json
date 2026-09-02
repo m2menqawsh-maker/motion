@@ -1,0 +1,553 @@
+{
+  "manifest_version": "1.0",
+  "manifest_type": "voiceover_manifest",
+  "created_at": "2026-08-12T16:53:35.627977+00:00",
+  "source": {
+    "audio_path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\complex_test.wav",
+    "filename": "complex_test.wav",
+    "duration": 24.46,
+    "format": "wav",
+    "sample_rate": null,
+    "channels": null,
+    "language": "ar",
+    "language_probability": 1.0
+  },
+  "model": {
+    "provider": "faster-whisper",
+    "name": "small",
+    "device": "cpu",
+    "compute_type": "int8"
+  },
+  "statistics": {
+    "sentence_count": 5,
+    "word_count": 35,
+    "speech_duration": 21.259999999999998,
+    "silence_duration": 3.2000000000000033
+  },
+  "sentences": [
+    {
+      "id": "vo_001",
+      "index": 1,
+      "text": "هاب بتطقن الغرز الجراحية عملياً؟",
+      "timing": {
+        "source_start": 0.21,
+        "source_end": 3.65,
+        "source_duration": 3.44
+      },
+      "audio": {
+        "path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\split_output\\sentence_001.wav",
+        "filename": "sentence_001.wav",
+        "duration": 3.5199999999999996,
+        "format": "wav"
+      },
+      "split": {
+        "reason": "strong_punctuation",
+        "pre_padding": 0.03,
+        "post_padding": 0.05
+      },
+      "gaps": {
+        "before": 0.21,
+        "after": 0.56
+      },
+      "words": [
+        {
+          "global_index": 0,
+          "sentence_word_index": 0,
+          "text": "هاب",
+          "start": 0.21,
+          "end": 0.75,
+          "duration": 0.54,
+          "probability": 0.5690665990114212
+        },
+        {
+          "global_index": 1,
+          "sentence_word_index": 1,
+          "text": "بتطقن",
+          "start": 0.75,
+          "end": 1.25,
+          "duration": 0.5,
+          "probability": 0.7445834204554558
+        },
+        {
+          "global_index": 2,
+          "sentence_word_index": 2,
+          "text": "الغرز",
+          "start": 1.25,
+          "end": 1.65,
+          "duration": 0.3999999999999999,
+          "probability": 0.9272295385599136
+        },
+        {
+          "global_index": 3,
+          "sentence_word_index": 3,
+          "text": "الجراحية",
+          "start": 1.65,
+          "end": 2.35,
+          "duration": 0.7000000000000002,
+          "probability": 0.9646407663822174
+        },
+        {
+          "global_index": 4,
+          "sentence_word_index": 4,
+          "text": "عملياً؟",
+          "start": 2.35,
+          "end": 3.65,
+          "duration": 1.2999999999999998,
+          "probability": 0.7097185452779134
+        }
+      ]
+    },
+    {
+      "id": "vo_002",
+      "index": 2,
+      "text": "ورشة الغرز وأنواع الخيوط مع المدرب محمد محمود أبو رحمه من شركة كوما",
+      "timing": {
+        "source_start": 4.21,
+        "source_end": 10.49,
+        "source_duration": 6.28
+      },
+      "audio": {
+        "path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\split_output\\sentence_002.wav",
+        "filename": "sentence_002.wav",
+        "duration": 6.360000000000001,
+        "format": "wav"
+      },
+      "split": {
+        "reason": "silence",
+        "pre_padding": 0.03,
+        "post_padding": 0.05
+      },
+      "gaps": {
+        "before": 0.56,
+        "after": 0.7200000000000006
+      },
+      "words": [
+        {
+          "global_index": 5,
+          "sentence_word_index": 0,
+          "text": "ورشة",
+          "start": 4.21,
+          "end": 4.81,
+          "duration": 0.5999999999999996,
+          "probability": 0.8743200451135635
+        },
+        {
+          "global_index": 6,
+          "sentence_word_index": 1,
+          "text": "الغرز",
+          "start": 4.81,
+          "end": 5.29,
+          "duration": 0.4800000000000004,
+          "probability": 0.9938429892063141
+        },
+        {
+          "global_index": 7,
+          "sentence_word_index": 2,
+          "text": "وأنواع",
+          "start": 5.29,
+          "end": 5.95,
+          "duration": 0.6600000000000001,
+          "probability": 0.8184617459774017
+        },
+        {
+          "global_index": 8,
+          "sentence_word_index": 3,
+          "text": "الخيوط",
+          "start": 5.95,
+          "end": 6.49,
+          "duration": 0.54,
+          "probability": 0.8895307183265686
+        },
+        {
+          "global_index": 9,
+          "sentence_word_index": 4,
+          "text": "مع",
+          "start": 6.49,
+          "end": 6.87,
+          "duration": 0.3799999999999999,
+          "probability": 0.9812387228012085
+        },
+        {
+          "global_index": 10,
+          "sentence_word_index": 5,
+          "text": "المدرب",
+          "start": 6.87,
+          "end": 7.39,
+          "duration": 0.5199999999999996,
+          "probability": 0.977263887723287
+        },
+        {
+          "global_index": 11,
+          "sentence_word_index": 6,
+          "text": "محمد",
+          "start": 7.39,
+          "end": 8.19,
+          "duration": 0.7999999999999998,
+          "probability": 0.9832977453867594
+        },
+        {
+          "global_index": 12,
+          "sentence_word_index": 7,
+          "text": "محمود",
+          "start": 8.19,
+          "end": 8.65,
+          "duration": 0.46000000000000085,
+          "probability": 0.9815091490745544
+        },
+        {
+          "global_index": 13,
+          "sentence_word_index": 8,
+          "text": "أبو",
+          "start": 8.65,
+          "end": 8.93,
+          "duration": 0.27999999999999936,
+          "probability": 0.9000450770060221
+        },
+        {
+          "global_index": 14,
+          "sentence_word_index": 9,
+          "text": "رحمه",
+          "start": 8.93,
+          "end": 9.37,
+          "duration": 0.4399999999999995,
+          "probability": 0.7699970006942749
+        },
+        {
+          "global_index": 15,
+          "sentence_word_index": 10,
+          "text": "من",
+          "start": 9.37,
+          "end": 9.65,
+          "duration": 0.28000000000000114,
+          "probability": 0.9498279690742493
+        },
+        {
+          "global_index": 16,
+          "sentence_word_index": 11,
+          "text": "شركة",
+          "start": 9.65,
+          "end": 10.11,
+          "duration": 0.4599999999999991,
+          "probability": 0.9902210235595703
+        },
+        {
+          "global_index": 17,
+          "sentence_word_index": 12,
+          "text": "كوما",
+          "start": 10.11,
+          "end": 10.49,
+          "duration": 0.3800000000000008,
+          "probability": 0.7259195844332377
+        }
+      ]
+    },
+    {
+      "id": "vo_003",
+      "index": 3,
+      "text": "الأدوات والخيوط مشمولة بالكامل",
+      "timing": {
+        "source_start": 11.21,
+        "source_end": 14.51,
+        "source_duration": 3.299999999999999
+      },
+      "audio": {
+        "path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\split_output\\sentence_003.wav",
+        "filename": "sentence_003.wav",
+        "duration": 3.379999999999999,
+        "format": "wav"
+      },
+      "split": {
+        "reason": "silence",
+        "pre_padding": 0.03,
+        "post_padding": 0.05
+      },
+      "gaps": {
+        "before": 0.7200000000000006,
+        "after": 0.7000000000000011
+      },
+      "words": [
+        {
+          "global_index": 18,
+          "sentence_word_index": 0,
+          "text": "الأدوات",
+          "start": 11.21,
+          "end": 12.43,
+          "duration": 1.2199999999999989,
+          "probability": 0.7742314040660858
+        },
+        {
+          "global_index": 19,
+          "sentence_word_index": 1,
+          "text": "والخيوط",
+          "start": 12.43,
+          "end": 13.05,
+          "duration": 0.620000000000001,
+          "probability": 0.9721854090690613
+        },
+        {
+          "global_index": 20,
+          "sentence_word_index": 2,
+          "text": "مشمولة",
+          "start": 13.05,
+          "end": 13.77,
+          "duration": 0.7199999999999989,
+          "probability": 0.805950790643692
+        },
+        {
+          "global_index": 21,
+          "sentence_word_index": 3,
+          "text": "بالكامل",
+          "start": 13.77,
+          "end": 14.51,
+          "duration": 0.7400000000000002,
+          "probability": 0.9604043066501617
+        }
+      ]
+    },
+    {
+      "id": "vo_004",
+      "index": 4,
+      "text": "الرسوم خمسة وثلاثين شاكل شاملة كل شيء والمجموعة محدودة العدد",
+      "timing": {
+        "source_start": 15.21,
+        "source_end": 21.65,
+        "source_duration": 6.439999999999998
+      },
+      "audio": {
+        "path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\split_output\\sentence_004.wav",
+        "filename": "sentence_004.wav",
+        "duration": 6.519999999999998,
+        "format": "wav"
+      },
+      "split": {
+        "reason": "silence",
+        "pre_padding": 0.03,
+        "post_padding": 0.05
+      },
+      "gaps": {
+        "before": 0.7000000000000011,
+        "after": 0.5600000000000023
+      },
+      "words": [
+        {
+          "global_index": 22,
+          "sentence_word_index": 0,
+          "text": "الرسوم",
+          "start": 15.21,
+          "end": 15.85,
+          "duration": 0.6399999999999988,
+          "probability": 0.895588755607605
+        },
+        {
+          "global_index": 23,
+          "sentence_word_index": 1,
+          "text": "خمسة",
+          "start": 15.85,
+          "end": 16.53,
+          "duration": 0.6800000000000015,
+          "probability": 0.8124458268284798
+        },
+        {
+          "global_index": 24,
+          "sentence_word_index": 2,
+          "text": "وثلاثين",
+          "start": 16.53,
+          "end": 17.07,
+          "duration": 0.5399999999999991,
+          "probability": 0.9214169979095459
+        },
+        {
+          "global_index": 25,
+          "sentence_word_index": 3,
+          "text": "شاكل",
+          "start": 17.07,
+          "end": 17.45,
+          "duration": 0.379999999999999,
+          "probability": 0.6563082536061605
+        },
+        {
+          "global_index": 26,
+          "sentence_word_index": 4,
+          "text": "شاملة",
+          "start": 17.45,
+          "end": 18.03,
+          "duration": 0.5800000000000018,
+          "probability": 0.8898380398750305
+        },
+        {
+          "global_index": 27,
+          "sentence_word_index": 5,
+          "text": "كل",
+          "start": 18.03,
+          "end": 18.31,
+          "duration": 0.2799999999999976,
+          "probability": 0.9651477932929993
+        },
+        {
+          "global_index": 28,
+          "sentence_word_index": 6,
+          "text": "شيء",
+          "start": 18.31,
+          "end": 19.49,
+          "duration": 1.1799999999999997,
+          "probability": 0.9655459821224213
+        },
+        {
+          "global_index": 29,
+          "sentence_word_index": 7,
+          "text": "والمجموعة",
+          "start": 19.49,
+          "end": 20.19,
+          "duration": 0.7000000000000028,
+          "probability": 0.8903631667296091
+        },
+        {
+          "global_index": 30,
+          "sentence_word_index": 8,
+          "text": "محدودة",
+          "start": 20.19,
+          "end": 21.05,
+          "duration": 0.8599999999999994,
+          "probability": 0.7999627590179443
+        },
+        {
+          "global_index": 31,
+          "sentence_word_index": 9,
+          "text": "العدد",
+          "start": 21.05,
+          "end": 21.65,
+          "duration": 0.5999999999999979,
+          "probability": 0.9700789252916971
+        }
+      ]
+    },
+    {
+      "id": "vo_005",
+      "index": 5,
+      "text": "إحجز مقعدك الآن",
+      "timing": {
+        "source_start": 22.21,
+        "source_end": 24.01,
+        "source_duration": 1.8000000000000007
+      },
+      "audio": {
+        "path": "C:\\video\\video-workspace\\tools\\mcp-servers\\audio-tools-mcp\\split_output\\sentence_005.wav",
+        "filename": "sentence_005.wav",
+        "duration": 1.8800000000000026,
+        "format": "wav"
+      },
+      "split": {
+        "reason": "end_of_file",
+        "pre_padding": 0.03,
+        "post_padding": 0.05
+      },
+      "gaps": {
+        "before": 0.5600000000000023,
+        "after": 0.4499999999999993
+      },
+      "words": [
+        {
+          "global_index": 32,
+          "sentence_word_index": 0,
+          "text": "إحجز",
+          "start": 22.21,
+          "end": 23.09,
+          "duration": 0.879999999999999,
+          "probability": 0.8623608276247978
+        },
+        {
+          "global_index": 33,
+          "sentence_word_index": 1,
+          "text": "مقعدك",
+          "start": 23.09,
+          "end": 23.63,
+          "duration": 0.5399999999999991,
+          "probability": 0.9551315456628799
+        },
+        {
+          "global_index": 34,
+          "sentence_word_index": 2,
+          "text": "الآن",
+          "start": 23.63,
+          "end": 24.01,
+          "duration": 0.38000000000000256,
+          "probability": 0.9044186770915985
+        }
+      ]
+    }
+  ],
+  "unmapped_intervals": [
+    {
+      "start": 0.0,
+      "end": 0.21,
+      "duration": 0.21,
+      "type": "silence",
+      "between": [
+        "start",
+        "vo_001"
+      ]
+    },
+    {
+      "start": 3.65,
+      "end": 4.21,
+      "duration": 0.56,
+      "type": "unclassified",
+      "between": [
+        "vo_001",
+        "vo_002"
+      ]
+    },
+    {
+      "start": 10.49,
+      "end": 11.21,
+      "duration": 0.7200000000000006,
+      "type": "unclassified",
+      "between": [
+        "vo_002",
+        "vo_003"
+      ]
+    },
+    {
+      "start": 14.51,
+      "end": 15.21,
+      "duration": 0.7000000000000011,
+      "type": "unclassified",
+      "between": [
+        "vo_003",
+        "vo_004"
+      ]
+    },
+    {
+      "start": 21.65,
+      "end": 22.21,
+      "duration": 0.5600000000000023,
+      "type": "unclassified",
+      "between": [
+        "vo_004",
+        "vo_005"
+      ]
+    },
+    {
+      "start": 24.01,
+      "end": 24.46,
+      "duration": 0.4499999999999993,
+      "type": "unclassified",
+      "between": [
+        "vo_005",
+        "end"
+      ]
+    }
+  ],
+  "validation": {
+    "valid": true,
+    "warnings": [],
+    "checks": {
+      "sentences_valid": true,
+      "words_valid": true,
+      "no_overlap": true,
+      "files_exist": true,
+      "timeline_valid": true
+    }
+  },
+  "success": true
+}
