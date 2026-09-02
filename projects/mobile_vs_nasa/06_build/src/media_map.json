@@ -1,0 +1,8 @@
+{
+  "vo_1": "media/vo_1.wav",
+  "bg_video": "media/bg_video.mp4",
+  "sfx_whoosh": "media/sfx_whoosh.wav",
+  "sfx_swoosh": "media/sfx_swoosh.wav",
+  "icon_mobile": "media/icon_mobile.svg",
+  "icon_computer": "media/icon_computer.svg"
+}

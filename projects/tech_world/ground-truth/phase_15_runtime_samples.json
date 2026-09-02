@@ -1,0 +1,20 @@
+{
+  "sampledTemplates": [
+    "effects/motion/camera-shake",
+    "effects/motion/gradient-shift",
+    "effects/overlays/vignette-pulse",
+    "effects/transitions/blinds-transition",
+    "effects/transitions/clock-wipe",
+    "effects/transitions/whip-pan",
+    "effects/transitions/blur-out-up",
+    "elements/typography/blur-reveal/BlurReveal",
+    "primitives/TypeWriter",
+    "elements/branding/logo-blur-reveal",
+    "elements/branding/logo-bounce-drop",
+    "ui-state/UIStateProvider",
+    "elements/ui/card-flip",
+    "elements/ui/letterbox-reveal",
+    "elements/ui/spotlight-reveal",
+    "scenes/ChaosDesktop"
+  ]
+}

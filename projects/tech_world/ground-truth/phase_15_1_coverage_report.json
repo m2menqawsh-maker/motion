@@ -1,0 +1,20 @@
+{
+  "totalTemplates": 158,
+  "executionEligibility": {
+    "FULLY_SUPPORTED": 104,
+    "CATALOG_ONLY": 53,
+    "BROKEN": 1
+  },
+  "verificationStatus": {
+    "CONTRACT_VERIFIED": 104,
+    "COHORT_RENDER_VERIFIED": 89,
+    "INDIVIDUAL_RENDER_VERIFIED": 15,
+    "BLOCKED": 54
+  },
+  "remainingBlockers": {
+    "NO_SEMANTIC_ROLE": 19,
+    "MISSING_DEFAULT_OR_MAPPING": 29,
+    "MISSING_MEDIA_MAPPING": 2,
+    "MISSING_DEPENDENCIES": 4
+  }
+}

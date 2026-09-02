@@ -39,7 +39,7 @@ export const TOTAL_SCENES_1_TO_9 =
  * Linked Continuous Timeline: Scene 1 to Scene 9
  * Features a single, continuous Unified Cyber Background that never cuts or resets!
  */
-export const PythonChallengeScenes1to9: React.FC = () => {
+export const MainComposition: React.FC = () => {
   return (
     <>
       {/* Global Modern Tech Google Fonts: Alexandria + IBM Plex Sans Arabic + JetBrains Mono */}
@@ -173,8 +173,8 @@ export const RemotionRoot: React.FC = () => {
     <>
       {/* Primary Composition: Scenes 1 -> 9 Linked Master Timeline (1653 frames) */}
       <Composition
-        id="PythonChallengeScenes1to9"
-        component={PythonChallengeScenes1to9}
+        id="MainComposition"
+        component={MainComposition}
         durationInFrames={TOTAL_SCENES_1_TO_9}
         fps={30}
         width={1080}

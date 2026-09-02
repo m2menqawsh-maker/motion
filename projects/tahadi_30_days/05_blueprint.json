@@ -1,0 +1,54 @@
+{
+  "timeline": [
+    {
+      "sec": 0,
+      "elements": [
+        { "kind": "template", "template": "HeadlineResolution" },
+        { "kind": "template", "template": "TrackingIn" }
+      ]
+    },
+    {
+      "sec": 6.14,
+      "elements": [
+        { "kind": "template", "template": "Highlight" },
+        { "kind": "template", "template": "SplitScreen" }
+      ]
+    },
+    {
+      "sec": 12.58,
+      "elements": [
+        { "kind": "template", "template": "Terminal" },
+        { "kind": "template", "template": "CodeBlock" },
+        { "kind": "template", "template": "StatCard" }
+      ]
+    },
+    {
+      "sec": 20.38,
+      "elements": [
+        { "kind": "template", "template": "StatCard" },
+        { "kind": "template", "template": "Window" }
+      ]
+    },
+    {
+      "sec": 30.02,
+      "elements": [
+        { "kind": "template", "template": "CodeDiff" },
+        { "kind": "template", "template": "Pulse" }
+      ]
+    },
+    {
+      "sec": 38.02,
+      "elements": [
+        { "kind": "template", "template": "NotificationToast" },
+        { "kind": "template", "template": "MessageList" }
+      ]
+    },
+    {
+      "sec": 45.00,
+      "elements": [
+        { "kind": "template", "template": "EndCard" },
+        { "kind": "template", "template": "Closer" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "timeline": [
+    {
+      "sec": 0,
+      "elements": [
+        {
+          "kind": "template",
+          "template": "Enter"
+        }
+      ]
+    },
+    {
+      "sec": 2.6666666666666665,
+      "elements": [
+        {
+          "kind": "template",
+          "template": "Headline"
+        }
+      ]
+    },
+    {
+      "sec": 6.133333333333333,
+      "elements": [
+        {
+          "kind": "template",
+          "template": "Highlight"
+        }
+      ]
+    }
+  ]
+}

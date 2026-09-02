@@ -55,6 +55,26 @@
 - نسخ البناء تدخل projects/<id>/06_build/public/media/ عبر materialize_project.py فقط.
 - ممنوع الكتابة في processed/ أو storage/ (ملغيان).
 
+## 2.5 عرض الأسئلة كـ Suggested Questions
+
+عندما يطلب البروتوكول طرح أسئلة استيضاح:
+- **ممنوع** طباعة الأسئلة كنص طويل في المحادثة
+- **إلزامي** إرسالها كـ JSON في نهاية الرد بالصيغة:
+
+```json
+{
+  "suggested_questions": [
+    {
+      "question": "السؤال هنا",
+      "options": ["خيار 1", "خيار 2", "خيار 3"]
+    }
+  ]
+}
+```
+
+- إذا كانت البيئة لا تدعم Suggested Questions، اطبع الأسئلة كقائمة مرقمة واطلب من المستخدم الرد بالأرقام
+- الهدف: تجربة مستخدم نظيفة وتفاعلية
+
 ## 3. البروتوكول الإلزامي
 كل مهمة فيديو تمر عبر `rules/video-production-protocol.md` حرفياً.
 لا استثناءات. لا اختصارات. لا "سأفعلها بسرعة".
@@ -64,6 +84,7 @@
 1. اقرأ `.agents/plugins/super-video-maker-plugin/skills/super-video-maker/SKILL.md`
 2. اقرأ `.agents/rules/video-production-protocol.md`
 3. اقرأ `ROUTER.md` داخل الـ Plugin إذا لزم الأمر
+4. اقرأ `.agents/plugins/super-video-maker-plugin/references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` قبل كتابة أي خطة مشهد.
 
 ## 5. التعامل مع الـ MCP
 - الخوادم السبعة معرّفة في `plugin.json` → `mcp.json`
@@ -77,6 +98,11 @@
 - ❌ توليد صوت بيب/نغمات بدلاً من جلب موسيقى حقيقية
 - ❌ جلب أقل من المطلوب (مؤثرين لفيديو 52 ثانية)
 - ❌ تجاوز قفل الأمان (mechanical_lock) بدون إذن صريح
+- ❌ **حظر تام لأوامر Node/npm:** ممنوع منعاً باتاً كتابة أو تشغيل `npx remotion` أو `npm run` مباشرة في الـ Terminal. 
+  يجب حصراً استخدام السكريبتات الوسيطة التي تتولى تغيير المسار وفحص الشروط:
+  - لفتح الاستوديو: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>`
+  - للرندر النهائي: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`
+
 
 ## 7. القوانين الصارمة للبروتوكول الجديد (v3.0)
 
@@ -84,6 +110,10 @@
 2. **ممنوع الاستوديو قبل الفحص:** لا فتح استوديو قبل نجاح `probe_qc_report.json` بحالة "pass".
 3. **القفل الميكانيكي مقدس:** لا اختراق لـ `mechanical_lock` بأي طريقة. القفل يُفتح فقط عبر ملف `.studio_unlocked` الذي يُنشأ تلقائياً بعد نجاح الـ Probe-QC.
 4. **صفر ارتجال:** ممنوع كتابة `spring()` أو `interpolate()` خارج `templates/` و `engine/`. كل كود حركة يجب أن يكون من قالب معتمد في `TEMPLATE_INDEX.md`.
+   صفر كود بدون قالب: كل ملف Scene*.tsx داخل 06_build/src/compositions/
+   يجب أن يستورد قالباً واحداً على الأقل من @templates أو @engine.
+   كتابة المشهد من الصفر ممنوعة حتى لو بدت أسهل.
+   code_template_gate.py يرفض أي مخالفة قبل تشغيل الاستوديو.
 5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/materialize_project.py` فقط. ممنوع النسخ اليدوي.
 6. **الصوت أولاً:** `analyze_voiceover` هي أول خطوة تقنية في أي مشروع. لا خطة بدون تحليل صوتي فعلي.
 7. **التعديل → فحص جزئي → QC كامل:** عند طلب تعديل من الاستوديو، نفحص اللقطة المتأثرة فقط. لكن قبل أي رندر نهائي، نعيد الـ Probe-QC الكامل.

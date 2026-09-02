@@ -1,0 +1,468 @@
+{
+  "components": [
+    {
+      "slug": "audio-clip",
+      "componentName": "AudioClip",
+      "schemaName": "audioClipSchema",
+      "importPath": "./audio-clip/AudioClip"
+    },
+    {
+      "slug": "audio-visualizer",
+      "componentName": "AudioVisualizer",
+      "schemaName": "audioVisualizerSchema",
+      "importPath": "./audio-visualizer/AudioVisualizer"
+    },
+    {
+      "slug": "bar-chart",
+      "componentName": "BarChart",
+      "schemaName": "barChartSchema",
+      "importPath": "./bar-chart/BarChart"
+    },
+    {
+      "slug": "blur-reveal",
+      "componentName": "BlurReveal",
+      "schemaName": "blurRevealSchema",
+      "importPath": "./blur-reveal/BlurReveal"
+    },
+    {
+      "slug": "bounding-box",
+      "componentName": "BoundingBox",
+      "schemaName": "boundingBoxSchema",
+      "importPath": "./bounding-box/BoundingBox"
+    },
+    {
+      "slug": "callout",
+      "componentName": "Callout",
+      "schemaName": "calloutSchema",
+      "importPath": "./callout/Callout"
+    },
+    {
+      "slug": "camera-shake",
+      "componentName": "CameraShake",
+      "schemaName": "cameraShakeSchema",
+      "importPath": "./camera-shake/CameraShake"
+    },
+    {
+      "slug": "captions",
+      "componentName": "Captions",
+      "schemaName": "captionsSchema",
+      "importPath": "./captions/Captions"
+    },
+    {
+      "slug": "chapter-card",
+      "componentName": "ChapterCard",
+      "schemaName": "chapterCardSchema",
+      "importPath": "./chapter-card/ChapterCard"
+    },
+    {
+      "slug": "code-block",
+      "componentName": "CodeBlock",
+      "schemaName": "codeBlockSchema",
+      "importPath": "./code-block/CodeBlock"
+    },
+    {
+      "slug": "code-diff",
+      "componentName": "CodeDiff",
+      "schemaName": "codeDiffSchema",
+      "importPath": "./code-diff/CodeDiff"
+    },
+    {
+      "slug": "confetti",
+      "componentName": "Confetti",
+      "schemaName": "confettiSchema",
+      "importPath": "./confetti/Confetti"
+    },
+    {
+      "slug": "count-up",
+      "componentName": "CountUp",
+      "schemaName": "countUpSchema",
+      "importPath": "./count-up/CountUp"
+    },
+    {
+      "slug": "draw-on",
+      "componentName": "DrawOn",
+      "schemaName": "drawOnSchema",
+      "importPath": "./draw-on/DrawOn"
+    },
+    {
+      "slug": "dynamic-grid",
+      "componentName": "DynamicGrid",
+      "schemaName": "dynamicGridSchema",
+      "importPath": "./dynamic-grid/DynamicGrid"
+    },
+    {
+      "slug": "end-card",
+      "componentName": "EndCard",
+      "schemaName": "endCardSchema",
+      "importPath": "./end-card/EndCard"
+    },
+    {
+      "slug": "fade-in",
+      "componentName": "FadeIn",
+      "schemaName": "fadeInSchema",
+      "importPath": "./fade-in/FadeIn"
+    },
+    {
+      "slug": "fade-out",
+      "componentName": "FadeOut",
+      "schemaName": "fadeOutSchema",
+      "importPath": "./fade-out/FadeOut"
+    },
+    {
+      "slug": "gradient-shift",
+      "componentName": "GradientShift",
+      "schemaName": "gradientShiftSchema",
+      "importPath": "./gradient-shift/GradientShift"
+    },
+    {
+      "slug": "grain-overlay",
+      "componentName": "GrainOverlay",
+      "schemaName": "grainOverlaySchema",
+      "importPath": "./grain-overlay/GrainOverlay"
+    },
+    {
+      "slug": "highlight",
+      "componentName": "Highlight",
+      "schemaName": "highlightSchema",
+      "importPath": "./highlight/Highlight"
+    },
+    {
+      "slug": "icon-pop",
+      "componentName": "IconPop",
+      "schemaName": "iconPopSchema",
+      "importPath": "./icon-pop/IconPop"
+    },
+    {
+      "slug": "image-reveal",
+      "componentName": "ImageReveal",
+      "schemaName": "imageRevealSchema",
+      "importPath": "./image-reveal/ImageReveal"
+    },
+    {
+      "slug": "ken-burns",
+      "componentName": "KenBurns",
+      "schemaName": "kenBurnsSchema",
+      "importPath": "./ken-burns/KenBurns"
+    },
+    {
+      "slug": "line-chart",
+      "componentName": "LineChart",
+      "schemaName": "lineChartSchema",
+      "importPath": "./line-chart/LineChart"
+    },
+    {
+      "slug": "logo-sting",
+      "componentName": "LogoSting",
+      "schemaName": "logoStingSchema",
+      "importPath": "./logo-sting/LogoSting"
+    },
+    {
+      "slug": "lower-third",
+      "componentName": "LowerThird",
+      "schemaName": "lowerThirdSchema",
+      "importPath": "./lower-third/LowerThird"
+    },
+    {
+      "slug": "marquee",
+      "componentName": "Marquee",
+      "schemaName": "marqueeSchema",
+      "importPath": "./marquee/Marquee"
+    },
+    {
+      "slug": "mask-reveal",
+      "componentName": "MaskReveal",
+      "schemaName": "maskRevealSchema",
+      "importPath": "./mask-reveal/MaskReveal"
+    },
+    {
+      "slug": "matrix-decode",
+      "componentName": "MatrixDecode",
+      "schemaName": "matrixDecodeSchema",
+      "importPath": "./matrix-decode/MatrixDecode"
+    },
+    {
+      "slug": "mesh-gradient",
+      "componentName": "MeshGradient",
+      "schemaName": "meshGradientSchema",
+      "importPath": "./mesh-gradient/MeshGradient"
+    },
+    {
+      "slug": "node-graph",
+      "componentName": "NodeGraph",
+      "schemaName": "nodeGraphSchema",
+      "importPath": "./node-graph/NodeGraph"
+    },
+    {
+      "slug": "parallax",
+      "componentName": "Parallax",
+      "schemaName": "parallaxSchema",
+      "importPath": "./parallax/Parallax"
+    },
+    {
+      "slug": "pie-reveal",
+      "componentName": "PieReveal",
+      "schemaName": "pieRevealSchema",
+      "importPath": "./pie-reveal/PieReveal"
+    },
+    {
+      "slug": "progress-bar",
+      "componentName": "ProgressBar",
+      "schemaName": "progressBarSchema",
+      "importPath": "./progress-bar/ProgressBar"
+    },
+    {
+      "slug": "quote-card",
+      "componentName": "QuoteCard",
+      "schemaName": "quoteCardSchema",
+      "importPath": "./quote-card/QuoteCard"
+    },
+    {
+      "slug": "rgb-glitch-text",
+      "componentName": "RgbGlitchText",
+      "schemaName": "rgbGlitchTextSchema",
+      "importPath": "./rgb-glitch-text/RgbGlitchText"
+    },
+    {
+      "slug": "rotate-in",
+      "componentName": "RotateIn",
+      "schemaName": "rotateInSchema",
+      "importPath": "./rotate-in/RotateIn"
+    },
+    {
+      "slug": "scale-in",
+      "componentName": "ScaleIn",
+      "schemaName": "scaleInSchema",
+      "importPath": "./scale-in/ScaleIn"
+    },
+    {
+      "slug": "shimmer-sweep",
+      "componentName": "ShimmerSweep",
+      "schemaName": "shimmerSweepSchema",
+      "importPath": "./shimmer-sweep/ShimmerSweep"
+    },
+    {
+      "slug": "slide-in",
+      "componentName": "SlideIn",
+      "schemaName": "slideInSchema",
+      "importPath": "./slide-in/SlideIn"
+    },
+    {
+      "slug": "slide-out",
+      "componentName": "SlideOut",
+      "schemaName": "slideOutSchema",
+      "importPath": "./slide-out/SlideOut"
+    },
+    {
+      "slug": "slot-machine-roll",
+      "componentName": "SlotMachineRoll",
+      "schemaName": "slotMachineRollSchema",
+      "importPath": "./slot-machine-roll/SlotMachineRoll"
+    },
+    {
+      "slug": "split-screen",
+      "componentName": "SplitScreen",
+      "schemaName": "splitScreenSchema",
+      "importPath": "./split-screen/SplitScreen"
+    },
+    {
+      "slug": "spotlight",
+      "componentName": "Spotlight",
+      "schemaName": "spotlightSchema",
+      "importPath": "./spotlight/Spotlight"
+    },
+    {
+      "slug": "spotlight-card",
+      "componentName": "SpotlightCard",
+      "schemaName": "spotlightCardSchema",
+      "importPath": "./spotlight-card/SpotlightCard"
+    },
+    {
+      "slug": "stagger-group",
+      "componentName": "StaggerGroup",
+      "schemaName": "staggerGroupSchema",
+      "importPath": "./stagger-group/StaggerGroup"
+    },
+    {
+      "slug": "stat-card",
+      "componentName": "StatCard",
+      "schemaName": "statCardSchema",
+      "importPath": "./stat-card/StatCard"
+    },
+    {
+      "slug": "terminal",
+      "componentName": "Terminal",
+      "schemaName": "terminalSchema",
+      "importPath": "./terminal/Terminal"
+    },
+    {
+      "slug": "text-fade-replace",
+      "componentName": "TextFadeReplace",
+      "schemaName": "textFadeReplaceSchema",
+      "importPath": "./text-fade-replace/TextFadeReplace"
+    },
+    {
+      "slug": "timeline",
+      "componentName": "Timeline",
+      "schemaName": "timelineSchema",
+      "importPath": "./timeline/Timeline"
+    },
+    {
+      "slug": "title-card",
+      "componentName": "TitleCard",
+      "schemaName": "titleCardSchema",
+      "importPath": "./title-card/TitleCard"
+    },
+    {
+      "slug": "tracking-in",
+      "componentName": "TrackingIn",
+      "schemaName": "trackingInSchema",
+      "importPath": "./tracking-in/TrackingIn"
+    },
+    {
+      "slug": "typewriter",
+      "componentName": "Typewriter",
+      "schemaName": "typewriterSchema",
+      "importPath": "./typewriter/Typewriter"
+    },
+    {
+      "slug": "underline",
+      "componentName": "Underline",
+      "schemaName": "underlineSchema",
+      "importPath": "./underline/Underline"
+    },
+    {
+      "slug": "video-clip",
+      "componentName": "VideoClip",
+      "schemaName": "videoClipSchema",
+      "importPath": "./video-clip/VideoClip"
+    },
+    {
+      "slug": "vignette",
+      "componentName": "Vignette",
+      "schemaName": "vignetteSchema",
+      "importPath": "./vignette/Vignette"
+    },
+    {
+      "slug": "word-rotate",
+      "componentName": "WordRotate",
+      "schemaName": "wordRotateSchema",
+      "importPath": "./word-rotate/WordRotate"
+    },
+    {
+      "slug": "word-stagger",
+      "componentName": "WordStagger",
+      "schemaName": "wordStaggerSchema",
+      "importPath": "./word-stagger/WordStagger"
+    }
+  ],
+  "transitions": [
+    {
+      "slug": "blur",
+      "factoryName": "blur",
+      "schemaName": "blurSchema",
+      "importPath": "./transitions/blur/blur"
+    },
+    {
+      "slug": "chromatic-aberration",
+      "factoryName": "chromaticAberration",
+      "schemaName": "chromaticAberrationSchema",
+      "importPath": "./transitions/chromatic-aberration/chromaticAberration"
+    },
+    {
+      "slug": "clock-wipe",
+      "factoryName": "clockWipe",
+      "schemaName": "clockWipeSchema",
+      "importPath": "./transitions/clock-wipe/clockWipe"
+    },
+    {
+      "slug": "cross-fade",
+      "factoryName": "crossFade",
+      "schemaName": "crossFadeSchema",
+      "importPath": "./transitions/cross-fade/crossFade"
+    },
+    {
+      "slug": "depth-push",
+      "factoryName": "depthPush",
+      "schemaName": "depthPushSchema",
+      "importPath": "./transitions/depth-push/depthPush"
+    },
+    {
+      "slug": "device-pullback",
+      "factoryName": "devicePullback",
+      "schemaName": "devicePullbackSchema",
+      "importPath": "./transitions/device-pullback/devicePullback"
+    },
+    {
+      "slug": "dip-to-color",
+      "factoryName": "dipToColor",
+      "schemaName": "dipToColorSchema",
+      "importPath": "./transitions/dip-to-color/dipToColor"
+    },
+    {
+      "slug": "expand-morph",
+      "factoryName": "expandMorph",
+      "schemaName": "expandMorphSchema",
+      "importPath": "./transitions/expand-morph/expandMorph"
+    },
+    {
+      "slug": "flip",
+      "factoryName": "flip",
+      "schemaName": "flipSchema",
+      "importPath": "./transitions/flip/flip"
+    },
+    {
+      "slug": "glass-wipe",
+      "factoryName": "glassWipe",
+      "schemaName": "glassWipeSchema",
+      "importPath": "./transitions/glass-wipe/glassWipe"
+    },
+    {
+      "slug": "grid-pixelate",
+      "factoryName": "gridPixelate",
+      "schemaName": "gridPixelateSchema",
+      "importPath": "./transitions/grid-pixelate/gridPixelate"
+    },
+    {
+      "slug": "iris",
+      "factoryName": "iris",
+      "schemaName": "irisSchema",
+      "importPath": "./transitions/iris/iris"
+    },
+    {
+      "slug": "morph",
+      "factoryName": "morph",
+      "schemaName": "morphSchema",
+      "importPath": "./transitions/morph/morph"
+    },
+    {
+      "slug": "push",
+      "factoryName": "push",
+      "schemaName": "pushSchema",
+      "importPath": "./transitions/push/push"
+    },
+    {
+      "slug": "slide",
+      "factoryName": "slide",
+      "schemaName": "slideSchema",
+      "importPath": "./transitions/slide/slide"
+    },
+    {
+      "slug": "type-mask",
+      "factoryName": "typeMask",
+      "schemaName": "typeMaskSchema",
+      "importPath": "./transitions/type-mask/typeMask"
+    },
+    {
+      "slug": "wipe",
+      "factoryName": "wipe",
+      "schemaName": "wipeSchema",
+      "importPath": "./transitions/wipe/wipe"
+    },
+    {
+      "slug": "zoom",
+      "factoryName": "zoom",
+      "schemaName": "zoomSchema",
+      "importPath": "./transitions/zoom/zoom"
+    }
+  ]
+}

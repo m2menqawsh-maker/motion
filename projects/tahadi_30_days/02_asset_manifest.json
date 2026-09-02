@@ -1,0 +1,68 @@
+{
+  "assets": [
+    {
+      "asset_id": "vo_main",
+      "path": "assets/ready/vo/vo_normalized.wav"
+    },
+    {
+      "asset_id": "bg_neon_2",
+      "path": "assets/ready/video/bg_neon_2_intra.mp4"
+    },
+    {
+      "asset_id": "bg_code",
+      "path": "assets/ready/video/bg_code_final.mp4"
+    },
+    {
+      "asset_id": "music_tech",
+      "path": "assets/ready/music/music_normalized.wav"
+    },
+    {
+      "asset_id": "sfx_digital",
+      "path": "assets/ready/sfx/digital.mp3"
+    },
+    {
+      "asset_id": "sfx_pop",
+      "path": "assets/ready/sfx/pop.mp3"
+    },
+    {
+      "asset_id": "sfx_swoosh",
+      "path": "assets/ready/sfx/swoosh.mp3"
+    },
+    {
+      "asset_id": "sfx_whoosh",
+      "path": "assets/ready/sfx/whoosh.mp3"
+    },
+    {
+      "asset_id": "sfx_keyboard",
+      "path": "assets/ready/sfx/keyboard.mp3"
+    },
+    {
+      "asset_id": "sfx_notification",
+      "path": "assets/ready/sfx/notification.mp3"
+    },
+    {
+      "asset_id": "icon_python",
+      "path": "assets/ready/icons/python.svg"
+    },
+    {
+      "asset_id": "icon_calculator",
+      "path": "assets/ready/icons/calculator.svg"
+    },
+    {
+      "asset_id": "icon_brain",
+      "path": "assets/ready/icons/brain.svg"
+    },
+    {
+      "asset_id": "icon_bot",
+      "path": "assets/ready/icons/bot.svg"
+    },
+    {
+      "asset_id": "icon_code",
+      "path": "assets/ready/icons/code.svg"
+    },
+    {
+      "asset_id": "icon_laptop",
+      "path": "assets/ready/icons/laptop.svg"
+    }
+  ]
+}

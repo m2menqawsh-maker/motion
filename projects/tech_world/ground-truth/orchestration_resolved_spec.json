@@ -1,0 +1,153 @@
+{
+  "success": true,
+  "durationInFrames": 360,
+  "plan": {
+    "resolution": {
+      "width": 1080,
+      "height": 1920
+    },
+    "fps": 30,
+    "duration": 360,
+    "scenes": [
+      {
+        "spec": {
+          "id": "scene-0",
+          "templateId": "scenes/social/SocialClip",
+          "props": {
+            "hookTitle": "Social Clip Default",
+            "captions": [
+              {
+                "text": "This",
+                "startMs": 0,
+                "endMs": 1000,
+                "timestampMs": 0,
+                "confidence": 1
+              },
+              {
+                "text": "is",
+                "startMs": 1000,
+                "endMs": 2000,
+                "timestampMs": 1000,
+                "confidence": 1
+              },
+              {
+                "text": "SocialClip",
+                "startMs": 2000,
+                "endMs": 4000,
+                "timestampMs": 2000,
+                "confidence": 1
+              }
+            ]
+          },
+          "startFrame": 0,
+          "durationInFrames": 120
+        },
+        "normalizedProps": {
+          "hookTitle": "Social Clip Default",
+          "captions": [
+            {
+              "text": "This",
+              "startMs": 0,
+              "endMs": 1000,
+              "timestampMs": 0,
+              "confidence": 1
+            },
+            {
+              "text": "is",
+              "startMs": 1000,
+              "endMs": 2000,
+              "timestampMs": 1000,
+              "confidence": 1
+            },
+            {
+              "text": "SocialClip",
+              "startMs": 2000,
+              "endMs": 4000,
+              "timestampMs": 2000,
+              "confidence": 1
+            }
+          ]
+        },
+        "componentExportName": "SocialClip",
+        "componentImportPath": "../../templates/scenes/social/SocialClip",
+        "status": "VALIDATED"
+      },
+      {
+        "spec": {
+          "id": "scene-1",
+          "templateId": "scenes/social/social-clip/index",
+          "props": {
+            "hookTitle": "Social Clip Index",
+            "captions": [
+              {
+                "text": "And",
+                "startMs": 0,
+                "endMs": 1000,
+                "timestampMs": 0,
+                "confidence": 1
+              },
+              {
+                "text": "social-clip/index",
+                "startMs": 1000,
+                "endMs": 4000,
+                "timestampMs": 1000,
+                "confidence": 1
+              }
+            ]
+          },
+          "startFrame": 120,
+          "durationInFrames": 120
+        },
+        "normalizedProps": {
+          "hookTitle": "Social Clip Index",
+          "captions": [
+            {
+              "text": "And",
+              "startMs": 0,
+              "endMs": 1000,
+              "timestampMs": 0,
+              "confidence": 1
+            },
+            {
+              "text": "social-clip/index",
+              "startMs": 1000,
+              "endMs": 4000,
+              "timestampMs": 1000,
+              "confidence": 1
+            }
+          ]
+        },
+        "componentExportName": "SocialClip",
+        "componentImportPath": "../../templates/scenes/social/social-clip/index",
+        "status": "VALIDATED"
+      },
+      {
+        "spec": {
+          "id": "scene-2",
+          "templateId": "effects/transitions/blur-out-up",
+          "props": {
+            "text": "Control Template",
+            "headline": "Control Template",
+            "body_text": "Testing generic execution hasn't regressed"
+          },
+          "startFrame": 240,
+          "durationInFrames": 120
+        },
+        "normalizedProps": {
+          "text": "Control Template",
+          "headline": "Control Template",
+          "body_text": "Testing generic execution hasn't regressed"
+        },
+        "componentExportName": "BlurOutUp",
+        "componentImportPath": "../../templates/effects/transitions/blur-out-up",
+        "status": "CERTIFIED"
+      }
+    ],
+    "assets": {
+      "total": 0,
+      "missing": 0
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

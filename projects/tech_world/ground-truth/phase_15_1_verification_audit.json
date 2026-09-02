@@ -1,0 +1,13 @@
+{
+  "totalTemplates": 158,
+  "fullySupported": 104,
+  "contractVerified": 104,
+  "cohortRenderVerified": 89,
+  "individualRenderVerified": 15,
+  "blocked": 54,
+  "mismatch": {
+    "count": 0,
+    "templateIds": [],
+    "reason": "Resolved. The previous 108 vs 107 mismatch was caused by 4 zero-prop templates bypassing dependency/asset validation and incorrectly receiving CONTRACT_VERIFIED despite being BROKEN/NEEDS_MEDIA_MAPPING. They have been correctly blocked."
+  }
+}

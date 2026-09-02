@@ -1,0 +1,62 @@
+{
+  "project_id": "test_taste",
+  "backgrounds": [
+    {
+      "id": "bg_cyberpunk_grid",
+      "type": "video",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\bg_neon_2_intra.mp4",
+      "description": "Cyberpunk Neon Loop (All-Intra)"
+    }
+  ],
+  "music": [
+    {
+      "id": "bgm_lofi_chill",
+      "type": "audio",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\tech_energetic_music.mp3",
+      "description": "Tech Energetic / Chill Music"
+    }
+  ],
+  "sfx": [
+    {
+      "id": "sfx_swoosh",
+      "type": "audio",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\swoosh_norm.wav",
+      "description": "Normalized Swoosh"
+    },
+    {
+      "id": "sfx_glitch",
+      "type": "audio",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\digital_norm.wav",
+      "description": "Normalized Digital Glitch"
+    },
+    {
+      "id": "sfx_click",
+      "type": "audio",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\pop_norm.wav",
+      "description": "Normalized Click/Pop"
+    }
+  ],
+  "icons": [
+    {
+      "id": "icon_python",
+      "type": "image",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\icons\\python.svg"
+    },
+    {
+      "id": "icon_calculator",
+      "type": "image",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\icons\\calculator.svg"
+    },
+    {
+      "id": "icon_bot",
+      "type": "image",
+      "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\icons\\bot.svg"
+    }
+  ],
+  "voiceover": {
+    "id": "vo_main",
+    "type": "audio",
+    "source_path": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\تحدي_الثلاثين_يوما_norm.wav",
+    "description": "Normalized Voiceover (-16 LUFS)"
+  }
+}
