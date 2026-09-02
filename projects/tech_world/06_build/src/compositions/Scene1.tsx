@@ -120,6 +120,7 @@ export const Scene1: React.FC = () => {
           <AbsoluteFill style={{ justifyContent: 'flex-end', paddingBottom: 100 }}>
             <div style={{ direction: 'rtl', flexWrap: 'wrap', willChange: 'transform' }}>
               <Captions
+                kind="captions"
                 captions={shot1Words}
                 delay={0}
                 color="#ffffff"
@@ -148,6 +149,7 @@ export const Scene1: React.FC = () => {
               <div style={{ padding: '20px 40px', backgroundColor: 'rgba(0,0,0,0.6)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.1)' }}>
                 <div style={{ direction: 'rtl', flexWrap: 'wrap', willChange: 'transform' }}>
                   <Captions
+                    kind="captions"
                     captions={shot2Words}
                     delay={-(shot1DurationFrames)} 
                     color="#ffffff"

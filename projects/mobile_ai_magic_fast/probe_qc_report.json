@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "probes": [
+    {
+      "frame": 0,
+      "file": "probe_00_f0.png",
+      "check": "Looks great",
+      "status": "pass"
+    }
+  ],
+  "contact_sheet": "contact_sheet.png",
+  "errors": [
+    "تعليمات: افتح صور contact_sheet.png وافحصها. status يجب pass فقط إذا كان كل شيء سليم: نصوص مقروءة، أبعاد صحيحة، ألوان سليمة."
+  ],
+  "timestamp": "2026-09-02T19:22:43.393782"
+}

@@ -2,38 +2,17 @@
 # -*- coding: utf-8 -*-
 """
 render_project.py — سكريبت وسيط لرندر المشروع بأمان
-مع حماية شاملة عبر PipelineGuard + فحص التزوير والموافقة
 """
 import sys
 import os
 import subprocess
-import json
 import time
-import hashlib
 from pathlib import Path
 
-# ترميز UTF-8 للنوافذ
 if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8")
-
-
-def verify_report_seal(project_dir: Path) -> bool:
-    """يتحقق من أن تقرير Probe-QC أصلي وغير مزوّر"""
-    report_path = project_dir / "probe_qc_report.json"
-    seal_path = report_path.with_suffix(".json.seal")
-    
-    if not seal_path.exists():
-        return True  # تقرير قديم
-    
-    if not report_path.exists():
-        return False
-    
-    expected = seal_path.read_text(encoding="utf-8").strip()
-    actual = hashlib.sha256(report_path.read_bytes()).hexdigest()
-    return expected == actual
-
+    sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
 def main():
     if len(sys.argv) < 2:
@@ -43,7 +22,6 @@ def main():
     project_id = sys.argv[1]
     composition_name = sys.argv[2] if len(sys.argv) > 2 else "MainComposition"
 
-    # تحديد مسار المشروع
     workspace_root = Path.cwd()
     if (workspace_root / "projects" / project_id).exists():
         proj_dir = workspace_root / "projects" / project_id
@@ -55,16 +33,12 @@ def main():
     build_dir = proj_dir / "06_build"
     approval_file = proj_dir / ".studio_approved"
     unlock_file = proj_dir / ".studio_unlocked"
-    qc_report = proj_dir / "probe_qc_report.json"
 
     print("=" * 60)
     print(f"🎬 رندر المشروع: {project_id}")
     print(f"🎞️ الـ Composition: {composition_name}")
     print("=" * 60)
 
-    # ─────────────────────────────────────────────
-    # الفحص 1: وجود المشروع ومجلد البناء
-    # ─────────────────────────────────────────────
     if not proj_dir.exists():
         print(f"❌ المشروع غير موجود: {proj_dir}")
         sys.exit(1)
@@ -72,89 +46,54 @@ def main():
     if not build_dir.exists():
         print(f"❌ مجلد البناء غير موجود: {build_dir}")
         sys.exit(1)
-    print("✅ المشروع ومجلد البناء موجودان")
+        
+    # فحص كشف الموافقة المزوّرة
+    if approval_file.exists() and unlock_file.exists():
+        approval_mtime = approval_file.stat().st_mtime
+        unlock_mtime = unlock_file.stat().st_mtime
+        time_diff = approval_mtime - unlock_mtime
+        if time_diff < 10:
+            print("\n🛑 [GUARDIAN BLOCK] الموافقة مشبوهة - أُنشئت بسرعة كبيرة!")
+            print(f"السبب: ملف .studio_approved أُنشئ بعد {time_diff:.1f} ثانية فقط من فتح الاستوديو (أقل من 10 ثوانٍ)")
+            print("طريقة الإصلاح: يجب معاينة الفيديو فعلياً في الاستوديو قبل الموافقة، ثم إنشاء ملف .studio_approved يدوياً.")
+            sys.exit(1)
 
-    # ─────────────────────────────────────────────
-    # الفحص 2: القفل الميكانيكي (.studio_unlocked)
-    # ─────────────────────────────────────────────
-    if not unlock_file.exists():
-        print("\n🛑 [GUARDIAN BLOCK] القفل الميكانيكي لم يُفتح!")
-        print("الإجراء: شغّل probe_qc.py وانتظر نجاحه")
-        sys.exit(1)
-    print("✅ القفل الميكانيكي مفتوح")
-
-    # ─────────────────────────────────────────────
-    # الفحص 3: تقرير Probe-QC غير مزوّر
-    # ─────────────────────────────────────────────
-    if qc_report.exists() and not verify_report_seal(proj_dir):
-        print("\n🛑 [GUARDIAN BLOCK] تقرير Probe-QC مزوّر!")
-        print("السبب: البصمة الرقمية لا تتطابق مع التقرير")
-        print("الإجراء: شغّل probe_qc.py مجدداً لإنشاء تقرير أصلي")
-        sys.exit(1)
-    print("✅ تقرير Probe-QC أصلي")
-
-    # ─────────────────────────────────────────────
-    # الفحص 4: موافقة المستخدم موجودة
-    # ─────────────────────────────────────────────
-    if not approval_file.exists():
-        print("\n🛑 [GUARDIAN BLOCK] لا توجد موافقة من المستخدم!")
-        print("الإجراء: افتح الاستوديو، راجع الفيديو، ثم أنشئ ملف .studio_approved")
-        sys.exit(1)
-    print("✅ ملف الموافقة موجود")
-
-    # ─────────────────────────────────────────────
-    # الفحص 5: كشف الموافقة المزوّرة (فحص الوقت)
-    # ─────────────────────────────────────────────
-    approval_mtime = approval_file.stat().st_mtime
-    unlock_mtime = unlock_file.stat().st_mtime if unlock_file.exists() else 0
-    
-    # إذا أُنشئ ملف الموافقة قبل أقل من 5 ثوانٍ من ملف الفتح، فهي مزوّرة
-    # (لأن المستخدم يحتاج وقتاً للمعاينة الفعلية)
-    time_diff = approval_mtime - unlock_mtime
-    
-    if time_diff < 10:  # أقل من 10 ثوانٍ بين الفتح والموافقة
-        print("\n🛑 [GUARDIAN BLOCK] الموافقة مشبوهة!")
-        print(f"السبب: ملف .studio_approved أُنشئ بعد {time_diff:.1f} ثانية فقط من فتح الاستوديو")
-        print("الإجراء: يجب أن تعاين الفيديو فعلياً في الاستوديو قبل الموافقة")
-        print("         (أعد حذف .studio_approved، راجع الفيديو، ثم أنشئه مجدداً)")
-        sys.exit(1)
-    
-    print(f"✅ الموافقة صحيحة (بعد {time_diff:.1f} ثانية من فتح الاستوديو)")
-
-    # ─────────────────────────────────────────────
-    # الفحص 6: Pipeline Guard المتقدم (اختياري)
-    # ─────────────────────────────────────────────
     try:
-        scripts_dir = Path(__file__).parent.parent / "plugins" / "super-video-maker-plugin" / "scripts"
-        if scripts_dir.exists():
+        scripts_dir = Path(__file__).parent.resolve()
+        if str(scripts_dir) not in sys.path:
             sys.path.insert(0, str(scripts_dir))
-            from pipeline_guard import PipelineGuard, GuardViolation
             
-            guard = PipelineGuard(project_id)
-            
-            print("\n🔍 [PipelineGuard] فحوصات متقدمة:")
-            
-            # فحص اكتمال الجمل
-            guard.require_all_sentences_covered()
-            print("  ✅ جميع الجمل الصوتية لها مشاهد مقابلة")
-            
-            # فحص صحة TypeScript
-            guard.require_typescript_clean()
-            print("  ✅ الكود خالٍ من أخطاء TypeScript")
-            
-            # فحص تنوع القوالب
-            guard.require_motion_valid()
-            print("  ✅ تنوع القوالب والـ SFX مقبول")
-            
-    except ImportError:
-        print("\n⚠️ Pipeline Guard غير متاح — تخطي الفحوصات المتقدمة")
+        from pipeline_guard import PipelineGuard, GuardViolation
+        
+        guard = PipelineGuard(project_id)
+        
+        print("🔍 [PipelineGuard] جاري الفحص...")
+        guard.require_probe_qc_genuine()
+        print("  ✅ تقرير Probe-QC أصلي ومختوم رقمياً")
+        guard.require_studio_unlocked()
+        print("  ✅ القفل الميكانيكي مفتوح (.studio_unlocked)")
+        guard.require_user_approval()
+        print("  ✅ موافقة المستخدم صحيحة (.studio_approved)")
+        guard.require_all_sentences_covered()
+        print("  ✅ جميع الجمل الصوتية مغطاة بمشاهد")
+        guard.require_typescript_clean()
+        print("  ✅ الكود خالٍ من أخطاء TypeScript")
+        guard.require_motion_valid()
+        print("  ✅ تنوع القوالب والـ SFX مقبول")
+        
+    except ImportError as e:
+        print(f"⚠️ خطأ في استيراد PipelineGuard: {e}")
+        sys.exit(1)
+    except GuardViolation as e:
+        print(f"\n🛑 فشل فحص الأمان والجودة [PipelineGuard]:")
+        print(f"القاعدة المخالفة: {e.rule}")
+        print(f"السبب: {e.reason}")
+        print(f"🔧 طريقة الإصلاح: {e.fix}\n")
+        sys.exit(1)
     except Exception as e:
-        print(f"\n🛑 [GUARDIAN BLOCK] {e}")
+        print(f"\n🛑 [GUARDIAN BLOCK] حدث خطأ غير متوقع: {e}")
         sys.exit(1)
 
-    # ─────────────────────────────────────────────
-    # بدء الرندر
-    # ─────────────────────────────────────────────
     print("\n" + "=" * 60)
     print("✅ جميع الفحوصات نجحت — جاري الرندر...")
     print("=" * 60)
@@ -185,9 +124,7 @@ def main():
     print("\n" + "=" * 60)
     print(f"🎉 تم الرندر بنجاح!")
     print(f"📹 الملف: {output_file}")
-    print(f"📊 الحجم: {output_file.stat().st_size / 1024 / 1024:.2f} MB")
     print("=" * 60)
-
 
 if __name__ == "__main__":
     main()

@@ -102,6 +102,10 @@
   يجب حصراً استخدام السكريبتات الوسيطة التي تتولى تغيير المسار وفحص الشروط:
   - لفتح الاستوديو: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>`
   - للرندر النهائي: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`
+- ❌ ممنوع استخدام Copy-Item -Recurse -Force على مجلد 06_build/. استخدم materialize_project.py فقط.
+- ❌ ممنوع تعديل probe_qc_report.json يدوياً بأي طريقة (ConvertFrom-Json, Set-Content, echo, etc).
+- ❌ ممنوع إنشاء .studio_approved برمجياً. يُنشأ يدوياً من المستخدم فقط بعد المعاينة الفعلية.
+- ❌ ممنوع إنشاء سكريبتات موافقة آلية (مثل approve_qc.py). الموافقة تكون يدوية فقط.
 
 
 ## 7. القوانين الصارمة للبروتوكول الجديد (v3.0)

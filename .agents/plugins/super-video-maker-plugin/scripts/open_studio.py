@@ -7,32 +7,13 @@ open_studio.py — سكريبت وسيط لفتح الاستوديو بأمان
 import sys
 import os
 import subprocess
-import hashlib
 from pathlib import Path
 
 # ترميز UTF-8 للنوافذ
 if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8")
-
-
-def verify_report_seal(project_dir: Path) -> bool:
-    """يتحقق من أن تقرير Probe-QC أصلي وغير مزوّر"""
-    report_path = project_dir / "probe_qc_report.json"
-    seal_path = report_path.with_suffix(".json.seal")
-    
-    if not seal_path.exists():
-        # لا يوجد ختم — تقرير قديم (مقبول للتوافق مع المشاريع القديمة)
-        return True
-    
-    if not report_path.exists():
-        return False
-    
-    expected = seal_path.read_text(encoding="utf-8").strip()
-    actual = hashlib.sha256(report_path.read_bytes()).hexdigest()
-    return expected == actual
-
+    sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
 def main():
     if len(sys.argv) < 2:
@@ -51,80 +32,58 @@ def main():
         proj_dir = Path(f"projects/{project_id}").resolve()
 
     build_dir = proj_dir / "06_build"
-    unlock_file = proj_dir / ".studio_unlocked"
-
+    
     print("=" * 60)
     print(f"🔓 فتح الاستوديو للمشروع: {project_id}")
     print("=" * 60)
 
-    # ─────────────────────────────────────────────
-    # الفحص 1: وجود المشروع
-    # ─────────────────────────────────────────────
     if not proj_dir.exists():
         print(f"❌ المشروع غير موجود: {proj_dir}")
         sys.exit(1)
-    print("✅ المشروع موجود")
-
-    # ─────────────────────────────────────────────
-    # الفحص 2: وجود مجلد البناء
-    # ─────────────────────────────────────────────
+        
     if not build_dir.exists():
         print(f"❌ مجلد البناء غير موجود: {build_dir}")
-        print("🔧 شغّل أولاً: python materialize_project.py", project_id)
+        print("🔧 شغّل أولاً: python scripts/materialize_project.py", project_id)
         sys.exit(1)
-    print("✅ مجلد البناء موجود")
 
-    # ─────────────────────────────────────────────
-    # الفحص 3: فحص تزوير تقرير Probe-QC
-    # ─────────────────────────────────────────────
-    qc_report = proj_dir / "probe_qc_report.json"
-    if qc_report.exists():
-        if not verify_report_seal(proj_dir):
-            print("\n🛑 [GUARDIAN BLOCK] تقرير Probe-QC مزوّر!")
-            print("السبب: البصمة الرقمية لا تتطابق مع التقرير")
-            print("الإجراء: شغّل probe_qc.py مجدداً لإنشاء تقرير أصلي")
-            sys.exit(1)
-        print("✅ تقرير Probe-QC أصلي (البصمة الرقمية سليمة)")
-
-    # ─────────────────────────────────────────────
-    # الفحص 4: القفل الميكانيكي (.studio_unlocked)
-    # ─────────────────────────────────────────────
-    if not unlock_file.exists():
-        print("\n🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو!")
-        print(f"السبب: ملف {unlock_file} غير موجود")
-        print("الإجراء: شغّل probe_qc.py وانتظر نجاحه أولاً")
-        sys.exit(1)
-    print("✅ ملف .studio_unlocked موجود")
-
-    # ─────────────────────────────────────────────
-    # الفحص 5: محاولة استيراد Pipeline Guard (اختياري)
-    # ─────────────────────────────────────────────
     try:
-        scripts_dir = Path(__file__).parent.parent / "plugins" / "super-video-maker-plugin" / "scripts"
-        if scripts_dir.exists():
+        scripts_dir = Path(__file__).parent.resolve()
+        if str(scripts_dir) not in sys.path:
             sys.path.insert(0, str(scripts_dir))
-            from pipeline_guard import PipelineGuard, GuardViolation
             
-            guard = PipelineGuard(project_id)
-            guard.require_typescript_clean()
-            print("✅ الكود خالٍ من أخطاء TypeScript")
-    except ImportError:
-        print("⚠️ Pipeline Guard غير متاح — تخطي الفحص المتقدم")
+        from pipeline_guard import PipelineGuard, GuardViolation
+        
+        guard = PipelineGuard(project_id)
+        
+        print("🔍 [PipelineGuard] جاري الفحص...")
+        guard.require_probe_qc_genuine()
+        print("  ✅ تقرير Probe-QC أصلي ومختوم رقمياً")
+        guard.require_studio_unlocked()
+        print("  ✅ القفل الميكانيكي مفتوح (.studio_unlocked)")
+        guard.require_typescript_clean()
+        print("  ✅ الكود خالٍ من أخطاء TypeScript")
+        
+    except ImportError as e:
+        print(f"⚠️ خطأ في استيراد PipelineGuard: {e}")
+        sys.exit(1)
+    except GuardViolation as e:
+        print(f"\n🛑 فشل فحص الأمان والجودة [PipelineGuard]: تم رفض فتح الاستوديو!")
+        print(f"القاعدة المخالفة: {e.rule}")
+        print(f"السبب: {e.reason}")
+        print(f"🔧 طريقة الإصلاح: {e.fix}\n")
+        sys.exit(1)
     except Exception as e:
-        print(f"\n🛑 [GUARDIAN BLOCK] {e}")
+        print(f"\n🛑 [GUARDIAN BLOCK] حدث خطأ غير متوقع: {e}")
         sys.exit(1)
 
-    # ─────────────────────────────────────────────
-    # تشغيل الاستوديو
-    # ─────────────────────────────────────────────
     print("\n" + "=" * 60)
     print("✅ جميع الفحوصات نجحت — جاري فتح الاستوديو...")
     print("=" * 60)
     
     os.chdir(str(build_dir))
     use_shell = os.name == "nt"
+    # Note: Using exit instead of actually blocking the prompt with studio.
     subprocess.run(["npx", "remotion", "studio"], shell=use_shell)
-
 
 if __name__ == "__main__":
     main()

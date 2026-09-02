@@ -1,0 +1,43 @@
+{
+  "project_id": "mobile_ai_magic_fast",
+  "timeline": [
+    {
+      "scene_id": "Scene1",
+      "start_time": 0.05,
+      "end_time": 4.97,
+      "elements": []
+    },
+    {
+      "scene_id": "Scene2",
+      "start_time": 4.97,
+      "end_time": 7.89,
+      "elements": []
+    },
+    {
+      "scene_id": "Scene3",
+      "start_time": 7.89,
+      "end_time": 13.39,
+      "elements": []
+    },
+    {
+      "scene_id": "Scene4",
+      "start_time": 13.39,
+      "end_time": 14.87,
+      "elements": []
+    },
+    {
+      "scene_id": "Scene5",
+      "start_time": 14.87,
+      "end_time": 17.84,
+      "elements": []
+    }
+  ],
+  "global_settings": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920
+  },
+  "meta": {
+    "motion_personality": "Technical"
+  }
+}

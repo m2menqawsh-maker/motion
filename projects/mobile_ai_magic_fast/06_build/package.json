@@ -1,0 +1,40 @@
+{
+    "name": "super-video-maker-remotion-app",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "sync": "python ../scripts/sync_templates.py",
+        "prebuild": "npm run sync",
+        "studio": "remotion studio",
+        "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
+        "lint": "npm run sync && tsc --noEmit"
+    },
+    "dependencies": {
+        "@remotion/captions": "4.0.518",
+        "@remotion/cli": "4.0.518",
+        "@remotion/google-fonts": "4.0.518",
+        "@remotion/layout-utils": "4.0.518",
+        "@remotion/light-leaks": "4.0.518",
+        "@remotion/media": "4.0.518",
+        "@remotion/media-utils": "4.0.518",
+        "@remotion/paths": "4.0.518",
+        "@remotion/transitions": "4.0.518",
+        "@remotion/zod-types": "4.0.518",
+        "@turf/turf": "^7.4.0",
+        "culori": "^4.0.2",
+        "maplibre-gl": "^6.6.0",
+        "ondajs": "^0.9.2",
+        "react": "19.2.3",
+        "react-dom": "19.2.3",
+        "remotion": "4.0.518",
+        "remotion-bits": "^0.2.0",
+        "remotion-ui": "^0.9.0",
+        "zod": "4.4.3"
+    },
+    "devDependencies": {
+        "@types/culori": "^4.0.1",
+        "@types/react": "19.2.7",
+        "@types/web": "0.0.166",
+        "typescript": "5.9.3"
+    }
+}

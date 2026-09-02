@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """probe_qc.py — يولد تقرير فحص المشاهد
 Usage: python probe_qc.py <project_dir> <comp_id>"""
-import json, sys, os, subprocess
+import json, sys, os, subprocess, hashlib
 from pathlib import Path
 from datetime import datetime
 
@@ -12,6 +12,34 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
+
+def verify_seal(report_path: Path) -> bool:
+    """تحقق من مطابقة البصمة الرقمية للتقرير لمنع التعديل اليدوي والتزوير"""
+    if isinstance(report_path, str):
+        report_path = Path(report_path)
+    seal_file = report_path.with_suffix(report_path.suffix + ".seal")
+    if not seal_file.exists():
+        print("🛑 [SECURITY] ملف الختم الرقمي (.seal) لتقرير Probe-QC مفقود!")
+        return False
+    if not report_path.exists():
+        print("🛑 [SECURITY] ملف تقرير Probe-QC غير موجود!")
+        return False
+    expected = seal_file.read_text(encoding="utf-8").strip()
+    actual = hashlib.sha256(report_path.read_bytes()).hexdigest()
+    if expected != actual:
+        print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية غير متطابقة - تقرير مزوّر)")
+        return False
+    return True
+
+if len(sys.argv) >= 2 and sys.argv[1] == "--verify":
+    target_dir = Path(sys.argv[2] if len(sys.argv) > 2 else ".").resolve()
+    report_file = target_dir / "probe_qc_report.json" if target_dir.is_dir() else target_dir
+    if verify_seal(report_file):
+        print("✅ تقرير Probe-QC أصلي وموثق بالختم الرقمي")
+        sys.exit(0)
+    else:
+        print("🛑 تقرير Probe-QC تم تعديله يدوياً")
+        sys.exit(1)
 
 if len(sys.argv) < 3:
     print(__doc__)
@@ -120,11 +148,18 @@ except IndexError:
 report_path = proj_dir / "probe_qc_report.json"
 report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# الختم الرقمي — يمنع أي تعديل يدوي لاحق
-PipelineGuard.seal_report(report_path)
-print(f"🔏 تم ختم التقرير ببصمة رقمية — أي تعديل يدوي سيُكتشف")
+# الختم الرقمي — يمنع أي تعديل يدوي لاحق عبر حفظ بصمة SHA-256
+seal_file = report_path.with_suffix(report_path.suffix + ".seal")
+checksum = hashlib.sha256(report_path.read_bytes()).hexdigest()
+seal_file.write_text(checksum, encoding="utf-8")
+print(f"🔏 تم ختم التقرير ببصمة رقمية SHA-256 ({checksum[:12]}...) — أي تعديل يدوي سيُكتشف")
 
-# إنشاء ملف الفتح فقط إذا نجح الفحص
+# التحقق من الختم قبل السماح بأي إجراء
+if not verify_seal(report_path):
+    print("🛑 تقرير Probe-QC تم تعديله يدوياً")
+    sys.exit(1)
+
+# إنشاء ملف الفتح فقط إذا نجح الفحص وكان الختم سليماً
 if report.get("status") == "pass":
     unlock_file = proj_dir / ".studio_unlocked"
     unlock_file.write_text(f"unlocked_at={datetime.now().isoformat()}", encoding="utf-8")

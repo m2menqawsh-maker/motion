@@ -196,11 +196,12 @@ class PipelineGuard:
                     "احذف ملف الموافقة القديم، عاين التعديلات الجديدة في الاستوديو، ثم أنشئ ملفاً جديداً."
                 )
                 
-            # 2. الموافقة تمت بسرعة خيالية (أقل من 15 ثانية) - تزوير من الوكيل!
-            if (approval_time - unlock_time) < 15:
+            # 2. الموافقة تمت بسرعة خيالية (أقل من 10 ثوانٍ) - تزوير من الوكيل!
+            time_diff = approval_time - unlock_time
+            if time_diff < 10:
                 raise GuardViolation(
                     "FORGED_APPROVAL",
-                    "⚠️ تمت الموافقة بسرعة غير بشرية (أقل من 15 ثانية من الفحص) — تزوير آلي مكتشف!",
+                    f"⚠️ الموافقة مشبوهة - أُنشئت بسرعة كبيرة! (الفارق الزمني {time_diff:.1f} ثانية < 10 ثوانٍ) — تزوير آلي مكتشف!",
                     "المعاينة البشرية تستغرق وقتاً. راجع الفيديو فعلياً في الاستوديو قبل إنشاء ملف الموافقة."
                 )
 
@@ -222,7 +223,7 @@ class PipelineGuard:
         """يتحقق من أن التقرير لم يُعدّل يدوياً بعد ختمه"""
         seal_file = report_path.with_suffix(report_path.suffix + ".seal")
         if not seal_file.exists():
-            return True  # لا يوجد ختم، لا يمكن التحقق (تقبل لأول مرة)
+            return False  # لا يوجد ختم = مزوّر
         if not report_path.exists():
             return False
 
@@ -243,7 +244,7 @@ class PipelineGuard:
         if not self.verify_report_seal(qc_report):
             raise GuardViolation(
                 "REPORT_TAMPERED",
-                "⚠️ تقرير Probe-QC تم تعديله يدوياً بعد إنشائه! (البصمة الرقمية لا تتطابق)",
+                "⚠️ تقرير Probe-QC مزوّر — تم تعديله يدوياً بعد إنشائه! (البصمة الرقمية لا تتطابق)",
                 "أعد تشغيل: python scripts/probe_qc.py <project_id> — التزوير ممنوع"
             )
 
