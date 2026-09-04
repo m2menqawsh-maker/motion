@@ -32,14 +32,27 @@ projects/*
 *.wav
 *.mp3
 *.webp
-# If you want to push specific media, you can force add them: git add -f filename.mp4
+*.m4a
+*.flac
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Workspace Assets & Media (Exclude all workspace media/assets while keeping folder structure)
+assets/incoming/**
+!assets/incoming/**/.gitkeep
+assets/cache/**
+!assets/cache/**/.gitkeep
+assets/processing/**
+!assets/processing/**/.gitkeep
+assets/ready/**
+!assets/ready/**/.gitkeep
 
 # Temporary and Workspace Specific
 temp/
 tmp/
 scratch/
-assets/cache/
-assets/processing/
 .agents/mcp_state/
 *.seal
 *.analysis.json
