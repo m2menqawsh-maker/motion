@@ -20,11 +20,10 @@ package-lock.json
 
 # Remotion & Video Builds
 .remotion/
-projects/*/06_build/.remotion/
-projects/*/06_build/out/
-projects/*/06_build/dist/
-projects/*/06_build/node_modules/
-projects/*/06_build/public/media/
+
+# Projects (Exclude workspace user projects from system repo)
+projects/*
+!projects/.gitkeep
 
 # Media assets (Large files usually shouldn't be pushed to github)
 *.mp4

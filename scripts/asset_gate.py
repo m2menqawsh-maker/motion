@@ -35,7 +35,8 @@ def run_gate(manifest_path_str):
          with open(index_path2, 'r', encoding='utf-8') as f:
             index.extend(json.load(f))
 
-    for item in manifest:
+    items = manifest.get("assets", []) if isinstance(manifest, dict) else manifest
+    for item in items:
         source = item.get("source")
         if source == "user_upload":
             continue
