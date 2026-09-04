@@ -1,0 +1,6 @@
+{
+  "template": "product_showcase",
+  "description": "قالب عرض منتج ديناميكي",
+  "default_fps": 30,
+  "default_duration": 450
+}

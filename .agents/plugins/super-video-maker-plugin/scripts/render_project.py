@@ -80,6 +80,8 @@ def main():
         print("  ✅ الكود خالٍ من أخطاء TypeScript")
         guard.require_motion_valid()
         print("  ✅ تنوع القوالب والـ SFX مقبول")
+        guard.require_smart_qc_passed()
+        print("  ✅ فحص Smart QC تم بنجاح")
         
     except ImportError as e:
         print(f"⚠️ خطأ في استيراد PipelineGuard: {e}")
@@ -125,6 +127,20 @@ def main():
     print(f"🎉 تم الرندر بنجاح!")
     print(f"📹 الملف: {output_file}")
     print("=" * 60)
+    
+    # تشغيل Final QC تلقائياً بعد الرندر
+    print("\n🔍 تشغيل الفحص النهائي (Final QC)...")
+    final_qc_script = scripts_dir / "final_qc.py"
+    if final_qc_script.exists():
+        subprocess.run([sys.executable, str(final_qc_script), project_id], check=False)
+        
+    # استدعاء الحارس للتأكد من نجاح الفحص
+    try:
+        guard.require_final_qc_passed()
+        print("✅ الفحص النهائي (Final QC) اجتاز بنجاح!")
+    except GuardViolation as e:
+        print(f"\n🛑 فشل الفحص النهائي للرندر:\n{e.reason}\n🔧 الإصلاح: {e.fix}\n")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

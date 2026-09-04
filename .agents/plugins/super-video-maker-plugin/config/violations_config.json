@@ -1,0 +1,81 @@
+{
+  "command_violations": [
+    {
+      "pattern": "npx\\s+remotion\\s+render",
+      "severity": "HIGH",
+      "message": "ممنوع استخدام npx مباشرة للرندر",
+      "fix": "استخدم python render_project.py <project_id>"
+    },
+    {
+      "pattern": "npx\\s+remotion\\s+studio",
+      "severity": "HIGH",
+      "message": "ممنوع استخدام npx مباشرة للاستوديو",
+      "fix": "استخدم python open_studio.py <project_id>"
+    },
+    {
+      "pattern": "npm\\s+run\\s+studio",
+      "severity": "HIGH",
+      "message": "ممنوع تشغيل الاستوديو مباشرة",
+      "fix": "استخدم python open_studio.py <project_id>"
+    },
+    {
+      "pattern": "Copy-Item\\s+-Recurse\\s+-Force.*06_build",
+      "severity": "HIGH",
+      "message": "ممنوع النسخ اليدوي لمجلد البناء",
+      "fix": "استخدم materialize_project.py"
+    },
+    {
+      "pattern": "ConvertFrom-Json.*probe_qc_report",
+      "severity": "HIGH",
+      "message": "ممنوع تعديل تقرير QC يدوياً",
+      "fix": "شغّل probe_qc.py مجدداً"
+    },
+    {
+      "pattern": "Set-Content.*probe_qc_report",
+      "severity": "HIGH",
+      "message": "ممنوع تعديل تقرير QC يدوياً",
+      "fix": "شغّل probe_qc.py مجدداً"
+    },
+    {
+      "pattern": "Set-Content.*\\.studio_approved",
+      "severity": "HIGH",
+      "message": "ممنوع إنشاء الموافقة برمجياً",
+      "fix": "أنشئ الملف يدوياً بعد المعاينة"
+    },
+    {
+      "pattern": "New-Item.*\\.studio_approved",
+      "severity": "HIGH",
+      "message": "ممنوع إنشاء الموافقة برمجياً",
+      "fix": "أنشئ الملف يدوياً بعد المعاينة"
+    },
+    {
+      "pattern": "New-Item.*\\.studio_unlocked",
+      "severity": "HIGH",
+      "message": "ممنوع إنشاء القفل برمجياً",
+      "fix": "شغّل probe_qc.py ليُنشأ تلقائياً"
+    },
+    {
+      "pattern": "curl|wget|yt-dlp",
+      "severity": "HIGH",
+      "message": "ممنوع استخدام أدوات خارجية لجلب الميديا",
+      "fix": "استخدم media-sources-mcp فقط"
+    }
+  ],
+  "behavioral_violations": [
+    {
+      "pattern": "approve_.*\\.py",
+      "severity": "MEDIUM",
+      "message": "الموافقة آلية ممنوعة",
+      "fix": "احذف السكريبت، استخدم الموافقة يدوياً"
+    }
+  ],
+  "protocol_violations": [
+    {
+      "pattern": "(?s)Scene.*\\.tsx.*(spring\\(|interpolate\\()",
+      "severity": "MEDIUM",
+      "message": "ارتجال — استخدم القوالب فقط",
+      "fix": "استورد من @templates أو @engine"
+    }
+  ],
+  "plan_quality_violations": []
+}

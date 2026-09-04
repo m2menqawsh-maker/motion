@@ -248,6 +248,47 @@ class PipelineGuard:
                 "أعد تشغيل: python scripts/probe_qc.py <project_id> — التزوير ممنوع"
             )
 
+    def require_smart_qc_passed(self):
+        """يتحقق من نجاح الفحص الذكي (Smart QC) قبل الرندر"""
+        qc_report = self.project_dir / "smart_qc_report.json"
+        if not qc_report.exists():
+            raise GuardViolation(
+                "NO_SMART_QC",
+                "Smart QC لم يُجرَ للمشروع",
+                "شغّل: python scripts/smart_qc.py <project_id> <composition_name>"
+            )
+        try:
+            report = json.loads(qc_report.read_text(encoding="utf-8"))
+            if report.get("status") == "fail":
+                raise GuardViolation(
+                    "SMART_QC_FAILED",
+                    "الفحص الذكي (Smart QC) فشل",
+                    "راجع smart_qc_report.json وأصلح الأخطاء المذكورة ثم أعد الفحص"
+                )
+        except json.JSONDecodeError:
+            pass
+
+    def require_final_qc_passed(self):
+        """يتحقق من نجاح الفحص النهائي (Final QC) بعد الرندر"""
+        qc_report = self.project_dir / "final_qc_report.json"
+        if not qc_report.exists():
+            raise GuardViolation(
+                "NO_FINAL_QC",
+                "Final QC لم يُجرَ للمشروع",
+                "شغّل: python scripts/final_qc.py <project_id>"
+            )
+        try:
+            report = json.loads(qc_report.read_text(encoding="utf-8"))
+            if report.get("status") == "fail":
+                raise GuardViolation(
+                    "FINAL_QC_FAILED",
+                    "الفحص النهائي (Final QC) فشل",
+                    "راجع final_qc_report.json وأصلح الأخطاء المذكورة"
+                )
+        except json.JSONDecodeError:
+            pass
+
+
     # ─────────────────────────────────────────────
     # 8) فحص بوابة الميديا (منع النسخ اليدوي)
     # ─────────────────────────────────────────────
