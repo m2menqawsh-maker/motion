@@ -129,7 +129,7 @@ def detect_empty_space(frame_path):
 
 def extract_frames(project_id, comp_name):
     """يستخرج الإطارات باستخدام remotion still"""
-    project_dir = Path(f"projects/{project_id}/06_build")
+    project_dir = Path(f"projects/{project_id}/06_build").resolve()
     out_dir = project_dir / "qc_frames"
     out_dir.mkdir(exist_ok=True)
     
@@ -140,7 +140,7 @@ def extract_frames(project_id, comp_name):
         cmd = [
             "npx", "remotion", "still",
             "src/index.ts", comp_name,
-            str(frame_file),
+            str(frame_file.resolve()),
             f"--frame={frame}"
         ]
         try:

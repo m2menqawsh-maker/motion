@@ -9,8 +9,9 @@ from collections import Counter
 def detect_sequential_repetition(lines: list) -> dict:
     """يكشف التكرار المتسلسل للسطور (حشو من نوع جديد)"""
     
-    # تجاهل السطور الفارغة
-    content_lines = [l.strip() for l in lines if l.strip()]
+    # تجاهل السطور الفارغة وخطوط الفصل وعناوين اللقطات
+    import re
+    content_lines = [l.strip() for l in lines if l.strip() and not re.match(r'^[-_*]{3,}$', l.strip()) and not l.strip().startswith('**اللقطة')]
     
     # إزالة الأرقام المتسلسلة من السطور للمقارنة
     def normalize_line(line: str) -> str:

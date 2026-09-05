@@ -57,6 +57,30 @@ if tsconfig_path.exists():
         tsconfig_path.write_text(json.dumps(ts_data, indent=2, ensure_ascii=False), encoding="utf-8")
     except Exception as e:
         print(f"⚠️ فشل تحديث tsconfig.json: {e}")
+
+# 3) remotion.config.ts Alias Injection
+remotion_config_path = proj / "06_build" / "remotion.config.ts"
+if remotion_config_path.exists():
+    try:
+        content = remotion_config_path.read_text(encoding="utf-8")
+        if '"@templates":' not in content and "'@templates':" not in content:
+            target1 = '"@": path.join(process.cwd(), "src"),'
+            rep1 = '"@": path.join(process.cwd(), "src"),\n        "@templates": path.join(process.cwd(), "src", "templates"),\n        "@engine": path.join(process.cwd(), "src", "engine"),'
+            content = content.replace(target1, rep1)
+            
+            target2 = "'@': path.join(process.cwd(), 'src'),"
+            rep2 = "'@': path.join(process.cwd(), 'src'),\n        '@templates': path.join(process.cwd(), 'src', 'templates'),\n        '@engine': path.join(process.cwd(), 'src', 'engine'),"
+            content = content.replace(target2, rep2)
+            
+            target3 = '"@": path.join(process.cwd(), "src")'
+            rep3 = '"@": path.join(process.cwd(), "src"),\n        "@templates": path.join(process.cwd(), "src", "templates"),\n        "@engine": path.join(process.cwd(), "src", "engine")'
+            if rep1 not in content and rep2 not in content:
+                content = content.replace(target3, rep3)
+
+            remotion_config_path.write_text(content, encoding="utf-8")
+    except Exception as e:
+        print(f"⚠️ فشل تحديث remotion.config.ts: {e}")
+
 fails, media_map, used = [], {}, set()
 def canon(p):
     p = Path(p); return p if p.is_absolute() else (WS / p)

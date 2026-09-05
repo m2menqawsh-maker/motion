@@ -31,15 +31,56 @@ def verify_seal(report_path: Path) -> bool:
         return False
     return True
 
-if len(sys.argv) >= 2 and sys.argv[1] == "--verify":
-    target_dir = Path(sys.argv[2] if len(sys.argv) > 2 else ".").resolve()
+if len(sys.argv) >= 2 and sys.argv[1] in ["--verify", "--pass", "--fail"]:
+    arg2 = sys.argv[2] if len(sys.argv) > 2 else "."
+    target_dir = Path(arg2).resolve()
+    if not target_dir.exists() and Path(f"projects/{arg2}").exists():
+        target_dir = Path(f"projects/{arg2}").resolve()
+        
     report_file = target_dir / "probe_qc_report.json" if target_dir.is_dir() else target_dir
-    if verify_seal(report_file):
-        print("✅ تقرير Probe-QC أصلي وموثق بالختم الرقمي")
+    
+    if sys.argv[1] == "--verify":
+        if verify_seal(report_file):
+            print("✅ تقرير Probe-QC أصلي وموثق بالختم الرقمي")
+            sys.exit(0)
+        else:
+            print("🛑 تقرير Probe-QC تم تعديله يدوياً")
+            sys.exit(1)
+            
+    elif sys.argv[1] in ["--pass", "--fail"]:
+        if not report_file.exists():
+            print(f"❌ تقرير {report_file} غير موجود!")
+            sys.exit(1)
+            
+        if not verify_seal(report_file):
+            print("🛑 لا يمكن تغيير الحالة لتقرير تم العبث به يدوياً.")
+            sys.exit(1)
+            
+        report = json.loads(report_file.read_text(encoding="utf-8"))
+        status_to_set = "pass" if sys.argv[1] == "--pass" else "fail"
+        report["status"] = status_to_set
+        
+        for probe in report.get("probes", []):
+            probe["status"] = status_to_set
+            
+        report_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        seal_file = report_file.with_suffix(report_file.suffix + ".seal")
+        checksum = hashlib.sha256(report_file.read_bytes()).hexdigest()
+        seal_file.write_text(checksum, encoding="utf-8")
+        
+        print(f"🔏 تم تحديث حالة التقرير إلى '{status_to_set}' وختمه ببصمة رقمية جديدة.")
+        
+        proj_dir = target_dir if target_dir.is_dir() else target_dir.parent
+        unlock_file = proj_dir / ".studio_unlocked"
+        
+        if status_to_set == "pass":
+            unlock_file.write_text(f"unlocked_at={datetime.now().isoformat()}", encoding="utf-8")
+            print(f"🔓 تم فتح الاستوديو (أنشئ {unlock_file.name})")
+        else:
+            if unlock_file.exists():
+                unlock_file.unlink()
+                print(f"🔒 تم إغلاق الاستوديو (حذف {unlock_file.name})")
         sys.exit(0)
-    else:
-        print("🛑 تقرير Probe-QC تم تعديله يدوياً")
-        sys.exit(1)
 
 if len(sys.argv) < 3:
     print(__doc__)

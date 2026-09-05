@@ -116,7 +116,13 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
-    project_dir = Path(f"projects/{project_id}")
+    
+    project_dir = Path(project_id).resolve()
+    if not project_dir.exists() and Path(f"projects/{project_id}").exists():
+        project_dir = Path(f"projects/{project_id}").resolve()
+    elif Path("06_build").exists():
+        project_dir = Path(".").resolve()
+        
     video_path = project_dir / "06_build" / "out" / f"{project_id}_final.mp4"
     timings_path = project_dir / "04_timings.json"
     

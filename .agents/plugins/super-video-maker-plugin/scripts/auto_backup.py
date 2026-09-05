@@ -28,3 +28,18 @@ def create_backup(project_id: str, stage_name: str):
     except Exception as e:
         print(f"⚠️ فشل النسخ الاحتياطي: {e}")
         return False
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="إنشاء نسخة احتياطية للمشروع")
+    parser.add_argument("project_id", help="معرف المشروع (مثال: system_validation_test)")
+    parser.add_argument("stage_name", nargs="?", default="manual", help="اسم المرحلة للنسخ الاحتياطي (مثال: init)")
+    args = parser.parse_args()
+    
+    success = create_backup(args.project_id, args.stage_name)
+    if success:
+        print(f"✅ تم إنشاء النسخة الاحتياطية بنجاح للمشروع {args.project_id} (المرحلة: {args.stage_name})")
+    else:
+        print(f"❌ فشل النسخ الاحتياطي للمشروع {args.project_id}")
+        import sys
+        sys.exit(1)

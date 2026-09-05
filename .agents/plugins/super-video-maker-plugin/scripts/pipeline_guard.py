@@ -132,7 +132,7 @@ class PipelineGuard:
         if not compositions_dir.exists():
             return  # لا يوجد ملفات بعد، لا شيء ليفحص
 
-        scene_files = list(compositions_dir.glob("Scene*.tsx"))
+        scene_files = list(compositions_dir.rglob("Scene*.tsx"))
         if not scene_files:
             return
 
@@ -322,7 +322,7 @@ class PipelineGuard:
             if not scenes_dir.exists():
                 return
                 
-            built_scenes = len(list(scenes_dir.glob("Scene*.tsx")))
+            built_scenes = len(list(scenes_dir.rglob("Scene*.tsx")))
             
             if built_scenes < total_sentences:
                 raise GuardViolation(
@@ -370,9 +370,10 @@ class PipelineGuard:
             
             for i, scene in enumerate(bp.get("timeline", [])):
                 scene_idx = i + 1
-                scene_file = scenes_dir / f"Scene{scene_idx}.tsx"
-                if not scene_file.exists():
+                found_scenes = list(scenes_dir.rglob(f"Scene{scene_idx}.tsx"))
+                if not found_scenes:
                     continue
+                scene_file = found_scenes[0]
                     
                 code = scene_file.read_text(encoding="utf-8").lower()
                 for el in scene.get("elements", []):
