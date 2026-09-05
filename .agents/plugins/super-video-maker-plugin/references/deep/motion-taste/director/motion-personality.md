@@ -1,5 +1,13 @@
 # Motion Personality
 
+## ⚠️ تحذير مهم
+
+**هذا الملف يحتوي على ستايل Energetic/Dynamic كمرجع افتراضي فقط.**
+
+**لكن:** ستايل الحركة الفعلي يُحدد لكل مشروع عبر `motion_style_interviewer.py`.
+
+**القاعدة:** اقرأ `projects/<id>/motion_style_config.json` أولاً. إذا وجد، استخدم قيمه. إذا لم يوجد، استخدم قيم هذا الملف كـ fallback.
+
 ## Four Archetypes
 
 ### Playful

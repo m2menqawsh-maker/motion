@@ -128,6 +128,21 @@
 3. اقرأ `ROUTER.md` داخل الـ Plugin إذا لزم الأمر
 4. اقرأ `.agents/plugins/super-video-maker-plugin/references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` قبل كتابة أي خطة مشهد.
 
+## 🎬 ستايل الحركة (Motion Style)
+
+قبل بناء أي مشهد، اقرأ **إلزامياً**:
+1. `projects/<id>/motion_style_config.json` (إن وجد)
+2. إذا لم يوجد → شغّل `motion_style_interviewer.py` أولاً
+
+القيم المحددة في الـ config **إلزامية**:
+- Spring config (mass, stiffness, damping)
+- التوقيتات (micro, standard, scene)
+- الكاميرا (zoom_max, pan_speed)
+- الانتقالات (duration, type)
+- التأثيرات (intensity, neon_glow)
+
+ممنوع استخدام قيم مختلفة عن المحددة في الـ config.
+
 ## 5. التعامل مع الـ MCP
 - الخوادم السبعة معرّفة في `plugin.json` → `mcp.json`
 - **ممنوع** إنشاء سكربتات Python لاستدعاء أدوات الـ MCP يدوياً

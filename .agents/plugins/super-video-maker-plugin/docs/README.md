@@ -20,6 +20,21 @@
 
 ---
 
+## 🛠️ بروتوكولات وسجلات الإنتاج (Core Protocols & Workflow Guides)
+
+تجد هنا الوثائق المرجعية وسجلات البروتوكول المعتمدة لتنسيق مسار العمل والجلسات وفحص الجودة:
+
+| الملف | الوصف | الرابط |
+|---|---|---|
+| **إدارة السياق (Context Management)** | بروتوكول ضغط وإدارة السياق والذاكرة | [CONTEXT_MANAGEMENT.md](CONTEXT_MANAGEMENT.md) |
+| **مصفوفة القراءة (Phase Reading)** | مصفوفة قراءة الملفات بحسب كل مرحلة إنتاجية | [PHASE_READING_MATRIX.md](PHASE_READING_MATRIX.md) |
+| **دليل قوالب المشاريع (Templates Guide)** | معايير وتصنيفات قوالب Remotion | [PROJECT_TEMPLATES_GUIDE.md](PROJECT_TEMPLATES_GUIDE.md) |
+| **إدارة الجلسات (Session Management)** | بروتوكول استئناف الجلسات وإدارة الحالة | [SESSION_MANAGEMENT.md](SESSION_MANAGEMENT.md) |
+| **دليل Smart QC** | معايير فحص الجودة الذكي بالفيديو | [SMART_QC_GUIDE.md](SMART_QC_GUIDE.md) |
+| **المواصفات التقنية (Specs)** | المعايير التقنية ومحددات الوسائط والكود | [TECHNICAL_SPECIFICATIONS.md](TECHNICAL_SPECIFICATIONS.md) |
+
+---
+
 ## 📊 تقارير المراحل والتدقيق (Reports)
 
 يحتوي هذا المجلد على أرشيف تقارير تطوير المراحل التاريخية وتوثيق مسار البناء والتحقق:

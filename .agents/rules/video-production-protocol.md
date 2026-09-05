@@ -1,4 +1,4 @@
-﻿# Video Production Protocol — v4.0 (Agile Visual-First)
+# Video Production Protocol — v4.0 (Agile Visual-First)
 
 ## 🗺️ مخطط التدفق الشامل للنظام (System Architecture)
 
@@ -24,10 +24,19 @@ graph TD
     R --> S[final_qc.py / smart_qc.py]
 ```
 
+## 📚 التوثيق المرجعي
+
+- **إدارة السياق:** `.agents/plugins/super-video-maker-plugin/docs/CONTEXT_MANAGEMENT.md`
+- **دليل القوالب:** `.agents/plugins/super-video-maker-plugin/docs/PROJECT_TEMPLATES_GUIDE.md`
+- **Smart QC:** `.agents/plugins/super-video-maker-plugin/docs/SMART_QC_GUIDE.md`
+- **إدارة الجلسات:** `.agents/plugins/super-video-maker-plugin/docs/SESSION_MANAGEMENT.md`
+- **المواصفات التقنية:** `.agents/plugins/super-video-maker-plugin/docs/TECHNICAL_SPECIFICATIONS.md`
+- **مصفوفة القراءة حسب المرحلة:** `.agents/plugins/super-video-maker-plugin/docs/PHASE_READING_MATRIX.md`
+
 ## 📚 بروتوكول القراءة الانتقائية (إلزامي)
 
 ### القاعدة الأساسية
-اقرأ `PHASE_READING_MATRIX.md` في بداية كل خطوة لتحديد الملفات المطلوبة فقط.
+اقرأ `.agents/plugins/super-video-maker-plugin/docs/PHASE_READING_MATRIX.md` في بداية كل خطوة لتحديد الملفات المطلوبة فقط.
 
 ### التنفيذ:
 1. قبل أي خطوة، شغّل:
@@ -86,6 +95,35 @@ python .agents/launcher.py context_compactor.py set-phase <project_id> "<الم�
 ```bash
 python .agents/launcher.py context_compactor.py add-note <project_id> issue_resolved "<المشكلة>: <الحل>"
 ```
+
+## 🎬 معاينة ستايل الحركة (إلزامية في كل مشروع جديد)
+
+### القاعدة الأساسية:
+**لا تفترض Energetic/Dynamic تلقائياً.** اسأل المستخدم أولاً.
+
+### الخطوات:
+1. عند بداية أي مشروع جديد، شغّل:
+   ```bash
+   python .agents/launcher.py motion_style_interviewer <project_id>
+   ```
+
+2. اعرض الأسئلة العشرة على المستخدم (كنص عادي، ليس JSON)
+
+3. انتظر إجابات المستخدم (أرقام مفصولة بفاصلة)
+
+4. السكريبت يولد `projects/<id>/motion_style_config.json` تلقائياً
+
+5. اقرأ هذا الملف قبل بناء كل مشهد وطبّق القيم المحددة
+
+### الاستثناءات:
+- إذا قال المستخدم "افتراضي" → استخدم Energetic/Dynamic
+- إذا قال المستخدم "نفس المشروع السابق" → انسخ الـ config من آخر مشروع
+- إذا قال المستخدم "تجاوز المعاينة" → احفظ `{"style": "skipped"}` ووثّق السبب
+
+### المحظورات:
+- ❌ افتراض Energetic/Dynamic بدون سؤال المستخدم
+- ❌ تجاهل ملف `motion_style_config.json` بعد إنشائه
+- ❌ استخدام قيم مختلفة عن المحددة في الـ config
 
 ## المرحلة 0: التحضير والتحليل الأولي
 **السكريبتات الإلزامية:**
