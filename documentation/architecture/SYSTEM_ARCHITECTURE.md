@@ -89,6 +89,9 @@ clean-video-workspace/
 │       ├── 04_timings.json (التحليل الصوتي)
 │       ├── master_plan.md (خطة الوكيل)
 │       └── 06_build/ (كود Remotion - لا يدخله شيء إلا عبر Materialize)
-└── INTEGRATION_TEST_REPORT.md
-└── AUDIT_REPORT.md
+├── documentation/
+│   ├── architecture/ (الهيكل المعماري والـ Pipeline)
+│   ├── audits/ (تقارير التدقيق والاختبارات)
+│   └── guides/ (أدلة الترقية والأمان)
+└── README.md
 ```
