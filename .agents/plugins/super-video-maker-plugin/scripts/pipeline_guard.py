@@ -11,9 +11,13 @@ Pipeline Guard — الحارس المركزي لخط الإنتاج
 """
 
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("pipeline_guard")
+
 import json
 import hashlib
 import subprocess
+import argparse
 from pathlib import Path
 from datetime import datetime
 
@@ -62,6 +66,16 @@ class PipelineGuard:
 
     def require_stage_complete(self, stage: str):
         """يرمي خطأ إذا لم تكتمل المرحلة المطلوبة"""
+        state = self.project_dir / ".session_state.json"
+        if state.exists():
+            try:
+                data = json.loads(state.read_text(encoding='utf-8-sig'))
+                if data.get("audio_free", False) and stage == "audio_analysis":
+                    log.info("️ تجاوز فحص audio_analysis (مشروع صامت audio_free=true)")
+                    return
+            except json.JSONDecodeError:
+                pass
+
         if stage not in self.STAGE_FILES:
             raise GuardViolation(
                 "UNKNOWN_STAGE",
@@ -83,6 +97,49 @@ class PipelineGuard:
                 "EMPTY_STAGE_FILE",
                 f"ملف المرحلة '{stage}' فارغ",
                 "أعد توليد الملف بمحتوى فعلي"
+            )
+
+    def require_vo_quality_check(self):
+        """يتحقق من فحص جودة الصوت مع دعم التجاوز للمشاريع التجريبية والصامتة"""
+        state = self.project_dir / ".session_state.json"
+        if state.exists():
+            try:
+                data = json.loads(state.read_text(encoding='utf-8-sig'))
+                if data.get("audio_free", False):
+                    log.info("️ تجاوز فحص الصوت (مشروع صامت audio_free=true)")
+                    return
+                if data.get("experimental", False):
+                    log.info("️ تجاوز فحص الصوت (مشروع تجريبي)")
+                    return
+            except json.JSONDecodeError:
+                pass
+        
+        vo_report = self.project_dir / "vo_quality_report.json"
+        if not vo_report.exists():
+            raise GuardViolation(
+                rule="VO_QUALITY_CHECK_MISSING",
+                reason="❌ لم يتم فحص جودة الصوت بعد",
+                fix=f'شغّل: python .agents/launcher.py vo_quality_check {self.project_id}\nأو أضف {{"audio_free": true}} إلى .session_state.json للمشاريع الصامتة'
+            )
+
+    def require_auto_backup(self):
+        """يتحقق من النسخة الاحتياطية مع دعم التجاوز"""
+        state = self.project_dir / ".session_state.json"
+        if state.exists():
+            try:
+                data = json.loads(state.read_text(encoding='utf-8-sig'))
+                if data.get("skip_backup", False):
+                    log.info("️ تجاوز النسخة الاحتياطية (اختبار سريع)")
+                    return
+            except json.JSONDecodeError:
+                pass
+        
+        backups_dir = self.project_dir / "backups"
+        if not backups_dir.exists() or not list(backups_dir.glob("*.zip")):
+            raise GuardViolation(
+                rule="AUTO_BACKUP_MISSING",
+                reason="❌ لم يتم إنشاء نسخة احتياطية بعد",
+                fix=f"شغّل: python .agents/plugins/super-video-maker-plugin/scripts/auto_backup.py {self.project_id} initial"
             )
 
     # ─────────────────────────────────────────────
@@ -309,6 +366,17 @@ class PipelineGuard:
     # ─────────────────────────────────────────────
     def require_all_sentences_covered(self):
         """يتأكد أن كل جملة في الصوت لها مشهد مقابل لمنع (Creative Amnesia)"""
+        state = self.project_dir / ".session_state.json"
+        if state.exists():
+            try:
+                import json
+                data = json.loads(state.read_text(encoding='utf-8-sig'))
+                if data.get("audio_free", False):
+                    log.info("️ تجاوز مطابقة الجمل الصوتية (مشروع صامت audio_free=true)")
+                    return
+            except json.JSONDecodeError:
+                pass
+
         timings_file = self.project_dir / "04_timings.json"
         if not timings_file.exists():
             return
@@ -341,7 +409,7 @@ class PipelineGuard:
         if not self.build_dir.exists():
             return
             
-        print("🔍 [PipelineGuard] فحص الكود (TypeScript Check)...")
+        log.debug("[PipelineGuard] فحص الكود (TypeScript Check)...")
         result = subprocess.run(
             ["npx", "tsc", "--noEmit"],
             cwd=str(self.build_dir),
@@ -392,9 +460,11 @@ class PipelineGuard:
     # ─────────────────────────────────────────────
     def pre_build_check(self):
         """فحص شامل قبل أي عملية بناء — يجمع كل الفحوصات"""
-        print("🔍 [PipelineGuard] بدء الفحوصات الإجبارية قبل البناء...")
+        log.debug("[PipelineGuard] بدء الفحوصات الإجبارية قبل البناء...")
 
         checks = [
+            ("النسخة الاحتياطية (auto_backup)", self.require_auto_backup),
+            ("فحص جودة الصوت (vo_quality_check)", self.require_vo_quality_check),
             ("اكتمال تحليل الصوت", lambda: self.require_stage_complete("audio_analysis")),
             ("اكتمال الخطة", lambda: self.require_stage_complete("plan")),
             ("صحة الـ Blueprint", lambda: self.require_stage_complete("blueprint")),
@@ -405,12 +475,12 @@ class PipelineGuard:
         for name, check in checks:
             try:
                 check()
-                print(f"  ✅ {name}")
+                log.success(f"{name}")
             except GuardViolation as e:
-                print(f"\n🛑 [PipelineGuard] تم إيقاف البناء!\n{e}\n")
+                log.info(f"\n🛑 [PipelineGuard] تم إيقاف البناء!\n{e}\n")
                 raise
 
-        print("✅ [PipelineGuard] جميع الفحوصات نجحت — يمكن البدء بالبناء.\n")
+        log.success("[PipelineGuard] جميع الفحوصات نجحت — يمكن البدء بالبناء.\n")
 
     def require_custom_code_valid(self):
         """يفحص الكود المخصص عبر custom_code_validator.py"""
@@ -426,13 +496,15 @@ class PipelineGuard:
 # دالة مساعدة للاستخدام السريع من سطر الأوامر
 # ─────────────────────────────────────────────
 def main():
-    if len(sys.argv) < 3:
-        print("الاستخدام: python pipeline_guard.py <project_id> <check_name>")
-        print("الفحوصات المتاحة: pre_build, studio, render, probe_genuine")
-        sys.exit(1)
-
-    project_id = sys.argv[1]
-    check_name = sys.argv[2]
+    parser = argparse.ArgumentParser(description="الحارس المركزي لخط الإنتاج")
+    parser.add_argument("project_id", help="معرف المشروع")
+    parser.add_argument("check_name", help="اسم الفحص (pre_build, studio, render, probe_genuine)")
+    
+    args = parser.parse_args()
+    project_id = args.project_id
+    global log
+    log = UnifiedLogger("pipeline_guard", project_id)
+    check_name = args.check_name
 
     guard = PipelineGuard(project_id)
 
@@ -445,7 +517,7 @@ def main():
             guard.require_all_sentences_covered()
             guard.require_typescript_clean()
             guard.require_plan_execution_match()
-            print("✅ الاستوديو مسموح")
+            log.success("الاستوديو مسموح")
         elif check_name == "render":
             guard.require_probe_qc_genuine()
             guard.require_studio_unlocked()
@@ -453,15 +525,15 @@ def main():
             guard.require_all_sentences_covered()
             guard.require_typescript_clean()
             guard.require_plan_execution_match()
-            print("✅ الرندر مسموح")
+            log.success("الرندر مسموح")
         elif check_name == "probe_genuine":
             guard.require_probe_qc_genuine()
-            print("✅ التقرير أصلي")
+            log.success("التقرير أصلي")
         else:
-            print(f"فحص غير معروف: {check_name}")
+            log.info(f"فحص غير معروف: {check_name}")
             sys.exit(1)
     except GuardViolation as e:
-        print(f"\n🛑 {e}\n")
+        log.info(f"\n🛑 {e}\n")
         sys.exit(1)
 
 

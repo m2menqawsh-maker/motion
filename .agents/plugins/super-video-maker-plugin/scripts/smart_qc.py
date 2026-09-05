@@ -3,8 +3,14 @@
 
 import os
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("smart_qc")
+from utils.config import Config
+config = Config()
+
 import json
 import subprocess
+import argparse
 from pathlib import Path
 
 def ensure_dependencies():
@@ -15,7 +21,7 @@ def ensure_dependencies():
             import_name = pkg.replace('-', '_').replace('opencv_python', 'cv2')
             __import__(import_name)
         except ImportError:
-            print(f"📦 تثبيت {pkg}...")
+            log.info(f"📦 تثبيت {pkg}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", pkg, "--quiet"])
 
 # استدعاء دالة التثبيت
@@ -67,8 +73,10 @@ def check_ocr_bounds(frame_path):
         return {"status": "error", "message": "فشل قراءة الإطار"}
         
     h, w, _ = frame.shape
-    if w != 1080 or h != 1920:
-        return {"status": "warning", "message": f"الأبعاد ليست 1080x1920 ({w}x{h})"}
+    expected_w = config.get('video.width', 1080)
+    expected_h = config.get('video.height', 1920)
+    if w != expected_w or h != expected_h:
+        return {"status": "warning", "message": f"الأبعاد ليست {expected_w}x{expected_h} ({w}x{h})"}
         
     # سنفحص فقط عبر Tesseract للحصول على Bounding boxes إذا كان متاحاً
     try:
@@ -133,7 +141,7 @@ def extract_frames(project_id, comp_name):
     out_dir = project_dir / "qc_frames"
     out_dir.mkdir(exist_ok=True)
     
-    print(f"🎬 استخراج الإطارات للفحص (قد يستغرق وقتاً)...")
+    log.info(f"🎬 استخراج الإطارات للفحص (قد يستغرق وقتاً)...")
     # استخراج 3 إطارات للفحص
     for frame in [10, 30, 60]:
         frame_file = out_dir / f"frame_{frame}.png"
@@ -147,28 +155,31 @@ def extract_frames(project_id, comp_name):
             use_shell = os.name == "nt"
             subprocess.run(cmd, cwd=str(project_dir), shell=use_shell, check=True, capture_output=True)
         except Exception as e:
-            print(f"⚠️ فشل استخراج الإطار {frame}: {e}")
+            log.info(f"️ فشل استخراج الإطار {frame}: {e}")
             
     return list(out_dir.glob("*.png"))
 
 def main():
-    if len(sys.argv) < 3:
-        print("الاستخدام: python smart_qc.py <project_id> <composition_name>")
-        sys.exit(1)
-        
-    project_id = sys.argv[1]
-    comp_name = sys.argv[2]
+    parser = argparse.ArgumentParser(description="فحص جودة المشاهد الذكي (Smart QC)")
+    parser.add_argument("project_id", help="معرف المشروع")
+    parser.add_argument("comp_name", help="اسم الكومبوزيشن")
+    args = parser.parse_args()
+    
+    project_id = args.project_id
+    global log
+    log = UnifiedLogger("smart_qc", project_id)
+    comp_name = args.comp_name
     
     project_dir = Path(f"projects/{project_id}")
     report_path = project_dir / "smart_qc_report.json"
     
     if not project_dir.exists():
-        print(f"❌ المشروع {project_id} غير موجود.")
+        log.error(f"المشروع {project_id} غير موجود.")
         sys.exit(1)
         
     frames = extract_frames(project_id, comp_name)
     if not frames:
-        print("❌ لم يتم استخراج أي إطارات للفحص.")
+        log.error("لم يتم استخراج أي إطارات للفحص.")
         # ننشئ تقرير الفشل
         report = {"status": "fail", "reason": "No frames extracted"}
         with open(report_path, "w", encoding="utf-8") as f:
@@ -184,7 +195,7 @@ def main():
     has_failure = False
     
     for frame in frames:
-        print(f"🔍 فحص الإطار: {frame.name}")
+        log.debug(f"فحص الإطار: {frame.name}")
         frame_result = {
             "frame": frame.name,
             "text_content": extract_text_from_frame(frame),
@@ -196,11 +207,11 @@ def main():
         # إذا كان النص خارج الحدود نعتبره فشلاً
         if frame_result["bounds"].get("status") == "fail":
             has_failure = True
-            print(f"❌ {frame_result['bounds'].get('message')}")
+            log.error(f"{frame_result['bounds'].get('message')}")
         
         # التباين المنخفض مجرد تحذير، ولكن يمكن أن يكون فشلاً حسب السياسة. سنعتبره تحذيراً (كما في البرومبت)
         if frame_result["contrast"].get("status") == "warning":
-            print(f"⚠️ {frame_result['contrast'].get('message')}")
+            log.info(f"️ {frame_result['contrast'].get('message')}")
             
         report["results"].append(frame_result)
         
@@ -211,10 +222,10 @@ def main():
         json.dump(report, f, indent=2, ensure_ascii=False)
         
     if has_failure:
-        print("❌ Smart QC فشل. انظر التقرير للتفاصيل.")
+        log.error("Smart QC فشل. انظر التقرير للتفاصيل.")
         sys.exit(1)
     else:
-        print("✅ Smart QC نجح.")
+        log.success("Smart QC نجح.")
         sys.exit(0)
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2026-09-05T23:07:25.093919",
+    "operation": "test_op",
+    "function": "dummy",
+    "elapsed_seconds": 0.1,
+    "elapsed_human": "0.10s"
+  }
+]

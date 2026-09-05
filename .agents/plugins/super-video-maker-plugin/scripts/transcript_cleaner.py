@@ -1,4 +1,7 @@
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("transcript_cleaner")
+
 import os
 import json
 import argparse
@@ -33,33 +36,33 @@ def get_stats(transcript_path):
 def print_stats(session_id, transcript_path):
     stats = get_stats(transcript_path)
     if not stats:
-        print(f"السجل غير موجود: {transcript_path}")
+        log.info(f"السجل غير موجود: {transcript_path}")
         return
-    print(f"📊 إحصائيات السجل ({session_id}):")
-    print(f"- عدد الجولات: {stats['turns']}")
-    print(f"- الحجم: {stats['size_mb']} MB")
-    print(f"- آخر تعديل: {stats['last_modified']}")
+    log.info(f"إحصائيات السجل ({session_id}):")
+    log.info(f"- عدد الجولات: {stats['turns']}")
+    log.info(f"- الحجم: {stats['size_mb']} MB")
+    log.info(f"- آخر تعديل: {stats['last_modified']}")
 
 def show_last(session_id, transcript_path, n):
     stats = get_stats(transcript_path)
     if not stats:
-        print(f"السجل غير موجود: {transcript_path}")
+        log.info(f"السجل غير موجود: {transcript_path}")
         return
     lines = stats['lines']
     last_n = lines[-n:] if n <= len(lines) else lines
-    print(f"عرض آخر {len(last_n)} جولات:")
+    log.info(f"عرض آخر {len(last_n)} جولات:")
     for idx, line in enumerate(last_n):
         try:
             data = json.loads(line)
             step_type = data.get("type", "UNKNOWN")
             source = data.get("source", "UNKNOWN")
-            print(f"[{idx+1}] {source} -> {step_type}")
+            log.info(f"[{idx+1}] {source} -> {step_type}")
         except:
-            print(f"[{idx+1}] سطور غير صالحة للتحليل")
+            log.info(f"[{idx+1}] سطور غير صالحة للتحليل")
 
 def archive_transcript(session_id, transcript_path):
     if not os.path.exists(transcript_path):
-        print(f"السجل غير موجود: {transcript_path}")
+        log.info(f"السجل غير موجود: {transcript_path}")
         return None
     
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -67,7 +70,7 @@ def archive_transcript(session_id, transcript_path):
     archive_path = os.path.join(dir_name, f"transcript_archive_{timestamp}.jsonl")
     
     shutil.copy2(transcript_path, archive_path)
-    print(f"تم أرشفة السجل إلى: {archive_path}")
+    log.info(f"تم أرشفة السجل إلى: {archive_path}")
     return archive_path
 
 def check_recent_clean(transcript_path):
@@ -97,20 +100,20 @@ def record_clean_time(transcript_path):
 def clean_transcript(session_id, transcript_path, force=False):
     stats = get_stats(transcript_path)
     if not stats:
-        print(f"السجل غير موجود: {transcript_path}")
+        log.info(f"السجل غير موجود: {transcript_path}")
         return
     
     if not force and check_recent_clean(transcript_path):
-        print("⚠️ تم التنظيف مؤخراً (أقل من 30 دقيقة). تم تخطي التنظيف.")
+        log.info("️ تم التنظيف مؤخراً (أقل من 30 دقيقة). تم تخطي التنظيف.")
         return
 
     turns = stats['turns']
     if turns < 30:
-        print(f"⚠️ السجل يحتوي على {turns} جولة فقط (أقل من 30). تم حظر التنظيف لحماية البيانات.")
+        log.info(f"️ السجل يحتوي على {turns} جولة فقط (أقل من 30). تم حظر التنظيف لحماية البيانات.")
         return
     
     # 1. النسخ الاحتياطي والأرشفة
-    print("جاري إنشاء نسخة احتياطية...")
+    log.info("جاري إنشاء نسخة احتياطية...")
     archive_path = archive_transcript(session_id, transcript_path)
     
     # 2. الاحتفاظ بآخر 20 جولة
@@ -121,7 +124,7 @@ def clean_transcript(session_id, transcript_path, force=False):
         f.writelines(keep_lines)
     
     record_clean_time(transcript_path)
-    print(f"تم تنظيف السجل. تم الاحتفاظ بـ 20 جولة وأرشفة الباقي.")
+    log.info(f"تم تنظيف السجل. تم الاحتفاظ بـ 20 جولة وأرشفة الباقي.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Transcript Cleaner")

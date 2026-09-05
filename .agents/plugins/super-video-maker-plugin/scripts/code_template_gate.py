@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """code_template_gate.py — يمنع الارتجال ويجبر الوكيل على استخدام القوالب
 Usage: python code_template_gate.py <project_dir>"""
-import sys, json, re, hashlib
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("code_template_gate")
+
+import sys, json, re, hashlib, argparse
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -123,10 +126,13 @@ def run_gate(proj_path):
             print(f)
         sys.exit(1)
         
-    print("PASS: جميع المشاهد تلتزم بقواعد القوالب ولا يوجد ارتجال.")
+    log.info("PASS: جميع المشاهد تلتزم بقواعد القوالب ولا يوجد ارتجال.")
+
+def main():
+    parser = argparse.ArgumentParser(description="بوابة القوالب البرمجية")
+    parser.add_argument("project_id", help="معرف المشروع")
+    args = parser.parse_args()
+    run_gate(args.project_id)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(__doc__)
-        sys.exit(1)
-    run_gate(sys.argv[1])
+    main()

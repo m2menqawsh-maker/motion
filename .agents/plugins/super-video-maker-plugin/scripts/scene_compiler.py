@@ -1,18 +1,22 @@
 import json
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("scene_compiler")
+
 import os
 import subprocess
+import argparse
 
 def compile_scenes(spec_path):
     if not os.path.exists(spec_path):
-        print(f"Error: Spec file not found at {spec_path}")
+        log.info(f"Error: Spec file not found at {spec_path}")
         sys.exit(1)
 
     with open(spec_path, 'r', encoding='utf-8') as f:
         try:
             spec = json.load(f)
         except json.JSONDecodeError:
-            print("Error: Spec file is not valid JSON")
+            log.info("Error: Spec file is not valid JSON")
             sys.exit(1)
 
     project_dir = os.path.dirname(spec_path)
@@ -72,24 +76,27 @@ export const Scene{scene_idx}: React.FC = () => {{
         with open(out_file, 'w', encoding='utf-8') as f:
             f.write(tsx_content)
         
-        print(f"Generated {out_file}")
+        log.info(f"Generated {out_file}")
 
-    print("\nRunning tsc --noEmit...")
+    log.info("\nRunning tsc --noEmit...")
     build_dir = os.path.join(project_dir, "06_build")
     if os.path.exists(build_dir):
         try:
             # نستخدم shell=True لأننا على Windows
             subprocess.run(["npx", "tsc", "--noEmit"], cwd=build_dir, shell=True, check=True)
-            print("tsc --noEmit passed successfully.")
+            log.info("tsc --noEmit passed successfully.")
         except subprocess.CalledProcessError as e:
-            print(f"tsc --noEmit failed with exit code {e.returncode}")
+            log.info(f"tsc --noEmit failed with exit code {e.returncode}")
             sys.exit(1)
     else:
-        print(f"Warning: Build directory {build_dir} not found. Skipping tsc.")
+        log.info(f"Warning: Build directory {build_dir} not found. Skipping tsc.")
+
+def main():
+    parser = argparse.ArgumentParser(description="تجميع المشاهد")
+    parser.add_argument("target_spec", nargs="?", default="projects/test_taste/video_spec.json", help="مسار ملف الفيديو")
+    args = parser.parse_args()
+    
+    compile_scenes(args.target_spec)
 
 if __name__ == "__main__":
-    target_spec = "projects/test_taste/video_spec.json"
-    if len(sys.argv) > 1:
-        target_spec = sys.argv[1]
-    
-    compile_scenes(target_spec)
+    main()

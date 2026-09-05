@@ -1,6 +1,10 @@
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("motion_style_interviewer")
+
 import json
 import os
+import argparse
 
 def calculate_motion_style(answers: list[int]) -> dict:
     """يحسب ستايل الحركة بناءً على الإجابات"""
@@ -76,11 +80,13 @@ def calculate_motion_style(answers: list[int]) -> dict:
     }
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python motion_style_interviewer.py <project_id>")
-        sys.exit(1)
-        
-    project_id = sys.argv[1]
+    parser = argparse.ArgumentParser(description="محاور ستايل الحركة (Motion Style Interviewer)")
+    parser.add_argument("project_id", help="معرف المشروع")
+    args = parser.parse_args()
+    
+    project_id = args.project_id
+    global log
+    log = UnifiedLogger("motion_style_interviewer", project_id)
     
     questions = """🎬 معاينة ستايل الحركة (Motion Style Interview)
 
@@ -168,18 +174,18 @@ def main():
         try:
             answers = [int(x.strip()) for x in user_input.split(",")]
             if len(answers) != 10:
-                print("يجب إدخال 10 أرقام.")
+                log.info("يجب إدخال 10 أرقام.")
                 sys.exit(1)
             config = calculate_motion_style(answers)
         except ValueError:
-            print("إدخال غير صالح. سيتم استخدام الافتراضي.")
+            log.info("إدخال غير صالح. سيتم استخدام الافتراضي.")
             answers = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             config = calculate_motion_style(answers)
     
     with open(config_path, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=4, ensure_ascii=False)
         
-    print(f"\n✅ تم حفظ الستايل بنجاح في: {config_path}")
+    log.info(f"\n✅ تم حفظ الستايل بنجاح في: {config_path}")
     
     # Update session state
     state_path = os.path.join(project_dir, ".session_state.json")

@@ -1,5 +1,8 @@
 import os
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("context_compactor")
+
 import json
 import argparse
 from datetime import datetime, timezone
@@ -159,11 +162,11 @@ def compact(project_id):
                 # سجل عملية التنظيف في .session_state.json كـ "issue_resolved"
                 state['issues_resolved'].append({"issue": "تنظيف السجل التلقائي", "solution": f"تم تنظيف سجل الجلسة {session_id}"})
             except Exception as e:
-                print(f"فشل تنظيف السجل التلقائي: {e}")
+                log.info(f"فشل تنظيف السجل التلقائي: {e}")
 
     save_state(project_id, state)
     generate_digest(project_id, state)
-    print(f"تم إنشاء الـ digest للمشروع {project_id} بنجاح.")
+    log.info(f"تم إنشاء الـ digest للمشروع {project_id} بنجاح.")
 
 
 def add_decision(project_id, decision, status):
@@ -174,18 +177,18 @@ def add_decision(project_id, decision, status):
     elif status == 'rejected':
         state['rejected_decisions'].append(entry)
     else:
-        print("حالة القرار غير صحيحة. استخدم approved أو rejected.")
+        log.info("حالة القرار غير صحيحة. استخدم approved أو rejected.")
         return
     save_state(project_id, state)
     generate_digest(project_id, state)
-    print(f"تمت إضافة القرار كـ {status}.")
+    log.info(f"تمت إضافة القرار كـ {status}.")
 
 def set_phase(project_id, phase):
     state = load_state(project_id)
     state['current_phase'] = phase
     save_state(project_id, state)
     generate_digest(project_id, state)
-    print(f"تم تحديث المرحلة إلى {phase}.")
+    log.info(f"تم تحديث المرحلة إلى {phase}.")
 
 def add_note(project_id, category, note):
     state = load_state(project_id)
@@ -200,7 +203,7 @@ def add_note(project_id, category, note):
         pass # Could be added to a context array if needed in the future
     save_state(project_id, state)
     generate_digest(project_id, state)
-    print("تمت إضافة الملاحظة.")
+    log.info("تمت إضافة الملاحظة.")
 
 def show(project_id):
     digest_file = get_digest_file(project_id)
@@ -208,7 +211,7 @@ def show(project_id):
         with open(digest_file, 'r', encoding='utf-8') as f:
             print(f.read())
     else:
-        print("ملف الـ digest غير موجود.")
+        log.info("ملف الـ digest غير موجود.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

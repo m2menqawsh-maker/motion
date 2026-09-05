@@ -1,5 +1,8 @@
 import os
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("session_manager")
+
 import json
 import argparse
 import shutil
@@ -27,25 +30,25 @@ def run_compactor(project_id):
 def save_state(project_id):
     state_file = get_state_file(project_id)
     if not os.path.exists(state_file):
-        print(f"جاري إنشاء حالة جديدة للمشروع {project_id}...")
+        log.info(f"جاري إنشاء حالة جديدة للمشروع {project_id}...")
     
     # compactor creates or updates the state
     try:
         run_compactor(project_id)
-        print(f"تم حفظ حالة المشروع {project_id} بنجاح.")
+        log.info(f"تم حفظ حالة المشروع {project_id} بنجاح.")
     except Exception as e:
-        print(f"حدث خطأ أثناء حفظ الحالة: {e}")
+        log.info(f"حدث خطأ أثناء حفظ الحالة: {e}")
 
 def restore_state(project_id):
     state_file = get_state_file(project_id)
     if os.path.exists(state_file):
-        print(f"تم استعادة حالة المشروع {project_id}. يمكنك الآن المتابعة.")
+        log.info(f"تم استعادة حالة المشروع {project_id}. يمكنك الآن المتابعة.")
     else:
-        print(f"لا توجد حالة محفوظة للمشروع {project_id}.")
+        log.info(f"لا توجد حالة محفوظة للمشروع {project_id}.")
 
 def list_projects():
     if not os.path.exists(PROJECTS_DIR):
-        print("مجلد المشاريع غير موجود.")
+        log.info("مجلد المشاريع غير موجود.")
         return
         
     projects_with_state = []
@@ -56,11 +59,11 @@ def list_projects():
                 projects_with_state.append(d)
                 
     if not projects_with_state:
-        print("لا توجد مشاريع لها حالات محفوظة.")
+        log.info("لا توجد مشاريع لها حالات محفوظة.")
     else:
-        print("المشاريع التي لها حالات محفوظة:")
+        log.info("المشاريع التي لها حالات محفوظة:")
         for p in projects_with_state:
-            print(f"- {p}")
+            log.info(f"- {p}")
 
 def get_current_session_id():
     brain_dir = r"C:\Users\momen\.gemini\antigravity-ide\brain"
@@ -77,22 +80,22 @@ def generate_resume_brief(project_id):
     digest_file = get_digest_file(project_id)
     
     if not os.path.exists(state_file) or not os.path.exists(digest_file):
-        print(f"البيانات غير مكتملة للمشروع {project_id}. جاري توليدها...")
+        log.info(f"البيانات غير مكتملة للمشروع {project_id}. جاري توليدها...")
         try:
             run_compactor(project_id)
         except Exception as e:
-            print(f"فشل في إيجاد أو إنشاء حالة المشروع {project_id}: {e}")
+            log.info(f"فشل في إيجاد أو إنشاء حالة المشروع {project_id}: {e}")
             return
             
     if not os.path.exists(state_file):
-        print(f"فشل في إيجاد أو إنشاء حالة المشروع {project_id}.")
+        log.info(f"فشل في إيجاد أو إنشاء حالة المشروع {project_id}.")
         return
 
     try:
         with open(state_file, 'r', encoding='utf-8') as f:
             state = json.load(f)
     except Exception as e:
-        print(f"حدث خطأ أثناء قراءة ملف الحالة: {e}")
+        log.info(f"حدث خطأ أثناء قراءة ملف الحالة: {e}")
         return
         
     current_phase = state.get('current_phase', 'غير محددة')
@@ -112,7 +115,7 @@ def generate_resume_brief(project_id):
                 json.dump(state, f, ensure_ascii=False, indent=2)
                 
         except Exception as e:
-            print(f"ملاحظة: تعذر تنظيف السجل تلقائياً: {e}")
+            log.info(f"ملاحظة: تعذر تنظيف السجل تلقائياً: {e}")
 
     # Suggest next step based on current phase
     next_step = ""
@@ -153,17 +156,17 @@ def generate_resume_brief(project_id):
     with open(brief_file, 'w', encoding='utf-8') as f:
         f.write(brief_content)
         
-    print(f"تم إنشاء حزمة الاستئناف في: {brief_file}")
-    print("يرجى قراءة الملف ولصق البرومبت في المحادثة الجديدة.")
+    log.info(f"تم إنشاء حزمة الاستئناف في: {brief_file}")
+    log.info("يرجى قراءة الملف ولصق البرومبت في المحادثة الجديدة.")
 
 def export_state(project_id):
     state_file = get_state_file(project_id)
     if os.path.exists(state_file):
         export_file = os.path.join(get_project_dir(project_id), f"exported_state_{project_id}.json")
         shutil.copy2(state_file, export_file)
-        print(f"تم تصدير الحالة إلى: {export_file}")
+        log.info(f"تم تصدير الحالة إلى: {export_file}")
     else:
-        print(f"لا توجد حالة محفوظة للمشروع {project_id} لتصديرها.")
+        log.info(f"لا توجد حالة محفوظة للمشروع {project_id} لتصديرها.")
 
 def delete_state(project_id):
     state_file = get_state_file(project_id)
@@ -179,9 +182,9 @@ def delete_state(project_id):
         deleted = True
         
     if deleted:
-        print(f"تم حذف حالة المشروع {project_id} بنجاح.")
+        log.info(f"تم حذف حالة المشروع {project_id} بنجاح.")
     else:
-        print(f"لم يتم العثور على حالة محفوظة للمشروع {project_id}.")
+        log.info(f"لم يتم العثور على حالة محفوظة للمشروع {project_id}.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

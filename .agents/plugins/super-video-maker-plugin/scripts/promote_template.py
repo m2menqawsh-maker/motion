@@ -5,8 +5,12 @@ Promote Template — ترقية القالب من proposed/ إلى templates/
 """
 
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("promote_template")
+
 import json
 import shutil
+import argparse
 from pathlib import Path
 from datetime import datetime
 
@@ -32,7 +36,7 @@ class TemplatePromoter:
 
     def promote(self):
         """يرقي القالب المقترح إلى معتمد"""
-        print(f"🚀 [TemplatePromoter] ترقية القالب: {self.proposal_id}")
+        log.info(f"🚀 [TemplatePromoter] ترقية القالب: {self.proposal_id}")
 
         # 1. قراءة proposal.json
         proposal_file = self.proposal_dir / "proposal.json"
@@ -46,24 +50,24 @@ class TemplatePromoter:
 
         # 3. نسخ الملفات
         if target_dir.exists():
-            print(f"⚠️ القالب موجود بالفعل في {target_dir} — سيتم الكتابة فوقه")
+            log.info(f"️ القالب موجود بالفعل في {target_dir} — سيتم الكتابة فوقه")
             shutil.rmtree(target_dir)
 
         shutil.copytree(self.proposal_dir, target_dir)
-        print(f"✅ تم نسخ القالب إلى {target_dir}")
+        log.success(f"تم نسخ القالب إلى {target_dir}")
 
         # 4. تحديث TEMPLATE_INDEX.md
         self.update_template_index(proposal)
-        print(f"✅ تم تحديث {self.TEMPLATE_INDEX}")
+        log.success(f"تم تحديث {self.TEMPLATE_INDEX}")
 
         # 5. حذف الاقتراح الأصلي
         shutil.rmtree(self.proposal_dir)
-        print(f"✅ تم حذف الاقتراح الأصلي من {self.proposal_dir}")
+        log.success(f"تم حذف الاقتراح الأصلي من {self.proposal_dir}")
 
-        print(f"\n🎉 تم ترقية القالب بنجاح!")
-        print(f"📁 الموقع: {target_dir}")
-        print(f"📝 الاسم: {proposal['name']}")
-        print(f"🏷️ التصنيف: {category}")
+        log.info(f"\n🎉 تم ترقية القالب بنجاح!")
+        log.info(f"📁 الموقع: {target_dir}")
+        log.info(f"الاسم: {proposal['name']}")
+        log.info(f"🏷️ التصنيف: {category}")
 
     def get_category_dir(self, category: str) -> Path:
         """يحدد مجلد التصنيف"""
@@ -88,7 +92,7 @@ class TemplatePromoter:
     def update_template_index(self, proposal: dict):
         """يحدث TEMPLATE_INDEX.md بإضافة القالب الجديد"""
         if not self.TEMPLATE_INDEX.exists():
-            print(f"⚠️ {self.TEMPLATE_INDEX} غير موجود — سيتم إنشاؤه")
+            log.info(f"️ {self.TEMPLATE_INDEX} غير موجود — سيتم إنشاؤه")
             content = "# TEMPLATE INDEX\n\n"
         else:
             content = self.TEMPLATE_INDEX.read_text(encoding='utf-8')
@@ -119,18 +123,18 @@ class TemplatePromoter:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("الاستخدام: python promote_template.py <proposal_id>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="ترقية القالب من proposed/ إلى templates/")
+    parser.add_argument("proposal_id", help="معرف القالب المقترح")
+    args = parser.parse_args()
 
-    proposal_id = sys.argv[1]
+    proposal_id = args.proposal_id
     promoter = TemplatePromoter(proposal_id)
 
     try:
         promoter.promote()
         sys.exit(0)
     except Exception as e:
-        print(f"\n❌ {e}\n")
+        log.info(f"\n❌ {e}\n")
         sys.exit(1)
 
 

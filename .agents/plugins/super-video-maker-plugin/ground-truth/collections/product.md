@@ -1,6 +1,6 @@
 # Product Collection
 > مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-02
+> آخر تحديث: 2026-09-05
 
 ## مشاهد (Scenes)
 | Name | Quality | Path | Intents |

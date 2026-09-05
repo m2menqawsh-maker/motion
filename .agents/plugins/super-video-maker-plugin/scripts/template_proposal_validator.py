@@ -10,7 +10,12 @@ Template Proposal Validator — فحص جودة القوالب المقترحة
 """
 
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("template_proposal_validator")
+
 import json
+import re
+import argparse
 import subprocess
 from pathlib import Path
 from datetime import datetime
@@ -49,7 +54,7 @@ class TemplateProposalValidator:
 
     def validate_all(self):
         """فحص شامل للاقتراح"""
-        print(f"🔍 [TemplateProposalValidator] فحص الاقتراح: {self.proposal_id}")
+        log.debug(f"[TemplateProposalValidator] فحص الاقتراح: {self.proposal_id}")
 
         checks = [
             ("وجود الملفات الأساسية", self.check_required_files),
@@ -63,12 +68,12 @@ class TemplateProposalValidator:
         for name, check in checks:
             try:
                 check()
-                print(f"  ✅ {name}")
+                log.success(f"{name}")
             except ProposalViolation as e:
-                print(f"\n🛑 [TemplateProposalValidator] فشل الفحص!\n{e}\n")
+                log.info(f"\n🛑 [TemplateProposalValidator] فشل الفحص!\n{e}\n")
                 raise
 
-        print(f"✅ [TemplateProposalValidator] جميع الفحوصات نجحت — القالب جاهز للترقية!\n")
+        log.success(f"[TemplateProposalValidator] جميع الفحوصات نجحت — القالب جاهز للترقية!\n")
 
     def check_required_files(self):
         """يتحقق من وجود الملفات الأساسية"""
@@ -202,18 +207,18 @@ class TemplateProposalValidator:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("الاستخدام: python template_proposal_validator.py <proposal_id>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="التحقق من صحة القالب المقترح")
+    parser.add_argument("proposal_id", help="معرف القالب المقترح")
+    args = parser.parse_args()
 
-    proposal_id = sys.argv[1]
+    proposal_id = args.proposal_id
     validator = TemplateProposalValidator(proposal_id)
 
     try:
         validator.validate_all()
         sys.exit(0)
     except ProposalViolation as e:
-        print(f"\n🛑 {e}\n")
+        log.info(f"\n🛑 {e}\n")
         sys.exit(1)
 
 

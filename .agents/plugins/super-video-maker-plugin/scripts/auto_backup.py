@@ -5,6 +5,11 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+from utils.logger import UnifiedLogger
+from utils.config import Config
+log = UnifiedLogger("auto_backup")
+config = Config()
+
 def create_backup(project_id: str, stage_name: str):
     """إنشاء نسخة احتياطية من المشروع قبل مرحلة معينة"""
     project_dir = Path(f"projects/{project_id}")
@@ -26,7 +31,7 @@ def create_backup(project_id: str, stage_name: str):
                 shutil.copy2(src, backup_path / f)
         return True
     except Exception as e:
-        print(f"⚠️ فشل النسخ الاحتياطي: {e}")
+        log.info(f"️ فشل النسخ الاحتياطي: {e}")
         return False
 
 if __name__ == "__main__":
@@ -38,8 +43,8 @@ if __name__ == "__main__":
     
     success = create_backup(args.project_id, args.stage_name)
     if success:
-        print(f"✅ تم إنشاء النسخة الاحتياطية بنجاح للمشروع {args.project_id} (المرحلة: {args.stage_name})")
+        log.success(f"تم إنشاء النسخة الاحتياطية بنجاح للمشروع {args.project_id} (المرحلة: {args.stage_name})")
     else:
-        print(f"❌ فشل النسخ الاحتياطي للمشروع {args.project_id}")
+        log.error(f"فشل النسخ الاحتياطي للمشروع {args.project_id}")
         import sys
         sys.exit(1)

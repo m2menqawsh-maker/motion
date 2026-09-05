@@ -3,8 +3,14 @@
 
 import os
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("final_qc")
+from utils.config import Config
+config = Config()
+
 import json
 import subprocess
+import argparse
 from pathlib import Path
 
 def ensure_dependencies():
@@ -15,7 +21,7 @@ def ensure_dependencies():
             import_name = pkg.replace('-', '_')
             __import__(import_name)
         except ImportError:
-            print(f"📦 تثبيت {pkg}...")
+            log.info(f"📦 تثبيت {pkg}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", pkg, "--quiet"])
 
 ensure_dependencies()
@@ -48,7 +54,7 @@ def analyze_video_with_ffmpeg(video_path: str):
         audio_stream = next((stream for stream in probe['streams'] if stream['codec_type'] == 'audio'), None)
         return video_stream, audio_stream
     except Exception as e:
-        print(f"⚠️ فشل تحليل الفيديو باستخدام ffmpeg-python: {e}")
+        log.info(f"️ فشل تحليل الفيديو باستخدام ffmpeg-python: {e}")
         return None, None
 
 def check_black_frames(video_path: str):
@@ -75,9 +81,24 @@ def check_av_sync(video_path: str, timings_path: Path) -> dict:
         
     try:
         import librosa
+        import tempfile
+        
+        # استخراج الصوت إلى ملف مؤقت
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            temp_audio_path = tmp.name
+            
+        subprocess.run([
+            'ffmpeg', '-y', '-i', str(video_path), 
+            '-vn', '-acodec', 'pcm_s16le', '-ar', '44100', '-ac', '2', 
+            temp_audio_path
+        ], capture_output=True, check=True)
         
         # استخراج peaks من الصوت
-        y, sr = librosa.load(video_path, sr=None)
+        y, sr = librosa.load(temp_audio_path, sr=None)
+        
+        # حذف الملف المؤقت
+        Path(temp_audio_path).unlink(missing_ok=True)
+        
         onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
         onset_times = librosa.frames_to_time(onset_frames, sr=sr)
         
@@ -110,12 +131,17 @@ def check_av_sync(video_path: str, timings_path: Path) -> dict:
     except Exception as e:
         return {"status": "warning", "message": f"فشل فحص التزامن الصوتي-البصري: {e}"}
 
+from utils.performance import track_performance
+
+@track_performance("final_qc")
 def main():
-    if len(sys.argv) < 2:
-        print("الاستخدام: python final_qc.py <project_id>")
-        sys.exit(1)
-        
-    project_id = sys.argv[1]
+    parser = argparse.ArgumentParser(description="الفحص النهائي للفيديو (Final QC)")
+    parser.add_argument("project_id", help="معرف المشروع")
+    args = parser.parse_args()
+    
+    project_id = args.project_id
+    global log
+    log = UnifiedLogger("final_qc", project_id)
     
     project_dir = Path(project_id).resolve()
     if not project_dir.exists() and Path(f"projects/{project_id}").exists():
@@ -127,10 +153,10 @@ def main():
     timings_path = project_dir / "04_timings.json"
     
     if not video_path.exists():
-        print(f"❌ الفيديو النهائي لم يُعثر عليه: {video_path}")
+        log.error(f"الفيديو النهائي لم يُعثر عليه: {video_path}")
         sys.exit(1)
         
-    print(f"🔍 بدء الفحص النهائي للفيديو: {video_path.name}")
+    log.debug(f"بدء الفحص النهائي للفيديو: {video_path.name}")
     
     report = {
         "status": "pass",
@@ -146,13 +172,13 @@ def main():
         codec = v_stream.get('codec_name', '')
         
         fps_str = v_stream.get('r_frame_rate', '0/1')
-        parts = fps_str.split('/')
-        fps = float(parts[0]) / float(parts[1]) if len(parts) == 2 and float(parts[1]) > 0 else 0
         
+        expected_w = config.get('video.width', 1080)
+        expected_h = config.get('video.height', 1920)
         report["checks"]["dimensions"] = {
-            "status": "pass" if (width == 1080 and height == 1920) else "fail",
+            "status": "pass" if (width == expected_w and height == expected_h) else "fail",
             "value": f"{width}x{height}",
-            "message": "الأبعاد صحيحة 1080x1920" if (width == 1080 and height == 1920) else f"أبعاد غير صحيحة ({width}x{height})"
+            "message": f"الأبعاد صحيحة {expected_w}x{expected_h}" if (width == expected_w and height == expected_h) else f"أبعاد غير صحيحة ({width}x{height})"
         }
         
         report["checks"]["codec_video"] = {
@@ -161,10 +187,26 @@ def main():
             "message": f"فيديو Codec: {codec}"
         }
         
+        expected_fps = config.get('video.fps', 30)
+        
+        # Accept variations like 30, 30.00, or 30000/1001 for 29.97
+        is_fps_correct = False
+        try:
+            # Handle fraction strings like "30/1"
+            if '/' in fps_str:
+                num, den = map(float, fps_str.split('/'))
+                fps_val = num / den
+            else:
+                fps_val = float(fps_str)
+            is_fps_correct = (abs(fps_val - float(expected_fps)) < 0.1)
+        except Exception:
+            fps_val = fps_str
+            pass
+
         report["checks"]["fps"] = {
-            "status": "pass" if abs(fps - 30) < 1 else "warning",
-            "value": round(fps, 2),
-            "message": f"معدل الإطارات: {fps:.2f}fps"
+            "value": fps_str,
+            "status": "pass" if is_fps_correct else "fail",
+            "message": f"معدل الإطارات: {fps_val:.2f}fps" if isinstance(fps_val, float) else f"معدل الإطارات: {fps_str}"
         }
     else:
         report["checks"]["video_stream"] = {"status": "fail", "message": "لا يوجد تدفق فيديو"}
@@ -190,11 +232,11 @@ def main():
     for k, v in report["checks"].items():
         if v.get("status") == "fail":
             has_fail = True
-            print(f"❌ [{k}]: {v.get('message')}")
+            log.error(f"[{k}]: {v.get('message')}")
         elif v.get("status") == "warning":
-            print(f"⚠️ [{k}]: {v.get('message')}")
+            log.info(f"️ [{k}]: {v.get('message')}")
         else:
-            print(f"✅ [{k}]: {v.get('message')}")
+            log.success(f"[{k}]: {v.get('message')}")
             
     if has_fail:
         report["status"] = "fail"
@@ -203,10 +245,10 @@ def main():
     report_file.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     
     if has_fail:
-        print("❌ Final QC فشل. يرجى مراجعة التقرير.")
+        log.error("Final QC فشل. يرجى مراجعة التقرير.")
         sys.exit(1)
     else:
-        print("🎉 Final QC نجح. الفيديو جاهز للتسليم.")
+        log.success("Final QC نجح. الفيديو جاهز للتسليم.")
         sys.exit(0)
 
 if __name__ == "__main__":

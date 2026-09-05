@@ -125,6 +125,18 @@ python .agents/launcher.py context_compactor.py add-note <project_id> issue_reso
 - ❌ تجاهل ملف `motion_style_config.json` بعد إنشائه
 - ❌ استخدام قيم مختلفة عن المحددة في الـ config
 
+## 🔒 الأدوات الإلزامية (ممنوع تجاوزها)
+
+### عند بداية كل مشروع:
+1. ✅ `vo_quality_check.py` — فحص جودة الصوت
+   - **التجاوز:** مسموح فقط للمشاريع التجريبية (`{"experimental": true}` في `.session_state.json`)
+2. ✅ `auto_backup.py` — نسخة احتياطية أولية
+   - **التجاوز:** مسموح فقط للاختبارات السريعة (`{"skip_backup": true}`)
+3. ✅ `audio-tools-mcp:analyze_voiceover` — تحليل الصوت
+
+### بعد الرندر:
+1. ✅ `PRODUCTION_REPORT.md` — تقرير الإنتاج (يُنشأ تلقائياً بعد الرندر)
+
 ## المرحلة 0: التحضير والتحليل الأولي
 **السكريبتات الإلزامية:**
 - `auto_backup.py`: يُشغل فور بدء المشروع لأخذ نسخة احتياطية مبدئية.
@@ -236,3 +248,16 @@ python .agents/launcher.py context_compactor.py add-note <project_id> issue_reso
 
 المخرج: الفيديو النهائي المُصدّر.
 🛑 توقف 3: توقف نهائي للتسليم.
+
+## 🎬 المشاريع الخاصة
+
+### المشاريع الصامتة (Audio-Free)
+إذا كان المشروع لا يحتوي على تعليق صوتي:
+1. أضف `{"audio_free": true}` إلى `.session_state.json`
+2. سيتم تجاوز:
+   - `require_vo_quality_check`
+   - `require_stage_complete` (مرحلة audio_analysis)
+   - `require_all_sentences_covered`
+
+### المشاريع التجريبية
+أضف `{"experimental": true}` لتجاوز فحوصات الجودة الصارمة.

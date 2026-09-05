@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("vo_quality_check")
+from utils.config import Config
+config = Config()
+
 import subprocess
 from pathlib import Path
 
@@ -13,7 +18,7 @@ def ensure_dependencies():
             import_name = pkg.replace('-', '_')
             __import__(import_name)
         except ImportError:
-            print(f"📦 تثبيت {pkg}...")
+            log.info(f"📦 تثبيت {pkg}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", pkg, "--quiet"])
 
 ensure_dependencies()
@@ -26,7 +31,8 @@ def check_vo_quality(audio_path: str) -> dict:
         y, sr = librosa.load(audio_path, sr=None)
         
         # 1. معدل العينة (Sample Rate)
-        sr_status = "pass" if sr >= 44100 else "warning"
+        expected_sr = config.get('audio.sample_rate', 44100)
+        sr_status = "pass" if sr >= expected_sr else "warning"
         
         # 2. Clipping
         max_amp = np.max(np.abs(y))
@@ -50,7 +56,7 @@ def check_vo_quality(audio_path: str) -> dict:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("الاستخدام: python vo_quality_check.py <audio_file>")
+        log.info("الاستخدام: python vo_quality_check.py <audio_file>")
         sys.exit(1)
     
     res = check_vo_quality(sys.argv[1])

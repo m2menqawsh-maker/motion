@@ -1,6 +1,6 @@
 # Explainers Collection
 > مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-02
+> آخر تحديث: 2026-09-05
 
 ## مشاهد (Scenes)
 | Name | Quality | Path | Intents |
@@ -29,8 +29,8 @@
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
-| `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, caption, title_reveal |
+| `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | caption, emphasis |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, title_reveal, typing |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
 | `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
@@ -57,7 +57,7 @@
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, badge, title_reveal |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, title_reveal, element_animation |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
 | `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
@@ -77,17 +77,17 @@
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |
 | `GradientShift` | C | `templates/effects/motion/gradient-shift.tsx` | motion_effect |
-| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | motion_effect, emphasis |
+| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | emphasis, motion_effect |
 | `LiquidWave` | C | `templates/effects/motion/liquid-wave.tsx` | motion_effect |
 | `ParallaxPan` | C | `templates/effects/motion/parallax-pan.tsx` | motion_effect |
 | `ParticleExplosion` | C | `templates/effects/motion/particle-explosion.tsx` | motion_effect |
 | `SoundWave` | C | `templates/effects/motion/sound-wave.tsx` | motion_effect |
-| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, image_motion, emphasis |
+| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | emphasis, image_motion, motion_effect |
 | `BokehCircles` | C | `templates/effects/overlays/bokeh-circles.tsx` | overlay |
 | `FilmBurn` | C | `templates/effects/overlays/film-burn.tsx` | overlay |
 | `GeometricPatterns` | C | `templates/effects/overlays/geometric-patterns.tsx` | overlay |
 | `NoiseGrain` | C | `templates/effects/overlays/noise-grain.tsx` | overlay |
-| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | emphasis, overlay |
+| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | overlay, emphasis |
 | `BlindsTransition` | C | `templates/effects/transitions/blinds-transition.tsx` | transition |
 | `BlurOutUp` | A | `templates/effects/transitions/blur-out-up.tsx` | transition |
 | `ClockWipe` | C | `templates/effects/transitions/clock-wipe.tsx` | transition |

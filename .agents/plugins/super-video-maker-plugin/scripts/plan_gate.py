@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("plan_gate")
+
 import re
+import argparse
 from pathlib import Path
 from collections import Counter
 
@@ -140,29 +144,31 @@ def validate_plan_quality(plan_content: str) -> dict:
     return is_valid, errors
 
 def main():
-    if len(sys.argv) < 2:
-        print("الاستخدام: python plan_gate.py <project_id>")
-        sys.exit(1)
-        
-    project_id = sys.argv[1]
+    parser = argparse.ArgumentParser(description="بوابة الخطة")
+    parser.add_argument("project_id", help="معرف المشروع")
+    
+    args = parser.parse_args()
+    project_id = args.project_id
+    global log
+    log = UnifiedLogger("plan_gate", project_id)
     project_dir = Path(f"projects/{project_id}")
     plan_file = project_dir / "master_plan.md"
     
     if not plan_file.exists():
-        print(f"❌ الخطة غير موجودة في المسار: {plan_file}")
-        print("تأكد أن الوكيل قام بإنشاء master_plan.md بالفعل.")
+        log.error(f"الخطة غير موجودة في المسار: {plan_file}")
+        log.info("تأكد أن الوكيل قام بإنشاء master_plan.md بالفعل.")
         sys.exit(1)
         
     content = plan_file.read_text(encoding="utf-8")
     
-    print(f"🔍 فحص جودة الخطة للمشروع {project_id}...")
+    log.debug(f"فحص جودة الخطة للمشروع {project_id}...")
     is_valid, errors = validate_plan_quality(content)
     
     if not is_valid:
         print("\n".join(errors))
         sys.exit(1)
         
-    print("✅ PLAN VALID: الخطة مطابقة لمعايير الجودة والتفاصيل الدقيقة. لا يوجد حشو وتم التحقق من التنوع.")
+    log.success("PLAN VALID: الخطة مطابقة لمعايير الجودة والتفاصيل الدقيقة. لا يوجد حشو وتم التحقق من التنوع.")
     sys.exit(0)
 
 if __name__ == "__main__":

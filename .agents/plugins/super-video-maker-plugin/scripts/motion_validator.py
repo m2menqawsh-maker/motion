@@ -1,5 +1,9 @@
+import argparse
 # -*- coding: utf-8 -*-
 """motion_validator.py — مدقق شخصية الحركة المبني ديناميكياً على motion-personality.md"""
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("motion_validator")
+
 import re, json, sys
 from pathlib import Path
 
@@ -189,15 +193,15 @@ def validate_creative_rules(scene_plan, previous_scene_plan=None, project_bluepr
 
     # طباعة النتائج
     if errors:
-        print("❌ Creative Validation Failed:")
+        log.error("Creative Validation Failed:")
         for err in errors:
-            print(f"  {err}")
+            log.info(f"{err}")
         return False
     else:
-        print("✅ Creative Validation Passed:")
-        print(f"  - التنوع: {len(current_templates)} قوالب من عائلات مختلفة")
-        print(f"  - الـ SFX: {sfx_count} مؤثرات صوتية لـ {visual_gestures} إيماءات بصرية")
-        print(f"  - الكثافة: {elements_count} عناصر بصرية")
+        log.success("Creative Validation Passed:")
+        log.info(f"- التنوع: {len(current_templates)} قوالب من عائلات مختلفة")
+        log.info(f"- الـ SFX: {sfx_count} مؤثرات صوتية لـ {visual_gestures} إيماءات بصرية")
+        log.info(f"- الكثافة: {elements_count} عناصر بصرية")
         return True
 
 # دوال مساعدة (Helper Functions)
@@ -323,10 +327,15 @@ def get_unique_families(templates):
     return families
 
 
-if __name__ == "__main__":
+def main():
     import sys
-    if len(sys.argv) > 1:
-        target_path = Path(sys.argv[1])
+    parser = argparse.ArgumentParser(description="Validate motion configurations")
+    parser.add_argument("target_path", nargs="?", help="Path to the blueprint JSON file")
+    parser.add_argument("prev_plan", nargs="?", help="Path to the previous plan")
+    args = parser.parse_args()
+
+    if args.target_path:
+        target_path = Path(args.target_path)
         if target_path.suffix == ".json":
             bp = json.loads(target_path.read_text(encoding="utf-8"))
             motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "deep" / "motion-taste" / "director" / "motion-personality.md"
@@ -334,16 +343,17 @@ if __name__ == "__main__":
                 motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "motion-taste" / "director" / "motion-personality.md"
             fails = validate(bp, motion_taste_file)
             if fails:
-                print("❌ MOTION VALIDATION FAIL:")
+                log.error("MOTION VALIDATION FAIL:")
                 for f in fails:
                     print(" -", f)
-                sys.exit(1)
-            print("✅ MOTION VALIDATION PASS")
+            log.success("MOTION VALIDATION PASS")
             
             # Run creative rules validation if provided
-            prev_plan = sys.argv[2] if len(sys.argv) > 2 else None
+            prev_plan = args.prev_plan
             if not validate_creative_rules(bp, prev_plan, bp):
-                print("\n🛑 Creative Validation Failed. Cannot proceed to materialize_project.py")
-                print("عدّل خطة المشهد وأعد التشغيل.")
+                log.info("\n🛑 Creative Validation Failed. Cannot proceed to materialize_project.py")
+                log.info("عدّل خطة المشهد وأعد التشغيل.")
                 sys.exit(1)
 
+if __name__ == "__main__":
+    main()

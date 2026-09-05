@@ -1,0 +1,43 @@
+# إعدادات Clean Video Workspace
+
+# إعدادات الصوت
+audio:
+  voiceover_lufs: -16
+  sfx_lufs: -24
+  bgm_lufs: -28
+  sample_rate: 44100
+  bit_depth: 16
+
+# إعدادات الفيديو
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  codec: "h264"
+  bitrate: "8M"
+
+# إعدادات البوابات
+gates:
+  max_context_lines: 100
+  min_transcript_turns: 30
+  max_retries: 3
+  retry_delays: [0.5, 1.0, 2.0]
+
+# إعدادات الستايل
+styles:
+  default: "cyber_tech"
+  min_font_size: 100
+  max_colors_per_scene: 5
+  allow_neon_glow: true
+
+# إعدادات الأداء
+performance:
+  max_concurrent_builds: 4
+  timeout_per_scene: 60
+  memory_limit_mb: 2048
+
+# إعدادات الـ logging
+logging:
+  level: "INFO"
+  console_format: "%(asctime)s | %(levelname)-8s | %(message)s"
+  file_format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"

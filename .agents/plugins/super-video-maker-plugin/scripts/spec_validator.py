@@ -1,20 +1,24 @@
 import json
 import sys
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("spec_validator")
+
 import os
+import argparse
 
 # مجرد كتالوج افتراضي لاختبار القاعدة، يمكن ربطه بـ TEMPLATE_INDEX.md لاحقاً
 CATALOG = ["TitleScene", "BulletList", "HighlightCard", "CodeReveal", "SplitScreen", "CallToAction", "NeonCyberCard", "GlassmorphismPill"]
 
 def validate_spec(spec_path):
     if not os.path.exists(spec_path):
-        print(f"FAIL: Spec file not found at {spec_path}")
+        log.info(f"FAIL: Spec file not found at {spec_path}")
         sys.exit(1)
 
     with open(spec_path, 'r', encoding='utf-8') as f:
         try:
             spec = json.load(f)
         except json.JSONDecodeError:
-            print("FAIL: Spec file is not valid JSON")
+            log.info("FAIL: Spec file is not valid JSON")
             sys.exit(1)
 
     project_dir = os.path.dirname(spec_path)
@@ -80,17 +84,20 @@ def validate_spec(spec_path):
                     violations.append(f"Scene {scene_id}: Asset base '{asset_base}' not found in ASSET_INDEX.json.")
 
     if violations:
-        print("FAIL")
+        log.info("FAIL")
         for v in violations:
-            print(f" - {v}")
+            log.info(f"- {v}")
         sys.exit(1)
     else:
-        print("PASS")
+        log.info("PASS")
         sys.exit(0)
 
-if __name__ == "__main__":
-    target_spec = "projects/test_taste/video_spec.json"
-    if len(sys.argv) > 1:
-        target_spec = sys.argv[1]
+def main():
+    parser = argparse.ArgumentParser(description="التحقق من صحة ملف الفيديو (Spec Validator)")
+    parser.add_argument("target_spec", nargs="?", default="projects/test_taste/video_spec.json", help="مسار ملف الفيديو")
+    args = parser.parse_args()
     
-    validate_spec(target_spec)
+    validate_spec(args.target_spec)
+
+if __name__ == "__main__":
+    main()

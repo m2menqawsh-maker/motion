@@ -1,4 +1,6 @@
-import json, sys, re
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("taste_gate")
+import sys, json, re, argparse
 from pathlib import Path
 
 def fail(msg):
@@ -64,11 +66,11 @@ def parse_scene_plan(path):
     return scene
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python taste_gate.py <scene_plan.md>")
-        sys.exit(1)
-        
-    scene_path = Path(sys.argv[1])
+    parser = argparse.ArgumentParser(description="بوابة الذوق (Taste Gate)")
+    parser.add_argument("scene_plan", help="مسار خطة المشهد")
+    args = parser.parse_args()
+    
+    scene_path = Path(args.scene_plan)
     if not scene_path.exists():
         fail(f"الملف غير موجود: {scene_path}")
         
@@ -119,7 +121,7 @@ def main():
 
     # 8. التنوع المزدوج لمشهدين (not easily checked in a single scene script unless we read previous scenes, which we can skip for the basic gate or just pass)
     
-    print(f"✅ TASTE GATE OK: اجتاز المشهد {scene_path.name} الفحص بنجاح.")
+    log.success(f"TASTE GATE OK: اجتاز المشهد {scene_path.name} الفحص بنجاح.")
 
 if __name__ == "__main__":
     main()

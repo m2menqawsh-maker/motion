@@ -1,3 +1,4 @@
+import argparse
 # -*- coding: utf-8 -*-
 """validate_blueprint.py — بوابة عقد الـ Blueprint قبل البناء.
 Usage:
@@ -6,6 +7,9 @@ Usage:
   python validate_blueprint.py <bp.json> --lock                      # قفل العقد
   python validate_blueprint.py <bp.json> --verify-build <proj_dir>   # الكود المبني == العقد
 Exit 0 = PASS."""
+from utils.logger import UnifiedLogger
+log = UnifiedLogger("validate_blueprint")
+
 import json, re, sys
 from pathlib import Path
 from collections import Counter
@@ -197,15 +201,24 @@ def verify_build(bp, proj):
     extra = built - used
     if extra: fail(f"خرق عقد: قوالب بالكود خارج الـ Blueprint: {sorted(extra)}")
 
-if __name__ == "__main__":
-    args = sys.argv[1:]
-    if not args: print(__doc__); sys.exit(0)
-    bp = json.loads(Path(args[0]).read_text(encoding="utf-8"))
-    check(bp, args[0])
-    if "--md" in args: render_md(bp, args[args.index("--md") + 1])
-    if "--lock" in args: lock(bp)
-    if "--verify-build" in args: verify_build(bp, args[args.index("--verify-build") + 1])
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Blueprint validator")
+    parser.add_argument("blueprint_path", help="مسار ملف blueprint.json")
+    parser.add_argument("--md", help="مسار ملف markdown للتوليد")
+    parser.add_argument("--lock", action="store_true", help="قفل الـ Blueprint")
+    parser.add_argument("--verify-build", dest="verify_build", help="مسار المشروع للتحقق من بناء الكود")
+    args = parser.parse_args()
+
+    bp = json.loads(Path(args.blueprint_path).read_text(encoding="utf-8"))
+    check(bp, args.blueprint_path)
+    if args.md: render_md(bp, args.md)
+    if args.lock: lock(bp)
+    if args.verify_build: verify_build(bp, args.verify_build)
     for w in warns: print("⚠️", w)
     if fails:
-        print("❌ BLUEPRINT FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)
-    print("✅ BLUEPRINT PASS")
+        log.error("BLUEPRINT FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)
+    log.success("BLUEPRINT PASS")
+
+if __name__ == '__main__':
+    main()
