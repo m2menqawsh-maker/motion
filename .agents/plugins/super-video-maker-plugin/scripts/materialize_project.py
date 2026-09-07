@@ -45,7 +45,19 @@ if (DST / "engine").exists():
     copied_eng = len(list(src_eng.rglob("*.*")))
 print(f"تم نسخ القوالب: {copied_tpl} ملف من templates، و {copied_eng} ملف من engine.")
 
-# 2) tsconfig.json Alias Injection
+# 2) Boilerplate Copy
+import shutil
+
+boilerplate_files = ["package.json", "tsconfig.json", "remotion.config.ts"]
+for bfile in boilerplate_files:
+    if (DST / "remotion-app" / bfile).exists():
+        shutil.copy2(DST / "remotion-app" / bfile, proj / "06_build" / bfile)
+
+if (DST / "remotion-app" / "src" / "index.ts").exists():
+    (proj / "06_build" / "src").mkdir(parents=True, exist_ok=True)
+    shutil.copy2(DST / "remotion-app" / "src" / "index.ts", proj / "06_build" / "src" / "index.ts")
+
+# 3) tsconfig.json Alias Injection
 tsconfig_path = proj / "06_build" / "tsconfig.json"
 if tsconfig_path.exists():
     try:
