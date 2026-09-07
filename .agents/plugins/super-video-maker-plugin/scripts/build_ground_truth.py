@@ -78,7 +78,7 @@ REMOCN_PATHS = [
 
 def get_source(relative_path, source_name):
     if source_name == "engine":
-        return "cinematic-engine"
+        return "engine"
         
     for p in REMOCN_PATHS:
         if p in relative_path:
@@ -327,7 +327,7 @@ if ce.exists():
         rel = f.relative_to(ce).as_posix()
         lines.append(f"| `{rel}` | {', '.join(sorted(set(exp)))} | {', '.join(props[:12]) or '—'} | {cin_family(rel)} |")
 (OUT / "CINEMATIC_INDEX.md").write_text(
-    hdr("CINEMATIC_INDEX — مكونات المحرك السينمائي على القرص", "cinematic-engine/**/*.tsx|ts")
+    hdr("CINEMATIC_INDEX — مكونات المحرك السينمائي على القرص", "engine/**/*.tsx|ts")
     + f"**العدد: {n} مكوناً**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 print(f"CINEMATIC_INDEX: {n}")
 
