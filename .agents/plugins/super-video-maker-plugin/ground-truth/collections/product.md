@@ -18,17 +18,17 @@
 | `LogoSpinReveal` | C | `templates/elements/branding/logo-spin-reveal.tsx` | logo |
 | `LogoSplitReveal` | C | `templates/elements/branding/logo-split-reveal.tsx` | logo |
 | `LogoStrokeDraw` | C | `templates/elements/branding/logo-stroke-draw.tsx` | logo |
-| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
+| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | logo, typing |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
-| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | progress_indicator, stat |
+| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
 | `ComparisonChart` | C | `templates/elements/data/comparison-chart.tsx` | stat |
 | `DonutChart` | C | `templates/elements/data/donut-chart.tsx` | stat |
 | `LineChart` | C | `templates/elements/data/line-chart.tsx` | stat |
 | `PieChart` | C | `templates/elements/data/pie-chart.tsx` | stat |
-| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | progress_indicator, stat |
-| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | progress_indicator, stat |
+| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | stat, progress_indicator |
+| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | stat, progress_indicator |
 | `StatCounter` | C | `templates/elements/data/stat-counter.tsx` | stat |
 | `Statcard` | A | `templates/elements/data/StatCard.tsx` | stat |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
