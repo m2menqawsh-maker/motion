@@ -44,7 +44,6 @@ import { CodeBlock as Comp_39_Codeblock } from "@/templates/elements/code/code-b
 import { CodeDiff as Comp_40_Codediff } from "@/templates/elements/code/code-diff/CodeDiff";
 import { Terminal as Comp_41_Terminal } from "@/templates/elements/code/terminal/Terminal";
 import Comp_42_AreaChart from "@/templates/elements/data/area-chart";
-import Comp_43_Audiovisualizer from "@/templates/elements/data/AudioVisualizer";
 import Comp_44_ChartAnimation from "@/templates/elements/data/chart-animation";
 import Comp_45_CircularProgress from "@/templates/elements/data/circular-progress";
 import Comp_46_ComparisonChart from "@/templates/elements/data/comparison-chart";
@@ -614,14 +613,7 @@ export function renderLiveComponent(meta: TemplateMeta): React.ReactNode {
           </div>
         );
       }
-      case "elements/data/AudioVisualizer": {
-        const Component = Comp_43_Audiovisualizer as any;
-        return (
-          <div key="elements/data/AudioVisualizer" style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" }}>
-            <Component {...MOCK_PROPS} />
-          </div>
-        );
-      }
+
       case "elements/data/chart-animation": {
         const Component = Comp_44_ChartAnimation as any;
         return (
