@@ -35,17 +35,17 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, title_reveal, badge |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, title_reveal, element_animation |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
-| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
+| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | notification, ui_element |
 | `QuoteCard` | C | `templates/elements/ui/quote-card.tsx` | ui_element |
 | `Color` | A | `templates/elements/ui/remocn-ui/color.ts` | ui_element |
 | `Motion` | A | `templates/elements/ui/remocn-ui/motion.ts` | ui_element |

@@ -24,7 +24,7 @@
 | `KenBurns` | A | `templates/scenes/product/ken-burns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
@@ -53,31 +53,31 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, title_reveal, badge |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, title_reveal, element_animation |
 
 ## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |
 | `GradientShift` | C | `templates/effects/motion/gradient-shift.tsx` | motion_effect |
-| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | emphasis, motion_effect |
+| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | motion_effect, emphasis |
 | `LiquidWave` | C | `templates/effects/motion/liquid-wave.tsx` | motion_effect |
 | `ParallaxPan` | C | `templates/effects/motion/parallax-pan.tsx` | motion_effect |
 | `ParticleExplosion` | C | `templates/effects/motion/particle-explosion.tsx` | motion_effect |
 | `SoundWave` | C | `templates/effects/motion/sound-wave.tsx` | motion_effect |
-| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | emphasis, image_motion, motion_effect |
+| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, emphasis, image_motion |
 | `BokehCircles` | C | `templates/effects/overlays/bokeh-circles.tsx` | overlay |
 | `FilmBurn` | C | `templates/effects/overlays/film-burn.tsx` | overlay |
 | `GeometricPatterns` | C | `templates/effects/overlays/geometric-patterns.tsx` | overlay |
 | `NoiseGrain` | C | `templates/effects/overlays/noise-grain.tsx` | overlay |
-| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | emphasis, overlay |
+| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | overlay, emphasis |
 | `BlindsTransition` | C | `templates/effects/transitions/blinds-transition.tsx` | transition |
 | `BlurOutUp` | A | `templates/effects/transitions/blur-out-up.tsx` | transition |
 | `ClockWipe` | C | `templates/effects/transitions/clock-wipe.tsx` | transition |

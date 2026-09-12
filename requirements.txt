@@ -1,0 +1,7 @@
+jsonschema>=4.0.0
+fastapi
+uvicorn
+websockets
+python-multipart
+httpx
+pytest

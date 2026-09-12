@@ -33,7 +33,7 @@
 | `Statcard` | A | `templates/elements/data/StatCard.tsx` | stat |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
-| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
+| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | notification, ui_element |
 | `QuoteCard` | C | `templates/elements/ui/quote-card.tsx` | ui_element |
 | `Color` | A | `templates/elements/ui/remocn-ui/color.ts` | ui_element |
 | `Motion` | A | `templates/elements/ui/remocn-ui/motion.ts` | ui_element |
