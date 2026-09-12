@@ -1,0 +1,706 @@
+[
+  {
+    "name": "TEMPLATE_PROPOSAL_GUIDE",
+    "path": ".agents/plugins/super-video-maker-plugin/references/TEMPLATE_PROPOSAL_GUIDE.md",
+    "tier": "C",
+    "implemented": false,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "audio-clip",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/audio-clip/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "audio-visualizer",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/audio-visualizer/README.md",
+    "tier": "B",
+    "implemented": false,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "bar-chart",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/bar-chart/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "blur-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/typography/blur-reveal/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "bounding-box",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/bounding-box/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "callout",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/callout/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "camera-shake",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/camera-shake/README.md",
+    "tier": "B",
+    "implemented": false,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "captions",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/captions/captions/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "chapter-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/chapter-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "code-block",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/code/code-block/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "code-diff",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/code/code-diff/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "confetti",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/confetti/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "count-up",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/count-up/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "draw-on",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/draw-on/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "dynamic-grid",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/dynamic-grid/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "end-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/end-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "fade-in",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/fade-in/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "fade-out",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/fade-out/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "gradient-shift",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/gradient-shift/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "grain-overlay",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/grain-overlay/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "highlight",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/highlight/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "icon-pop",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/icon-pop/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "image-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/image-reveal/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "ken-burns",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/scenes/product/ken-burns/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "line-chart",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/line-chart/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "logo-sting",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/logo-sting/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "lower-third",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/lower-third/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "marquee",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/marquee/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "mask-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/mask-reveal/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "matrix-decode",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/matrix-decode/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "mesh-gradient",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/mesh-gradient/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "node-graph",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/node-graph/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "parallax",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/parallax/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "pie-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/pie-reveal/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "progress-bar",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/progress-bar/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "quote-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/quote-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "rgb-glitch-text",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/typography/rgb-glitch-text/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "rotate-in",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/rotate-in/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "scale-in",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/scale-in/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "shimmer-sweep",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/shimmer-sweep/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "slide-in",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/slide-in/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "slide-out",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/slide-out/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "slot-machine-roll",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/slot-machine-roll/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "split-screen",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/ui/split-screen/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "spotlight",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/spotlight/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "spotlight-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/spotlight-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "stagger-group",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/stagger-group/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "stat-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/stat-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "terminal",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/code/terminal/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-fade-replace",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/text-fade-replace/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "timeline",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/timeline/README.md",
+    "tier": "A",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "title-card",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/title-card/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "tracking-in",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/typography/tracking-in/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "typewriter",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/typography/typewriter/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "underline",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/underline/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "video-clip",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/video-clip/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "vignette",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/vignette/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "word-rotate",
+    "path": ".agents/plugins/super-video-maker-plugin/remotion-app/src/components/onda/word-rotate/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "word-stagger",
+    "path": ".agents/plugins/super-video-maker-plugin/templates/elements/typography/word-stagger/README.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "announce-title",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/announce-title.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "answer-stream",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/answer-stream.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "block-wordmark",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/block-wordmark.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "caret",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/caret.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "follower-rush",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/follower-rush.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "hero-launch",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/hero-launch.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "input",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/input.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "karaoke-captions",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/karaoke-captions.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "laptop-frame",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/laptop-frame.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "logo-assemble",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/logo-assemble.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "logo-flicker",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/logo-flicker.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "moodboard-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/moodboard-reveal.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "orbit-gallery",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/orbit-gallery.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "phone-frame",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/phone-frame.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "prompt-zoom",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/prompt-zoom.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "pulsing-border",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/pulsing-border.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "search-typing",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/search-typing.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "snap-cn-ui",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/snap-cn-ui.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "status-cycle",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/status-cycle.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "terminal-simulator",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/terminal-simulator.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-build",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/text-build.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-highlight",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/text-highlight.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-reveal",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/text-reveal.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-swap",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/text-swap.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "text-swell",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/text-swell.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "word-captions",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/word-captions.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "word-flip",
+    "path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/references/components/word-flip.md",
+    "tier": "unknown",
+    "implemented": true,
+    "deferred": false,
+    "deferred_reason": ""
+  },
+  {
+    "name": "project_full_overview",
+    "path": "documentation/archive/project_full_overview.md",
+    "tier": "C",
+    "implemented": false,
+    "deferred": false,
+    "deferred_reason": ""
+  }
+]

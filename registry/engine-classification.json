@@ -1,0 +1,266 @@
+{
+  "AudioManager": {
+    "name": "AudioManager",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/audio/AudioManager.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "AutoZoom": {
+    "name": "AutoZoom",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/camera/AutoZoom.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "CameraRig": {
+    "name": "CameraRig",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/camera/CameraRig.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Cursor": {
+    "name": "Cursor",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/cursor/Cursor.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "CursorSprite": {
+    "name": "CursorSprite",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/cursor/CursorSprite.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "LayoutContext": {
+    "name": "LayoutContext",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/layout/LayoutContext.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "LayoutWindow": {
+    "name": "LayoutWindow",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/layout/LayoutWindow.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "CountUp": {
+    "name": "CountUp",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/CountUp.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "EndCard": {
+    "name": "EndCard",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/EndCard.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Enter": {
+    "name": "Enter",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Enter.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Exit": {
+    "name": "Exit",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Exit.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Headline": {
+    "name": "Headline",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Headline.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Highlight": {
+    "name": "Highlight",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Highlight.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Pulse": {
+    "name": "Pulse",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Pulse.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "ScenePush": {
+    "name": "ScenePush",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/ScenePush.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Stagger": {
+    "name": "Stagger",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Stagger.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "TrafficLights": {
+    "name": "TrafficLights",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/TrafficLights.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "TypeWriter": {
+    "name": "TypeWriter",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/TypeWriter.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Wallpaper": {
+    "name": "Wallpaper",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Wallpaper.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Window": {
+    "name": "Window",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/Window.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "AppFromDescriptor": {
+    "name": "AppFromDescriptor",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/AppFromDescriptor.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "AppShell": {
+    "name": "AppShell",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/AppShell.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Avatar": {
+    "name": "Avatar",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Avatar.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Badge": {
+    "name": "Badge",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Badge.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Button": {
+    "name": "Button",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Button.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "DataTable": {
+    "name": "DataTable",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/DataTable.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "ListItems": {
+    "name": "ListItems",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/ListItems.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "MessageList": {
+    "name": "MessageList",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/MessageList.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "NotificationToast": {
+    "name": "NotificationToast",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/NotificationToast.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Panel": {
+    "name": "Panel",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Panel.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "PanelGrid": {
+    "name": "PanelGrid",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/PanelGrid.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "Placeholder": {
+    "name": "Placeholder",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Placeholder.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "SearchBar": {
+    "name": "SearchBar",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/SearchBar.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "SidebarNav": {
+    "name": "SidebarNav",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/SidebarNav.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "StatCard": {
+    "name": "StatCard",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/StatCard.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "TabBar": {
+    "name": "TabBar",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/TabBar.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "TopNav": {
+    "name": "TopNav",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/TopNav.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  },
+  "ChaosDesktop": {
+    "name": "ChaosDesktop",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/ChaosDesktop.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "Closer": {
+    "name": "Closer",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/Closer.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "DynamicWindows": {
+    "name": "DynamicWindows",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/DynamicWindows.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "FeatureShowcase": {
+    "name": "FeatureShowcase",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/FeatureShowcase.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "HeadlineResolution": {
+    "name": "HeadlineResolution",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/HeadlineResolution.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "ProductReveal": {
+    "name": "ProductReveal",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/scenes/ProductReveal.tsx",
+    "kind": "primitive",
+    "reason": "Context-coupled (no direct props), moved to primitive per instructions"
+  },
+  "UIStateProvider": {
+    "name": "UIStateProvider",
+    "path": ".agents/plugins/super-video-maker-plugin/engine/ui-state/UIStateProvider.tsx",
+    "kind": "primitive",
+    "reason": "in primitive/utility folder"
+  }
+}
