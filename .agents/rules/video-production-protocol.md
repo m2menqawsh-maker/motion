@@ -88,12 +88,12 @@ Once the user uploads the VO (or requests its generation):
 
 ### Step 2: Preview & Quality (Probe-QC & Studio)
 - Do not open the studio before the quality check `probe_qc.py` passes successfully.
-- Run Studio for preview: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>` (Using npm/npx directly is forbidden).
+- Run Studio for preview: `python scripts/open_studio.py <project_id>` (Using npm/npx directly is forbidden).
 
 ### Step 3: Final Render
 - 🛑 Rendering before preview and explicit user approval is forbidden.
 - 🛑 A `.studio_approved` file must be created manually by the user after preview (programmatic or automatic creation is forbidden).
-- Rendering is done via the command: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`.
+- Rendering is done via the command: `python scripts/render_project.py <project_id>`.
 
 **Output:** The final exported video.
 **🛑 STOP 3: Final stop for delivery.**

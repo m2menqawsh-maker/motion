@@ -123,8 +123,8 @@ Before writing any code or fetching any asset:
 - ❌ Using generic terms in plans ("general background", "asset 1", "important shot").
 - ❌ Repeating the same template or SFX in consecutive scenes.
 - ❌ **TOTAL BAN ON Node/npm commands:** You are strictly forbidden from writing or running `npx remotion` or `npm run` directly in the Terminal. You must exclusively use the intermediary scripts:
-  - To open studio: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>`
-  - To final render: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`
+  - To open studio: `python scripts/open_studio.py <project_id>`
+  - To final render: `python scripts/render_project.py <project_id>`
 - ❌ **FORBIDDEN**: Using `Copy-Item -Recurse -Force` on `06_build/`. Use `materialize_project.py` ONLY.
 - ❌ **FORBIDDEN**: Modifying `probe_qc_report.json` manually in any way.
 - ❌ **FORBIDDEN**: Creating `.studio_approved` programmatically. It is created manually by the user only after actual preview.
