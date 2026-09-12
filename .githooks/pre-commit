@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Pre-commit hook to enforce Ground Truth synchronization
+
+echo "==========================================================="
+echo "🔄 Running auto-sync for ground-truth (Approach 1)..."
+echo "==========================================================="
+
+# Path to the generator script
+GENERATOR_SCRIPT=".agents/plugins/super-video-maker-plugin/scripts/build_ground_truth.py"
+GROUND_TRUTH_DIR=".agents/plugins/super-video-maker-plugin/ground-truth/"
+
+if [ ! -f "$GENERATOR_SCRIPT" ]; then
+    echo "⚠️ Warning: $GENERATOR_SCRIPT not found. Skipping auto-sync."
+    exit 0
+fi
+
+# Run the generator
+python "$GENERATOR_SCRIPT"
+if [ $? -ne 0 ]; then
+    echo "❌ ERROR: build_ground_truth.py failed."
+    echo "Commit aborted. Please fix the template errors first."
+    exit 1
+fi
+
+# Add the generated files to the commit
+git add "$GROUND_TRUTH_DIR"
+
+echo "✅ ground-truth successfully synced with the codebase."
+exit 0

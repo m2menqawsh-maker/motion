@@ -1,6 +1,6 @@
 # Product Collection
 > مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-07
+> آخر تحديث: 2026-09-12
 
 ## مشاهد (Scenes)
 | Name | Quality | Path | Intents |
@@ -18,22 +18,22 @@
 | `LogoSpinReveal` | C | `templates/elements/branding/logo-spin-reveal.tsx` | logo |
 | `LogoSplitReveal` | C | `templates/elements/branding/logo-split-reveal.tsx` | logo |
 | `LogoStrokeDraw` | C | `templates/elements/branding/logo-stroke-draw.tsx` | logo |
-| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | logo, typing |
+| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
-| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
+| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | progress_indicator, stat |
 | `ComparisonChart` | C | `templates/elements/data/comparison-chart.tsx` | stat |
 | `DonutChart` | C | `templates/elements/data/donut-chart.tsx` | stat |
 | `LineChart` | C | `templates/elements/data/line-chart.tsx` | stat |
 | `PieChart` | C | `templates/elements/data/pie-chart.tsx` | stat |
-| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | stat, progress_indicator |
-| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | stat, progress_indicator |
+| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | progress_indicator, stat |
+| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | progress_indicator, stat |
 | `StatCounter` | C | `templates/elements/data/stat-counter.tsx` | stat |
 | `Statcard` | A | `templates/elements/data/StatCard.tsx` | stat |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
-| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | notification, ui_element |
+| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
 | `QuoteCard` | C | `templates/elements/ui/quote-card.tsx` | ui_element |
 | `Color` | A | `templates/elements/ui/remocn-ui/color.ts` | ui_element |
 | `Motion` | A | `templates/elements/ui/remocn-ui/motion.ts` | ui_element |
