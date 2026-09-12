@@ -11,20 +11,20 @@
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
-| `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | caption, emphasis |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | title_reveal, caption, typing |
+| `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, typing, title_reveal |
 | `Codeblock` | A | `templates/elements/code/code-block/CodeBlock.tsx` | code_demo |
 | `Codediff` | A | `templates/elements/code/code-diff/CodeDiff.tsx` | code_demo |
 | `Terminal` | A | `templates/elements/code/terminal/Terminal.tsx` | code_demo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
-| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | progress_indicator, stat |
+| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
 | `ComparisonChart` | C | `templates/elements/data/comparison-chart.tsx` | stat |
 | `DonutChart` | C | `templates/elements/data/donut-chart.tsx` | stat |
 | `LineChart` | C | `templates/elements/data/line-chart.tsx` | stat |
 | `PieChart` | C | `templates/elements/data/pie-chart.tsx` | stat |
-| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | progress_indicator, stat |
-| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | progress_indicator, stat |
+| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | stat, progress_indicator |
+| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | stat, progress_indicator |
 | `StatCounter` | C | `templates/elements/data/stat-counter.tsx` | stat |
 | `Statcard` | A | `templates/elements/data/StatCard.tsx` | stat |
 | `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
@@ -40,9 +40,9 @@
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
-| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | title_reveal, typing |
-| `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | title_reveal, typing |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | title_reveal, element_animation, badge |
+| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
+| `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
 | `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
