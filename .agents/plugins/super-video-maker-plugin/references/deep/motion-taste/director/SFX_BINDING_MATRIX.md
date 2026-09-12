@@ -1,82 +1,82 @@
-# مصفوفة ربط SFX بالإيماءات البصرية (إلزامية)
+# SFX to Visual Gestures Binding Matrix (Mandatory)
 
-## 📌 القواعد الصارمة:
-1. كل إيماءة بصرية (من §3 Emphasis Grammar في `user-signature-style.md`) **يجب** أن يكون لها SFX مطابق من هذه المصفوفة.
-2. لا يُسمح بإيماءة بصرية صامتة.
-3. لا يُسمح بتكرار نفس ملف SFX في مشهدين متتاليين.
-4. يجب قراءة هذه المصفوفة قبل كتابة أي خطة مشهد.
+## 📌 Strict Rules:
+1. Every visual gesture (from §3 Emphasis Grammar in `user-signature-style.md`) **MUST** have a corresponding SFX from this matrix.
+2. Silent visual gestures are strictly forbidden.
+3. Repeating the same SFX file in consecutive scenes is strictly forbidden.
+4. This matrix MUST be read before writing any scene plan.
 
-## 🎼 الجدول الإلزامي:
+## 🎼 The Mandatory Matrix:
 
-| الإيماءة البصرية | SFX الأساسي | SFX البديل (إذا تكرر) | التوقيت | مستوى الصوت |
+| Visual Gesture | Primary SFX | Alternate SFX (if repeated) | Timing | Volume Level |
 |---|---|---|---|---|
-| **Neon Ring** (دائرة نيون للأرقام/الوعود) | `chime-soft.wav` | `bell-subtle.wav`, `crystal-ring.wav` | 0ms (بداية الظهور) | -24 LUFS |
-| **Marker Underline** (خط ماركر للخلاصات) | `swish-metal.wav` | `whoosh-soft.wav`, `brush-stroke.wav` | 0ms | -24 LUFS |
-| **Highlighter BG** (خلفية مظللة للقواعد) | `soft-whoosh.wav` | `brush-sweep.wav`, `air-whoosh.wav` | -50ms (قبل ظهور النص) | -28 LUFS |
-| **Strikethrough** (خط شطب أحمر للنفي) | `glitch-cut.wav` | `digital-error.wav`, `static-burst.wav` | 0ms | -24 LUFS |
-| **Flash Cut** (ومضة للتأكيد) | `dramatic-boom.wav` | `cinematic-impact.wav`, `thunder-clap.wav` | 0ms | -20 LUFS |
-| **Typewriter** (كتابة كود/نصوص) | `mechanical-keyboard.wav` | `typewriter-ding.wav`, `key-click.wav` | كل 80ms (كل حرف) | -28 LUFS |
-| **Zoom Through** (زوم عميق للانتقال) | `whoosh-deep.wav` | `cinematic-swoosh.wav`, `wind-rush.wav` | -100ms (قبل الزوم) | -24 LUFS |
-| **Shock Zoom** (زوم صدمة للتأكيد) | `vine-boom.wav` | `impact-hard.wav`, `bass-drop.wav` | 0ms | -18 LUFS |
-| **Card Pop** (ظهور بطاقة/إشعار) | `pop-soft.wav` | `click-subtle.wav`, `notification-ding.wav` | 0ms | -24 LUFS |
-| **Slide Reveal** (سحب/كشف) | `swish-fast.wav` | `whip-pan.wav`, `slide-whoosh.wav` | 0ms | -24 LUFS |
-| **Transition** (انتقال بين المشاهد) | `transition-whoosh.wav` | `page-turn.wav`, `glass-shatter.wav` | -100ms (قبل الانتقال) | -24 LUFS |
-| **Stat Counter** (عدّاد رقمي) | `tick-soft.wav` | `stat-click.wav`, `counter-beep.wav` | كل 200ms (كل رقم) | -28 LUFS |
-| **Chart Animation** (رسم بياني) | `data-flow.wav` | `chart-draw.wav`, `graph-rise.wav` | 0ms | -28 LUFS |
-| **Code Block** (ظهور كود) | `terminal-type.wav` | `code-compile.wav`, `syntax-highlight.wav` | كل 100ms (كل سطر) | -28 LUFS |
+| **Neon Ring** (Neon circle for numbers/promises) | `chime-soft.wav` | `bell-subtle.wav`, `crystal-ring.wav` | 0ms (at appearance) | -24 LUFS |
+| **Marker Underline** (Marker line for summaries) | `swish-metal.wav` | `whoosh-soft.wav`, `brush-stroke.wav` | 0ms | -24 LUFS |
+| **Highlighter BG** (Highlighted background for rules) | `soft-whoosh.wav` | `brush-sweep.wav`, `air-whoosh.wav` | -50ms (before text appears) | -28 LUFS |
+| **Strikethrough** (Red line for negation) | `glitch-cut.wav` | `digital-error.wav`, `static-burst.wav` | 0ms | -24 LUFS |
+| **Flash Cut** (Flash for emphasis) | `dramatic-boom.wav` | `cinematic-impact.wav`, `thunder-clap.wav` | 0ms | -20 LUFS |
+| **Typewriter** (Code/Text typing) | `mechanical-keyboard.wav` | `typewriter-ding.wav`, `key-click.wav` | Every 80ms (per char) | -28 LUFS |
+| **Zoom Through** (Deep zoom for transition) | `whoosh-deep.wav` | `cinematic-swoosh.wav`, `wind-rush.wav` | -100ms (before zoom) | -24 LUFS |
+| **Shock Zoom** (Shock zoom for emphasis) | `vine-boom.wav` | `impact-hard.wav`, `bass-drop.wav` | 0ms | -18 LUFS |
+| **Card Pop** (Card/Notification appearance) | `pop-soft.wav` | `click-subtle.wav`, `notification-ding.wav` | 0ms | -24 LUFS |
+| **Slide Reveal** (Pull/Reveal) | `swish-fast.wav` | `whip-pan.wav`, `slide-whoosh.wav` | 0ms | -24 LUFS |
+| **Transition** (Between scenes) | `transition-whoosh.wav` | `page-turn.wav`, `glass-shatter.wav` | -100ms (before transition) | -24 LUFS |
+| **Stat Counter** (Digital counter) | `tick-soft.wav` | `stat-click.wav`, `counter-beep.wav` | Every 200ms (per digit) | -28 LUFS |
+| **Chart Animation** (Data graph) | `data-flow.wav` | `chart-draw.wav`, `graph-rise.wav` | 0ms | -28 LUFS |
+| **Code Block** (Code appearance) | `terminal-type.wav` | `code-compile.wav`, `syntax-highlight.wav` | Every 100ms (per line) | -28 LUFS |
 
-## 🚨 الإجراء عند المخالفة:
+## 🚨 Action on Violation:
 
-إذا وجدت خطة مشهد تحتوي على إيماءة بصرية بدون SFX مطابق من الجدول أعلاه:
+If you find a scene plan containing a visual gesture without a matching SFX from the table above:
 
-1. **أضف الـ SFX تلقائياً** من العمود "SFX الأساسي".
-2. إذا كان الـ SFX الأساسي مستخدماً في المشهد السابق، استخدم "SFX البديل".
-3. سجّل الإضافة في خطة المشهد:
+1. **Automatically add the SFX** from the "Primary SFX" column.
+2. If the Primary SFX was used in the previous scene, use the "Alternate SFX".
+3. Log the injection in the scene plan:
    ```
-   ✅ Auto-SFX Injected: [الإيماءة البصرية] → [اسم ملف SFX]
+   ✅ Auto-SFX Injected: [Visual Gesture] → [SFX filename]
    ```
 
-## 📊 أمثلة على الاستخدام الصحيح:
+## 📊 Examples of Correct Usage:
 
-### مثال 1: مشهد تعليمي (بايثون)
+### Example 1: Educational Scene (Python)
 ```
-الجملة: "بايثون هي اللغة الأسرع تعلماً"
+Sentence: "Python is the fastest language to learn"
 
-الإيماءات البصرية:
-- Neon Ring حول كلمة "بايثون" → SFX: chime-soft.wav
-- Marker Underline تحت "الأسرع تعلماً" → SFX: swish-metal.wav
-- Code Block يظهر كود بايثون → SFX: terminal-type.wav
+Visual Gestures:
+- Neon Ring around "Python" → SFX: chime-soft.wav
+- Marker Underline under "fastest language" → SFX: swish-metal.wav
+- Code Block showing Python code → SFX: terminal-type.wav
 
-النتيجة: 3 إيماءات بصرية → 3 SFX مختلفة ✅
-```
-
-### مثال 2: مشهد إحصائيات
-```
-الجملة: "30 يوم فقط لإتقان البرمجة"
-
-الإيماءات البصرية:
-- Neon Ring حول "30 يوم" → SFX: chime-soft.wav
-- Stat Counter يعدّ من 1 إلى 30 → SFX: tick-soft.wav (كل 200ms)
-- Flash Cut عند "فقط" → SFX: dramatic-boom.wav
-
-النتيجة: 3 إيماءات بصرية → 3 SFX مختلفة ✅
+Result: 3 visual gestures → 3 different SFX ✅
 ```
 
-### مثال 3: مشهد مقارنة
+### Example 2: Statistics Scene
 ```
-الجملة: "الطريقة القديمة vs الطريقة الجديدة"
+Sentence: "Just 30 days to master programming"
 
-الإيماءات البصرية:
-- Strikethrough على "الطريقة القديمة" → SFX: glitch-cut.wav
-- Card Pop لـ "الطريقة الجديدة" → SFX: pop-soft.wav
-- Highlighter BG تحت الخلاصة → SFX: soft-whoosh.wav
+Visual Gestures:
+- Neon Ring around "30 days" → SFX: chime-soft.wav
+- Stat Counter counts from 1 to 30 → SFX: tick-soft.wav (every 200ms)
+- Flash Cut at "Just" → SFX: dramatic-boom.wav
 
-النتيجة: 3 إيماءات بصرية → 3 SFX مختلفة ✅
+Result: 3 visual gestures → 3 different SFX ✅
 ```
 
-## 🛑 قاعدة التوقف الصارمة:
+### Example 3: Comparison Scene
+```
+Sentence: "The old way vs The new way"
 
-إذا وجدت خطة مشهد بدون SFX مطابق لكل إيماءة بصرية:
-- **لا تنتقل** للخطوة ج (جلب الميديا).
-- **أضف** الـ SFX المفقودة فوراً.
-- **أعد** الفحص حتى ينجح.
+Visual Gestures:
+- Strikethrough on "The old way" → SFX: glitch-cut.wav
+- Card Pop for "The new way" → SFX: pop-soft.wav
+- Highlighter BG under the summary → SFX: soft-whoosh.wav
+
+Result: 3 visual gestures → 3 different SFX ✅
+```
+
+## 🛑 Hard Stop Rule:
+
+If you find a scene plan without a matching SFX for every visual gesture:
+- **DO NOT proceed** to the next step (media fetching).
+- **Inject** the missing SFX immediately.
+- **Re-run** the validation until it passes.

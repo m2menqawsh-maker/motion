@@ -18,7 +18,7 @@
 | `LogoSpinReveal` | C | `templates/elements/branding/logo-spin-reveal.tsx` | logo |
 | `LogoSplitReveal` | C | `templates/elements/branding/logo-split-reveal.tsx` | logo |
 | `LogoStrokeDraw` | C | `templates/elements/branding/logo-stroke-draw.tsx` | logo |
-| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | logo, typing |
+| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |

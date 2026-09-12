@@ -42,7 +42,7 @@
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, badge, title_reveal |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
 | `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |

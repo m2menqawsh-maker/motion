@@ -20,7 +20,7 @@
 | `KenBurns` | A | `templates/scenes/product/ken-burns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
@@ -57,7 +57,7 @@
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | element_animation, badge, title_reveal |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
 | `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
@@ -77,12 +77,12 @@
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |
 | `GradientShift` | C | `templates/effects/motion/gradient-shift.tsx` | motion_effect |
-| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | motion_effect, emphasis |
+| `GridPulse` | C | `templates/effects/motion/grid-pulse.tsx` | emphasis, motion_effect |
 | `LiquidWave` | C | `templates/effects/motion/liquid-wave.tsx` | motion_effect |
 | `ParallaxPan` | C | `templates/effects/motion/parallax-pan.tsx` | motion_effect |
 | `ParticleExplosion` | C | `templates/effects/motion/particle-explosion.tsx` | motion_effect |
 | `SoundWave` | C | `templates/effects/motion/sound-wave.tsx` | motion_effect |
-| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, emphasis, image_motion |
+| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | emphasis, motion_effect, image_motion |
 | `BokehCircles` | C | `templates/effects/overlays/bokeh-circles.tsx` | overlay |
 | `FilmBurn` | C | `templates/effects/overlays/film-burn.tsx` | overlay |
 | `GeometricPatterns` | C | `templates/effects/overlays/geometric-patterns.tsx` | overlay |
