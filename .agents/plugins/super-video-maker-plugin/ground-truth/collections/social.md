@@ -1,8 +1,8 @@
 # Social Collection
-> مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-12
+> Auto-Generated from template_catalog.json
+> Last Updated: 2026-09-12
 
-## مشاهد (Scenes)
+## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `GalleryGrid` | C | `templates/scenes/social/gallery-grid.tsx` | general_element |
@@ -15,12 +15,12 @@
 | `Index` | A | `templates/scenes/social/social-clip/index.tsx` | general_element |
 | `Socialclip` | A | `templates/scenes/social/SocialClip.tsx` | general_element |
 
-## عناصر (Elements)
+## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
 | `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, typing, title_reveal |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, title_reveal, caption |
 | `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
 | `BounceText` | C | `templates/elements/typography/bounce-text.tsx` | title_reveal |
 | `BubblePopText` | C | `templates/elements/typography/bubble-pop-text.tsx` | title_reveal |
@@ -29,7 +29,7 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
@@ -38,7 +38,7 @@
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
 | `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 
-## تأثيرات (Effects)
+## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |

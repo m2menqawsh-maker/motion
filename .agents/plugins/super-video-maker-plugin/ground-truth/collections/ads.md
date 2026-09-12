@@ -1,11 +1,11 @@
 # Ads Collection
-> مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-12
+> Auto-Generated from template_catalog.json
+> Last Updated: 2026-09-12
 
-## مشاهد (Scenes)
+## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `CountdownIntro` | C | `templates/scenes/cta/countdown-intro.tsx` | stat, hook |
+| `CountdownIntro` | C | `templates/scenes/cta/countdown-intro.tsx` | hook, stat |
 | `CountdownTimer` | C | `templates/scenes/cta/countdown-timer.tsx` | stat |
 | `CreditsRoll` | C | `templates/scenes/cta/credits-roll.tsx` | general_element |
 | `EndCard` | C | `templates/scenes/cta/end-card.tsx` | cta |
@@ -24,12 +24,12 @@
 | `KenBurns` | A | `templates/scenes/product/ken-burns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
 
-## عناصر (Elements)
+## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `LogoBlurReveal` | C | `templates/elements/branding/logo-blur-reveal.tsx` | logo |
@@ -40,11 +40,11 @@
 | `LogoSpinReveal` | C | `templates/elements/branding/logo-spin-reveal.tsx` | logo |
 | `LogoSplitReveal` | C | `templates/elements/branding/logo-split-reveal.tsx` | logo |
 | `LogoStrokeDraw` | C | `templates/elements/branding/logo-stroke-draw.tsx` | logo |
-| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
+| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | logo, typing |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
 | `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, typing, title_reveal |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, title_reveal, caption |
 | `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
 | `BounceText` | C | `templates/elements/typography/bounce-text.tsx` | title_reveal |
 | `BubblePopText` | C | `templates/elements/typography/bubble-pop-text.tsx` | title_reveal |
@@ -53,7 +53,7 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
@@ -62,7 +62,7 @@
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | typing, title_reveal |
 | `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 
-## تأثيرات (Effects)
+## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |

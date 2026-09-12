@@ -1,13 +1,13 @@
 # Product Collection
-> مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-12
+> Auto-Generated from template_catalog.json
+> Last Updated: 2026-09-12
 
-## مشاهد (Scenes)
+## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| (لا يوجد) | - | - | - |
+| (None) | - | - | - |
 
-## عناصر (Elements)
+## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `LogoBlurReveal` | C | `templates/elements/branding/logo-blur-reveal.tsx` | logo |
@@ -18,7 +18,7 @@
 | `LogoSpinReveal` | C | `templates/elements/branding/logo-spin-reveal.tsx` | logo |
 | `LogoSplitReveal` | C | `templates/elements/branding/logo-split-reveal.tsx` | logo |
 | `LogoStrokeDraw` | C | `templates/elements/branding/logo-stroke-draw.tsx` | logo |
-| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | typing, logo |
+| `LogoTypewriter` | C | `templates/elements/branding/logo-typewriter.tsx` | logo, typing |
 | `LowerThird` | C | `templates/elements/branding/lower-third.tsx` | logo |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
@@ -45,7 +45,7 @@
 | `Splitscreen` | A | `templates/elements/ui/split-screen/SplitScreen.tsx` | ui_element |
 | `SpotlightReveal` | C | `templates/elements/ui/spotlight-reveal.tsx` | ui_element |
 
-## تأثيرات (Effects)
+## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `BlindsTransition` | C | `templates/effects/transitions/blinds-transition.tsx` | transition |

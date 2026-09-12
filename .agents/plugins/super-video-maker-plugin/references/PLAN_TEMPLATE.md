@@ -1,87 +1,87 @@
-# 📋 قالب الخطة التفصيلية (مرجع للوكيل)
+# 📋 Detailed Plan Template (Agent Reference)
 
-## ⚠️ قواعد الكتابة الإلزامية:
-1. اكتب خطة بمحتوى حقيقي 100% — لا حشو، لا تعليقات فارغة
-2. كل سطر يجب أن يضيف قيمة إنتاجية
-3. اختر القوالب من `TEMPLATE_INDEX.md` حسب طبيعة كل جملة
-4. اختر الـ SFX من `SFX_BINDING_MATRIX.md` حسب كل إيماءة بصرية
-5. كل مشهد يجب أن يحتوي على ≥ 2 لقطات مفصلة
-6. كل لقطة يجب أن تحتوي على: قالب + حركة كاميرا + إيماءة + كلمة متزامنة + SFX
-7. لا تستخدم عبارات عامة مثل "خلفية عامة" أو "أصل 1" أو "لقطة مهمة"
+## ⚠️ Mandatory Writing Rules:
+1. Write a plan with 100% genuine content — no padding, no empty comments.
+2. Every line must add production value.
+3. Select templates from `TEMPLATE_INDEX.md` based on the nature of each sentence.
+4. Select SFX from `SFX_BINDING_MATRIX.md` based on each visual gesture.
+5. Every scene must contain ≥ 2 detailed shots.
+6. Every shot must contain: Template + Camera Motion + Gesture + Synced Word + SFX.
+7. Do not use generic phrases like "general background", "asset 1", or "important shot".
 
-## 📐 الهيكل المطلوب:
+## 📐 Required Structure:
 
-### القسم 1: الهوية والمعلومات (10-15 سطر)
-- المشروع، العنوان، المدة، عدد المشاهد، الأبعاد، FPS
-- معلومات حقيقية فقط، لا حشو
+### Section 1: Identity and Information (10-15 lines)
+- Project, Title, Duration, Number of Scenes, Dimensions, FPS.
+- Genuine information only, no padding.
 
-### القسم 2: الهوية البصرية والصوتية (20-30 سطر)
-- الثيم العام والألوان (مع Hex codes محددة)
-- الخطوط (عناوين، نصوص، أرقام) مع الأحجام والأوزان
-- شخصية الحركة (من `motion-personality.md`)
-- الصوتيات (مستويات، نوع الموسيقى، سياسة الـ SFX)
-- **إلزامي:** `motion_taste_citation` و `treatment_citation` مع رقم السطر
+### Section 2: Visual and Audio Identity (20-30 lines)
+- General Theme and Colors (with specific Hex codes).
+- Typography (Titles, Texts, Numbers) with sizes and weights.
+- Motion Personality (from `motion-personality.md`).
+- Audio (Levels, Music type, SFX policy).
+- **MANDATORY:** `motion_taste_citation` and `treatment_citation` with line numbers.
 
-### القسم 3: جدول المشاهد التفصيلي (60-80% من الخطة)
+### Section 3: Detailed Scenes Table (60-80% of the plan)
 
-لكل مشهد، اكتب بالضرورة:
+For each scene, you MUST write:
 
-#### المشهد N: [عنوان وصفي محدد]
-**التوقيت:** [البداية - النهاية] (المدة: X.XX ث)
-**النص:** "[النص الحرفي من الـ VO]"
+#### Scene N: [Specific Descriptive Title]
+**Timing:** [Start - End] (Duration: X.XX s)
+**Transcript:** "[Exact verbatim text from VO]"
 
-**جدول الكلمات مع التوقيتات الدقيقة:**
-| الكلمة | البداية | النهاية | المدة |
+**Word-Level Timing Table:**
+| Word | Start | End | Duration |
 |---|---|---|---|
-| [الكلمة الفعلية] | [00:00.00] | [00:00.00] | [0.00 ث] |
-*(ملاحظة: لا تضف عموداً للمؤثرات الصوتية هنا. المؤثرات توضع في مصفوفة اللقطات فقط!)*
+| [Actual Word] | [00:00.00] | [00:00.00] | [0.00 s] |
+*(Note: Do not add an SFX column here. SFX belongs in the Shot Matrix only!)*
 
-**مصفوفة اللقطات:**
+**Shot Matrix:**
 
-**اللقطة N.1:**
-- نمط الإطار: [من Frame Vocabulary — لا تكرر نمط اللقطة السابقة]
-- حركة الكاميرا: [ثابتة/pan/tilt/zoom + السرعة والقيمة]
-- العنصر البصري: [الوصف التفصيلي المحدد — ليس "عنصر بصري"]
-- القالب: [اسم القالب الفعلي من TEMPLATE_INDEX.md]
-- الإيماءة البصرية: [من Emphasis Grammar]
-- الكلمة المتزامنة: [الكلمة + التوقيت بالملي ثانية]
-- الانتقال للقطة التالية: [من Transitions as Verbs]
-- Parallax Depth: [عدد الطبقات + وصف كل طبقة]
-- SFX: [اسم الملف الفعلي من SFX_BINDING_MATRIX + التوقيت + المستوى]
+**Shot N.1:**
+- Frame Style: [From Frame Vocabulary — Do not repeat the previous shot's style]
+- Camera Motion: [Static/pan/tilt/zoom + Speed and Value]
+- Visual Element: [Specific detailed description — NOT just "visual element"]
+- Template: [Actual template name from TEMPLATE_INDEX.md]
+- Visual Gesture: [From Emphasis Grammar]
+- Synced Word: [Word + Timing in milliseconds]
+- Transition to Next Shot: [From Transitions as Verbs]
+- Parallax Depth: [Number of layers + description of each layer]
+- SFX: [Actual file name from SFX_BINDING_MATRIX + Timing + Level]
 
-**قواعد التوقيع المطبقة:**
-- Beat Density: [عدد اللقطات + السبب]
-- تنويع الإطار: [إثبات عدم تكرار نمط اللقطة السابقة]
-- Gestural Sync: [كل إيماءة بصرية لها صوتية]
+**Applied Signature Rules:**
+- Beat Density: [Number of shots + Reason]
+- Frame Variety: [Proof of not repeating previous shot's style]
+- Gestural Sync: [Every visual gesture has an accompanying audio]
 
-**الميديا المطلوبة للمشهد:**
-- [اسم الأصل المحدد]: [الوصف + المصدر + الحجم]
+**Required Media for Scene:**
+- [Specific Asset Name]: [Description + Source + Size]
 
-### القسم 4: الانتقالات والبنية الزمنية (10-15 سطر)
-- جدول الانتقالات بين المشاهد مع التوقيت
-- الخلفية الموحدة (إن وجدت)
-- استمرارية الألوان
+### Section 4: Transitions and Temporal Structure (10-15 lines)
+- Table of inter-scene transitions with timings.
+- Unified Background (if any).
+- Color continuity.
 
-### القسم 5: قائمة القوالب المعتمدة (5-10 سطر)
-- جدول القوالب المستخدمة في كل مشهد
-- **إلزامي:** ≥ 3 قوالب مختلفة في الخطة كاملة
+### Section 5: Approved Templates List (5-10 lines)
+- Table of templates used in each scene.
+- **MANDATORY:** ≥ 3 different templates in the entire plan.
 
-### القسم 6: حزمة الميديا النهائية (10-15 سطر)
-- الصوتيات (مع المستويات)
-- الـ SFX (مع المشاهد والتوقيتات)
-- الأصول البصرية (بأسماء ملفات محددة)
+### Section 6: Final Media Package (10-15 lines)
+- Audio (with LUFS levels).
+- SFX (with Scenes and Timings).
+- Visual Assets (with specific file names).
 
-### القسم 7: بوابات الجودة والموافقات (5-10 سطر)
-- النقاط الإلزامية قبل كل مرحلة
+### Section 7: Quality Gates and Approvals (5-10 lines)
+- Mandatory checkpoints before each phase.
 
-### القسم 8: ملاحظات ومخاطر (5-10 سطر)
-- المخاطر المحتملة والحلول
+### Section 8: Notes and Risks (5-10 lines)
+- Potential risks and solutions.
 
-## ❌ محظورات مطلقة:
-- لا سطور `<!-- Padding -->`
-- لا عبارة "خلفية عامة" أو "أصل 1" أو "لقطة مهمة"
-- لا تكرار نفس القالب في مشاهد متتالية
-- لا تكرار نفس الـ SFX في مشاهد متتالية
-- لا خطة بدون جداول كلمات وتوقيتات
-- لا تستخدم التكرار المتسلسل للسطور (تكرار نفس الجملة مراراً وتكراراً مع تغيير الرقم). إذا نفد المحتوى، توقف ولا تملأ الفراغ!
-- لا تضع مؤثر صوتي (SFX) لكل كلمة! التزم بـ 2-3 مؤثرات فقط للمشهد بالكامل وضعها في مصفوفة اللقطات.
+## ❌ Absolute Prohibitions:
+- NO `<!-- Padding -->` lines.
+- NO phrases like "general background", "asset 1", or "important shot".
+- NO repeating the same template in consecutive scenes.
+- NO repeating the same SFX in consecutive scenes.
+- NO plan without word and timing tables.
+- NO sequential line repetition (repeating the same sentence repeatedly while only changing a number). If you run out of content, stop and do not fill the void!
+- DO NOT put a Sound Effect (SFX) on every single word! Stick to 2-3 effects only for the entire scene and place them in the Shot Matrix.

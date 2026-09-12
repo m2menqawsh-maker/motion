@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""build_ground_truth.py — يولّد فهارس ground-truth من مسح فعلي للقرص.
-Zero-hardcode: كل سطر خرج من scan حقيقي. Exit 1 عند أي فشل."""
+"""build_ground_truth.py — Generates ground-truth indices from actual disk scan.
+Zero-hardcode: every line is from a real scan. Exit 1 on failure."""
 import json, re, sys, hashlib
 from pathlib import Path
 from datetime import datetime
@@ -192,10 +192,10 @@ for col_name, col_data in collections.items():
     uc = col_data['use_cases'][0]
     
     lines = [f"# {col_name.title()} Collection",
-             "> مولّد آلياً من template_catalog.json",
-             f"> آخر تحديث: {TS[:10]}", ""]
+             "> Auto-Generated from template_catalog.json",
+             f"> Last Updated: {TS[:10]}", ""]
              
-    for cat_name, type_filter in [("مشاهد (Scenes)", "scene"), ("عناصر (Elements)", "element"), ("تأثيرات (Effects)", "effect")]:
+    for cat_name, type_filter in [("Scenes", "scene"), ("Elements", "element"), ("Effects", "effect")]:
         lines.extend([f"## {cat_name}", "| Name | Quality | Path | Intents |", "|---|---|---|---|"])
         
         found = False
@@ -205,7 +205,7 @@ for col_name, col_data in collections.items():
                 lines.append(f"| `{item['name']}` | {item['quality']} | `{item['path']}` | {intents_str} |")
                 found = True
         if not found:
-            lines.append("| (لا يوجد) | - | - | - |")
+            lines.append("| (None) | - | - | - |")
         lines.append("")
         
     (OUT / "collections" / f"{col_name}.md").write_text("\n".join(lines), encoding="utf-8")
@@ -219,8 +219,8 @@ for c in catalog:
 count = len(catalog)
 import hashlib
 (OUT / "TEMPLATE_INDEX.md").write_text(
-    hdr("TEMPLATE_INDEX — القوالب الحقيقية على القرص", "template_catalog.json", f" | SHA256: {hashlib.sha256(json.dumps(catalog).encode()).hexdigest()[:16]}")
-    + f"**العدد: {count} قالباً**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    hdr("TEMPLATE_INDEX — Real templates on disk", "template_catalog.json", f" | SHA256: {hashlib.sha256(json.dumps(catalog).encode()).hexdigest()[:16]}")
+    + f"**Count: {count} templates**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 print(f"TEMPLATE_INDEX: {count}")
 
 # ── 2) MCP_INDEX ──────────────────────────────────
@@ -252,23 +252,23 @@ for srv in sorted((DST / "tools" / "mcp-servers").iterdir()):
         out += [f"| `{srv.name}` | `{n}` | `({a})` |" for n, a in found]
 
 
-(OUT / "MCP_INDEX.md").write_text(hdr("MCP_INDEX — أدوات MCP الحقيقية", "tools/mcp-servers/*")
-    + f"**الخوادم: {servers}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
+(OUT / "MCP_INDEX.md").write_text(hdr("MCP_INDEX — Real MCP Tools", "tools/mcp-servers/*")
+    + f"**Servers: {servers}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"MCP_INDEX: {servers}")
 
 # ── 3) TOOLS_INDEX ────────────────────────────────
-out, n = ["| Tool | الوصف (أول سطر docstring) |", "|---|---|"], 0
+out, n = ["| Tool | Description (first docstring line) |", "|---|---|"], 0
 tool_files = sorted(list((DST / "tools").glob("*.py")) + [p for p in (DST / "scripts").glob("*.py") if p.name == "materialize_project.py"])
 for py in tool_files:
     m = re.search(r'"""(.*?)"""', py.read_text(encoding="utf-8"), re.S)
     desc = m.group(1).strip().splitlines()[0] if m and m.group(1).strip() else "—"
     n += 1; out.append(f"| `{py.name}` | {desc} |")
-(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — أدوات Python", "tools/*.py + scripts/materialize_project.py")
-    + f"**العدد: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
+(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — Python Tools", "tools/*.py + scripts/materialize_project.py")
+    + f"**Count: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"TOOLS_INDEX: {n}")
 
 # ── 4) RECIPES_INDEX ──────────────────────────────
-out, n = ["| Recipe | الاسم / الهدف |", "|---|---|"], 0
+out, n = ["| Recipe | Name / Goal |", "|---|---|"], 0
 for j in sorted((DST / "recipes").glob("*.json")):
     if j.name == "schema.json": continue
     try: data = json.loads(j.read_text(encoding="utf-8"))
@@ -276,24 +276,24 @@ for j in sorted((DST / "recipes").glob("*.json")):
     name = data.get("name") or data.get("id") or j.stem
     desc = str(data.get("description") or data.get("goal") or "")[:140]
     n += 1; out.append(f"| `{j.stem}` | {name} — {desc} |")
-(OUT / "RECIPES_INDEX.md").write_text(hdr("RECIPES_INDEX — الوصفات", "recipes/*.json")
-    + f"**العدد: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
+(OUT / "RECIPES_INDEX.md").write_text(hdr("RECIPES_INDEX — Recipes", "recipes/*.json")
+    + f"**Count: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"RECIPES_INDEX: {n}")
 
 # ── 5) PLAYBOOKS_INDEX ────────────────────────────
-out, n = ["| المستند | النوع | العنوان |", "|---|---|---|"], 0
+out, n = ["| Document | Type | Title |", "|---|---|---|"], 0
 guides_dir = DST / "docs" / "guides"
 if guides_dir.exists():
     for md in sorted(guides_dir.glob("*.md")):
         first = next((l for l in md.read_text(encoding="utf-8").splitlines() if l.startswith("# ")), "# " + md.stem)
-        n += 1; out.append(f"| `docs/guides/{md.name}` | دليل / تشغيل | {first[2:].strip()} |")
+        n += 1; out.append(f"| `docs/guides/{md.name}` | Guide / Playbook | {first[2:].strip()} |")
 reports_dir = DST / "docs" / "reports"
 if reports_dir.exists():
     for md in sorted(reports_dir.glob("*.md")):
         first = next((l for l in md.read_text(encoding="utf-8").splitlines() if l.startswith("# ")), "# " + md.stem)
-        n += 1; out.append(f"| `docs/reports/{md.name}` | تقرير مرحلي | {first[2:].strip()} |")
-(OUT / "PLAYBOOKS_INDEX.md").write_text(hdr("PLAYBOOKS_INDEX — دفاتر التشغيل والأدلة والتقارير", "docs/guides/*.md, docs/reports/*.md")
-    + f"**العدد: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
+        n += 1; out.append(f"| `docs/reports/{md.name}` | Phase Report | {first[2:].strip()} |")
+(OUT / "PLAYBOOKS_INDEX.md").write_text(hdr("PLAYBOOKS_INDEX — Playbooks, Guides, and Reports", "docs/guides/*.md, docs/reports/*.md")
+    + f"**Count: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"PLAYBOOKS_INDEX: {n}")
 
 # ── 6) CINEMATIC_INDEX ────────────────────────────
@@ -309,7 +309,7 @@ def cin_family(rel):
     if rel.startswith("scenes"): return "Scenes"
     return "Core"
 
-lines, n = ["| File | Exports | Props (أول 12) | Family |", "|---|---|---|---|"], 0
+lines, n = ["| File | Exports | Props (First 12) | Family |", "|---|---|---|---|"], 0
 ce = DST / "engine"
 if ce.exists():
     for f in sorted(list(ce.rglob("*.tsx")) + list(ce.rglob("*.ts"))):
@@ -327,8 +327,8 @@ if ce.exists():
         rel = f.relative_to(ce).as_posix()
         lines.append(f"| `{rel}` | {', '.join(sorted(set(exp)))} | {', '.join(props[:12]) or '—'} | {cin_family(rel)} |")
 (OUT / "CINEMATIC_INDEX.md").write_text(
-    hdr("CINEMATIC_INDEX — مكونات المحرك السينمائي على القرص", "engine/**/*.tsx|ts")
-    + f"**العدد: {n} مكوناً**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    hdr("CINEMATIC_INDEX — Cinematic Engine components on disk", "engine/**/*.tsx|ts")
+    + f"**Count: {n} components**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 print(f"CINEMATIC_INDEX: {n}")
 
-print("DONE — جميع الفهارس مولدة من القرص.")
+print("DONE — All indices generated from disk.")

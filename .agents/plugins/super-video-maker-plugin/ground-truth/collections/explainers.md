@@ -1,8 +1,8 @@
 # Explainers Collection
-> مولّد آلياً من template_catalog.json
-> آخر تحديث: 2026-09-12
+> Auto-Generated from template_catalog.json
+> Last Updated: 2026-09-12
 
-## مشاهد (Scenes)
+## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `CountdownTimer` | C | `templates/scenes/cta/countdown-timer.tsx` | stat |
@@ -20,17 +20,17 @@
 | `KenBurns` | A | `templates/scenes/product/ken-burns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
 
-## عناصر (Elements)
+## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
 | `TextHighlight` | C | `templates/elements/captions/text-highlight.tsx` | emphasis, caption |
-| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, typing, title_reveal |
+| `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | typing, title_reveal, caption |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
 | `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
@@ -50,7 +50,7 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
@@ -72,7 +72,7 @@
 | `Splitscreen` | A | `templates/elements/ui/split-screen/SplitScreen.tsx` | ui_element |
 | `SpotlightReveal` | C | `templates/elements/ui/spotlight-reveal.tsx` | ui_element |
 
-## تأثيرات (Effects)
+## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
 | `CameraShake` | C | `templates/effects/motion/camera-shake.tsx` | motion_effect |

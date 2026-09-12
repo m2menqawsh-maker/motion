@@ -1,99 +1,99 @@
 # Video Production Protocol — v4.0 (Agile Visual-First)
 
-## المرحلة 1: حزمة الميديا + المعاينة (🛑 توقف 1)
+## Phase 1: Media Package + Preview (🛑 STOP 1)
 
-الخطوة 0 (قبل أي مرحلة): فحص التنبيهات الحية
-- افحص وجود `projects/<id>/.agent_alerts.md`
-- إذا كان موجوداً، اقرأ التنبيهات وتعامل معها قبل المتابعة
-- إذا كان فارغاً أو غير موجود، انتقل للخطوة التالية
+**Step 0 (Before any phase): Check Live Alerts**
+- Check for the existence of `projects/<id>/.agent_alerts.md`.
+- If it exists, read the alerts and handle them before proceeding.
+- If it is empty or does not exist, proceed to the next step.
 
-### الخطوة 1: تحليل صوتي إلزامي
-بمجرد رفع المستخدم للـ VO (أو طلب توليده):
-1. شغّل فوراً: `audio-tools-mcp:analyze_voiceover` على الملف.
-2. انتظر نتائج التحليل (`04_timings.json`).
+### Step 1: Mandatory Audio Analysis
+Once the user uploads the VO (or requests its generation):
+1. Immediately run: `audio-tools-mcp:analyze_voiceover` on the file.
+2. Wait for the analysis results (`04_timings.json`).
 
-### الخطوة 2: جلب الميديا ومعالجتها
-1. مرفوعات المستخدم أولاً → `assets/incoming/`
-2. فحص الكاش: `common-tools-mcp:check_cache` (يُمنع الجلب من النت إذا وُجد أصل مطابق معالج).
-3. جلب الناقص عبر `media-sources-mcp` مباشرة.
-4. المعالجة (All-Intra للفيديو، -16 LUFS للـ VO، -24 LUFS للـ SFX).
-5. الحفظ في الكاش: `common-tools-mcp:save_to_cache`.
+### Step 2: Fetch and Process Media
+1. User uploads first → `assets/incoming/`
+2. Check Cache: `common-tools-mcp:check_cache` (Fetching from the internet is forbidden if a matching processed asset exists).
+3. Fetch missing assets via `media-sources-mcp` directly.
+4. Processing (All-Intra for video, -16 LUFS for VO, -24 LUFS for SFX).
+5. Save to Cache: `common-tools-mcp:save_to_cache`.
 
-المخرج: حزمة الميديا الجاهزة
-🛑 توقف 1: انتظر موافقة المستخدم على حزمة الميديا.
-
----
-
-## المرحلة 2: الخطة التفصيلية + المعاينة (🛑 توقف 2)
-
-الخطوة 0 (قبل أي مرحلة): فحص التنبيهات الحية
-- افحص وجود `projects/<id>/.agent_alerts.md`
-- إذا كان موجوداً، اقرأ التنبيهات وتعامل معها قبل المتابعة
-- إذا كان فارغاً أو غير موجود، انتقل للخطوة التالية
-
-#### ⚠️ قاعدة إلزامية غير قابلة للتفاوض:
-**الخطة التفصيلية يجب أن يكتبها الوكيل بنفسه، وليس عبر سكريبت.**
-
-الأسباب:
-- السكريبتات لا تفهم السياق الإبداعي للمحتوى
-- لا تستطيع اختيار القوالب المناسبة حسب طبيعة كل جملة
-- لا تستطيع ربط الكلمات بالحركات (Gestural Sync)
-- التوليد الإبداعي مهمة الوكيل، والفحص مهمة السكريبتات
-
-#### الخطوات الإلزامية:
-1. اقرأ `references/PLAN_TEMPLATE.md` لفهم الهيكل والقواعد
-2. اقرأ `04_timings.json` للتوقيتات الدقيقة لكل كلمة
-3. اقرأ `TEMPLATE_INDEX.md` لاختيار القوالب المناسبة
-4. اقرأ `SFX_BINDING_MATRIX.md` لاختيار المؤثرات المناسبة
-5. اقرأ `motion-personality.md` و `user-signature-style.md` للاقتباسات
-6. اكتب الخطة بنفسك، مشهداً بمشهد، لقطة بلقطة
-7. احفظها في `projects/<project_id>/master_plan.md`
-8. شغّل: `python scripts/plan_gate.py <project_id>` للفحص
-9. إذا فشل الفحص، أصلح الخطة وأعد المحاولة
-
-#### معايير الخطة المقبولة:
-- ✅ كل مشهد له جدول كلمات مع توقيتات دقيقة
-- ✅ كل مشهد له ≥ 2 لقطات مفصلة
-- ✅ كل لقطة لها: قالب + كاميرا + إيماءة + SFX + كلمة متزامنة
-- ✅ ≥ 3 قوالب مختلفة في الخطة كاملة
-- ✅ ≥ 3 SFX مختلفة
-- ✅ لا حشو، لا تعليقات فارغة، لا عبارات عامة
-- ✅ `motion_taste_citation` و `treatment_citation` موجودان
-
-#### ❌ محظورات مطلقة:
-- لا تستخدم `generate_plan.py` لتوليد الخطة (هو مولد هيكل فقط)
-- لا تستخدم أي سكريبت لكتابة المحتوى الإبداعي
-- لا تضيف حشواً للوصول لعدد أسطر معين
-- لا تستخدم التكرار المتسلسل للسطور (تكرار نفس الجملة مع تغيير الرقم)
-- إذا نفد المحتوى، توقف فوراً — لا تملأ الفراغ
-
-المخرج: `master_plan.md` مكتوب بالكامل بواسطة الوكيل.
-🛑 توقف 2: انتظر موافقة المستخدم الصريحة على الخطة التفصيلية.
+**Output:** Ready Media Package.
+**🛑 STOP 1: Wait for user approval on the Media Package.**
 
 ---
 
-## المرحلة 3: البناء + المعاينة + الرندر (🛑 توقف 3)
+## Phase 2: Detailed Plan + Preview (🛑 STOP 2)
 
-الخطوة 0 (قبل أي مرحلة): فحص التنبيهات الحية
-- افحص وجود `projects/<id>/.agent_alerts.md`
-- إذا كان موجوداً، اقرأ التنبيهات وتعامل معها قبل المتابعة
-- إذا كان فارغاً أو غير موجود، انتقل للخطوة التالية
+**Step 0 (Before any phase): Check Live Alerts**
+- Check for the existence of `projects/<id>/.agent_alerts.md`.
+- If it exists, read the alerts and handle them before proceeding.
+- If it is empty or does not exist, proceed to the next step.
 
-### الخطوة 1: بناء المشاهد والملفات الهيكلية (JSON & Code Generation)
-- ⚠️ **إلزامي قبل البناء:** يجب على الوكيل ترجمة الخطة النصية (`master_plan.md`) وحزمة الميديا إلى ملفات JSON هيكلية بيده: `05_blueprint.json` (للمشاهد والتوقيتات) و `02_asset_manifest.json` (لسجل الميديا).
-- يُمنع بناء أي مشهد بدون وجود خطة المشهد المطابقة.
-- يجب استخدام القوالب المعتمدة في `TEMPLATE_INDEX.md` (صفر ارتجال).
-- يجب تطبيق شخصية الحركة من `motion-personality.md`.
-- كل ميديا تدخل البناء عبر `materialize_project.py` فقط (الذي يتطلب وجود ملفات الـ JSON أولاً). ممنوع النسخ اليدوي.
+#### ⚠️ Non-Negotiable Mandatory Rule:
+**The detailed plan must be written by the Agent itself, NOT via a script.**
 
-### الخطوة 2: المعاينة والجودة (Probe-QC & Studio)
-- لا فتح للاستوديو قبل نجاح فحص الجودة `probe_qc.py`.
-- تشغيل الاستوديو للمعاينة: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>` (ممنوع استخدام npm/npx مباشرة).
+**Reasons:**
+- Scripts do not understand the creative context of the content.
+- Scripts cannot select appropriate templates based on the nature of each sentence.
+- Scripts cannot bind words to motions (Gestural Sync).
+- Creative generation is the Agent's job, while validation is the Scripts' job.
 
-### الخطوة 3: الرندر النهائي
-- 🛑 ممنوع الرندر قبل المعاينة وموافقة المستخدم الصريحة.
-- 🛑 يجب إنشاء ملف `.studio_approved` يدويًا من قبل المستخدم بعد المعاينة (ممنوع إنشاؤه برمجياً أو تلقائياً).
-- الرندر يتم عبر الأمر: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`.
+#### Mandatory Steps:
+1. Read `references/PLAN_TEMPLATE.md` to understand the structure and rules.
+2. Read `04_timings.json` for exact word-level timings.
+3. Read `TEMPLATE_INDEX.md` to select appropriate templates.
+4. Read `SFX_BINDING_MATRIX.md` to select appropriate sound effects.
+5. Read `motion-personality.md` and `user-signature-style.md` for citations.
+6. Write the plan yourself, scene by scene, shot by shot.
+7. Save it to `projects/<project_id>/master_plan.md`.
+8. Run: `python scripts/plan_gate.py <project_id>` for validation.
+9. If validation fails, fix the plan and retry.
 
-المخرج: الفيديو النهائي المُصدّر.
-🛑 توقف 3: توقف نهائي للتسليم.
+#### Accepted Plan Criteria:
+- ✅ Every scene has a word table with exact timings.
+- ✅ Every scene has ≥ 2 detailed shots.
+- ✅ Every shot has: Template + Camera + Gesture + SFX + Synced Word.
+- ✅ ≥ 3 different templates in the entire plan.
+- ✅ ≥ 3 different SFX.
+- ✅ No padding, no empty comments, no generic terms.
+- ✅ `motion_taste_citation` and `treatment_citation` are present.
+
+#### ❌ Absolute Prohibitions:
+- DO NOT use `generate_plan.py` to generate the plan (it is only a structure generator).
+- DO NOT use any script to write creative content.
+- DO NOT add padding just to reach a specific line count.
+- DO NOT use sequential line repetition (repeating the same sentence with just a changed number).
+- If you run out of content, stop immediately — do not fill the void.
+
+**Output:** `master_plan.md` fully written by the Agent.
+**🛑 STOP 2: Wait for explicit user approval on the detailed plan.**
+
+---
+
+## Phase 3: Build + Preview + Render (🛑 STOP 3)
+
+**Step 0 (Before any phase): Check Live Alerts**
+- Check for the existence of `projects/<id>/.agent_alerts.md`.
+- If it exists, read the alerts and handle them before proceeding.
+- If it is empty or does not exist, proceed to the next step.
+
+### Step 1: Scene Building & Structural Files (JSON & Code Generation)
+- ⚠️ **MANDATORY BEFORE BUILD:** The agent must manually translate the text plan (`master_plan.md`) and media package into structural JSON files: `05_blueprint.json` (for scenes and timings) and `02_asset_manifest.json` (for media registry).
+- Building any scene without a matching scene plan is forbidden.
+- You must use approved templates from `TEMPLATE_INDEX.md` (Zero Improvisation).
+- You must apply the motion personality from `motion-personality.md`.
+- All media enters the build via `materialize_project.py` only (which requires the JSON files to exist first). Manual copying is forbidden.
+
+### Step 2: Preview & Quality (Probe-QC & Studio)
+- Do not open the studio before the quality check `probe_qc.py` passes successfully.
+- Run Studio for preview: `python .agents/plugins/super-video-maker-plugin/scripts/open_studio.py <project_id>` (Using npm/npx directly is forbidden).
+
+### Step 3: Final Render
+- 🛑 Rendering before preview and explicit user approval is forbidden.
+- 🛑 A `.studio_approved` file must be created manually by the user after preview (programmatic or automatic creation is forbidden).
+- Rendering is done via the command: `python .agents/plugins/super-video-maker-plugin/scripts/render_project.py <project_id>`.
+
+**Output:** The final exported video.
+**🛑 STOP 3: Final stop for delivery.**
