@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@remotion/cli": "^4.0.522",
+    "typescript": "^7.0.2"
+  }
+}

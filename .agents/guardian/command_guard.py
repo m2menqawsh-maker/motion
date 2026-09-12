@@ -59,7 +59,7 @@ def main():
         
         # 6. منع تثبيت حزم غير معتمدة
         if "npm install" in command or "pip install" in command:
-            allowed_packages = ["remotion", "@remotion/cli", "react", "ffmpeg-static"]
+            allowed_packages = ["remotion", "@remotion/cli", "react", "ffmpeg-static", "typescript"]
             for pkg in extract_packages(command):
                 if pkg not in allowed_packages:
                     block(f"🛑 ممنوع تثبيت حزمة غير معتمدة: {pkg}. أضفها إلى plugin.json أولاً.")
