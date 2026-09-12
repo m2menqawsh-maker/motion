@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "manifest.schema.json",
+  "title": "سجل الأصول — Asset Manifest",
+  "description": "عقد سجل الأصول: يوثّق كل ملف وسائط في المشروع مع حالته ومصدره",
+  "type": "object",
+  "required": ["project_id", "generated_at", "assets"],
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^prj_[a-z0-9_-]+$",
+      "description": "معرّف المشروع"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "تاريخ ووقت توليد السجل"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "type", "path", "source", "approved"],
+        "additionalProperties": false,
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^ast_[a-z0-9_-]+$",
+            "description": "معرّف الأصل الفريد"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["image", "video", "audio", "sfx", "music", "logo"],
+            "description": "نوع الأصل"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^assets/(incoming|cache|ready)/.+",
+            "description": "مسار الملف داخل دورة حياة الأصول"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["incoming", "cache", "ready"],
+            "description": "مرحلة الأصل الحالية"
+          },
+          "approved": {
+            "type": "boolean",
+            "description": "هل تمت الموافقة على الأصل؟"
+          },
+          "thumb": {
+            "type": ["string", "null"],
+            "description": "مسار الصورة المصغرة (اختياري)"
+          },
+          "durationFrames": {
+            "type": ["integer", "null"],
+            "minimum": 0,
+            "description": "مدة الأصل بالإطارات (اختياري)"
+          },
+          "width": {
+            "type": ["integer", "null"],
+            "description": "العرض بالبكسل (اختياري)"
+          },
+          "height": {
+            "type": ["integer", "null"],
+            "description": "الارتفاع بالبكسل (اختياري)"
+          },
+          "origin": {
+            "type": "string",
+            "enum": ["user", "pixabay", "pexels", "icons", "generated"],
+            "description": "مصدر الأصل الأصلي"
+          }
+        },
+        "description": "عنصر أصل واحد"
+      },
+      "description": "قائمة الأصول"
+    }
+  }
+}

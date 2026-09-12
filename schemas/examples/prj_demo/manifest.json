@@ -1,0 +1,78 @@
+{
+  "project_id": "prj_demo",
+  "generated_at": "2026-09-06T12:00:00+03:00",
+  "assets": [
+    {
+      "asset_id": "ast_bg-01",
+      "type": "image",
+      "path": "assets/ready/bg_cyber.png",
+      "source": "ready",
+      "approved": true,
+      "thumb": null,
+      "durationFrames": null,
+      "width": 1080,
+      "height": 1920,
+      "origin": "pixabay"
+    },
+    {
+      "asset_id": "ast_vo-01",
+      "type": "audio",
+      "path": "assets/ready/vo_demo_normalized.wav",
+      "source": "ready",
+      "approved": true,
+      "thumb": null,
+      "durationFrames": 450,
+      "width": null,
+      "height": null,
+      "origin": "user"
+    },
+    {
+      "asset_id": "ast_whoosh-01",
+      "type": "sfx",
+      "path": "assets/cache/whoosh_metal.mp3",
+      "source": "cache",
+      "approved": true,
+      "thumb": null,
+      "durationFrames": 15,
+      "width": null,
+      "height": null,
+      "origin": "pexels"
+    },
+    {
+      "asset_id": "ast_music-01",
+      "type": "music",
+      "path": "assets/ready/bgm_cinematic.mp3",
+      "source": "ready",
+      "approved": true,
+      "thumb": null,
+      "durationFrames": 900,
+      "width": null,
+      "height": null,
+      "origin": "pixabay"
+    },
+    {
+      "asset_id": "ast_logo-01",
+      "type": "logo",
+      "path": "assets/ready/logo.svg",
+      "source": "ready",
+      "approved": true,
+      "thumb": null,
+      "durationFrames": null,
+      "width": 200,
+      "height": 200,
+      "origin": "user"
+    },
+    {
+      "asset_id": "ast_boom-01",
+      "type": "sfx",
+      "path": "assets/incoming/boom_cinematic.wav",
+      "source": "incoming",
+      "approved": false,
+      "thumb": null,
+      "durationFrames": 30,
+      "width": null,
+      "height": null,
+      "origin": "generated"
+    }
+  ]
+}

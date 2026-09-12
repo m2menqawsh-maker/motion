@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "project.schema.json",
+  "title": "مشروع فيديو — Project Configuration",
+  "description": "عقد بيانات المشروع: يحدد الهوية، الأبعاد، اللغة، وإعدادات التعليق الصوتي",
+  "type": "object",
+  "required": ["project_id", "name", "aspect", "fps", "language", "voiceover", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^prj_[a-z0-9_-]+$",
+      "description": "معرّف المشروع الفريد — يبدأ بـ prj_ ويتبعه حروف صغيرة وأرقام وشرطات"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "description": "اسم المشروع المقروء — بين 1 و 80 حرفاً"
+    },
+    "aspect": {
+      "type": "string",
+      "enum": ["9:16", "16:9", "1:1"],
+      "description": "نسبة العرض إلى الارتفاع"
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["w", "h"],
+      "properties": {
+        "w": {
+          "type": "integer",
+          "enum": [1080, 1920],
+          "description": "العرض بالبكسل"
+        },
+        "h": {
+          "type": "integer",
+          "enum": [1080, 1920],
+          "description": "الارتفاع بالبكسل"
+        }
+      },
+      "description": "دقة الفيديو (اختياري)"
+    },
+    "fps": {
+      "type": "integer",
+      "enum": [24, 25, 30, 60],
+      "description": "عدد الإطارات في الثانية"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["ar", "en"],
+      "description": "لغة المشروع الأساسية"
+    },
+    "brand": {
+      "type": ["string", "null"],
+      "description": "معرّف الهوية البصرية المرتبطة (أو null)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "تاريخ ووقت إنشاء المشروع بصيغة ISO 8601"
+    },
+    "voiceover": {
+      "type": "object",
+      "required": ["mode"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["upload", "tts", "none"],
+          "description": "وضع التعليق الصوتي: رفع ملف، توليد بالذكاء الاصطناعي، أو بدون"
+        },
+        "file": {
+          "type": ["string", "null"],
+          "description": "مسار ملف التعليق الصوتي المرفوع"
+        },
+        "voice_id": {
+          "type": ["string", "null"],
+          "description": "معرّف الصوت لمحرك TTS"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "mode": { "const": "upload" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "required": ["mode", "file"],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "mode": { "const": "tts" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "required": ["mode", "voice_id"],
+            "properties": {
+              "voice_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

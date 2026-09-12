@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "brand.schema.json",
+  "title": "الهوية البصرية — Brand Identity",
+  "description": "عقد الهوية البصرية: الألوان، الخطوط، الشعار، ونبرة التصميم",
+  "type": "object",
+  "required": ["brandName", "colors", "fonts"],
+  "additionalProperties": false,
+  "definitions": {
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+      "description": "لون بصيغة HEX (6 أو 8 خانات)"
+    },
+    "fontKey": {
+      "type": "string",
+      "enum": [
+        "Cairo", "Tajawal", "Almarai", "IBMPlexSansArabic", "NotoKufiArabic",
+        "Inter", "Manrope", "Fraunces", "JetBrainsMono"
+      ],
+      "description": "مفتاح الخط من القائمة المعتمدة"
+    }
+  },
+  "properties": {
+    "brandName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "اسم العلامة التجارية"
+    },
+    "logoSrc": {
+      "type": ["string", "null"],
+      "pattern": "^assets/ready/.+\\.(svg|png|webp)$",
+      "description": "مسار ملف الشعار داخل assets/ready/"
+    },
+    "colors": {
+      "type": "object",
+      "required": ["primary", "accent", "background", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "primary": { "$ref": "#/definitions/hexColor" },
+        "accent": { "$ref": "#/definitions/hexColor" },
+        "background": { "$ref": "#/definitions/hexColor" },
+        "text": { "$ref": "#/definitions/hexColor" },
+        "surface": { "$ref": "#/definitions/hexColor" }
+      },
+      "description": "لوحة الألوان الأساسية"
+    },
+    "fonts": {
+      "type": "object",
+      "required": ["display", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "display": { "$ref": "#/definitions/fontKey" },
+        "body": { "$ref": "#/definitions/fontKey" }
+      },
+      "description": "خطوط العرض والمتن"
+    },
+    "tone": {
+      "type": "string",
+      "description": "نبرة التصميم البصري (اختياري)"
+    }
+  }
+}

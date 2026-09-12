@@ -1,0 +1,48 @@
+{
+  "project_id": "prj_demo",
+  "current_stage": 1,
+  "last_error": null,
+  "stages": {
+    "0": {
+      "status": "done",
+      "started_at": "2026-09-06T11:50:00+03:00",
+      "finished_at": "2026-09-06T11:55:00+03:00"
+    },
+    "1": {
+      "status": "running",
+      "started_at": "2026-09-06T11:55:00+03:00",
+      "finished_at": null
+    },
+    "2": {
+      "status": "pending",
+      "started_at": null,
+      "finished_at": null
+    },
+    "3": {
+      "status": "pending",
+      "started_at": null,
+      "finished_at": null
+    }
+  },
+  "gates": {
+    "gate_1": {
+      "status": "awaiting",
+      "approved_by": null,
+      "approved_at": null,
+      "note": "في انتظار مراجعة حزمة الميديا"
+    },
+    "gate_2": {
+      "status": "locked",
+      "approved_by": null,
+      "approved_at": null,
+      "note": null
+    },
+    "gate_3": {
+      "status": "locked",
+      "approved_by": null,
+      "approved_at": null,
+      "note": null
+    }
+  },
+  "updated_at": "2026-09-06T12:00:00+03:00"
+}

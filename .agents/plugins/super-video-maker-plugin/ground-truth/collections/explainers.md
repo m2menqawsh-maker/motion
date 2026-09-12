@@ -20,7 +20,7 @@
 | `KenBurns` | A | `templates/scenes/product/ken-burns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
@@ -33,13 +33,13 @@
 | `TypewriterSubtitle` | C | `templates/elements/captions/typewriter-subtitle.tsx` | caption, typing, title_reveal |
 | `AreaChart` | C | `templates/elements/data/area-chart.tsx` | stat |
 | `ChartAnimation` | C | `templates/elements/data/chart-animation.tsx` | stat |
-| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | stat, progress_indicator |
+| `CircularProgress` | C | `templates/elements/data/circular-progress.tsx` | progress_indicator, stat |
 | `ComparisonChart` | C | `templates/elements/data/comparison-chart.tsx` | stat |
 | `DonutChart` | C | `templates/elements/data/donut-chart.tsx` | stat |
 | `LineChart` | C | `templates/elements/data/line-chart.tsx` | stat |
 | `PieChart` | C | `templates/elements/data/pie-chart.tsx` | stat |
-| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | stat, progress_indicator |
-| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | stat, progress_indicator |
+| `ProgressBars` | C | `templates/elements/data/progress-bars.tsx` | progress_indicator, stat |
+| `ProgressSteps` | C | `templates/elements/data/progress-steps.tsx` | progress_indicator, stat |
 | `StatCounter` | C | `templates/elements/data/stat-counter.tsx` | stat |
 | `Statcard` | A | `templates/elements/data/StatCard.tsx` | stat |
 | `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
@@ -50,17 +50,17 @@
 | `GlitchText` | C | `templates/elements/typography/glitch-text.tsx` | title_reveal |
 | `PoppingText` | C | `templates/elements/typography/popping-text.tsx` | title_reveal |
 | `PulsingText` | C | `templates/elements/typography/pulsing-text.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | title_reveal, background |
+| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `SlideText` | C | `templates/elements/typography/slide-text.tsx` | title_reveal |
 | `TextReveal` | A | `templates/elements/typography/text-reveal.tsx` | title_reveal |
 | `TitleSplit` | C | `templates/elements/typography/title-split.tsx` | title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
 | `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | title_reveal, typing |
 | `TypewriterRemocn` | A | `templates/elements/typography/typewriter-remocn.tsx` | title_reveal, typing |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | title_reveal, badge, element_animation |
+| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 | `CardFlip` | C | `templates/elements/ui/card-flip.tsx` | ui_element |
 | `LetterboxReveal` | C | `templates/elements/ui/letterbox-reveal.tsx` | ui_element |
-| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | ui_element, notification |
+| `NotificationPop` | C | `templates/elements/ui/notification-pop.tsx` | notification, ui_element |
 | `QuoteCard` | C | `templates/elements/ui/quote-card.tsx` | ui_element |
 | `Color` | A | `templates/elements/ui/remocn-ui/color.ts` | ui_element |
 | `Motion` | A | `templates/elements/ui/remocn-ui/motion.ts` | ui_element |
@@ -82,12 +82,12 @@
 | `ParallaxPan` | C | `templates/effects/motion/parallax-pan.tsx` | motion_effect |
 | `ParticleExplosion` | C | `templates/effects/motion/particle-explosion.tsx` | motion_effect |
 | `SoundWave` | C | `templates/effects/motion/sound-wave.tsx` | motion_effect |
-| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | image_motion, motion_effect, emphasis |
+| `ZoomPulse` | C | `templates/effects/motion/zoom-pulse.tsx` | motion_effect, image_motion, emphasis |
 | `BokehCircles` | C | `templates/effects/overlays/bokeh-circles.tsx` | overlay |
 | `FilmBurn` | C | `templates/effects/overlays/film-burn.tsx` | overlay |
 | `GeometricPatterns` | C | `templates/effects/overlays/geometric-patterns.tsx` | overlay |
 | `NoiseGrain` | C | `templates/effects/overlays/noise-grain.tsx` | overlay |
-| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | emphasis, overlay |
+| `VignettePulse` | C | `templates/effects/overlays/vignette-pulse.tsx` | overlay, emphasis |
 | `BlindsTransition` | C | `templates/effects/transitions/blinds-transition.tsx` | transition |
 | `BlurOutUp` | A | `templates/effects/transitions/blur-out-up.tsx` | transition |
 | `ClockWipe` | C | `templates/effects/transitions/clock-wipe.tsx` | transition |

@@ -1,0 +1,15 @@
+{
+  "project_id": "prj_demo",
+  "name": "مشروع تجريبي لفحص العقود",
+  "aspect": "9:16",
+  "resolution": { "w": 1080, "h": 1920 },
+  "fps": 30,
+  "language": "ar",
+  "brand": "demo-brand",
+  "created_at": "2026-09-06T12:00:00+03:00",
+  "voiceover": {
+    "mode": "upload",
+    "file": "assets/incoming/vo_demo.wav",
+    "voice_id": null
+  }
+}

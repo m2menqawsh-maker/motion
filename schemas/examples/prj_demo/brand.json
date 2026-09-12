@@ -1,0 +1,16 @@
+{
+  "brandName": "Demo Brand",
+  "logoSrc": "assets/ready/logo.svg",
+  "colors": {
+    "primary": "#00F5FF",
+    "accent": "#FFD700",
+    "background": "#0A0E27",
+    "text": "#FFFFFF",
+    "surface": "#1A1A2E"
+  },
+  "fonts": {
+    "display": "Cairo",
+    "body": "IBMPlexSansArabic"
+  },
+  "tone": "تقني عصري"
+}

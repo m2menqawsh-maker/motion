@@ -1,0 +1,84 @@
+{
+  "project_id": "prj_demo",
+  "version": 1,
+  "fps": 30,
+  "totalDurationFrames": 450,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "text-reveal",
+      "startFrame": 0,
+      "durationFrames": 150,
+      "props": {
+        "text": "مرحباً بالعالم",
+        "fontSize": 64,
+        "fontWeight": 700,
+        "fontFamily": "Cairo",
+        "textAlign": "center",
+        "lineHeight": 1.4,
+        "color": "#00F5FF",
+        "background": "#0A0E27",
+        "opacity": 1,
+        "position": { "anchor": "center", "x": 0, "y": -100 },
+        "animation": "fade_in_up",
+        "speed": 1.2,
+        "delay": 5,
+        "mode": "dark",
+        "styleOverride": {
+          "borderRadius": "16px",
+          "textShadow": "0 0 20px rgba(0,245,255,0.5)"
+        }
+      },
+      "media_refs": ["ast_bg-01"],
+      "sfx_ref": "ast_whoosh-01",
+      "captions_ref": null
+    },
+    {
+      "scene_id": "scene_02",
+      "template": "split-screen",
+      "startFrame": 150,
+      "durationFrames": 180,
+      "props": {
+        "text": "المحتوى الثاني",
+        "fontSize": 48,
+        "fontFamily": "IBMPlexSansArabic",
+        "color": "#FFD700",
+        "animation": "slide_right",
+        "speed": 1,
+        "delay": 0,
+        "position": { "anchor": "center-right" }
+      },
+      "media_refs": [],
+      "sfx_ref": null,
+      "captions_ref": null
+    },
+    {
+      "scene_id": "scene_03",
+      "template": "outro-badge",
+      "startFrame": 330,
+      "durationFrames": 120,
+      "props": {
+        "text": "تابعنا",
+        "fontSize": 56,
+        "fontFamily": "Almarai",
+        "color": "#FFFFFF",
+        "background": "#1A1A2E",
+        "gradient": { "from": "#0A0E27", "to": "#1A1A2E", "angle": 135 },
+        "animation": "zoom_in_bounce",
+        "speed": 0.8,
+        "delay": 10,
+        "logoSrc": "assets/ready/logo.svg",
+        "brandName": "Demo Brand",
+        "position": { "anchor": "bottom-center", "x": 0, "y": -60 }
+      },
+      "media_refs": ["ast_logo-01"],
+      "sfx_ref": "ast_boom-01",
+      "captions_ref": null
+    }
+  ],
+  "audio": {
+    "voiceover_ref": "ast_vo-01",
+    "music_ref": "ast_music-01",
+    "music_ducking_db": -12
+  }
+}

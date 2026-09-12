@@ -1,0 +1,16 @@
+{
+  "project_id": "prj_demo",
+  "scenes": [
+    {
+      "scene_id": "scene_02",
+      "props": {
+        "fontSize": 52,
+        "color": "#FF6B6B"
+      },
+      "timing": {
+        "startFrame": 160,
+        "durationFrames": 170
+      }
+    }
+  ]
+}

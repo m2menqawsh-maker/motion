@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "overrides.schema.json",
+  "title": "تجاوزات المشاهد — Scene Overrides",
+  "description": "عقد التجاوزات: يسمح بتعديل خصائص مشاهد محددة دون تغيير المخطط الأصلي",
+  "type": "object",
+  "required": ["project_id"],
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^prj_[a-z0-9_-]+$",
+      "description": "معرّف المشروع"
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene_id"],
+        "additionalProperties": false,
+        "properties": {
+          "scene_id": {
+            "type": "string",
+            "pattern": "^scene_[0-9]+$",
+            "description": "معرّف المشهد المراد تجاوزه"
+          },
+          "props": {
+            "$ref": "blueprint.schema.json#/definitions/styleSurface",
+            "description": "خصائص بصرية بديلة للمشهد"
+          },
+          "timing": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "startFrame": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "إطار البداية الجديد"
+              },
+              "durationFrames": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "مدة المشهد الجديدة بالإطارات"
+              }
+            },
+            "description": "توقيتات بديلة"
+          }
+        },
+        "description": "تجاوز لمشهد واحد"
+      },
+      "description": "قائمة تجاوزات المشاهد"
+    }
+  }
+}
