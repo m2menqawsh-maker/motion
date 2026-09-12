@@ -18,10 +18,16 @@ def test_websocket_receive():
     with client.websocket_connect("/render/prj_123/ws") as websocket:
         websocket.send_text("stop")
         assert True
+from unittest.mock import patch, AsyncMock
 
-@patch("api.services.render_service.asyncio.create_subprocess_exec")
+@patch("api.services.render_service.asyncio.create_subprocess_exec", new_callable=AsyncMock)
 def test_render_service_mock(mock_exec):
-    mock_exec.return_value.returncode = 0
+    mock_process = AsyncMock()
+    mock_process.returncode = 0
+    mock_process.stdout.readline.side_effect = [b"Rendering...\n", b""]
+    mock_process.stderr.readline.side_effect = [b""]
+    mock_exec.return_value = mock_process
+    
     res = client.post("/render/prj_mock")
     assert res.status_code == 200
 

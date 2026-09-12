@@ -5,7 +5,8 @@ from pathlib import Path
 
 async def render_project_async(project_id: str, manager: ConnectionManager):
     project_dir = Path(f"projects/{project_id}")
-    cmd = ["npx", "tsx", "scripts/dev_render_blueprint.ts", str(project_dir)]
+    # Use the unified pipeline for rendering instead of the rogue TS script
+    cmd = ["python", "-c", f"import sys; sys.path.insert(0, '.'); from scripts.core.pipeline import UnifiedPipeline; UnifiedPipeline('{project_id}').render()"]
     
     # Run process asynchronously
     process = await asyncio.create_subprocess_exec(

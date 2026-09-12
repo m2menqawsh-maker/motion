@@ -111,45 +111,13 @@ export interface StyleSurface {
   styleOverride?: StyleOverride;
 }
 
+import { StyleSurfaceSchema } from "./blueprint";
+
 /**
- * فحص قيم السطح (Runtime Validator)
- * @param obj الكائن المراد فحصه
- * @returns نتيجة الفحص
+ * فحص خصائص السطح (StyleSurface) بالاعتماد على Zod Schema
  */
-export function validateStyleSurface(obj: any): { ok: boolean; errors: string[] } {
-  const errors: string[] = [];
-  if (typeof obj !== "object" || obj === null) {
-    return { ok: false, errors: ["obj is not an object"] };
-  }
-
-  // Basic numeric validations based on schema
-  if (obj.fontSize !== undefined && (typeof obj.fontSize !== "number" || obj.fontSize < 8 || obj.fontSize > 400)) {
-    errors.push("fontSize must be a number between 8 and 400");
-  }
-  if (obj.lineHeight !== undefined && (typeof obj.lineHeight !== "number" || obj.lineHeight < 0.5 || obj.lineHeight > 4)) {
-    errors.push("lineHeight must be a number between 0.5 and 4");
-  }
-  if (obj.opacity !== undefined && (typeof obj.opacity !== "number" || obj.opacity < 0 || obj.opacity > 1)) {
-    errors.push("opacity must be a number between 0 and 1");
-  }
-  if (obj.scale !== undefined && (typeof obj.scale !== "number" || obj.scale < 0.1 || obj.scale > 10)) {
-    errors.push("scale must be a number between 0.1 and 10");
-  }
-  if (obj.rotation !== undefined && (typeof obj.rotation !== "number" || obj.rotation < -360 || obj.rotation > 360)) {
-    errors.push("rotation must be a number between -360 and 360");
-  }
-  if (obj.width !== undefined && (typeof obj.width !== "number" || obj.width < 1)) {
-    errors.push("width must be a number >= 1");
-  }
-  if (obj.height !== undefined && (typeof obj.height !== "number" || obj.height < 1)) {
-    errors.push("height must be a number >= 1");
-  }
-  if (obj.speed !== undefined && (typeof obj.speed !== "number" || obj.speed < 0.1 || obj.speed > 5)) {
-    errors.push("speed must be a number between 0.1 and 5");
-  }
-  if (obj.delay !== undefined && (typeof obj.delay !== "number" || obj.delay < 0)) {
-    errors.push("delay must be a number >= 0");
-  }
-
-  return { ok: errors.length === 0, errors };
+export function validateStyleSurface(obj: unknown): { ok: boolean; errors: string[] } {
+  const res = StyleSurfaceSchema.safeParse(obj);
+  if (res.success) return { ok: true, errors: [] };
+  return { ok: false, errors: res.error.errors.map(e => e.message) };
 }

@@ -1,21 +1,10 @@
 import { BrandKit } from "../../contracts/brand";
-import { StyleSurface } from "../../contracts/StyleSurface";
+import { StyleSurface, StyleSurfaceSchema } from "../../contracts/blueprint";
 import { SceneContent } from "../../contracts/SceneContent";
 import { TemplateEntry } from "../../registry/types";
 import { validateStyleOverride } from "../../contracts/override-validator";
 import { resolveBrandToken } from "../../templates/brand-resolver";
-
-export interface BlueprintScene {
-  scene_id: string;
-  template: string;
-  startFrame: number;
-  durationFrames: number;
-  props?: Record<string, any>;
-  media_refs?: string[];
-  sfx_ref?: string | null;
-  captions_ref?: string | null;
-  content?: SceneContent;
-}
+import { BlueprintScene } from "../../contracts/blueprint";
 
 export interface SceneOverride {
   props?: Record<string, any>;
@@ -43,6 +32,7 @@ export interface MergedScene {
   sfx_ref: string | null;
   captions_ref: string | null;
   content: SceneContent;
+  effects?: any[];
 }
 
 export interface MergedProject {
@@ -83,11 +73,14 @@ export function mergeScene(
   const mergedProps = { ...baseSurface, ...(scene.props || {}) };
 
   // 3. يحل كل قيمة تبدأ بـ "brand."
-  const resolvedProps = resolveTokensDeep(mergedProps, brand) as StyleSurface;
+  const resolvedProps = resolveTokensDeep(mergedProps, brand);
 
-  // 4. يدمج override.props (مع الفحص)
+  // 4. Validate resolved props strictly against StyleSurfaceSchema (Runtime Validation - Fixes Flaw 8)
+  const finalValidatedSurface = StyleSurfaceSchema.parse(resolvedProps);
+
+  // 5. يدمج override.props (مع الفحص)
+  let surfaceWithOverrides = { ...finalValidatedSurface };
   if (override && override.props) {
-    // If the override has a styleOverride property, we validate it.
     if (override.props.styleOverride) {
       const { ok, errors } = validateStyleOverride(override.props.styleOverride);
       if (!ok) {
@@ -102,10 +95,12 @@ export function mergeScene(
       }
     }
     
-    Object.assign(resolvedProps, resolveTokensDeep(override.props, brand));
+    // Merge overrides and re-validate to ensure overrides don't break the schema
+    const rawWithOverrides = { ...surfaceWithOverrides, ...resolveTokensDeep(override.props, brand) };
+    surfaceWithOverrides = StyleSurfaceSchema.parse(rawWithOverrides);
   }
 
-  // 5. التوقيت من override.timing إن وجد وإلا من scene
+  // 6. التوقيت من override.timing إن وجد وإلا من scene
   const startFrame = override?.timing?.startFrame ?? scene.startFrame;
   const durationFrames = override?.timing?.durationFrames ?? scene.durationFrames;
 
@@ -119,22 +114,18 @@ export function mergeScene(
     finalContent.screen = scene.media_refs[0];
   }
   
-  // Note: we can't easily resolve captions_ref to words synchronously here without the manifest/fs,
-  // but we can leave words undefined if not authored directly, and let the BlueprintVideo or caller resolve it if needed,
-  // OR just assume that if captions_ref is present, `words` might be handled downstream.
-  // We'll leave words alone for now as we don't have access to the parsed captions here.
-
-  // 6. يرجع surface نهائية
+  // 7. يرجع surface نهائية
   return {
     scene_id: scene.scene_id,
     template: scene.template,
     startFrame,
     durationFrames,
-    surface: resolvedProps,
+    surface: surfaceWithOverrides,
     media_refs: scene.media_refs || [],
     sfx_ref: scene.sfx_ref || null,
     captions_ref: scene.captions_ref || null,
     content: finalContent,
+    effects: (scene as any).effects || [],
   };
 }
 

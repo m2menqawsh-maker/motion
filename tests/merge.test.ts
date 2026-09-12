@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { mergeScene, mergeProject, BlueprintScene, SceneOverride, ProjectData } from "../build/src/merge";
-import { loadProjectData } from "../build/src/loadProjectData";
+import { mergeScene, mergeProject, BlueprintScene, SceneOverride, ProjectData } from "../remotion-app/src/merge";
+import { loadProjectData } from "../remotion-app/src/loadProjectData";
 import { BrandKit } from "../contracts/brand";
 import { TemplateEntry } from "../registry/types";
 import * as fs from "fs";
@@ -19,15 +19,20 @@ describe("Merge & Load Project Data Tests", () => {
 
   const dummyRegistryEntry = {
     id: "test",
-    defaults: { text: "default text", color: "#000" },
-    schema: {}
-  } as TemplateEntry;
+    label: { en: "Test", ar: "اختبار" },
+    description: { en: "Test", ar: "اختبار" },
+    category: "other",
+    defaultDurationFrames: 30,
+    defaults: { text: "default text", color: "#000000" },
+    schema: {},
+    component: () => null
+  } as unknown as TemplateEntry;
 
   it("1. defaults تُطبق عند غياب props", () => {
     const scene: BlueprintScene = { scene_id: "s1", template: "test", startFrame: 0, durationFrames: 30 };
     const merged = mergeScene(scene, dummyRegistryEntry, dummyBrand);
     expect(merged.surface.text).toBe("default text");
-    expect(merged.surface.color).toBe("#000");
+    expect(merged.surface.color).toBe("#000000");
   });
 
   it("2. props تتغلب على defaults", () => {
@@ -37,7 +42,7 @@ describe("Merge & Load Project Data Tests", () => {
     };
     const merged = mergeScene(scene, dummyRegistryEntry, dummyBrand);
     expect(merged.surface.text).toBe("props text");
-    expect(merged.surface.color).toBe("#000"); // From defaults
+    expect(merged.surface.color).toBe("#000000"); // From defaults
   });
 
   it("3. overrides تتغلب على props", () => {
@@ -88,7 +93,7 @@ describe("Merge & Load Project Data Tests", () => {
     // Create dummy blueprint to mock loading
     if (!fs.existsSync(MOCK_DIR)) fs.mkdirSync(MOCK_DIR, { recursive: true });
     fs.writeFileSync(path.join(MOCK_DIR, "project.json"), JSON.stringify({ fps: 30, title: "Test" }));
-    fs.writeFileSync(path.join(MOCK_DIR, "blueprint.json"), JSON.stringify({ scenes: [] }));
+    fs.writeFileSync(path.join(MOCK_DIR, "blueprint.json"), JSON.stringify({ project_id: "test", version: "1.0", fps: 30, scenes: [] }));
     
     // No brand.json written
     const data = loadProjectData(MOCK_DIR);
@@ -105,6 +110,9 @@ describe("Merge & Load Project Data Tests", () => {
       project: { fps: 30, title: "Sort Test" },
       brand: dummyBrand,
       blueprint: {
+        project_id: "test",
+        version: "1.0",
+        fps: 30,
         scenes: [
           { scene_id: "s2", template: "test", startFrame: 100, durationFrames: 30 },
           { scene_id: "s1", template: "test", startFrame: 0, durationFrames: 30 },

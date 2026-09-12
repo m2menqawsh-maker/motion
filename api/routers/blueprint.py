@@ -1,8 +1,13 @@
 from fastapi import APIRouter, HTTPException, Body
 import json
 from pathlib import Path
+from jsonschema import validate, ValidationError
 
 router = APIRouter()
+
+# Load schema once
+SCHEMA_PATH = Path("schemas/blueprint.schema.json")
+BLUEPRINT_SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8")) if SCHEMA_PATH.exists() else None
 
 @router.get("/{project_id}")
 async def get_blueprint(project_id: str):
@@ -21,6 +26,12 @@ async def get_blueprint(project_id: str):
 
 @router.post("/{project_id}/blueprint")
 async def update_blueprint(project_id: str, payload: dict = Body(...)):
+    if BLUEPRINT_SCHEMA:
+        try:
+            validate(instance=payload, schema=BLUEPRINT_SCHEMA)
+        except ValidationError as e:
+            raise HTTPException(status_code=400, detail=f"Invalid blueprint: {e.message}")
+            
     project_dir = Path(f"projects/{project_id}")
     if not project_dir.exists():
         raise HTTPException(status_code=404, detail="Project not found")

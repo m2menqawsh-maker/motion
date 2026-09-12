@@ -1,7 +1,7 @@
 import sys
-from utils.logger import UnifiedLogger
-log = UnifiedLogger("transcript_cleaner")
-
+import logging
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+log = logging.getLogger("transcript_cleaner")
 import os
 import json
 import argparse

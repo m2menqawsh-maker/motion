@@ -23,7 +23,7 @@ vi.mock("remotion", async (importOriginal) => {
 describe("Effects Bridge & Runtime Tests", () => {
   
   it("1. Deterministic: same frame + params -> same transform", async () => {
-    const { CameraRig } = await import("../.agents/plugins/super-video-maker-plugin/engine/camera/CameraRig");
+    const { CameraRig } = await import("../engine/camera/CameraRig");
     const CameraRigAny = CameraRig as any;
     // Fix: pass timeline and scenes
     const props = { timeline: [], scenes: [], overlap: 0 };

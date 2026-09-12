@@ -3,8 +3,13 @@
 """
 render_project.py — سكريبت وسيط لرندر المشروع بأمان وفي المسار الصحيح
 """
-import sys, os, subprocess
+import sys
 from pathlib import Path
+
+# Fix python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from scripts.core.pipeline import UnifiedPipeline
+from scripts.core.gates import GateViolation
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -18,39 +23,20 @@ def main():
 
     project_id = sys.argv[1]
 
-    workspace_root = Path.cwd()
-    if (workspace_root / "projects" / project_id).exists():
-        proj_dir = workspace_root / "projects" / project_id
-    elif (workspace_root.parent / "projects" / project_id).exists():
-        proj_dir = workspace_root.parent / "projects" / project_id
-    else:
-        proj_dir = Path(f"projects/{project_id}").resolve()
-
-    build_dir = proj_dir / "06_build"
-    approval_file = proj_dir / ".studio_approved"
-    approval_file_build = build_dir / ".studio_approved"
-
-    # 1. فحص موافقة المستخدم
-    if not approval_file.exists() and not approval_file_build.exists():
-        print("🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
-        print("السبب: لم تتم الموافقة على الفيديو في الاستوديو.")
-        print(f"الإجراء: افتح الاستوديو، راجع الفيديو، وأنشئ ملف {approval_file}.")
+    pipeline = UnifiedPipeline(project_id)
+    print(f"✅ جاري التحقق من المشروع {project_id}...")
+    try:
+        result = pipeline.render()
+        print(f"✅ نجاح الرندر! تم حفظ الفيديو في: {result.get('output')}")
+    except GateViolation as e:
+        print(f"\n{'='*60}")
+        print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
+        print(f"{'='*60}")
+        print(e)
         sys.exit(1)
-
-    # 2. التحقق من وجود المجلد
-    if not build_dir.exists():
-        print(f"❌ مجلد البناء غير موجود: {build_dir}")
+    except Exception as e:
+        print(f"❌ فشل الرندر: {str(e)}")
         sys.exit(1)
-
-    # 3. تشغيل الرندر في المسار الصحيح
-    print(f"✅ [GUARDIAN PASS] جاري رندر الفيديو للمشروع {project_id}...")
-    os.chdir(str(build_dir))
-    use_shell = os.name == "nt"
-    out_dir = build_dir / "out"
-    out_dir.mkdir(exist_ok=True, parents=True)
-    
-    cmd = ["npx", "remotion", "render", "src/index.ts", "Main", f"out/{project_id}_final.mp4", "--concurrency=4"]
-    subprocess.run(cmd, shell=use_shell)
 
 if __name__ == "__main__":
     main()

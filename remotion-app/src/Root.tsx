@@ -34,10 +34,11 @@ export const RemotionRoot: React.FC = () => {
       width={1080}
       height={1920}
       defaultProps={{
-        projectData: DUMMY_PROJECT_DATA
-      } as BlueprintVideoInputProps}
+        projectData: DUMMY_PROJECT_DATA as any,
+        brand: DUMMY_PROJECT_DATA.brand
+      }}
       calculateMetadata={async ({ props }) => {
-        const { projectData: rawData } = props as BlueprintVideoInputProps;
+        const { projectData: rawData } = props as unknown as BlueprintVideoInputProps;
         
         // Merge defaults, overrides, brand tokens
         const projectData = mergeProject(rawData, (template) => TEMPLATE_REGISTRY[template]);

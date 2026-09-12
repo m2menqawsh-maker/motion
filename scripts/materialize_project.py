@@ -4,8 +4,10 @@ Usage: python materialize_project.py <project_dir>"""
 import json, shutil, sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
-from pipeline_guard import PipelineGuard, GuardViolation
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from scripts.core.pipeline import UnifiedPipeline
+from scripts.core.gates import GateViolation
+
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
@@ -13,17 +15,18 @@ if hasattr(sys.stderr, "reconfigure"):
 
 DST = Path(__file__).resolve().parent.parent
 WS = DST.parent.parent.parent
+PLUGIN_DIR = WS / ".agents" / "plugins" / "super-video-maker-plugin"
 proj = Path(sys.argv[1]).resolve()
 man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))
-bp = json.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
 
 project_id = proj.name
 
 # ─── الفحص الإجباري قبل أي بناء ───
-guard = PipelineGuard(project_id)
+pipeline = UnifiedPipeline(project_id)
 try:
-    guard.pre_build_check()
-except GuardViolation as e:
+    bp = pipeline.gates.verify_blueprint_schema()
+    pipeline.gates.verify_plan_exists()
+except GateViolation as e:
     print(f"\n{'='*60}")
     print(f"🛑 تم إيقاف materialize_project.py")
     print(f"{'='*60}")
@@ -77,7 +80,7 @@ for a in man.get("assets", []):
     aid = a["asset_id"]
     src = canon(a.get("processed_path") or a.get("path", ""))
     if not src.exists(): fails.append(f"asset {aid}: missing {src}"); continue
-    if DST in src.parents: fails.append(f"asset {aid}: مصدر داخل مجلد المهارة (ممنوع): {src}"); continue
+    if PLUGIN_DIR in src.parents: fails.append(f"asset {aid}: مصدر داخل مجلد المهارة (ممنوع): {src}"); continue
     out = pub_media / f"{aid}{src.suffix}"
     shutil.copy2(src, out); media_map[aid] = f"media/{out.name}"
 
@@ -111,12 +114,8 @@ for sec in bp.get("timeline", []):
 if fails:
     print("❌ MATERIALIZE FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)
 
-# ─── ختم الناتج لمنع النسخ اليدوي اللاحق ───
-PipelineGuard.seal_report(Path(f"projects/{project_id}/06_build/media_map.json"))
-
-# إنشاء القفل المادي
-lock_path = proj / ".materialized.lock"
-lock_path.write_text(json.dumps({"status": "locked", "assets_count": len(media_map)}), encoding="utf-8")
+# ─── ختم الناتج لمنع النسخ اليدوي اللاحق وتحضير المشروع للمعاينة ───
+prep_info = pipeline.prep_and_materialize()
 
 print(f"✅ MATERIALIZED: {len(media_map)} assets, {len(used)} templates")
-print(f"🔒 تم إغلاق القفل: {lock_path.name}")
+print(f"🔒 تم تأمين المخرجات (Deep Hash): {prep_info['hash'][:8]}...")

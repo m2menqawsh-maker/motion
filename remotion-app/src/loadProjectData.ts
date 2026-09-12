@@ -1,4 +1,5 @@
 import { ProjectData } from "./merge";
+import { BlueprintSchema } from "../../contracts/blueprint";
 
 const DEFAULT_BRAND = {
   brandName: "Default",
@@ -36,23 +37,13 @@ export function loadProjectData(projectDir: string): ProjectData {
     throw new Error(`Missing mandatory file: blueprint.json in ${projectDir}`);
   }
 
-  // Option 1: Validate files dynamically using python script.
-  // Note: For unit tests that mock the structure in memory without all files, this could fail,
-  // so we catch and log or fail gracefully if the python script is not found/fails.
-  try {
-    const pythonScript = path.resolve(__dirname, "../../../scripts/validate_schemas.py");
-    if (fs.existsSync(pythonScript)) {
-      execSync(`python "${pythonScript}" "${projectDir}"`, { stdio: 'pipe' });
-    }
-  } catch (error: any) {
-    console.warn("Schema validation warning:", error?.stdout?.toString() || error.message);
-  }
-
   const project = fs.existsSync(projectPath)
     ? JSON.parse(fs.readFileSync(projectPath, "utf-8"))
     : { fps: 30, title: "Untitled" };
 
-  const blueprint = JSON.parse(fs.readFileSync(blueprintPath, "utf-8"));
+  const rawBlueprint = JSON.parse(fs.readFileSync(blueprintPath, "utf-8"));
+  
+  const blueprint = BlueprintSchema.parse(rawBlueprint);
   
   const brand = fs.existsSync(brandPath)
     ? JSON.parse(fs.readFileSync(brandPath, "utf-8"))

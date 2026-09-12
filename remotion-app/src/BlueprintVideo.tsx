@@ -115,17 +115,17 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
           let overlays: React.ReactNode[] = [];
 
           if (scene.effects && scene.effects.length > 0) {
-             const wrappers = scene.effects.filter(e => e.apply === "scene" || EFFECTS_RUNTIME[e.effect]?.kind === "wrapper");
-             const applyingOverlays = scene.effects.filter(e => e.apply === "overlay" || EFFECTS_RUNTIME[e.effect]?.kind === "overlay");
+             const wrappers = scene.effects.filter((e: any) => e.apply === "scene" || EFFECTS_RUNTIME[e.effect]?.kind === "wrapper");
+             const applyingOverlays = scene.effects.filter((e: any) => e.apply === "overlay" || EFFECTS_RUNTIME[e.effect]?.kind === "overlay");
              
-             element = wrappers.reduceRight((acc, effectDef) => {
+             element = wrappers.reduceRight((acc: any, effectDef: any) => {
                  const runtime = EFFECTS_RUNTIME[effectDef.effect];
                  if (!runtime || !runtime.component) return acc;
                  const EffectComp = runtime.component;
                  return <EffectComp {...effectDef.params}>{acc}</EffectComp>;
              }, element);
              
-             overlays = applyingOverlays.map((effectDef, eidx) => {
+             overlays = applyingOverlays.map((effectDef: any, eidx: number) => {
                  const runtime = EFFECTS_RUNTIME[effectDef.effect];
                  if (!runtime || !runtime.component) return null;
                  const EffectComp = runtime.component;
