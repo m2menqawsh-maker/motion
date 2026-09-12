@@ -1,6 +1,19 @@
 {
+  "type": "module",
+  "scripts": {
+    "test": "vitest run --passWithNoTests"
+  },
   "dependencies": {
     "@remotion/cli": "^4.0.522",
-    "typescript": "^7.0.2"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.524",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
+    "vitest": "^5.0.0"
   }
 }
