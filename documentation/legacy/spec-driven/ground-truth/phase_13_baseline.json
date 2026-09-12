@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-08-29T13:36:31.586Z",
+  "totalTemplates": 153,
+  "executionEligibility": {
+    "fullySupported": 2,
+    "partiallySupported": 0,
+    "catalogOnly": 150,
+    "broken": 1,
+    "unknown": 0
+  },
+  "blockers": {
+    "blockedByAssets": 0,
+    "blockedByCertification": 0,
+    "blockedByProps": 0,
+    "blockedByAdapter": 147
+  },
+  "candidates": {
+    "highConfidenceCandidates": 96,
+    "adapterFamilies": {
+      "animated_text_v1": 5
+    }
+  }
+}

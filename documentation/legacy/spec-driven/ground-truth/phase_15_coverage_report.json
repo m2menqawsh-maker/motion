@@ -1,0 +1,16 @@
+{
+  "totalTemplates": 158,
+  "fullySupported": 107,
+  "catalogOnly": 51,
+  "blocked": 51,
+  "contractVerified": 108,
+  "sampleRenderVerified": 92,
+  "individuallyRenderVerified": 15,
+  "genericExecution": 111,
+  "specializedAdapters": 1,
+  "remainingBlockers": {
+    "NO_SEMANTIC_ROLE": 19,
+    "MISSING_DEFAULT_OR_MAPPING": 29,
+    "MISSING_MEDIA_MAPPING": 2
+  }
+}

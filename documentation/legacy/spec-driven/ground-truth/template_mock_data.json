@@ -1,0 +1,866 @@
+{
+  "effects/motion/camera-shake": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/gradient-shift": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/grid-pulse": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/liquid-wave": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/parallax-pan": {
+    "imageUrl": "Sample",
+    "duration": 0,
+    "direction": "UNKNOWN",
+    "scale": 0,
+    "_status": "PARTIAL"
+  },
+  "effects/motion/particle-explosion": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/sound-wave": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/motion/zoom-pulse": {
+    "imageUrl": "Sample",
+    "duration": 0,
+    "minScale": 0,
+    "maxScale": 0
+  },
+  "effects/overlays/bokeh-circles": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/overlays/film-burn": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/overlays/geometric-patterns": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/overlays/noise-grain": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/overlays/vignette-pulse": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/blinds-transition": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/blur-out-up": {
+    "text": "Sample",
+    "staggerDelay": 0,
+    "fontSize": 0,
+    "color": "Sample",
+    "fontWeight": 0,
+    "speed": 0,
+    "className": "Sample"
+  },
+  "effects/transitions/clock-wipe": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/cross-dissolve": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/fade-through-black": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/glass-wipe/glassWipe": {
+    "direction": 0
+  },
+  "effects/transitions/iris-transition": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/morph-transition": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/pixel-transition": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/push-transition": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/slide-wipe": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "effects/transitions/type-mask/typeMask": {
+    "text": "Sample",
+    "holdFrames": 0,
+    "maxScale": 0,
+    "color": "Sample",
+    "fontFamily": "Sample"
+  },
+  "effects/transitions/whip-pan": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-blur-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-bounce-drop": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-fade-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-glitch-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-scale-rotate": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-spin-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-split-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-stroke-draw": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/logo-typewriter": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/branding/lower-third": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/captions/captions/Captions": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/captions/text-highlight": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/captions/typewriter-subtitle": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/code/code-block/CodeBlock": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/code/code-diff/CodeDiff": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/code/terminal/Terminal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/area-chart": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/AudioVisualizer": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/chart-animation": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/circular-progress": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/comparison-chart": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/donut-chart": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/line-chart": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/pie-chart": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/progress-bars": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/progress-steps": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/stat-counter": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/data/StatCard": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/blur-reveal/BlurReveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/bounce-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/bubble-pop-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/caret": {
+    "color": "Sample",
+    "width": 0,
+    "height": 0,
+    "radius": 0,
+    "opacity": 0,
+    "blink": false,
+    "blinkPerSecond": 0,
+    "speed": 0,
+    "marginLeft": 0,
+    "className": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "elements/typography/floating-bubble-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/glitch-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/popping-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/pulsing-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/rgb-glitch-text/RgbGlitchText": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/slide-text": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/text-reveal": {
+    "text": "Sample",
+    "fontSize": 0,
+    "color": "Sample",
+    "fontWeight": "Sample",
+    "theme": "UNKNOWN",
+    "mode": "UNKNOWN",
+    "initialScale": 0,
+    "introDuration": 0,
+    "holdDuration": 0,
+    "pushScale": 0,
+    "recedeDuration": 0,
+    "assembleDuration": 0,
+    "wordDelay": 0,
+    "wordStagger": 0,
+    "wordDuration": 0,
+    "wordPush": 0,
+    "wordFade": 0,
+    "letterSpacing": "Sample",
+    "speed": 0,
+    "className": "Sample",
+    "_status": "PARTIAL"
+  },
+  "elements/typography/title-split": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/tracking-in/TrackingIn": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/typewriter/Typewriter": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/typography/typewriter-remocn": {
+    "text": "Sample",
+    "cursor": false,
+    "charsPerSecond": 0,
+    "speed": 0,
+    "fontSize": 0,
+    "color": "Sample",
+    "cursorColor": "Sample",
+    "fontWeight": 0,
+    "className": "Sample"
+  },
+  "elements/typography/word-stagger/WordStagger": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/card-flip": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/letterbox-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/notification-pop": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/quote-card": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/remotion-bits/CardStack": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/remotion-bits/Carousel": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/split-screen/SplitScreen": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "elements/ui/spotlight-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/cta/countdown-intro": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/cta/countdown-timer": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/cta/credits-roll": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/cta/end-card": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/cta/subscribe-reminder": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/explainers/animated-list": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/explainers/split-screen": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/hooks/animated-text": {
+    "text": "Sample",
+    "entrance_direction": "UNKNOWN",
+    "camera_track": "UNKNOWN",
+    "color": "Sample",
+    "fontSize": "Sample",
+    "_status": "PARTIAL"
+  },
+  "scenes/hooks/chapter-title": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/hooks/cinematic-title-intro": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/hooks/matrix-rain": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/hooks/starfield": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/hooks/zoom-through": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/product/image-comparison-slider": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/product/image-zoom-reveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/product/ken-burns/KenBurns": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/product/ken-burns": {
+    "imageUrl": "Sample",
+    "duration": 0,
+    "scale": 0,
+    "translateX": 0,
+    "translateY": 0
+  },
+  "scenes/social/gallery-grid": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/image-carousel": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/masonry-gallery": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/photo-stack": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/picture-in-picture": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/polaroid-frame": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/rotating-carousel": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/social/social-clip/index": {
+    "hookTitle": "Sample",
+    "hookSubtitle": "Sample",
+    "logoSrc": "Sample",
+    "audioSrc": "Sample",
+    "captions": [],
+    "podcastTitle": "Sample",
+    "ctaTitle": "Sample",
+    "ctaLabel": "Sample",
+    "ctaUrl": "Sample"
+  },
+  "scenes/social/SocialClip": {
+    "hookTitle": "Sample",
+    "hookSubtitle": "Sample",
+    "logoSrc": "Sample",
+    "audioSrc": "Sample",
+    "captions": [],
+    "podcastTitle": "Sample",
+    "ctaTitle": "Sample",
+    "ctaLabel": "Sample",
+    "ctaUrl": "Sample"
+  },
+  "audio/AudioManager": {
+    "music": "UNKNOWN",
+    "sfxTimeline": [],
+    "scenes": [],
+    "overlap": 0,
+    "duckMusicDuring": [],
+    "_status": "PARTIAL"
+  },
+  "camera/AutoZoom": {
+    "keyframes": [],
+    "getRect": "Sample"
+  },
+  "camera/CameraRig": {
+    "timeline": [],
+    "scenes": [],
+    "easing": "UNKNOWN",
+    "overlap": 0,
+    "children": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "cursor/Cursor": {
+    "actions": [],
+    "getRect": "Sample"
+  },
+  "cursor/CursorSprite": {
+    "size": 0,
+    "color": "Sample",
+    "scale": 0,
+    "rotation": 0,
+    "pulseOpacity": 0,
+    "pulseScale": 0,
+    "shape": "UNKNOWN",
+    "shapeProgress": 0,
+    "_status": "PARTIAL"
+  },
+  "layout/LayoutContext": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "layout/LayoutWindow": {
+    "id": "Sample",
+    "zone": "Sample",
+    "width": 0,
+    "height": 0,
+    "margin": 0,
+    "avoidZones": [],
+    "align": "UNKNOWN",
+    "horizontal": "UNKNOWN",
+    "vertical": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/AppFromDescriptor": {
+    "descriptor": "UNKNOWN",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/AppShell": {
+    "sidebar": "UNKNOWN",
+    "sidebarWidth": 0,
+    "sidebarPosition": "UNKNOWN",
+    "topBar": "UNKNOWN",
+    "topBarHeight": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/Avatar": {
+    "name": "Sample",
+    "size": 0,
+    "color": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/Badge": {
+    "label": "Sample",
+    "color": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/Button": {
+    "label": "Sample",
+    "variant": "UNKNOWN",
+    "size": "UNKNOWN",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/DataTable": {
+    "columns": [],
+    "rows": [],
+    "statusColumn": 0,
+    "statusColors": "Sample",
+    "compact": false,
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/ListItems": {
+    "items": [],
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/MessageList": {
+    "messages": [],
+    "variant": "UNKNOWN",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/NotificationToast": {
+    "title": "Sample",
+    "body": "Sample",
+    "accent": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/Panel": {
+    "title": "Sample",
+    "subtitle": "Sample",
+    "accent": "Sample",
+    "padding": 0,
+    "id": "Sample",
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/PanelGrid": {
+    "columns": "Sample",
+    "rows": "Sample",
+    "gap": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/Placeholder": {
+    "label": "Sample",
+    "height": 0,
+    "aspectRatio": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/SearchBar": {
+    "placeholder": "Sample",
+    "value": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/SidebarNav": {
+    "items": [],
+    "header": "UNKNOWN",
+    "footer": "UNKNOWN",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/StatCard": {
+    "label": "Sample",
+    "value": "Sample",
+    "delta": "Sample",
+    "deltaColor": "Sample",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/TabBar": {
+    "tabs": [],
+    "variant": "UNKNOWN",
+    "id": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/app-ui/TopNav": {
+    "left": "UNKNOWN",
+    "right": "UNKNOWN",
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/CountUp": {
+    "from": 0,
+    "to": 0,
+    "delay": 0,
+    "duration": 0,
+    "decimals": 0,
+    "prefix": "Sample",
+    "suffix": "Sample",
+    "separator": "Sample",
+    "fontSize": 0,
+    "color": "Sample",
+    "fontFamily": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/EndCard": {
+    "logo": "UNKNOWN",
+    "tagline": "Sample",
+    "cta": "Sample",
+    "entranceDelay": 0,
+    "entranceDuration": 0,
+    "backgroundColor": "Sample",
+    "textColor": "Sample",
+    "accentColor": "Sample",
+    "_status": "PARTIAL"
+  },
+  "primitives/Enter": {
+    "delay": 0,
+    "duration": 0,
+    "translateY": 0,
+    "translateX": 0,
+    "rotate": 0,
+    "scaleFrom": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Exit": {
+    "startAt": 0,
+    "duration": 0,
+    "translateY": 0,
+    "translateX": 0,
+    "rotate": 0,
+    "scaleTo": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Headline": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "primitives/Highlight": {
+    "delay": 0,
+    "duration": 0,
+    "holdFrames": 0,
+    "fadeOutDuration": 0,
+    "color": "Sample",
+    "variant": "UNKNOWN",
+    "borderRadius": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Pulse": {
+    "delay": 0,
+    "period": 0,
+    "intensity": 0,
+    "count": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/ScenePush": {
+    "duration": 0,
+    "overlap": 0,
+    "enterFrom": "UNKNOWN",
+    "exitTo": "UNKNOWN",
+    "background": "UNKNOWN",
+    "enterSfx": "UNKNOWN",
+    "children": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Stagger": {
+    "interval": 0,
+    "delay": 0,
+    "duration": 0,
+    "translateY": 0,
+    "translateX": 0,
+    "scaleFrom": 0,
+    "children": [],
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/TrafficLights": {
+    "size": 0,
+    "gap": 0
+  },
+  "primitives/TypeWriter": {
+    "text": "Sample",
+    "delay": 0,
+    "speed": 0,
+    "cursor": false,
+    "cursorBlinkRate": 0,
+    "fontSize": 0,
+    "color": "Sample",
+    "fontFamily": "Sample",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Wallpaper": {
+    "variant": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "primitives/Window": {
+    "id": "Sample",
+    "title": "Sample",
+    "width": "Sample",
+    "height": "Sample",
+    "chromeHeight": 0,
+    "children": "UNKNOWN",
+    "style": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "scenes/ChaosDesktop": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/Closer": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/DynamicWindows": {
+    "sceneId": "Sample"
+  },
+  "scenes/FeatureShowcase": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/HeadlineResolution": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "scenes/ProductReveal": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "ui-state/UIStateProvider": {
+    "_status": "NONE",
+    "_reason": "No props found"
+  },
+  "orphan/canvas.tsx": {
+    "placement": "UNKNOWN",
+    "children": "UNKNOWN",
+    "_status": "PARTIAL"
+  },
+  "orphan/Camera.tsx": {
+    "children": "UNKNOWN",
+    "focusX": 0,
+    "focusY": 0,
+    "zoom": 0,
+    "rotate": 0,
+    "viewportWidth": 0,
+    "viewportHeight": 0,
+    "_status": "PARTIAL"
+  },
+  "orphan/Glow.tsx": {
+    "color": "Sample",
+    "size": 0,
+    "x": 0,
+    "y": 0,
+    "opacity": 0
+  },
+  "orphan/GridField.tsx": {
+    "cell": 0,
+    "variant": "UNKNOWN",
+    "color": "Sample",
+    "thickness": 0,
+    "opacity": 0,
+    "_status": "PARTIAL"
+  },
+  "orphan/Surface.tsx": {
+    "children": "UNKNOWN",
+    "width": "Sample",
+    "height": "Sample",
+    "variant": "UNKNOWN",
+    "radius": 0,
+    "padding": "Sample",
+    "background": "Sample",
+    "borderColor": "Sample",
+    "shadow": "UNKNOWN",
+    "_status": "PARTIAL"
+  }
+}

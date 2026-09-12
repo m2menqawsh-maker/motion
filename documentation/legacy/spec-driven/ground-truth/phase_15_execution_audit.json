@@ -1,0 +1,3059 @@
+{
+  "total": 158,
+  "auditResults": [
+    {
+      "templateId": "effects/motion/camera-shake",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/gradient-shift",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/grid-pulse",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/liquid-wave",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/parallax-pan",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "imageUrl",
+        "duration",
+        "direction",
+        "scale"
+      ],
+      "provenDefaults": [
+        "imageUrl",
+        "duration",
+        "direction",
+        "scale"
+      ],
+      "semanticMappings": [
+        "imageUrl",
+        "image"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/particle-explosion",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/sound-wave",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/motion/zoom-pulse",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "imageUrl",
+        "duration",
+        "minScale",
+        "maxScale"
+      ],
+      "provenDefaults": [
+        "imageUrl",
+        "duration",
+        "minScale",
+        "maxScale"
+      ],
+      "semanticMappings": [
+        "imageUrl",
+        "image"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/overlays/bokeh-circles",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/overlays/film-burn",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/overlays/geometric-patterns",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/overlays/noise-grain",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/overlays/vignette-pulse",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/blinds-transition",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/blur-out-up",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "text"
+      ],
+      "optionalProps": [
+        "staggerDelay",
+        "fontSize",
+        "color",
+        "fontWeight",
+        "speed",
+        "className"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/clock-wipe",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/cross-dissolve",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/fade-through-black",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/glass-wipe/glassWipe",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "direction"
+      ],
+      "optionalProps": [],
+      "provenDefaults": [
+        "kind",
+        "direction",
+        "frost"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/iris-transition",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/morph-transition",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/pixel-transition",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/push-transition",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/slide-wipe",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/type-mask/typeMask",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "text",
+        "holdFrames",
+        "maxScale",
+        "color",
+        "fontFamily"
+      ],
+      "optionalProps": [],
+      "provenDefaults": [
+        "kind",
+        "text",
+        "holdFrames",
+        "maxScale",
+        "color",
+        "fontFamily"
+      ],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "effects/transitions/whip-pan",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-blur-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-bounce-drop",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-fade-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-glitch-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-scale-rotate",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-spin-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-split-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-stroke-draw",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/logo-typewriter",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/branding/lower-third",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/captions/captions/Captions",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/captions/text-highlight",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/captions/typewriter-subtitle",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/code/code-block/CodeBlock",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/code/code-diff/CodeDiff",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/code/terminal/Terminal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/area-chart",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/AudioVisualizer",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": "MISSING_MEDIA_MAPPING",
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/chart-animation",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/circular-progress",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/comparison-chart",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/donut-chart",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/line-chart",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/pie-chart",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/progress-bars",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/progress-steps",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/stat-counter",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/data/StatCard",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/blur-reveal/BlurReveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "text",
+        "delay",
+        "duration",
+        "color",
+        "fontSize",
+        "fontFamily",
+        "align"
+      ],
+      "provenDefaults": [
+        "text",
+        "delay",
+        "duration"
+      ],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/bounce-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/bubble-pop-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/caret",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "color",
+        "width",
+        "height",
+        "radius",
+        "opacity",
+        "blink",
+        "blinkPerSecond",
+        "speed",
+        "marginLeft",
+        "className",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/floating-bubble-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/glitch-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/popping-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/pulsing-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/rgb-glitch-text/RgbGlitchText",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "text",
+        "delay",
+        "duration",
+        "color",
+        "fontSize",
+        "fontFamily",
+        "align"
+      ],
+      "provenDefaults": [
+        "text",
+        "delay",
+        "duration"
+      ],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/slide-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/text-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "text",
+        "fontSize",
+        "color",
+        "fontWeight",
+        "theme",
+        "mode",
+        "initialScale",
+        "introDuration",
+        "holdDuration",
+        "pushScale",
+        "recedeDuration",
+        "assembleDuration",
+        "wordDelay",
+        "wordStagger",
+        "wordDuration",
+        "wordPush",
+        "wordFade",
+        "letterSpacing",
+        "speed",
+        "className"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/title-split",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/tracking-in/TrackingIn",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "text",
+        "delay",
+        "duration",
+        "color",
+        "fontSize",
+        "fontFamily",
+        "align"
+      ],
+      "provenDefaults": [
+        "text",
+        "delay",
+        "duration"
+      ],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/typewriter/Typewriter",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/typewriter-remocn",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "text"
+      ],
+      "optionalProps": [
+        "cursor",
+        "charsPerSecond",
+        "speed",
+        "fontSize",
+        "color",
+        "cursorColor",
+        "fontWeight",
+        "className"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/typography/word-stagger/WordStagger",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "text",
+        "delay",
+        "duration",
+        "color",
+        "fontSize",
+        "fontFamily",
+        "align"
+      ],
+      "provenDefaults": [
+        "text",
+        "delay",
+        "duration"
+      ],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/card-flip",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/letterbox-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/notification-pop",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/quote-card",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/remotion-bits/CardStack",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/remotion-bits/Carousel",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/split-screen/SplitScreen",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "elements/ui/spotlight-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/cta/countdown-intro",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/cta/countdown-timer",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/cta/credits-roll",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/cta/end-card",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/cta/subscribe-reminder",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/explainers/animated-list",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/explainers/split-screen",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/animated-text",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "text"
+      ],
+      "optionalProps": [
+        "entrance_direction",
+        "camera_track",
+        "color",
+        "fontSize"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/chapter-title",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/cinematic-title-intro",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/matrix-rain",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/starfield",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/hooks/zoom-through",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/product/image-comparison-slider",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/product/image-zoom-reveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/product/ken-burns/KenBurns",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "image"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/product/ken-burns",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "imageUrl",
+        "duration",
+        "scale",
+        "translateX",
+        "translateY"
+      ],
+      "provenDefaults": [
+        "imageUrl",
+        "duration",
+        "scale",
+        "translateX",
+        "translateY"
+      ],
+      "semanticMappings": [
+        "imageUrl"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/gallery-grid",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/image-carousel",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/masonry-gallery",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/photo-stack",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/picture-in-picture",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/polaroid-frame",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/rotating-carousel",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/social-clip/index",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "hookTitle",
+        "hookSubtitle",
+        "logoSrc",
+        "audioSrc",
+        "captions",
+        "podcastTitle",
+        "ctaTitle",
+        "ctaLabel",
+        "ctaUrl"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "hookSubtitle",
+        "audioSrc"
+      ],
+      "adapterCapability": "social_captions_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/social/SocialClip",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "hookTitle",
+        "hookSubtitle",
+        "logoSrc",
+        "audioSrc",
+        "captions",
+        "podcastTitle",
+        "ctaTitle",
+        "ctaLabel",
+        "ctaUrl"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "hookSubtitle",
+        "audioSrc"
+      ],
+      "adapterCapability": "social_captions_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "audio/AudioManager",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "scenes"
+      ],
+      "optionalProps": [
+        "music",
+        "sfxTimeline",
+        "overlap",
+        "duckMusicDuring"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "scenes"
+      ]
+    },
+    {
+      "templateId": "camera/AutoZoom",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "keyframes",
+        "getRect"
+      ],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "keyframes",
+        "getRect"
+      ]
+    },
+    {
+      "templateId": "camera/CameraRig",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "timeline",
+        "scenes",
+        "children"
+      ],
+      "optionalProps": [
+        "easing",
+        "overlap"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "timeline",
+        "scenes",
+        "children"
+      ]
+    },
+    {
+      "templateId": "cursor/Cursor",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "actions"
+      ],
+      "optionalProps": [
+        "getRect"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "actions"
+      ]
+    },
+    {
+      "templateId": "cursor/CursorSprite",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "size",
+        "color",
+        "scale",
+        "rotation",
+        "pulseOpacity",
+        "pulseScale",
+        "shape",
+        "shapeProgress"
+      ],
+      "provenDefaults": [
+        "size",
+        "color",
+        "scale",
+        "rotation",
+        "pulseOpacity",
+        "pulseScale",
+        "shape",
+        "shapeProgress"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "layout/LayoutContext",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "layout/LayoutWindow",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "id",
+        "zone",
+        "width",
+        "height"
+      ],
+      "optionalProps": [
+        "margin",
+        "avoidZones",
+        "align",
+        "horizontal",
+        "vertical"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "id",
+        "zone",
+        "width",
+        "height"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/AppFromDescriptor",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "descriptor"
+      ],
+      "optionalProps": [
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "descriptor"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/app-ui/AppShell",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "sidebar",
+        "sidebarWidth",
+        "sidebarPosition",
+        "topBar",
+        "topBarHeight",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/Avatar",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "name"
+      ],
+      "optionalProps": [
+        "size",
+        "color",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "name"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/Badge",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "label"
+      ],
+      "optionalProps": [
+        "color",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "label"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/Button",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "label"
+      ],
+      "optionalProps": [
+        "variant",
+        "size",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "label"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/DataTable",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "columns",
+        "rows"
+      ],
+      "optionalProps": [
+        "statusColumn",
+        "statusColors",
+        "compact",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "columns",
+        "rows"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/ListItems",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "items"
+      ],
+      "optionalProps": [
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "items"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/MessageList",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "messages"
+      ],
+      "optionalProps": [
+        "variant",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "messages"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/NotificationToast",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "title",
+        "body"
+      ],
+      "optionalProps": [
+        "accent",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "title",
+        "body"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/app-ui/Panel",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "title",
+        "subtitle",
+        "accent",
+        "padding",
+        "id",
+        "children",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "title",
+        "subtitle"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/app-ui/PanelGrid",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "columns",
+        "rows",
+        "gap",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/Placeholder",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "label",
+        "height",
+        "aspectRatio",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/app-ui/SearchBar",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "placeholder",
+        "value",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/app-ui/SidebarNav",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "items"
+      ],
+      "optionalProps": [
+        "header",
+        "footer",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "items"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/StatCard",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "label",
+        "value"
+      ],
+      "optionalProps": [
+        "delta",
+        "deltaColor",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "label",
+        "value"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/TabBar",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "tabs"
+      ],
+      "optionalProps": [
+        "variant",
+        "id",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "tabs"
+      ]
+    },
+    {
+      "templateId": "primitives/app-ui/TopNav",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "left",
+        "right",
+        "children",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/CountUp",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "to"
+      ],
+      "optionalProps": [
+        "from",
+        "delay",
+        "duration",
+        "decimals",
+        "prefix",
+        "suffix",
+        "separator",
+        "fontSize",
+        "color",
+        "fontFamily",
+        "style"
+      ],
+      "provenDefaults": [
+        "from",
+        "delay",
+        "duration",
+        "decimals",
+        "prefix",
+        "suffix",
+        "separator",
+        "fontSize"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "to"
+      ]
+    },
+    {
+      "templateId": "primitives/EndCard",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "logo",
+        "tagline",
+        "cta",
+        "entranceDelay",
+        "entranceDuration",
+        "backgroundColor",
+        "textColor",
+        "accentColor"
+      ],
+      "provenDefaults": [
+        "tagline",
+        "cta",
+        "entranceDelay",
+        "entranceDuration"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/Enter",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "delay",
+        "duration",
+        "translateY",
+        "translateX",
+        "rotate",
+        "scaleFrom",
+        "style"
+      ],
+      "provenDefaults": [
+        "delay",
+        "duration",
+        "translateY",
+        "translateX",
+        "rotate",
+        "scaleFrom"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/Exit",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "startAt",
+        "children"
+      ],
+      "optionalProps": [
+        "duration",
+        "translateY",
+        "translateX",
+        "rotate",
+        "scaleTo",
+        "style"
+      ],
+      "provenDefaults": [
+        "duration",
+        "translateY",
+        "translateX",
+        "rotate",
+        "scaleTo"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "startAt",
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/Headline",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/Highlight",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "delay",
+        "duration",
+        "holdFrames",
+        "fadeOutDuration",
+        "color",
+        "variant",
+        "borderRadius",
+        "style"
+      ],
+      "provenDefaults": [
+        "delay",
+        "duration",
+        "holdFrames",
+        "fadeOutDuration",
+        "variant",
+        "borderRadius"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/Pulse",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "delay",
+        "period",
+        "intensity",
+        "count",
+        "style"
+      ],
+      "provenDefaults": [
+        "delay",
+        "period",
+        "intensity",
+        "count"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/ScenePush",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "duration",
+        "overlap",
+        "children"
+      ],
+      "optionalProps": [
+        "enterFrom",
+        "exitTo",
+        "background",
+        "enterSfx"
+      ],
+      "provenDefaults": [
+        "enterFrom",
+        "exitTo",
+        "background"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "duration",
+        "overlap",
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/Stagger",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "interval",
+        "children"
+      ],
+      "optionalProps": [
+        "delay",
+        "duration",
+        "translateY",
+        "translateX",
+        "scaleFrom",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "interval",
+        "children"
+      ]
+    },
+    {
+      "templateId": "primitives/TrafficLights",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "size",
+        "gap"
+      ],
+      "provenDefaults": [
+        "size",
+        "gap"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/TypeWriter",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "text"
+      ],
+      "optionalProps": [
+        "delay",
+        "speed",
+        "cursor",
+        "cursorBlinkRate",
+        "fontSize",
+        "color",
+        "fontFamily",
+        "style"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [
+        "text"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/Wallpaper",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "variant",
+        "style"
+      ],
+      "provenDefaults": [
+        "variant"
+      ],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "primitives/Window",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "id",
+        "children"
+      ],
+      "optionalProps": [
+        "title",
+        "width",
+        "height",
+        "chromeHeight",
+        "style"
+      ],
+      "provenDefaults": [
+        "title",
+        "width",
+        "height"
+      ],
+      "semanticMappings": [
+        "title"
+      ],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "id",
+        "children"
+      ]
+    },
+    {
+      "templateId": "scenes/ChaosDesktop",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "chaos_desktop_v1",
+      "dependencyStatus": "BROKEN",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": "INVALID_ASSET_DEPENDENCY",
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/Closer",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/DynamicWindows",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "sceneId"
+      ],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "sceneId"
+      ]
+    },
+    {
+      "templateId": "scenes/FeatureShowcase",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": "MISSING_MEDIA_MAPPING",
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/HeadlineResolution",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "scenes/ProductReveal",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "NEEDS_MEDIA_MAPPING",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": "MISSING_MEDIA_MAPPING",
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "ui-state/UIStateProvider",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "STATIC_ZERO_PROP",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/canvas.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "placement"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "orphan/Camera.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "children",
+        "focusX",
+        "focusY",
+        "zoom",
+        "rotate",
+        "viewportWidth",
+        "viewportHeight"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/Glow.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "color",
+        "size",
+        "x",
+        "y",
+        "opacity"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/GridField.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "cell",
+        "variant",
+        "color",
+        "thickness",
+        "opacity"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/Surface.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "children",
+        "width",
+        "height",
+        "variant",
+        "radius",
+        "padding",
+        "background",
+        "borderColor",
+        "shadow"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/canvas.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [
+        "children"
+      ],
+      "optionalProps": [
+        "placement"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "UNKNOWN",
+      "blocker": "MISSING_DEFAULT_OR_MAPPING",
+      "unresolvedProps": [
+        "children"
+      ]
+    },
+    {
+      "templateId": "orphan/Camera.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "children",
+        "focusX",
+        "focusY",
+        "zoom",
+        "rotate",
+        "viewportWidth",
+        "viewportHeight"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/Glow.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "color",
+        "size",
+        "x",
+        "y",
+        "opacity"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/GridField.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "cell",
+        "variant",
+        "color",
+        "thickness",
+        "opacity"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    },
+    {
+      "templateId": "orphan/Surface.tsx",
+      "physicalSourceExists": true,
+      "propsParseable": true,
+      "requiredProps": [],
+      "optionalProps": [
+        "children",
+        "width",
+        "height",
+        "variant",
+        "radius",
+        "padding",
+        "background",
+        "borderColor",
+        "shadow"
+      ],
+      "provenDefaults": [],
+      "semanticMappings": [],
+      "adapterCapability": "generic_execution_v1",
+      "dependencyStatus": "HEALTHY",
+      "assetStatus": "HEALTHY",
+      "executionClassification": "CONTRACT_VALID",
+      "blocker": null,
+      "unresolvedProps": []
+    }
+  ]
+}

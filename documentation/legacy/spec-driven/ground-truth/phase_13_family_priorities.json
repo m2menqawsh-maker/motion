@@ -1,0 +1,17 @@
+[
+  {
+    "family": "animated_text_v1",
+    "candidateCount": 3,
+    "highConfidence": 0,
+    "healthyAssets": 3,
+    "propCompatible": 0,
+    "existingReusability": true,
+    "templates": [
+      "scenes/hooks/animated-text",
+      "primitives/app-ui/NotificationToast",
+      "primitives/TypeWriter"
+    ],
+    "score": 220,
+    "priority": "HIGH"
+  }
+]

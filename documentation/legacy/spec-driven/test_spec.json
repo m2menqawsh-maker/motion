@@ -1,0 +1,23 @@
+{
+  "id": "smoke-render-test",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationInFrames": 120,
+  "scenes": [
+    {
+      "id": "scene-1",
+      "templateId": "scenes/ChaosDesktop",
+      "props": {},
+      "durationInFrames": 60,
+      "startFrame": 0
+    },
+    {
+      "id": "scene-2",
+      "templateId": "scenes/ChaosDesktop",
+      "props": {},
+      "durationInFrames": 60,
+      "startFrame": 60
+    }
+  ]
+}

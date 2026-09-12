@@ -1,0 +1,10 @@
+{
+  "total_templates": 158,
+  "validated_templates": 0,
+  "partial_templates": 10,
+  "unknown_templates": 148,
+  "blocked_templates": 0,
+  "unsafe_numeric_props": 0,
+  "unresolved_media": 12,
+  "missing_contracts": 0
+}

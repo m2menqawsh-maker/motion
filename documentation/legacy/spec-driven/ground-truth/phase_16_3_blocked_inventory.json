@@ -1,0 +1,918 @@
+[
+  {
+    "templateId": "primitives/app-ui/AppShell",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/AppShell.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "sidebar",
+      "sidebarWidth",
+      "sidebarPosition",
+      "topBar",
+      "topBarHeight",
+      "style"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/Avatar",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/Avatar.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "name"
+    ],
+    "optionalProps": [
+      "size",
+      "color",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "name"
+    ],
+    "structuralPropSignatures": [
+      "name"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/Badge",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/Badge.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "label"
+    ],
+    "optionalProps": [
+      "color",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "label"
+    ],
+    "structuralPropSignatures": [
+      "label"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/Button",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/Button.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "label"
+    ],
+    "optionalProps": [
+      "variant",
+      "size",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "label"
+    ],
+    "structuralPropSignatures": [
+      "label"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/DataTable",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/DataTable.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "columns",
+      "rows"
+    ],
+    "optionalProps": [
+      "statusColumn",
+      "statusColors",
+      "compact",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "columns",
+      "rows"
+    ],
+    "structuralPropSignatures": [
+      "columns",
+      "rows"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/ListItems",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/ListItems.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "items"
+    ],
+    "optionalProps": [
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "items"
+    ],
+    "structuralPropSignatures": [
+      "items"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/MessageList",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/MessageList.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "messages"
+    ],
+    "optionalProps": [
+      "variant",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "messages"
+    ],
+    "structuralPropSignatures": [
+      "messages"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/PanelGrid",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/PanelGrid.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "columns",
+      "rows",
+      "gap",
+      "style"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/SidebarNav",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/SidebarNav.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "items"
+    ],
+    "optionalProps": [
+      "header",
+      "footer",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "items"
+    ],
+    "structuralPropSignatures": [
+      "items"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/StatCard",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/StatCard.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "label",
+      "value"
+    ],
+    "optionalProps": [
+      "delta",
+      "deltaColor",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "label",
+      "value"
+    ],
+    "structuralPropSignatures": [
+      "label",
+      "value"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/app-ui/TabBar",
+    "sourcePath": "remotion-app/src/templates/primitives/app-ui/TabBar.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "tabs"
+    ],
+    "optionalProps": [
+      "variant",
+      "id",
+      "style"
+    ],
+    "unmappedProps": [
+      "tabs"
+    ],
+    "structuralPropSignatures": [
+      "tabs"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "app_ui_v1",
+    "classification": "family",
+    "estimatedAdapterComplexity": "MEDIUM",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "audio/AudioManager",
+    "sourcePath": "remotion-app/src/templates/audio/AudioManager.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "scenes"
+    ],
+    "optionalProps": [
+      "music",
+      "sfxTimeline",
+      "overlap",
+      "duckMusicDuring"
+    ],
+    "unmappedProps": [
+      "scenes"
+    ],
+    "structuralPropSignatures": [
+      "scenes"
+    ],
+    "mediaRequirements": [
+      "audio"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "camera/AutoZoom",
+    "sourcePath": "remotion-app/src/templates/camera/AutoZoom.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "keyframes",
+      "getRect"
+    ],
+    "optionalProps": [],
+    "unmappedProps": [
+      "keyframes",
+      "getRect"
+    ],
+    "structuralPropSignatures": [
+      "keyframes",
+      "getRect"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "camera/CameraRig",
+    "sourcePath": "remotion-app/src/templates/camera/CameraRig.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "timeline",
+      "scenes",
+      "children"
+    ],
+    "optionalProps": [
+      "easing",
+      "overlap"
+    ],
+    "unmappedProps": [
+      "timeline",
+      "scenes",
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "timeline",
+      "scenes",
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "cursor/Cursor",
+    "sourcePath": "remotion-app/src/templates/cursor/Cursor.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "actions"
+    ],
+    "optionalProps": [
+      "getRect"
+    ],
+    "unmappedProps": [
+      "actions"
+    ],
+    "structuralPropSignatures": [
+      "actions"
+    ],
+    "mediaRequirements": [
+      "audio"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "layout/LayoutWindow",
+    "sourcePath": "remotion-app/src/templates/layout/LayoutWindow.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "id",
+      "zone",
+      "width",
+      "height"
+    ],
+    "optionalProps": [
+      "margin",
+      "avoidZones",
+      "align",
+      "horizontal",
+      "vertical"
+    ],
+    "unmappedProps": [
+      "id",
+      "zone",
+      "width",
+      "height"
+    ],
+    "structuralPropSignatures": [
+      "id",
+      "zone",
+      "width",
+      "height"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "orphan/canvas.tsx",
+    "sourcePath": "remotion-app/src/templates/orphan/canvas.tsx.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "placement"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "orphan/canvas.tsx",
+    "sourcePath": "remotion-app/src/templates/orphan/canvas.tsx.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "placement"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/CountUp",
+    "sourcePath": "remotion-app/src/templates/primitives/CountUp.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "to"
+    ],
+    "optionalProps": [
+      "from",
+      "delay",
+      "duration",
+      "decimals",
+      "prefix",
+      "suffix",
+      "separator",
+      "fontSize",
+      "color",
+      "fontFamily",
+      "style"
+    ],
+    "unmappedProps": [
+      "to"
+    ],
+    "structuralPropSignatures": [
+      "to"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "from",
+      "delay",
+      "duration",
+      "decimals",
+      "prefix",
+      "suffix",
+      "separator",
+      "fontSize"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Enter",
+    "sourcePath": "remotion-app/src/templates/primitives/Enter.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "delay",
+      "duration",
+      "translateY",
+      "translateX",
+      "rotate",
+      "scaleFrom",
+      "style"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "delay",
+      "duration",
+      "translateY",
+      "translateX",
+      "rotate",
+      "scaleFrom"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Exit",
+    "sourcePath": "remotion-app/src/templates/primitives/Exit.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "startAt",
+      "children"
+    ],
+    "optionalProps": [
+      "duration",
+      "translateY",
+      "translateX",
+      "rotate",
+      "scaleTo",
+      "style"
+    ],
+    "unmappedProps": [
+      "startAt",
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "startAt",
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "duration",
+      "translateY",
+      "translateX",
+      "rotate",
+      "scaleTo"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Highlight",
+    "sourcePath": "remotion-app/src/templates/primitives/Highlight.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "delay",
+      "duration",
+      "holdFrames",
+      "fadeOutDuration",
+      "color",
+      "variant",
+      "borderRadius",
+      "style"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "delay",
+      "duration",
+      "holdFrames",
+      "fadeOutDuration",
+      "variant",
+      "borderRadius"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Pulse",
+    "sourcePath": "remotion-app/src/templates/primitives/Pulse.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "children"
+    ],
+    "optionalProps": [
+      "delay",
+      "period",
+      "intensity",
+      "count",
+      "style"
+    ],
+    "unmappedProps": [
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "delay",
+      "period",
+      "intensity",
+      "count"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/ScenePush",
+    "sourcePath": "remotion-app/src/templates/primitives/ScenePush.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "duration",
+      "overlap",
+      "children"
+    ],
+    "optionalProps": [
+      "enterFrom",
+      "exitTo",
+      "background",
+      "enterSfx"
+    ],
+    "unmappedProps": [
+      "duration",
+      "overlap",
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "duration",
+      "overlap",
+      "children"
+    ],
+    "mediaRequirements": [
+      "audio"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "enterFrom",
+      "exitTo",
+      "background"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Stagger",
+    "sourcePath": "remotion-app/src/templates/primitives/Stagger.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "interval",
+      "children"
+    ],
+    "optionalProps": [
+      "delay",
+      "duration",
+      "translateY",
+      "translateX",
+      "scaleFrom",
+      "style"
+    ],
+    "unmappedProps": [
+      "interval",
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "interval",
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "primitives/Window",
+    "sourcePath": "remotion-app/src/templates/primitives/Window.tsx",
+    "semanticRoles": [
+      "text_hook"
+    ],
+    "requiredProps": [
+      "id",
+      "children"
+    ],
+    "optionalProps": [
+      "title",
+      "width",
+      "height",
+      "chromeHeight",
+      "style"
+    ],
+    "unmappedProps": [
+      "id",
+      "children"
+    ],
+    "structuralPropSignatures": [
+      "id",
+      "children"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [
+      "title",
+      "width",
+      "height"
+    ],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  },
+  {
+    "templateId": "scenes/DynamicWindows",
+    "sourcePath": "remotion-app/src/templates/scenes/DynamicWindows.tsx",
+    "semanticRoles": [
+      "generic_component"
+    ],
+    "requiredProps": [
+      "sceneId"
+    ],
+    "optionalProps": [],
+    "unmappedProps": [
+      "sceneId"
+    ],
+    "structuralPropSignatures": [
+      "sceneId"
+    ],
+    "mediaRequirements": [
+      "UNKNOWN"
+    ],
+    "currentBlocker": "MISSING_DEFAULT_OR_MAPPING",
+    "existingProvenDefaults": [],
+    "potentialFamily": "unknown",
+    "classification": "singleton",
+    "estimatedAdapterComplexity": "HIGH",
+    "semanticSourceRequired": "CreativeSpec (varies)"
+  }
+]
