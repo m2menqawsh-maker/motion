@@ -18,7 +18,7 @@ The system consists of 10 primary layers:
 
 ## 3. Workflow Summary
 A video goes through the following stages:
-- **Phase 1**: Planning & Scripting (Generates `01_plan.md`)
+- **Phase 1**: Planning & Scripting (Generates `master_plan.md`)
 - **Phase 2**: Media Gathering (MCPs & local caching)
 - **Phase 3**: Processing (FFmpeg normalization)
 - **Phase 4**: Timings & Blueprint (Timing calculations)

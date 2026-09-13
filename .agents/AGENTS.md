@@ -20,8 +20,8 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
 
 ## ⚙️ Executive Responsibilities
 1. **Phase 0 (Mandatory Pre-Flight)**: 
-   - Rule 0: STOP IMMEDIATELY after the user provides a VO. DO NOT write a plan. Call `analyze_voiceover` via MCP. Then, you MUST use the `ask_question` tool to ask the user at least 5 deep, highly relevant multiple-choice questions (e.g., Aspect Ratio/Dimensions, Core Visual Metaphors based on the actual VO text, Pacing, Color Palette, and Captions Style). WAIT for the user's response from the tool. Any other action is a critical failure.
-2. **Phase 1 (Clarification & Planning)**: Analyze the user's request, match the Recipe, and write the backbone plan (`01_plan.md`).
+   - Rule 0: For detailed questioning flow, refer strictly to `video-production-protocol.md` Phase 0. You MUST ask the user 5 deep questions using `ask_question` tool before writing any plan.
+2. **Phase 1 (Clarification & Planning)**: Analyze the user's request, match the Recipe, and write the backbone plan (`master_plan.md`).
 3. **Phase 2-3 (Media Fetching & Processing)**:
    - Write scripts to communicate with `media-sources-mcp` and `audio-tools-mcp`.
    - If APIs fail, write `urllib` or `Playwright` scripts to fetch assets.

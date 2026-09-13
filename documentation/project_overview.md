@@ -1744,7 +1744,7 @@
 5. **مكافحة الأوهام (Anti-Hallucination)**: إذا فشلت أداة MCP أو API، لا تتوقف ولا تخترع أدوات وهمية. اكتب سكريبت Python بديل (Fallback) في مجلد `scratch/` لتجاوز المشكلة (مثل استخدام Playwright للـ Scraping أو FFmpeg المباشر).
 
 ## ⚙️ المسؤوليات التنفيذية (ماذا تفعل بالضبط؟)
-1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`01_plan.md`).
+1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`master_plan.md`).
 2. **المرحلة 2-3 (جلب ومعالجة الميديا)**: 
    - كتابة سكريبتات للتواصل مع `media-sources-mcp` و `audio-tools-mcp`.
    - إذا فشلت الـ APIs، تكتب سكريبتات `urllib` أو `Playwright` لجلب الأصول.
@@ -1763,7 +1763,7 @@
 - **مشكلة في النصوص العربية (RTL)؟** -> تدخل مباشرة في كود الـ CSS/React لإضافة `direction: 'rtl'` و `flex-wrap`.
 
 ## 📝 مخرجاتك المتوقعة في كل جلسة
-- **ملفات التخطيط**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
+- **ملفات التخطيط**: `00_answers.md`, `master_plan.md`, `05_blueprint_human.md`.
 - **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
 - **كود الـ Remotion**: تحديث ملفات `src/*.tsx` في مجلد `06_build/`.
 - **التقارير**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
@@ -1906,7 +1906,7 @@
 ### 1.4 قائمة القوالب المعتمدة
 من `TEMPLATE_INDEX.md` فقط. اسم غير موجود → `VOCAB_REMAP` → إن لم يوجد → توقف واسأل.
 
-المخرج: 01_plan.md
+المخرج: master_plan.md
 🛑 توقف: انتظر موافقة المستخدم الصريحة.
 
 ---
@@ -2172,7 +2172,7 @@ video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (د�
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في

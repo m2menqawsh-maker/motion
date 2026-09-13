@@ -29,8 +29,8 @@ Pipeline:
      = top up HeyGen **API** credits.
 4. **B-roll + beat map.**
    - *Article-scroll reel (recommended):* capture a tall article screenshot
-     (`capture_article.py <url> <out.png>`), then author `plan.json` (copy
-     `plan.example.json`) with per-beat `scroll_from`/`scroll_to` (pixels in the article at
+     (`capture_article.py <url> <out.png>`), then author `master_plan.md` (copy
+     `plan.example.json` into markdown structure) with per-beat `scroll_from`/`scroll_to` (pixels in the article at
      canvas width) so the scroll has an explicit, tunable **speed**. Include a **headline
      beat** (`scroll_from: 0`) so the H1 is on screen. Aspect is preserved automatically.
    - *Screen-recording reel (legacy):* one beat per cut with `t0`/`t1` on phrase breaks,
@@ -40,7 +40,7 @@ Pipeline:
    set `badge_png` + `badge_w` in the plan. CTA split: **Instagram** → comment-DM
    (`cta_word`/`cta_text`); **YouTube** → brand callout (`cta_anchor: "tail"`,
    `cta_text: "Zoek <Brand>"`, `cta_word: null`) — never "comment"/"link in bio".
-6. **Build.** Create `05_blueprint.json` following the plan. Then run:
+6. **Build.** Create `05_blueprint.json` following the `master_plan.md`. Then run:
    - `python scripts/materialize_project.py <project_id>` to migrate approved assets.
    - `python scripts/scene_compiler.py <project_id>` to generate React code.
    - `python scripts/code_template_gate.py <project_id>` to enforce AST template rules.

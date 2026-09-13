@@ -93,7 +93,7 @@ describe("Merge & Load Project Data Tests", () => {
     // Create dummy blueprint to mock loading
     if (!fs.existsSync(MOCK_DIR)) fs.mkdirSync(MOCK_DIR, { recursive: true });
     fs.writeFileSync(path.join(MOCK_DIR, "project.json"), JSON.stringify({ fps: 30, title: "Test" }));
-    fs.writeFileSync(path.join(MOCK_DIR, "blueprint.json"), JSON.stringify({ project_id: "test", version: "1.0", fps: 30, scenes: [] }));
+    fs.writeFileSync(path.join(MOCK_DIR, "05_blueprint.json"), JSON.stringify({ project_id: "test", version: "1.0", fps: 30, scenes: [] }));
     
     // No brand.json written
     const data = loadProjectData(MOCK_DIR);
@@ -126,10 +126,10 @@ describe("Merge & Load Project Data Tests", () => {
     expect(merged.totalDurationFrames).toBe(130); // 100 + 30
   });
 
-  it("10. غياب blueprint.json → خطأ واضح (رسالة تحتوي 'blueprint')", () => {
+  it("10. غياب 05_blueprint.json → خطأ واضح (رسالة تحتوي 'blueprint')", () => {
     if (!fs.existsSync(MOCK_DIR)) fs.mkdirSync(MOCK_DIR, { recursive: true });
     fs.writeFileSync(path.join(MOCK_DIR, "project.json"), JSON.stringify({ fps: 30, title: "Test" }));
-    // Explicitly do NOT write blueprint.json
+    // Explicitly do NOT write 05_blueprint.json
     
     expect(() => loadProjectData(MOCK_DIR)).toThrowError(/blueprint/i);
     

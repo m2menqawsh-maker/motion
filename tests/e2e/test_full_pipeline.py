@@ -21,7 +21,7 @@ def project_setup():
         "fps": 30,
         "scenes": []
     }
-    (project_dir / "blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
+    (project_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
     
     timings = {"words": []}
     (project_dir / "04_timings.json").write_text(json.dumps(timings), encoding="utf-8")

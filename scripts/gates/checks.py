@@ -22,8 +22,6 @@ def check_gate_1(project_dir: str) -> Dict[str, Any]:
     
     manifest_path = p / "manifest.json"
     blueprint_path = p / "05_blueprint.json"
-    if not blueprint_path.exists():
-        blueprint_path = p / "blueprint.json"
     brand_path = p / "brand.json"
     
     manifest = _load_json(manifest_path)
@@ -88,9 +86,9 @@ def check_gate_2(project_dir: str) -> Dict[str, Any]:
     p = Path(project_dir)
     errors = []
     
-    bp_file = p / "05_blueprint.json" if (p / "05_blueprint.json").exists() else p / "blueprint.json"
+    bp_file = p / "05_blueprint.json"
     if not bp_file.exists():
-        return {"ok": False, "errors": ["05_blueprint.json or blueprint.json is missing"]}
+        return {"ok": False, "errors": ["05_blueprint.json is missing"]}
     blueprint = _load_json(bp_file)
         
     ids_json = _load_json(Path("registry/ids.json"))

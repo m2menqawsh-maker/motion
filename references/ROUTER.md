@@ -178,7 +178,7 @@ python scripts/template_router.py --intent hook --use-case ad --mood energetic -
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في

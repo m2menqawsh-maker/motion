@@ -19,7 +19,7 @@ To start a new video project, simply tell the AI Agent:
 6. Open the Studio for your review.
 
 ## 4. Manual Approvals Required
-- **Plan Approval**: Review `01_plan.md` and say "Approved".
+- **Plan Approval**: Review `master_plan.md` and say "Approved".
 - **Studio Approval**: After previewing the video, create a file named `.studio_approved` in the project root to unlock the final render.
 
 Happy Video Making!

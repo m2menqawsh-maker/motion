@@ -1,0 +1,5 @@
+{
+  "decision": "block",
+  "reason": "🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.\nالإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.",
+  "additionalContext": "أنت ملزم بالعمل حسب Protocol v4.0. قم بإصلاح الخطأ في خطوتك القادمة."
+}

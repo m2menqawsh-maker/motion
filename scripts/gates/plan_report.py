@@ -14,7 +14,7 @@ def generate_report(project_dir: str, out_file: str):
     out_path = p / out_file if out_file else p / "master_plan.md"
     
     project = _load_json(p / "project.json")
-    bp_path = p / "05_blueprint.json" if (p / "05_blueprint.json").exists() else p / "blueprint.json"
+    bp_path = p / "05_blueprint.json"
     blueprint = _load_json(bp_path)
     brand = _load_json(p / "brand.json")
     manifest = _load_json(p / "manifest.json")

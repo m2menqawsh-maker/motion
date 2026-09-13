@@ -22,4 +22,4 @@
 
 ## 5. `python scripts/validate_schemas.py projects/demo_brand`
 - **حالة التشغيل**: يعمل بنجاح تام.
-- **النتيجة**: تم فحص 6 ملفات (project.json, blueprint.json, brand.json, overrides.json, manifest.json, state.json)، والنتيجة هي **نجاح كامل للستة ملفات (سليمة)**.
+- **النتيجة**: تم فحص 6 ملفات (project.json, 05_blueprint.json, brand.json, overrides.json, manifest.json, state.json)، والنتيجة هي **نجاح كامل للستة ملفات (سليمة)**.

@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "blueprint.schema.json",
   "title": "المخطط التنفيذي — Blueprint (مصدر الحقيقة الوحيد)",
@@ -726,7 +726,7 @@ except ImportError:
 # خريطة الملفات ← العقود
 FILE_SCHEMA_MAP = {
     "project.json": "project.schema.json",
-    "blueprint.json": "blueprint.schema.json",
+    "05_blueprint.json": "blueprint.schema.json",
     "brand.json": "brand.schema.json",
     "overrides.json": "overrides.schema.json",
     "manifest.json": "manifest.schema.json",

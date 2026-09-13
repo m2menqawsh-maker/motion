@@ -20,27 +20,23 @@ class ProjectGates:
             raise GateViolation("PROJECT_NOT_FOUND", f"المشروع '{project_id}' غير موجود", f"أنشئ المشروع في projects/{project_id}")
 
     def verify_plan_exists(self):
-        """Standardized check for 01_plan.md"""
+        """Standardized check for master_plan.md"""
         plan = self.project_dir / "master_plan.md"
-        if not plan.exists():
-            plan = self.project_dir / "01_plan.md"
             
         if not plan.exists() or plan.stat().st_size == 0:
-            raise GateViolation("PLAN_MISSING", "ملف 01_plan.md غير موجود أو فارغ", "اكتب خطة المشروع أولاً")
+            raise GateViolation("PLAN_MISSING", "ملف master_plan.md غير موجود أو فارغ", "اكتب خطة المشروع أولاً")
 
     def verify_blueprint_schema(self) -> dict:
-        """Validates blueprint.json against the generated Zod schema (JSON Schema)"""
+        """Validates 05_blueprint.json against the generated Zod schema (JSON Schema)"""
         bp_path = self.project_dir / "05_blueprint.json"
-        if not bp_path.exists():
-            bp_path = self.project_dir / "blueprint.json"
             
         if not bp_path.exists():
-            raise GateViolation("BLUEPRINT_MISSING", "ملف blueprint.json غير موجود", "قم بتوليد المخطط أولاً")
+            raise GateViolation("BLUEPRINT_MISSING", "ملف 05_blueprint.json غير موجود", "قم بتوليد المخطط أولاً")
             
         try:
             bp_data = json.loads(bp_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
-            raise GateViolation("BLUEPRINT_INVALID_JSON", "ملف blueprint.json ليس بصيغة JSON صحيحة", "أصلح صياغة الملف")
+            raise GateViolation("BLUEPRINT_INVALID_JSON", "ملف 05_blueprint.json ليس بصيغة JSON صحيحة", "أصلح صياغة الملف")
 
         schema_path = Path("schemas/blueprint.schema.json")
         if schema_path.exists():
@@ -99,7 +95,7 @@ def calculate_deep_hash(project_id: str, bp_data: dict, build_dir: Path) -> str:
     project_dir = Path(f"projects/{project_id}")
     
     # 1. Hash Configs
-    for file in ["blueprint.json", "manifest.json", "brand.json", "project.json"]:
+    for file in ["05_blueprint.json", "manifest.json", "brand.json", "project.json"]:
         p = project_dir / file
         if p.exists():
             hasher.update(p.read_bytes())

@@ -83,7 +83,7 @@ clean-video-workspace/
 │       ├── master_plan.md                 # الخطة التفصيلية المكتوبة يدويًا
 │       ├── 02_asset_manifest.json         # بيان الوسائط المعتمدة
 │       ├── 04_timings.json                # مصفوفة التوقيتات المستخرجة للتعليق الصوتي
-│       ├── 05_blueprint.json              # المخطط الهندسي للمشاهد
+│       ├── 05_05_blueprint.json              # المخطط الهندسي للمشاهد
 │       ├── 06_build/                      # بيئة Remotion / React الخاصة بالمشروع
 │       │   ├── src/                       # أكواد المشاهد والمكونات
 │       │   └── public/media/              # الأصول المنقولة حصراً عبر سكربت البناء
@@ -138,7 +138,7 @@ flowchart TD
     end
 
     subgraph Phase3 ["المرحلة 3: البناء، المعاينة، والرندر (🛑 STOP 3)"]
-        Stop2 --> GenJSON[إعداد 05_blueprint.json والبيان]
+        Stop2 --> GenJSON[إعداد 05_05_blueprint.json والبيان]
         GenJSON --> Materialize[نقل الأصول: scripts/materialize_project.py]
         Materialize --> Compile[تجميع المشاهد: scene_compiler.py]
         Compile --> ASTGate[فحص الكود: code_template_gate.py]
@@ -165,7 +165,7 @@ flowchart TD
    - التحقق عبر `python scripts/plan_gate.py <project_id>`.
    - توقف إجباري للموافقة على الخطة.
 4. **المرحلة 3 (Build, Preview & Render — 🛑 STOP 3):**
-   - توليد `05_blueprint.json` و `02_asset_manifest.json`.
+   - توليد `05_05_blueprint.json` و `02_asset_manifest.json`.
    - نقل الوسائط حصراً عبر `materialize_project.py`.
    - فحص شجرة الكود (AST) وتطبيق التناغم الحركي.
    - تنفيذ الفحص الخفي `probe_qc.py` والتحقق من سلامة اللقطات التجريبية.
@@ -192,7 +192,7 @@ flowchart TD
    - يمنع أدوات التنزيل الخارجية غير المصرح بها (`curl`, `wget`, `yt-dlp`).
    - يمنع الرندر المباشر عبر FFmpeg دون المرور بمحرك Remotion.
    - يمنع حذف الملفات والمجلدات الحساسة (`.agents/`, `engine/`, `templates/`, `scripts/`).
-   - يمنع استدعاء `materialize_project.py` قبل اكتمال الملفات التأسيسية (`master_plan.md`, `05_blueprint.json`, `02_asset_manifest.json`).
+   - يمنع استدعاء `materialize_project.py` قبل اكتمال الملفات التأسيسية (`master_plan.md`, `05_05_blueprint.json`, `02_asset_manifest.json`).
 2. **`write_guard.py`:**
    - يمنع تعديل أو إنشاء ملفات الاعتماد الأمنية: `.studio_approved`, `.studio_unlocked`, `probe_qc_report.json`, `.seal`, `.qc_salt`, `04_timings.json`.
    - يمنع الكتابة في مسارات النواة المحمية ومسارات القوالب الأساسية.
@@ -309,7 +309,7 @@ flowchart TD
 2. **قيود التحقق بالنصوص الصريحة (Regex Limits):**
    - رغم متانة تعبيرات الـ Regex المحدثة، إلا أن سطر الأوامر بطبيعته في بيئات مثل PowerShell و Bash يدعم طرقاً لا حصر لها للالتفاف (مثل تشفير Base64، أو تقسيم النصوص عبر متغيرات البيئة). الحماية المتكاملة مستقبلاً تتطلب بيئة تشغيل معزولة بالكامل (Containerized Sandbox / Docker) تمنع تنفيذ أوامر غير معتمدة من جذورها.
 3. **التلوث السياقي وفقدان الذاكرة (Context Window Dilution):**
-   - في الجلسات الإنتاجية الطويلة، يؤدي تدفق المخرجات الكبيرة إلى استنزاف نافذة السياق، مما قد يدفع النموذج لتجاوز بعض التعليمات الفرعية. يعتمد النظام على نقاط التفتيش النصية (`04_timings.json`, `05_blueprint.json`) للحد من هذا الأثر.
+   - في الجلسات الإنتاجية الطويلة، يؤدي تدفق المخرجات الكبيرة إلى استنزاف نافذة السياق، مما قد يدفع النموذج لتجاوز بعض التعليمات الفرعية. يعتمد النظام على نقاط التفتيش النصية (`04_timings.json`, `05_05_blueprint.json`) للحد من هذا الأثر.
 4. **التوافق التشغيلي لمنصة Remotion و FFmpeg:**
    - تظل مسارات الملفات في نظام Windows والفروقات بين الخطوط والفواصل الزمنية مصدراً محتملاً للأخطاء الطفيفة أثناء الرندر، ويتم الاعتماد على `probe_qc.py` كصمام أمان لاكتشافها مبكراً قبل التسليم.
 

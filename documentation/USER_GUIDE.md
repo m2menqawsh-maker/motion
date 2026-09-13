@@ -8,7 +8,7 @@ Every video project goes through these stages:
 
 1. **Initialization**: Create a new project folder under `projects/`.
 2. **Briefing**: Provide the agent with your vision, script, and assets (or ask it to fetch them).
-3. **Planning**: The agent will create a detailed `01_plan.md`. **You must review and approve this plan.**
+3. **Planning**: The agent will create a detailed `master_plan.md`. **You must review and approve this plan.**
 4. **Asset Gathering**: The agent uses MCPs to download required stock footage and audio.
 5. **Blueprint & Building**: The agent generates React/Remotion code.
 6. **Review (Studio)**: You will be asked to review the video in the Remotion Studio. You must manually create a `.studio_approved` file to proceed.
@@ -21,6 +21,6 @@ Every video project goes through these stages:
 
 ## 4. Common Commands
 While the AI handles the execution, you can monitor the progress by checking:
-- `projects/<id>/01_plan.md`
+- `projects/<id>/master_plan.md`
 - `projects/<id>/05_blueprint_human.md`
 - `documentation/audits/FINAL_AUDIT_REPORT.md` (for system health)

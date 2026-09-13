@@ -96,5 +96,72 @@
       "message": "محظور استخدام وصف ضعيف مثل 'خلفية عامة'.",
       "fix": "صف الخلفية بدقة سينمائية (مثلاً: خلفية داكنة تميل للزرقة مع إضاءة خافتة متحركة)."
     }
-  ]
+  ],
+  "write_violations": {
+    "blocked_paths": [
+      ".agents/plugins/super-video-maker-plugin/engine/",
+      ".agents/plugins/super-video-maker-plugin/templates/",
+      ".agents/plugins/super-video-maker-plugin/scripts/",
+      ".agents/plugins/super-video-maker-plugin/ground-truth/",
+      ".agents/guardian/",
+      ".agents/rules/",
+      ".agents/secrets/",
+      "assets/processing/",
+      "assets/ready/"
+    ],
+    "blocked_files": [
+      "TEMPLATE_INDEX.md",
+      "plugin.json",
+      "mcp.json",
+      "probe_qc_report.json",
+      ".seal",
+      ".qc_salt",
+      ".studio_approved",
+      ".studio_unlocked",
+      "04_timings.json",
+      "hooks.json",
+      "AGENTS.md",
+      "circuit_breaker.json"
+    ],
+    "allowed_prefixes": [
+      "projects/",
+      "scratch/",
+      "assets/incoming/",
+      ".agents/logs/"
+    ]
+  },
+  "command_restrictions": {
+    "blocked_commands": [
+      {
+        "pattern": "npx remotion render",
+        "message": "ممنوع استخدام أمر npx remotion render مباشرة. استخدم السكربت المعتمد: python scripts/render_project.py <project_id>"
+      },
+      {
+        "pattern": "npm run studio",
+        "message": "ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>"
+      },
+      {
+        "pattern": "npx remotion studio",
+        "message": "ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>"
+      }
+    ],
+    "destructive_patterns": ["rm -rf", "del /s", "rmdir /s"],
+    "protected_from_destruction": [".agents/", "engine/", "templates/", "scripts/"],
+    "allowed_packages": ["remotion", "@remotion/cli", "react", "ffmpeg-static", "typescript"]
+  },
+  "post_execution_warnings": {
+    "probe_qc.py": {
+      "failure_trigger": "pass",
+      "is_inverse": true,
+      "message": "⚠️ Probe-QC فشل. لا تنتقل للرندر أو الاستوديو حتى يتم إصلاح الأخطاء."
+    },
+    "motion_validator.py": {
+      "failure_triggers": ["Failed", "❌"],
+      "message": "⚠️ motion_validator فشل. لا تنتقل للبناء حتى يتم إصلاح الأخطاء الإبداعية."
+    },
+    "materialize_project.py": {
+      "failure_triggers": ["Error", "Failed"],
+      "message": "⚠️ materialize_project فشل. أصلح الأخطاء قبل المتابعة."
+    }
+  }
 }

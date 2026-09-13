@@ -1,5 +1,15 @@
 # Video Production Protocol — v4.0 (Agile Visual-First)
 
+## Phase 0: Mandatory Pre-Flight (🛑 STOP 0)
+
+**Rule 0:** STOP IMMEDIATELY after the user provides a VO (or requests its generation). DO NOT write a plan.
+1. Immediately run: `audio-tools-mcp:analyze_voiceover` on the file.
+2. Wait for the analysis results (`04_timings.json`).
+3. You MUST use the `ask_question` tool to ask the user at least 5 deep, highly relevant multiple-choice questions (e.g., Aspect Ratio/Dimensions, Core Visual Metaphors based on the actual VO text, Pacing, Color Palette, and Captions Style).
+4. WAIT for the user's response from the tool. Any other action is a critical failure.
+
+---
+
 ## Phase 1: Media Package + Preview (🛑 STOP 1)
 
 **Step 0 (Before any phase): Check Live Alerts**
@@ -7,12 +17,7 @@
 - If it exists, read the alerts and handle them before proceeding.
 - If it is empty or does not exist, proceed to the next step.
 
-### Step 1: Mandatory Audio Analysis
-Once the user uploads the VO (or requests its generation):
-1. Immediately run: `audio-tools-mcp:analyze_voiceover` on the file.
-2. Wait for the analysis results (`04_timings.json`).
-
-### Step 2: Fetch and Process Media
+### Step 1: Fetch and Process Media
 1. User uploads first → `assets/incoming/`
 2. Check Cache: `common-tools-mcp:check_cache` (Fetching from the internet is forbidden if a matching processed asset exists).
 3. Fetch missing assets via `media-sources-mcp` directly.

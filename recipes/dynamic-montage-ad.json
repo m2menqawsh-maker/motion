@@ -87,7 +87,7 @@
   "deliverables": [
     "final/master_9x16.mp4",
     "04_timings.json",
-    "05_blueprint.json"
+    "05_05_blueprint.json"
   ],
   "mcp_servers": [
     "audio-tools-mcp",

@@ -1685,7 +1685,7 @@ clean-video-workspace/
             .materialized.lock
             .studio_unlocked
             02_asset_manifest.json
-            05_blueprint.json
+            05_05_blueprint.json
             probe_qc_report.json
             03_probe_qc/
             06_build/
@@ -1720,11 +1720,11 @@ clean-video-workspace/
             .materialized.lock
             .studio_unlocked
             00_answers.md
-            01_plan.md
+            master_plan.md
             02_asset_manifest.json
             02_initial_assets.json
             04_voiceover_analysis.json
-            05_blueprint.json
+            05_05_blueprint.json
             probe_qc_report.json
             03_probe_qc/
                 contact_sheet_scene1.png

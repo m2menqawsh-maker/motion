@@ -632,11 +632,11 @@
     📁 python-learning-01/
       📄 --lock - ملف موارد
       📄 00_answers.md - إجابات مرحلة الاستيضاح مع العميل
-      📄 01_plan.md - الخطة الشاملة للمشروع
+      📄 master_plan.md - الخطة الشاملة للمشروع
       📄 02_asset_manifest.json - سجل الميديا والأصول المستخدمة
       📄 03_preprocess_report.json - تقرير معالجة الميديا
       📄 04_timings.json - توقيتات الكلمات والمشاهد
-      📄 05_blueprint.json - المخطط التقني للمشروع (Blueprint)
+      📄 05_05_blueprint.json - المخطط التقني للمشروع (Blueprint)
       📄 05_blueprint_human.md - النسخة البشرية من المخطط التقني
       📄 development_log.md - سجل التفكير والتعديلات البرمجية
       📄 full_conversation.md - المحادثة الكاملة مع الذكاء الاصطناعي
@@ -672,7 +672,7 @@
             📄 v_code_bg.mp4 - ملف فيديو ستوك
             📄 v_hacker_typing.mp4 - ملف فيديو ستوك
         📁 src/
-          📄 blueprint.json - ملف بيانات
+          📄 05_blueprint.json - ملف بيانات
           📄 CaptionedTalkingHead.tsx - ملف كود React/TypeScript
           📄 captionLayout.ts - ملف كود React/TypeScript
           📄 index.ts - ملف كود React/TypeScript
@@ -767,7 +767,7 @@
 5. **مكافحة الأوهام (Anti-Hallucination)**: إذا فشلت أداة MCP أو API، لا تتوقف ولا تخترع أدوات وهمية. اكتب سكريبت Python بديل (Fallback) في مجلد `scratch/` لتجاوز المشكلة (مثل استخدام Playwright للـ Scraping أو FFmpeg المباشر).
 
 ## ⚙️ المسؤوليات التنفيذية (ماذا تفعل بالضبط؟)
-1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`01_plan.md`).
+1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`master_plan.md`).
 2. **المرحلة 2-3 (جلب ومعالجة الميديا)**: 
    - كتابة سكريبتات للتواصل مع `media-sources-mcp` و `audio-tools-mcp`.
    - إذا فشلت الـ APIs، تكتب سكريبتات `urllib` أو `Playwright` لجلب الأصول.
@@ -786,7 +786,7 @@
 - **مشكلة في النصوص العربية (RTL)؟** -> تدخل مباشرة في كود الـ CSS/React لإضافة `direction: 'rtl'` و `flex-wrap`.
 
 ## 📝 مخرجاتك المتوقعة في كل جلسة
-- **ملفات التخطيط**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
+- **ملفات التخطيط**: `00_answers.md`, `master_plan.md`, `05_blueprint_human.md`.
 - **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
 - **كود الـ Remotion**: تحديث ملفات `src/*.tsx` في مجلد `06_build/`.
 - **التقارير**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
@@ -5597,7 +5597,7 @@ video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (د�
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في
@@ -19540,8 +19540,8 @@ description: >
 5. بعد أي تعديل على ملفات المهارة شغّل `scripts/audit_skill.py`.
 6. **المهارة قراءة فقط للميديا:** لا يُكتب ولا يُنسخ أي أصل داخل مجلد المهارة أبداً (remotion-template/public للعينات فقط). المصدر الوحيد = مجلدات دورة الحياة (${PLUGIN_DATA}/assets/${PLUGIN_DATA}/processed/storage)، والبناء يستلم الميديا حصراً عبر `scripts/materialize_project.py`.
 7. **لا مؤثر خام:** كل cue صوتي يُعالج (trim للمدة المرئية + afade out 0.2s + normalize_loudness(-24)) عبر audio-tools-mcp ويُكاش؛ ممنوع رمي ملف SFX خام في التركيب؛ ممنوع extend_audio على مؤثر one-shot.
-8. **الذوق بوابة لا نصيحة:** شخصية الحركة وأرقامها تُكتب في الخطة (01_plan.md)، وvalidate_blueprint يفحص مدد/easing/overshoot/طبقات ambient ضد جدول الشخصية؛ فشل الفحص = لا بناء.
-9. 🛑 **إلزامي (HARD RULE):** يجب قراءة ملفات `reference/motion-taste/director/` قبل الخطة. الخطة `01_plan.md` يجب أن تحوي حقلاً `motion_taste_citation` مقتبساً حرفياً كالتالي: `motion-personality.md:رقم_السطر` (أو decision-framework.md) يثبت أخذ أرقام (duration, easing, overshoot) بدقة. يُمنع التأليف وتخمين الأرقام.
+8. **الذوق بوابة لا نصيحة:** شخصية الحركة وأرقامها تُكتب في الخطة (master_plan.md)، وvalidate_blueprint يفحص مدد/easing/overshoot/طبقات ambient ضد جدول الشخصية؛ فشل الفحص = لا بناء.
+9. 🛑 **إلزامي (HARD RULE):** يجب قراءة ملفات `reference/motion-taste/director/` قبل الخطة. الخطة `master_plan.md` يجب أن تحوي حقلاً `motion_taste_citation` مقتبساً حرفياً كالتالي: `motion-personality.md:رقم_السطر` (أو decision-framework.md) يثبت أخذ أرقام (duration, easing, overshoot) بدقة. يُمنع التأليف وتخمين الأرقام.
 
 ## سير العمل (8 خطوات)
 1. مطابقة وصفة: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"`
@@ -20556,7 +20556,7 @@ See `../../TABLETOP_EXPLAINER_PLAYBOOK.md` for the full method, prompts, and got
    - كم مؤثر صوتي؟ (قاعدة: مؤثر لكل انتقال + مؤثر لكل عنصر مهم)
    - ما نوع الموسيقى؟
 
-**المخرج:** `projects/<id>/01_plan.md`
+**المخرج:** `projects/<id>/master_plan.md`
 
 **🛑 توقف هنا. انتظر موافقة المستخدم الصريحة.**
 
@@ -20614,7 +20614,7 @@ See `../../TABLETOP_EXPLAINER_PLAYBOOK.md` for the full method, prompts, and got
 
 ## المرحلة 5: الـ Blueprint (🛑 توقف إجباري 3)
 
-1. اكتب `05_blueprint.json` ثانية-بثانية
+1. اكتب `05_05_blueprint.json` ثانية-بثانية
 2. شغّل `validate_blueprint.py --md --lock`
 3. قدّم النسخة البشرية للمستخدم
 
@@ -20684,7 +20684,7 @@ See `../../TABLETOP_EXPLAINER_PLAYBOOK.md` for the full method, prompts, and got
 
 ---
 
-### 📄 `01_plan.md`
+### 📄 `master_plan.md`
 **نبذة:** الخطة الشاملة للمشروع
 
 ```markdown
@@ -20780,7 +20780,7 @@ See `../../TABLETOP_EXPLAINER_PLAYBOOK.md` for the full method, prompts, and got
 
 ## 🛠️ 2. الملفات التي تم تعديلها وإنشاؤها (Changed & Created Files)
 
-### 📝 أ. سكربت `generate_blueprint.py` و `05_blueprint.json`
+### 📝 أ. سكربت `generate_blueprint.py` و `05_05_blueprint.json`
 - **المشكلة:** أداة الفحص `validate_blueprint.py` كانت ترفض الـ Blueprint لعدة أسباب (نقص قالب الـ Ambient، مسارات خاطئة، وتكرار مؤثر الـ Whoosh أكثر من الحد المسموح).
 - **التعديل:** 
   - أضفت قالب `vignette-pulse` كطبقة إضاءة محيطية (Ambient Layer) لكل المشاهد ليتوافق مع المتطلبات.
@@ -20788,7 +20788,7 @@ See `../../TABLETOP_EXPLAINER_PLAYBOOK.md` for the full method, prompts, and got
   - قمت بتنويع المؤثرات الصوتية (`sfx_ui_pop`, `sfx_ui_click`, `sfx_tech_reveal`) لتفادي تجاوز حد التكرار.
 
 ### 🎥 ب. الكومبوزيشن الأساسي `PythonLearningReel.tsx`
-- **التفكير:** بدلاً من كتابة كود معقد لكل مشهد يدوياً، قمت ببناء مكون ذكي (Dynamic Component) يقرأ من `05_blueprint.json` و `media_map.json` ويقوم بتوليد الـ `Sequence` والـ `Audio` والـ `Video` برمجياً وفي المكان الصحيح.
+- **التفكير:** بدلاً من كتابة كود معقد لكل مشهد يدوياً، قمت ببناء مكون ذكي (Dynamic Component) يقرأ من `05_05_blueprint.json` و `media_map.json` ويقوم بتوليد الـ `Sequence` والـ `Audio` والـ `Video` برمجياً وفي المكان الصحيح.
 - **التعديلات اللاحقة بناءً على طلبك:**
   - قمت بإيقاف عرض الفيديوهات (الستوك) ليكون التركيز على النصوص والموشن جرافيكس فقط (حسب طلبك: "ما بدي اي فيديو").
   - قمت بتصحيح حجم الصوت (Volume) للمؤثرات الصوتية (SFX) ليصبح مسموعاً بوضوح (حيث أن السكريبت كان يخفضها بشكل مبالغ فيه).
@@ -21026,12 +21026,12 @@ The user changed setting `Model Selection` from None to Gemini 3.1 Pro (High). N
 لقد قمت بتحليل التعليق الصوتي المرفوع واستخرجت مدته الفعلية (52.08 ثانية) والنص الكامل. كما قمت بإعداد ملفات المرحلة الأولى:
 
 1. **إجابات الاستيضاح:** [00_answers.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/00_answers.md)
-2. **خطة الإنتاج:** [01_plan.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/01_plan.md)
+2. **خطة الإنتاج:** [master_plan.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/master_plan.md)
 
 تتضمن الخطة الاعتماد على المزاج **Cinematic** كما طلبت، مما يعني حركة ناعمة وبطيئة وبدون ارتداد (Overshoot 0%) لتعطي طابعاً فاخراً واحترافياً. كما حددت قائمة الميديا المطلوبة (صور، أيقونات، فيديوهات خلفية абстрактية وموسيقى راقية).
 
 **بوابة موافقة (توقف إجباري 2 🛑):**
-يرجى مراجعة [01_plan.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/01_plan.md). هل توافق على هذه الخطة لننتقل فوراً إلى **المرحلة 2 (جلب الميديا ومعالجتها)**؟
+يرجى مراجعة [master_plan.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/master_plan.md). هل توافق على هذه الخطة لننتقل فوراً إلى **المرحلة 2 (جلب الميديا ومعالجتها)**؟
 
 ---
 
@@ -21241,7 +21241,7 @@ Other open documents:
 ثم قمت بتوليد التوقيتات واستخراج الـ Blueprint الخاص بالفيديو:
 
 - **التوقيتات (من ملف الصوت):** [04_timings.json](file:///c:/video/clean-video-workspace/projects/python-learning-01/04_timings.json)
-- **الـ Blueprint (الكود):** [05_blueprint.json](file:///c:/video/clean-video-workspace/projects/python-learning-01/05_blueprint.json)
+- **الـ Blueprint (الكود):** [05_05_blueprint.json](file:///c:/video/clean-video-workspace/projects/python-learning-01/05_05_blueprint.json)
 - **الـ Blueprint (النسخة البشرية للقراءة):** [05_blueprint_human.md](file:///c:/video/clean-video-workspace/projects/python-learning-01/05_blueprint_human.md)
 
 لقد نجح الـ Blueprint في اختبار الجودة التقنية وتم **قفله (Locked)** بنجاح مطبّقاً المزاج الـ Cinematic (بمدة حركة تتراوح بين 400ms-500ms وبدون Overshoot نهائياً) لضمان الفخامة.

@@ -114,9 +114,9 @@ def run_tests():
         run_cmd(p, "start", "1")
         run_cmd(p, "finish", "1")
         # mess up template
-        bp = load_json(p / "blueprint.json")
+        bp = load_json(p / "05_blueprint.json")
         bp["scenes"][0]["template"] = "ghost-tpl"
-        with open(p / "blueprint.json", "w") as f:
+        with open(p / "05_blueprint.json", "w") as f:
             json.dump(bp, f)
         code, out, _ = run_cmd(p, "approve", "2", "TestBot")
         assert code != 0, "Test 7 Failed (should fail unknown template)"
@@ -146,9 +146,9 @@ def run_tests():
         run_cmd(p, "approve", "1", "TestBot")
         run_cmd(p, "start", "1")
         run_cmd(p, "finish", "1")
-        bp = load_json(p / "blueprint.json")
+        bp = load_json(p / "05_blueprint.json")
         bp["scenes"][1]["startFrame"] = 10 # Overlaps with scene 0 which is 0-60
-        with open(p / "blueprint.json", "w") as f:
+        with open(p / "05_blueprint.json", "w") as f:
             json.dump(bp, f)
         code, out, _ = run_cmd(p, "approve", "2", "TestBot")
         assert code != 0, "Test 9 Failed (should fail overlap)"

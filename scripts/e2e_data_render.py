@@ -30,13 +30,13 @@ def main():
     # 2. نسخ الأصول من demo_brand
     shutil.copytree("projects/demo_brand/assets/ready", project_dir / "assets/ready", dirs_exist_ok=True)
     shutil.copy("projects/demo_brand/brand.json", project_dir / "brand.json")
-    shutil.copy("projects/demo_brand/blueprint.json", project_dir / "blueprint.json")
+    shutil.copy("projects/demo_brand/05_blueprint.json", project_dir / "05_blueprint.json")
     shutil.copy("projects/demo_brand/overrides.json", project_dir / "overrides.json")
     shutil.copy("projects/demo_brand/manifest.json", project_dir / "manifest.json")
     shutil.copy("projects/demo_brand/04_timings.json", project_dir / "04_timings.json")
     
     # 3. تحديث project_id في كل الملفات
-    for f in ["05_blueprint.json", "blueprint.json", "overrides.json", "manifest.json"]:
+    for f in ["05_blueprint.json", "overrides.json", "manifest.json"]:
         data = json.loads((project_dir / f).read_text(encoding="utf-8"))
         data["project_id"] = project_id
         (project_dir / f).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")

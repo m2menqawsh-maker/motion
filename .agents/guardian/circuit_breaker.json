@@ -1,1 +1,1 @@
-{"run_command::bad_cmd_123": {"failures": 3, "last_failure_timestamp": 1789319321.7898903}, "run_command::dir": {"failures": 0, "last_failure_timestamp": 0.0}}
+{"run_command::bad_cmd": {"failures": 3, "last_failure_timestamp": 1789324607.987123}}

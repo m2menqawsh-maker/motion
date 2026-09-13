@@ -215,8 +215,6 @@ def main():
     project_id = sys.argv[1]
     project_dir = Path(f"projects/{project_id}")
     plan_file = project_dir / "master_plan.md"
-    if not plan_file.exists():
-        plan_file = project_dir / "01_plan.md"
     timings_file = project_dir / "04_timings.json"
     
     if not timings_file.exists():
@@ -226,7 +224,7 @@ def main():
     
     if not plan_file.exists():
         print(f"❌ الخطة غير موجودة في المسار: {plan_file}")
-        print("تأكد أن الوكيل قام بإنشاء master_plan.md أو 01_plan.md بالفعل.")
+        print("تأكد أن الوكيل قام بإنشاء master_plan.md بالفعل.")
         sys.exit(1)
         
     content = plan_file.read_text(encoding="utf-8")

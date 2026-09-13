@@ -82,11 +82,11 @@ clean-video-workspace/
 ├── projects/                   # مساحة العمل لكل مشروع فيديو بشكل معزول
 │   └── <project_id>/
 │       ├── 00_answers.md
-│       ├── 01_plan.md
+│       ├── master_plan.md
 │       ├── 02_asset_manifest.json
 │       ├── 03_preprocess_report.json
 │       ├── 04_timings.json
-│       ├── 05_blueprint.json
+│       ├── 05_05_blueprint.json
 │       ├── 05_blueprint_human.md
 │       ├── probe_qc_report.json
 │       ├── scenes/
@@ -125,7 +125,7 @@ clean-video-workspace/
   2. يبني الهيكل السردي ويقوم بتقسيم النص إلى مشاهد.
   3. يختار القوالب البصرية المناسبة لكل مشهد من `TEMPLATE_INDEX.md`.
 - **التفاعل مع المستخدم:**
-  - يُعرض ملف `01_plan.md` على المستخدم لمراجعته والتصديق عليه (Hard Stop #1).
+  - يُعرض ملف `master_plan.md` على المستخدم لمراجعته والتصديق عليه (Hard Stop #1).
 - **ما لا يراه المستخدم:**
   - يقوم السكربت `stage_gate.py` بالتحقق من جودة الخطة ووجود اقتباسات الذوق المرجعية (`motion_taste_citation`). إذا لم توجد، يرفض السكربت العبور للمرحلة التالية.
 

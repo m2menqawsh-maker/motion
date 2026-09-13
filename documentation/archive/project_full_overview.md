@@ -1801,7 +1801,7 @@ clean-video-workspace/
 │   │   ├── 📄 .studio_unlocked
 │   │   ├── 📄 02_asset_manifest.json
 │   │   ├── 📁 03_probe_qc/
-│   │   ├── 📄 05_blueprint.json
+│   │   ├── 📄 05_05_blueprint.json
 │   │   ├── 📁 06_build/
 │   │   │   ├── 📄 README.md
 │   │   │   ├── 📄 build_caption_props.py
@@ -1835,7 +1835,7 @@ clean-video-workspace/
 │       ├── 📄 .materialized.lock
 │       ├── 📄 .studio_unlocked
 │       ├── 📄 00_answers.md
-│       ├── 📄 01_plan.md
+│       ├── 📄 master_plan.md
 │       ├── 📄 02_asset_manifest.json
 │       ├── 📄 02_initial_assets.json
 │       ├── 📁 03_probe_qc/
@@ -1853,7 +1853,7 @@ clean-video-workspace/
 │       │   ├── 📄 probe_scene2_f095.png
 │       │   └── 📄 probe_scene2_f125.png
 │       ├── 📄 04_voiceover_analysis.json
-│       ├── 📄 05_blueprint.json
+│       ├── 📄 05_05_blueprint.json
 │       ├── 📁 06_build/
 │       │   ├── 📄 README.md
 │       │   ├── 📄 build_caption_props.py
@@ -3922,7 +3922,7 @@ clean-video-workspace/
             .materialized.lock
             .studio_unlocked
             02_asset_manifest.json
-            05_blueprint.json
+            05_05_blueprint.json
             probe_qc_report.json
             03_probe_qc/
             06_build/
@@ -3957,11 +3957,11 @@ clean-video-workspace/
             .materialized.lock
             .studio_unlocked
             00_answers.md
-            01_plan.md
+            master_plan.md
             02_asset_manifest.json
             02_initial_assets.json
             04_voiceover_analysis.json
-            05_blueprint.json
+            05_05_blueprint.json
             probe_qc_report.json
             03_probe_qc/
                 contact_sheet_scene1.png
@@ -4185,7 +4185,7 @@ clean-video-workspace/
 5. **مكافحة الأوهام (Anti-Hallucination)**: إذا فشلت أداة MCP أو API، لا تتوقف ولا تخترع أدوات وهمية. اكتب سكريبت Python بديل (Fallback) في مجلد `scratch/` لتجاوز المشكلة (مثل استخدام Playwright للـ Scraping أو FFmpeg المباشر).
 
 ## ⚙️ المسؤوليات التنفيذية (ماذا تفعل بالضبط؟)
-1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`01_plan.md`).
+1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`master_plan.md`).
 2. **المرحلة 2-3 (جلب ومعالجة الميديا)**: 
    - كتابة سكريبتات للتواصل مع `media-sources-mcp` و `audio-tools-mcp`.
    - إذا فشلت الـ APIs، تكتب سكريبتات `urllib` أو `Playwright` لجلب الأصول.
@@ -4204,7 +4204,7 @@ clean-video-workspace/
 - **مشكلة في النصوص العربية (RTL)؟** -> تدخل مباشرة في كود الـ CSS/React لإضافة `direction: 'rtl'` و `flex-wrap`.
 
 ## 📝 مخرجاتك المتوقعة في كل جلسة
-- **ملفات التخطيط**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
+- **ملفات التخطيط**: `00_answers.md`, `master_plan.md`, `05_blueprint_human.md`.
 - **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
 - **كود الـ Remotion**: تحديث ملفات `src/*.tsx` في مجلد `06_build/`.
 - **التقارير**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
@@ -4346,7 +4346,7 @@ clean-video-workspace/
 ### 1.4 قائمة القوالب المعتمدة
 من `TEMPLATE_INDEX.md` فقط. اسم غير موجود → `VOCAB_REMAP` → إن لم يوجد → توقف واسأل.
 
-المخرج: 01_plan.md
+المخرج: master_plan.md
 🛑 توقف: انتظر موافقة المستخدم الصريحة.
 
 ---
@@ -4578,7 +4578,7 @@ video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (د�
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في
@@ -6541,7 +6541,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 5. **مكافحة الأوهام (Anti-Hallucination)**: إذا فشلت أداة MCP أو API، لا تتوقف ولا تخترع أدوات وهمية. اكتب سكريبت Python بديل (Fallback) في مجلد `scratch/` لتجاوز المشكلة (مثل استخدام Playwright للـ Scraping أو FFmpeg المباشر).
 
 ## ⚙️ المسؤوليات التنفيذية (ماذا تفعل بالضبط؟)
-1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`01_plan.md`).
+1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`master_plan.md`).
 2. **المرحلة 2-3 (جلب ومعالجة الميديا)**: 
    - كتابة سكريبتات للتواصل مع `media-sources-mcp` و `audio-tools-mcp`.
    - إذا فشلت الـ APIs، تكتب سكريبتات `urllib` أو `Playwright` لجلب الأصول.
@@ -6560,7 +6560,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 - **مشكلة في النصوص العربية (RTL)؟** -> تدخل مباشرة في كود الـ CSS/React لإضافة `direction: 'rtl'` و `flex-wrap`.
 
 ## 📝 مخرجاتك المتوقعة في كل جلسة
-- **ملفات التخطيط**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
+- **ملفات التخطيط**: `00_answers.md`, `master_plan.md`, `05_blueprint_human.md`.
 - **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
 - **كود الـ Remotion**: تحديث ملفات `src/*.tsx` في مجلد `06_build/`.
 - **التقارير**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
@@ -6703,7 +6703,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 ### 1.4 قائمة القوالب المعتمدة
 من `TEMPLATE_INDEX.md` فقط. اسم غير موجود → `VOCAB_REMAP` → إن لم يوجد → توقف واسأل.
 
-المخرج: 01_plan.md
+المخرج: master_plan.md
 🛑 توقف: انتظر موافقة المستخدم الصريحة.
 
 ---
@@ -6969,7 +6969,7 @@ video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (د�
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في
@@ -7313,7 +7313,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 5. **مكافحة الأوهام (Anti-Hallucination)**: إذا فشلت أداة MCP أو API، لا تتوقف ولا تخترع أدوات وهمية. اكتب سكريبت Python بديل (Fallback) في مجلد `scratch/` لتجاوز المشكلة (مثل استخدام Playwright للـ Scraping أو FFmpeg المباشر).
 
 ## ⚙️ المسؤوليات التنفيذية (ماذا تفعل بالضبط؟)
-1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`01_plan.md`).
+1. **المرحلة 0-1 (الاستيضاح والتخطيط)**: تحليل طلب المستخدم، مطابقة الوصفة (Recipe)، وكتابة العمود الفقري والخطة (`master_plan.md`).
 2. **المرحلة 2-3 (جلب ومعالجة الميديا)**: 
    - كتابة سكريبتات للتواصل مع `media-sources-mcp` و `audio-tools-mcp`.
    - إذا فشلت الـ APIs، تكتب سكريبتات `urllib` أو `Playwright` لجلب الأصول.
@@ -7332,7 +7332,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 - **مشكلة في النصوص العربية (RTL)؟** -> تدخل مباشرة في كود الـ CSS/React لإضافة `direction: 'rtl'` و `flex-wrap`.
 
 ## 📝 مخرجاتك المتوقعة في كل جلسة
-- **ملفات التخطيط**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
+- **ملفات التخطيط**: `00_answers.md`, `master_plan.md`, `05_blueprint_human.md`.
 - **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
 - **كود الـ Remotion**: تحديث ملفات `src/*.tsx` في مجلد `06_build/`.
 - **التقارير**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
@@ -21839,7 +21839,7 @@ Schema: `recipes/schema.json`.
   "deliverables": [
     "final/master_9x16.mp4",
     "04_timings.json",
-    "05_blueprint.json"
+    "05_05_blueprint.json"
   ],
   "mcp_servers": [
     "audio-tools-mcp",
@@ -26864,7 +26864,7 @@ python scripts/template_router.py --intent hook --use-case ad --mood energetic -
 ### المرحلة 1 — الخطة (🛑 توقف 2)
 عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
 يجب أن تتضمن الخطة حقل `motion_taste_citation` يحتوي اقتباساً من `motion-personality.md:رقم_السطر` أو `decision-framework.md:رقم_السطر` يثبت قراءة قيم الشخصية.
-المُخرَج: `01_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
+المُخرَج: `master_plan.md` + ملف `01_plan.approved` يُكتب فقط بعد موافقتك الصريحة.
 
 ### المرحلة 2 — تجميع الميديا
 مرفوعات المستخدم تُبتلع أولاً؛ الناقص: check_cache → media-sources-mcp. كل أصل يُسجل في
@@ -132605,11 +132605,11 @@ IGNORED_TOKENS = {
     "variant_matrix.json", "understand_ad_video.py", "quality_gate_report.json",
     "character_card.json", "pexels_search.py", "pixabay_search.py",
     "tailwind.config.js", "tailwind.config.ts", "templates/x.tsx", "x.tsx",
-    "00_answers.md", "01_plan.md", "02_asset_manifest.json", "03_preprocess_report.json",
+    "00_answers.md", "master_plan.md", "02_asset_manifest.json", "03_preprocess_report.json",
     "04_timings.json", "08_qc_report.json", "media_map.json",
     "probe_qc_report.json", "%APPDATA%/Claude/claude_desktop_config.json",
     "references/plain-register-reference.whisper.json", "plain-register-reference.whisper.json",
-    "05_blueprint.json", "02_initial_assets.json", "scene_N_plan.md", "sceneN_qc_report.json"
+    "05_05_blueprint.json", "02_initial_assets.json", "scene_N_plan.md", "sceneN_qc_report.json"
 }
 
 IGNORED_PREFIXES = (
@@ -133414,7 +133414,7 @@ DST = Path(__file__).resolve().parent.parent
 WS = DST.parent.parent.parent
 proj = Path(sys.argv[1]).resolve()
 man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))
-bp = json.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
+bp = json.loads((proj / "05_05_blueprint.json").read_text(encoding="utf-8"))
 
 pub_media = proj / "06_build" / "public" / "media"
 src_tpl = proj / "06_build" / "src" / "templates"
@@ -133639,12 +133639,12 @@ if len(sys.argv) < 3:
 
 proj_dir = Path(sys.argv[1]).resolve()
 comp_id = sys.argv[2]
-bp_path = proj_dir / "05_blueprint.json"
+bp_path = proj_dir / "05_05_blueprint.json"
 build_dir = proj_dir / "06_build"
 probe_dir = proj_dir / "03_probe_qc"
 
 if not bp_path.exists():
-    print("❌ لا يوجد 05_blueprint.json")
+    print("❌ لا يوجد 05_05_blueprint.json")
     sys.exit(1)
 
 if not build_dir.exists():
@@ -133752,11 +133752,11 @@ if hasattr(sys.stderr, "reconfigure"):
 ORDER = ["00_answers", "01_plan", "02_media_build", "03_probe_qc", "04_studio", "05_render"]
 FILES = {
  "00_answers": ["00_answers.md"],
- "01_plan": ["01_plan.md", "01_plan.approved"],
+ "01_plan": ["master_plan.md", "01_plan.approved"],
  "02_media_build": [
      "02_asset_manifest.json", "02b_assets_reviewed.approved",
      "03_preprocess_report.json", "04_timings.json",
-     "05_blueprint.json", "05_blueprint_human.md", "05_blueprint.approved",
+     "05_05_blueprint.json", "05_blueprint_human.md", "05_blueprint.approved",
      "06_build/src/media_map.json"
  ],
  "03_probe_qc": ["probe_qc_report.json", "contact_sheet.png", ".studio_unlocked"],
@@ -133769,13 +133769,13 @@ def exists(proj, name):
 
 def content_checks(proj, stage):
     if stage == "01_plan":
-        if (proj / "01_plan.md").exists():
-            txt = (proj / "01_plan.md").read_text(encoding="utf-8")
+        if (proj / "master_plan.md").exists():
+            txt = (proj / "master_plan.md").read_text(encoding="utf-8")
             personas = {"Cinematic", "Energetic", "Playful", "Technical"}
             has_persona = any(p.lower() in txt.lower() for p in personas)
             has_signature = "signature" in txt.lower()
             if not (has_persona and has_signature):
-                fails.append("مرحلة 01_plan: يجب أن تحتوي 01_plan.md على اسم شخصية من الأربع (Cinematic, Energetic, Playful, Technical) + كلمة 'signature'")
+                fails.append("مرحلة 01_plan: يجب أن تحتوي master_plan.md على اسم شخصية من الأربع (Cinematic, Energetic, Playful, Technical) + كلمة 'signature'")
             import re
             match = re.search(r"motion_taste_citation\s*[:=-]\s*([\w-]+\.md):(\d+)", txt, re.IGNORECASE)
             if match:
@@ -133819,8 +133819,8 @@ def content_checks(proj, stage):
                     fails.append(f"video {v.get('asset_id')}: ليس All-Intra GOP=1 — قانون المرحلة 3")
                 if v.get("verified_by") not in ("get_files_info", "ffprobe"):
                     fails.append(f"video {v.get('asset_id')}: GOP غير موثق بـ get_files_info/ffprobe")
-        if (proj / "05_blueprint.json").exists():
-            bp5 = json.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
+        if (proj / "05_05_blueprint.json").exists():
+            bp5 = json.loads((proj / "05_05_blueprint.json").read_text(encoding="utf-8"))
             for sec in bp5.get("timeline", []):
                 for c in sec.get("sfx", []):
                     miss = [k for k in ("asset", "at_ms", "tone", "volume_db", "processing") if k not in c]
@@ -134122,7 +134122,7 @@ for f in targets:
 if "--verify-build" in sys.argv:
     import json as _j
     proj = Path(sys.argv[sys.argv.index("--verify-build") + 1]).resolve()
-    bp = _j.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
+    bp = _j.loads((proj / "05_05_blueprint.json").read_text(encoding="utf-8"))
     planned = {e.get("template") for s in bp.get("timeline", []) for e in s.get("elements", []) if e.get("kind") == "template"}
     imported = set()
     for f in (proj / "06_build" / "src").rglob("*.tsx"):
@@ -134239,7 +134239,7 @@ if __name__ == "__main__":
 # -*- coding: utf-8 -*-
 """validate_blueprint.py — بوابة عقد الـ Blueprint قبل البناء.
 Usage:
-  python validate_blueprint.py <blueprint.json>                      # فحص كامل
+  python validate_blueprint.py <05_blueprint.json>                      # فحص كامل
   python validate_blueprint.py <bp.json> --md <out.md>               # + النسخة البشرية
   python validate_blueprint.py <bp.json> --lock                      # قفل العقد
   python validate_blueprint.py <bp.json> --verify-build <proj_dir>   # الكود المبني == العقد
@@ -134498,9 +134498,9 @@ search_dirs = [
 ]
 
 IGNORED = {
-    "Blueprint.json", "blueprint.json", "blueprint_human.md", "templates/x.tsx", "x.tsx",
-    "00_answers.md", "01_plan.md", "02_asset_manifest.json", "03_preprocess_report.json", "02_initial_assets.json", "scene_N_plan.md", "sceneN_qc_report.json",
-    "04_timings.json", "08_qc_report.json", "media_map.json", "05_blueprint.json", "probe_qc_report.json"
+    "05_blueprint.json", "05_blueprint.json", "blueprint_human.md", "templates/x.tsx", "x.tsx",
+    "00_answers.md", "master_plan.md", "02_asset_manifest.json", "03_preprocess_report.json", "02_initial_assets.json", "scene_N_plan.md", "sceneN_qc_report.json",
+    "04_timings.json", "08_qc_report.json", "media_map.json", "05_05_blueprint.json", "probe_qc_report.json"
 }
 
 for md in targets:
@@ -139366,14 +139366,14 @@ description: >
 5. بعد أي تعديل على ملفات المهارة شغّل `scripts/audit_skill.py`.
 6. **المهارة قراءة فقط للميديا:** لا يُكتب ولا يُنسخ أي أصل داخل مجلد المهارة أبداً (remotion-template/public للعينات فقط). المصدر الوحيد = مجلدات دورة الحياة (${PLUGIN_DATA}/assets/${PLUGIN_DATA}/processed/storage)، والبناء يستلم الميديا حصراً عبر `scripts/materialize_project.py` مع قفل `.materialized.lock`.
 7. **لا مؤثر خام:** كل cue صوتي يُعالج (trim للمدة المرئية + afade out 0.2s + normalize_loudness(-24)) عبر audio-tools-mcp ويُكاش؛ ممنوع رمي ملف SFX خام في التركيب؛ ممنوع extend_audio على مؤثر one-shot. إذا عولج لـ -24 يُشغل بـ volume=1.
-8. **الذوق بوابة لا نصيحة:** شخصية الحركة وأرقامها تُكتب في الخطة (01_plan.md)، وvalidate_blueprint يفحص ضد الذوق ديناميكياً؛ فشل الفحص = لا بناء.
+8. **الذوق بوابة لا نصيحة:** شخصية الحركة وأرقامها تُكتب في الخطة (master_plan.md)، وvalidate_blueprint يفحص ضد الذوق ديناميكياً؛ فشل الفحص = لا بناء.
 9. 🛑 **إلزامي (HARD RULE):** يجب قراءة ملفات `reference/motion-taste/director/` قبل الخطة واستخدام اقتباس دقيق. يُمنع التأليف وتخمين الأرقام.
 10. **بوابة الفحص البصري (Probe-QC):** قبل فتح الاستوديو، يجب رندر لقطات ثابتة عند اللحظات الحرجة وفحصها بصرياً. `probe_qc_report.json` بحالة "pass" = شرط إلزامي لفتح الاستوديو.
 11. **آلية التعديل:** عند طلب تعديل من الاستوديو، نفحص اللقطة المتأثرة فقط. قبل أي رندر نهائي، نعيد الـ Probe-QC الكامل.
 
 ## سير العمل (5 مراحل)
-1. الاستيضاح + تشخيص المشروع (الأسئلة الـ 10) → `00_answers.md` + `01_plan.md`
-2. الميديا + التوقيتات → `02_asset_manifest.json` + `03_preprocess_report.json` + `04_timings.json` + `05_blueprint.json`
+1. الاستيضاح + تشخيص المشروع (الأسئلة الـ 10) → `00_answers.md` + `master_plan.md`
+2. الميديا + التوقيتات → `02_asset_manifest.json` + `03_preprocess_report.json` + `04_timings.json` + `05_05_blueprint.json`
 3. البناء → `media_map.json` + `.materialized.lock` (عبر `materialize_project.py` حصراً)
 4. بوابة الوكيل: الفحص البصري → رندر لقطات ثابتة → `probe_qc_report.json` + `contact_sheet.png`
 5. بوابة المستخدم: الاستوديو والرندر النهائي → `08_qc_report.json`
@@ -170649,7 +170649,7 @@ print("RESULT: " + json.dumps({"status": "succeeded", "total_dur": round(offset,
 ### 1.4 قائمة القوالب المعتمدة
 من `TEMPLATE_INDEX.md` فقط. اسم غير موجود → `VOCAB_REMAP` → إن لم يوجد → توقف واسأل.
 
-المخرج: 01_plan.md
+المخرج: master_plan.md
 🛑 توقف: انتظر موافقة المستخدم الصريحة.
 
 ---
@@ -175720,7 +175720,7 @@ Full prop list and per-prop notes are in the source you install.
 
 ---
 
-## 📄 `projects\coma_promo\05_blueprint.json`
+## 📄 `projects\coma_promo\05_05_blueprint.json`
 
 ```json
 {
@@ -177680,10 +177680,10 @@ export default function AnimatedText({
 
 ---
 
-## 📄 `projects\python_challenge\01_plan.md`
+## 📄 `projects\python_challenge\master_plan.md`
 
 ```markdown
-# 01_plan.md — الخطة الشاملة لإنتاج فيديو تحدي بايثون
+# master_plan.md — الخطة الشاملة لإنتاج فيديو تحدي بايثون
 
 ## 1.1 الأساس
 - **ملف الصوت المعتمد:** `assets/incoming/تحدي بايثون.wav`
@@ -178627,7 +178627,7 @@ export default function AnimatedText({
 
 ---
 
-## 📄 `projects\python_challenge\05_blueprint.json`
+## 📄 `projects\python_challenge\05_05_blueprint.json`
 
 ```json
 {
