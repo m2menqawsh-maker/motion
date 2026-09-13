@@ -8,7 +8,7 @@
 | `Kenburns` | A | `templates/scenes/product/ken-burns/KenBurns.tsx` | general_element |
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
@@ -21,7 +21,7 @@
 | `Caret` | A | `templates/elements/typography/caret.tsx` | title_reveal |
 | `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
-| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | title_reveal, typing |
+| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 
 ## Effects

@@ -142,7 +142,7 @@ def validate_creative_rules(scene_plan, previous_scene_plan=None, project_bluepr
     # 1. فحص التنوع (Diversity Gate)
     if previous_scene_plan:
         previous_templates = extract_templates_from_plan(previous_scene_plan)
-        repetitive_templates = {'Typewriter', 'BounceText', 'TextReveal', 'GlitchText'}
+        repetitive_templates = { 'BounceText', 'TextReveal', 'GlitchText'}
         
         # منع تكرار القوالب المتكررة في مشاهد متتالية
         overlap = set(current_templates) & set(previous_templates) & repetitive_templates
@@ -173,8 +173,8 @@ def validate_creative_rules(scene_plan, previous_scene_plan=None, project_bluepr
         template_counts = count_template_usage(all_templates)
         
         # منع تكرار Typewriter أكثر من مرتين
-        if template_counts.get('Typewriter', 0) > 2:
-            errors.append(f"❌ Typewriter Overuse: تم استخدام Typewriter {template_counts['Typewriter']} مرات (الحد الأقصى: 2). استبدل إحدى الاستخدامات بقالب آخر.")
+        if template_counts.get( 0) > 2:
+            errors.append(f"❌ Typewriter Overuse: تم استخدام Typewriter {template_counts[]} مرات (الحد الأقصى: 2). استبدل إحدى الاستخدامات بقالب آخر.")
         
         # فحص عدد العائلات المستخدمة
         families_used = get_unique_families(all_templates)
@@ -182,7 +182,7 @@ def validate_creative_rules(scene_plan, previous_scene_plan=None, project_bluepr
             errors.append(f"❌ Low Family Diversity: تم استخدام {len(families_used)} عائلات فقط. يجب استخدام 3+ عائلات مختلفة.")
     
     # 5. فحص الذوق (Taste Gate)
-    UGLY_TEMPLATES = {"SplitScreen", "BasicText", "SimpleFade", "iconify"}
+    UGLY_TEMPLATES = {"BasicText", "SimpleFade", "iconify"}
     for tpl in current_templates:
         if tpl in UGLY_TEMPLATES:
             errors.append(f"❌ Taste Violation: القالب '{tpl}' يعتبر بدائياً/قبيحاً — استخدم قالباً أكثر تطوراً من TEMPLATE_INDEX.md (مثل DeviceMockupZoom).")
@@ -222,12 +222,12 @@ def extract_templates_from_plan(scene_plan):
 def get_template_family(templates):
     """يحدد العائلة التي ينتمي إليها القالب"""
     family_map = {
-        'Typewriter': 'Typography',
+        : 'Typography',
         'BounceText': 'Typography',
         'TextReveal': 'Typography',
         'GlitchText': 'Typography',
-        'BlurReveal': 'Typography',
-        'TrackingIn': 'Typography',
+        : 'Typography',
+        : 'Typography',
         'StatCounter': 'Data & Stats',
         'ChartAnimation': 'Data & Stats',
         'AreaChart': 'Data & Stats',

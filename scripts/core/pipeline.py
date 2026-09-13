@@ -37,8 +37,11 @@ class UnifiedPipeline:
         
         return prep_info
         
-    def approve(self):
+    def approve(self, test_mode: bool = False):
         """Creates the .studio_approved stamp with the exact hash of the current prep state"""
+        if not test_mode:
+            raise RuntimeError("approve() is test-only. Human approval must be manual via Studio.")
+            
         prep_file = self.project_dir / ".prep_state.json"
         if not prep_file.exists():
             raise Exception("Cannot approve before materializing/prepping.")
@@ -84,8 +87,9 @@ class UnifiedPipeline:
             # Using npm run build which calls "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4"
             # But the path needs to output to projects/{id}/06_build/video.mp4
             out_file = self.build_dir / "video.mp4"
+            npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
             result = subprocess.run(
-                ["npx", "remotion", "render", "remotion-app/src/index.ts", "BlueprintVideo", str(out_file)],
+                [npx_cmd, "remotion", "render", "remotion-app/src/index.ts", "BlueprintVideo", str(out_file)],
                 env=env,
                 check=True,
                 capture_output=True,

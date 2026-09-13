@@ -15,7 +15,7 @@ def get_transcript_path(session_id, custom_path=None):
         return custom_path
     
     # Check blueprint.json for session_id if not directly a uuid
-    blueprint_path = os.path.join("projects", session_id, "blueprint.json")
+    blueprint_path = os.path.join("projects", session_id, "05_blueprint.json") if os.path.exists(os.path.join("projects", session_id, "05_blueprint.json")) else os.path.join("projects", session_id, "blueprint.json")
     if os.path.exists(blueprint_path):
         with open(blueprint_path, "r", encoding="utf-8") as f:
             bp = json.load(f)

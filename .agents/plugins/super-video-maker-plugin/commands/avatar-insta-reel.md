@@ -40,13 +40,14 @@ Pipeline:
    set `badge_png` + `badge_w` in the plan. CTA split: **Instagram** → comment-DM
    (`cta_word`/`cta_text`); **YouTube** → brand callout (`cta_anchor: "tail"`,
    `cta_text: "Zoek <Brand>"`, `cta_word: null`) — never "comment"/"link in bio".
-6. **Build.** `python3 workflows/avatar-insta-split/build_reel.py plan.json out.mp4` —
-   split body + scroll/cuts + seam karaoke captions (auto-follow the VO language) + hook
-   badge + typing bed + click-on-cut + loudnorm export.
-7. **QC + deliver.** Sample frames: headline visible early, article pans at a readable
-   speed and isn't squashed, captions on the seam in the right language, badge correctly
-   shaped on the hook, CTA pill correct for the platform, loudness ~-16 LUFS, no
-   clipping/black frames. Then hand over the MP4.
+6. **Build.** Create `05_blueprint.json` following the plan. Then run:
+   - `python scripts/materialize_project.py <project_id>` to migrate approved assets.
+   - `python scripts/scene_compiler.py <project_id>` to generate React code.
+   - `python scripts/code_template_gate.py <project_id>` to enforce AST template rules.
+7. **QC + deliver.** Run `python scripts/probe_qc.py <project_id>` to generate the seal.
+   Then open the studio for user preview: `python scripts/open_studio.py <project_id> --docker`.
+   Wait for the user to manually create `.studio_approved`.
+   Finally, render using the isolated Docker environment: `python scripts/render_project.py <project_id> --docker`.
 
 Only use an avatar of a real person with permission / a licensed or own likeness, and add
 an AI-content label where the platform requires it.

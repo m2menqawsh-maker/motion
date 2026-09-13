@@ -1,0 +1,965 @@
+[
+  {
+    "name": "moon_photo.png",
+    "base": "moon_photo",
+    "type": "image",
+    "state": "ready",
+    "path": "assets/ready/moon_photo.png",
+    "hash": "288ac138c8c3779a039728c568547f22",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_12172194_intra.mp4",
+    "base": "pexels_video_12172194_intra",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/pexels_video_12172194_intra.mp4",
+    "hash": "6f31bf43be728b0d050b9f5ef8c4b289",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_ui_click_norm.mp3",
+    "base": "pixabay_audio_a_sfx_ui_click",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/pixabay_audio_a_sfx_ui_click_norm.mp3",
+    "hash": "451458567b00643bd04b3f5dcb095ba2",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_audio_a_sfx_ui_pop_norm.mp3",
+    "base": "pixabay_audio_a_sfx_ui_pop",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/pixabay_audio_a_sfx_ui_pop_norm.mp3",
+    "hash": "f81a381d104298cabdeb7651305ac3b6",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_01",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "hash": "efbe4c4bfa655203963df572d1293161",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_image_7156594.webp",
+    "base": "pixabay_image_7156594",
+    "type": "other",
+    "state": "ready",
+    "path": "assets/ready/pixabay_image_7156594.webp",
+    "hash": "f8610fb6779ad6b2d870bd5a3944c8c7",
+    "lufs": null
+  },
+  {
+    "name": "tech_energetic_music_norm.mp3",
+    "base": "tech_energetic_music",
+    "type": "music",
+    "state": "ready",
+    "path": "assets/ready/tech_energetic_music_norm.mp3",
+    "hash": "0e15b0353ce2227f2378edd1b1bf906f",
+    "lufs": null
+  },
+  {
+    "name": "عالم التقنية_norm.wav",
+    "base": "عالم التقنية",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/عالم التقنية_norm.wav",
+    "hash": "c3e4586e03f53f62b73a1fae9d020c96",
+    "lufs": null
+  },
+  {
+    "name": "cyber_synth_bgm_norm.wav",
+    "base": "cyber_synth_bgm",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/cyber_synth_bgm_norm.wav",
+    "hash": "26af2baf31ccf5001d7abcb45811bfdb",
+    "lufs": null
+  },
+  {
+    "name": "digital_norm.wav",
+    "base": "digital",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/digital_norm.wav",
+    "hash": "89edfbc4715f2070831418025daeb599",
+    "lufs": null
+  },
+  {
+    "name": "keyboard_norm.wav",
+    "base": "keyboard",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/keyboard_norm.wav",
+    "hash": "7671c4beacf104382d06227081e3a791",
+    "lufs": null
+  },
+  {
+    "name": "notification_norm.wav",
+    "base": "notification",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/notification_norm.wav",
+    "hash": "ac95ff72ed8d35bf39aa19d79db5c7f7",
+    "lufs": null
+  },
+  {
+    "name": "pop_norm.wav",
+    "base": "pop",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/pop_norm.wav",
+    "hash": "b9f85d40a36b8ee4a8ff43455dab75c2",
+    "lufs": null
+  },
+  {
+    "name": "swoosh_norm.wav",
+    "base": "swoosh",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/swoosh_norm.wav",
+    "hash": "c42e41fc29d0bf07f2879bed76a1b3dc",
+    "lufs": null
+  },
+  {
+    "name": "whoosh_norm.wav",
+    "base": "whoosh",
+    "type": "audio",
+    "state": "ready",
+    "path": "assets/ready/audio/whoosh_norm.wav",
+    "hash": "7da2f1b5d4d445efe5123327885577c1",
+    "lufs": null
+  },
+  {
+    "name": "bookmark.svg",
+    "base": "bookmark",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/bookmark.svg",
+    "hash": "b7e18311d6312014b1d7334cd43629dc",
+    "lufs": null
+  },
+  {
+    "name": "bot.svg",
+    "base": "bot",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/bot.svg",
+    "hash": "5691808cea989b5973ca9877f5dcd6d2",
+    "lufs": null
+  },
+  {
+    "name": "brain.svg",
+    "base": "brain",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/brain.svg",
+    "hash": "af58e97757eed8288ff6ca6741877a3a",
+    "lufs": null
+  },
+  {
+    "name": "calculator.svg",
+    "base": "calculator",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/calculator.svg",
+    "hash": "031248c03f215db6587feed402470649",
+    "lufs": null
+  },
+  {
+    "name": "code.svg",
+    "base": "code",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/code.svg",
+    "hash": "56897d311bc89170d35ef3e69052ff7f",
+    "lufs": null
+  },
+  {
+    "name": "computer_lucide.svg",
+    "base": "computer_lucide",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/computer_lucide.svg",
+    "hash": "9778cd47cc28492b87ac85d33704ed13",
+    "lufs": null
+  },
+  {
+    "name": "cpu.svg",
+    "base": "cpu",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/cpu.svg",
+    "hash": "43287f6032ab7c5fb02f4a98a934076b",
+    "lufs": null
+  },
+  {
+    "name": "database.svg",
+    "base": "database",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/database.svg",
+    "hash": "aad8b0f02f5852b14d7869d6370e032e",
+    "lufs": null
+  },
+  {
+    "name": "instagram.svg",
+    "base": "instagram",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/instagram.svg",
+    "hash": "32bb4203bf1c926123392787d4ba0735",
+    "lufs": null
+  },
+  {
+    "name": "laptop.svg",
+    "base": "laptop",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/laptop.svg",
+    "hash": "febecce10702c551e8289c7884808bbd",
+    "lufs": null
+  },
+  {
+    "name": "meteor.svg",
+    "base": "meteor",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/meteor.svg",
+    "hash": "c3be696713099fdd45d4eecdf5e426bb",
+    "lufs": null
+  },
+  {
+    "name": "moon.svg",
+    "base": "moon",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/moon.svg",
+    "hash": "3d1d79e2947c890bdb8e5f9a01c5f2a9",
+    "lufs": null
+  },
+  {
+    "name": "python.svg",
+    "base": "python",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/python.svg",
+    "hash": "a13a40fa61d2b477052ee93f225af8cd",
+    "lufs": null
+  },
+  {
+    "name": "repeat.svg",
+    "base": "repeat",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/repeat.svg",
+    "hash": "b651cab766eb4c24d15fad63f53ffc9c",
+    "lufs": null
+  },
+  {
+    "name": "rocket_cartoon.svg",
+    "base": "rocket_cartoon",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/rocket_cartoon.svg",
+    "hash": "622a85ccc53c9a26d2b7a6d4fd9aa7dc",
+    "lufs": null
+  },
+  {
+    "name": "satellite.svg",
+    "base": "satellite",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/satellite.svg",
+    "hash": "0232750271a9d105fece5d66ead18bd2",
+    "lufs": null
+  },
+  {
+    "name": "smartphone_lucide.svg",
+    "base": "smartphone_lucide",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/smartphone_lucide.svg",
+    "hash": "f54bc7642cc2f7ee5896f181cad3e94d",
+    "lufs": null
+  },
+  {
+    "name": "space_shuttle.svg",
+    "base": "space_shuttle",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/space_shuttle.svg",
+    "hash": "fe7cb15be6421908250243449c2ed3d4",
+    "lufs": null
+  },
+  {
+    "name": "success.svg",
+    "base": "success",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/success.svg",
+    "hash": "cd54f319235b4ff6174a95d910a40558",
+    "lufs": null
+  },
+  {
+    "name": "telegram.svg",
+    "base": "telegram",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/telegram.svg",
+    "hash": "b22b29694bdc747bd075c861448592dc",
+    "lufs": null
+  },
+  {
+    "name": "tiktok.svg",
+    "base": "tiktok",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/tiktok.svg",
+    "hash": "950295a16a35dd51887b3fe49c214764",
+    "lufs": null
+  },
+  {
+    "name": "twitter.svg",
+    "base": "twitter",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/twitter.svg",
+    "hash": "e221868fe724b9d3903340f0601ed81d",
+    "lufs": null
+  },
+  {
+    "name": "youtube.svg",
+    "base": "youtube",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/youtube.svg",
+    "hash": "3e07454c7da58cc9f31a298ab345c8e3",
+    "lufs": null
+  },
+  {
+    "name": "solar_cpu-bold-duotone.svg",
+    "base": "solar_cpu-bold-duotone",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/cpu_solar/solar_cpu-bold-duotone.svg",
+    "hash": "43287f6032ab7c5fb02f4a98a934076b",
+    "lufs": null
+  },
+  {
+    "name": "noto_crescent-moon.svg",
+    "base": "noto_crescent-moon",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/crescent_moon_noto.svg/noto_crescent-moon.svg",
+    "hash": "2caacd8b376aa473a7aa7e7b27aafb97",
+    "lufs": null
+  },
+  {
+    "name": "noto_light-bulb.svg",
+    "base": "noto_light-bulb",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/light_bulb_noto.svg/noto_light-bulb.svg",
+    "hash": "ec5e2314971f25cc40d45b0e51ad30dc",
+    "lufs": null
+  },
+  {
+    "name": "streamline-kameleon-color_meteor.svg",
+    "base": "streamline-kameleon-color_meteor",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/meteor_pkg/streamline-kameleon-color_meteor.svg",
+    "hash": "c3be696713099fdd45d4eecdf5e426bb",
+    "lufs": null
+  },
+  {
+    "name": "solar_rocket-bold-duotone.svg",
+    "base": "solar_rocket-bold-duotone",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/rocket.svg/solar_rocket-bold-duotone.svg",
+    "hash": "622a85ccc53c9a26d2b7a6d4fd9aa7dc",
+    "lufs": null
+  },
+  {
+    "name": "noto_rocket.svg",
+    "base": "noto_rocket",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/rocket_noto.svg/noto_rocket.svg",
+    "hash": "9ddb4dc044e28c739082f3c7a762217a",
+    "lufs": null
+  },
+  {
+    "name": "solar_satellite-bold-duotone.svg",
+    "base": "solar_satellite-bold-duotone",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/satellite_solar.svg/solar_satellite-bold-duotone.svg",
+    "hash": "0232750271a9d105fece5d66ead18bd2",
+    "lufs": null
+  },
+  {
+    "name": "streamline-kameleon-color_space-shuttle.svg",
+    "base": "streamline-kameleon-color_space-shuttle",
+    "type": "icon",
+    "state": "ready",
+    "path": "assets/ready/icons/shuttle_pkg/streamline-kameleon-color_space-shuttle.svg",
+    "hash": "fe7cb15be6421908250243449c2ed3d4",
+    "lufs": null
+  },
+  {
+    "name": "music_normalized.wav",
+    "base": "musicalized",
+    "type": "music",
+    "state": "ready",
+    "path": "assets/ready/music/music_normalized.wav",
+    "hash": "19b73fc6999063380e0e26cdea287c3a",
+    "lufs": null
+  },
+  {
+    "name": "premium_ambient.mp3",
+    "base": "premium_ambient",
+    "type": "music",
+    "state": "ready",
+    "path": "assets/ready/music/premium_ambient.mp3",
+    "hash": "5baf1a65acb9347cb9e3950a49bc60f7",
+    "lufs": null
+  },
+  {
+    "name": "premium_ambient_norm.mp3",
+    "base": "premium_ambient",
+    "type": "music",
+    "state": "ready",
+    "path": "assets/ready/music/premium_ambient_norm.mp3",
+    "hash": "a4e17994d4ab316e73137d1aa4a09f20",
+    "lufs": null
+  },
+  {
+    "name": "tech_energetic_music.mp3",
+    "base": "tech_energetic_music",
+    "type": "music",
+    "state": "ready",
+    "path": "assets/ready/music/tech_energetic_music.mp3",
+    "hash": "bc2b07cb79c6cb44ec487749d238b7af",
+    "lufs": null
+  },
+  {
+    "name": "digital.mp3",
+    "base": "digital",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/digital.mp3",
+    "hash": "89c85e02a96f6c1cdd16dff08f5c2335",
+    "lufs": null
+  },
+  {
+    "name": "keyboard.mp3",
+    "base": "keyboard",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/keyboard.mp3",
+    "hash": "132c07df13587d339e91117ae512974f",
+    "lufs": null
+  },
+  {
+    "name": "notification.mp3",
+    "base": "notification",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/notification.mp3",
+    "hash": "ea7ae4c7a1f838382bc7129c03fb1e0a",
+    "lufs": null
+  },
+  {
+    "name": "pop.mp3",
+    "base": "pop",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/pop.mp3",
+    "hash": "b1536f10c90bcb1b26abf67dab5ec897",
+    "lufs": null
+  },
+  {
+    "name": "swoosh.mp3",
+    "base": "swoosh",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/swoosh.mp3",
+    "hash": "63354d9aa286368833940c1bfa10f6ad",
+    "lufs": null
+  },
+  {
+    "name": "whoosh.mp3",
+    "base": "whoosh",
+    "type": "sfx",
+    "state": "ready",
+    "path": "assets/ready/sfx/whoosh.mp3",
+    "hash": "723aad01cec1e06a3cb0fb9099d83df5",
+    "lufs": null
+  },
+  {
+    "name": "ai_robot.mp4",
+    "base": "ai_robot",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/ai_robot.mp4",
+    "hash": "7a685690d004ae8595619d66960c9f92",
+    "lufs": null
+  },
+  {
+    "name": "bg_ai_final.mp4",
+    "base": "bg_ai",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/bg_ai_final.mp4",
+    "hash": "8915f495f6c22621d1e285eb3fee2ede",
+    "lufs": null
+  },
+  {
+    "name": "bg_code_final.mp4",
+    "base": "bg_code",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/bg_code_final.mp4",
+    "hash": "0a2acf966c5bba2faea8cf400b172aa1",
+    "lufs": null
+  },
+  {
+    "name": "bg_neon_1_intra.mp4",
+    "base": "bg_neon_1_intra",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/bg_neon_1_intra.mp4",
+    "hash": "9245757432a5b2724d2d3a90788f92b2",
+    "lufs": null
+  },
+  {
+    "name": "bg_neon_2_intra.mp4",
+    "base": "bg_neon_2_intra",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/bg_neon_2_intra.mp4",
+    "hash": "19a40a830462b42ed001de2759a6d8df",
+    "lufs": null
+  },
+  {
+    "name": "coding_keyboard.mp4",
+    "base": "coding_keyboard",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/coding_keyboard.mp4",
+    "hash": "f1655c7f90fd954cdf1edca20b2dc7a3",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_video_136942.mp4",
+    "base": "pixabay_video_136942",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/pixabay_video_136942.mp4",
+    "hash": "38a0f0715f0f5688ab8ff205d5f98415",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_video_92511.mp4",
+    "base": "pixabay_video_92511",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/pixabay_video_92511.mp4",
+    "hash": "980e2ea4cc5baccc2c8b9ef0e8c81bb5",
+    "lufs": null
+  },
+  {
+    "name": "scrolling_phone.mp4",
+    "base": "scrolling_phone",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/scrolling_phone.mp4",
+    "hash": "91c146ed82bfb5bf1fb1331ede4fb405",
+    "lufs": null
+  },
+  {
+    "name": "smartphone.mp4",
+    "base": "smartphone",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/smartphone.mp4",
+    "hash": "3508b34b0f91ced9df4331e34248413a",
+    "lufs": null
+  },
+  {
+    "name": "vintage_computer.mp4",
+    "base": "vintage_computer",
+    "type": "video",
+    "state": "ready",
+    "path": "assets/ready/video/vintage_computer.mp4",
+    "hash": "fdc183bbe4d1e6166736774c027ec5bf",
+    "lufs": null
+  },
+  {
+    "name": "mobile_collage_vo_norm.wav",
+    "base": "mobile_collage_vo",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/mobile_collage_vo_norm.wav",
+    "hash": "6b61b2c700129f5c3542143e09fc39f7",
+    "lufs": -16
+  },
+  {
+    "name": "mobile_nasa_vo_norm.wav",
+    "base": "mobile_nasa_vo",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/mobile_nasa_vo_norm.wav",
+    "hash": "6b61b2c700129f5c3542143e09fc39f7",
+    "lufs": -16
+  },
+  {
+    "name": "vo_mobile_norm.wav",
+    "base": "vo_mobile",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/vo_mobile_norm.wav",
+    "hash": "878ade0dd4ebba385c1be083da3e4378",
+    "lufs": -16
+  },
+  {
+    "name": "vo_normalized.wav",
+    "base": "voalized",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/vo_normalized.wav",
+    "hash": "d851a520c0a0c771a9a6b6323ddc03e4",
+    "lufs": -16
+  },
+  {
+    "name": "تحدي_الثلاثين_يوما_norm.wav",
+    "base": "تحدي_الثلاثين_يوما",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/تحدي_الثلاثين_يوما_norm.wav",
+    "hash": "b698c616ef81ab329163d92fafbda928",
+    "lufs": -16
+  },
+  {
+    "name": "تعلم_البرمجة_norm.wav",
+    "base": "تعلم_البرمجة",
+    "type": "vo",
+    "state": "ready",
+    "path": "assets/ready/vo/تعلم_البرمجة_norm.wav",
+    "hash": "b698c616ef81ab329163d92fafbda928",
+    "lufs": -16
+  },
+  {
+    "name": "pexels_video_12172194.mp4",
+    "base": "pexels_video_12172194",
+    "type": "video",
+    "state": "cache-raw",
+    "path": "assets/cache/pexels_video_12172194.mp4",
+    "hash": "c57ea3a8dd029a7eeb0294b938dbf373",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_image_7156594.jpg",
+    "base": "pixabay_image_7156594",
+    "type": "image",
+    "state": "cache-raw",
+    "path": "assets/cache/pixabay_image_7156594.jpg",
+    "hash": "b80ccae4132cac00fe63e0e3d6df5d5c",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_12433552.mp4",
+    "base": "pexels_video_12433552",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_12433552.mp4",
+    "hash": "faed50e3656bcee8382b4346578c0d42",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_33315117.mp4",
+    "base": "pexels_video_33315117",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_33315117.mp4",
+    "hash": "a596463b0ac575e9fe6f343880ef2740",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_v_ai_illustration.mp4",
+    "base": "pexels_video_v_ai_illustration",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_v_ai_illustration.mp4",
+    "hash": "2ae6dc914e1808e16c5f6e8938afd220",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_v_ai_network.mp4",
+    "base": "pexels_video_v_ai_network",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_v_ai_network.mp4",
+    "hash": "d50ca5e1c293ff027f6b98973c3ead0b",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_v_blurred_code.mp4",
+    "base": "pexels_video_v_blurred_code",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_v_blurred_code.mp4",
+    "hash": "a596463b0ac575e9fe6f343880ef2740",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_v_code_bg.mp4",
+    "base": "pexels_video_v_code_bg",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_v_code_bg.mp4",
+    "hash": "268842a6306f9dd4d0c28bfa6e20aed0",
+    "lufs": null
+  },
+  {
+    "name": "pexels_video_v_hacker_typing.mp4",
+    "base": "pexels_video_v_hacker_typing",
+    "type": "video",
+    "state": "incoming",
+    "path": "assets/incoming/pexels_video_v_hacker_typing.mp4",
+    "hash": "5a513b643c0ef719358b987dc16d0aaf",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_179500.mp3",
+    "base": "pixabay_audio_179500",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_179500.mp3",
+    "hash": "219b3892ecaa3b9db805c23bf596be9e",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_566463.mp3",
+    "base": "pixabay_audio_566463",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_566463.mp3",
+    "hash": "51ead9a83231a0dcb0c58dde7ba6ad98",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_582449.mp3",
+    "base": "pixabay_audio_582449",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_582449.mp3",
+    "hash": "0ff6adc340ddaa2e6783cbc80c529a6f",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_585360.mp3",
+    "base": "pixabay_audio_585360",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_585360.mp3",
+    "hash": "09828c0b9cdb02e8b9cd3f61ebd089aa",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_bgm_abstract_tech.mp3",
+    "base": "pixabay_audio_a_bgm_abstract_tech",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech.mp3",
+    "hash": "0c8677ceb44b5cd2d5485d038dee1832",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_bgm_abstract_tech_norm.mp3",
+    "base": "pixabay_audio_a_bgm_abstract_tech",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech_norm.mp3",
+    "hash": "1a4daadf3bf7e6b0b47f556ea5665b7d",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_riser.mp3",
+    "base": "pixabay_audio_a_sfx_riser",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_riser.mp3",
+    "hash": "da82cc3288c4eee86b188753892070e7",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_tech_reveal.mp3",
+    "base": "pixabay_audio_a_sfx_tech_reveal",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_tech_reveal.mp3",
+    "hash": "94d4ced3bde23ed5e6f06fbcb69d2f38",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_ui_click.mp3",
+    "base": "pixabay_audio_a_sfx_ui_click",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_ui_click.mp3",
+    "hash": "47d8d0992268f81d3cd0ca8e04c45f5c",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_ui_pop.mp3",
+    "base": "pixabay_audio_a_sfx_ui_pop",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_ui_pop.mp3",
+    "hash": "e755dd624fbf020a138aea84a04b9c2d",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_01.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_01",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01.mp3",
+    "hash": "d1c1b032eb31934d55ef1a2a09bbca0c",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_01",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "hash": "e5eb2a934ed1462533832d5dde403221",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_03.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_03",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03.mp3",
+    "hash": "51ead9a83231a0dcb0c58dde7ba6ad98",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_03_norm.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_03",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03_norm.mp3",
+    "hash": "52c6de5350be7fa5a87be9fde899e000",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_04.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_04",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04.mp3",
+    "hash": "9b9faa32b0e6540dee40bd3e5bd8f7d9",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_a_sfx_whoosh_04_norm.mp3",
+    "base": "pixabay_audio_a_sfx_whoosh_04",
+    "type": "sfx",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04_norm.mp3",
+    "hash": "652e082d6fbd4ee4c564385ca68484c5",
+    "lufs": -24
+  },
+  {
+    "name": "pixabay_audio_pixabay_507828.mp3",
+    "base": "pixabay_audio_pixabay_507828",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_pixabay_507828.mp3",
+    "hash": "83a0fe2019837ef79873e85c978d8419",
+    "lufs": null
+  },
+  {
+    "name": "pixabay_audio_tech_energetic_music.mp3",
+    "base": "pixabay_audio_tech_energetic_music",
+    "type": "music",
+    "state": "incoming",
+    "path": "assets/incoming/pixabay_audio_tech_energetic_music.mp3",
+    "hash": "bc2b07cb79c6cb44ec487749d238b7af",
+    "lufs": null
+  },
+  {
+    "name": "tech_energetic_music.mp3",
+    "base": "tech_energetic_music",
+    "type": "music",
+    "state": "incoming",
+    "path": "assets/incoming/tech_energetic_music.mp3",
+    "hash": "bc2b07cb79c6cb44ec487749d238b7af",
+    "lufs": null
+  },
+  {
+    "name": "الموبايل الي بايدك.wav",
+    "base": "الموبايل الي بايدك",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/الموبايل الي بايدك.wav",
+    "hash": "401bd84995915df2da278ab06b43c037",
+    "lufs": null
+  },
+  {
+    "name": "الموبايل الي بايدك_norm.wav",
+    "base": "الموبايل الي بايدك",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/الموبايل الي بايدك_norm.wav",
+    "hash": "6b61b2c700129f5c3542143e09fc39f7",
+    "lufs": null
+  },
+  {
+    "name": "تحدي الثلاثين يوما.wav",
+    "base": "تحدي الثلاثين يوما",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/تحدي الثلاثين يوما.wav",
+    "hash": "8a05dcaddd404223da07359d098e141e",
+    "lufs": null
+  },
+  {
+    "name": "تحدي بايثون.wav",
+    "base": "تحدي بايثون",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/تحدي بايثون.wav",
+    "hash": "967c3cdda79ebda7f911ce917d6bbce2",
+    "lufs": null
+  },
+  {
+    "name": "تعلم البرمجة.wav",
+    "base": "تعلم البرمجة",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/تعلم البرمجة.wav",
+    "hash": "8a05dcaddd404223da07359d098e141e",
+    "lufs": null
+  },
+  {
+    "name": "عالم التقنية.wav",
+    "base": "عالم التقنية",
+    "type": "audio",
+    "state": "incoming",
+    "path": "assets/incoming/عالم التقنية.wav",
+    "hash": "9bb3b303eca2ccdc981d55126a6d55ba",
+    "lufs": null
+  }
+]

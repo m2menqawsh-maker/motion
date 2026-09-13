@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """probe_qc.py — يولد تقرير فحص المشاهد
 Usage: python probe_qc.py <project_dir> <comp_id>"""
-import json, sys, os, subprocess, hashlib
+import json, sys, os, subprocess, hashlib, secrets
 from pathlib import Path
 from datetime import datetime
 
@@ -13,6 +13,13 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
+
+def get_or_create_salt() -> bytes:
+    salt_file = Path(".agents/secrets/.qc_salt")
+    if not salt_file.exists():
+        salt_file.parent.mkdir(parents=True, exist_ok=True)
+        salt_file.write_bytes(secrets.token_bytes(32))
+    return salt_file.read_bytes()
 
 def verify_seal(report_path: Path) -> bool:
     """تحقق من مطابقة البصمة الرقمية للتقرير لمنع التعديل اليدوي والتزوير"""
@@ -26,7 +33,11 @@ def verify_seal(report_path: Path) -> bool:
         print("🛑 [SECURITY] ملف تقرير Probe-QC غير موجود!")
         return False
     expected = seal_file.read_text(encoding="utf-8").strip()
-    actual = hashlib.sha256(report_path.read_bytes()).hexdigest()
+    
+    salt = get_or_create_salt()
+    data = report_path.read_bytes() + salt
+    actual = hashlib.sha256(data).hexdigest()
+    
     if expected != actual:
         print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية غير متطابقة - تقرير مزوّر)")
         return False
@@ -168,11 +179,13 @@ except IndexError:
 report_path = proj_dir / "probe_qc_report.json"
 report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# الختم الرقمي — يمنع أي تعديل يدوي لاحق عبر حفظ بصمة SHA-256
+# الختم الرقمي — يمنع أي تعديل يدوي لاحق عبر حفظ بصمة SHA-256 + Salt
 seal_file = report_path.with_suffix(report_path.suffix + ".seal")
-checksum = hashlib.sha256(report_path.read_bytes()).hexdigest()
+salt = get_or_create_salt()
+data = report_path.read_bytes() + salt
+checksum = hashlib.sha256(data).hexdigest()
 seal_file.write_text(checksum, encoding="utf-8")
-print(f"🔏 تم ختم التقرير ببصمة رقمية SHA-256 ({checksum[:12]}...) — أي تعديل يدوي سيُكتشف")
+print(f"🔏 تم ختم التقرير ببصمة رقمية معماة SHA-256 ({checksum[:12]}...) — أي محاولة تزوير ستفشل.")
 
 # التحقق من الختم قبل السماح بأي إجراء
 if not verify_seal(report_path):

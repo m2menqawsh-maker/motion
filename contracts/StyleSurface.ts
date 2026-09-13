@@ -119,5 +119,5 @@ import { StyleSurfaceSchema } from "./blueprint";
 export function validateStyleSurface(obj: unknown): { ok: boolean; errors: string[] } {
   const res = StyleSurfaceSchema.safeParse(obj);
   if (res.success) return { ok: true, errors: [] };
-  return { ok: false, errors: res.error.errors.map(e => e.message) };
+  return { ok: false, errors: (res.error as any).errors.map((e: any) => e.message) };
 }

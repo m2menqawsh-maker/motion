@@ -30,7 +30,7 @@ export const RemotionRoot: React.FC = () => {
   return (
     <Composition
       id="BlueprintVideo"
-      component={BlueprintVideo}
+      component={BlueprintVideo as React.FC<any>}
       width={1080}
       height={1920}
       defaultProps={{

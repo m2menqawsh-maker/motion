@@ -1,0 +1,47 @@
+[2026-09-13T19:59:36.409910] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (CRITICAL): محظور توليد ملف التوقيت 04_timings.json يدوياً أو عشوائياً.
+الإجراء المطلوب: الملف يُستخرج حصراً من أداة تحليل الصوت analyze_voiceover في MCP.
+[2026-09-13T19:59:46.656540] [COMMAND_GUARD] [BLOCK] COMMAND: npx remotion render | REASON: 🛑 ممنوع استخدام أمر npx remotion render مباشرة. استخدم السكربت المعتمد: python scripts/render_project.py <project_id>
+[2026-09-13T19:59:46.718734] [COMMAND_GUARD] [BLOCK] COMMAND: npm run studio | REASON: 🛑 ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T19:59:46.769643] [COMMAND_GUARD] [BLOCK] COMMAND: npx remotion studio | REASON: 🛑 ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T19:59:46.820814] [COMMAND_GUARD] [ALLOW] COMMAND: npx remotion preview | REASON: Command is safe.
+[2026-09-13T19:59:46.871401] [COMMAND_GUARD] [ALLOW] COMMAND: curl https://example.com/asset.mp4 | REASON: Command is safe.
+[2026-09-13T19:59:46.924429] [COMMAND_GUARD] [ALLOW] COMMAND: wget https://example.com/asset.mp4 | REASON: Command is safe.
+[2026-09-13T19:59:46.977930] [COMMAND_GUARD] [ALLOW] COMMAND: yt-dlp https://youtube.com/watch?v=123 | REASON: Command is safe.
+[2026-09-13T19:59:47.028834] [COMMAND_GUARD] [ALLOW] COMMAND: ffmpeg -i input.mp4 -c:v libx264 out.mp4 | REASON: Command is safe.
+[2026-09-13T19:59:47.078484] [COMMAND_GUARD] [BLOCK] COMMAND: rm -rf engine/ | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-13T19:59:47.127507] [COMMAND_GUARD] [ALLOW] COMMAND: del /s engine | REASON: Command is safe.
+[2026-09-13T19:59:47.177156] [COMMAND_GUARD] [BLOCK] COMMAND: python scripts/materialize_project.py test_proj | REASON: 🛑 ممنوع البناء للمشروع test_proj! يجب أن تقوم أولاً بتجهيز الملفات الثلاثة: master_plan.md و 05_blueprint.json و 02_asset_manifest.json.
+[2026-09-13T19:59:47.229699] [COMMAND_GUARD] [ALLOW] COMMAND: powershell Set-Content -Path .studio_approved -Value 'true' | REASON: Command is safe.
+[2026-09-13T19:59:47.289339] [COMMAND_GUARD] [ALLOW] COMMAND: python -c "open('.studio_approved', 'w').write('ok')" | REASON: Command is safe.
+[2026-09-13T19:59:54.233255] [WRITE_GUARD] [BLOCK] TARGET: projects/p1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.289073] [WRITE_GUARD] [BLOCK] TARGET: projects/p1/.studio_unlocked | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_unlocked يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.339512] [WRITE_GUARD] [BLOCK] TARGET: projects/p1/probe_qc_report.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف probe_qc_report.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.388348] [WRITE_GUARD] [BLOCK] TARGET: .seal | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .seal يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.436970] [WRITE_GUARD] [BLOCK] TARGET: projects/p1/.seal | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .seal يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.484706] [WRITE_GUARD] [BLOCK] TARGET: .qc_salt | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .qc_salt يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.533259] [WRITE_GUARD] [BLOCK] TARGET: projects/p1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.585851] [WRITE_GUARD] [ALLOW] TARGET: .agents/guardian/command_guard.py | REASON: Path is safe.
+[2026-09-13T19:59:54.635922] [WRITE_GUARD] [ALLOW] TARGET: .agents/rules/video-production-protocol.md | REASON: Path is safe.
+[2026-09-13T19:59:54.684801] [WRITE_GUARD] [ALLOW] TARGET: .agents/hooks.json | REASON: Path is safe.
+[2026-09-13T19:59:54.733331] [WRITE_GUARD] [BLOCK] TARGET: .agents/plugins/super-video-maker-plugin/plugin.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف plugin.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T19:59:54.781464] [WRITE_GUARD] [BLOCK] TARGET: engine/some_file.ts | REASON: 🛑 الكتابة مسموحة فقط في projects/, scratch/, أو assets/incoming/. المسار: engine/some_file.ts
+[2026-09-13T19:59:54.830311] [WRITE_GUARD] [BLOCK] TARGET: templates/MyTemplate.tsx | REASON: 🛑 الكتابة مسموحة فقط في projects/, scratch/, أو assets/incoming/. المسار: templates/MyTemplate.tsx
+[2026-09-13T19:59:54.879074] [WRITE_GUARD] [ALLOW] TARGET: projects/p1/src/Scene1.tsx | REASON: Path is safe.
+[2026-09-13T19:59:54.930441] [WRITE_GUARD] [ALLOW] TARGET: scratch/temp.py | REASON: Path is safe.
+[2026-09-13T19:59:54.980072] [WRITE_GUARD] [ALLOW] TARGET: assets/incoming/vo.mp3 | REASON: Path is safe.
+[2026-09-13T19:59:55.028861] [WRITE_GUARD] [BLOCK] TARGET: assets/ready/vo_norm.mp3 | REASON: 🛑 ممنوع الكتابة في assets/ready/. هذه ملفات نظامية محمية.
+[2026-09-13T20:19:10.121589] [WRITE_GUARD] [BLOCK] TARGET: .agents/guardian/command_guard.py | REASON: 🛑 ممنوع الكتابة في .agents/guardian/. هذه ملفات نظامية محمية.
+[2026-09-13T20:19:10.172772] [WRITE_GUARD] [BLOCK] TARGET: .agents/rules/video-production-protocol.md | REASON: 🛑 ممنوع الكتابة في .agents/rules/. هذه ملفات نظامية محمية.
+[2026-09-13T20:19:10.220852] [WRITE_GUARD] [BLOCK] TARGET: .agents/hooks.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف hooks.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T20:19:10.271070] [WRITE_GUARD] [ALLOW] TARGET: projects/test_proj/src/Scene1.tsx | REASON: Path is safe.
+[2026-09-13T20:19:10.320521] [WRITE_GUARD] [ALLOW] TARGET: .agents/logs/guardrails.log | REASON: Path is safe.
+[2026-09-13T20:19:10.384394] [BEHAVIOR_GUARD] [ALLOW] CONTEXT: Tool Call Passed | REASON: Behavior is safe.
+[2026-09-13T20:19:10.434794] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (CRITICAL): محظور توليد أو تعديل ملف .studio_approved برمجياً.
+الإجراء المطلوب: يمنع الرندر دون أن يضع المستخدم هذا الملف يدوياً كدليل على إعجابه بالفيديو.
+[2026-09-13T20:19:10.484853] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (CRITICAL): محظور توليد ملف التوقيت 04_timings.json يدوياً أو عشوائياً.
+الإجراء المطلوب: الملف يُستخرج حصراً من أداة تحليل الصوت analyze_voiceover في MCP.
+[2026-09-13T20:28:41.558343] [WRITE_GUARD] [BLOCK] TARGET: circuit_breaker.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف circuit_breaker.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T20:28:41.612911] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (CRITICAL): محظور العبث بقاطع التيار (Circuit Breaker) أو قراءة حالته لتجنب الالتفاف عليه.
+الإجراء المطلوب: إذا تم حظرك بواسطة قاطع التيار، يجب عليك التوقف وطلب المساعدة فوراً.
+[2026-09-13T20:28:41.842433] [BEHAVIOR_GUARD] [ALLOW] CONTEXT: Tool Call Passed | REASON: Behavior is safe.
+[2026-09-13T21:03:22.202945] [BEHAVIOR_GUARD] [ALLOW] CONTEXT: Tool Call Passed | REASON: Behavior is safe.

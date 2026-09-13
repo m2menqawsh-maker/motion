@@ -20,7 +20,7 @@ def create_backup(project_id: str, stage_name: str):
     try:
         # نقوم بنسخ الملفات الهامة فقط (الخطة، التوقيتات، الإعدادات) وليس الميديا
         backup_path.mkdir()
-        for f in ["01_plan.md", "04_timings.json", "05_blueprint.json"]:
+        for f in ["01_plan.md", "master_plan.md", "04_timings.json", "05_blueprint.json", "blueprint.json"]:
             src = project_dir / f
             if src.exists():
                 shutil.copy2(src, backup_path / f)

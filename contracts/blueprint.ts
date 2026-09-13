@@ -158,7 +158,7 @@ export const BlueprintSceneSchema = z.object({
   template: z.string(),
   startFrame: z.number().min(0),
   durationFrames: z.number().min(1),
-  props: z.record(z.any()).optional(),
+  props: z.record(z.string(), z.any()).optional(),
   media_refs: z.array(z.string()).optional(),
   sfx_ref: z.string().nullable().optional(),
   captions_ref: z.string().nullable().optional(),

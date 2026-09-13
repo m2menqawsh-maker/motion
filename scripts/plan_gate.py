@@ -3,8 +3,60 @@
 
 import sys
 import re
+import json
+import os
 from pathlib import Path
 from collections import Counter
+
+def ask_llm_judge(plan_content: str, scenes_count: int) -> tuple[bool, list]:
+    if scenes_count < 3:
+        return True, []
+        
+    api_key = os.getenv('OPENAI_API_KEY')
+    if not api_key:
+        print("WARNING: LLM Judge skipped due to missing OPENAI_API_KEY")
+        return True, []
+        
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+        
+        prompt = f"""You are a Creative Director auditing a video plan.
+Analyze the following plan for creative quality.
+CRITERIA:
+1. Cinematic descriptions: Backgrounds must be specific (e.g., "dark cyber background with neon grid"), NOT generic (e.g., "general background", "white background").
+2. Contextual motion: Text animations should feel dynamic and matched to the tone.
+3. No obvious padding/fluff.
+
+Plan:
+{plan_content}
+
+Return a JSON object:
+{{
+  "is_approved": boolean,
+  "score": number,
+  "critique": "Detailed critique string. If rejected, explain why based on criteria."
+}}
+"""
+        resp = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,
+            response_format={"type": "json_object"}
+        )
+        
+        result_str = resp.choices[0].message.content
+        result = json.loads(result_str)
+        
+        if not result.get("is_approved", False) or result.get("score", 0) < 60:
+            return False, [f"❌ LLM Judge REJECTED the plan (Score: {result.get('score')}): {result.get('critique')}"]
+            
+        return True, []
+        
+    except Exception as e:
+        print(f"WARNING: LLM Judge skipped due to API error: {e}")
+        return True, []
+
 
 def detect_sequential_repetition(lines: list) -> dict:
     """يكشف التكرار المتسلسل للسطور (حشو من نوع جديد)"""
@@ -37,7 +89,17 @@ def detect_sequential_repetition(lines: list) -> dict:
 
 
 def validate_plan_quality(plan_content: str) -> dict:
-    """يفحص جودة الخطة ولا يكترث لعدد الأسطر"""
+    """يفحص جودة الخطة باستخدام القواعد الموحدة"""
+    
+    # تحميل القواعد الموحدة
+    config_path = Path("config/violations_config.json")
+    violations_rules = []
+    if config_path.exists():
+        try:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            violations_rules = config.get("plan_quality_violations", [])
+        except Exception:
+            pass
     
     lines = plan_content.split('\n')
     
@@ -71,15 +133,13 @@ def validate_plan_quality(plan_content: str) -> dict:
     for i, line in enumerate(lines):
         line_lower = line.lower()
         
-        # 1. فحص الحشو (Padding)
-        if "<!-- padding" in line_lower or "final padding" in line_lower:
-            checks["no_padding"] = False
-            errors.append(f"❌ PLAN REJECTED: تم العثور على حشو (<!-- Padding -->) في السطر {i+1}. החشو ممنوع — كل سطر يجب أن يضيف قيمة إنتاجية. قم بحذف الحشو وإعادة كتابة المحتوى الحقيقي.")
-            
-        # 2. العبارات العامة
-        if "خلفية عامة" in line or "أصل 1" in line or "لقطة مهمة" in line:
-            checks["no_generic_media"] = False
-            errors.append(f"❌ PLAN REJECTED: تم العثور على عبارة عامة ('خلفية عامة' أو ما شابه) في السطر {i+1}. يجب استخدام أوصاف دقيقة ومحددة.")
+        # 1. فحص الحشو والعبارات عبر القواعد الموحدة (Regex)
+        for rule in violations_rules:
+            pattern = rule.get("pattern", "")
+            if pattern and re.search(pattern, line_lower, re.IGNORECASE):
+                checks["no_padding"] = False
+                msg = rule.get("message", "")
+                errors.append(f"❌ PLAN REJECTED: السطر {i+1} يحتوي على مخالفة: {msg}")
             
         # استخراج الاستشهادات
         if "motion_taste_citation" in line_lower or "treatment_citation" in line_lower:
@@ -113,9 +173,10 @@ def validate_plan_quality(plan_content: str) -> dict:
         scenes.append(current_scene)
         
     # فحص تنوع القوالب
-    if len(templates) < 3 and len(scenes) >= 3:
+    required_templates = min(len(scenes), 3) if len(scenes) > 0 else 1
+    if len(templates) < required_templates:
         checks["template_diversity"] = False
-        errors.append(f"❌ PLAN REJECTED: تم استخدام {len(templates)} قوالب فقط. يجب استخدام ≥ 3 قوالب مختلفة من TEMPLATE_INDEX.md.")
+        errors.append(f"❌ PLAN REJECTED: تم استخدام {len(templates)} قوالب فقط. المشاهد الحالية ({len(scenes)}) تتطلب على الأقل {required_templates} قوالب مختلفة.")
         
     # فحص جداول الكلمات وعدد المؤثرات الصوتية في كل مشهد
     for scene in scenes:
@@ -136,6 +197,14 @@ def validate_plan_quality(plan_content: str) -> dict:
         errors.append("❌ PLAN REJECTED: الخطة لا تحتوي على الاستشهادات الإلزامية (motion_taste_citation و treatment_citation).")
 
     is_valid = len(errors) == 0
+    
+    # الطبقة الثانية: LLM Judge
+    if is_valid:
+        llm_valid, llm_errors = ask_llm_judge(plan_content, len(scenes))
+        if not llm_valid:
+            errors.extend(llm_errors)
+            is_valid = False
+
     return is_valid, errors
 
 def main():
@@ -146,6 +215,8 @@ def main():
     project_id = sys.argv[1]
     project_dir = Path(f"projects/{project_id}")
     plan_file = project_dir / "master_plan.md"
+    if not plan_file.exists():
+        plan_file = project_dir / "01_plan.md"
     timings_file = project_dir / "04_timings.json"
     
     if not timings_file.exists():
@@ -155,7 +226,7 @@ def main():
     
     if not plan_file.exists():
         print(f"❌ الخطة غير موجودة في المسار: {plan_file}")
-        print("تأكد أن الوكيل قام بإنشاء master_plan.md بالفعل.")
+        print("تأكد أن الوكيل قام بإنشاء master_plan.md أو 01_plan.md بالفعل.")
         sys.exit(1)
         
     content = plan_file.read_text(encoding="utf-8")

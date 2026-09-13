@@ -24,7 +24,7 @@ describe('mergeScene and Zod schema consistency', () => {
       component: () => null
     };
 
-    const merged = mergeScene(scene, registryEntry, brand);
+    const merged = mergeScene(scene, registryEntry as any, brand);
     expect(merged.surface.fontSize).toBe(30);
     expect(merged.surface.opacity).toBe(1);
   });
@@ -51,6 +51,6 @@ describe('mergeScene and Zod schema consistency', () => {
       component: () => null
     };
 
-    expect(() => mergeScene(scene, registryEntry, brand)).toThrow(/Too big/);
+    expect(() => mergeScene(scene, registryEntry as any, brand)).toThrow(/Too big/);
   });
 });

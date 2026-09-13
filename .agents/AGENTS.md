@@ -33,7 +33,8 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
    - Manage hot-reloading and run the studio (`npm run studio`) for user preview.
 5. **Phase 7-8 (Preview & Render)**: Execute Quality Control (QC) gates via `probe_qc.py` to ensure the video is ready for delivery.
 
-## 🛠️ Debugging Protocol
+## 🛠️ Debugging Protocol & Circuit Breakers
+- **Circuit Breaker (Max Retries = 3):** If an external tool (like an MCP API or a download script) fails, you may retry up to 3 times with exponential backoff or different parameters. If it fails a 3rd time, YOU MUST STOP and ask the user for intervention. Do NOT enter an infinite loop of retries.
 - **File or Path Error?** -> Write a Python script to inspect the tree (`os.walk`) and rename files.
 - **Media Playback Error?** -> Immediately transcode the file using `ffmpeg` (convert pixel format and codec).
 - **Missing APIs (e.g., Pexels/Pixabay)?** -> Write a custom scraper using `Playwright` or `BeautifulSoup` in `scratch/`.

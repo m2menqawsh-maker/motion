@@ -3,7 +3,7 @@ import sys
 import os
 
 # مجرد كتالوج افتراضي لاختبار القاعدة، يمكن ربطه بـ TEMPLATE_INDEX.md لاحقاً
-CATALOG = ["TitleScene", "BulletList", "HighlightCard", "CodeReveal", "SplitScreen", "CallToAction", "NeonCyberCard", "GlassmorphismPill"]
+CATALOG = ["TitleScene", "BulletList", "HighlightCard", "CodeReveal", "CallToAction", "NeonCyberCard", "GlassmorphismPill"]
 
 def validate_spec(spec_path):
     if not os.path.exists(spec_path):

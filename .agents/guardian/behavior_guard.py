@@ -8,12 +8,67 @@ import sys
 import json
 import os
 import re
+import datetime
+import time
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
+
+LOG_FILE = Path(".agents/logs/guardrails.log")
+CIRCUIT_BREAKER_FILE = Path(".agents/guardian/circuit_breaker.json")
+
+def check_circuit_breaker(tool_name: str, tool_call: dict):
+    if not CIRCUIT_BREAKER_FILE.exists():
+        return
+        
+    lock_dir = CIRCUIT_BREAKER_FILE.with_suffix(".lock")
+    for _ in range(50):
+        try:
+            lock_dir.mkdir(parents=True, exist_ok=False)
+            break
+        except FileExistsError:
+            time.sleep(0.1)
+    else:
+        pass
+        
+    try:
+        with open(CIRCUIT_BREAKER_FILE, "r", encoding="utf-8") as f:
+            cb_data = json.load(f)
+            
+        args = tool_call.get("args", {})
+        command = args.get("command", "") or args.get("CommandLine", "") or str(args)
+        sig = str(command)[:50] if command else "default"
+        key = f"{tool_name}::{sig}"
+        
+        if key in cb_data:
+            failures = cb_data[key].get("failures", 0)
+            last_fail = cb_data[key].get("last_failure_timestamp", 0)
+            now = time.time()
+            if now - last_fail > 900:
+                failures = 0
+            if failures >= 3:
+                block(f"🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.", "Circuit Breaker")
+    except Exception:
+        pass
+    finally:
+        try:
+            lock_dir.rmdir()
+        except Exception:
+            pass
+
+
+def log_audit(decision: str, reason: str, context: str):
+    LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.datetime.now().isoformat()
+    log_entry = f"[{timestamp}] [BEHAVIOR_GUARD] [{decision}] CONTEXT: {context} | REASON: {reason}\n"
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(log_entry)
+    except Exception:
+        pass
 
 def load_config():
     config_path = Path(os.path.dirname(__file__)).parent.parent / "config" / "violations_config.json"
@@ -30,13 +85,15 @@ def main():
         
         config = load_config()
         if not config:
-            allow()
+            allow("No config found")
             
         # 1. فحص الأداة الحالية
+        current_tool_name = tool_call.get("name", "")
+        check_circuit_breaker(current_tool_name, tool_call)
         current_tool_str = json.dumps(tool_call, ensure_ascii=False)
-        violation = check_text_for_violations(current_tool_str, config)
+        violation = check_text_for_violations(current_tool_str, config, is_read_tool=current_tool_name in ["view_file", "grep_search", "list_dir", "read_url_content", "read_resource", "list_resources"])
         if violation:
-            block(violation)
+            block(violation, "Current Tool Call")
             
         # 2. فحص السجل (منذ آخر رسالة مستخدم)
         if transcript_path and os.path.exists(transcript_path):
@@ -71,18 +128,21 @@ def main():
             full_text_to_check = " ".join(agent_text_since_user)
             violation = check_text_for_violations(full_text_to_check, config)
             if violation:
-                block(violation)
+                block(violation, "Transcript Since Last User")
                 
-        allow()
+        allow("Tool Call Passed")
         
     except Exception as e:
         allow()
 
-def check_text_for_violations(text: str, config: dict):
+def check_text_for_violations(text: str, config: dict, is_read_tool: bool = False):
     if not text.strip():
         return None
         
     for category in ["command_violations", "behavioral_violations", "protocol_violations", "plan_quality_violations"]:
+        if is_read_tool and category == "protocol_violations":
+            continue
+            
         rules = config.get(category, [])
         for rule in rules:
             pattern = rule.get("pattern", "")
@@ -94,11 +154,14 @@ def check_text_for_violations(text: str, config: dict):
                 return f"🛑 [BEHAVIOR BLOCK] ({severity}): {msg}\nالإجراء المطلوب: {fix}"
     return None
 
-def allow():
+def allow(context=""):
+    if context:
+        log_audit("ALLOW", "Behavior is safe.", context)
     print(json.dumps({"decision": "allow"}))
     sys.exit(0)
 
-def block(reason: str):
+def block(reason: str, context=""):
+    log_audit("BLOCK", reason, context)
     print(json.dumps({
         "decision": "block",
         "reason": reason,

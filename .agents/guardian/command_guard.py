@@ -7,12 +7,25 @@ Command Guard for Google Antigravity (Protocol v4.0)
 import sys
 import json
 import os
+import datetime
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
+
+LOG_FILE = Path(".agents/logs/guardrails.log")
+
+def log_audit(decision: str, reason: str, command: str):
+    LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.datetime.now().isoformat()
+    log_entry = f"[{timestamp}] [COMMAND_GUARD] [{decision}] COMMAND: {command} | REASON: {reason}\n"
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(log_entry)
+    except Exception:
+        pass
 
 def main():
     try:
@@ -25,41 +38,41 @@ def main():
             command = tool_input
         
         if not command:
-            allow()
+            allow("Empty Command")
         
         # ── القواعد الصارمة (v4.0) ──────────────────────────
         
         # 1. المنع المطلق لأوامر Node/npm المباشرة
         if "npx remotion render" in command:
-            block("🛑 ممنوع استخدام أمر npx remotion render مباشرة. استخدم السكربت المعتمد: python scripts/render_project.py <project_id>")
+            block("🛑 ممنوع استخدام أمر npx remotion render مباشرة. استخدم السكربت المعتمد: python scripts/render_project.py <project_id>", command)
             
         if "npm run studio" in command or "npx remotion studio" in command:
-            block("🛑 ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>")
+            block("🛑 ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>", command)
         
         # 2. شرط البناء (Materialize Project)
         if "materialize_project.py" in command:
             project_id = extract_project_id(command)
             if project_id and not check_materialize_ready(project_id):
-                block(f"🛑 ممنوع البناء للمشروع {project_id}! يجب أن تقوم أولاً بتجهيز الملفات الثلاثة: master_plan.md و 05_blueprint.json و 02_asset_manifest.json.")
+                block(f"🛑 ممنوع البناء للمشروع {project_id}! يجب أن تقوم أولاً بتجهيز الملفات الثلاثة: master_plan.md و 05_blueprint.json و 02_asset_manifest.json.", command)
         
         # 3. منع حذف الملفات الحرجة
         if any(op in command for op in ["rm -rf", "del /s", "rmdir /s"]):
             if any(protected in command for protected in [".agents/", "engine/", "templates/", "scripts/"]):
-                block("🛑 ممنوع حذف ملفات النظام الحرجة.")
+                block("🛑 ممنوع حذف ملفات النظام الحرجة.", command)
         
         # 4. منع تثبيت حزم غير معتمدة
         if "npm install" in command or "pip install" in command:
             allowed_packages = ["remotion", "@remotion/cli", "react", "ffmpeg-static", "typescript"]
             for pkg in extract_packages(command):
                 if pkg not in allowed_packages:
-                    block(f"🛑 ممنوع تثبيت حزمة غير معتمدة: {pkg}. أضفها إلى plugin.json أولاً.")
+                    block(f"🛑 ممنوع تثبيت حزمة غير معتمدة: {pkg}. أضفها إلى plugin.json أولاً.", command)
         
         # الأمر سليم
-        allow()
+        allow(command)
         
     except Exception as e:
         # في حال الخطأ، اسمح
-        allow()
+        allow("Exception Occurred")
 
 def check_materialize_ready(project_id: str) -> bool:
     """هل ملفات المشروع الأساسية موجودة للبناء؟"""
@@ -95,11 +108,14 @@ def extract_packages(command: str) -> list:
     if match: return [p.strip() for p in match.group(1).split() if not p.startswith('-')]
     return []
 
-def allow():
+def allow(command=""):
+    if command:
+        log_audit("ALLOW", "Command is safe.", command)
     print(json.dumps({"decision": "allow"}))
     sys.exit(0)
 
-def block(reason: str):
+def block(reason: str, command=""):
+    log_audit("BLOCK", reason, command)
     print(json.dumps({
         "decision": "block",
         "reason": reason,

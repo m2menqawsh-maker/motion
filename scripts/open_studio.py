@@ -11,9 +11,24 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
+import shutil
+
+def is_docker_running():
+    if not shutil.which("docker"):
+        return False
+    try:
+        proc = subprocess.run(["docker", "info"], capture_output=True, text=True, timeout=5)
+        return proc.returncode == 0
+    except Exception:
+        return False
+
 def main():
+    use_docker = "--docker" in sys.argv
+    if use_docker:
+        sys.argv.remove("--docker")
+        
     if len(sys.argv) < 2:
-        print("❌ الاستخدام: python open_studio.py <project_id>")
+        print("❌ الاستخدام: python open_studio.py <project_id> [--docker]")
         sys.exit(1)
 
     project_id = sys.argv[1]
@@ -55,10 +70,31 @@ def main():
 
     # 3. تشغيل الاستوديو في المسار الصحيح
     print(f"✅ [GUARDIAN PASS] جاري فتح الاستوديو للمشروع {project_id}...")
-    os.chdir(str(build_dir))
-    use_shell = os.name == "nt"
-    cmd = ["npx", "remotion", "studio"]
-    subprocess.run(cmd, shell=use_shell)
+    if not use_docker:
+        os.chdir(str(build_dir))
+        use_shell = os.name == "nt"
+        cmd = ["npx", "remotion", "studio"]
+        subprocess.run(cmd, shell=use_shell)
+    else:
+        if not is_docker_running():
+            print("❌ [Docker Error] محرك Docker غير يعمل أو غير مثبت في النظام. الرجاء تشغيله أولاً.")
+            sys.exit(1)
+            
+        print(f"🐳 جاري فتح الاستوديو عبر حاوية Docker (clean-video-builder)...")
+        print(f"🌐 يرجى التوجه إلى http://localhost:3000 في المتصفح بعد بدء الخادم")
+        
+        workspace_root = Path.cwd().resolve()
+        
+        docker_cmd = [
+            "docker", "run", "--rm", "-it",
+            "-p", "3000:3000",
+            "-v", f"{workspace_root}:/workspace:ro",
+            "-w", f"/workspace/projects/{project_id}/06_build",
+            "clean-video-builder",
+            "npx", "remotion", "studio", "--host", "0.0.0.0"
+        ]
+        
+        subprocess.run(docker_cmd)
 
 if __name__ == "__main__":
     main()

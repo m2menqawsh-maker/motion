@@ -1,31 +1,31 @@
 {
   "command_violations": [
     {
-      "pattern": "npx remotion|npm run",
+      "pattern": "\\b(npx|npm)\\s+(remotion|run)\\b",
       "severity": "CRITICAL",
       "message": "محظور استخدام أوامر npm/npx مباشرة.",
       "fix": "استخدم السكربتات المعتمدة فقط: scripts/open_studio.py أو scripts/render_project.py."
     },
     {
-      "pattern": "generate_react|generate_tsx|patch_tsx",
+      "pattern": "\\b(generate_react|generate_tsx|patch_tsx)\\b",
       "severity": "CRITICAL",
       "message": "استخدام مولدات أكواد React الارتجالية محظور.",
       "fix": "استخدم مهارة snapcn لجلب القوالب الجاهزة أو استخدم القوالب المحلية الموجهة بالبيانات (Data-Driven)."
     },
     {
-      "pattern": "generate_plan\\.py",
+      "pattern": "\\bgenerate_plan\\.py\\b",
       "severity": "HIGH",
       "message": "محظور استخدام أي سكربت لكتابة خطة الفيديو.",
       "fix": "القاعدة الصارمة تنص على أن الوكيل هو من يكتب master_plan.md إبداعياً. السكربت فقط للتحقق."
     },
     {
-      "pattern": "curl |wget |yt-dlp ",
+      "pattern": "\\b(curl|wget|yt-dlp)\\b\\s+",
       "severity": "HIGH",
       "message": "محظور استخدام أدوات التحميل الخارجية.",
       "fix": "يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط."
     },
     {
-      "pattern": "ffmpeg -i.*out\\.mp4",
+      "pattern": "\\bffmpeg\\s+-i\\s+.*out\\.mp4\\b",
       "severity": "CRITICAL",
       "message": "محظور محاولة رندر الفيديو باستخدام ffmpeg بدلاً من محرك Remotion.",
       "fix": "الرندر يتم فقط عبر scripts/render_project.py بعد معاينة المستخدم."
@@ -33,10 +33,16 @@
   ],
   "behavioral_violations": [
     {
-      "pattern": "Copy-Item.*06_build|cp .*06_build",
+      "pattern": "\\b(Copy-Item|cp)\\b\\s+.*06_build",
       "severity": "CRITICAL",
       "message": "النسخ اليدوي للملفات إلى مجلد 06_build محظور تماماً.",
       "fix": "مرر الوسائط عبر 02_asset_manifest.json واسمح لـ scripts/materialize_project.py بنقلها."
+    },
+    {
+      "pattern": "\\bcircuit_breaker\\.json\\b",
+      "severity": "CRITICAL",
+      "message": "محظور العبث بقاطع التيار (Circuit Breaker) أو قراءة حالته لتجنب الالتفاف عليه.",
+      "fix": "إذا تم حظرك بواسطة قاطع التيار، يجب عليك التوقف وطلب المساعدة فوراً."
     },
     {
       "pattern": "templates/.*\\.tsx",
@@ -45,42 +51,50 @@
       "fix": "القوالب الأساسية ثابتة وتستقبل حركتها من البيانات (surface). لا تقم بترقيعها يدوياً."
     },
     {
-      "pattern": "spring\\(|interpolate\\(|useCurrentFrame\\(",
+      "pattern": "\\b(spring|interpolate|useCurrentFrame)\\s*\\(",
       "severity": "CRITICAL",
       "message": "محظور برمجة حركات صلبة (Hard-coded Animations) في مشاهد المشروع.",
       "fix": "البيئة تعمل بنظام Data-Driven. مرر خاصية animation للقوالب وهي ستتكفل بالحركة."
-    },
-    {
-      "pattern": "padding|<!-- Padding -->",
-      "severity": "HIGH",
-      "message": "محظور إضافة حشو وهمي لزيادة عدد أسطر الخطة.",
-      "fix": "اكتب خطة إبداعية متكاملة التفاصيل كما هو مطلوب في PLAN_TEMPLATE.md، ولا تغش."
     }
   ],
   "protocol_violations": [
     {
-      "pattern": "\\.studio_approved",
+      "pattern": "(write_to_file|replace_file_content|multi_replace_file_content).*?\\.studio_approved\\b",
       "severity": "CRITICAL",
       "message": "محظور توليد أو تعديل ملف .studio_approved برمجياً.",
       "fix": "يمنع الرندر دون أن يضع المستخدم هذا الملف يدوياً كدليل على إعجابه بالفيديو."
     },
     {
-      "pattern": "probe_qc_report\\.json",
+      "pattern": "(write_to_file|replace_file_content|multi_replace_file_content).*?\\bprobe_qc_report\\.json\\b",
       "severity": "CRITICAL",
       "message": "محظور محاولة تزوير أو تعديل تقرير الفحص probe_qc_report.json.",
       "fix": "الفحص يجرى آلياً عبر scripts/probe_qc.py. أصلح الأخطاء لكي ينجح بدلاً من تزويره."
     },
     {
-      "pattern": "04_timings\\.json",
+      "pattern": "(write_to_file|replace_file_content|multi_replace_file_content).*?\\b04_timings\\.json\\b",
       "severity": "CRITICAL",
       "message": "محظور توليد ملف التوقيت 04_timings.json يدوياً أو عشوائياً.",
       "fix": "الملف يُستخرج حصراً من أداة تحليل الصوت analyze_voiceover في MCP."
     },
     {
-      "pattern": "mechanical_lock",
+      "pattern": "\\bmechanical_lock\\b",
       "severity": "CRITICAL",
       "message": "محظور الالتفاف على القفل الميكانيكي (Mechanical Lock).",
       "fix": "تجاوز البوابات غير مسموح. نفذ المتطلبات بالترتيب لتفتح البوابة آلياً."
+    }
+  ],
+  "plan_quality_violations": [
+    {
+      "pattern": "(?:padding|<!--\\s*padding\\s*-->|حشو)",
+      "severity": "HIGH",
+      "message": "محظور إضافة حشو وهمي لزيادة عدد أسطر الخطة.",
+      "fix": "اكتب خطة إبداعية متكاملة التفاصيل كما هو مطلوب في PLAN_TEMPLATE.md، ولا تغش."
+    },
+    {
+      "pattern": "خلفية\\s+عامة",
+      "severity": "MEDIUM",
+      "message": "محظور استخدام وصف ضعيف مثل 'خلفية عامة'.",
+      "fix": "صف الخلفية بدقة سينمائية (مثلاً: خلفية داكنة تميل للزرقة مع إضاءة خافتة متحركة)."
     }
   ]
 }

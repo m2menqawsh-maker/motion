@@ -19,7 +19,7 @@
 | `Caret` | A | `templates/elements/typography/caret.tsx` | title_reveal |
 | `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
 | `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
-| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | title_reveal, typing |
+| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
 | `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
 | `Splitscreen` | A | `templates/elements/ui/split-screen/SplitScreen.tsx` | ui_element |
 

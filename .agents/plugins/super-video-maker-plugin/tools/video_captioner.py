@@ -18,14 +18,11 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("video_captioner")
 
-try:
-    openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-    if not os.getenv('OPENAI_API_KEY'):
-        raise ValueError("OPENAI_API_KEY is not set in the environment.")
-    logger.info("✅ OpenAI client initialized.")
-except Exception as e:
-    logger.error(f"❌ Failed to initialize OpenAI client: {e}")
-    sys.exit(1)
+def get_openai_client() -> OpenAI:
+    api_key = os.getenv('OPENAI_API_KEY')
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required to perform captioning/transcription.")
+    return OpenAI(api_key=api_key)
 # --- End Setup ---
 
 
@@ -98,7 +95,7 @@ def get_word_timestamps_from_audio(audio_file: str):
     if file_size <= WHISPER_MAX_BYTES:
         logger.info(f"🎙️ Transcribing audio file directly: {audio_file}")
         with open(audio_file, "rb") as f:
-            resp = openai_client.audio.transcriptions.create(
+            resp = get_openai_client().audio.transcriptions.create(
                 model="whisper-1",
                 file=f,
                 response_format="verbose_json",
@@ -114,7 +111,7 @@ def get_word_timestamps_from_audio(audio_file: str):
         for chunk_path, offset in chunks:
             logger.info(f"🎙️ Transcribing chunk: {chunk_path} (offset={offset:.1f}s)")
             with open(chunk_path, "rb") as f:
-                resp = openai_client.audio.transcriptions.create(
+                resp = get_openai_client().audio.transcriptions.create(
                     model="whisper-1",
                     file=f,
                     response_format="verbose_json",
@@ -575,8 +572,9 @@ if __name__ == "__main__":
             print(f"\nCaptioned video: {output_video_file}")
         print('RESULT: ' + json.dumps({"status": "succeeded", "mode": RUN_MODE, "input_video": INPUT_VIDEO}))
 
-    except Exception:
+    except Exception as e:
         print("\nScript failed. See logs above.")
         traceback.print_exc()
-        print('RESULT: ' + json.dumps({"status": "failed", "mode": RUN_MODE, "input_video": INPUT_VIDEO}))
+        error_message = str(e) if isinstance(e, RuntimeError) else "Unknown error occurred"
+        print('RESULT: ' + json.dumps({"status": "failed", "mode": RUN_MODE, "input_video": INPUT_VIDEO, "error": error_message}))
         sys.exit(1)

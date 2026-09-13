@@ -36,7 +36,7 @@ def main():
     shutil.copy("projects/demo_brand/04_timings.json", project_dir / "04_timings.json")
     
     # 3. تحديث project_id في كل الملفات
-    for f in ["blueprint.json", "overrides.json", "manifest.json"]:
+    for f in ["05_blueprint.json", "blueprint.json", "overrides.json", "manifest.json"]:
         data = json.loads((project_dir / f).read_text(encoding="utf-8"))
         data["project_id"] = project_id
         (project_dir / f).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -8,7 +8,6 @@ import { WordCaptions } from "../templates/WordCaptions";
 import { TextHighlight } from "../templates/TextHighlight";
 import { AnswerStream } from "../templates/AnswerStream";
 import { BlockWordmark } from "../templates/BlockWordmark";
-import { Caret } from "../templates/Caret";
 import { FollowerRush } from "../templates/FollowerRush";
 import { HeroLaunch } from "../templates/HeroLaunch";
 import { Input } from "../templates/Input";
@@ -66,24 +65,12 @@ import { SlotMachineRoll } from "../templates/SlotMachineRoll";
 import { Spotlight } from "../templates/Spotlight";
 import { SpotlightCard } from "../templates/SpotlightCard";
 import { StaggerGroup } from "../templates/StaggerGroup";
-import { StatCard } from "../templates/StatCard";
 import { TextFadeReplace } from "../templates/TextFadeReplace";
 import { TitleCard } from "../templates/TitleCard";
 import { Underline } from "../templates/Underline";
 import { VideoClip } from "../templates/VideoClip";
 import { Vignette } from "../templates/Vignette";
 import { WordRotate } from "../templates/WordRotate";
-import { BlurReveal } from "../templates/BlurReveal";
-import { Captions } from "../templates/Captions";
-import { CodeBlock } from "../templates/CodeBlock";
-import { CodeDiff } from "../templates/CodeDiff";
-import { KenBurns } from "../templates/KenBurns";
-import { RgbGlitchText } from "../templates/RgbGlitchText";
-import { SplitScreen } from "../templates/SplitScreen";
-import { Terminal } from "../templates/Terminal";
-import { TrackingIn } from "../templates/TrackingIn";
-import { Typewriter } from "../templates/Typewriter";
-import { WordStagger } from "../templates/WordStagger";
 
 export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
   "text-reveal": {
@@ -206,21 +193,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     },
     defaults: {
       text: "BlockWordmark",
-      animation: "fade_in"
-    }
-  },
-  "caret": {
-    id: "caret",
-    label: { ar: "Caret", en: "Caret" },
-    description: { ar: "Caret description", en: "Caret description" },
-    category: "text",
-    component: Caret,
-    defaultDurationFrames: 90,
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "Caret",
       animation: "fade_in"
     }
   },
@@ -1233,25 +1205,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     usesEffects: ["elements/ui/remocn-ui/stagger-group"],
     consumes: []
   },
-  "stat-card": {
-    id: "stat-card",
-    label: { ar: "StatCard", en: "StatCard" },
-    description: { ar: "قالب StatCard", en: "StatCard template" },
-    category: "effect",
-    component: StatCard,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "B",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "StatCard",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/stat-card"],
-    consumes: []
-  },
   "text-fade-replace": {
     id: "text-fade-replace",
     label: { ar: "TextFadeReplace", en: "TextFadeReplace" },
@@ -1364,215 +1317,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
       animation: "fade_in"
     },
     usesEffects: ["elements/ui/remocn-ui/word-rotate"],
-    consumes: []
-  },
-  "blur-reveal": {
-    id: "blur-reveal",
-    label: { ar: "BlurReveal", en: "BlurReveal" },
-    description: { ar: "قالب BlurReveal", en: "BlurReveal template" },
-    category: "effect",
-    component: BlurReveal,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "BlurReveal",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/blur-reveal"],
-    consumes: []
-  },
-  "captions": {
-    id: "captions",
-    label: { ar: "Captions", en: "Captions" },
-    description: { ar: "قالب Captions", en: "Captions template" },
-    category: "effect",
-    component: Captions,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "Captions",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/captions"],
-    consumes: []
-  },
-  "code-block": {
-    id: "code-block",
-    label: { ar: "CodeBlock", en: "CodeBlock" },
-    description: { ar: "قالب CodeBlock", en: "CodeBlock template" },
-    category: "effect",
-    component: CodeBlock,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "CodeBlock",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/code-block"],
-    consumes: []
-  },
-  "code-diff": {
-    id: "code-diff",
-    label: { ar: "CodeDiff", en: "CodeDiff" },
-    description: { ar: "قالب CodeDiff", en: "CodeDiff template" },
-    category: "effect",
-    component: CodeDiff,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "CodeDiff",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/code-diff"],
-    consumes: []
-  },
-  "ken-burns": {
-    id: "ken-burns",
-    label: { ar: "KenBurns", en: "KenBurns" },
-    description: { ar: "قالب KenBurns", en: "KenBurns template" },
-    category: "effect",
-    component: KenBurns,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "KenBurns",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/ken-burns"],
-    consumes: []
-  },
-  "rgb-glitch-text": {
-    id: "rgb-glitch-text",
-    label: { ar: "RgbGlitchText", en: "RgbGlitchText" },
-    description: { ar: "قالب RgbGlitchText", en: "RgbGlitchText template" },
-    category: "effect",
-    component: RgbGlitchText,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "RgbGlitchText",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/rgb-glitch-text"],
-    consumes: []
-  },
-  "split-screen": {
-    id: "split-screen",
-    label: { ar: "SplitScreen", en: "SplitScreen" },
-    description: { ar: "قالب SplitScreen", en: "SplitScreen template" },
-    category: "effect",
-    component: SplitScreen,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "SplitScreen",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/split-screen"],
-    consumes: []
-  },
-  "terminal": {
-    id: "terminal",
-    label: { ar: "Terminal", en: "Terminal" },
-    description: { ar: "قالب Terminal", en: "Terminal template" },
-    category: "effect",
-    component: Terminal,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "Terminal",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/terminal"],
-    consumes: []
-  },
-  "tracking-in": {
-    id: "tracking-in",
-    label: { ar: "TrackingIn", en: "TrackingIn" },
-    description: { ar: "قالب TrackingIn", en: "TrackingIn template" },
-    category: "effect",
-    component: TrackingIn,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "TrackingIn",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/tracking-in"],
-    consumes: []
-  },
-  "typewriter": {
-    id: "typewriter",
-    label: { ar: "Typewriter", en: "Typewriter" },
-    description: { ar: "قالب Typewriter", en: "Typewriter template" },
-    category: "effect",
-    component: Typewriter,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "Typewriter",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/typewriter"],
-    consumes: []
-  },
-  "word-stagger": {
-    id: "word-stagger",
-    label: { ar: "WordStagger", en: "WordStagger" },
-    description: { ar: "قالب WordStagger", en: "WordStagger template" },
-    category: "effect",
-    component: WordStagger,
-    defaultDurationFrames: 120,
-    origin: "docs",
-    tier: "C",
-    schema: {
-      text: { type: "text", label: { ar: "النص", en: "Text" } }
-    },
-    defaults: {
-      text: "WordStagger",
-      animation: "fade_in"
-    },
-    usesEffects: ["elements/ui/remocn-ui/word-stagger"],
     consumes: []
   },
 };

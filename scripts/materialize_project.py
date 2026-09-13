@@ -14,7 +14,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 DST = Path(__file__).resolve().parent.parent
-WS = DST.parent.parent.parent
+WS = DST
 PLUGIN_DIR = WS / ".agents" / "plugins" / "super-video-maker-plugin"
 proj = Path(sys.argv[1]).resolve()
 man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))

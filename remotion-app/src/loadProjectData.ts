@@ -28,13 +28,16 @@ export function loadProjectData(projectDir: string): ProjectData {
   const { execSync } = req("child_process") as typeof import("child_process");
 
   const projectPath = path.join(projectDir, "project.json");
-  const blueprintPath = path.join(projectDir, "blueprint.json");
+  let blueprintPath = path.join(projectDir, "05_blueprint.json");
+  if (!fs.existsSync(blueprintPath)) {
+    blueprintPath = path.join(projectDir, "blueprint.json");
+  }
   const brandPath = path.join(projectDir, "brand.json");
   const overridesPath = path.join(projectDir, "overrides.json");
   const manifestPath = path.join(projectDir, "manifest.json");
 
   if (!fs.existsSync(blueprintPath)) {
-    throw new Error(`Missing mandatory file: blueprint.json in ${projectDir}`);
+    throw new Error(`Missing mandatory file: 05_blueprint.json or blueprint.json in ${projectDir}`);
   }
 
   const project = fs.existsSync(projectPath)

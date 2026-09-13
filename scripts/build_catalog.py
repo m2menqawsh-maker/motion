@@ -12,7 +12,7 @@ def add_folder(folder_name, tier, default_status="raw"):
         
         # Override tier for known premium ones
         actual_tier = tier
-        if name in ["Captions", "Typewriter", "BlurReveal", "RgbGlitchText", "KenBurns", "StatCard", "Terminal", "CodeBlock", "CodeDiff", "SplitScreen", "glassWipe", "whip-pan", "CardStack", "SocialClip", "AudioVisualizer"]:
+        if name in ["glassWipe", "whip-pan", "CardStack", "SocialClip", "AudioVisualizer"]:
             actual_tier = "S"
             status = "production-ready"
         elif tier == "C":
@@ -21,11 +21,11 @@ def add_folder(folder_name, tier, default_status="raw"):
             status = default_status
             
         is_rtl = False
-        if name in ["Captions", "WordStagger", "StatCard", "Typewriter"]:
+        if name in ["glassWipe"]:
             is_rtl = True
             
         ltr_ex = []
-        if name in ["CodeBlock", "Terminal", "CodeDiff"]:
+        if name in []:
             ltr_ex = ["code", "terminal"]
             
         catalog.append({

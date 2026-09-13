@@ -21,13 +21,19 @@ class ProjectGates:
 
     def verify_plan_exists(self):
         """Standardized check for 01_plan.md"""
-        plan = self.project_dir / "01_plan.md"
+        plan = self.project_dir / "master_plan.md"
+        if not plan.exists():
+            plan = self.project_dir / "01_plan.md"
+            
         if not plan.exists() or plan.stat().st_size == 0:
             raise GateViolation("PLAN_MISSING", "ملف 01_plan.md غير موجود أو فارغ", "اكتب خطة المشروع أولاً")
 
     def verify_blueprint_schema(self) -> dict:
         """Validates blueprint.json against the generated Zod schema (JSON Schema)"""
-        bp_path = self.project_dir / "blueprint.json"
+        bp_path = self.project_dir / "05_blueprint.json"
+        if not bp_path.exists():
+            bp_path = self.project_dir / "blueprint.json"
+            
         if not bp_path.exists():
             raise GateViolation("BLUEPRINT_MISSING", "ملف blueprint.json غير موجود", "قم بتوليد المخطط أولاً")
             
