@@ -225,7 +225,7 @@ print(f"TEMPLATE_INDEX: {count}")
 
 # ── 2) MCP_INDEX ──────────────────────────────────
 out, servers = ["| Server | Tool | Signature |", "|---|---|---|"], 0
-for srv in sorted((DST / "tools" / "mcp-servers").iterdir()):
+for srv in sorted((DST / ".agents/plugins/super-video-maker-plugin/tools/mcp-servers").iterdir()):
     if not srv.is_dir(): continue
     found = []
     for py in sorted(srv.rglob("*.py")):
@@ -258,12 +258,12 @@ print(f"MCP_INDEX: {servers}")
 
 # ── 3) TOOLS_INDEX ────────────────────────────────
 out, n = ["| Tool | Description (first docstring line) |", "|---|---|"], 0
-tool_files = sorted(list((DST / "tools").glob("*.py")) + [p for p in (DST / "scripts").glob("*.py") if p.name == "materialize_project.py"])
+tool_files = sorted(list((DST / ".agents/plugins/super-video-maker-plugin/tools").glob("*.py")) + [p for p in (DST / "scripts").glob("*.py") if p.name == "materialize_project.py"])
 for py in tool_files:
     m = re.search(r'"""(.*?)"""', py.read_text(encoding="utf-8"), re.S)
     desc = m.group(1).strip().splitlines()[0] if m and m.group(1).strip() else "—"
     n += 1; out.append(f"| `{py.name}` | {desc} |")
-(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — Python Tools", "tools/*.py + scripts/materialize_project.py")
+(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — Python Tools", ".agents/plugins/super-video-maker-plugin/tools/*.py + scripts/materialize_project.py")
     + f"**Count: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"TOOLS_INDEX: {n}")
 

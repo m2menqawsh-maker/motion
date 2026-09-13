@@ -31,11 +31,22 @@ def main():
     unlock_file_root = proj_dir / ".studio_unlocked"
 
     # 1. فحص القفل الميكانيكي
-    if not unlock_file_build.exists() and not unlock_file_root.exists():
+    unlock_file = unlock_file_build if unlock_file_build.exists() else unlock_file_root
+    if not unlock_file.exists():
         print("🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو!")
         print(f"السبب: ملف .studio_unlocked غير موجود في {proj_dir}.")
         print("الإجراء: يجب تشغيل probe_qc.py ونجاحه أولاً لإنشاء ملف الفتح.")
         sys.exit(1)
+
+    # 1.5. التأكد من عدم تعديل الملفات بعد آخر فحص
+    unlock_mtime = unlock_file.stat().st_mtime
+    src_dir = build_dir / "src"
+    if src_dir.exists():
+        for filepath in src_dir.rglob("*.tsx"):
+            if filepath.stat().st_mtime > unlock_mtime:
+                print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {filepath.name} بعد الفحص.")
+                print("السبب: أي تعديل يدوي أو برمجي على ملفات tsx يتطلب إعادة تشغيل أداة probe_qc.py.")
+                sys.exit(1)
 
     # 2. التحقق من وجود المجلد
     if not build_dir.exists():

@@ -19,8 +19,10 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
 5. **Anti-Hallucination**: If an MCP tool or API fails, do not stop or invent fake tools. Write a fallback Python script in `scratch/` to bypass the issue (e.g., using Playwright for scraping or FFmpeg directly).
 
 ## ⚙️ Executive Responsibilities
-1. **Phase 0-1 (Clarification & Planning)**: Analyze the user's request, match the Recipe, and write the backbone plan (`01_plan.md`).
-2. **Phase 2-3 (Media Fetching & Processing)**:
+1. **Phase 0 (Mandatory Pre-Flight)**: 
+   - Rule 0: STOP IMMEDIATELY after the user provides a VO. DO NOT write a plan. Call `analyze_voiceover` via MCP. Then, you MUST use the `ask_question` tool to ask the user at least 5 deep, highly relevant multiple-choice questions (e.g., Aspect Ratio/Dimensions, Core Visual Metaphors based on the actual VO text, Pacing, Color Palette, and Captions Style). WAIT for the user's response from the tool. Any other action is a critical failure.
+2. **Phase 1 (Clarification & Planning)**: Analyze the user's request, match the Recipe, and write the backbone plan (`01_plan.md`).
+3. **Phase 2-3 (Media Fetching & Processing)**:
    - Write scripts to communicate with `media-sources-mcp` and `audio-tools-mcp`.
    - If APIs fail, write `urllib` or `Playwright` scripts to fetch assets.
    - Use `FFmpeg` to process videos (GOP=1, yuv420p) and normalize audio (-16 LUFS for VO, -24 LUFS for SFX).
@@ -29,7 +31,7 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
    - Set up the Node.js/Remotion environment locally.
    - Write React components (`MainComposition.tsx`, `CaptionLayer.tsx`) utilizing ready-made templates (`templates/`).
    - Manage hot-reloading and run the studio (`npm run studio`) for user preview.
-5. **Phase 7-8 (Preview & Render)**: Execute Quality Control (QC) gates via `ffmpeg_qc.py` to ensure the video is ready for delivery.
+5. **Phase 7-8 (Preview & Render)**: Execute Quality Control (QC) gates via `probe_qc.py` to ensure the video is ready for delivery.
 
 ## 🛠️ Debugging Protocol
 - **File or Path Error?** -> Write a Python script to inspect the tree (`os.walk`) and rename files.
@@ -58,26 +60,15 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
 
 ## 2.5 Displaying Suggested Questions
 
-When the protocol requires asking clarifying questions:
+When the protocol requires asking clarifying questions (e.g. after VO analysis):
 - **FORBIDDEN**: Printing questions as long text in the conversation.
-- **MANDATORY**: Send them as JSON at the end of the response in this format:
-
-```json
-{
-  "suggested_questions": [
-    {
-      "question": "Question here",
-      "options": ["Option 1", "Option 2", "Option 3"]
-    }
-  ]
-}
-```
-
-- If the environment does not support Suggested Questions, print them as a numbered list and ask the user to reply with numbers.
-- Goal: A clean, interactive user experience.
+- **FORBIDDEN**: Outputting raw JSON directly in the chat response.
+- **MANDATORY**: You MUST use the `ask_question` tool to render an interactive UI modal containing the questions and multiple choices. 
+- Ensure your questions are strong, specific to the VO content, and ask about crucial details like Video Dimensions (Aspect Ratio).
+- Goal: A clean, interactive user experience via native UI tools, not plain text JSON.
 
 ## 3. Mandatory Protocol
-Every video task must go through `rules/video-production-protocol.md` verbatim (v4.0).
+Every video task must go through `.agents/rules/video-production-protocol.md` verbatim (v4.0).
 The protocol contains exactly 3 phases:
 1. Media Package + Preview (Stop 1)
 2. Detailed Plan + Preview (Stop 2)
@@ -86,8 +77,8 @@ The protocol contains exactly 3 phases:
 The Detailed Plan (Phase 2) must be written by the Agent itself based on:
 - `references/PLAN_TEMPLATE.md` (Reference template)
 - `04_timings.json` (Timings)
-- `TEMPLATE_INDEX.md` (Templates)
-- `SFX_BINDING_MATRIX.md` (Sound Effects)
+- `ground-truth/TEMPLATE_INDEX.md` (Templates)
+- `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` (Sound Effects)
 
 Scripts like `generate_plan.py` or `plan_gate.py` are for validation only, NOT for creative generation.
 
@@ -98,11 +89,11 @@ If it exists:
 2. Handle them immediately (correct path, fix error, or stop and ask user).
 3. Delete the file after handling alerts.
 
-Before writing any code or fetching any asset:
-1. Read `.agents/plugins/super-video-maker-plugin/skills/super-video-maker/SKILL.md`
-2. Read `.agents/rules/video-production-protocol.md`
-3. Read `ROUTER.md` inside the Plugin if necessary.
-4. Read `.agents/plugins/super-video-maker-plugin/references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` before writing any scene plan.
+Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE FILES:
+1. Read `.agents/rules/video-production-protocol.md` (The strict step-by-step pipeline).
+2. Read `references/ROUTER.md` (The absolute decision engine for tools, recipes, and specialized knowledge).
+3. Read the `remocn` and `snapcn` SKILL.md files (located in `.agents/plugins/super-video-maker-plugin/skills/`) to understand the UI primitives and animations.
+4. Read `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` before writing any scene plan.
 
 ## 5. MCP Handling
 - The 7 servers are defined in `plugin.json` → `mcp.json`.
@@ -112,6 +103,7 @@ Before writing any code or fetching any asset:
 
 ## 6. Banned Mistakes
 - ❌ Creating fake files (reports/timings without actual execution).
+- ❌ **TOTAL BAN ON Ad-Hoc Code Generators:** Do NOT write custom python scripts (like `generate_react.py`) to generate, stitch, or patch `.tsx` files. You must use the provided templates directly.
 - ❌ Skipping phases before the previous one is fully complete.
 - ❌ Generating beep sounds instead of fetching real music.
 - ❌ Fetching fewer assets than required (e.g., 2 effects for a 52s video).
@@ -138,14 +130,15 @@ Before writing any code or fetching any asset:
 1. **No Render Before Preview:** No rendering before explicit user approval in the Studio.
 2. **No Studio Before QC:** No opening Studio before `probe_qc_report.json` passes.
 3. **Mechanical Lock is Sacred:** Never hack `mechanical_lock`. The lock is opened only via `.studio_unlocked` which is auto-generated after passing Probe-QC.
-4. **Zero Improvisation:** Do not write `spring()` or `interpolate()` outside `templates/` and `engine/`. All motion code must be from an approved template in `TEMPLATE_INDEX.md`.
+4. **Zero Improvisation & Real Templates:** Do not write `spring()` or `interpolate()` outside `templates/` and `engine/`. All motion code must be from an approved template in `TEMPLATE_INDEX.md`.
    Zero code without a template: Every `Scene*.tsx` file inside `06_build/src/compositions/` must import at least one template from `@templates` or `@engine`.
+   Ensure that you properly pass the `surface` and `animation` props to templates so they animate correctly.
    `code_template_gate.py` will reject any violation before opening the Studio.
 5. **Single Gateway for Media:** All media enters the build via `scripts/materialize_project.py` ONLY. Manual copying is forbidden.
 6. **Audio First:** `analyze_voiceover` is the first technical step. No plan without actual audio analysis.
 7. **Edit → Partial Check → Full QC:** When an edit is requested from the Studio, check the affected shot only. But before any final render, rerun full Probe-QC.
 8. **Anti-Hallucination:** No fake files, no empty reports, no guessed timings. Every number comes from an actual tool.
-9. **Stage Gates:** `stage_gate.py` runs before each phase. No skipping.
+9. **Stage Gates:** Dedicated gates (like `plan_gate.py`, `asset_gate.py`, `code_template_gate.py`, `probe_qc.py`) run before each phase. No skipping.
 10. **Taste is a Gate, Not Advice:** Motion personality and numbers are written in the scene plan, and `motion_validator.py` checks them. Failure = no build.
 11. **Reading Before Scene:** The agent must read the Taste Engine files before writing code for any scene.
 12. **Plan for Every Scene:** No build without a written scene plan approved by the user.

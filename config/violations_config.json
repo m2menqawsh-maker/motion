@@ -1,0 +1,86 @@
+{
+  "command_violations": [
+    {
+      "pattern": "npx remotion|npm run",
+      "severity": "CRITICAL",
+      "message": "محظور استخدام أوامر npm/npx مباشرة.",
+      "fix": "استخدم السكربتات المعتمدة فقط: scripts/open_studio.py أو scripts/render_project.py."
+    },
+    {
+      "pattern": "generate_react|generate_tsx|patch_tsx",
+      "severity": "CRITICAL",
+      "message": "استخدام مولدات أكواد React الارتجالية محظور.",
+      "fix": "استخدم مهارة snapcn لجلب القوالب الجاهزة أو استخدم القوالب المحلية الموجهة بالبيانات (Data-Driven)."
+    },
+    {
+      "pattern": "generate_plan\\.py",
+      "severity": "HIGH",
+      "message": "محظور استخدام أي سكربت لكتابة خطة الفيديو.",
+      "fix": "القاعدة الصارمة تنص على أن الوكيل هو من يكتب master_plan.md إبداعياً. السكربت فقط للتحقق."
+    },
+    {
+      "pattern": "curl |wget |yt-dlp ",
+      "severity": "HIGH",
+      "message": "محظور استخدام أدوات التحميل الخارجية.",
+      "fix": "يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط."
+    },
+    {
+      "pattern": "ffmpeg -i.*out\\.mp4",
+      "severity": "CRITICAL",
+      "message": "محظور محاولة رندر الفيديو باستخدام ffmpeg بدلاً من محرك Remotion.",
+      "fix": "الرندر يتم فقط عبر scripts/render_project.py بعد معاينة المستخدم."
+    }
+  ],
+  "behavioral_violations": [
+    {
+      "pattern": "Copy-Item.*06_build|cp .*06_build",
+      "severity": "CRITICAL",
+      "message": "النسخ اليدوي للملفات إلى مجلد 06_build محظور تماماً.",
+      "fix": "مرر الوسائط عبر 02_asset_manifest.json واسمح لـ scripts/materialize_project.py بنقلها."
+    },
+    {
+      "pattern": "templates/.*\\.tsx",
+      "severity": "CRITICAL",
+      "message": "محظور تعديل ملفات القوالب الأساسية في مجلد templates/.",
+      "fix": "القوالب الأساسية ثابتة وتستقبل حركتها من البيانات (surface). لا تقم بترقيعها يدوياً."
+    },
+    {
+      "pattern": "spring\\(|interpolate\\(|useCurrentFrame\\(",
+      "severity": "CRITICAL",
+      "message": "محظور برمجة حركات صلبة (Hard-coded Animations) في مشاهد المشروع.",
+      "fix": "البيئة تعمل بنظام Data-Driven. مرر خاصية animation للقوالب وهي ستتكفل بالحركة."
+    },
+    {
+      "pattern": "padding|<!-- Padding -->",
+      "severity": "HIGH",
+      "message": "محظور إضافة حشو وهمي لزيادة عدد أسطر الخطة.",
+      "fix": "اكتب خطة إبداعية متكاملة التفاصيل كما هو مطلوب في PLAN_TEMPLATE.md، ولا تغش."
+    }
+  ],
+  "protocol_violations": [
+    {
+      "pattern": "\\.studio_approved",
+      "severity": "CRITICAL",
+      "message": "محظور توليد أو تعديل ملف .studio_approved برمجياً.",
+      "fix": "يمنع الرندر دون أن يضع المستخدم هذا الملف يدوياً كدليل على إعجابه بالفيديو."
+    },
+    {
+      "pattern": "probe_qc_report\\.json",
+      "severity": "CRITICAL",
+      "message": "محظور محاولة تزوير أو تعديل تقرير الفحص probe_qc_report.json.",
+      "fix": "الفحص يجرى آلياً عبر scripts/probe_qc.py. أصلح الأخطاء لكي ينجح بدلاً من تزويره."
+    },
+    {
+      "pattern": "04_timings\\.json",
+      "severity": "CRITICAL",
+      "message": "محظور توليد ملف التوقيت 04_timings.json يدوياً أو عشوائياً.",
+      "fix": "الملف يُستخرج حصراً من أداة تحليل الصوت analyze_voiceover في MCP."
+    },
+    {
+      "pattern": "mechanical_lock",
+      "severity": "CRITICAL",
+      "message": "محظور الالتفاف على القفل الميكانيكي (Mechanical Lock).",
+      "fix": "تجاوز البوابات غير مسموح. نفذ المتطلبات بالترتيب لتفتح البوابة آلياً."
+    }
+  ]
+}

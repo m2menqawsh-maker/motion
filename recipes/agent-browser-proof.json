@@ -58,10 +58,10 @@
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/agent_browser_recorder.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "capture": "agent_browser_recorder",

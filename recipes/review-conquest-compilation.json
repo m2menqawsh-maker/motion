@@ -81,10 +81,10 @@
     }
   ],
   "tools": [
-    "tools/elevenlabs_voice.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py",
-    "tools/screen_recorder.py"
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py"
   ],
   "providers": {
     "voice": "elevenlabs",

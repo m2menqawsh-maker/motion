@@ -43,9 +43,9 @@ Once the user uploads the VO (or requests its generation):
 #### Mandatory Steps:
 1. Read `references/PLAN_TEMPLATE.md` to understand the structure and rules.
 2. Read `04_timings.json` for exact word-level timings.
-3. Read `TEMPLATE_INDEX.md` to select appropriate templates.
-4. Read `SFX_BINDING_MATRIX.md` to select appropriate sound effects.
-5. Read `motion-personality.md` and `user-signature-style.md` for citations.
+3. Read `ground-truth/TEMPLATE_INDEX.md` to select appropriate templates.
+4. Read `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` to select appropriate sound effects.
+5. Read `references/deep/motion-taste/director/motion-personality.md` and `references/deep/motion-taste/director/user-signature-style.md` for citations.
 6. Write the plan yourself, scene by scene, shot by shot.
 7. Save it to `projects/<project_id>/master_plan.md`.
 8. Run: `python scripts/plan_gate.py <project_id>` for validation.
@@ -82,8 +82,8 @@ Once the user uploads the VO (or requests its generation):
 ### Step 1: Scene Building & Structural Files (JSON & Code Generation)
 - ⚠️ **MANDATORY BEFORE BUILD:** The agent must manually translate the text plan (`master_plan.md`) and media package into structural JSON files: `05_blueprint.json` (for scenes and timings) and `02_asset_manifest.json` (for media registry).
 - Building any scene without a matching scene plan is forbidden.
-- You must use approved templates from `TEMPLATE_INDEX.md` (Zero Improvisation).
-- You must apply the motion personality from `motion-personality.md`.
+- You must use approved templates from `ground-truth/TEMPLATE_INDEX.md` (Zero Improvisation).
+- You must apply the motion personality from `references/deep/motion-taste/director/motion-personality.md`.
 - All media enters the build via `materialize_project.py` only (which requires the JSON files to exist first). Manual copying is forbidden.
 
 ### Step 2: Preview & Quality (Probe-QC & Studio)

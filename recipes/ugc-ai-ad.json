@@ -82,12 +82,12 @@
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/music_provider.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "creator_stills": "openai_gpt_image_2",

@@ -146,6 +146,12 @@ def main():
     project_id = sys.argv[1]
     project_dir = Path(f"projects/{project_id}")
     plan_file = project_dir / "master_plan.md"
+    timings_file = project_dir / "04_timings.json"
+    
+    if not timings_file.exists():
+        print(f"❌ خطأ فادح: لم يتم العثور على ملف {timings_file.name} في المشروع")
+        print("يجب عليك أولاً استخدام أداة تحليل الصوت (analyze_voiceover) وطرح الأسئلة واستخراج التوقيتات قبل كتابة الخطة.")
+        sys.exit(1)
     
     if not plan_file.exists():
         print(f"❌ الخطة غير موجودة في المسار: {plan_file}")

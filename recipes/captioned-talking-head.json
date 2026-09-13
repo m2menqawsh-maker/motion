@@ -56,9 +56,9 @@
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "transcription": "openai_whisper",

@@ -107,10 +107,10 @@
     }
   ],
   "tools": [
-    "tools/fal_seedance_video.py",
-    "tools/image_provider.py",
-    "tools/ffmpeg_qc.py",
-    "tools/broll_layout_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py"
   ],
   "providers": [
     "fal.ai bytedance/seedance-2.5/reference-to-video (avatar hook)",

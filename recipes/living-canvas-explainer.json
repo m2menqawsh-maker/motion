@@ -98,11 +98,11 @@
     }
   ],
   "tools": [
-    "tools/video_recipes.py",
-    "tools/ffmpeg_qc.py",
-    "tools/elevenlabs_voice.py",
-    "tools/music_provider.py",
-    "tools/broll_layout_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py"
   ],
   "providers": {
     "composition": "remotion",

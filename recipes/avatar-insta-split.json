@@ -33,7 +33,7 @@
       "id": "avatar",
       "title": "Generate avatar clip (language-aware)",
       "actions": [
-        "Run workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID> (9:16, normalized to project fps).",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID> (9:16, normalized to project fps).",
         "English -> HeyGen text voice (HEYGEN_VOICE_ID), unchanged. Non-English -> a dynamically-picked ElevenLabs voice (eleven_v3, tools/elevenlabs_voice.py) is uploaded to HeyGen and the avatar lip-syncs it via /v2/video/generate. Bundled model voice, NEVER a cloned personal voice.",
         "HeyGen renders draw from a separate API credit pool; recover a timed-out poll by video_id instead of regenerating."
       ],
@@ -54,7 +54,7 @@
       "id": "assemble",
       "title": "Build split-screen + captions + SFX",
       "actions": [
-        "Run workflows/avatar-insta-split/build_reel.py plan.json out.mp4.",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py plan.json out.mp4.",
         "It auto-crops the avatar content band into the bottom region, scrolls/cuts the b-roll per beat, renders karaoke pills on the seam (captions auto-follow the VO language via Whisper), overlays the correctly-scaled hook badge, mixes the typing bed + a click on each cut, and loudnorm-exports.",
         "CTA: Instagram -> comment-DM (cta_word/cta_text). YouTube -> brand callout (cta_anchor:'tail', cta_text:'Zoek <Brand>', cta_word:null) — never 'comment'/'link in bio'."
       ],
@@ -71,13 +71,13 @@
     }
   ],
   "tools": [
-    "workflows/avatar-insta-split/gen_avatar.py",
-    "workflows/avatar-insta-split/build_reel.py",
-    "workflows/avatar-insta-split/make_badge.py",
-    "workflows/avatar-insta-split/capture_article.py",
-    "workflows/avatar-insta-split/make_sfx.py",
-    "tools/elevenlabs_voice.py",
-    "tools/heygen_client.py"
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/capture_article.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_sfx.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py"
   ],
   "providers": {
     "avatar": "HeyGen (text voice for English; audio-driven lip-sync for non-English)",

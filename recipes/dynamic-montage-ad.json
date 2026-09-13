@@ -69,14 +69,14 @@
     { "id": "exports", "title": "Exports", "actions": ["Package files"] }
   ],
   "tools": [
-    "tools/video_recipes.py",
-    "tools/elevenlabs_voice.py",
-    "tools/fal_seedance_video.py",
-    "tools/image_provider.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py",
-    "tools/broll_layout_qc.py",
-    "tools/ad_quality_gate.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py"
   ],
   "providers": {
     "avatar": "none",

@@ -81,14 +81,14 @@
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/heygen_client.py",
-    "tools/agent_browser_recorder.py",
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/broll_layout_qc.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "avatar": "heygen",

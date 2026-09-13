@@ -2010,7 +2010,7 @@
 ## §1 الـ Pipeline العالمي (مستوحى من patterns/index.ts)
 Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill Detection → Suitability Gate → Build → Verify → QC
 1. Validation: إن لم يكن الطلب مهمة فيديو/موشن → لا تُفعّل المهارة.
-2. Recipe Match: `python tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
 3. Skill Detection: حدد المراجع المطلوبة من §7 واقرأها قبل الكود.
 4. Suitability Gate: قبل قبول أي أصل: هل اللون يناسب الـ palette؟ هل النبرة تناسب الـ mood؟ هل الأسلوب يطابق باقي العناصر؟ إن لا → استبدله.
 5. Build: قوالب من TEMPLATE_INDEX فقط + layer-stack + personality.

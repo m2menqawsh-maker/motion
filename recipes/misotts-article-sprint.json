@@ -118,8 +118,8 @@
     }
   ],
   "tools": [
-    "tools/fal_seedance_video.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": [
     "self-hosted MisoTTS on RunPod (VO, ~$0.57/hr pod only while running)",

@@ -4449,7 +4449,7 @@ clean-video-workspace/
 ## §1 الـ Pipeline العالمي (مستوحى من patterns/index.ts)
 Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill Detection → Suitability Gate → Build → Verify → QC
 1. Validation: إن لم يكن الطلب مهمة فيديو/موشن → لا تُفعّل المهارة.
-2. Recipe Match: `python tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
 3. Skill Detection: حدد المراجع المطلوبة من §7 واقرأها قبل الكود.
 4. Suitability Gate: قبل قبول أي أصل: هل اللون يناسب الـ palette؟ هل النبرة تناسب الـ mood؟ هل الأسلوب يطابق باقي العناصر؟ إن لا → استبدله.
 5. Build: قوالب من TEMPLATE_INDEX فقط + layer-stack + personality.
@@ -6807,7 +6807,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 ## §1 الـ Pipeline العالمي (مستوحى من patterns/index.ts)
 Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill Detection → Suitability Gate → Build → Verify → QC
 1. Validation: إن لم يكن الطلب مهمة فيديو/موشن → لا تُفعّل المهارة.
-2. Recipe Match: `python tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
 3. Skill Detection: حدد المراجع المطلوبة من §7 واقرأها قبل الكود.
 4. Suitability Gate: قبل قبول أي أصل: هل اللون يناسب الـ palette؟ هل النبرة تناسب الـ mood؟ هل الأسلوب يطابق باقي العناصر؟ إن لا → استبدله.
 5. Build: قوالب من TEMPLATE_INDEX فقط + layer-stack + personality.
@@ -7675,7 +7675,7 @@ Before publishing to GitHub:
 - [ ] Verify `.env.example` has all needed variables documented
 - [ ] Verify `.gitignore` excludes secrets and build artifacts
 - [ ] Run `npm run lint` in remotion-template (should be 0 errors)
-- [ ] Run `python tools/video_recipes.py validate` (should pass)
+- [ ] Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate` (should pass)
 - [ ] Run `python scripts/sync_templates.py` (should sync 81 templates)
 - [ ] Test MCP server imports (all 7 should import cleanly)
 - [ ] Remove any personal API keys or sensitive data
@@ -8120,8 +8120,8 @@ cp .env.example .env
 
 ### Generate a video
 ```bash
-python tools/video_recipes.py match --goal "make a SaaS product explainer"
-python tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
 ```
 
 ### Preview in Remotion Studio
@@ -8178,7 +8178,7 @@ super-video-maker-plugin/
 
 ## Recipes
 
-Run `python tools/video_recipes.py list` to see all 17 available recipes.
+Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list` to see all 17 available recipes.
 
 Key recipes:
 - `living-canvas-explainer` — Boutique SaaS launch videos
@@ -8211,10 +8211,10 @@ Originally built by the Distribb team. Converted to Antigravity Agent Plugin for
 
 ```bash
 # Match a recipe to your goal
-python tools/video_recipes.py match --goal "make a SaaS product explainer"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
 
 # Plan the video
-python tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
 ```
 
 ### Preview in Remotion Studio
@@ -8293,25 +8293,25 @@ npx remotion render src/index.ts DynamicRenderer out/video.mp4 \
 ### List all recipes
 
 ```bash
-python tools/video_recipes.py list
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
 ```
 
 ### Show recipe details
 
 ```bash
-python tools/video_recipes.py show living-canvas-explainer
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show living-canvas-explainer
 ```
 
 ### Match recipe to goal
 
 ```bash
-python tools/video_recipes.py match --goal "make a UGC ad for my product"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a UGC ad for my product"
 ```
 
 ### Plan a video
 
 ```bash
-python tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
 ```
 
 ## Quality Gates
@@ -8319,19 +8319,19 @@ python tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
 ### FFmpeg QC
 
 ```bash
-python tools/ffmpeg_qc.py output/video.mp4
+python .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py output/video.mp4
 ```
 
 ### B-roll layout QC
 
 ```bash
-python tools/broll_layout_qc.py assets/broll/*.mp4 --job-dir ./job
+python .agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py assets/broll/*.mp4 --job-dir ./job
 ```
 
 ### Ad quality gate
 
 ```bash
-python tools/ad_quality_gate.py final/ad.mp4
+python .agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py final/ad.mp4
 ```
 
 ## Templates
@@ -8339,7 +8339,7 @@ python tools/ad_quality_gate.py final/ad.mp4
 ### List templates
 
 ```bash
-python tools/video_recipes.py templates
+python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py templates
 ```
 
 ### Use a template
@@ -8698,7 +8698,7 @@ Pipeline:
    slower than people, so a ~33s human script lands near ~40s. Whisper-verify any brand
    name pronounces correctly (name-safety).
 3. **Avatar (language-aware).**
-   `python3 workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID>`
+   `python3 .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID>`
    - **English** → HeyGen text voice (`HEYGEN_VOICE_ID`), unchanged.
    - **Non-English** → a dynamically-picked **ElevenLabs** voice (eleven_v3) for that
      language drives a HeyGen audio-lip-synced render. Bundled model voice, never a cloned
@@ -8717,7 +8717,7 @@ Pipeline:
    set `badge_png` + `badge_w` in the plan. CTA split: **Instagram** → comment-DM
    (`cta_word`/`cta_text`); **YouTube** → brand callout (`cta_anchor: "tail"`,
    `cta_text: "Zoek <Brand>"`, `cta_word: null`) — never "comment"/"link in bio".
-6. **Build.** `python3 workflows/avatar-insta-split/build_reel.py plan.json out.mp4` —
+6. **Build.** `python3 .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py plan.json out.mp4` —
    split body + scroll/cuts + seam karaoke captions (auto-follow the VO language) + hook
    badge + typing bed + click-on-cut + loudnorm export.
 7. **QC + deliver.** Sample frames: headline visible early, article pans at a readable
@@ -8759,7 +8759,7 @@ Pipeline:
    **Write it as flowing connected speech with minimal commas/periods** — HeyGen TTS
    pauses ~0.3s at every comma and period, so choppy punctuation makes a choppy VO that
    sounds like the audio cuts out over the b-roll.
-3. **Avatar.** `python3 workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --avatar-id <ID>`
+3. **Avatar.** `python3 .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --avatar-id <ID>`
    (its audio is the continuous voiceover, laid under the whole reel as one track — never
    cut per clip). Recover a timed-out poll by `video_id`; `MOVIO_PAYMENT_INSUFFICIENT_CREDIT`
    = top up HeyGen **API** credits.
@@ -8768,7 +8768,7 @@ Pipeline:
    clip, cutting on phrase breaks. Beats must cover the whole VO. Author `plan.json`
    (copy `plan.example.json`). Make the badges with `make_badge.py` (topic on the hook,
    "Comment SKILL"/CTA over the b-roll).
-5. **Build.** `python3 workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4` —
+5. **Build.** `python3 .agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4` —
    fullscreen avatar hook/close (blurred-fill) + fullscreen b-roll cuts + lower-third
    captions + badge sequence + typing bed + click-on-cut + loudnorm.
 6. **QC + deliver.** Sample a frame per beat: avatar fills the frame on hook/close, b-roll
@@ -20833,12 +20833,12 @@ right pipeline before spending credits.
 ## Commands
 
 ```bash
-python3 tools/video_recipes.py list
-python3 tools/video_recipes.py show avatar-explainer
-python3 tools/video_recipes.py match --goal "TikTok ad for waitlist"
-python3 tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
-python3 tools/video_recipes.py validate
-python3 tools/video_recipes.py test
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show avatar-explainer
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "TikTok ad for waitlist"
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
 ```
 
 ## Recipe index
@@ -20862,8 +20862,8 @@ python3 tools/video_recipes.py test
 ## Adding a recipe
 
 1. Copy an existing `recipes/*.json` file and change `id`, routing keywords, and stages.
-2. Run `python3 tools/video_recipes.py validate`.
-3. Add a matcher case in `tools/video_recipes.py` `cmd_test` if the recipe needs a dedicated routing test.
+2. Run `python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate`.
+3. Add a matcher case in `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` `cmd_test` if the recipe needs a dedicated routing test.
 4. Document the workflow in `WORKFLOW_EXAMPLES.md`.
 
 Schema: `recipes/schema.json`.
@@ -20935,10 +20935,10 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/agent_browser_recorder.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "capture": "agent_browser_recorder",
@@ -21053,14 +21053,14 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/heygen_client.py",
-    "tools/agent_browser_recorder.py",
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/broll_layout_qc.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "avatar": "heygen",
@@ -21227,10 +21227,10 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/fal_seedance_video.py",
-    "tools/image_provider.py",
-    "tools/ffmpeg_qc.py",
-    "tools/broll_layout_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py"
   ],
   "providers": [
     "fal.ai bytedance/seedance-2.5/reference-to-video (avatar hook)",
@@ -21323,8 +21323,8 @@ Schema: `recipes/schema.json`.
       "id": "avatar",
       "title": "Generate avatar clip (language-aware)",
       "actions": [
-        "Run workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID> (9:16, normalized to project fps).",
-        "English -> HeyGen text voice (HEYGEN_VOICE_ID), unchanged. Non-English -> a dynamically-picked ElevenLabs voice (eleven_v3, tools/elevenlabs_voice.py) is uploaded to HeyGen and the avatar lip-syncs it via /v2/video/generate. Bundled model voice, NEVER a cloned personal voice.",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID> (9:16, normalized to project fps).",
+        "English -> HeyGen text voice (HEYGEN_VOICE_ID), unchanged. Non-English -> a dynamically-picked ElevenLabs voice (eleven_v3, .agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py) is uploaded to HeyGen and the avatar lip-syncs it via /v2/video/generate. Bundled model voice, NEVER a cloned personal voice.",
         "HeyGen renders draw from a separate API credit pool; recover a timed-out poll by video_id instead of regenerating."
       ],
       "artifacts": ["avatar.mp4"],
@@ -21344,7 +21344,7 @@ Schema: `recipes/schema.json`.
       "id": "assemble",
       "title": "Build split-screen + captions + SFX",
       "actions": [
-        "Run workflows/avatar-insta-split/build_reel.py plan.json out.mp4.",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py plan.json out.mp4.",
         "It auto-crops the avatar content band into the bottom region, scrolls/cuts the b-roll per beat, renders karaoke pills on the seam (captions auto-follow the VO language via Whisper), overlays the correctly-scaled hook badge, mixes the typing bed + a click on each cut, and loudnorm-exports.",
         "CTA: Instagram -> comment-DM (cta_word/cta_text). YouTube -> brand callout (cta_anchor:'tail', cta_text:'Zoek <Brand>', cta_word:null) — never 'comment'/'link in bio'."
       ],
@@ -21361,13 +21361,13 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "workflows/avatar-insta-split/gen_avatar.py",
-    "workflows/avatar-insta-split/build_reel.py",
-    "workflows/avatar-insta-split/make_badge.py",
-    "workflows/avatar-insta-split/capture_article.py",
-    "workflows/avatar-insta-split/make_sfx.py",
-    "tools/elevenlabs_voice.py",
-    "tools/heygen_client.py"
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/capture_article.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_sfx.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py"
   ],
   "providers": {
     "avatar": "HeyGen (text voice for English; audio-driven lip-sync for non-English)",
@@ -21497,12 +21497,12 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/heygen_client.py",
-    "tools/screen_recorder.py",
-    "tools/demo_video_composer.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "avatar": "heygen",
@@ -21592,7 +21592,7 @@ Schema: `recipes/schema.json`.
       "id": "assemble",
       "title": "Build fullscreen reel + captions + SFX",
       "actions": [
-        "Run workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4.",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4.",
         "It blurred-fills the avatar to fullscreen for the hook/close, cuts each b-roll clip fullscreen on its beat, lays lower-third karaoke captions, overlays the badge sequence, and mixes the continuous VO + typing bed + click-on-cut with loudnorm."
       ],
       "artifacts": ["out.mp4"]
@@ -21608,11 +21608,11 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "workflows/avatar-vo-broll/build_vo_broll.py",
-    "workflows/avatar-insta-split/gen_avatar.py",
-    "workflows/avatar-insta-split/make_badge.py",
-    "workflows/avatar-insta-split/make_sfx.py",
-    "tools/heygen_client.py"
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_sfx.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py"
   ],
   "providers": {
     "avatar": "HeyGen",
@@ -21717,9 +21717,9 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "transcription": "openai_whisper",
@@ -21821,14 +21821,14 @@ Schema: `recipes/schema.json`.
     { "id": "exports", "title": "Exports", "actions": ["Package files"] }
   ],
   "tools": [
-    "tools/video_recipes.py",
-    "tools/elevenlabs_voice.py",
-    "tools/fal_seedance_video.py",
-    "tools/image_provider.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py",
-    "tools/broll_layout_qc.py",
-    "tools/ad_quality_gate.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py"
   ],
   "providers": {
     "avatar": "none",
@@ -21977,13 +21977,13 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/fal_seedance_video.py",
-    "tools/image_provider.py",
-    "tools/local_explainer_broll.py",
-    "tools/music_provider.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "motion": "fal_seedance_or_openai_kenburns",
@@ -22117,11 +22117,11 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_recipes.py",
-    "tools/ffmpeg_qc.py",
-    "tools/elevenlabs_voice.py",
-    "tools/music_provider.py",
-    "tools/broll_layout_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py"
   ],
   "providers": {
     "composition": "remotion",
@@ -22240,9 +22240,9 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "transcription": "openai_whisper",
@@ -22398,8 +22398,8 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/fal_seedance_video.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": [
     "self-hosted MisoTTS on RunPod (VO, ~$0.57/hr pod only while running)",
@@ -22583,12 +22583,12 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/video_captioner.py",
-    "tools/music_provider.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "stills": "openai_gpt_image_2",
@@ -22692,10 +22692,10 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/video_captioner.py",
-    "tools/music_provider.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "motion": "remotion_or_hyperframes",
@@ -22810,10 +22810,10 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/elevenlabs_voice.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py",
-    "tools/screen_recorder.py"
+    ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py"
   ],
   "providers": {
     "voice": "elevenlabs",
@@ -23040,11 +23040,11 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/screen_recorder.py",
-    "tools/demo_video_composer.py",
-    "tools/music_provider.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "capture": "screen_recorder",
@@ -23161,12 +23161,12 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/video_captioner.py",
-    "tools/music_provider.py",
-    "tools/broll_layout_qc.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "presenter": "fal.ai bytedance/seedance-2.5/reference-to-video (fictional character, --generate-audio)",
@@ -23311,12 +23311,12 @@ Schema: `recipes/schema.json`.
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/image_provider.py",
-    "tools/fal_seedance_video.py",
-    "tools/music_provider.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "creator_stills": "openai_gpt_image_2",
@@ -24085,13 +24085,13 @@ or any hyperrealistic still/character that must not look AI-generated. Keep
 This SOP is a **prompt-construction framework**, not a new provider. Map it onto
 the skill's existing tools:
 
-- **OpenAI `gpt-image-2` (creator stills, `tools/image_provider.py`)** has no
+- **OpenAI `gpt-image-2` (creator stills, `.agents/plugins/super-video-maker-plugin/tools/image_provider.py`)** has no
   separate negative-prompt or ControlNet field. Fold sections 01-11 into the
   positive prompt text, and convert section 12's negative prompt into explicit
   "do NOT" / "avoid" clauses appended to the same prompt. When editing a
   licensed reference into a new fictional creator, pass `--input-fidelity high`
   so the skin texture and lens realism survive.
-- **Seedance reference clips (`tools/fal_seedance_video.py`)** keep the same
+- **Seedance reference clips (`.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py`)** keep the same
   anti-AI vocabulary in the shot prompt; the character bible (`character_card.json`)
   stores the `visual_seed`, references, and negative prompts so every clip stays
   consistent.
@@ -25217,7 +25217,7 @@ Use the skill-local image tool (equivalent to the repo-root `openai_image_tool.p
 both call `gpt-image-2`):
 
 ```bash
-python3 tools/image_provider.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py generate \
   --prompt "@collage_prompt" \
   --size 1024x1536 \
   --quality high \
@@ -25263,7 +25263,7 @@ Bring the poster to life as a **living collage**, not a re-imagined scene. Use
 `image-to-video` so Seedance animates the exact still you approved:
 
 ```bash
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode image \
   --reference-image output_images/collage_beat1.png \
   --prompt "@motion_prompt" \
@@ -25324,7 +25324,7 @@ Voice rules:
 - **No em dashes** in the script; use commas and periods.
 - Ground any real claim; do not invent statistics for an explainer.
 
-Produce the VO with ElevenLabs (`tools/music_provider.py` handles music; use the
+Produce the VO with ElevenLabs (`.agents/plugins/super-video-maker-plugin/tools/music_provider.py` handles music; use the
 project's voice for narration), Whisper-transcribe it for word-level timing, and
 **beat-lock every collage cut to the sentence breaks** (SKILL rules 14, 23).
 
@@ -25333,7 +25333,7 @@ project's voice for narration), Whisper-transcribe it for word-level timing, and
 ## 6. Assemble
 
 1. One approved collage poster per beat, each animated to a 4 to 6s Seedance clip.
-2. Concatenate clips on sentence boundaries (`tools/video_orchestrator.py` / FFmpeg).
+2. Concatenate clips on sentence boundaries (`.agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py` / FFmpeg).
 3. Lay the ElevenLabs VO under the whole thing; optional soft music bed low in the mix.
 4. **Captions:** bold, centered, 2 to 3 word karaoke groups (SKILL rule 17). The
    collage label is the poster title; the karaoke captions carry the spoken words.
@@ -25359,17 +25359,17 @@ project's voice for narration), Whisper-transcribe it for word-level timing, and
 
 ```bash
 # 1) Poster still (9:16)
-python3 tools/image_provider.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py generate \
   --prompt "@collage_prompt" --size 1024x1536 --quality high --output-format png
 
 # 2) Animate the approved still
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode image --reference-image output_images/collage_beat1.png \
   --prompt "@motion_prompt" --duration 5 --resolution 1080p --aspect-ratio 9:16
 
 # 3) VO + captions + concat + loudnorm  -> final/vertical_9x16.mp4
-python3 tools/video_captioner.py   # captions
-python3 tools/ffmpeg_qc.py         # QC gate
+python3 .agents/plugins/super-video-maker-plugin/tools/video_captioner.py   # captions
+python3 .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py         # QC gate
 ```
 
 For the SEO-and-publish wrapper (keyword-led title, description, tags, publish to a
@@ -25675,7 +25675,7 @@ Important rules:
 Generate a HeyGen avatar clip:
 
 ```bash
-python3 tools/heygen_client.py \
+python3 .agents/plugins/super-video-maker-plugin/tools/heygen_client.py \
   --script-file script.txt \
   --output ${PLUGIN_DATA}/jobs/my_job/avatar.mp4 \
   --avatar-id "$HEYGEN_AVATAR_ID" \
@@ -25685,7 +25685,7 @@ python3 tools/heygen_client.py \
 Generate Seedance b-roll:
 
 ```bash
-python3 tools/replicate_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/replicate_video.py generate \
   --prompt "documentary-style browser research shot, source receipt, modern editorial pacing" \
   --duration 7 \
   --resolution 1080p \
@@ -25695,13 +25695,13 @@ python3 tools/replicate_video.py generate \
 Run b-roll layout QC:
 
 ```bash
-python3 tools/broll_layout_qc.py ${PLUGIN_DATA}/jobs/my_job/${PLUGIN_DATA}/assets/*.mp4 --job-dir ${PLUGIN_DATA}/jobs/my_job
+python3 .agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py ${PLUGIN_DATA}/jobs/my_job/${PLUGIN_DATA}/assets/*.mp4 --job-dir ${PLUGIN_DATA}/jobs/my_job
 ```
 
 Run final technical QC:
 
 ```bash
-python3 tools/ffmpeg_qc.py ${PLUGIN_DATA}/jobs/my_job/final/master.mp4
+python3 .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py ${PLUGIN_DATA}/jobs/my_job/final/master.mp4
 ```
 
 ---
@@ -26631,7 +26631,7 @@ verified reviews + the script before any paid generation.**
   or edit a review screenshot. Brand lightly: a kicker chip (theme), a small "VERIFIED" tag, and
   the on-screen source (site + author) so the viewer sees it's real. Text cards (hook, turn,
   the alternative, the handoff, the end card) are Pillow/`drawtext` — keep one visual language.
-- **VO:** `tools/elevenlabs_voice.py` (reads `ELEVENLABS_API_KEY`). If quota is out, fall back
+- **VO:** `.agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py` (reads `ELEVENLABS_API_KEY`). If quota is out, fall back
   to `OPENAI` TTS or, last resort, a local voice for a rough cut.
 - **Caption timing:** Whisper the VO for word timestamps (or use ElevenLabs' with-timestamps
   endpoint / a local aligner). Burn beat-locked karaoke captions (bottom-center; see the caption
@@ -26663,7 +26663,7 @@ reel**, drop Part B and the handoff line and end on Part C.
 ## Phase 7 — QC + package
 - **QC:** audio present in **every** segment (spot-check mean volume in A, B, and — expect near
   silence — C), seam frames correct (handoff card → reel intro → end card), ~−16 LUFS, no black
-  frames, `tools/ffmpeg_qc.py`.
+  frames, `.agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py`.
 - **Package for the keyword:** title led by **"<Competitor> Reviews"** + the honest angle;
   description first line restates the keyword and states **every review shown is real and
   sourced** (link the sources); chapter timestamps (include the "Real `<Business>` customers"
@@ -26690,7 +26690,7 @@ source URLs) for the description/pinned comment, and the title/description/tags/
 ## §1 الـ Pipeline العالمي (مستوحى من patterns/index.ts)
 Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill Detection → Suitability Gate → Build → Verify → QC
 1. Validation: إن لم يكن الطلب مهمة فيديو/موشن → لا تُفعّل المهارة.
-2. Recipe Match: `python tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
 3. Skill Detection: حدد المراجع المطلوبة من §7 واقرأها قبل الكود.
 4. Suitability Gate: قبل قبول أي أصل: هل اللون يناسب الـ palette؟ هل النبرة تناسب الـ mood؟ هل الأسلوب يطابق باقي العناصر؟ إن لا → استبدله.
 5. Build: قوالب من TEMPLATE_INDEX فقط + layer-stack + personality.
@@ -27161,7 +27161,7 @@ vo, caption, prop) so every cut lands on a sentence break.
 1. Source a royalty-free/licensed photo in the target staging (warm cozy room, podcast condenser
    mic in the lower-center foreground, light crew-neck). Pexels works; the photo is only for
    photographic realism.
-2. Transform identity with gpt-image-2 (`tools/image_provider.py edit` or `tools/image_provider.py generate`, quality=high, 1024x1536) into a NEW person in that exact staging. Prompt:
+2. Transform identity with gpt-image-2 (`.agents/plugins/super-video-maker-plugin/tools/image_provider.py edit` or `.agents/plugins/super-video-maker-plugin/tools/image_provider.py generate`, quality=high, 1024x1536) into a NEW person in that exact staging. Prompt:
    "a NEW fictional woman, distinct new face (NOT the reference person), natural blonde hair,
    light blue-grey crew-neck, large dark condenser mic in the lower-center foreground, warm
    lamp-lit bokeh, looking directly at the camera, photorealistic, shot on Sony FX3 50mm, natural
@@ -27640,10 +27640,10 @@ Steps:
 Commands:
 
 ```bash
-python3 tools/heygen_client.py
-python3 tools/screen_recorder.py
-python3 tools/demo_video_composer.py
-python3 tools/ffmpeg_qc.py demo_videos/final_demo.mp4
+python3 .agents/plugins/super-video-maker-plugin/tools/heygen_client.py
+python3 .agents/plugins/super-video-maker-plugin/tools/screen_recorder.py
+python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+python3 .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py demo_videos/final_demo.mp4
 ```
 
 Use `FFMPEG_PLAYBOOK.md` for chroma-key overlay if the avatar should appear
@@ -27666,7 +27666,7 @@ Steps:
 Seedance example:
 
 ```bash
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode text \
   --prompt "handheld UGC shot of a startup founder opening a laptop, fast-paced, natural light, realistic" \
   --duration 7 \
@@ -27732,7 +27732,7 @@ Steps:
 Command:
 
 ```bash
-python3 tools/video_captioner.py
+python3 .agents/plugins/super-video-maker-plugin/tools/video_captioner.py
 ```
 
 The packaged script keeps simple hardcoded parameters near the bottom so the
@@ -27783,7 +27783,7 @@ Pipeline:
 5. Build a `storyboard.json` whose beats start and end on Whisper sentence boundaries. Map each beat to a layout (avatar fullscreen / b-roll PiP / browser PiP), a b-roll asset, a chapter title, and a lower-third source attribution.
 6. Build a source deck and route every visual by editorial job (proof / mechanism / consequence / action / transition). Real screenshots, UI micro-stories, typographic cards, and real screen recordings come before generated b-roll. If generation is unavoidable, use `gpt-image-2` at `quality=high`, native 16:9 (`2048x1152`), documentary-realism prompts, and short 2-4s cuts.
 7. For any beat that is longer than the natural b-roll clip, never loop. Choose one of: a complementary b-roll for the second half, `tpad=stop_mode=clone:stop_duration=N` to hold the final frame for ≤2 seconds, or a Ken Burns still as the continuation.
-8. Record the agent-operated browser segments for the proof beats (`tools/agent_browser_recorder.py`) and slice them per beat.
+8. Record the agent-operated browser segments for the proof beats (`.agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py`) and slice them per beat.
 9. Render an outro recap card (1920x1080) with the action steps and the digital-avatar disclosure. Skip the static title card.
 10. Build a Hormozi-style ASS karaoke caption file from the Whisper words. Master offset is 0 (master timeline matches avatar timeline since there is no title pre-roll). Default captions are bottom-centered, so the avatar PiP belongs in the top-right.
 11. Compose with FFmpeg in clean steps:
@@ -27827,9 +27827,9 @@ Steps:
 Commands:
 
 ```bash
-python3 tools/agent_browser_recorder.py
-python3 tools/fal_seedance_video.py generate --mode text --prompt "original educational explainer metaphor..." --duration 7 --resolution 720p --aspect-ratio 16:9
-python3 tools/local_explainer_broll.py
+python3 .agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate --mode text --prompt "original educational explainer metaphor..." --duration 7 --resolution 720p --aspect-ratio 16:9
+python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
 ```
 
 Example transparency line after the hook:
@@ -27908,10 +27908,10 @@ Pipeline:
     feature, exact paragraph callout, tab switch to aggregator, outlet cluster
     zoom. Do not include slow filler scrolling.
 11. **Run b-roll layout QC before composition.** After all b-roll/UI/source
-    clips render, run `tools/broll_layout_qc.py` on every candidate b-roll
+    clips render, run `.agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py` on every candidate b-roll
     asset and review the generated contact sheet before the master compose:
     ```bash
-    python3 tools/broll_layout_qc.py \
+    python3 .agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py \
       ${PLUGIN_DATA}/jobs/<job_id>/${PLUGIN_DATA}/assets/v5_clips/*.mp4 \
       --job-dir ${PLUGIN_DATA}/jobs/<job_id>
     ```
@@ -27963,7 +27963,7 @@ Reference helpers in `${PLUGIN_DATA}/jobs/x_trending_20260512_1751/`:
 - `render_v4_photos.py` — `gpt-image-2`, `quality=high`, native 16:9 image generation.
 - `build_v4_kenburns.py` — faster scale-to-fill Ken Burns cuts, no padding bars.
 - `compose_master_v4.py` — 18-cut reference master with borderless PiP and faster pacing.
-- `tools/broll_layout_qc.py` — pre-compose b-roll spacing/layout contact sheet with PiP/caption/safe-zone guides.
+- `.agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py` — pre-compose b-roll spacing/layout contact sheet with PiP/caption/safe-zone guides.
 
 Twelve lessons that this workflow is built around (learned the hard way on
 v1 through v4 plus the taste review of the Googlebook job):
@@ -28033,7 +28033,7 @@ Pipeline:
 OpenAI creator-reference command:
 
 ```bash
-python3 tools/image_provider.py edit \
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py edit \
   --reference-image ${PLUGIN_DATA}/jobs/<job_id>/inputs/real_person_reference.jpg \
   --prompt "Create a distinct fictional UGC creator for paid social ads. Preserve photographic quality, lens realism, natural skin texture, lighting fidelity, and believable phone-camera detail, but do not preserve the person's identity. Change facial structure, hairstyle, wardrobe, styling, and context enough that this is a new fictional adult creator. Natural imperfect skin, no beauty filter, no logos, no text, candid vertical portrait in a real home office." \
   --size 1024x1536 \
@@ -28045,7 +28045,7 @@ python3 tools/image_provider.py edit \
 Seedance consistent-creator command:
 
 ```bash
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode reference \
   --prompt "@Image1 and @Image2 show the same fictional UGC creator. Handheld vertical phone video, same face, same hair, same wardrobe family, natural skin texture, speaking casually to camera in a real home office, slight handheld motion, believable phone exposure, no subtitles in footage, no logos, no face morphing." \
   --duration 5 \
@@ -28066,12 +28066,12 @@ documentary voiceover. No presenter, no screen recording.
 #    Open on a question/scenario -> name the concept -> one analogy -> takeaway -> soft CTA.
 
 # 2) Build each collage poster still (gpt-image-2). 9:16 uses 1024x1536.
-python3 tools/image_provider.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py generate \
   --prompt "Flat screen-print collage poster, single saturated cobalt-blue background, subtle newsprint grain. Centerpiece: a black-and-white halftone cutout of a tiny suited man flailing and drowning inside a giant wine glass, treated as a paper sticker with a thin white die-cut outline, torn edges, soft drop shadow. Visible halftone dots, vintage editorial photo feel. Accent cutouts: a cream circle top-left, a solid navy triangle bottom-right, a few white water droplets. Torn-paper label near the bottom reading 'DROWNING IN A GLASS OF WATER' in bold condensed uppercase newspaper type. Matte risograph aesthetic, limited palette. Leave headroom at top and a clear band at bottom for the label. Avoid gradients, glow, neon, 3D render, photorealism, extra text." \
   --size 1024x1536 --quality high --output-format png
 
 # 3) Animate the approved still into a living collage (image-to-video).
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode image \
   --reference-image output_images/collage_beat1.png \
   --prompt "Subtle living-collage motion. The paper cutout gently bobs with soft parallax against the flat background. Accent shapes drift and rotate slightly. Water ripples inside the glass and one droplet falls. Faint halftone shimmer, gentle slow push-in. Everything stays a flat printed paper collage, texture preserved. No new objects, no camera whip, no realistic 3D, no scene change, no morphing faces, no added text." \
@@ -28079,8 +28079,8 @@ python3 tools/fal_seedance_video.py generate \
 
 # 4) ElevenLabs docu VO -> Whisper word timing -> beat-lock cuts to sentence breaks.
 # 5) Concat beats, centered karaoke captions clear of the torn-paper label band, loudnorm.
-python3 tools/video_captioner.py
-python3 tools/ffmpeg_qc.py
+python3 .agents/plugins/super-video-maker-plugin/tools/video_captioner.py
+python3 .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py
 ```
 
 QC: every frame still reads as a flat printed collage (Seedance did not realify it),
@@ -31344,7 +31344,7 @@ Use this file for provider decisions, capabilities, and constraints. Keep
 
 ## Core production modes
 
-Recipes are defined in `recipes/*.json` and managed with `tools/video_recipes.py`
+Recipes are defined in `recipes/*.json` and managed with `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py`
 (`list`, `show`, `match`, `plan`, `validate`, `test`). Prefer the recipe registry
 over ad-hoc mode names.
 
@@ -31493,7 +31493,7 @@ separate from technical FFmpeg QC.
 Run:
 
 ```bash
-python3 tools/broll_layout_qc.py \
+python3 .agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py \
   ${PLUGIN_DATA}/jobs/<job_id>/${PLUGIN_DATA}/assets/v5_clips/*.mp4 \
   --job-dir ${PLUGIN_DATA}/jobs/<job_id>
 ```
@@ -31568,7 +31568,7 @@ Prerequisites:
 Run:
 
 ```bash
-python3 tools/ad_quality_gate.py \
+python3 .agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py \
   --candidate tmp/paid_media_jobs/<job_id>/exports/<final>.mp4 \
   --reference-analysis-dir tmp/paid_media_jobs/<job_id>/research/video_understanding/01-reference \
   --candidate-transcript-summary tmp/paid_media_jobs/<job_id>/qc/final_understanding/01-final/transcript_summary.json \
@@ -31739,7 +31739,7 @@ Capabilities:
 Default package tool:
 
 ```bash
-python3 tools/heygen_client.py
+python3 .agents/plugins/super-video-maker-plugin/tools/heygen_client.py
 ```
 
 Recommended composition pattern:
@@ -31846,7 +31846,7 @@ Without it every Seedance call dies on `ModuleNotFoundError: No module named
 Default:
 
 ```bash
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode reference \
   --prompt "slow dolly-in shot of a founder using a laptop in a modern office, cinematic" \
   --duration 7 \
@@ -31884,7 +31884,7 @@ but do not rely on it to hold a face.
 Recommended command shape:
 
 ```bash
-python3 tools/fal_seedance_video.py generate \
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate \
   --mode reference \
   --prompt "@Image1 and @Image2 show the same fictional UGC creator. Handheld vertical phone video, same face, same hair, same wardrobe family, natural skin texture, speaking casually to camera in a bright home office, slight handheld motion, believable phone exposure, no subtitles in footage, no logos, no face morphing." \
   --duration 5 \
@@ -31949,7 +31949,7 @@ Open one page -> slow scroll -> same page later with a different zoom -> slow sc
 Permanent tool:
 
 ```bash
-python3 tools/agent_browser_recorder.py
+python3 .agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py
 ```
 
 The tool should create one `RESULT:` JSON line with recording and events paths.
@@ -31974,7 +31974,7 @@ Use OpenAI image generation/editing for:
 - visual continuity edits,
 - **b-roll fallback when Seedance is throttled or out of credit** (generate a still and animate with FFmpeg Ken Burns).
 
-The package should route image work through `tools/image_provider.py` so future
+The package should route image work through `.agents/plugins/super-video-maker-plugin/tools/image_provider.py` so future
 model names and endpoint details can change without rewriting the skill.
 
 ### UGC fictional creator reference workflow
@@ -31994,7 +31994,7 @@ Safety and rights:
 Reference creation command:
 
 ```bash
-python3 tools/image_provider.py edit \
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py edit \
   --reference-image ${PLUGIN_DATA}/jobs/<job_id>/inputs/real_person_reference.jpg \
   --prompt "Create a distinct fictional UGC creator for paid social ads. Preserve the photographic quality, lens realism, natural skin texture, lighting fidelity, and believable phone-camera detail of the reference, but do not preserve the person's identity. Change enough facial structure, hairstyle, wardrobe, styling, and context that this is a new fictional adult creator. Natural imperfect skin, no beauty filter, no logos, no text, no plastic AI look, candid vertical portrait in a real home office." \
   --size 1024x1536 \
@@ -32355,7 +32355,7 @@ existing long-form video into polished video assets. The skill can produce:
 - `VIDEO_COPY_PLAYBOOK.md` for the copy layer of EVERY recipe: the four-line spine (one viewer, one promise, one mechanism, one next step), the two-track rule (voice carries the argument, screen carries the evidence, neither repeats the other), on-screen copy craft (kinetic headlines, data badges, ghost titles, end-card offers, the typographic strike), format-by-format arcs, credibility rules, and the copy gate to run before the first paid generation call. Read it BEFORE writing any script, hook, headline, or CTA, and read its section 11 FIRST: a transcribed reference VO in the owner-approved PLAIN REGISTER (zero figures of speech in 70 seconds) plus a before/after table of copy the owner rejected as "too poetic, too conceptual, AI slop". The pointing test lives there: if the viewer cannot point at the noun you just said, rewrite it. Pairs with the `copywriting-skill` skill, which owns the general voice and rhythm rules.
 - `SPOKEN_VO_HUMANIZER.md` for how a spoken line should SOUND (12 rules for short-form scripts + the banned spoken-AI tells list).
 - `HOOK_PLAYBOOK_ARTICLE_SPRINT.md` for hook families, the angle-before-copy rule, and loop accounting.
-- `recipes/README.md` and `tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
+- `recipes/README.md` and `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
 - `REFERENCE.md` for provider capabilities and routing decisions.
 - `FFMPEG_PLAYBOOK.md` for exact FFmpeg recipes.
 - `WORKFLOW_EXAMPLES.md` for full production examples.
@@ -32388,7 +32388,7 @@ existing long-form video into polished video assets. The skill can produce:
 16. **Build a visual hierarchy with non-colliding zones and a borderless PiP.** Avatar fullscreen for the hook beat. Avatar picture-in-picture for every other beat: **borderless, 24px rounded corners, soft drop shadow** — never a colored hard frame. Implementation: Pillow renders `pip_mask.png` (rounded-rectangle alpha mask) and `pip_shadow.png` (blurred dark shape) once per job; FFmpeg uses `chromakey -> scale -> alphamerge` to round the avatar's corners, then composites the shadow at offset `+4, +16` underneath. Default size 492x276 on a 1920x1080 master. **PiP corner adapts to caption alignment:** if captions are bottom-centered (default), put the PiP in the **top-right** at `x=W-pip_w-50, y=50`. Never place the PiP in the same band as the captions, and hide the PiP entirely during the outro CTA tail so the recap card owns the frame. Skip the static title card; open directly on the avatar fullscreen. Keep an outro recap card at the end with the action steps and a permanent disclosure footer.
 17. **Burn karaoke captions centered at the bottom.** Bold uppercase Arial Black ~64px, 2-3 word groups with the active word highlighted in yellow, white drop shadow + 5px outline. ASS style: `Alignment=2` (bottom-center), equal `MarginL=MarginR=80`, `MarginV=90`. Generate from the Whisper word JSON with the master offset applied. Do NOT default to lower-left — left-aligned captions look amateur and clash with disclosure overlays.
 18. **Loudness-normalize the master audio** to `I=-16:TP=-1.5:LRA=11` so the upload is broadcast-safe across YouTube, LinkedIn, X, and podcasts.
-19. **Use fal.ai for Seedance 2.5 by default.** `tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
+19. **Use fal.ai for Seedance 2.5 by default.** `.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
 20. **Recover long HeyGen jobs by `video_id` instead of regenerating.** If the local poll times out, query the existing HeyGen job and download when complete to avoid double-charging credits.
 21. **Never loop b-roll inside a long beat.** If a Whisper-aligned beat is longer than the clip, either (a) generate a complementary b-roll for the second half, (b) hold the final frame with `tpad=stop_mode=clone:stop_duration=N` for overflows up to ~2 seconds, or (c) cross-cut with a Ken Burns still. A visible loop snap is more disorienting than a brief held frame.
 22. **Choose b-roll by beat purpose, not by prompt creativity. Prefer real over generated, always.** B-roll is decided by what the narration is doing in that moment, not by what is "cool to generate". Use this routing:
@@ -32426,7 +32426,7 @@ existing long-form video into polished video assets. The skill can produce:
 34. **Use screenshots and screen recordings as evidence, not background texture.** A screenshot must prove a specific sentence: headline, byline/date, exact phrase, feature UI, outlet list, number, quote, or action step. Screen recordings must have events: cursor jump, find-on-page search, scroll to target, phrase highlight, tab switch, source receipt overlay, or split-screen comparison. Slow scrolling without a new revealed fact is banned.
 35. **For story/example beats, show the working surface where the change happens.** Do not show the affected person unless their expression/body language is the point. For "a founder lives in Google Docs," show a believable Google Docs-style launch plan with comments, TODOs, dates, image thumbnails, a pasted chart, and cursor-driven action cards. The visual should move through: before state -> cursor/action -> useful after state.
 36. **Use modern editorial motion language.** Prefer fast UI inserts, source receipt cards, thin rounded callout boxes, cursor-driven reveals, split screens, headline montages, match cuts, before/after UI, and tight push-ins to exact phrases. Avoid generic stock people, repeated website zooms, slow Ken Burns-only sequences, decorative gradients, and any shot that merely "feels related" without explaining the sentence.
-37. **Run a b-roll layout QC/edit pass before final composition.** Generated images, UI cards, screenshots, and video b-roll are not approved just because they rendered. Before composing the master, run `tools/broll_layout_qc.py` on every b-roll asset to create guided review frames/contact sheets with safe-margin, caption-band, and avatar-PiP overlays. Open/read those frames and mark each asset as `pass`, `crop-edit`, `layout-edit`, `re-render`, or `replace`. Fail any asset where important text/faces are under the PiP, key content is in the caption band, typography feels cramped, spacing is off, edge tangents are awkward, or the visual job is unclear.
+37. **Run a b-roll layout QC/edit pass before final composition.** Generated images, UI cards, screenshots, and video b-roll are not approved just because they rendered. Before composing the master, run `.agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py` on every b-roll asset to create guided review frames/contact sheets with safe-margin, caption-band, and avatar-PiP overlays. Open/read those frames and mark each asset as `pass`, `crop-edit`, `layout-edit`, `re-render`, or `replace`. Fail any asset where important text/faces are under the PiP, key content is in the caption band, typography feels cramped, spacing is off, edge tangents are awkward, or the visual job is unclear.
 38. **Fix b-roll layout problems in the cheapest order.** First crop/reframe (`scale-to-fill`, `crop`, `x_expr/y_expr`, zoompan start/end), then edit the layout/still (Pillow/Remotion/HTML), then re-render with a corrected prompt, then replace the shot. Do not accept "almost right" generated b-roll if spacing is obviously wrong; spacing/composition errors are taste errors.
 39. **Use `ugc-ai-ad` for paid-social UGC, not `avatar-explainer`.** Route TikTok/Reels/Shorts ad requests to the UGC recipe when the goal is conversion, app installs, lead capture, waitlist signups, or offer testing. Default to `9:16`, 15-45 seconds, handheld phone realism, fast captions, and one clear CTA.
 40. **Only use reference people with rights or user-provided permission.** A real person image may be used as a quality/style reference, but the output creator must be a new fictional character. Do not claim the reference person endorsed the product, do not recreate a public figure, do not preserve identity-level likeness, and do not use private photos unless the user owns or has permission to use them.
@@ -32441,7 +32441,7 @@ existing long-form video into polished video assets. The skill can produce:
 46. **Phone/UI shots must use real product pixels.** When a creator holds a phone, laptop, or dashboard, do not rely on generated readable UI. Use a product screenshot as an explicit reference and, when possible, track/composite the real screen in post. Blank phone screens, fake white screens, unreadable dashboards, and invented product text are QC failures.
 47. **UGC copy is direct-response, not explainer prose.** Use: pattern interrupt hook -> painfully specific problem -> personal discovery/demo -> product mechanism -> proof or believable result -> objection handling -> simple CTA. One ad = one angle, one promise, one next step. Avoid broad claims, unverifiable income/health promises, and fake testimonials.
 48. **Always write hook variants before producing paid assets.** Create at least 5 hooks across different families: confession, contrarian, problem-callout, receipt/proof, demo-first, curiosity gap, speedrun, and before/after. Pick 2-3 winners for production and keep the rest as variant scripts.
-49. **Run the reference-match quality gate before delivery.** For inspiration-based ads, run `tools/ad_quality_gate.py` after the final render using the reference analysis, shot plan, transcript, and any raw/final voice files. Inspect every dense risky window around face, hands, phone, UI, screen, CTA, captions, and product proof before showing the user.
+49. **Run the reference-match quality gate before delivery.** For inspiration-based ads, run `.agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py` after the final render using the reference analysis, shot plan, transcript, and any raw/final voice files. Inspect every dense risky window around face, hands, phone, UI, screen, CTA, captions, and product proof before showing the user.
 49a. **Competitor frames are analysis-only.** If a video is inspired by a competitor ad, use the competitor footage only to extract transcript timing, scene boundaries, shot intent, and pacing. Never pass competitor frames/videos as Seedance/OpenAI reference media, never composite competitor pixels into the final, and never ask a model to "match" a competitor frame. Convert each source scene into owned shot intent first: camera distance, action, beat purpose, and pacing; then generate only from owned creator references, owned product screenshots, or text prompts. If the user asks for a Seedance-native test, the only non-Seedance layer allowed is captions/subtitles unless the user explicitly approves product-screen compositing.
 50. **Make AI UGC look like a real phone capture, not a polished commercial.** Use natural room tone, small camera imperfections, hand movement, believable home/office/car environments, jump cuts, casual wardrobe, and creator-specific speech patterns. Avoid perfect studio lighting, overly smooth skin, fake influencer smiles, brand-perfect sets, and cinematic b-roll that breaks UGC believability.
 51. **Plan ad tests as batches.** For every UGC job, output a `variant_matrix.json` with hooks, first-frame text, creator reference, offer angle, CTA, seed, clip paths, and target platform. Produce minimum viable variants first: 3 hooks x 1 body, then scale winners into new bodies, creators, and CTAs.
@@ -32453,9 +32453,9 @@ existing long-form video into polished video assets. The skill can produce:
 Before intake, list recipes and match the user goal:
 
 ```bash
-python3 tools/video_recipes.py list
-python3 tools/video_recipes.py match --goal "<user request>"
-python3 tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<user request>"
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
 ```
 
 Default routing: news/tutorial masters → `avatar-explainer`; paid-social creator ads → `ugc-ai-ad`; SaaS demos → `screencast-demo` or `avatar-product-walkthrough`; podcast clips → `longform-repurpose`; faceless one-idea concept/idiom explainer shorts (cutout collage, "In a Nutshell" docu voice) → `motion-collage-explainer`.
@@ -32527,7 +32527,7 @@ fast, believable recommendation, demo, complaint, or discovery.
    different name, biography, styling, wardrobe, environment, and enough facial
    differences to avoid identity recreation.
 4. **Edit the reference into a new fictional character.** Use
-   `tools/image_provider.py edit` with OpenAI `gpt-image-2`, `quality=high`,
+   `.agents/plugins/super-video-maker-plugin/tools/image_provider.py edit` with OpenAI `gpt-image-2`, `quality=high`,
    `input_fidelity=high`, and the strongest available source image. Prompt for
    a realistic UGC creator, natural phone-camera texture, believable skin,
    no beauty-filter look, no brand logos, and no retained identity. Save the
@@ -32542,7 +32542,7 @@ fast, believable recommendation, demo, complaint, or discovery.
    input on fal (2.5 or 2.0), so a face is held by the reference images alone;
    `visual_seed` is a batch label, not a consistency control.
 7. **Produce clips with Seedance 2.5 through fal.ai.** Use
-   `tools/fal_seedance_video.py generate --mode reference`
+   `.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate --mode reference`
    plus `--reference-image` for the approved creator references. Pass
    `--reference-audio` when native Seedance audio/lip movement is intentional,
    or use a separate ElevenLabs voice track for controlled ad narration. Prompt
@@ -32557,7 +32557,7 @@ fast, believable recommendation, demo, complaint, or discovery.
    logos, blank phone screens, unreadable/generated product UI, impossible
    product claims, and any testimonial wording that implies a real customer
    experience unless the user provided that experience. For reference-inspired
-   ads, run `tools/ad_quality_gate.py` and inspect the second-by-second
+   ads, run `.agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py` and inspect the second-by-second
    reference/candidate sheet plus all dense risky-window sheets.
 10. **Export test variants.** Render `9:16` masters first, plus `1:1` or `4:5`
     if requested. Save `variant_matrix.json`, final MP4s, captions, character
@@ -32636,19 +32636,19 @@ Always check:
 ## Main tools
 
 ```bash
-python3 tools/video_recipes.py list
-python3 tools/video_recipes.py test
-python3 tools/heygen_client.py
-python3 tools/fal_seedance_video.py generate --mode reference --prompt "@Image1 handheld UGC creator..." --duration 7 --resolution 1080p --aspect-ratio 16:9 --reference-image ${PLUGIN_DATA}/assets/character/creator_hero.png
-python3 tools/fal_seedance_video.py generate --mode reference --prompt "@Image1 and @Image2 show the same fictional creator. Handheld vertical phone video..." --duration 5 --resolution 720p --aspect-ratio 9:16 --reference-image ${PLUGIN_DATA}/assets/character/creator_hero.png --reference-image ${PLUGIN_DATA}/assets/character/creator_medium_phone.png
-python3 tools/image_provider.py edit --reference-image real_person_reference.jpg --prompt "Create a distinct fictional UGC creator..." --size 1024x1536 --quality high --input-fidelity high --model gpt-image-2
-python3 tools/agent_browser_recorder.py
-python3 tools/local_explainer_broll.py
-python3 tools/screen_recorder.py
-python3 tools/demo_video_composer.py
-python3 tools/video_captioner.py
-python3 tools/ffmpeg_qc.py
-python3 tools/broll_layout_qc.py
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
+python3 .agents/plugins/super-video-maker-plugin/tools/heygen_client.py
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate --mode reference --prompt "@Image1 handheld UGC creator..." --duration 7 --resolution 1080p --aspect-ratio 16:9 --reference-image ${PLUGIN_DATA}/assets/character/creator_hero.png
+python3 .agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py generate --mode reference --prompt "@Image1 and @Image2 show the same fictional creator. Handheld vertical phone video..." --duration 5 --resolution 720p --aspect-ratio 9:16 --reference-image ${PLUGIN_DATA}/assets/character/creator_hero.png --reference-image ${PLUGIN_DATA}/assets/character/creator_medium_phone.png
+python3 .agents/plugins/super-video-maker-plugin/tools/image_provider.py edit --reference-image real_person_reference.jpg --prompt "Create a distinct fictional UGC creator..." --size 1024x1536 --quality high --input-fidelity high --model gpt-image-2
+python3 .agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py
+python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
+python3 .agents/plugins/super-video-maker-plugin/tools/screen_recorder.py
+python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+python3 .agents/plugins/super-video-maker-plugin/tools/video_captioner.py
+python3 .agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py
+python3 .agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py
 ```
 
 ## Result contract
@@ -159354,7 +159354,7 @@ class ScreenRecorder:
 """Run ugc-ai-ad recipe test iterations (intake -> character -> clips -> assemble -> QC).
 
 Hardcoded params at top — run from repo root:
-    python3 tools/ugc_ad_runner.py
+    python3 .agents/plugins/super-video-maker-plugin/tools/ugc_ad_runner.py
 """
 
 from __future__ import annotations
@@ -167393,7 +167393,7 @@ across the concat.
 ## Localization (the De Vries / non-English fix)
 
 For a non-English project the VO is generated with a dynamically-picked ElevenLabs
-voice that matches the language (`tools/elevenlabs_voice.py`, `eleven_v3`), uploaded to
+voice that matches the language (`.agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py`, `eleven_v3`), uploaded to
 HeyGen, and lip-synced by the avatar. Captions auto-follow (Whisper is multilingual), the
 badge is generated localized (`make_badge.py`), and the CTA is platform-correct (YouTube
 brand callout vs Instagram comment-DM). **English projects are unchanged.**
@@ -167858,7 +167858,7 @@ Language handling (the De Vries / non-English fix):
   * --language English (default): UNCHANGED — HeyGen renders from the text script using
     HEYGEN_VOICE_ID (the existing path; English reels stay byte-identical).
   * --language <non-English>: the VO is generated with a DYNAMICALLY-PICKED ElevenLabs
-    voice that matches the language (eleven_v3, via tools/elevenlabs_voice.py), uploaded
+    voice that matches the language (eleven_v3, via .agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py), uploaded
     to HeyGen, and the avatar is lip-synced to that audio via /v2/video/generate
     (voice type "audio"). Refuses to run without an explicit avatar id so a non-English
     project can never silently fall back to the English default voice.
@@ -170447,7 +170447,7 @@ from pathlib import Path
 JOB = Path(os.environ["SVM_JOB"])
 SKILL = Path(__file__).resolve().parents[2]
 ENV_DIR = Path(os.environ.get("SVM_ENV_DIR", Path.cwd()))
-FAL = str(SKILL / "tools/fal_seedance_video.py")
+FAL = str(SKILL / ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--name", required=True)
@@ -170504,7 +170504,7 @@ from pathlib import Path
 JOB = Path(os.environ["SVM_JOB"])
 SKILL = Path(__file__).resolve().parents[2]
 ENV_DIR = Path(os.environ.get("SVM_ENV_DIR", Path.cwd()))
-FAL = str(SKILL / "tools/fal_seedance_video.py")
+FAL = str(SKILL / ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py")
 HERO = JOB / "assets/character/character_hero.png"
 
 cfg = json.loads((JOB / "chunks.json").read_text())

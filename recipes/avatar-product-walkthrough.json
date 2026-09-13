@@ -66,12 +66,12 @@
     }
   ],
   "tools": [
-    "tools/video_orchestrator.py",
-    "tools/heygen_client.py",
-    "tools/screen_recorder.py",
-    "tools/demo_video_composer.py",
-    "tools/video_captioner.py",
-    "tools/ffmpeg_qc.py"
+    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+    ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
     "avatar": "heygen",

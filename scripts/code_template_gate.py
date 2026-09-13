@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """code_template_gate.py — يمنع الارتجال ويجبر الوكيل على استخدام القوالب
 Usage: python code_template_gate.py <project_dir>"""
-import sys, json, re, hashlib
+import sys, json, re, hashlib, subprocess
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -9,7 +9,60 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
+def verify_git_integrity():
+    try:
+        # Check if there are any untracked, modified, or deleted files in templates/
+        result = subprocess.run(['git', 'status', '--porcelain', 'templates/'], 
+                                capture_output=True, text=True, check=True)
+        if result.stdout.strip():
+            print("\n" + "="*60)
+            print("🛑 CRITICAL: تم اكتشاف عبث في مجلد القوالب الأساسية! (Git Integrity Lock)")
+            print("="*60)
+            print("الملفات المتضررة:")
+            print(result.stdout)
+            print("❌ يُمنع منعاً باتاً تعديل القوالب الأساسية. يرجى التراجع عن التعديلات (git restore) قبل السماح بالاستمرار.")
+            sys.exit(1)
+    except Exception as e:
+        # If git fails for some reason not related to status, we log it but don't hard crash unless we want to be paranoid
+        pass
+
+def verify_local_templates_integrity(proj_path):
+    proj = Path(proj_path).resolve()
+    ws_dir = Path(__file__).resolve().parent.parent
+    local_tpl_dir = proj / "06_build" / "src" / "templates"
+    
+    if not local_tpl_dir.exists():
+        return
+        
+    for local_file in local_tpl_dir.rglob("*.tsx"):
+        rel_path = local_file.relative_to(local_tpl_dir)
+        source_file = ws_dir / "templates" / rel_path
+        
+        if not source_file.exists():
+            print("\n" + "="*60)
+            print("🛑 CRITICAL: قالب محلي مزيف! (Local Template Hallucination Lock)")
+            print("="*60)
+            print(f"الملف الوهمي: {local_file}")
+            print("❌ الوكيل قام بإنشاء قالب محلي من العدم داخل مجلد البناء. هذا ارتجال مرفوض!")
+            sys.exit(1)
+            
+        with open(local_file, "rb") as f1, open(source_file, "rb") as f2:
+            h1 = hashlib.md5(f1.read()).hexdigest()
+            h2 = hashlib.md5(f2.read()).hexdigest()
+            
+        if h1 != h2:
+            print("\n" + "="*60)
+            print("🛑 CRITICAL: تلاعب في قالب محلي! (Local Template Tamper Lock)")
+            print("="*60)
+            print(f"الملف المتضرر: {local_file}")
+            print(f"الملف الأصلي المرجعي: {source_file}")
+            print("❌ الوكيل قام بتعديل القالب يدوياً داخل مجلد البناء (Backdoor Tampering). يُمنع منعاً باتاً تعديل القوالب، استخدم تمرير البيانات props فقط!")
+            sys.exit(1)
+
 def run_gate(proj_path):
+    verify_git_integrity()
+    verify_local_templates_integrity(proj_path)
+    
     proj = Path(proj_path).resolve()
     build_dir = proj / "06_build"
     comps_dir = build_dir / "src" / "compositions"
@@ -101,6 +154,14 @@ def run_gate(proj_path):
             
             if template_import_count > 3:
                 warns.append(f"WARN: مشهد يستورد أكثر من 3 قوالب ({template_import_count}): {rel_path}")
+                
+            # فحص صارم: هل تم تمرير البيانات للقوالب؟ (Data-Driven Check)
+            if has_template_or_engine:
+                if 'surface=' not in content and 'surface={' not in content and '{...surface}' not in content:
+                    fails.append(f"FAIL: ملف مشهد لا يمرر بيانات surface للقوالب (Data-Driven Violation): {rel_path}")
+                if 'animation=' not in content and 'animation={' not in content and not re.search(r'surface=\{.*?animation', content, re.DOTALL):
+                    # We only warn for animation as it might be bundled inside surface, but we check if it's explicitly passed or extracted.
+                    pass # Not strictly failing for animation if surface is passed, but we enforce surface.
                 
             # Collect potential template names from content for blueprint check
             for t in bp_templates:

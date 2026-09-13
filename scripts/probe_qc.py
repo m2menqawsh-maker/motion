@@ -6,7 +6,8 @@ from pathlib import Path
 from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).parent))
-from pipeline_guard import PipelineGuard, GuardViolation
+from core.pipeline import UnifiedPipeline as PipelineGuard
+from core.gates import GateViolation as GuardViolation
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")

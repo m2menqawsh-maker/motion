@@ -77,7 +77,7 @@ def watch_transcript(project_id, brain_session_path):
     
     with open(transcript_path, "r", encoding="utf-8") as f:
         # Seek to the end of the file
-        f.seek(0, os.SEEK_END)
+        # f.seek(0, os.SEEK_END) - Removed to process full history and clear on USER_INPUT
         
         while True:
             line = f.readline()

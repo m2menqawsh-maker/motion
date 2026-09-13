@@ -51,7 +51,7 @@
       "id": "assemble",
       "title": "Build fullscreen reel + captions + SFX",
       "actions": [
-        "Run workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4.",
+        "Run .agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4.",
         "It blurred-fills the avatar to fullscreen for the hook/close, cuts each b-roll clip fullscreen on its beat, lays lower-third karaoke captions, overlays the badge sequence, and mixes the continuous VO + typing bed + click-on-cut with loudnorm."
       ],
       "artifacts": ["out.mp4"]
@@ -67,11 +67,11 @@
     }
   ],
   "tools": [
-    "workflows/avatar-vo-broll/build_vo_broll.py",
-    "workflows/avatar-insta-split/gen_avatar.py",
-    "workflows/avatar-insta-split/make_badge.py",
-    "workflows/avatar-insta-split/make_sfx.py",
-    "tools/heygen_client.py"
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py",
+    ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_sfx.py",
+    ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py"
   ],
   "providers": {
     "avatar": "HeyGen",
