@@ -1,0 +1,5 @@
+{
+  "decision": "block",
+  "reason": "🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']",
+  "additionalContext": "محاولة تزوير أو تجاوز بروتوكول الأمان مرفوضة."
+}

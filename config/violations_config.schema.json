@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Violations Config Schema",
+  "type": "object",
+  "properties": {
+    "command_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": { "type": "string" },
+          "severity": { "type": "string" },
+          "message": { "type": "string" },
+          "fix": { "type": "string" }
+        },
+        "required": ["pattern", "severity", "message", "fix"]
+      }
+    },
+    "behavioral_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": { "type": "string" },
+          "severity": { "type": "string" },
+          "message": { "type": "string" },
+          "fix": { "type": "string" }
+        },
+        "required": ["pattern", "severity", "message", "fix"]
+      }
+    },
+    "protocol_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": { "type": "string" },
+          "severity": { "type": "string" },
+          "message": { "type": "string" },
+          "fix": { "type": "string" }
+        },
+        "required": ["pattern", "severity", "message", "fix"]
+      }
+    },
+    "plan_quality_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": { "type": "string" },
+          "severity": { "type": "string" },
+          "message": { "type": "string" },
+          "fix": { "type": "string" }
+        },
+        "required": ["pattern", "severity", "message", "fix"]
+      }
+    },
+    "write_violations": {
+      "type": "object",
+      "properties": {
+        "blocked_paths": { "type": "array", "items": { "type": "string" } },
+        "blocked_files": { "type": "array", "items": { "type": "string" } },
+        "allowed_prefixes": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["blocked_paths", "blocked_files", "allowed_prefixes"]
+    },
+    "command_restrictions": {
+      "type": "object",
+      "properties": {
+        "blocked_commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": { "type": "string" },
+              "message": { "type": "string" }
+            },
+            "required": ["pattern", "message"]
+          }
+        },
+        "destructive_patterns": { "type": "array", "items": { "type": "string" } },
+        "protected_from_destruction": { "type": "array", "items": { "type": "string" } },
+        "allowed_packages": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["blocked_commands", "destructive_patterns", "protected_from_destruction", "allowed_packages"]
+    },
+    "post_execution_warnings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "failure_trigger": { "type": "string" },
+          "failure_triggers": { "type": "array", "items": { "type": "string" } },
+          "is_inverse": { "type": "boolean" },
+          "message": { "type": "string" }
+        },
+        "required": ["message"]
+      }
+    }
+  }
+}

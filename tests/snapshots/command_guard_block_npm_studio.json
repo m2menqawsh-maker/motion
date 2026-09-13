@@ -1,0 +1,5 @@
+{
+  "decision": "block",
+  "reason": "ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>",
+  "additionalContext": "الوكيل يجب أن يتبع البروتوكول v4.0 بدقة. ممنوع الاجتهاد."
+}
