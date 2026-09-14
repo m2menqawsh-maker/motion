@@ -5,12 +5,12 @@
 ## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| (None) | - | - | - |
+| `Creatorreelwrapper` | C | `templates/scenes/CreatorReelWrapper.tsx` | windows, ui_element |
 
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| (None) | - | - | - |
+| `Podcastclipwrapper` | C | `templates/elements/PodcastClipWrapper.tsx` | windows, ui_element |
 
 ## Effects
 | Name | Quality | Path | Intents |

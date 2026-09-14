@@ -1,6 +1,33 @@
-import React from "react";
+import React, { Component, ErrorInfo } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
+
+class ErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Gallery Component Error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ color: "#ef4444", padding: 20, textAlign: "center", fontSize: 18, fontFamily: "monospace" }}>
+          ⚠️ Error rendering preview<br/>
+          <span style={{ fontSize: 14, color: "#fca5a5" }}>{this.state.error?.message}</span>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export const TemplateGallery: React.FC = () => {
   // Get all registered templates
@@ -58,7 +85,9 @@ export const TemplateGallery: React.FC = () => {
               {/* Component Preview Container */}
               <div style={{ flex: 1, position: "relative", minHeight: 250, display: "flex", alignItems: "center", justifyContent: "center" }}>
                  <Sequence durationInFrames={300}>
-                    <Component surface={surface} content={content} />
+                    <ErrorBoundary>
+                      <Component surface={surface} content={content} />
+                    </ErrorBoundary>
                  </Sequence>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { mergeProject, MergedProject, ProjectData } from "./merge";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
 import { BrandKit } from "../../contracts/brand";
 import { TemplateGallery } from "./TemplateGallery";
+import { Showcase, getShowcaseDuration } from "./Showcase";
 
 export interface BlueprintVideoInputProps {
   projectData: ProjectData;
@@ -41,11 +42,9 @@ export const RemotionRoot: React.FC = () => {
         }}
         calculateMetadata={async ({ props }) => {
           const { projectData: rawData } = props as unknown as BlueprintVideoInputProps;
-          console.log("=== DEBUG RAW DATA ===", JSON.stringify(rawData));
           
           // Merge defaults, overrides, brand tokens
           const projectData = mergeProject(rawData, (template) => TEMPLATE_REGISTRY[template]);
-          console.log("=== DEBUG MERGED DATA ===", projectData.totalDurationFrames, projectData.scenes.length);
           
           return {
             fps: projectData.fps || 30,
@@ -64,6 +63,14 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         fps={30}
         durationInFrames={300}
+      />
+      <Composition
+        id="Showcase"
+        component={Showcase}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={getShowcaseDuration()}
       />
     </>
   );

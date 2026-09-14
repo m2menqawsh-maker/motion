@@ -3,8 +3,6 @@ import { AbsoluteFill, Sequence, Audio, continueRender, delayRender, staticFile 
 import { BrandProvider, BrandKit } from "../../contracts/brand";
 import { loadFont } from "../../contracts/fonts";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
-import { EFFECTS_RUNTIME } from "../../registry/effects-runtime";
-import { EngineBridge } from "../../templates/effects/engine-bridge";
 import { MergedProject } from "./merge";
 
 export interface BlueprintVideoProps {

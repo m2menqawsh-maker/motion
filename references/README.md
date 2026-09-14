@@ -11,7 +11,7 @@ This repo is designed to be dropped into an AI agent project as a reusable skill
 
 The flagship format is:
 
-**Avatar Explainers** (`avatar-explainer`) — proof-driven videos with a synthetic presenter, source receipts, screen recordings, UI micro-stories, captions, and action takeaways.
+**Zero-Build Video Engineering** — No React coding required. The agent creates a `05_blueprint.json` and the Master Engine renders it using any of the 169+ pre-registered Remotion components.
 
 ---
 
@@ -19,11 +19,9 @@ The flagship format is:
 
 - **Avatar Explainers:** trending-news or tutorial videos with a HeyGen avatar, source receipts, b-roll, captions, and CTA outro.
 - **Screen-recorded demos:** product walkthroughs with cursor logs, zooms, click effects, captions, narration, and optional S3 upload.
-- **AI b-roll videos:** Seedance 2.5 clips through fal.ai (Replicate 2.0 as a legacy fallback), with OpenAI image fallback and FFmpeg motion.
-- **Captioned talking-head videos:** avatar or real video plus centered karaoke captions.
-- **Faceless explainers:** motion graphics, UI cards, screenshots, typographic cards, and generated scenes.
+- **Faceless explainers:** motion graphics, UI cards, screenshots, typographic cards, and generated scenes using the `169+ unified templates`.
 - **Repurposed shorts:** long videos clipped, captioned, reformatted, and exported for social platforms.
-- **Motion-graphic edits:** Remotion or HyperFrames timelines previewable in a browser.
+- **Data-Driven Compositions:** Completely programmatic videos rendered from a `05_blueprint.json` file via the Master Engine without writing a single line of React code.
 
 ---
 
@@ -89,9 +87,11 @@ super-video-maker-skill/
 │   ├── stage_gate.py                # 9-stage production gate validator
 │   ├── validate_blueprint.py        # Blueprint timeline & motion personality validator
 │   ├── materialize_project.py       # Single gateway to materialize media into build
+│   ├── open_studio.py               # Orchestrator to open the local preview server
+│   ├── render_project.py            # Final production MP4 renderer
 │   └── audit_skill.py               # Complete skill integrity audit suite
-├── remotion-app/               # Starter Remotion project
-└── references/deep/legacy/hyperframes-template/            # Starter HyperFrames/HTML timeline
+├── remotion-app/               # The Zero-Build Master Engine
+└── references/                 # Core documentation and protocol playbooks
 ```
 
 ---
@@ -114,12 +114,11 @@ pip3 install -r requirements.txt
 python3 -m playwright install chromium
 ```
 
-Install JavaScript dependencies if you want Remotion or HyperFrames:
+Install JavaScript dependencies for the Master Engine:
 
 ```bash
 npm install
 cd remotion-app && npm install && cd ..
-cd references/deep/legacy/hyperframes-template && npm install && cd ..
 ```
 
 Install system dependencies:
@@ -368,30 +367,18 @@ Every serious video should pass:
 
 ## Included Templates
 
-### Remotion
+### The Zero-Build Master Engine (`remotion-app/`)
 
-Use `remotion-app/` when you want a React-based editor/timeline:
+This workspace uses a data-driven rendering engine. Agents do not write `.tsx` files. Instead, they produce a `05_blueprint.json` which the Master Engine dynamically parses to mount components from the `template-registry.tsx`.
 
+To preview a project (requires `materialize_project.py` to be run first):
 ```bash
-cd remotion-app
-npm install
-npm run dev
+python scripts/open_studio.py <project_id>
 ```
 
-Render:
-
+To render the final MP4 (requires `.studio_approved` flag file):
 ```bash
-npx remotion render src/index.ts CaptionedTalkingHead out/video.mp4
-```
-
-### HyperFrames
-
-Use `references/deep/legacy/hyperframes-template/` when you want HTML-native timeline composition:
-
-```bash
-cd references/deep/legacy/hyperframes-template
-npm install
-npm run dev
+python scripts/render_project.py <project_id>
 ```
 
 ---

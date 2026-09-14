@@ -1,9 +1,8 @@
 import * as turf from "@turf/turf";
 import type { CSSProperties } from "react";
 import type { Feature, FeatureCollection, LineString, Point } from "geojson";
-import * as maplibregl from "maplibre-gl";
-
-export type Map = maplibregl.Map;
+import type { Map } from "maplibre-gl";
+import maplibregl from "maplibre-gl";
 
 export type LngLat = [number, number];
 

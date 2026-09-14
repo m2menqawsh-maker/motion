@@ -1,5 +1,28 @@
 [
   {
+    "id": "brand-resolver",
+    "name": "BrandResolver",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/brand-resolver.ts",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "general_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
     "id": "effects/BookFlipTransition",
     "name": "Bookfliptransition",
     "type": "effect",
@@ -83,8 +106,8 @@
       "ad"
     ],
     "intents": [
-      "image_motion",
-      "transition"
+      "transition",
+      "image_motion"
     ],
     "moods": [
       "technical"
@@ -130,8 +153,8 @@
       "ad"
     ],
     "intents": [
-      "image_motion",
-      "transition"
+      "transition",
+      "image_motion"
     ],
     "moods": [
       "technical"
@@ -384,8 +407,8 @@
       "ad"
     ],
     "intents": [
-      "image_motion",
-      "transition"
+      "transition",
+      "image_motion"
     ],
     "moods": [
       "cinematic"
@@ -408,8 +431,33 @@
       "ad"
     ],
     "intents": [
-      "image_motion",
-      "transition"
+      "transition",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/AnimatedBarChartWrapper",
+    "name": "Animatedbarchartwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/AnimatedBarChartWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "stat",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -432,9 +480,9 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "windows",
       "stat",
-      "windows"
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -457,8 +505,228 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/AutoFitTitleWrapper",
+    "name": "Autofittitlewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/AutoFitTitleWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "title_reveal",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/BentoPanWrapper",
+    "name": "Bentopanwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/BentoPanWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/BRollStackWrapper",
+    "name": "Brollstackwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/BRollStackWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CalendarMonthFillWrapper",
+    "name": "Calendarmonthfillwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CalendarMonthFillWrapper.tsx",
+    "use_cases": [
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "cta",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CalloutSpotlightWrapper",
+    "name": "Calloutspotlightwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CalloutSpotlightWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CaptionBumperWrapper",
+    "name": "Captionbumperwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CaptionBumperWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "caption",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ChangelogEntryWrapper",
+    "name": "Changelogentrywrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ChangelogEntryWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ChatToPreviewWrapper",
+    "name": "Chattopreviewwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ChatToPreviewWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "messaging",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CodeAccordionWrapper",
+    "name": "Codeaccordionwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CodeAccordionWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -481,9 +749,330 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "code_demo",
       "windows",
-      "code_demo"
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CodeDiffWipeWrapper",
+    "name": "Codediffwipewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CodeDiffWipeWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "transition",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CodeRevealWrapper",
+    "name": "Coderevealwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CodeRevealWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CommentCalloutWrapper",
+    "name": "Commentcalloutwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CommentCalloutWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CommitGraphWrapper",
+    "name": "Commitgraphwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CommitGraphWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "stat",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ComparisonTableWrapper",
+    "name": "Comparisontablewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ComparisonTableWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "navigation",
+      "windows",
+      "data_display",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/CountdownTimerWrapper",
+    "name": "Countdowntimerwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/CountdownTimerWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "stat",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/DashboardPopulateWrapper",
+    "name": "Dashboardpopulatewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/DashboardPopulateWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "playful"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/DeployRevealWrapper",
+    "name": "Deployrevealwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/DeployRevealWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/DeviceMockupZoomWrapper",
+    "name": "Devicemockupzoomwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/DeviceMockupZoomWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/EndCardWrapper",
+    "name": "Endcardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/EndCardWrapper.tsx",
+    "use_cases": [
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "cta",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/FaqAccordionWrapper",
+    "name": "Faqaccordionwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/FaqAccordionWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/FeatureListWrapper",
+    "name": "Featurelistwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/FeatureListWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "data_display",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/FileTreeRevealWrapper",
+    "name": "Filetreerevealwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/FileTreeRevealWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -506,8 +1095,178 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/HookCardWrapper",
+    "name": "Hookcardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/HookCardWrapper.tsx",
+    "use_cases": [
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "hook",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ImageExpandWrapper",
+    "name": "Imageexpandwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ImageExpandWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/KanbanMoveWrapper",
+    "name": "Kanbanmovewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/KanbanMoveWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/LogoRevealWrapper",
+    "name": "Logorevealwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/LogoRevealWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "logo",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/LogoWallWrapper",
+    "name": "Logowallwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/LogoWallWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "logo",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/LowerThirdWrapper",
+    "name": "Lowerthirdwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/LowerThirdWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/MapFlightWrapper",
+    "name": "Mapflightwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/MapFlightWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -530,8 +1289,130 @@
       "ad"
     ],
     "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/MediaFrameWrapper",
+    "name": "Mediaframewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/MediaFrameWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/MetricTickerWrapper",
+    "name": "Metrictickerwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/MetricTickerWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/NewsTickerBarWrapper",
+    "name": "Newstickerbarwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/NewsTickerBarWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/NotificationStackWrapper",
+    "name": "Notificationstackwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/NotificationStackWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
       "ui_element",
-      "windows"
+      "notification"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/OrgChartBuildWrapper",
+    "name": "Orgchartbuildwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/OrgChartBuildWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "stat",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -554,8 +1435,199 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/PodcastClipWrapper",
+    "name": "Podcastclipwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/PodcastClipWrapper.tsx",
+    "use_cases": [
+      "social"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/PollOverlayWrapper",
+    "name": "Polloverlaywrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/PollOverlayWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/PricingCardWrapper",
+    "name": "Pricingcardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/PricingCardWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/PricingFocusWrapper",
+    "name": "Pricingfocuswrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/PricingFocusWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/QuizQuestionWrapper",
+    "name": "Quizquestionwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/QuizQuestionWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/QuoteCardWrapper",
+    "name": "Quotecardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/QuoteCardWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ReactionBurstWrapper",
+    "name": "Reactionburstwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ReactionBurstWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/RoadmapLanesWrapper",
+    "name": "Roadmaplaneswrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/RoadmapLanesWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -578,8 +1650,8 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -602,8 +1674,81 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/SearchResultsPopulateWrapper",
+    "name": "Searchresultspopulatewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/SearchResultsPopulateWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "search_ui",
+      "ui_element"
+    ],
+    "moods": [
+      "playful"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/SocialClipWrapper",
+    "name": "Socialclipwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/SocialClipWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/SportsScorebugWrapper",
+    "name": "Sportsscorebugwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/SportsScorebugWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -626,10 +1771,182 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "badge",
+      "element_animation",
       "windows",
-      "element_animation"
+      "ui_element",
+      "badge"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/StatCardWrapper",
+    "name": "Statcardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/StatCardWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "stat",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/TabSwitchPanelWrapper",
+    "name": "Tabswitchpanelwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/TabSwitchPanelWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "navigation",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/TerminalSimulatorWrapper",
+    "name": "Terminalsimulatorwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/TerminalSimulatorWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/THEMESWrapper",
+    "name": "Themeswrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/THEMESWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/TimelineStepsWrapper",
+    "name": "Timelinestepswrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/TimelineStepsWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/TitleCardWrapper",
+    "name": "Titlecardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/TitleCardWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "title_reveal",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/TutorialClipWrapper",
+    "name": "Tutorialclipwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/TutorialClipWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -652,9 +1969,591 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
       "typing",
-      "windows"
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/WeatherCardWrapper",
+    "name": "Weathercardwrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/WeatherCardWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "elements/ZoomPanFrameWrapper",
+    "name": "Zoompanframewrapper",
+    "type": "element",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/elements/ZoomPanFrameWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/AiComposerShowcaseWrapper",
+    "name": "Aicomposershowcasewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/AiComposerShowcaseWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/AiGenerationCanvasWrapper",
+    "name": "Aigenerationcanvaswrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/AiGenerationCanvasWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/AudiogramSceneWrapper",
+    "name": "Audiogramscenewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/AudiogramSceneWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/BrowserFlowWrapper",
+    "name": "Browserflowwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/BrowserFlowWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/CaptionSceneWrapper",
+    "name": "Captionscenewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/CaptionSceneWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "caption",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/CreatorReelWrapper",
+    "name": "Creatorreelwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/CreatorReelWrapper.tsx",
+    "use_cases": [
+      "social"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/DataFlowPipesWrapper",
+    "name": "Dataflowpipeswrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/DataFlowPipesWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "data_display",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/DataStoryWrapper",
+    "name": "Datastorywrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/DataStoryWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "data_display",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/DragDropFlowWrapper",
+    "name": "Dragdropflowwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/DragDropFlowWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/EcosystemOrbitWrapper",
+    "name": "Ecosystemorbitwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/EcosystemOrbitWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/FormFillSequenceWrapper",
+    "name": "Formfillsequencewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/FormFillSequenceWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element",
+      "form_ui"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/HeroDeviceAssembleWrapper",
+    "name": "Herodeviceassemblewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/HeroLoopWrapper",
+    "name": "Heroloopwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/HeroLoopWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/IntroWrapper",
+    "name": "Introwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/IntroWrapper.tsx",
+    "use_cases": [
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "hook",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/LandingCodeShowcaseWrapper",
+    "name": "Landingcodeshowcasewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/LiveCodeSplitWrapper",
+    "name": "Livecodesplitwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/LiveCodeSplitWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "code_demo",
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/MediaSequenceWrapper",
+    "name": "Mediasequencewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/MediaSequenceWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/ShowcaseWrapper",
+    "name": "Showcasewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/ShowcaseWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/SplitScreenWrapper",
+    "name": "Splitscreenwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/SplitScreenWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/TalkingHeadLayoutWrapper",
+    "name": "Talkingheadlayoutwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/TalkingHeadLayoutWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/TeamGridWrapper",
+    "name": "Teamgridwrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/TeamGridWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "scenes/ToolMenuSlideWrapper",
+    "name": "Toolmenuslidewrapper",
+    "type": "scene",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/scenes/ToolMenuSlideWrapper.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -680,8 +2579,8 @@
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -704,8 +2603,8 @@
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -728,8 +2627,8 @@
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -745,16 +2644,16 @@
     "source": "engine",
     "path": "engine/camera/AutoZoom.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "image_motion",
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -770,15 +2669,15 @@
     "source": "engine",
     "path": "engine/camera/CameraRig.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -794,15 +2693,15 @@
     "source": "engine",
     "path": "engine/camera/interpolate.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -818,15 +2717,15 @@
     "source": "engine",
     "path": "engine/camera/resolveTimeline.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -842,15 +2741,15 @@
     "source": "engine",
     "path": "engine/camera/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -866,15 +2765,15 @@
     "source": "engine",
     "path": "engine/choreography/filterCursorPath.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -890,15 +2789,15 @@
     "source": "engine",
     "path": "engine/choreography/mapCursorPath.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -914,17 +2813,17 @@
     "source": "engine",
     "path": "engine/choreography/resolveWindowPose.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "windows",
+      "ui_element",
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -940,15 +2839,15 @@
     "source": "engine",
     "path": "engine/cursor/arc.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -964,15 +2863,15 @@
     "source": "engine",
     "path": "engine/cursor/Cursor.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -988,15 +2887,15 @@
     "source": "engine",
     "path": "engine/cursor/CursorSprite.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1012,15 +2911,15 @@
     "source": "engine",
     "path": "engine/cursor/resolveAnchor.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1036,15 +2935,15 @@
     "source": "engine",
     "path": "engine/cursor/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1067,8 +2966,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1084,15 +2983,15 @@
     "source": "engine",
     "path": "engine/layout/LayoutContext.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1108,17 +3007,17 @@
     "source": "engine",
     "path": "engine/layout/LayoutWindow.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "windows",
+      "ui_element",
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1134,15 +3033,15 @@
     "source": "engine",
     "path": "engine/layout/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1158,17 +3057,17 @@
     "source": "engine",
     "path": "engine/layout/useWindowRect.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "windows",
+      "ui_element",
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1184,15 +3083,15 @@
     "source": "engine",
     "path": "engine/layout/zones.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1208,19 +3107,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppFromDescriptor.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "windows",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1236,19 +3135,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppShell.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "windows",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1264,19 +3163,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Avatar.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "avatar",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1292,19 +3191,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Badge.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "badge",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1320,18 +3219,18 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Button.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1347,20 +3246,20 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/DataTable.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "navigation",
       "data_display",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1376,19 +3275,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/ListItems.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "data_display",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1404,20 +3303,20 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/MessageList.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "messaging",
       "data_display",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1433,19 +3332,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/NotificationToast.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
+      "scene_element",
       "ui_element",
-      "notification",
-      "scene_element"
+      "notification"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1461,18 +3360,18 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Panel.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1488,18 +3387,18 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/PanelGrid.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1515,18 +3414,18 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Placeholder.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1542,19 +3441,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SearchBar.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "search_ui",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1570,19 +3469,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SidebarNav.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "navigation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1598,19 +3497,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/StatCard.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "stat",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1626,19 +3525,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TabBar.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "navigation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1654,19 +3553,19 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TopNav.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "navigation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1682,19 +3581,19 @@
     "source": "engine",
     "path": "engine/primitives/CountUp.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "stat",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1710,19 +3609,19 @@
     "source": "engine",
     "path": "engine/primitives/EndCard.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "cta",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1738,19 +3637,19 @@
     "source": "engine",
     "path": "engine/primitives/Enter.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "element_animation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1766,19 +3665,19 @@
     "source": "engine",
     "path": "engine/primitives/Exit.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "element_animation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1794,19 +3693,19 @@
     "source": "engine",
     "path": "engine/primitives/Headline.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "title_reveal",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1822,19 +3721,19 @@
     "source": "engine",
     "path": "engine/primitives/Highlight.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "emphasis",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1850,19 +3749,19 @@
     "source": "engine",
     "path": "engine/primitives/Pulse.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "emphasis",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1878,18 +3777,18 @@
     "source": "engine",
     "path": "engine/primitives/ScenePush.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1905,20 +3804,20 @@
     "source": "engine",
     "path": "engine/primitives/Stagger.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "badge",
       "element_animation",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1934,18 +3833,18 @@
     "source": "engine",
     "path": "engine/primitives/TrafficLights.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "scene_element"
+      "scene_element",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1961,19 +3860,19 @@
     "source": "engine",
     "path": "engine/primitives/TypeWriter.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "typing",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -1989,19 +3888,19 @@
     "source": "engine",
     "path": "engine/primitives/Wallpaper.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "background",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2017,19 +3916,19 @@
     "source": "engine",
     "path": "engine/primitives/Window.tsx",
     "use_cases": [
-      "product",
-      "explainer",
       "saas",
+      "explainer",
+      "product",
       "ad"
     ],
     "intents": [
-      "ui_element",
+      "scene_element",
       "windows",
-      "scene_element"
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2052,8 +3951,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2076,8 +3975,8 @@
       "cta"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2097,12 +3996,12 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2125,8 +4024,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2149,8 +4048,8 @@
       "title_reveal"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2173,8 +4072,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2197,8 +4096,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2221,8 +4120,8 @@
       "general_element"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2238,15 +4137,15 @@
     "source": "engine",
     "path": "engine/ui-state/generatePressKeyframes.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2262,15 +4161,15 @@
     "source": "engine",
     "path": "engine/ui-state/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -2286,16 +4185,16 @@
     "source": "engine",
     "path": "engine/ui-state/UIStateProvider.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "stat",
       "camera_movement"
     ],
     "moods": [
-      "technical",
-      "cinematic"
+      "cinematic",
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
