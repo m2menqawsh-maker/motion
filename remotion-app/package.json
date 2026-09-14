@@ -18,7 +18,7 @@
         "@remotion/media": "4.0.518",
         "@remotion/media-utils": "4.0.518",
         "@remotion/paths": "4.0.518",
-        "@remotion/transitions": "4.0.518",
+        "@remotion/transitions": "^4.0.518",
         "@remotion/zod-types": "4.0.518",
         "@turf/turf": "^7.4.0",
         "culori": "^4.0.2",

@@ -7,7 +7,7 @@
 |---|---|---|---|
 | `Chaosdesktop` | A | `engine/scenes/ChaosDesktop.tsx` | general_element |
 | `Closer` | A | `engine/scenes/Closer.tsx` | cta |
-| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | ui_element, windows |
+| `Dynamicwindows` | A | `engine/scenes/DynamicWindows.tsx` | windows, ui_element |
 | `Featureshowcase` | A | `engine/scenes/FeatureShowcase.tsx` | general_element |
 | `Headlineresolution` | A | `engine/scenes/HeadlineResolution.tsx` | title_reveal |
 | `Productreveal` | A | `engine/scenes/ProductReveal.tsx` | general_element |
@@ -20,4 +20,4 @@
 ## Effects
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| (None) | - | - | - |
+| `Fadetransition` | C | `templates/effects/FadeTransition.tsx` | transition |
