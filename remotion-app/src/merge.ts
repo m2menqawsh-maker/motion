@@ -69,8 +69,9 @@ export function mergeScene(
   // 1. يبدأ من registryEntry.defaults
   const baseSurface = { ...registryEntry.defaults };
 
-  // 2. يدمج scene.props فوقها
-  const mergedProps = { ...baseSurface, ...(scene.props || {}) };
+  // 2. يدمج scene.surface أو scene.props فوقها
+  const sceneProps = { ...((scene as any).surface || {}), ...(scene.props || {}) };
+  const mergedProps = { ...baseSurface, ...sceneProps };
 
   // 3. يحل كل قيمة تبدأ بـ "brand."
   const resolvedProps = resolveTokensDeep(mergedProps, brand);

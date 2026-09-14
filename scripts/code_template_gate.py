@@ -76,6 +76,18 @@ def run_gate(proj_path):
         if (build_dir / "src" / forbidden).exists():
             fails.append(f"FAIL: مجلد {forbidden} محلي داخل 06_build (شادكن ممنوع، استخدم @templates أو @engine)")
             
+    # 1.1 Check for ad-hoc code generators in scratch/
+    ws_dir = Path(__file__).resolve().parent.parent
+    scratch_dir = ws_dir / "scratch"
+    if scratch_dir.exists():
+        for py_file in scratch_dir.rglob("*.py"):
+            try:
+                content = py_file.read_text(encoding="utf-8")
+                if "import React" in content or ".tsx" in content or "Hash:" in content:
+                    fails.append(f"FAIL: ملف مشبوه لتوليد الكود في مجلد scratch: {py_file.name}. يُمنع كتابة مولدات كود للالتفاف على البوابات!")
+            except Exception:
+                pass
+            
     # Load blueprint templates
     bp_templates = set()
     if bp_file.exists():
@@ -84,7 +96,23 @@ def run_gate(proj_path):
             for sec in bp.get("timeline", []):
                 for e in sec.get("elements", []):
                     if e.get("kind") == "template":
-                        bp_templates.add(e.get("template"))
+                        tpl = e.get("template")
+                        bp_templates.add(tpl)
+                        
+            # V1 Checking
+            for scene in bp.get("scenes", []):
+                tpl = scene.get("template")
+                if tpl: 
+                    bp_templates.add(tpl)
+                if tpl == "terminal-simulator":
+                    surface = scene.get("surface", {})
+                    content = scene.get("content", {})
+                    lines = content.get("lines", [])
+                    stext = surface.get("text", "")
+                    if not lines:
+                        fails.append(f"FAIL: 'terminal-simulator' requires 'content.lines' array in {scene.get('scene_id')}. Cannot be empty.")
+                    elif len(lines) == 1 and lines[0] == stext:
+                        fails.append(f"FAIL: 'terminal-simulator' in {scene.get('scene_id')} has duplicate content.lines! You must provide actual log outputs.")
         except Exception as e:
             fails.append(f"FAIL: خطأ في قراءة 05_blueprint.json: {e}")
             

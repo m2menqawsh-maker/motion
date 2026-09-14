@@ -113,3 +113,190 @@
 [2026-09-13T21:52:46.912734] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
 [2026-09-13T21:52:47.970135] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
 [2026-09-13T21:52:48.154913] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-13T22:07:45.074805] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:07:45.475777] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:07:45.979139] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T22:07:46.640058] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-13T22:07:47.201583] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:07:49.081329] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:07:49.456206] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-13T22:13:03.778848] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32/config.sys | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:13:32.193890] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32/config.sys | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:13:32.395033] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32/config.sys | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:13:32.609967] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32/config.sys | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:13:32.804553] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32/config.sys | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:14:16.066394] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:14:16.290530] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:14:16.523168] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T22:14:16.743936] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-13T22:14:16.976931] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:14:18.156702] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:14:18.577084] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-13T22:14:29.726951] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:30.017677] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:30.279996] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:30.546245] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:30.778631] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:31.069477] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:31.427836] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:31.862006] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:32.402862] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:32.893821] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:33.645136] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:34.027874] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:34.296093] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:34.525230] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:34.746799] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:34.972038] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:35.189463] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:35.414188] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:35.635182] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:35.849317] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:36.060710] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:36.272803] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:36.488321] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:36.709096] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:36.923448] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:37.141342] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:37.464519] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:37.735286] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:37.957308] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:38.180850] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:38.392626] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:38.614226] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:38.846089] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:39.075662] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:39.307286] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:39.537805] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:39.762376] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:39.986810] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:40.209532] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:40.434415] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:40.664644] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:40.890909] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:41.120501] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:41.340739] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:41.566230] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:41.795154] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:42.017726] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:42.383559] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:42.622560] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:14:42.917617] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:14.076858] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:16:14.426023] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:16:14.710033] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T22:16:14.971771] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-13T22:16:15.233395] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:16:16.507195] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:16:16.758738] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-13T22:16:26.804460] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:27.047435] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:27.375892] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:27.713533] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:27.987054] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:28.239628] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:28.455662] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:28.668556] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:28.885609] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:29.105637] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:29.327210] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:29.554848] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:29.785642] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:30.004787] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:30.222095] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:30.436134] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:30.660804] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:30.885406] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:31.107057] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:31.327346] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:31.542153] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:31.759530] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:31.973224] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:32.193382] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:32.413641] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:32.808749] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:33.208202] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:33.438840] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:33.664834] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:33.891213] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:34.110842] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:34.335436] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:34.556476] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:34.781331] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:35.014275] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:35.241968] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:35.457825] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:35.675473] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:35.893677] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:36.104549] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:36.327772] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:36.547756] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:36.761472] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:36.969079] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:37.174874] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:37.390886] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:37.600500] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:37.813320] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:38.020326] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:16:38.269906] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:12.886061] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:17:13.082423] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-13T22:17:13.281717] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-13T22:17:13.474904] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-13T22:17:13.662007] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-13T22:17:14.741722] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-13T22:17:14.943479] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-13T22:17:22.265070] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:22.496681] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:22.753960] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:23.261608] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:23.549597] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:23.786485] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:24.009398] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:24.236756] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:24.452495] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:24.713129] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:24.968604] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:25.190804] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:25.415917] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:25.637690] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:25.860335] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:26.073733] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:26.290677] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:26.507034] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:26.723489] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:26.950822] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:27.171606] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:27.389781] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:27.607611] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:27.822478] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:28.041244] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:28.265755] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:28.483111] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:28.697501] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:28.915454] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:29.138656] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:29.467902] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:29.710424] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:29.919532] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:30.120562] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:30.331582] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:30.539909] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:30.740020] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:30.950751] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:31.156928] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:31.361625] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:31.571920] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:31.779929] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:31.988006] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:32.200948] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:32.410486] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:32.618340] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:32.820685] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:33.028815] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:33.237210] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-13T22:17:33.449244] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.

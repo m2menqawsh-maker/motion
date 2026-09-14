@@ -36,7 +36,7 @@ def fail(msg):
     fails.append(msg)
 
 arg = Path(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else DST / "templates"
-targets = sorted(arg.rglob("*.tsx")) if arg.is_dir() else [arg]
+targets = [f for f in (sorted(arg.rglob("*.tsx")) if arg.is_dir() else [arg]) if "_deprecated" not in f.parts]
 
 for f in targets:
     src = f.read_text(encoding="utf-8")

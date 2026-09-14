@@ -1,6 +1,6 @@
 # Social Collection
 > Auto-Generated from template_catalog.json
-> Last Updated: 2026-09-13
+> Last Updated: 2026-09-14
 
 ## Scenes
 | Name | Quality | Path | Intents |
@@ -10,13 +10,7 @@
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Captions` | A | `templates/elements/captions/captions/Captions.tsx` | caption |
-| `Blurreveal` | A | `templates/elements/typography/blur-reveal/BlurReveal.tsx` | title_reveal |
-| `Caret` | A | `templates/elements/typography/caret.tsx` | title_reveal |
-| `Rgbglitchtext` | A | `templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx` | background, title_reveal |
-| `Trackingin` | A | `templates/elements/typography/tracking-in/TrackingIn.tsx` | title_reveal |
-| `Typewriter` | A | `templates/elements/typography/typewriter/Typewriter.tsx` | typing, title_reveal |
-| `Wordstagger` | A | `templates/elements/typography/word-stagger/WordStagger.tsx` | badge, element_animation, title_reveal |
+| (None) | - | - | - |
 
 ## Effects
 | Name | Quality | Path | Intents |

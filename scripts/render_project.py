@@ -52,23 +52,21 @@ def main():
                 
             print(f"🐳 جاري الرندر عبر حاوية Docker (clean-video-builder)...")
             workspace_root = Path.cwd().resolve()
-            project_out = workspace_root / "projects" / project_id / "06_build" / "out"
-            project_out.mkdir(parents=True, exist_ok=True)
+            project_dir = workspace_root / "projects" / project_id
             
-            # Using bash -c to set permissions after render for Windows hosts
             docker_cmd = [
                 "docker", "run", "--rm",
                 "-v", f"{workspace_root}:/workspace:ro",
-                "-v", f"{project_out}:/workspace/projects/{project_id}/06_build/out:rw",
-                "-w", f"/workspace/projects/{project_id}/06_build",
+                "-v", f"{project_dir}:/workspace/projects/{project_id}:rw",
+                "-w", "/workspace/remotion-app",
                 "--memory", "4g",
                 "clean-video-builder",
-                "bash", "-c", "npx remotion render src/index.ts out/video.mp4 && chmod a+rw out/video.mp4"
+                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.mp4 --props ../projects/{project_id}/05_blueprint.json && chmod a+rw ../projects/{project_id}/out.mp4"
             ]
             
             proc = subprocess.run(docker_cmd)
             if proc.returncode == 0:
-                print(f"✅ نجاح الرندر عبر Docker! تم حفظ الفيديو في: {project_out / 'video.mp4'}")
+                print(f"✅ نجاح الرندر عبر Docker! تم حفظ الفيديو في: {project_dir / 'out.mp4'}")
             else:
                 print(f"❌ فشل الرندر عبر Docker.")
                 sys.exit(proc.returncode)

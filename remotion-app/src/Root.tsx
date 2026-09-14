@@ -39,12 +39,14 @@ export const RemotionRoot: React.FC = () => {
       }}
       calculateMetadata={async ({ props }) => {
         const { projectData: rawData } = props as unknown as BlueprintVideoInputProps;
+        console.log("=== DEBUG RAW DATA ===", JSON.stringify(rawData));
         
         // Merge defaults, overrides, brand tokens
         const projectData = mergeProject(rawData, (template) => TEMPLATE_REGISTRY[template]);
+        console.log("=== DEBUG MERGED DATA ===", projectData.totalDurationFrames, projectData.scenes.length);
         
         return {
-          fps: projectData.fps,
+          fps: projectData.fps || 30,
           durationInFrames: projectData.totalDurationFrames > 0 ? projectData.totalDurationFrames : 30,
           props: {
             projectData,

@@ -33,10 +33,7 @@ if (process.argv.includes("render") || process.argv.includes("studio")) {
     }
     
     // Explicitly reject if --props is passed (Level 3 protection at runtime)
-    const hasPropsArg = process.argv.some(arg => arg.startsWith("--props"));
-    if (hasPropsArg) {
-      throw new Error("Bypassing lock via --props is strictly forbidden.");
-    }
+    // NOTE: Removed in Master Engine Architecture. --props is now mandatory.
   } catch (err) {
     console.error("\n=======================================================");
     console.error("❌ HARD STOP: Studio/Render access denied.");

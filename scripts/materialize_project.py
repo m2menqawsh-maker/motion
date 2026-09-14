@@ -33,45 +33,9 @@ except GateViolation as e:
     print(e)
     sys.exit(1)
 
-pub_media = proj / "06_build" / "public" / "media"
-src_tpl = proj / "06_build" / "src" / "templates"
-src_eng = proj / "06_build" / "src" / "engine"
+pub_media = WS / "remotion-app" / "public" / "projects" / project_id / "media"
 pub_media.mkdir(parents=True, exist_ok=True)
 
-# 1) Full Copy
-copied_tpl = copied_eng = 0
-if (DST / "templates").exists():
-    shutil.copytree(DST / "templates", src_tpl, dirs_exist_ok=True)
-    copied_tpl = len(list(src_tpl.rglob("*.*")))
-if (DST / "engine").exists():
-    shutil.copytree(DST / "engine", src_eng, dirs_exist_ok=True)
-    copied_eng = len(list(src_eng.rglob("*.*")))
-print(f"تم نسخ القوالب: {copied_tpl} ملف من templates، و {copied_eng} ملف من engine.")
-
-# 2) Boilerplate Copy
-import shutil
-
-boilerplate_files = ["package.json", "tsconfig.json", "remotion.config.ts"]
-for bfile in boilerplate_files:
-    if (DST / "remotion-app" / bfile).exists():
-        shutil.copy2(DST / "remotion-app" / bfile, proj / "06_build" / bfile)
-
-if (DST / "remotion-app" / "src" / "index.ts").exists():
-    (proj / "06_build" / "src").mkdir(parents=True, exist_ok=True)
-    shutil.copy2(DST / "remotion-app" / "src" / "index.ts", proj / "06_build" / "src" / "index.ts")
-
-# 3) tsconfig.json Alias Injection
-tsconfig_path = proj / "06_build" / "tsconfig.json"
-if tsconfig_path.exists():
-    try:
-        ts_data = json.loads(tsconfig_path.read_text(encoding="utf-8"))
-        if "compilerOptions" not in ts_data: ts_data["compilerOptions"] = {}
-        if "paths" not in ts_data["compilerOptions"]: ts_data["compilerOptions"]["paths"] = {}
-        ts_data["compilerOptions"]["paths"]["@templates/*"] = ["src/templates/*"]
-        ts_data["compilerOptions"]["paths"]["@engine/*"] = ["src/engine/*"]
-        tsconfig_path.write_text(json.dumps(ts_data, indent=2, ensure_ascii=False), encoding="utf-8")
-    except Exception as e:
-        print(f"⚠️ فشل تحديث tsconfig.json: {e}")
 fails, media_map, used = [], {}, set()
 def canon(p):
     p = Path(p); return p if p.is_absolute() else (WS / p)
@@ -82,19 +46,16 @@ for a in man.get("assets", []):
     if not src.exists(): fails.append(f"asset {aid}: missing {src}"); continue
     if PLUGIN_DIR in src.parents: fails.append(f"asset {aid}: مصدر داخل مجلد المهارة (ممنوع): {src}"); continue
     out = pub_media / f"{aid}{src.suffix}"
-    shutil.copy2(src, out); media_map[aid] = f"media/{out.name}"
+    shutil.copy2(src, out)
+    media_map[aid] = f"projects/{project_id}/media/{out.name}"
 
 for sec in bp.get("timeline", []):
     for e in sec.get("elements", []):
-        tf = e.get("taken_from", "")
         if e.get("kind") == "template":
             name = e.get("template"); used.add(name)
-            if not list(src_tpl.rglob(f"{name}.tsx")) and not list(src_eng.rglob(f"{name}.tsx")):
+            if not list((DST / "templates").rglob(f"{name}.tsx")) and not list((DST / "engine").rglob(f"{name}.tsx")):
                 fails.append(f"template {name} غير موجود على القرص (في أي طبقة)")
-        elif tf.startswith("cinematic-engine/"):
-            s = DST / tf
-            if s.exists(): shutil.copy2(s, src_tpl / s.name)
-            else: fails.append(f"cinematic missing: {tf}")
+        
         ref = e.get("asset_ref")
         if ref and ref not in media_map: fails.append(f"عنصر {e.get('id')} يشير لأصل غير مهيأ: {ref}")
         
@@ -102,14 +63,14 @@ for sec in bp.get("timeline", []):
         props = e.get("props", {})
         for k, v in props.items():
             if k in ("src", "url", "asset") and isinstance(v, str):
-                if v.startswith("media/"):
-                    aid = v.replace("media/", "").split(".")[0]
+                if v.startswith(f"projects/{project_id}/media/"):
+                    aid = v.replace(f"projects/{project_id}/media/", "").split(".")[0]
                     if aid not in media_map:
                         fails.append(f"عنصر {e.get('id')} يستخدم {k} وهمي لا يوجد في manifest: {v}")
-                elif not v.startswith("http"): # إذا لم يكن رابط خارجي ولم يبدأ بـ media/
-                    fails.append(f"عنصر {e.get('id')} يستخدم مسار ميديا غير معتمد (يجب أن يبدأ بـ media/): {v}")
+                elif not v.startswith("http"): # إذا لم يكن رابط خارجي
+                    fails.append(f"عنصر {e.get('id')} يستخدم مسار ميديا غير معتمد: {v}")
 
-(proj / "06_build" / "src" / "media_map.json").write_text(
+(proj / "media_map.json").write_text(
     json.dumps(media_map, indent=2, ensure_ascii=False), encoding="utf-8")
 if fails:
     print("❌ MATERIALIZE FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)

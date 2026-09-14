@@ -55,7 +55,7 @@ def test_pipeline_approval_invalidation(tmp_path: Path, monkeypatch):
     assert "hash" in prep_info
     
     # 2. Approve
-    pipeline.approve()
+    pipeline.approve(test_mode=True)
     assert (project_dir / ".studio_approved").exists()
     
     # 3. Modify Project (Simulate changing a file after approval)

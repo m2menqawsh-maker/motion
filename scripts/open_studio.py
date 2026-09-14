@@ -41,39 +41,55 @@ def main():
     else:
         proj_dir = Path(f"projects/{project_id}").resolve()
 
-    build_dir = proj_dir / "06_build"
-    unlock_file_build = build_dir / ".studio_unlocked"
-    unlock_file_root = proj_dir / ".studio_unlocked"
+    engine_dir = workspace_root / "remotion-app"
+    unlock_file = proj_dir / ".studio_unlocked"
 
     # 1. فحص القفل الميكانيكي
-    unlock_file = unlock_file_build if unlock_file_build.exists() else unlock_file_root
     if not unlock_file.exists():
         print("🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو!")
         print(f"السبب: ملف .studio_unlocked غير موجود في {proj_dir}.")
         print("الإجراء: يجب تشغيل probe_qc.py ونجاحه أولاً لإنشاء ملف الفتح.")
         sys.exit(1)
 
-    # 1.5. التأكد من عدم تعديل الملفات بعد آخر فحص
+    # 1.5. التأكد من عدم تعديل ملف 05_blueprint.json بعد الفحص
     unlock_mtime = unlock_file.stat().st_mtime
-    src_dir = build_dir / "src"
-    if src_dir.exists():
-        for filepath in src_dir.rglob("*.tsx"):
-            if filepath.stat().st_mtime > unlock_mtime:
-                print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {filepath.name} بعد الفحص.")
-                print("السبب: أي تعديل يدوي أو برمجي على ملفات tsx يتطلب إعادة تشغيل أداة probe_qc.py.")
-                sys.exit(1)
+    blueprint_file = proj_dir / "05_blueprint.json"
+    if blueprint_file.exists():
+        if blueprint_file.stat().st_mtime > unlock_mtime:
+            print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {blueprint_file.name} بعد الفحص.")
+            print("السبب: أي تعديل على ملفات JSON يتطلب إعادة تشغيل أداة probe_qc.py.")
+            sys.exit(1)
 
-    # 2. التحقق من وجود المجلد
-    if not build_dir.exists():
-        print(f"❌ مجلد البناء غير موجود: {build_dir}")
+    # 2. التحقق من وجود المحرك المركزي
+    if not engine_dir.exists():
+        print(f"❌ مجلد المحرك المركزي غير موجود: {engine_dir}")
         sys.exit(1)
 
-    # 3. تشغيل الاستوديو في المسار الصحيح
-    print(f"✅ [GUARDIAN PASS] جاري فتح الاستوديو للمشروع {project_id}...")
+    # 3. تشغيل الاستوديو عبر المحرك وتمرير بيانات المشروع
+    print(f"✅ [GUARDIAN PASS] جاري فتح الاستوديو للمشروع {project_id} عبر المحرك المركزي...")
+    
+    def safe_load(name, default):
+        p = proj_dir / name
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
+        
+    combined_props = {
+        "projectData": {
+            "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
+            "blueprint": json.loads((proj_dir / "05_blueprint.json").read_text(encoding="utf-8")),
+            "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
+            "overrides": safe_load("overrides.json", {"scenes": {}})
+        }
+    }
+    
+    props_file = proj_dir / "render_props.json"
+    props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
+    
+    props_file_abs = workspace_root.resolve() / props_file
+
     if not use_docker:
-        os.chdir(str(build_dir))
+        os.chdir(str(engine_dir))
         use_shell = os.name == "nt"
-        cmd = ["npx", "remotion", "studio"]
+        cmd = ["npx", "remotion", "studio", "--props", str(props_file_abs)]
         subprocess.run(cmd, shell=use_shell)
     else:
         if not is_docker_running():
@@ -83,15 +99,15 @@ def main():
         print(f"🐳 جاري فتح الاستوديو عبر حاوية Docker (clean-video-builder)...")
         print(f"🌐 يرجى التوجه إلى http://localhost:3000 في المتصفح بعد بدء الخادم")
         
-        workspace_root = Path.cwd().resolve()
+        workspace_root_abs = workspace_root.resolve()
         
         docker_cmd = [
             "docker", "run", "--rm", "-it",
             "-p", "3000:3000",
-            "-v", f"{workspace_root}:/workspace:ro",
-            "-w", f"/workspace/projects/{project_id}/06_build",
+            "-v", f"{workspace_root_abs}:/workspace:ro",
+            "-w", f"/workspace/remotion-app",
             "clean-video-builder",
-            "npx", "remotion", "studio", "--host", "0.0.0.0"
+            "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/05_blueprint.json"
         ]
         
         subprocess.run(docker_cmd)

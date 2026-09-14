@@ -28,9 +28,9 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
    - Use `FFmpeg` to process videos (GOP=1, yuv420p) and normalize audio (-16 LUFS for VO, -24 LUFS for SFX).
 3. **Phase 4-5 (Timings & Blueprint)**: Extract word-level timings and bind them to the asset manifest and human plan.
 4. **Phase 6 (Programmatic Build - Remotion)**:
-   - Set up the Node.js/Remotion environment locally.
-   - Write React components (`MainComposition.tsx`, `CaptionLayer.tsx`) utilizing ready-made templates (`templates/`).
-   - Manage hot-reloading and run the studio (`npm run studio`) for user preview.
+   - The workspace uses a **Zero-Build Master Engine** architecture (`remotion-app`).
+   - **DO NOT write any React code** (`.tsx` files). You are strictly a Data Creator.
+   - Your ONLY job in this phase is to output a pristine `05_blueprint.json` file. The Master Engine will automatically read this JSON and render the video.
 5. **Phase 7-8 (Preview & Render)**: Execute Quality Control (QC) gates via `probe_qc.py` to ensure the video is ready for delivery.
 
 ## 🛠️ Debugging Protocol & Circuit Breakers
@@ -43,7 +43,7 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
 ## 📝 Expected Session Outputs
 - **Planning Files**: `00_answers.md`, `01_plan.md`, `05_blueprint_human.md`.
 - **Dynamic Scripts**: Write and run scripts in `scratch/` (e.g., `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
-- **Remotion Code**: Update `src/*.tsx` files in the `06_build/` directory.
+- **Structural Data**: Output a flawless `05_blueprint.json` containing `ProjectData`.
 - **Reports**: `02_asset_manifest.json`, `03_preprocess_report.json`, `04_timings.json`.
 
 ---
@@ -56,7 +56,7 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
 - Media must follow exactly one lifecycle:
   `assets/incoming/` (User uploads) → `assets/cache/` (MCP downloads) →
   `assets/processing/` (Temporary) → `assets/ready/` (Approved processed media).
-- Build copies enter `projects/<id>/06_build/public/media/` via `materialize_project.py` ONLY.
+- Media enters the engine's public directory via `materialize_project.py` ONLY.
 - **FORBIDDEN**: Writing in `processed/` or `storage/` (deprecated).
 
 ## 2.5 Displaying Suggested Questions
@@ -104,7 +104,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 
 ## 6. Banned Mistakes
 - ❌ Creating fake files (reports/timings without actual execution).
-- ❌ **TOTAL BAN ON Ad-Hoc Code Generators:** Do NOT write custom python scripts (like `generate_react.py`) to generate, stitch, or patch `.tsx` files. You must use the provided templates directly.
+- ❌ **TOTAL BAN ON Ad-Hoc Code Generators:** Do NOT write custom python scripts (like `generate_react.py`) to generate, stitch, or patch `.tsx` files. You are strictly forbidden from generating React code. **This applies strictly to the `scratch/` directory as well. It is forbidden to use `scratch/` as a backdoor to write code generators.**
 - ❌ Skipping phases before the previous one is fully complete.
 - ❌ Generating beep sounds instead of fetching real music.
 - ❌ Fetching fewer assets than required (e.g., 2 effects for a 52s video).
@@ -118,7 +118,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 - ❌ **TOTAL BAN ON Node/npm commands:** You are strictly forbidden from writing or running `npx remotion` or `npm run` directly in the Terminal. You must exclusively use the intermediary scripts:
   - To open studio: `python scripts/open_studio.py <project_id>`
   - To final render: `python scripts/render_project.py <project_id>`
-- ❌ **FORBIDDEN**: Using `Copy-Item -Recurse -Force` on `06_build/`. Use `materialize_project.py` ONLY.
+- ❌ **FORBIDDEN**: Modifying the public media directory manually. Use `materialize_project.py` ONLY.
 - ❌ **FORBIDDEN**: Modifying `probe_qc_report.json` manually in any way.
 - ❌ **FORBIDDEN**: Creating `.studio_approved` programmatically. It is created manually by the user only after actual preview.
 - ❌ Creating automated approval scripts (e.g., `approve_qc.py`). Approvals are strictly manual.
@@ -131,10 +131,8 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 1. **No Render Before Preview:** No rendering before explicit user approval in the Studio.
 2. **No Studio Before QC:** No opening Studio before `probe_qc_report.json` passes.
 3. **Mechanical Lock is Sacred:** Never hack `mechanical_lock`. The lock is opened only via `.studio_unlocked` which is auto-generated after passing Probe-QC.
-4. **Zero Improvisation & Real Templates:** Do not write `spring()` or `interpolate()` outside `templates/` and `engine/`. All motion code must be from an approved template in `TEMPLATE_INDEX.md`.
-   Zero code without a template: Every `Scene*.tsx` file inside `06_build/src/compositions/` must import at least one template from `@templates` or `@engine`.
-   Ensure that you properly pass the `surface` and `animation` props to templates so they animate correctly.
-   `code_template_gate.py` will reject any violation before opening the Studio.
+4. **Zero React Coding:** You do not write `spring()`, `interpolate()`, or any `.tsx` files. Your output is exclusively `05_blueprint.json`. The Master Engine reads your JSON and maps it to the approved templates in `TEMPLATE_INDEX.md`.
+   Ensure that you properly format the `surface` and `animation` props in the JSON so they animate correctly.
 5. **Single Gateway for Media:** All media enters the build via `scripts/materialize_project.py` ONLY. Manual copying is forbidden.
 6. **Audio First:** `analyze_voiceover` is the first technical step. No plan without actual audio analysis.
 7. **Edit → Partial Check → Full QC:** When an edit is requested from the Studio, check the affected shot only. But before any final render, rerun full Probe-QC.
@@ -143,7 +141,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 10. **Taste is a Gate, Not Advice:** Motion personality and numbers are written in the scene plan, and `motion_validator.py` checks them. Failure = no build.
 11. **Reading Before Scene:** The agent must read the Taste Engine files before writing code for any scene.
 12. **Plan for Every Scene:** No build without a written scene plan approved by the user.
-
+13. **Exhaustive Property Completion:** When generating `05_blueprint.json` or writing a scene plan, you MUST explicitly provide ALL expected properties for the selected template. If a template displays text, provide `surface.text`. If it displays code/logs, provide `content.lines`. If it displays images, provide `content.images`. Never omit properties that drive the core visual of the template; do not rely on fallbacks.
 # 🎨 Personal Design & Directing Protocol (Mandatory)
 
 ## 1. Spacing & Breathing Room

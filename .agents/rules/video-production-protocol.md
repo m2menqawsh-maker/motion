@@ -84,12 +84,14 @@
 - If it exists, read the alerts and handle them before proceeding.
 - If it is empty or does not exist, proceed to the next step.
 
-### Step 1: Scene Building & Structural Files (JSON & Code Generation)
+### Step 1: Structural Files (JSON Data Generation)
 - ⚠️ **MANDATORY BEFORE BUILD:** The agent must manually translate the text plan (`master_plan.md`) and media package into structural JSON files: `05_blueprint.json` (for scenes and timings) and `02_asset_manifest.json` (for media registry).
+- **Zero React Coding:** You are strictly forbidden from writing React code (`.tsx` files). This workspace uses a Zero-Build Master Engine. Your only job is to create flawless JSON data.
+- **Exhaustive Property Completion:** When writing `05_blueprint.json`, you MUST provide ALL logically required properties for the selected template. DO NOT omit any property that the template depends on (e.g. if the template is `terminal-simulator` or `code-diff`, you MUST provide exhaustive `content.lines`. If it is an image reveal, you MUST provide `content.images`. If it is a text reveal, you MUST provide `surface.text`). NEVER assume a field is optional if the template's core visual depends on it.
 - Building any scene without a matching scene plan is forbidden.
 - You must use approved templates from `ground-truth/TEMPLATE_INDEX.md` (Zero Improvisation).
 - You must apply the motion personality from `references/deep/motion-taste/director/motion-personality.md`.
-- All media enters the build via `materialize_project.py` only (which requires the JSON files to exist first). Manual copying is forbidden.
+- All media enters the engine via `materialize_project.py` only (which requires the JSON files to exist first). Manual copying is forbidden.
 
 ### Step 2: Preview & Quality (Probe-QC & Studio)
 - Do not open the studio before the quality check `probe_qc.py` passes successfully.

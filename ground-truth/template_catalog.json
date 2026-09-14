@@ -1,2158 +1,5 @@
 [
   {
-    "id": "AnnounceTitle",
-    "name": "Announcetitle",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/AnnounceTitle.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "AnswerStream",
-    "name": "Answerstream",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/AnswerStream.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "applyOverride",
-    "name": "Applyoverride",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/applyOverride.ts",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "AudioClip",
-    "name": "Audioclip",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/AudioClip.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "AudioVisualizer",
-    "name": "Audiovisualizer",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/AudioVisualizer.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "BarChart",
-    "name": "Barchart",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/BarChart.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "BlockWordmark",
-    "name": "Blockwordmark",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/BlockWordmark.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "BoundingBox",
-    "name": "Boundingbox",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/BoundingBox.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "brand-resolver",
-    "name": "BrandResolver",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/brand-resolver.ts",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Callout",
-    "name": "Callout",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Callout.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ChapterCard",
-    "name": "Chaptercard",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/ChapterCard.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Confetti",
-    "name": "Confetti",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Confetti.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "CountUp",
-    "name": "Countup",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/CountUp.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "DrawOn",
-    "name": "Drawon",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/DrawOn.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "DynamicGrid",
-    "name": "Dynamicgrid",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/DynamicGrid.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "effects/engine-bridge",
-    "name": "EngineBridge",
-    "type": "effect",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/effects/engine-bridge.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/captions/captions/Captions",
-    "name": "Captions",
-    "type": "element",
-    "family": "captions",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/captions/captions/Captions.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "caption"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "captions"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/code/code-block/CodeBlock",
-    "name": "Codeblock",
-    "type": "element",
-    "family": "code",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/elements/code/code-block/CodeBlock.tsx",
-    "use_cases": [
-      "education",
-      "saas"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "terminal"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/code/code-diff/CodeDiff",
-    "name": "Codediff",
-    "type": "element",
-    "family": "code",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/elements/code/code-diff/CodeDiff.tsx",
-    "use_cases": [
-      "education",
-      "saas"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "terminal"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/code/terminal/Terminal",
-    "name": "Terminal",
-    "type": "element",
-    "family": "code",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/elements/code/terminal/Terminal.tsx",
-    "use_cases": [
-      "education",
-      "saas"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "terminal"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/data/StatCard",
-    "name": "Statcard",
-    "type": "element",
-    "family": "data",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/elements/data/StatCard.tsx",
-    "use_cases": [
-      "product",
-      "saas",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "data"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/blur-reveal/BlurReveal",
-    "name": "Blurreveal",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/typography/blur-reveal/BlurReveal.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/caret",
-    "name": "Caret",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "remocn",
-    "path": "templates/elements/typography/caret.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/rgb-glitch-text/RgbGlitchText",
-    "name": "Rgbglitchtext",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/typography/rgb-glitch-text/RgbGlitchText.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "background",
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical",
-      "energetic"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/tracking-in/TrackingIn",
-    "name": "Trackingin",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/typography/tracking-in/TrackingIn.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/typewriter/Typewriter",
-    "name": "Typewriter",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/typography/typewriter/Typewriter.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "typing",
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/typography/word-stagger/WordStagger",
-    "name": "Wordstagger",
-    "type": "element",
-    "family": "typography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": true,
-    "source": "premium",
-    "path": "templates/elements/typography/word-stagger/WordStagger.tsx",
-    "use_cases": [
-      "explainer",
-      "saas",
-      "social",
-      "ad"
-    ],
-    "intents": [
-      "badge",
-      "element_animation",
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "text_animation"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "elements/ui/split-screen/SplitScreen",
-    "name": "Splitscreen",
-    "type": "element",
-    "family": "ui",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/elements/ui/split-screen/SplitScreen.tsx",
-    "use_cases": [
-      "product",
-      "saas",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [
-      "ui"
-    ],
-    "notes": ""
-  },
-  {
-    "id": "EndCard",
-    "name": "Endcard",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/EndCard.tsx",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "cta"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "FadeIn",
-    "name": "Fadein",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/FadeIn.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "FadeOut",
-    "name": "Fadeout",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/FadeOut.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "FollowerRush",
-    "name": "Followerrush",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/FollowerRush.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "GradientShift",
-    "name": "Gradientshift",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/GradientShift.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "GrainOverlay",
-    "name": "Grainoverlay",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/GrainOverlay.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "HeroLaunch",
-    "name": "Herolaunch",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/HeroLaunch.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Highlight",
-    "name": "Highlight",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Highlight.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "emphasis"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "IconPop",
-    "name": "Iconpop",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/IconPop.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "playful"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ImageReveal",
-    "name": "Imagereveal",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/ImageReveal.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Input",
-    "name": "Input",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Input.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "KaraokeCaptions",
-    "name": "Karaokecaptions",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/KaraokeCaptions.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "caption"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LaptopFrame",
-    "name": "Laptopframe",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LaptopFrame.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LineChart",
-    "name": "Linechart",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LineChart.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LogoAssemble",
-    "name": "Logoassemble",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LogoAssemble.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "logo"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LogoFlicker",
-    "name": "Logoflicker",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LogoFlicker.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "logo"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LogoSting",
-    "name": "Logosting",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LogoSting.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "logo"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "LowerThird",
-    "name": "Lowerthird",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/LowerThird.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Marquee",
-    "name": "Marquee",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Marquee.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "scrolling_text"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "MaskReveal",
-    "name": "Maskreveal",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/MaskReveal.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "MatrixDecode",
-    "name": "Matrixdecode",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/MatrixDecode.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "MeshGradient",
-    "name": "Meshgradient",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/MeshGradient.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "MoodboardReveal",
-    "name": "Moodboardreveal",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/MoodboardReveal.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "NodeGraph",
-    "name": "Nodegraph",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/NodeGraph.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "OrbitGallery",
-    "name": "Orbitgallery",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/OrbitGallery.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Parallax",
-    "name": "Parallax",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Parallax.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "PhoneFrame",
-    "name": "Phoneframe",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/PhoneFrame.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "PieReveal",
-    "name": "Piereveal",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/PieReveal.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "position-rtl",
-    "name": "PositionRtl",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/position-rtl.ts",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ProgressBar",
-    "name": "Progressbar",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/ProgressBar.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "progress_indicator"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "PromptZoom",
-    "name": "Promptzoom",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/PromptZoom.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "PulsingBorder",
-    "name": "Pulsingborder",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/PulsingBorder.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "QuoteCard",
-    "name": "Quotecard",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/QuoteCard.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "RotateIn",
-    "name": "Rotatein",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/RotateIn.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ScaleIn",
-    "name": "Scalein",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/ScaleIn.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/product/ken-burns/KenBurns",
-    "name": "Kenburns",
-    "type": "scene",
-    "family": "product",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "premium",
-    "path": "templates/scenes/product/ken-burns/KenBurns.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SearchTyping",
-    "name": "Searchtyping",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SearchTyping.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "search_ui"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ShimmerSweep",
-    "name": "Shimmersweep",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/ShimmerSweep.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SlideIn",
-    "name": "Slidein",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SlideIn.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SlideOut",
-    "name": "Slideout",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SlideOut.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SlotMachineRoll",
-    "name": "Slotmachineroll",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SlotMachineRoll.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SnapCnUI",
-    "name": "Snapcnui",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SnapCnUI.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Spotlight",
-    "name": "Spotlight",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Spotlight.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "SpotlightCard",
-    "name": "Spotlightcard",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/SpotlightCard.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "StaggerGroup",
-    "name": "Staggergroup",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/StaggerGroup.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "badge",
-      "element_animation"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "StatusCycle",
-    "name": "Statuscycle",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/StatusCycle.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TemplateWrapper",
-    "name": "Templatewrapper",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TemplateWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TerminalSimulator",
-    "name": "Terminalsimulator",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TerminalSimulator.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextBuild",
-    "name": "Textbuild",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextBuild.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextFadeReplace",
-    "name": "Textfadereplace",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextFadeReplace.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextHighlight",
-    "name": "Texthighlight",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextHighlight.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "emphasis"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextReveal",
-    "name": "Textreveal",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextReveal.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextSwap",
-    "name": "Textswap",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextSwap.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TextSwell",
-    "name": "Textswell",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TextSwell.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Timeline",
-    "name": "Timeline",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Timeline.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "TitleCard",
-    "name": "Titlecard",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/TitleCard.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Underline",
-    "name": "Underline",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Underline.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "useRTL",
-    "name": "Usertl",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/useRTL.ts",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "VideoClip",
-    "name": "Videoclip",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/VideoClip.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "Vignette",
-    "name": "Vignette",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/Vignette.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "WordCaptions",
-    "name": "Wordcaptions",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/WordCaptions.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "caption"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "WordFlip",
-    "name": "Wordflip",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/WordFlip.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "WordRotate",
-    "name": "Wordrotate",
-    "type": "misc",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/WordRotate.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
     "id": "audio/AudioManager",
     "name": "Audiomanager",
     "type": "engine",
@@ -2235,12 +82,12 @@
     "source": "engine",
     "path": "engine/camera/AutoZoom.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "image_motion",
-      "camera_movement"
+      "camera_movement",
+      "image_motion"
     ],
     "moods": [
       "cinematic",
@@ -2260,8 +107,8 @@
     "source": "engine",
     "path": "engine/camera/CameraRig.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2284,8 +131,8 @@
     "source": "engine",
     "path": "engine/camera/interpolate.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2308,8 +155,8 @@
     "source": "engine",
     "path": "engine/camera/resolveTimeline.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2332,8 +179,8 @@
     "source": "engine",
     "path": "engine/camera/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2356,8 +203,8 @@
     "source": "engine",
     "path": "engine/choreography/filterCursorPath.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2380,8 +227,8 @@
     "source": "engine",
     "path": "engine/choreography/mapCursorPath.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2404,12 +251,12 @@
     "source": "engine",
     "path": "engine/choreography/resolveWindowPose.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "camera_movement",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2430,8 +277,8 @@
     "source": "engine",
     "path": "engine/cursor/arc.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2454,8 +301,8 @@
     "source": "engine",
     "path": "engine/cursor/Cursor.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2478,8 +325,8 @@
     "source": "engine",
     "path": "engine/cursor/CursorSprite.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2502,8 +349,8 @@
     "source": "engine",
     "path": "engine/cursor/resolveAnchor.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2526,8 +373,8 @@
     "source": "engine",
     "path": "engine/cursor/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2574,8 +421,8 @@
     "source": "engine",
     "path": "engine/layout/LayoutContext.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2598,12 +445,12 @@
     "source": "engine",
     "path": "engine/layout/LayoutWindow.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "camera_movement",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2624,8 +471,8 @@
     "source": "engine",
     "path": "engine/layout/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2648,12 +495,12 @@
     "source": "engine",
     "path": "engine/layout/useWindowRect.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "ui_element",
       "camera_movement",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2674,8 +521,8 @@
     "source": "engine",
     "path": "engine/layout/zones.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -2698,15 +545,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppFromDescriptor.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "windows"
+      "windows",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2726,15 +573,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppShell.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "windows"
+      "windows",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2754,15 +601,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Avatar.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "avatar",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2782,15 +629,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Badge.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
+      "ui_element",
       "badge",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2810,14 +657,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Button.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2837,16 +684,16 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/DataTable.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "navigation",
-      "scene_element",
       "ui_element",
-      "data_display"
+      "navigation",
+      "data_display",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2866,15 +713,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/ListItems.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "data_display"
+      "data_display",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2894,16 +741,16 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/MessageList.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "messaging",
       "ui_element",
-      "data_display"
+      "data_display",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2923,15 +770,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/NotificationToast.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "notification",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2951,14 +798,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Panel.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -2978,14 +825,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/PanelGrid.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3005,14 +852,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Placeholder.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3032,15 +879,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SearchBar.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "search_ui",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3060,15 +907,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SidebarNav.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "navigation",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3088,15 +935,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/StatCard.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "stat",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3116,15 +963,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TabBar.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "navigation",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3144,15 +991,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TopNav.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "navigation",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3172,15 +1019,15 @@
     "source": "engine",
     "path": "engine/primitives/CountUp.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "stat",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3200,15 +1047,15 @@
     "source": "engine",
     "path": "engine/primitives/EndCard.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "cta",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3228,15 +1075,15 @@
     "source": "engine",
     "path": "engine/primitives/Enter.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "element_animation"
+      "element_animation",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3256,15 +1103,15 @@
     "source": "engine",
     "path": "engine/primitives/Exit.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "element_animation"
+      "element_animation",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3284,15 +1131,15 @@
     "source": "engine",
     "path": "engine/primitives/Headline.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
+      "title_reveal",
       "ui_element",
-      "title_reveal"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3312,15 +1159,15 @@
     "source": "engine",
     "path": "engine/primitives/Highlight.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "emphasis",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3340,15 +1187,15 @@
     "source": "engine",
     "path": "engine/primitives/Pulse.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
+      "ui_element",
       "emphasis",
-      "scene_element",
-      "ui_element"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3368,14 +1215,14 @@
     "source": "engine",
     "path": "engine/primitives/ScenePush.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3395,16 +1242,16 @@
     "source": "engine",
     "path": "engine/primitives/Stagger.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "badge",
       "ui_element",
-      "element_animation"
+      "element_animation",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3424,14 +1271,14 @@
     "source": "engine",
     "path": "engine/primitives/TrafficLights.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3451,15 +1298,15 @@
     "source": "engine",
     "path": "engine/primitives/TypeWriter.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
+      "typing",
       "ui_element",
-      "typing"
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3479,15 +1326,15 @@
     "source": "engine",
     "path": "engine/primitives/Wallpaper.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "background",
-      "ui_element"
+      "ui_element",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3507,15 +1354,15 @@
     "source": "engine",
     "path": "engine/primitives/Window.tsx",
     "use_cases": [
-      "explainer",
-      "product",
+      "ad",
       "saas",
-      "ad"
+      "explainer",
+      "product"
     ],
     "intents": [
-      "scene_element",
       "ui_element",
-      "windows"
+      "windows",
+      "scene_element"
     ],
     "moods": [
       "cinematic",
@@ -3728,8 +1575,8 @@
     "source": "engine",
     "path": "engine/ui-state/generatePressKeyframes.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -3752,8 +1599,8 @@
     "source": "engine",
     "path": "engine/ui-state/types.ts",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
       "camera_movement"
@@ -3776,12 +1623,12 @@
     "source": "engine",
     "path": "engine/ui-state/UIStateProvider.tsx",
     "use_cases": [
-      "product",
-      "saas"
+      "saas",
+      "product"
     ],
     "intents": [
-      "stat",
-      "camera_movement"
+      "camera_movement",
+      "stat"
     ],
     "moods": [
       "cinematic",

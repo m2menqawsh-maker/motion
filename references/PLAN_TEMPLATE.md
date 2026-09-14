@@ -43,6 +43,7 @@ For each scene, you MUST write:
 - Camera Motion: [Static/pan/tilt/zoom + Speed and Value]
 - Visual Element: [Specific detailed description — NOT just "visual element"]
 - Template: [Actual template name from TEMPLATE_INDEX.md]
+- Template Properties: [MANDATORY: Explicitly list the core data the template needs. E.g., for Terminal, list exact command and output lines. For text, list the exact text. For images, list image paths. DO NOT leave it to guesswork in the JSON phase.]
 - Visual Gesture: [From Emphasis Grammar]
 - Synced Word: [Word + Timing in milliseconds]
 - Transition to Next Shot: [From Transitions as Verbs]

@@ -173,8 +173,8 @@ def validate_creative_rules(scene_plan, previous_scene_plan=None, project_bluepr
         template_counts = count_template_usage(all_templates)
         
         # منع تكرار Typewriter أكثر من مرتين
-        if template_counts.get( 0) > 2:
-            errors.append(f"❌ Typewriter Overuse: تم استخدام Typewriter {template_counts[]} مرات (الحد الأقصى: 2). استبدل إحدى الاستخدامات بقالب آخر.")
+        if template_counts.get("Typewriter", 0) > 2:
+            errors.append(f"❌ Typewriter Overuse: تم استخدام Typewriter {template_counts['Typewriter']} مرات (الحد الأقصى: 2). استبدل إحدى الاستخدامات بقالب آخر.")
         
         # فحص عدد العائلات المستخدمة
         families_used = get_unique_families(all_templates)
@@ -222,12 +222,12 @@ def extract_templates_from_plan(scene_plan):
 def get_template_family(templates):
     """يحدد العائلة التي ينتمي إليها القالب"""
     family_map = {
-        : 'Typography',
+        'Typewriter': 'Typography',
         'BounceText': 'Typography',
         'TextReveal': 'Typography',
         'GlitchText': 'Typography',
-        : 'Typography',
-        : 'Typography',
+        'BlurReveal': 'Typography',
+        'TrackingIn': 'Typography',
         'StatCounter': 'Data & Stats',
         'ChartAnimation': 'Data & Stats',
         'AreaChart': 'Data & Stats',
