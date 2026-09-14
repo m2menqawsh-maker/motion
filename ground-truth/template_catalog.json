@@ -1,5 +1,145 @@
 [
   {
+    "id": "effects/BookFlipTransition",
+    "name": "Bookfliptransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/BookFlipTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/ClockWipeTransition",
+    "name": "Clockwipetransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/ClockWipeTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/CrosswarpTransition",
+    "name": "Crosswarptransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/CrosswarpTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/CrossZoomTransition",
+    "name": "Crosszoomtransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/CrossZoomTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/DissolveTransition",
+    "name": "Dissolvetransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/DissolveTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/DreamyZoomTransition",
+    "name": "Dreamyzoomtransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/DreamyZoomTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
     "id": "effects/FadeTransition",
     "name": "Fadetransition",
     "type": "effect",
@@ -10,14 +150,269 @@
     "source": "legacy",
     "path": "templates/effects/FadeTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
     ],
     "moods": [
       "cinematic"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/FilmBurnTransition",
+    "name": "Filmburntransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/FilmBurnTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "cinematic"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/FlipTransition",
+    "name": "Fliptransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/FlipTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/IrisTransition",
+    "name": "Iristransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/IrisTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/LinearBlurTransition",
+    "name": "Linearblurtransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/LinearBlurTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "cinematic"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/PushCutTransition",
+    "name": "Pushcuttransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/PushCutTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/RippleTransition",
+    "name": "Rippletransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/RippleTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/SlideTransition",
+    "name": "Slidetransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/SlideTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/SwapTransition",
+    "name": "Swaptransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/SwapTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/WipeTransition",
+    "name": "Wipetransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/WipeTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/ZoomBlurTransition",
+    "name": "Zoomblurtransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/ZoomBlurTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition",
+      "image_motion"
+    ],
+    "moods": [
+      "cinematic"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/ZoomInOutTransition",
+    "name": "Zoominouttransition",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/ZoomInOutTransition.tsx",
+    "use_cases": [
+      "ad",
+      "explainer"
+    ],
+    "intents": [
+      "transition",
+      "image_motion"
+    ],
+    "moods": [
+      "technical"
     ],
     "capabilities": [],
     "notes": ""
@@ -33,8 +428,8 @@
     "source": "engine",
     "path": "engine/audio/AudioManager.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "camera_movement"
@@ -57,8 +452,8 @@
     "source": "engine",
     "path": "engine/audio/resolveCues.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "camera_movement"
@@ -81,8 +476,8 @@
     "source": "engine",
     "path": "engine/audio/types.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "camera_movement"
@@ -105,12 +500,12 @@
     "source": "engine",
     "path": "engine/camera/AutoZoom.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
-      "image_motion",
-      "camera_movement"
+      "camera_movement",
+      "image_motion"
     ],
     "moods": [
       "cinematic",
@@ -130,8 +525,8 @@
     "source": "engine",
     "path": "engine/camera/CameraRig.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -154,8 +549,8 @@
     "source": "engine",
     "path": "engine/camera/interpolate.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -178,8 +573,8 @@
     "source": "engine",
     "path": "engine/camera/resolveTimeline.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -202,8 +597,8 @@
     "source": "engine",
     "path": "engine/camera/types.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -226,8 +621,8 @@
     "source": "engine",
     "path": "engine/choreography/filterCursorPath.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -250,8 +645,8 @@
     "source": "engine",
     "path": "engine/choreography/mapCursorPath.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -274,13 +669,13 @@
     "source": "engine",
     "path": "engine/choreography/resolveWindowPose.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -300,8 +695,8 @@
     "source": "engine",
     "path": "engine/cursor/arc.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -324,8 +719,8 @@
     "source": "engine",
     "path": "engine/cursor/Cursor.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -348,8 +743,8 @@
     "source": "engine",
     "path": "engine/cursor/CursorSprite.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -372,8 +767,8 @@
     "source": "engine",
     "path": "engine/cursor/resolveAnchor.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -396,8 +791,8 @@
     "source": "engine",
     "path": "engine/cursor/types.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -420,8 +815,8 @@
     "source": "engine",
     "path": "engine/fonts.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -444,8 +839,8 @@
     "source": "engine",
     "path": "engine/layout/LayoutContext.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -468,13 +863,13 @@
     "source": "engine",
     "path": "engine/layout/LayoutWindow.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -494,8 +889,8 @@
     "source": "engine",
     "path": "engine/layout/types.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -518,13 +913,13 @@
     "source": "engine",
     "path": "engine/layout/useWindowRect.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -544,8 +939,8 @@
     "source": "engine",
     "path": "engine/layout/zones.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -568,15 +963,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppFromDescriptor.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -596,15 +991,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/AppShell.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -624,15 +1019,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Avatar.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
-      "avatar",
-      "ui_element"
+      "ui_element",
+      "avatar"
     ],
     "moods": [
       "cinematic",
@@ -652,14 +1047,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Badge.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "badge",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -680,10 +1075,10 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Button.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -707,15 +1102,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/DataTable.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
+      "navigation",
       "scene_element",
       "data_display",
-      "navigation",
       "ui_element"
     ],
     "moods": [
@@ -736,10 +1131,10 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/ListItems.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -764,15 +1159,15 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/MessageList.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
+      "messaging",
       "scene_element",
       "data_display",
-      "messaging",
       "ui_element"
     ],
     "moods": [
@@ -793,14 +1188,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/NotificationToast.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "notification",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -821,10 +1216,10 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Panel.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -848,10 +1243,10 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/PanelGrid.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -875,10 +1270,10 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/Placeholder.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -902,14 +1297,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SearchBar.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "search_ui",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -930,14 +1325,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/SidebarNav.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "navigation",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -958,14 +1353,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/StatCard.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "stat",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -986,14 +1381,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TabBar.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "navigation",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -1014,14 +1409,14 @@
     "source": "engine",
     "path": "engine/primitives/app-ui/TopNav.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "navigation",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -1042,14 +1437,14 @@
     "source": "engine",
     "path": "engine/primitives/CountUp.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "stat",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -1070,15 +1465,15 @@
     "source": "engine",
     "path": "engine/primitives/EndCard.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
+      "ui_element",
       "scene_element",
-      "cta",
-      "ui_element"
+      "cta"
     ],
     "moods": [
       "cinematic",
@@ -1098,10 +1493,10 @@
     "source": "engine",
     "path": "engine/primitives/Enter.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1126,10 +1521,10 @@
     "source": "engine",
     "path": "engine/primitives/Exit.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1154,10 +1549,10 @@
     "source": "engine",
     "path": "engine/primitives/Headline.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1182,10 +1577,10 @@
     "source": "engine",
     "path": "engine/primitives/Highlight.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1210,10 +1605,10 @@
     "source": "engine",
     "path": "engine/primitives/Pulse.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1238,10 +1633,10 @@
     "source": "engine",
     "path": "engine/primitives/ScenePush.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1265,14 +1660,14 @@
     "source": "engine",
     "path": "engine/primitives/Stagger.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "badge",
+      "scene_element",
       "element_animation",
       "ui_element"
     ],
@@ -1294,10 +1689,10 @@
     "source": "engine",
     "path": "engine/primitives/TrafficLights.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
@@ -1321,15 +1716,15 @@
     "source": "engine",
     "path": "engine/primitives/TypeWriter.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
-      "typing",
-      "ui_element"
+      "ui_element",
+      "typing"
     ],
     "moods": [
       "cinematic",
@@ -1349,14 +1744,14 @@
     "source": "engine",
     "path": "engine/primitives/Wallpaper.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
-      "scene_element",
       "background",
+      "scene_element",
       "ui_element"
     ],
     "moods": [
@@ -1377,15 +1772,15 @@
     "source": "engine",
     "path": "engine/primitives/Window.tsx",
     "use_cases": [
-      "saas",
-      "explainer",
+      "product",
       "ad",
-      "product"
+      "explainer",
+      "saas"
     ],
     "intents": [
       "scene_element",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -1405,8 +1800,8 @@
     "source": "engine",
     "path": "engine/scenes/ChaosDesktop.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -1429,8 +1824,8 @@
     "source": "engine",
     "path": "engine/scenes/Closer.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "cta"
@@ -1453,12 +1848,12 @@
     "source": "engine",
     "path": "engine/scenes/DynamicWindows.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "cinematic",
@@ -1478,8 +1873,8 @@
     "source": "engine",
     "path": "engine/scenes/FeatureShowcase.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -1502,8 +1897,8 @@
     "source": "engine",
     "path": "engine/scenes/HeadlineResolution.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "title_reveal"
@@ -1526,8 +1921,8 @@
     "source": "engine",
     "path": "engine/scenes/ProductReveal.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -1550,8 +1945,8 @@
     "source": "engine",
     "path": "engine/tokens.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -1574,8 +1969,8 @@
     "source": "engine",
     "path": "engine/types.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -1598,8 +1993,8 @@
     "source": "engine",
     "path": "engine/ui-state/generatePressKeyframes.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -1622,8 +2017,8 @@
     "source": "engine",
     "path": "engine/ui-state/types.ts",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "camera_movement"
@@ -1646,8 +2041,8 @@
     "source": "engine",
     "path": "engine/ui-state/UIStateProvider.tsx",
     "use_cases": [
-      "saas",
-      "product"
+      "product",
+      "saas"
     ],
     "intents": [
       "stat",
