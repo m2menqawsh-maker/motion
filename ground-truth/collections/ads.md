@@ -15,7 +15,16 @@
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| (None) | - | - | - |
+| `Animatedcounterwrapper` | C | `templates/elements/AnimatedCounterWrapper.tsx` | ui_element, stat, windows |
+| `Animatedtextwrapper` | C | `templates/elements/AnimatedTextWrapper.tsx` | ui_element, windows |
+| `Codeblockwrapper` | C | `templates/elements/CodeBlockWrapper.tsx` | ui_element, windows, code_demo |
+| `Gradientwrapper` | C | `templates/elements/GradientWrapper.tsx` | ui_element, windows |
+| `Matrixrainwrapper` | C | `templates/elements/MatrixRainWrapper.tsx` | ui_element, windows |
+| `Particlesystemwrapper` | C | `templates/elements/ParticleSystemWrapper.tsx` | ui_element, windows |
+| `Scene3Dwrapper` | C | `templates/elements/Scene3DWrapper.tsx` | ui_element, windows |
+| `Scrollingimageswrapper` | C | `templates/elements/ScrollingImagesWrapper.tsx` | ui_element, windows |
+| `Staggeredmotionwrapper` | C | `templates/elements/StaggeredMotionWrapper.tsx` | ui_element, badge, windows, element_animation |
+| `Typewriterwrapper` | C | `templates/elements/TypeWriterWrapper.tsx` | ui_element, typing, windows |
 
 ## Effects
 | Name | Quality | Path | Intents |
@@ -23,9 +32,9 @@
 | `Bookfliptransition` | C | `templates/effects/BookFlipTransition.tsx` | transition |
 | `Clockwipetransition` | C | `templates/effects/ClockWipeTransition.tsx` | transition |
 | `Crosswarptransition` | C | `templates/effects/CrosswarpTransition.tsx` | transition |
-| `Crosszoomtransition` | C | `templates/effects/CrossZoomTransition.tsx` | transition, image_motion |
+| `Crosszoomtransition` | C | `templates/effects/CrossZoomTransition.tsx` | image_motion, transition |
 | `Dissolvetransition` | C | `templates/effects/DissolveTransition.tsx` | transition |
-| `Dreamyzoomtransition` | C | `templates/effects/DreamyZoomTransition.tsx` | transition, image_motion |
+| `Dreamyzoomtransition` | C | `templates/effects/DreamyZoomTransition.tsx` | image_motion, transition |
 | `Fadetransition` | C | `templates/effects/FadeTransition.tsx` | transition |
 | `Filmburntransition` | C | `templates/effects/FilmBurnTransition.tsx` | transition |
 | `Fliptransition` | C | `templates/effects/FlipTransition.tsx` | transition |
@@ -36,5 +45,5 @@
 | `Slidetransition` | C | `templates/effects/SlideTransition.tsx` | transition |
 | `Swaptransition` | C | `templates/effects/SwapTransition.tsx` | transition |
 | `Wipetransition` | C | `templates/effects/WipeTransition.tsx` | transition |
-| `Zoomblurtransition` | C | `templates/effects/ZoomBlurTransition.tsx` | transition, image_motion |
-| `Zoominouttransition` | C | `templates/effects/ZoomInOutTransition.tsx` | transition, image_motion |
+| `Zoomblurtransition` | C | `templates/effects/ZoomBlurTransition.tsx` | image_motion, transition |
+| `Zoominouttransition` | C | `templates/effects/ZoomInOutTransition.tsx` | image_motion, transition |

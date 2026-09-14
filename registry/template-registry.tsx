@@ -17,6 +17,16 @@ import { SwapTransition } from "../templates/effects/SwapTransition";
 import { ZoomBlurTransition } from "../templates/effects/ZoomBlurTransition";
 import { ZoomInOutTransition } from "../templates/effects/ZoomInOutTransition";
 import { BookFlipTransition } from "../templates/effects/BookFlipTransition";
+import { AnimatedTextWrapper } from "../templates/elements/AnimatedTextWrapper";
+import { TypeWriterWrapper } from "../templates/elements/TypeWriterWrapper";
+import { CodeBlockWrapper } from "../templates/elements/CodeBlockWrapper";
+import { MatrixRainWrapper } from "../templates/elements/MatrixRainWrapper";
+import { AnimatedCounterWrapper } from "../templates/elements/AnimatedCounterWrapper";
+import { ScrollingImagesWrapper } from "../templates/elements/ScrollingImagesWrapper";
+import { ParticleSystemWrapper } from "../templates/elements/ParticleSystemWrapper";
+import { Scene3DWrapper } from "../templates/elements/Scene3DWrapper";
+import { StaggeredMotionWrapper } from "../templates/elements/StaggeredMotionWrapper";
+import { GradientWrapper } from "../templates/elements/GradientWrapper";
 
 export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
   "fade-transition": {
@@ -196,6 +206,106 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: BookFlipTransition,
     defaultDurationFrames: 90,
+    schema: {},
+    defaults: {}
+  },
+  "animated-text-element": {
+    id: "animated-text-element",
+    label: { ar: "نصوص تفاعلية الشامل", en: "Animated Text" },
+    description: { ar: "كبسولة التحكم الذكي بتأثيرات النصوص (التشويش، الظهور المتدرج، إلخ)", en: "Smart wrapper for all AnimatedText bits (glitch, fade, etc.)" },
+    category: "text",
+    component: AnimatedTextWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "typewriter-element": {
+    id: "typewriter-element",
+    label: { ar: "الآلة الكاتبة الشامل", en: "TypeWriter" },
+    description: { ar: "كبسولة التحكم بتأثيرات الآلة الكاتبة وواجهة الأوامر", en: "Smart wrapper for all TypeWriter bits (CLI, multi-text, errors)" },
+    category: "text",
+    component: TypeWriterWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "codeblock-element": {
+    id: "codeblock-element",
+    label: { ar: "الأكواد البرمجية", en: "Code Block" },
+    description: { ar: "كبسولة عرض الأكواد الملونة", en: "CodeBlock syntax highlighting with animation" },
+    category: "ui-block",
+    component: CodeBlockWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "matrixrain-element": {
+    id: "matrixrain-element",
+    label: { ar: "الماتريكس", en: "Matrix Rain" },
+    description: { ar: "تأثير سقوط الماتريكس الرقمي", en: "Matrix digital rain effect" },
+    category: "overlay",
+    component: MatrixRainWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "animatedcounter-element": {
+    id: "animatedcounter-element",
+    label: { ar: "العداد الرقمي", en: "Animated Counter" },
+    description: { ar: "عداد أرقام متحرك", en: "Animated number counter" },
+    category: "ui-block",
+    component: AnimatedCounterWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "scrollingimages-element": {
+    id: "scrollingimages-element",
+    label: { ar: "التمرير اللانهائي", en: "Scrolling Images" },
+    description: { ar: "تمرير لا نهائي لمجموعة من الصور", en: "Infinite scrolling images" },
+    category: "composition",
+    component: ScrollingImagesWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "particlesystem-element": {
+    id: "particlesystem-element",
+    label: { ar: "نظام الجزيئات (Particles)", en: "Particle System" },
+    description: { ar: "كبسولة التحكم الذكي بالتأثيرات الفيزيائية (ثلج، نار، يراعات)", en: "Smart wrapper for particle effects (snow, fireflies, burst)" },
+    category: "overlay",
+    component: ParticleSystemWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "scene3d-element": {
+    id: "scene3d-element",
+    label: { ar: "المشاهد ثلاثية الأبعاد (Scene 3D)", en: "Scene 3D" },
+    description: { ar: "نظام بناء عوالم وكاميرات ثلاثية الأبعاد", en: "3D Scene engine for spatial camera control" },
+    category: "composition",
+    component: Scene3DWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "staggeredmotion-element": {
+    id: "staggeredmotion-element",
+    label: { ar: "الحركة المتتالية الشامل", en: "Staggered Motion" },
+    description: { ar: "كبسولة تأثيرات الظهور المتتالي للبطاقات والقوائم", en: "Smart wrapper for staggered appearances (card stack, list reveal)" },
+    category: "composition",
+    component: StaggeredMotionWrapper,
+    defaultDurationFrames: 120,
+    schema: {},
+    defaults: {}
+  },
+  "gradient-element": {
+    id: "gradient-element",
+    label: { ar: "التدرج اللوني (Gradient)", en: "Gradient Transition" },
+    description: { ar: "انتقال أو خلفية بتدرجات لونية حركية", en: "Dynamic gradient transition or background" },
+    category: "overlay",
+    component: GradientWrapper,
+    defaultDurationFrames: 120,
     schema: {},
     defaults: {}
   }
