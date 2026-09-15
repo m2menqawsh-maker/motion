@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """motion_validator.py — مدقق شخصية الحركة المبني ديناميكياً على motion-personality.md"""
 import re, json, sys
@@ -325,6 +327,7 @@ def get_unique_families(templates):
 
 if __name__ == "__main__":
     import sys
+from scripts.path_security import validate_project_id, safe_resolve
     if len(sys.argv) > 1:
         target_path = Path(sys.argv[1])
         if target_path.suffix == ".json":

@@ -1,4 +1,7 @@
+import subprocess
+from scripts.security import safe_subprocess
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import os
 import re
 

@@ -1,9 +1,17 @@
+import subprocess
 import argparse
 import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from scripts.security import safe_subprocess
+from scripts.path_security import validate_project_id, safe_resolve
 import uuid
 import json
 import datetime
 from pathlib import Path
+import asyncio
+from api.services.pipeline_service import PipelineService
 
 def generate_timestamp():
     return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
@@ -38,26 +46,9 @@ def main():
             "created_at": timestamp
         }
         (project_dir / "project.json").write_text(json.dumps(project_data, ensure_ascii=False, indent=2), encoding="utf-8")
-        
-        # state.json
-        state_data = {
-            "project_id": project_id,
-            "current_stage": 0,
-            "updated_at": timestamp,
-            "stages": {
-                "0": {"status": "pending", "started_at": timestamp, "finished_at": None},
-                "1": {"status": "pending", "started_at": None, "finished_at": None},
-                "2": {"status": "pending", "started_at": None, "finished_at": None},
-                "3": {"status": "pending", "started_at": None, "finished_at": None}
-            },
-            "gates": {
-                "gate_1": {"status": "locked", "approved_at": None, "approved_by": None},
-                "gate_2": {"status": "locked", "approved_at": None, "approved_by": None},
-                "gate_3": {"status": "locked", "approved_at": None, "approved_by": None}
-            }
-        }
-        (project_dir / "state.json").write_text(json.dumps(state_data, ensure_ascii=False, indent=2), encoding="utf-8")
-        
+        # .pipeline_state.json
+        asyncio.run(PipelineService.scaffold_project(project_id))
+
         # brand.json
         brand_data = {
             "brandName": "Default Brand",

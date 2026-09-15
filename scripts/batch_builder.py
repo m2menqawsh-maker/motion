@@ -3,8 +3,10 @@
 
 import os
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import json
 import subprocess
+from scripts.security import safe_subprocess
 import concurrent.futures
 from pathlib import Path
 
@@ -35,7 +37,7 @@ export const Scene{scene_idx}: React.FC = () => {{
     gate_script = Path(__file__).parent / "code_template_gate.py"
     if gate_script.exists():
         cmd = [sys.executable, str(gate_script), str(scene_file)]
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+        result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8")
         if result.returncode != 0:
             return {"status": "fail", "scene": scene_idx, "error": result.stdout}
             
@@ -82,7 +84,7 @@ def check_typescript(project_dir: Path):
     cmd = ["npx", "tsc", "--noEmit"]
     
     print(f"🔍 فحص TypeScript...")
-    result = subprocess.run(cmd, cwd=str(build_dir), capture_output=True, text=True, shell=use_shell)
+    result = safe_subprocess(cmd, cwd=str(build_dir), capture_output=True, text=True, shell=False)
     
     if result.returncode != 0:
         return False, result.stdout
@@ -94,6 +96,7 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
     
     if not project_dir.exists():

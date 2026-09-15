@@ -5,7 +5,7 @@ version: 4.0.509
 ---
 
 These are instructions for making a new Remotion project and composition.  
-If this is not the next task, see [Remotion Best Practices](../remotion-best-practices/SKILL.md)
+If you need to check the studio, see [Studio Best Practices](../studio/SKILL.md).
 
 ## Scaffold a project
 
@@ -24,16 +24,15 @@ Replace `my-video` with a suitable project name.
 
 ## Designing a video
 
-Keep the scaffold and add React Markup.
-Follow [Remotion React Markup Best Practices](../remotion-markup/SKILL.md) and [Video Layout Rules](video-layout.md) for video-first layout and text sizing guidance.
+Keep the scaffold. If you are writing Remotion React Markup, load [Remotion Markup Best Practices](../markup/SKILL.md) and [Video Layout Rules](video-layout.md) for video-first layout and text sizing guidance.
 
 ## Is this a multi-scene video?
 
-If this is a video with multiple subsequence videos, follow guidance at [Multi-scene videos](../remotion-markup/multi-scene-video.md).
+If this is a video with multiple subsequence videos, follow guidance at [Multi-scene videos](../markup/multi-scene-video.md).
 
 ## Interactivity Best Practices
 
-By structuring the React Markup following [Remotion Interactivity Best Practices](../remotion-interactivity/SKILL.md), you allow the user to make edits in the Studio which write back to code.
+By structuring the React Markup following [Remotion Interactivity Best Practices](../interactivity/SKILL.md), you allow the user to make edits in the Studio which write back to code.
 
 ## TailwindCSS
 
@@ -56,13 +55,9 @@ You can visit a specific composition by navigating to `/[composition-id]`, for e
 
 Only render if the user explicitly asks for it.
 
-```
-npx remotion render
-```
-
-For more options, see [Rendering](../remotion-render/SKILL.md).
+If you need to render the final product or check best practices on it, see [Render Best Practices](../render/SKILL.md).
 
 ## Follow-up
 
 The video creation process has finished.
-For follow-up prompts, use [Remotion Best Practices](../remotion-best-practices/SKILL.md)
+For follow-up prompts, use [Remotion Best Practices](../markup/SKILL.md)

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import subprocess
+from scripts.security import safe_subprocess
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import shutil
 
 CHECKS = [
@@ -20,7 +22,7 @@ def run_check(cmd, name):
         kwargs["cwd"] = "remotion-app"
     
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, **kwargs)
+        proc = safe_subprocess(cmd, capture_output=True, text=True, **kwargs)
         if proc.returncode == 0:
             print(f"✅ {name}: PASS")
             return True, ""
@@ -35,7 +37,7 @@ def is_docker_available():
     if not shutil.which("docker"):
         return False
     try:
-        proc = subprocess.run(["docker", "info"], capture_output=True, text=True, timeout=5)
+        proc = safe_subprocess(["docker", "info"], capture_output=True, text=True, timeout=5)
         return proc.returncode == 0
     except Exception:
         return False
@@ -56,7 +58,7 @@ def main():
     if use_docker:
         if is_docker_available():
             print("⏳ Running Docker Render Test...")
-            proc = subprocess.run(["python", "scripts/render_project.py", "demo_brand", "--docker"], capture_output=True, text=True)
+            proc = safe_subprocess(["python", "scripts/render_project.py", "demo_brand", "--docker"], capture_output=True, text=True)
             if proc.returncode == 0:
                 print("✅ Docker Render: PASS")
                 results.append(("Docker Render", True, ""))

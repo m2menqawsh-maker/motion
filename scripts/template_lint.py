@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """template_lint.py — بوابة الحوكمة قبل أي رندر.
 Usage: python template_lint.py <tsx-or-dir> [--timings-required] [--verify-build <project_dir>]

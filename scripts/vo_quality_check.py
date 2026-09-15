@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 
 def ensure_dependencies():

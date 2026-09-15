@@ -1,8 +1,12 @@
+from scripts.path_security import validate_project_id
+import subprocess
+from scripts.security import safe_subprocess
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from api.services.scaffold_service import create_project
 import json
 from pathlib import Path
+from api.services.pipeline_service import PipelineService
 
 router = APIRouter()
 
@@ -30,16 +34,19 @@ async def list_projects():
 
 @router.get("/{project_id}")
 async def get_project(project_id: str):
+    project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
     if not project_dir.exists():
         raise HTTPException(status_code=404, detail="Project not found")
     
     data = {}
-    for filename in ["project.json", "state.json", "manifest.json"]:
+    for filename in ["project.json", "manifest.json"]:
         filepath = project_dir / filename
         if filepath.exists():
             data[filename.replace(".json", "")] = json.loads(filepath.read_text(encoding="utf-8"))
         else:
             data[filename.replace(".json", "")] = {}
+            
+    data["state"] = await PipelineService.get_status(project_id)
             
     return data

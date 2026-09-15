@@ -8,8 +8,7 @@ hook + voiceover-over-b-roll, the "film my screen with my phone and talk over it
 
 User inputs: $ARGUMENTS
 
-Source of truth: `recipes/avatar-vo-broll.json` and
-`workflows/avatar-vo-broll/README.md`. Use **avatar-vo-broll** (not avatar-insta-split)
+Source of truth: `recipes/avatar-vo-broll.json` (Note: workflows are quarantined). Use **avatar-vo-broll** (not avatar-insta-split)
 when the talking head should disappear during the b-roll.
 
 Pipeline:
@@ -22,7 +21,7 @@ Pipeline:
    **Write it as flowing connected speech with minimal commas/periods** — HeyGen TTS
    pauses ~0.3s at every comma and period, so choppy punctuation makes a choppy VO that
    sounds like the audio cuts out over the b-roll.
-3. **Avatar.** `python3 workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --avatar-id <ID>`
+3. **Avatar.** (Workflow quarantined - do not run gen_avatar.py)
    (its audio is the continuous voiceover, laid under the whole reel as one track — never
    cut per clip). Recover a timed-out poll by `video_id`; `MOVIO_PAYMENT_INSUFFICIENT_CREDIT`
    = top up HeyGen **API** credits.
@@ -31,7 +30,7 @@ Pipeline:
    clip, cutting on phrase breaks. Beats must cover the whole VO. Author `plan.json`
    (copy `plan.example.json`). Make the badges with `make_badge.py` (topic on the hook,
    "Comment SKILL"/CTA over the b-roll).
-5. **Build.** `python3 workflows/avatar-vo-broll/build_vo_broll.py plan.json out.mp4` —
+5. **Build.** (Workflow quarantined) —
    fullscreen avatar hook/close (blurred-fill) + fullscreen b-roll cuts + lower-third
    captions + badge sequence + typing bed + click-on-cut + loudnorm.
 6. **QC + deliver.** Sample a frame per beat: avatar fills the frame on hook/close, b-roll

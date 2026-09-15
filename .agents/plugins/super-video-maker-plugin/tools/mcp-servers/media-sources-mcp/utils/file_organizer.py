@@ -5,7 +5,16 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-BASE_ASSET_DIR = Path(r"c:\video\video-workspace\assets")
+workspace_dir = os.environ.get("SVM_DATA_DIR", r"c:\video\clean-video-workspace")
+BASE_ASSET_DIR = Path(workspace_dir) / "assets"
+
+def safe_resolve(base_dir: Path, user_path: str) -> Path:
+    resolved_path = (base_dir / user_path).resolve()
+    try:
+        resolved_path.relative_to(base_dir.resolve())
+    except ValueError:
+        raise ValueError(f"Path traversal detected: {user_path}")
+    return resolved_path
 
 def move_asset_status(file_path: str, from_status: str, to_status: str, asset_type: str) -> str:
     """
@@ -19,7 +28,7 @@ def move_asset_status(file_path: str, from_status: str, to_status: str, asset_ty
     if from_status not in valid_statuses or to_status not in valid_statuses:
         raise ValueError(f"Invalid status. Must be one of {valid_statuses}")
 
-    source_path = Path(file_path)
+    source_path = safe_resolve(Path(workspace_dir), file_path)
     if not source_path.exists():
         raise FileNotFoundError(f"Source file not found: {source_path}")
 

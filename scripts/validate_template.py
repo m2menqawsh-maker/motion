@@ -1,5 +1,8 @@
+import subprocess
+from scripts.security import safe_subprocess
 import os
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import re
 
 def validate_template(file_path):

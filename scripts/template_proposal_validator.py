@@ -10,8 +10,10 @@ Template Proposal Validator — فحص جودة القوالب المقترحة
 """
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import json
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 from datetime import datetime
 
@@ -121,7 +123,7 @@ class TemplateProposalValidator:
         component_file = self.proposal_dir / "Component.tsx"
         
         try:
-            result = subprocess.run(
+            result = safe_subprocess(
                 ["npx", "tsc", "--noEmit", "--jsx", "react", str(component_file)],
                 capture_output=True,
                 text=True,

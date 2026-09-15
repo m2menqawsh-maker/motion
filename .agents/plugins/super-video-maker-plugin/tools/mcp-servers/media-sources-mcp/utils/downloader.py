@@ -9,7 +9,16 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
-BASE_ASSET_DIR = Path(r"c:\video\video-workspace\assets")
+workspace_dir = os.environ.get("SVM_DATA_DIR", r"c:\video\clean-video-workspace")
+BASE_ASSET_DIR = Path(workspace_dir) / "assets"
+
+def safe_resolve(base_dir: Path, user_path: str) -> Path:
+    resolved_path = (base_dir / user_path).resolve()
+    try:
+        resolved_path.relative_to(base_dir.resolve())
+    except ValueError:
+        raise ValueError(f"Path traversal detected: {user_path}")
+    return resolved_path
 
 async def download_media(url: str, asset_type: str, source: str, asset_id: str, custom_path: str | None = None) -> str:
     """
@@ -19,7 +28,10 @@ async def download_media(url: str, asset_type: str, source: str, asset_id: str, 
     if asset_type not in ["audio", "image", "video", "icons"]:
         raise ValueError(f"Invalid asset_type: {asset_type}")
 
-    target_dir = Path(custom_path) if custom_path else BASE_ASSET_DIR / "incoming" / asset_type
+    if custom_path:
+        target_dir = safe_resolve(Path(workspace_dir), custom_path)
+    else:
+        target_dir = BASE_ASSET_DIR / "incoming" / asset_type
     target_dir.mkdir(parents=True, exist_ok=True)
 
     async with httpx.AsyncClient(follow_redirects=True) as client:
@@ -69,7 +81,10 @@ async def download_via_ytdlp(url: str, asset_type: str, source: str, asset_id: s
     if asset_type not in ["audio", "image", "video", "icons"]:
         raise ValueError(f"Invalid asset_type: {asset_type}")
 
-    target_dir = Path(custom_path) if custom_path else BASE_ASSET_DIR / "incoming" / asset_type
+    if custom_path:
+        target_dir = safe_resolve(Path(workspace_dir), custom_path)
+    else:
+        target_dir = BASE_ASSET_DIR / "incoming" / asset_type
     target_dir.mkdir(parents=True, exist_ok=True)
     
     filename_template = f"{source}_{asset_type}_{asset_id}.%(ext)s"

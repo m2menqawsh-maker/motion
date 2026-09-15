@@ -3,8 +3,10 @@
 
 import os
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import json
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 
 def ensure_dependencies():
@@ -32,7 +34,7 @@ def find_ffprobe():
     
     for p in possible_paths:
         try:
-            result = subprocess.run([str(p), "-version"], capture_output=True, text=True, check=False)
+            result = safe_subprocess([str(p), "-version"], capture_output=True, text=True, check=False)
             if result.returncode == 0:
                 return str(p)
         except (FileNotFoundError, OSError):
@@ -116,6 +118,7 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
     video_path = project_dir / "06_build" / "out" / f"{project_id}_final.mp4"
     timings_path = project_dir / "04_timings.json"

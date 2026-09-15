@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import time
 import subprocess
+from scripts.security import safe_subprocess
 import json
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 
 def run_guard(guard_script, payload):
     proc = subprocess.Popen(

@@ -7,10 +7,12 @@ Smart Orchestrator Pipeline (المنسق الذكي)
 """
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import os
 import json
 import hashlib
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -33,8 +35,8 @@ def load_state(state_file: Path) -> dict:
             return {}
     return {}
 
-def save_state(state_file: Path, state: dict):
-    state_file.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+def print_state_marker(state: dict):
+    print(f"__PIPELINE_STATE__{json.dumps(state)}__PIPELINE_STATE__")
 
 def run_script(script_name: str, *args) -> bool:
     script_path = Path("scripts") / script_name
@@ -45,7 +47,7 @@ def run_script(script_name: str, *args) -> bool:
     cmd = [sys.executable, str(script_path)] + list(args)
     print(f"   ⏳ تشغيل {script_name}...")
     
-    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+    result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8")
     if result.returncode != 0:
         print(f"   ❌ فشل في {script_name}")
         print("\n" + "="*40 + " تفاصيل الخطأ " + "="*40)
@@ -65,6 +67,7 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     proj_dir = Path("projects") / project_id
     
     if not proj_dir.exists():
@@ -105,7 +108,7 @@ def main():
                 
             # Both passed, update state
             state["master_plan_hash"] = current_plan_hash
-            save_state(state_file, state)
+            print_state_marker(state)
         else:
             print(f"\n➔ المرحلة الثانية (Plan): لم يتغير master_plan.md (تخطي ✅)")
     else:
@@ -142,7 +145,7 @@ def main():
                 
             # All passed, update state
             state["blueprint_hash"] = current_bp_hash
-            save_state(state_file, state)
+            print_state_marker(state)
         else:
             print(f"\n➔ المرحلة الثالثة (Blueprint & QC): لم يتغير 05_blueprint.json (تخطي ✅)")
     else:

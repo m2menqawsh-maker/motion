@@ -9,8 +9,10 @@ Custom Code Validator — حارس منطقة الابتكار المحكومة
 """
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import re
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -147,7 +149,7 @@ class CustomCodeValidator:
     def check_typescript(self, file_path: Path) -> str:
         """يشغل tsc --noEmit ويتحقق من الأخطاء"""
         try:
-            result = subprocess.run(
+            result = safe_subprocess(
                 ["npx", "tsc", "--noEmit", str(file_path)],
                 capture_output=True,
                 text=True,
@@ -167,6 +169,7 @@ def main():
         sys.exit(1)
 
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     validator = CustomCodeValidator(project_id)
 
     try:

@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """materialize_project.py — البوابة الوحيدة لنقل الميديا والقوالب إلى البناء.
 Usage: python materialize_project.py <project_dir>"""
@@ -5,8 +7,8 @@ import json, shutil, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from scripts.core.pipeline import UnifiedPipeline
-from scripts.core.gates import GateViolation
+import asyncio
+from api.services.pipeline_service import PipelineService
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -22,11 +24,12 @@ man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))
 project_id = proj.name
 
 # ─── الفحص الإجباري قبل أي بناء ───
-pipeline = UnifiedPipeline(project_id)
 try:
-    bp = pipeline.gates.verify_blueprint_schema()
-    pipeline.gates.verify_plan_exists()
-except GateViolation as e:
+    status = asyncio.run(PipelineService.get_status(project_id))
+    if not (proj / "05_blueprint.json").exists() or not (proj / "01_plan.md").exists():
+        raise Exception("Missing plan or blueprint")
+    bp = json.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
+except Exception as e:
     print(f"\n{'='*60}")
     print(f"🛑 تم إيقاف materialize_project.py")
     print(f"{'='*60}")
@@ -75,8 +78,5 @@ for sec in bp.get("timeline", []):
 if fails:
     print("❌ MATERIALIZE FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)
 
-# ─── ختم الناتج لمنع النسخ اليدوي اللاحق وتحضير المشروع للمعاينة ───
-prep_info = pipeline.prep_and_materialize()
-
+# ─── تم النقل: الـ Hashing أصبح من مسؤولية pipeline.py ───
 print(f"✅ MATERIALIZED: {len(media_map)} assets, {len(used)} templates")
-print(f"🔒 تم تأمين المخرجات (Deep Hash): {prep_info['hash'][:8]}...")

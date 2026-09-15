@@ -1,31 +1,26 @@
-import subprocess
-import json
-from pathlib import Path
+from api.services.pipeline_service import PipelineService
+from scripts.path_security import validate_project_id
 
-def run_gate_command(project_id: str, *args) -> dict:
-    project_dir = Path(f"projects/{project_id}")
-    cmd = ["python", "scripts/gates/stage_gate.py", str(project_dir)] + list(args)
-    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-    return {
-        "exit_code": result.returncode,
-        "stdout": result.stdout,
-        "stderr": result.stderr
-    }
+async def get_status(project_id: str) -> dict:
+    """Thin wrapper around PipelineService for backward compatibility"""
+    validate_project_id(project_id)
+    return await PipelineService.get_status(project_id)
 
-def get_status(project_id: str) -> dict:
-    state_path = Path(f"projects/{project_id}/state.json")
-    if not state_path.exists():
-        return {}
-    return json.loads(state_path.read_text(encoding="utf-8"))
+async def start_stage(project_id: str, stage: str) -> dict:
+    validate_project_id(project_id)
+    return await PipelineService.start_stage(project_id, str(stage))
 
-def start_stage(project_id: str, stage: int) -> dict:
-    return run_gate_command(project_id, "start", str(stage))
+async def finish_stage(project_id: str, stage: str) -> dict:
+    validate_project_id(project_id)
+    return await PipelineService.finish_stage(project_id, str(stage))
 
-def finish_stage(project_id: str, stage: int) -> dict:
-    return run_gate_command(project_id, "finish", str(stage))
+async def approve_gate(project_id: str, gate: str, by: str = "gui") -> dict:
+    validate_project_id(project_id)
+    return await PipelineService.approve_gate(project_id, str(gate), approved_by=by)
 
-def approve_gate(project_id: str, gate: int, by: str = "gui") -> dict:
-    return run_gate_command(project_id, "approve", str(gate), by)
-
-def reject_gate(project_id: str, gate: int, by: str, note: str) -> dict:
-    return run_gate_command(project_id, "reject", str(gate), by, note)
+async def reject_gate(project_id: str, gate: str, by: str, note: str) -> dict:
+    validate_project_id(project_id)
+    # Rejection just resets the stage status to "started" and drops approval
+    legacy = await PipelineService.start_stage(project_id, str(gate))
+    legacy["note"] = note
+    return legacy

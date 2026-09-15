@@ -1,7 +1,10 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """verify_media_layer.py — يتحقق ميكانيكياً أن طبقة الميديا وMCP طُبقت كاملة.
 Exit 0 = كل شيء منفذ | Exit 1 = في عنصر ناقص (يسميه لك بالضبط)."""
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):

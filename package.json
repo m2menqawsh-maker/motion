@@ -2,8 +2,8 @@
   "type": "module",
   "scripts": {
     "api:dev": "python -m uvicorn api.main:app --reload --port 8787",
-    "studio": "remotion studio remotion-app/src/index.ts",
-    "build": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4",
+    "studio": "remotion studio remotion-app/src/index.ts --config=remotion-app/remotion.config.ts",
+    "build": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4 --config=remotion-app/remotion.config.ts",
     "dev": "concurrently \"npm run api:dev\" \"npm run studio\"",
     "test": "vitest run --passWithNoTests",
     "test:contracts": "vitest run tests/contracts.test.ts"

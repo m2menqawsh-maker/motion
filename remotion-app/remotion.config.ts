@@ -5,6 +5,8 @@ import path from "path";
 Config.setOverwriteOutput(true);
 Config.setVideoImageFormat("jpeg");
 
+const appDir = process.cwd().endsWith("remotion-app") ? process.cwd() : path.join(process.cwd(), "remotion-app");
+
 Config.overrideWebpackConfig((currentConfiguration) => {
   return {
     ...currentConfiguration,
@@ -12,7 +14,7 @@ Config.overrideWebpackConfig((currentConfiguration) => {
       ...currentConfiguration.resolve,
       alias: {
         ...(currentConfiguration.resolve?.alias ?? {}),
-        "@": path.join(process.cwd(), "src"),
+        "@": path.join(appDir, "src"),
       },
     },
   };
@@ -26,13 +28,13 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 // =========================================================================
 if (process.argv.includes("render") || process.argv.includes("studio")) {
   try {
-    const rootUnlocked = path.join(process.cwd(), "..", ".studio_unlocked");
+    const rootUnlocked = path.join(appDir, "..", ".studio_unlocked");
     let unlocked = fs.existsSync(rootUnlocked);
 
     if (!unlocked) {
       // Check via PROJECT_ID env
       const projId = process.env.PROJECT_ID;
-      if (projId && fs.existsSync(path.join(process.cwd(), "..", "projects", projId, ".studio_unlocked"))) {
+      if (projId && fs.existsSync(path.join(appDir, "..", "projects", projId, ".studio_unlocked"))) {
         unlocked = true;
       }
       

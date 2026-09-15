@@ -1,7 +1,9 @@
 import json
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import os
 import subprocess
+from scripts.security import safe_subprocess
 
 def compile_scenes(spec_path):
     if not os.path.exists(spec_path):
@@ -78,8 +80,8 @@ export const Scene{scene_idx}: React.FC = () => {{
     build_dir = os.path.join(project_dir, "06_build")
     if os.path.exists(build_dir):
         try:
-            # نستخدم shell=True لأننا على Windows
-            subprocess.run(["npx", "tsc", "--noEmit"], cwd=build_dir, shell=True, check=True)
+            # نستخدم shell=False لأننا على Windows
+            safe_subprocess(["npx", "tsc", "--noEmit"], cwd=build_dir, shell=False, check=True)
             print("tsc --noEmit passed successfully.")
         except subprocess.CalledProcessError as e:
             print(f"tsc --noEmit failed with exit code {e.returncode}")

@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """build_ground_truth.py — Generates ground-truth indices from actual disk scan.
 Zero-hardcode: every line is from a real scan. Exit 1 on failure."""
@@ -155,6 +157,7 @@ scan_templates(engine_dir, "engine")
 
 # --- Classify Templates ---
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 sys.path.append(str(DST / "scripts"))
 try:
     import classify_templates

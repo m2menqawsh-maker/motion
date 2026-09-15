@@ -5,7 +5,7 @@ version: 4.0.509
 ---
 
 This is guidance for writing Remotion React Markup.
-If this is not relevant, load [Remotion Best Practices](../remotion-best-practices/SKILL.md) instead.
+If this is not relevant, load [Remotion Best Practices](../markup/SKILL.md) instead.
 
 ## Preserve user changes
 
@@ -21,7 +21,7 @@ Tailwind animation class will not render correctly, they need to be refactored.
 
 Use `Easing.bezier()` and `Easing.spring()` to customize timing.
 
-Structure your markup according to [Remotion Interactivity Best Practices](../remotion-interactivity/SKILL.md)
+Structure your markup according to [Remotion Interactivity Best Practices](../interactivity/SKILL.md)
 
 ```tsx
 import { useCurrentFrame, Easing, interpolate, Interactive } from "remotion";
@@ -212,7 +212,7 @@ If a component does not support these props, wrap it in`<Sequence>` from `remoti
 
 ## Maps
 
-See [Remotion Maps](./remotion-maps/REFERENCE.md) if wanting to include maps in the video.
+See [Remotion Maps](./maps/SKILL.md) if wanting to include maps in the video.
 
 ## Text highlights and annotations
 
@@ -271,11 +271,11 @@ When needing to visualize audio (spectrum bars, waveforms, bass-reactive effects
 
 ## Maps
 
-For static maps, animated routes and markers, geographic explainers, Mapbox, MapLibre, MapTiler, GeoJSON, or 3D geographic flyovers, load [Remotion Maps](./remotion-maps/REFERENCE.md).
+For static maps, animated routes and markers, geographic explainers, Mapbox, MapLibre, MapTiler, GeoJSON, or 3D geographic flyovers, load [Remotion Maps](./maps/SKILL.md).
 
 ## Captions
 
-When dealing with captions or subtitles, load the [Remotion Captions](../remotion-captions/SKILL.md) skill for more information.
+When dealing with captions or subtitles, load the [Remotion Captions](../captions/SKILL.md) skill for more information.
 
 ## Google Fonts
 

@@ -17,22 +17,19 @@ graph TD
     subgraph "المرحلة 1: الميديا"
         VO --> Media[process_media.py]
         Media --> MediaMCP[Media MCPs]
-        MediaMCP --> Gate1{توقف 1: موافقة الميديا}
+        MediaMCP --> Orchestrator[scripts/pipeline.py]
     end
     
     subgraph "المرحلة 2: الخطة"
-        Gate1 --> PlanGen[كتابة الخطة يدوياً من الوكيل]
-        PlanGen --> PlanGate[plan_gate.py]
-        PlanGate --> Gate2{توقف 2: موافقة الخطة}
+        Orchestrator --> PlanGen[كتابة الخطة يدوياً من الوكيل]
+        PlanGen --> OrchestratorValidation[pipeline.py]
     end
     
     subgraph "المرحلة 3: البناء والرندر"
-        Gate2 --> Materialize[materialize_project.py]
-        Materialize --> CodeGate[code_template_gate.py & motion_validator.py]
-        CodeGate --> ProbeQC[probe_qc.py]
+        OrchestratorValidation --> Materialize[materialize_project.py]
+        Materialize --> ProbeQC[probe_qc.py]
         ProbeQC --> Studio[open_studio.py]
-        Studio --> Gate3{توقف 3: موافقة الاستوديو}
-        Gate3 --> Render[render_project.py]
+        Studio --> Render[render_project.py]
         Render --> FinalQC[final_qc.py]
     end
     
@@ -41,23 +38,22 @@ graph TD
 
 ## 2. بنية طبقات الأمان (Security & Guardians)
 
-النظام مبني على فكرة **"بوابات الرفض الإفتراضي" (Default Deny Gates)**. لا يمر المشروع للمرحلة التالية إلا بعد استيفاء شروط تقنية صارمة.
+النظام مبني على فكرة **"المنسق المركزي" (Smart Orchestrator)** الذي يتحقق من حالة المشروع عبر البوابات.
 
-1. **Gate 1: بوابة البيانات الواردة**
+1. **المنسق الذكي: `scripts/pipeline.py`**
+   - هو مركز التحكم الرئيسي الذي يدير الانتقال بين المراحل.
+   - يعتمد على حالة المشروع في `.pipeline_state.json`.
+
+2. **بوابة البيانات الواردة**
    - السكريبتات: `process_media.py` / `vo_quality_check.py`
    - تمنع أي ميديا تالفة، أو أي صوت غير متوافق (يجب أن يكون `-16 LUFS`).
 
-2. **Gate 2: بوابة السلامة المنطقية (Logical Gate)**
-   - السكريبتات: `plan_gate.py` / `stage_gate.py`
-   - تمنع الوكيل من إنشاء خطة بدون تحليل صوتي (`04_timings.json`).
-   - تمنع الخطة التي لا تحتوي على جداول كلمات دقيقة وSFX مناسبة.
+3. **بوابة السلامة (Safety & Schema Gates)**
+   - يديرها `pipeline.py` داخلياً (استبدلت `plan_gate.py` القديم).
+   - تمنع الوكيل من إنشاء خطة بدون تحليل صوتي.
+   - تدقق في صحة عقود JSON (`05_blueprint.json` إلخ).
 
-3. **Gate 3: بوابة سلامة الكود (Code Integrity Gate)**
-   - السكريبتات: `code_template_gate.py` / `motion_validator.py`
-   - تمنع أي كود Remotion لا يستخدم `@templates`.
-   - تمنع الارتجال في الأنيميشن (استدعاء `spring` أو `interpolate` مباشرة محظور).
-
-4. **Gate 4: القفل الميكانيكي للبناء (Mechanical Lock)**
+4. **القفل الميكانيكي للبناء (Mechanical Lock)**
    - السكريبتات: `probe_qc.py` و `package.json`
    - `npm run render` محظور كلياً من الـ terminal.
    - الرندر لا يبدأ بدون ملف `.studio_approved` الذي يُنشئه المستخدم يدوياً.

@@ -1,7 +1,10 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """code_template_gate.py — يمنع الارتجال ويجبر الوكيل على استخدام القوالب
 Usage: python code_template_gate.py <project_dir>"""
-import sys, json, re, hashlib, subprocess
+import sys
+from scripts.path_security import validate_project_id, safe_resolve, json, re, hashlib, subprocess
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -12,7 +15,7 @@ if hasattr(sys.stderr, "reconfigure"):
 def verify_git_integrity():
     try:
         # Check if there are any untracked, modified, or deleted files in templates/
-        result = subprocess.run(['git', 'status', '--porcelain', 'templates/'], 
+        result = safe_subprocess(['git', 'status', '--porcelain', 'templates/'], 
                                 capture_output=True, text=True, check=True)
         if result.stdout.strip():
             print("\n" + "="*60)

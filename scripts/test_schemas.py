@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 """
 اختبارات العقود — Schema Tests
@@ -14,6 +16,7 @@
 
 import json
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import copy
 from pathlib import Path
 

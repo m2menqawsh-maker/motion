@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 """
 Promote Template — ترقية القالب من proposed/ إلى templates/
@@ -5,6 +7,7 @@ Promote Template — ترقية القالب من proposed/ إلى templates/
 """
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import json
 import shutil
 from pathlib import Path

@@ -1,37 +1,29 @@
-import subprocess
+from scripts.path_security import validate_project_id
 import asyncio
 from api.websocket import ConnectionManager
+from api.services.pipeline_service import PipelineService
 from pathlib import Path
 
 async def render_project_async(project_id: str, manager: ConnectionManager):
-    project_dir = Path(f"projects/{project_id}")
-    # Use the unified pipeline for rendering instead of the rogue TS script
-    cmd = ["python", "-c", f"import sys; sys.path.insert(0, '.'); from scripts.core.pipeline import UnifiedPipeline; UnifiedPipeline('{project_id}').render()"]
+    project_id = validate_project_id(project_id)
     
-    # Run process asynchronously
-    process = await asyncio.create_subprocess_exec(
-        *cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE
-    )
-
-    if process.stdout:
-        while True:
-            line = await process.stdout.readline()
-            if not line:
-                break
-            text = line.decode('utf-8').strip()
-            if text:
-                await manager.broadcast(text, project_id)
-
-    if process.stderr:
-        while True:
-            line = await process.stderr.readline()
-            if not line:
-                break
-            text = line.decode('utf-8').strip()
-            if text:
-                await manager.broadcast(f"ERROR: {text}", project_id)
-
-    await process.wait()
-    await manager.broadcast(f"DONE: exited with code {process.returncode}", project_id)
+    await manager.broadcast(f"STARTING PIPELINE FOR: {project_id}", project_id)
+    
+    try:
+        result = await PipelineService.run_pipeline(project_id)
+        
+        # Broadcast stdout
+        if result.get("stdout"):
+            for line in result["stdout"].splitlines():
+                if line.strip():
+                    await manager.broadcast(line, project_id)
+                    
+        # Broadcast stderr if any
+        if result.get("stderr"):
+            for line in result["stderr"].splitlines():
+                if line.strip():
+                    await manager.broadcast(f"ERROR: {line}", project_id)
+                    
+        await manager.broadcast(f"DONE: exited with code {result.get('return_code')}", project_id)
+    except Exception as e:
+        await manager.broadcast(f"ERROR: {str(e)}", project_id)

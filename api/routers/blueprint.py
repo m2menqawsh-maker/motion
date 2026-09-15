@@ -1,3 +1,6 @@
+from scripts.path_security import validate_project_id
+import subprocess
+from scripts.security import safe_subprocess
 from fastapi import APIRouter, HTTPException, Body
 import json
 from pathlib import Path
@@ -11,6 +14,7 @@ BLUEPRINT_SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8")) if SCHEMA
 
 @router.get("/{project_id}")
 async def get_blueprint(project_id: str):
+    project_id = validate_project_id(project_id)
     blueprint_path = Path(f"projects/{project_id}/blueprint.json")
     overrides_path = Path(f"projects/{project_id}/overrides.json")
     

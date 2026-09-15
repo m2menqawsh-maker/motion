@@ -3,8 +3,10 @@
 
 import os
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import json
 import subprocess
+from scripts.security import safe_subprocess
 from pathlib import Path
 
 def ensure_dependencies():
@@ -145,7 +147,7 @@ def extract_frames(project_id, comp_name):
         ]
         try:
             use_shell = os.name == "nt"
-            subprocess.run(cmd, cwd=str(project_dir), shell=use_shell, check=True, capture_output=True)
+            safe_subprocess(cmd, cwd=str(project_dir), shell=False, check=True, capture_output=True)
         except Exception as e:
             print(f"⚠️ فشل استخراج الإطار {frame}: {e}")
             
@@ -157,6 +159,7 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     comp_name = sys.argv[2]
     
     project_dir = Path(f"projects/{project_id}")

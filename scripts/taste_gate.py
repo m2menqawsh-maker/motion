@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 import json, sys, re
 from pathlib import Path
 

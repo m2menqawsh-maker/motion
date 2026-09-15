@@ -1,5 +1,8 @@
+import subprocess
+from scripts.security import safe_subprocess
 import json
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import os
 
 # مجرد كتالوج افتراضي لاختبار القاعدة، يمكن ربطه بـ TEMPLATE_INDEX.md لاحقاً

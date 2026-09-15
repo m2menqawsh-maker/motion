@@ -82,7 +82,7 @@ The Detailed Plan (Phase 2) must be written by the Agent itself based on:
 - `scripts/template_router.py` (CLI tool to search and select templates)
 - `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` (Sound Effects)
 
-Scripts like `generate_plan.py` or `plan_gate.py` are for validation only, NOT for creative generation.
+Scripts like `generate_plan.py` are for validation only, NOT for creative generation.
 
 ## 4. Mandatory Pre-Task Reading
 Before any new step, check for `.agent_alerts.md` in the project directory.
@@ -136,7 +136,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 6. **Audio First:** `analyze_voiceover` is the first technical step. No plan without actual audio analysis.
 7. **Edit → Partial Check → Full QC:** When an edit is requested from the Studio, check the affected shot only. But before any final render, rerun full Probe-QC.
 8. **Anti-Hallucination:** No fake files, no empty reports, no guessed timings. Every number comes from an actual tool.
-9. **Smart Orchestrator (pipeline.py):** You are FORBIDDEN from running individual gates like `plan_gate.py` or `probe_qc.py` manually. You MUST strictly use the smart orchestrator: run `python scripts/pipeline.py <project_id>`. This script will intelligently detect changes via hashes and run all necessary gates automatically. No skipping.
+9. **Smart Orchestrator (pipeline.py):** You are FORBIDDEN from running deprecated legacy gates (like `plan_gate.py`). You MUST strictly use the smart orchestrator: run `python scripts/pipeline.py <project_id>`. This script is the single source of truth for pipeline transitions and intelligently detects changes via hashes to validate all necessary gates automatically. No skipping. All state is strictly tracked in `.pipeline_state.json`.
 10. **Taste is a Gate, Not Advice:** Motion personality and numbers are written in the scene plan, and they will be verified automatically when you run `pipeline.py`. Failure = no build.
 11. **Reading Before Scene:** The agent must read the Taste Engine files before writing code for any scene.
 12. **Plan for Every Scene:** No build without a written scene plan approved by the user.
@@ -177,3 +177,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 - **Dark/Cyber Theme:** Backgrounds must be dark (Deep Indigo, Black, Dark Cyber) with neon glows (Neon Cyan, Gold) to create High Contrast.
 - **Icons:** No monochrome wireframe icons. Use Rich Colorful SVG Badges with distinct visual identity.
 - **Captions:** Use Glassmorphism Pills with neon borders and icons. Do not use bare, exposed text for captions.
+
+## ⛔ Prohibited Tools (Quarantined)
+- **`Video_Editor_MCP`**: (RCE risk) Do not attempt to use, reference, or reinstall this MCP server. Use `ffmpeg-mcp-server` instead.
+- **`workflows/`**: (Bypasses official protocol) These workflows are quarantined. Do not reference, execute, or learn from these workflows.

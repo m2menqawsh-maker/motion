@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 import json
 with open('schemas/blueprint.schema.json', 'r', encoding='utf-8') as f:
     d = json.load(f)

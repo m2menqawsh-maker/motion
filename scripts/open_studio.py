@@ -1,9 +1,12 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 open_studio.py — سكريبت وسيط لفتح الاستوديو بأمان وفي المسار الصحيح
 """
-import sys, os, subprocess, json
+import sys
+from scripts.path_security import validate_project_id, safe_resolve, os, subprocess, json
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -17,7 +20,7 @@ def is_docker_running():
     if not shutil.which("docker"):
         return False
     try:
-        proc = subprocess.run(["docker", "info"], capture_output=True, text=True, timeout=5)
+        proc = safe_subprocess(["docker", "info"], capture_output=True, text=True, timeout=5)
         return proc.returncode == 0
     except Exception:
         return False
@@ -32,6 +35,7 @@ def main():
         sys.exit(1)
 
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     
     workspace_root = Path.cwd()
     if (workspace_root / "projects" / project_id).exists():
@@ -90,7 +94,7 @@ def main():
         os.chdir(str(engine_dir))
         use_shell = os.name == "nt"
         cmd = ["npx", "remotion", "studio", "--props", str(props_file_abs)]
-        subprocess.run(cmd, shell=use_shell)
+        safe_subprocess(cmd, shell=False)
     else:
         if not is_docker_running():
             print("❌ [Docker Error] محرك Docker غير يعمل أو غير مثبت في النظام. الرجاء تشغيله أولاً.")
@@ -110,7 +114,7 @@ def main():
             "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/05_blueprint.json"
         ]
         
-        subprocess.run(docker_cmd)
+        safe_subprocess(docker_cmd)
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """validate_blueprint.py — بوابة عقد الـ Blueprint قبل البناء.
 Usage:

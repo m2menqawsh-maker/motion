@@ -1,3 +1,5 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """probe_qc.py — يولد تقرير فحص المشاهد
 Usage: python probe_qc.py <project_dir> <comp_id>"""
@@ -6,9 +8,6 @@ import concurrent.futures
 from pathlib import Path
 from datetime import datetime
 
-sys.path.insert(0, str(Path(__file__).parent))
-from core.pipeline import UnifiedPipeline as PipelineGuard
-from core.gates import GateViolation as GuardViolation
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -160,7 +159,7 @@ def render_frame(args):
     if use_engine:
         cmd.extend(["--props", str(props_file_abs)])
     print(f"📸 توليد اللقطة {i:02d} (إطار {f})...")
-    res = subprocess.run(cmd, cwd=exec_cwd, shell=True, capture_output=True)
+    res = safe_subprocess(cmd, cwd=exec_cwd, shell=False, capture_output=True)
     if res.returncode != 0:
         print(f"❌ فشل توليد اللقطة {i:02d}")
         return None
@@ -194,7 +193,7 @@ if rendered_files:
     for f in sampled:
         ff_cmd.extend(["-i", f])
     ff_cmd.extend(["-filter_complex", f"hstack=inputs={len(sampled)}", "-loglevel", "error", str(out_sheet)])
-    res_cs = subprocess.run(ff_cmd)
+    res_cs = safe_subprocess(ff_cmd)
     if res_cs.returncode == 0 and out_sheet.exists():
         import shutil
         shutil.copy2(str(out_sheet), str(proj_dir / "contact_sheet.png"))

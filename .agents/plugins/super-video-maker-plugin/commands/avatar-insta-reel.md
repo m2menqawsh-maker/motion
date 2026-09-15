@@ -8,7 +8,7 @@ Build an **avatar-insta-split** reel with the `super-video-maker` skill.
 User inputs: $ARGUMENTS
 
 Run the skill's `avatar-insta-split` recipe end to end. Source of truth:
-`recipes/avatar-insta-split.json` and `workflows/avatar-insta-split/README.md`.
+`recipes/avatar-insta-split.json` (Note: workflows are quarantined).
 
 Pipeline:
 1. **Intake.** Confirm: the HeyGen avatar id (`HEYGEN_AVATAR_ID` / `--avatar-id`), the
@@ -21,7 +21,7 @@ Pipeline:
    slower than people, so a ~33s human script lands near ~40s. Whisper-verify any brand
    name pronounces correctly (name-safety).
 3. **Avatar (language-aware).**
-   `python3 workflows/avatar-insta-split/gen_avatar.py --script-file script.txt --out job/avatar.mp4 --language <Lang> [--gender female] --avatar-id <ID>`
+   (Workflow quarantined - do not run gen_avatar.py)
    - **English** → HeyGen text voice (`HEYGEN_VOICE_ID`), unchanged.
    - **Non-English** → a dynamically-picked **ElevenLabs** voice (eleven_v3) for that
      language drives a HeyGen audio-lip-synced render. Bundled model voice, never a cloned

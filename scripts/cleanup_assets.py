@@ -1,5 +1,8 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import os
 import shutil
 from pathlib import Path

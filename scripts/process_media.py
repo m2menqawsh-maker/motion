@@ -1,8 +1,11 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 """
 process_media.py — أدوات معالجة وفحص الميديا
 """
-import sys, subprocess
+import sys
+from scripts.path_security import validate_project_id, safe_resolve, subprocess
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -14,7 +17,7 @@ def validate_media_quality(file_path: Path):
     """يفحص جودة الميديا قبل البناء"""
     
     # فحص الفيديو: هل هو صالح؟
-    result = subprocess.run(
+    result = safe_subprocess(
         ["ffprobe", "-v", "error", "-select_streams", "v:0", 
          "-show_entries", "stream=codec_name,width,height", 
          "-of", "csv=p=0", str(file_path)],
@@ -25,7 +28,7 @@ def validate_media_quality(file_path: Path):
         return False, "الفيديو خربان أو غير صالح"
     
     # فحص: هل المدة كافية؟
-    duration_result = subprocess.run(
+    duration_result = safe_subprocess(
         ["ffprobe", "-v", "error", "-show_entries", "format=duration",
          "-of", "csv=p=0", str(file_path)],
         capture_output=True, text=True

@@ -1,7 +1,10 @@
+import subprocess
+from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import re
 import json
 import os
@@ -213,6 +216,7 @@ def main():
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
     plan_file = project_dir / "master_plan.md"
     timings_file = project_dir / "04_timings.json"

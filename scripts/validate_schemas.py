@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 فاحص العقود — Schema Validator
@@ -17,6 +18,11 @@ import sys
 import os
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from scripts.security import safe_subprocess
+from scripts.path_security import validate_project_id, safe_resolve
+
 try:
     import jsonschema
     from jsonschema import Draft7Validator, RefResolver, ValidationError
@@ -28,11 +34,10 @@ except ImportError:
 # خريطة الملفات ← العقود
 FILE_SCHEMA_MAP = {
     "project.json": "project.schema.json",
-    "blueprint.json": "blueprint.schema.json",
+    "05_blueprint.json": "blueprint.schema.json",
     "brand.json": "brand.schema.json",
     "overrides.json": "overrides.schema.json",
     "manifest.json": "manifest.schema.json",
-    "state.json": "state.schema.json",
 }
 
 

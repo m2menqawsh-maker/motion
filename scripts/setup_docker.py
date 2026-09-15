@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import subprocess
+from scripts.security import safe_subprocess
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 def main():
@@ -13,7 +15,7 @@ def main():
         sys.exit(1)
         
     cmd = ["docker", "build", "-t", "clean-video-builder", "-f", str(dockerfile_path), "."]
-    proc = subprocess.run(cmd, cwd=str(workspace))
+    proc = safe_subprocess(cmd, cwd=str(workspace))
     if proc.returncode == 0:
         print("✅ Docker Image built successfully.")
     else:

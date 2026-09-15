@@ -1,5 +1,8 @@
+import subprocess
+from scripts.security import safe_subprocess
 import os
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 import time
 import json
 import re
@@ -103,6 +106,7 @@ if __name__ == "__main__":
         sys.exit(1)
         
     project_id = sys.argv[1]
+    project_id = validate_project_id(project_id)
     brain_session_path = sys.argv[2]
     
     # Normally this would run indefinitely, for testing we'll just run it as a daemon or timeout

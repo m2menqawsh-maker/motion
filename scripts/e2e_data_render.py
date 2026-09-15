@@ -10,11 +10,14 @@ E2E Pipeline Test — المشروع المرجعي
   ✅ E2E PASS + mp4 file path
   ❌ E2E FAIL + error message
 """
-import subprocess, json, shutil, sys
+import subprocess
+from scripts.security import safe_subprocess
+import json, shutil, sys, asyncio
 from pathlib import Path
+from api.services.pipeline_service import PipelineService
 
 def run(cmd, check=True):
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = safe_subprocess(cmd, capture_output=True, text=True)
     if check and result.returncode != 0:
         print(f"❌ فشل: {cmd}")
         print(result.stderr)
@@ -41,17 +44,21 @@ def main():
         data["project_id"] = project_id
         (project_dir / f).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     
-    # 4. تشغيل stage_gate.py (happy path)
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "start", "0"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "finish", "0"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "approve", "1", "e2e_test"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "start", "1"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "finish", "1"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "approve", "2", "e2e_test"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "start", "2"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "finish", "2"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "approve", "3", "e2e_test"])
-    run(["python", "scripts/gates/stage_gate.py", str(project_dir), "start", "3"])
+    # 4. تشغيل البوابات عبر PipelineService
+    async def run_gates():
+        await PipelineService.start_stage(project_id, "asset_gate")
+        await PipelineService.finish_stage(project_id, "asset_gate")
+        await PipelineService.approve_gate(project_id, "asset_gate", "e2e_test")
+        
+        await PipelineService.start_stage(project_id, "plan_gate")
+        await PipelineService.finish_stage(project_id, "plan_gate")
+        await PipelineService.approve_gate(project_id, "plan_gate", "e2e_test")
+        
+        await PipelineService.start_stage(project_id, "taste_gate")
+        await PipelineService.finish_stage(project_id, "taste_gate")
+        await PipelineService.approve_gate(project_id, "taste_gate", "e2e_test")
+        
+    asyncio.run(run_gates())
     
     # 5. تشغيل dev_render_blueprint.ts
     out_path = Path("out") / f"{project_id}.mp4"

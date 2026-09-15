@@ -15,7 +15,9 @@ Exit code: 0 = PASS, 1 = FAIL
 import json
 import os
 import subprocess
+from scripts.security import safe_subprocess
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 from datetime import datetime
 from pathlib import Path
 
@@ -35,7 +37,7 @@ def probe_video(video_path: Path) -> dict:
         "-of", "json",
         str(video_path)
     ]
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    res = safe_subprocess(cmd, capture_output=True, text=True)
     if res.returncode != 0:
         raise RuntimeError(f"ffprobe failed on {video_path}: {res.stderr.strip()}")
     
@@ -76,7 +78,7 @@ def extract_frame(video_path: Path, timestamp: float, out_path: Path) -> bool:
         "-q:v", "2",
         str(out_path)
     ]
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    res = safe_subprocess(cmd, capture_output=True, text=True)
     return res.returncode == 0 and out_path.exists() and out_path.stat().st_size > 0
 
 
@@ -97,7 +99,7 @@ def build_contact_sheet(frame_paths: list, out_sheet: Path) -> bool:
         
     filter_graph = f"hstack=inputs={len(frame_paths)}"
     cmd = ["ffmpeg", "-y"] + inputs + ["-filter_complex", filter_graph, str(out_sheet)]
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    res = safe_subprocess(cmd, capture_output=True, text=True)
     return res.returncode == 0 and out_sheet.exists() and out_sheet.stat().st_size > 0
 
 

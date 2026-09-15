@@ -41,11 +41,7 @@ def test_project_json_schema(run_scaffold):
     result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
     assert "✅ project.json         — سليم" in result.stdout
 
-def test_state_json_schema(run_scaffold):
-    project_id, project_dir = run_scaffold
-    cmd = ["python", "scripts/validate_schemas.py", str(project_dir)]
-    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-    assert "✅ state.json           — سليم" in result.stdout
+
 
 def test_brand_json_schema(run_scaffold):
     project_id, project_dir = run_scaffold

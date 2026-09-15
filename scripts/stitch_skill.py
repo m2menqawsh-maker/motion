@@ -1,6 +1,9 @@
+import subprocess
+from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """stitch_skill.py — يخيط الملفات القديمة بالطبقات الجديدة (idempotent)."""
 import sys
+from scripts.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
