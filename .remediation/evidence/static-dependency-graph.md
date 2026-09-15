@@ -1,0 +1,148 @@
+# Static Dependency Analysis Report
+
+## Top 20 Most Imported Files
+- `engine/tokens.ts` (imported by 28 files)
+- `.agents/plugins/super-video-maker-plugin/reference/patterns/examples/index.ts` (imported by 9 files)
+- `.agents/plugins/super-video-maker-plugin/references/deep/patterns/examples/index.ts` (imported by 9 files)
+- `engine/types.ts` (imported by 8 files)
+- `contracts/StyleSurface.ts` (imported by 6 files)
+- `engine/primitives/index.ts` (imported by 6 files)
+- `contracts/brand.ts` (imported by 6 files)
+- `registry/template-registry.tsx` (imported by 6 files)
+- `contracts/blueprint.ts` (imported by 5 files)
+- `engine/cursor/types.ts` (imported by 5 files)
+- `remotion-app/src/merge.ts` (imported by 5 files)
+- `registry/types.ts` (imported by 4 files)
+- `engine/camera/types.ts` (imported by 3 files)
+- `engine/schema.ts` (imported by 3 files)
+- `remotion-app/src/lib/onda/tokens.ts` (imported by 3 files)
+- `remotion-app/src/remotion/lib/timing.ts` (imported by 3 files)
+- `scripts/core/gates.py` (imported by 3 files)
+- `scripts/core/pipeline.py` (imported by 3 files)
+- `api/main.py` (imported by 3 files)
+- `api/websocket.py` (imported by 2 files)
+
+## Top 20 Most Mentioned Files in Docs/Agent Files
+- `package.json` (mentioned by 26 files)
+- `scripts/materialize_project.py` (mentioned by 17 files)
+- `.studio_unlocked` (mentioned by 11 files)
+- `.env.example` (mentioned by 11 files)
+- `scripts/open_studio.py` (mentioned by 10 files)
+- `scripts/render_project.py` (mentioned by 8 files)
+- `ground-truth/TOOLS_INDEX.md` (mentioned by 8 files)
+- `ground-truth/MCP_INDEX.md` (mentioned by 8 files)
+- `scripts/validate_blueprint.py` (mentioned by 7 files)
+- `scripts/probe_qc.py` (mentioned by 7 files)
+- `requirements.txt` (mentioned by 7 files)
+- `scripts/sync_templates.py` (mentioned by 7 files)
+- `ground-truth/CINEMATIC_INDEX.md` (mentioned by 7 files)
+- `engine/scenes/Closer.tsx` (mentioned by 7 files)
+- `engine/scenes/DynamicWindows.tsx` (mentioned by 7 files)
+- `engine/scenes/ChaosDesktop.tsx` (mentioned by 7 files)
+- `engine/scenes/ProductReveal.tsx` (mentioned by 7 files)
+- `engine/scenes/HeadlineResolution.tsx` (mentioned by 7 files)
+- `engine/scenes/FeatureShowcase.tsx` (mentioned by 7 files)
+- `templates/elements/Scene3DWrapper.tsx` (mentioned by 6 files)
+
+## Potential Orphans (Code files not imported by anyone)
+- `.agents/guardian/behavior_guard.py`
+- `.agents/guardian/command_guard.py`
+- `.agents/guardian/post_executor.py`
+- `.agents/guardian/utils.py`
+- `.agents/guardian/write_guard.py`
+- `.agents/plugins/super-video-maker-plugin/verify.py`
+- `.agents/plugins/super-video-maker-plugin/reference/patterns/index.ts`
+- `.agents/plugins/super-video-maker-plugin/references/deep/patterns/index.ts`
+- `.agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py`
+- `.agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py`
+- `.agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py`
+- `.agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py`
+- `.agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py`
+- `.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py`
+- `.agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py`
+- `.agents/plugins/super-video-maker-plugin/tools/heygen_client.py`
+- `.agents/plugins/super-video-maker-plugin/tools/image_provider.py`
+- `.agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py`
+- `.agents/plugins/super-video-maker-plugin/tools/music_provider.py`
+- `.agents/plugins/super-video-maker-plugin/tools/replicate_video.py`
+- `.agents/plugins/super-video-maker-plugin/tools/screen_recorder.py`
+- `.agents/plugins/super-video-maker-plugin/tools/ugc_ad_runner.py`
+- `.agents/plugins/super-video-maker-plugin/tools/video_captioner.py`
+- `.agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py`
+- `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/server.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/manifest_builder.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/sentence_splitter.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/timeline_builder.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/voiceover_ops.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/server.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/utils/cache_ops.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/server.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/utils/image_ops.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/dump_html.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/server.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/freesound.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/iconify.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/pexels.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/pixabay.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/downloader.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/file_organizer.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/http_client.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/pixabay_scraper.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/server.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src/video_editor/newserver.py`
+- `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src/video_editor/server.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/capture_article.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_sfx.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/assemble.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/build_captions.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/capture_anim.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/capture_receipts.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/finalize.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/gen_craft_clip.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/gen_presenter.py`
+- `.agents/plugins/super-video-maker-plugin/workflows/tabletop-levels-explainer/whisper_timeline.py`
+- `api/routers/blueprint.py`
+- `api/routers/brand.py`
+- `api/routers/gates.py`
+- `api/routers/projects.py`
+- `api/routers/render.py`
+- `api/services/gate_service.py`
+- `contracts/positions.ts`
+- `documentation/legacy/spec-driven/build_ground_truth.py`
+- `documentation/legacy/spec-driven/scene_compiler.py`
+- `documentation/legacy/spec-driven/spec_validator.py`
+- `documentation/legacy/spec-driven/taste_gate.py`
+- `documentation/legacy/spec-driven/template_router.py`
+- `documentation/tools/breakdown.py`
+- `documentation/tools/build_massive_report.py`
+- `documentation/tools/generate_overview.py`
+- `documentation/tools/print_orphans.py`
+- `engine/fonts.ts`
+- `engine/index.ts`
+- `engine/audio/index.ts`
+- `engine/camera/AutoZoom.tsx`
+- `engine/camera/index.ts`
+- `engine/choreography/filterCursorPath.ts`
+- `engine/choreography/index.ts`
+- `engine/choreography/mapCursorPath.ts`
+- `engine/choreography/resolveWindowPose.ts`
+- `engine/cursor/Cursor.tsx`
+- `engine/cursor/index.ts`
+- `engine/layout/index.ts`
+- `engine/layout/LayoutWindow.tsx`
+- `engine/layout/useWindowRect.ts`
+- `engine/layout/zones.ts`
+- `engine/primitives/EndCard.tsx`
+- `engine/primitives/Headline.tsx`
+- `engine/primitives/ScenePush.tsx`
+- `engine/primitives/TypeWriter.tsx`
+- `engine/primitives/Window.tsx`
+- `engine/primitives/app-ui/AppFromDescriptor.tsx`
+- ... and 278 more.

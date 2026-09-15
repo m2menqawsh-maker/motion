@@ -1,0 +1,772 @@
+{
+  "entrypoints": [
+    {
+      "type": "python_cli",
+      "source_file": ".agents/guardian/behavior_guard.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/guardian/command_guard.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/guardian/post_executor.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/guardian/write_guard.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tests/test_video_recipes.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/image_provider.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/media_pipeline.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/music_provider.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/replicate_video.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/ugc_ad_runner.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/server.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/server.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/server.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/dump_html.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/server.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_attrs.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_click.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_network.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_playwright.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_regex.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_workflow.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_workflow_final.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/server.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src/video_editor/__init__.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/Video_Editor_MCP/src/video_editor/__main__.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/capture_article.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": ".agents/plugins/super-video-maker-plugin/workflows/avatar-vo-broll/build_vo_broll.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "documentation/legacy/spec-driven/scene_compiler.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "documentation/legacy/spec-driven/spec_validator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "documentation/legacy/spec-driven/taste_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "documentation/legacy/spec-driven/template_router.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "remotion-app/build_caption_props.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/agent_watcher.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/asset_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/batch_builder.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/benchmark_guards.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/build_asset_index.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/ci_run_all.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/classify_templates.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/cleanup_assets.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/code_template_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/custom_code_validator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/e2e_data_render.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/final_qc.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/generate_plan.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/inspect_template.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/migrate_assets.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/migrate_legacy_projects.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/motion_validator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/open_studio.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/pipeline.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/plan_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/promote_template.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/render_project.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/retier_docs.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/scaffold_project.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/scene_compiler.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/setup_docker.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/smart_qc.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/spec_validator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/sync_templates.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/taste_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/template_proposal_validator.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/template_router.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/test_schemas.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/transcript_cleaner.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/validate_blueprint.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/validate_schemas.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/validate_template.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/vo_quality_check.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/gates/plan_report.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/gates/stage_gate.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "scripts/verify/verify_preview.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "tests/test_guardrails.py"
+    },
+    {
+      "type": "python_cli",
+      "source_file": "tests/gates/test_stage_gate.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/health",
+      "source_file": "api/main.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/{project_id}",
+      "source_file": "api/routers/blueprint.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/blueprint",
+      "source_file": "api/routers/blueprint.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/overrides",
+      "source_file": "api/routers/blueprint.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/{project_id}",
+      "source_file": "api/routers/brand.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}",
+      "source_file": "api/routers/brand.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/{project_id}/status",
+      "source_file": "api/routers/gates.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/start/{stage}",
+      "source_file": "api/routers/gates.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/finish/{stage}",
+      "source_file": "api/routers/gates.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/approve/{gate}",
+      "source_file": "api/routers/gates.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}/reject/{gate}",
+      "source_file": "api/routers/gates.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/",
+      "source_file": "api/routers/projects.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/",
+      "source_file": "api/routers/projects.py"
+    },
+    {
+      "type": "api_route",
+      "method": "GET",
+      "route": "/{project_id}",
+      "source_file": "api/routers/projects.py"
+    },
+    {
+      "type": "api_route",
+      "method": "POST",
+      "route": "/{project_id}",
+      "source_file": "api/routers/render.py"
+    },
+    {
+      "type": "npm_script",
+      "name": "api:dev",
+      "command": "python -m uvicorn api.main:app --reload --port 8787",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "studio",
+      "command": "remotion studio remotion-app/src/index.ts",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "build",
+      "command": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "dev",
+      "command": "concurrently \"npm run api:dev\" \"npm run studio\"",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "test",
+      "command": "vitest run --passWithNoTests",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "test:contracts",
+      "command": "vitest run tests/contracts.test.ts",
+      "source_file": "package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "studio",
+      "command": "cd remotion-app && npm run studio",
+      "source_file": ".agents/plugins/super-video-maker-plugin/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "render",
+      "command": "cd remotion-app && npm run render",
+      "source_file": ".agents/plugins/super-video-maker-plugin/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "preview",
+      "command": "hyperframes preview compositions/demo.html",
+      "source_file": ".agents/plugins/super-video-maker-plugin/reference/legacy/hyperframes-template/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "render",
+      "command": "hyperframes render compositions/demo.html --output out/demo.mp4",
+      "source_file": ".agents/plugins/super-video-maker-plugin/reference/legacy/hyperframes-template/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "preview",
+      "command": "hyperframes preview compositions/demo.html",
+      "source_file": ".agents/plugins/super-video-maker-plugin/references/deep/legacy/hyperframes-template/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "render",
+      "command": "hyperframes render compositions/demo.html --output out/demo.mp4",
+      "source_file": ".agents/plugins/super-video-maker-plugin/references/deep/legacy/hyperframes-template/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "start",
+      "command": "node server.js",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "dev",
+      "command": "node server.js",
+      "source_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "sync",
+      "command": "python ../scripts/sync_templates.py",
+      "source_file": "remotion-app/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "prebuild",
+      "command": "npm run sync",
+      "source_file": "remotion-app/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "studio",
+      "command": "remotion studio",
+      "source_file": "remotion-app/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "render",
+      "command": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
+      "source_file": "remotion-app/package.json"
+    },
+    {
+      "type": "npm_script",
+      "name": "lint",
+      "command": "npm run sync && tsc --noEmit",
+      "source_file": "remotion-app/package.json"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/COMPONENT_LIBRARIES.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/CUSTOM_CODE_GUIDE.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/FFMPEG_PLAYBOOK.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/HOOK_PLAYBOOK_ARTICLE_SPRINT.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/HYPERREALISTIC_IMAGE_SOP.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/LIVING_CANVAS_PLAYBOOK.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/MOTION_COLLAGE_STYLE.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/PLAN_TEMPLATE.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/README.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/REMOTION_VIDEO_GUIDE.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/REVIEW_VIDEO_PLAYBOOK.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/ROUTER.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/SEEDANCE_AVATAR_ROI.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/SPOKEN_VO_HUMANIZER.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/TABLETOP_EXPLAINER_PLAYBOOK.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/TEMPLATE_PROPOSAL_GUIDE.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/VIDEO_COPY_PLAYBOOK.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/WORKFLOW_EXAMPLES.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/INDEX.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/mcp-toolbook.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/INDEX.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/REMOTION-VIDEO-CREATION-CHAT.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/ad-creative/batch-ad-pipeline.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/ad-creative/platform-specs.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/ad-creative/SKILL.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/launch/launch-structure.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/launch/SKILL.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/testimonial/batch-and-typography.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/testimonial/quote-card.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/ad-spine/testimonial/SKILL.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/INDEX.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/SKILL.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/choreography.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/context-adaptation.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/core-philosophy.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/decision-framework.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/disney-principles.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/emotion-mapping.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/motion-personality.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/narrative-structure.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/SFX_BINDING_MATRIX.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/director/user-signature-style.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/patterns/ambient-continuous.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/patterns/entrance-exit.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/patterns/multi-element.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/patterns/state-feedback.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/reference/property-selection.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/reference/quality-checklist.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/reference/timing-easing-tables.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": "references/deep/motion-taste/reference/troubleshooting.md"
+    },
+    {
+      "type": "cognitive_agentic",
+      "source_file": ".agents/AGENTS.md"
+    }
+  ]
+}
