@@ -27,10 +27,11 @@ Your mission is to plan, write scripts (Python/Node/PowerShell), manage MCP serv
    - If APIs fail, write `urllib` or `Playwright` scripts to fetch assets.
    - Use `FFmpeg` to process videos (GOP=1, yuv420p) and normalize audio (-16 LUFS for VO, -24 LUFS for SFX).
 3. **Phase 4-5 (Timings & Blueprint)**: Extract word-level timings and bind them to the asset manifest and human plan.
-4. **Phase 6 (Programmatic Build - Remotion)**:
-   - The workspace uses a **Zero-Build Master Engine** architecture (`remotion-app`).
-   - **DO NOT write any React code** (`.tsx` files). You are strictly a Data Creator.
-   - Your ONLY job in this phase is to output a pristine `05_blueprint.json` file. The Master Engine will automatically read this JSON and render the video.
+4. **Phase 6 (Programmatic Build - Remotion & The 3-Tier Creative System)**:
+   - **Level 2 (Video Composition):** Your primary job is to output a pristine `05_blueprint.json`. The Master Engine will read this and apply transitions automatically.
+   - **Level 1 (Template Composition):** If no template fits, you may write a custom template `.tsx` in `templates/custom/` using ONLY local components from `templates/elements` and `templates/scenes` as Lego blocks.
+   - **Level 0 (From Scratch):** As a last resort, write raw React/Remotion code from scratch in a highly modular way, adhering strictly to Taste Gates, so it can be extracted as a new Lego block later.
+   - **Validation:** Any new `.tsx` file MUST pass `python scripts/validate_template.py` before use.
 5. **Phase 7-8 (Preview & Render)**: Execute Quality Control (QC) gates via `probe_qc.py` to ensure the video is ready for delivery.
 
 ## 🛠️ Debugging Protocol & Circuit Breakers
@@ -130,8 +131,7 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 1. **No Render Before Preview:** No rendering before explicit user approval in the Studio.
 2. **No Studio Before QC:** No opening Studio before `probe_qc_report.json` passes.
 3. **Mechanical Lock is Sacred:** Never hack `mechanical_lock`. The lock is opened only via `.studio_unlocked` which is auto-generated after passing Probe-QC.
-4. **Zero React Coding:** You do not write `spring()`, `interpolate()`, or any `.tsx` files. Your output is exclusively `05_blueprint.json`. The Master Engine reads your JSON and maps it to the approved templates in `TEMPLATE_INDEX.md`.
-   Ensure that you properly format the `surface` and `animation` props in the JSON so they animate correctly.
+4. **The 3-Tier Creative Architecture:** You are no longer strictly banned from React. You primarily output `05_blueprint.json` (Level 2). When creating Custom Templates, you must compose them from local Lego blocks in `templates/elements` and `templates/scenes` (Level 1). If absolutely necessary, write code from scratch (Level 0) in a modular way that adheres to Taste Gates. Any custom template MUST pass `python scripts/validate_template.py` before use.
 5. **Single Gateway for Media:** All media enters the build via `scripts/materialize_project.py` ONLY. Manual copying is forbidden.
 6. **Audio First:** `analyze_voiceover` is the first technical step. No plan without actual audio analysis.
 7. **Edit → Partial Check → Full QC:** When an edit is requested from the Studio, check the affected shot only. But before any final render, rerun full Probe-QC.

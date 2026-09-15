@@ -34,7 +34,7 @@ def sync_templates():
                 
     print(f"Synced {count} templates to remotion-app/src/{args.source}/")
 
-    if args.index and args.source == "premium-templates":
+    if args.index and (args.source == "premium-templates" or args.source == "templates" or args.source == "templates/custom"):
         index_path = Path(plugin_root) / args.index
         if index_path.exists():
             content = index_path.read_text(encoding="utf-8")
@@ -48,9 +48,11 @@ def sync_templates():
             
             table_md = "\n".join(lines)
             
-            if "## 🥇 Premium Templates" in content:
+            section_header = "## 🥇 Premium Templates" if args.source == "premium-templates" else "## 🧱 Custom Templates (Level 1 & 0 Blocks)"
+            
+            if section_header in content:
                 content = re.sub(
-                    r"(## 🥇 Premium Templates.*?\n)(?:.*?)(?=\n## |\Z)", 
+                    f"({re.escape(section_header)}.*?\\n)(?:.*?)(?=\\n## |\\Z)", 
                     r"\1" + table_md + "\n", 
                     content, 
                     flags=re.DOTALL
@@ -59,7 +61,7 @@ def sync_templates():
                 insert_pos = content.find("**العدد:")
                 if insert_pos == -1: insert_pos = content.find("| File")
                 if insert_pos != -1:
-                    new_section = "## 🥇 Premium Templates (الأولوية الأولى)\n" + table_md + "\n\n"
+                    new_section = f"{section_header}\n" + table_md + "\n\n"
                     content = content[:insert_pos] + new_section + content[insert_pos:]
             
             index_path.write_text(content, encoding="utf-8")

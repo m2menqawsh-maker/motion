@@ -83,6 +83,25 @@ Playful: ease-out-back | Premium: (0.4,0,0.2,1) | Corporate: (0.2,0,0,1) | Energ
 ### 3. Entrance Pattern
 Playful: bounce up from below | Premium: slow fade + scale 98%→100% | Corporate: slide right + opacity | Energetic: snap from edge + overshoot
 
+## Cinematic Pacing & Choreography (Mandatory Rules)
+
+To elevate the motion design from basic templates to professional studio quality, you MUST apply these principles in your scene plans:
+
+### 1. The Rollercoaster Effect (Pacing)
+Never make all scenes the exact same duration. Pacing should be driven by the story:
+- **Fast/Urgent:** Use snappier cuts (2-3 seconds) for lists, fast facts, or energetic transitions.
+- **Slow/Profound:** Allow important statements or emotional beats to "breathe" (4-6 seconds) with longer durations.
+
+### 2. Choreography and Staggering
+Elements should feel connected and organic. Avoid showing all UI elements at exactly 0ms.
+- **Staggering:** If a scene has a Title and a Card, the Title appears at 0ms, and the Card appears at 150ms. 
+- **Sequential Flow:** Guide the user's eye deliberately (e.g., Title -> Subtitle -> Code Block).
+
+### 3. Transition Mapping
+Match the transition to the scene's archetype and pacing:
+- **Playful/Energetic:** Use `slide` or fast `wipe`.
+- **Premium/Corporate:** Use slow `fade` or subtle depth transitions.
+
 ## Mixing Archetypes
 - 90% primary archetype; specific moments can borrow another
 - Ease into personality shifts, don't snap

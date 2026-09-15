@@ -2,7 +2,7 @@
 
 ## 📌 Strict Rules:
 1. Every visual gesture (from §3 Emphasis Grammar in `user-signature-style.md`) **MUST** have a corresponding SFX from this matrix.
-2. Silent visual gestures are strictly forbidden.
+2. Silent visual gestures are strictly forbidden, UNLESS using the 'Dramatic Pause' gesture for intentional cinematic effect.
 3. Repeating the same SFX file in consecutive scenes is strictly forbidden.
 4. This matrix MUST be read before writing any scene plan.
 
@@ -20,10 +20,24 @@
 | **Shock Zoom** (Shock zoom for emphasis) | `vine-boom.wav` | `impact-hard.wav`, `bass-drop.wav` | 0ms | -18 LUFS |
 | **Card Pop** (Card/Notification appearance) | `pop-soft.wav` | `click-subtle.wav`, `notification-ding.wav` | 0ms | -24 LUFS |
 | **Slide Reveal** (Pull/Reveal) | `swish-fast.wav` | `whip-pan.wav`, `slide-whoosh.wav` | 0ms | -24 LUFS |
-| **Transition** (Between scenes) | `transition-whoosh.wav` | `page-turn.wav`, `glass-shatter.wav` | -100ms (before transition) | -24 LUFS |
+| **Transition - Slide/Wipe/Flip** (Standard moves) | `transition-whoosh.wav` | `page-turn.wav`, `slide-whoosh.wav` | -100ms (before transition) | -24 LUFS |
+| **Transition - Zoom** (Cinematic deep zoom) | `whoosh-deep.wav` | `cinematic-swoosh.wav`, `wind-rush.wav` | -100ms | -24 LUFS |
+| **Transition - Cross Zoom** (Fast energetic zoom) | `deep-swoosh.wav` + `impact` | `whip-pan.wav` | -50ms | -20 LUFS |
+| **Transition - Film Burn** (Vintage/Documentary burn) | `film-roll.wav` | `fire-whoosh.wav`, `tape-hiss.wav` | -200ms | -26 LUFS |
+| **Transition - Iris** (Circular camera shutter) | `camera-shutter.wav` | `lens-focus.wav`, `iris-click.wav` | 0ms | -24 LUFS |
+| **Transition - Dissolve** (Smooth fade) | `ambient-swell.wav` | `soft-whoosh.wav`, `chime-soft.wav` | -200ms | -28 LUFS |
+| **Transition - None** (Hard Cut) | `none` (or `glitch-cut.wav`) | `none` | 0ms | -24 LUFS |
 | **Stat Counter** (Digital counter) | `tick-soft.wav` | `stat-click.wav`, `counter-beep.wav` | Every 200ms (per digit) | -28 LUFS |
 | **Chart Animation** (Data graph) | `data-flow.wav` | `chart-draw.wav`, `graph-rise.wav` | 0ms | -28 LUFS |
 | **Code Block** (Code appearance) | `terminal-type.wav` | `code-compile.wav`, `syntax-highlight.wav` | Every 100ms (per line) | -28 LUFS |
+| **Dramatic Pause** (Silence for profound impact) | `none` (or subtle `ambient-drone.wav`) | `none` | 0ms | -32 LUFS |
+
+## 🎛️ Sound Layering & Cinematic Audio
+
+To achieve a professional, studio-quality soundscape, utilize **Sound Layering** for major moments (especially in Energetic or Premium archetypes):
+- **Heavy Transitions:** Combine a sweep/whoosh with an impact. (e.g., `transition-whoosh.wav` + `bass-drop.wav` at 0ms).
+- **Major Reveals:** Combine a chime with a boom. (e.g., `crystal-ring.wav` + `cinematic-impact.wav`).
+*Rule:* When layering, ensure the secondary sound's volume is slightly lower (-28 LUFS) so it doesn't overpower the primary SFX or Voiceover.
 
 ## 🚨 Action on Violation:
 

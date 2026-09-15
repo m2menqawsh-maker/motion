@@ -4,6 +4,12 @@
 
 **Count: 169 templates**
 
+## 🧱 Custom Templates (Level 1 & 0 Blocks)
+| File | Exports | Props | Family |
+|---|---|---|---|
+| `LevelOneScene.tsx` | — | — | Unclassified |
+| `LevelZeroBox.tsx` | — | — | Unclassified |
+
 | File | Type | Family | Source | Path |
 |---|---|---|---|---|
 | `BrandResolver` | misc | core | legacy | `templates/brand-resolver.ts` |

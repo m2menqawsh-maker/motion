@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { AbsoluteFill, Sequence, Audio, continueRender, delayRender, staticFile } from "remotion";
+import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { slide } from "@remotion/transitions/slide";
+import { fade } from "@remotion/transitions/fade";
+import { wipe } from "@remotion/transitions/wipe";
+import { flip } from "@remotion/transitions/flip";
+import { zoomInOut } from "@remotion/transitions/zoom-in-out";
+import { crossZoom } from "@remotion/transitions/cross-zoom";
+import { filmBurn } from "@remotion/transitions/film-burn";
+import { dissolve } from "@remotion/transitions/dissolve";
+import { iris } from "@remotion/transitions/iris";
+import { none } from "@remotion/transitions/none";
 import { BrandProvider, BrandKit } from "../../contracts/brand";
 import { loadFont } from "../../contracts/fonts";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
@@ -86,6 +97,7 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
           <Audio src={staticFile(projectData.audio.bgm)} volume={projectData.audio.bgmVolume ?? 0.15} />
         )}
         
+        <TransitionSeries>
         {projectData.scenes.map((scene, idx) => {
           const entry = TEMPLATE_REGISTRY[scene.template];
           if (!entry) return null;
@@ -144,21 +156,43 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
              });
           }
 
+          // Determine presentation based on string
+          let presentation = fade();
+          if (scene.transition && scene.transition.type) {
+             const type = scene.transition.type;
+             if (type === "slide") presentation = slide();
+             else if (type === "wipe") presentation = wipe();
+             else if (type === "flip") presentation = flip();
+             else if (type === "zoom") presentation = zoomInOut();
+             else if (type === "cross-zoom") presentation = crossZoom();
+             else if (type === "film-burn") presentation = filmBurn();
+             else if (type === "dissolve") presentation = dissolve();
+             else if (type === "iris") presentation = iris();
+             else if (type === "none") presentation = none();
+          }
+
           return (
-            <Sequence 
-              key={`${scene.scene_id}-${idx}`}
-              from={scene.startFrame} 
-              durationInFrames={scene.durationFrames}
-              name={`Scene: ${scene.scene_id}`}
-            >
-              <EngineBridge>
-                {element}
-                {overlays}
-                {voAudio}
-              </EngineBridge>
-            </Sequence>
+            <React.Fragment key={`${scene.scene_id}-${idx}`}>
+              <TransitionSeries.Sequence 
+                durationInFrames={scene.durationFrames}
+              >
+                <EngineBridge>
+                  {element}
+                  {overlays}
+                  {voAudio}
+                </EngineBridge>
+              </TransitionSeries.Sequence>
+              
+              {idx < projectData.scenes.length - 1 && scene.transition && (
+                <TransitionSeries.Transition
+                  presentation={presentation}
+                  timing={linearTiming({ durationInFrames: scene.transition.durationFrames || 15 })}
+                />
+              )}
+            </React.Fragment>
           );
         })}
+        </TransitionSeries>
       </AbsoluteFill>
     </BrandProvider>
   );
