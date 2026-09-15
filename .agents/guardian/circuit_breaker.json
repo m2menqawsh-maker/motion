@@ -1,10 +1,1 @@
-{
-  "run_command::bad_cmd": {
-    "failures": 3,
-    "last_failure_timestamp": 1789326074.7594898
-  },
-  "write_guard::projects/proj_1/valid.txt": {
-    "failures": 0,
-    "last_failure_timestamp": 0.0
-  }
-}
+{"run_command::bad_cmd": {"failures": 3, "last_failure_timestamp": 1789494906.543701}}

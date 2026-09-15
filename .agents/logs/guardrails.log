@@ -300,3 +300,11 @@
 [2026-09-13T22:17:33.028815] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
 [2026-09-13T22:17:33.237210] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
 [2026-09-13T22:17:33.449244] [WRITE_GUARD] [ALLOW] CONTEXT: projects/proj_1/valid.txt | REASON: Path is safe.
+[2026-09-15T21:11:04.337029] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-15T21:11:04.599360] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-15T21:11:04.864816] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-15T21:11:05.104787] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-15T21:11:05.326980] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-15T21:11:06.525390] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-15T21:11:06.824108] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.

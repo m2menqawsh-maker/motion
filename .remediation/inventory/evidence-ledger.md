@@ -18,10 +18,10 @@ This ledger formalizes the decisions and evidence gathered across Phase 1.
   - *Status:* `quarantined`
   - *Evidence:* Creates a parallel pipeline using `state.json` instead of `.pipeline_state.json`. Never intersects with the main CLI.
   - *Decision:* Delete or quarantine to force unification on `scripts/pipeline.py`.
-- **`engine/` (Disconnected Core)**
+- **`engine/` (Architecturally Neutered Core)**
   - *Status:* `quarantined`
-  - *Evidence:* Static dependency map shows 0 incoming imports for core engine layout, camera, and primitive components. The `BlueprintVideo.tsx` bridge is completely gutted.
-  - *Decision:* Delete or quarantine.
+  - *Evidence:* While dynamically included in the Remotion bundle (and imported by tests/scripts), its actual runtime impact is zero because `BlueprintVideo.tsx` (line 20) overrides it with a dummy component: `const EngineBridge = ({ children }) => <>{children}</>;`.
+  - *Decision:* Quarantine for removal, as it is dead weight.
 - **112 Motion Primitives**
   - *Status:* `quarantined`
   - *Evidence:* Only 7 primitives are used out of 119. The rest are dead code.
