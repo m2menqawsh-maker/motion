@@ -2,8 +2,11 @@ import React from "react";
 import { DragDropFlow } from "../../remotion-app/src/remotion/scenes/drag-drop-flow";
 import type { TemplateProps } from "../../../registry/types";
 
-export const DragDropFlowWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const DragDropFlowWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <DragDropFlow label={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <DragDropFlow  {...template_props} label={content?.text || undefined} />
+  </div>
   );
 };

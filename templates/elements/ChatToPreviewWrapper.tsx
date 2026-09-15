@@ -2,8 +2,11 @@ import React from "react";
 import { ChatToPreview } from "../../remotion-app/src/remotion/scenes/chat-to-preview";
 import type { TemplateProps } from "../../../registry/types";
 
-export const ChatToPreviewWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const ChatToPreviewWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <ChatToPreview messages={content?.items ? content.items.map(i => ({role: "user", text: i})) : undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <ChatToPreview  {...template_props} messages={content?.items ? content.items.map(i => ({role: "user", text: i})) : undefined} />
+  </div>
   );
 };

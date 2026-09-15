@@ -2,8 +2,11 @@ import React from "react";
 import { FileTreeReveal } from "../../remotion-app/src/remotion/scenes/file-tree-reveal";
 import type { TemplateProps } from "../../../registry/types";
 
-export const FileTreeRevealWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const FileTreeRevealWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <FileTreeReveal title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <FileTreeReveal  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };

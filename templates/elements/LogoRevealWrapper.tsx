@@ -2,8 +2,11 @@ import React from "react";
 import { LogoReveal } from "../../remotion-app/src/remotion/scenes/logo-reveal";
 import type { TemplateProps } from "../../../registry/types";
 
-export const LogoRevealWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const LogoRevealWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <LogoReveal  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <LogoReveal  {...template_props}  />
+  </div>
   );
 };

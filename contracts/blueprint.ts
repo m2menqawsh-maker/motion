@@ -165,6 +165,7 @@ export const BlueprintSceneSchema = z.object({
   content: SceneContentSchema.optional(),
   layout: LayoutSchema.optional(), // Integrated from V2 timeline
   effects: z.array(z.any()).optional(),
+  template_props: z.record(z.string(), z.any()).optional(),
 });
 export type BlueprintScene = z.infer<typeof BlueprintSceneSchema>;
 

@@ -2,8 +2,11 @@ import React from "react";
 import { CodeAccordion } from "../../remotion-app/src/remotion/scenes/code-accordion";
 import type { TemplateProps } from "../../../registry/types";
 
-export const CodeAccordionWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const CodeAccordionWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <CodeAccordion title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <CodeAccordion  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };

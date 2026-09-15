@@ -2,8 +2,11 @@ import React from "react";
 import { ReactionBurst } from "../../remotion-app/src/remotion/scenes/reaction-burst";
 import type { TemplateProps } from "../../../registry/types";
 
-export const ReactionBurstWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const ReactionBurstWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <ReactionBurst  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <ReactionBurst  {...template_props}  />
+  </div>
   );
 };

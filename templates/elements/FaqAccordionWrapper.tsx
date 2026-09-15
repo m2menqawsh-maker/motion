@@ -2,8 +2,11 @@ import React from "react";
 import { FaqAccordion } from "../../remotion-app/src/remotion/scenes/faq-accordion";
 import type { TemplateProps } from "../../../registry/types";
 
-export const FaqAccordionWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const FaqAccordionWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <FaqAccordion items={content?.items ? content.items.map(i => ({title: i})) : undefined} title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <FaqAccordion  {...template_props} items={content?.items ? content.items.map(i => ({title: i})) : undefined} title={content?.text || undefined} />
+  </div>
   );
 };

@@ -78,7 +78,7 @@ The protocol contains exactly 3 phases:
 The Detailed Plan (Phase 2) must be written by the Agent itself based on:
 - `references/PLAN_TEMPLATE.md` (Reference template)
 - `04_timings.json` (Timings)
-- `ground-truth/TEMPLATE_INDEX.md` (Templates)
+- `scripts/template_router.py` (CLI tool to search and select templates)
 - `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` (Sound Effects)
 
 Scripts like `generate_plan.py` or `plan_gate.py` are for validation only, NOT for creative generation.
@@ -93,8 +93,7 @@ If it exists:
 Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE FILES:
 1. Read `.agents/rules/video-production-protocol.md` (The strict step-by-step pipeline).
 2. Read `references/ROUTER.md` (The absolute decision engine for tools, recipes, and specialized knowledge).
-3. Read the `remocn` and `snapcn` SKILL.md files (located in `.agents/plugins/super-video-maker-plugin/skills/`) to understand the UI primitives and animations.
-4. Read `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` before writing any scene plan.
+3. Read `references/deep/motion-taste/director/SFX_BINDING_MATRIX.md` before writing any scene plan.
 
 ## 5. MCP Handling
 - The 7 servers are defined in `plugin.json` → `mcp.json`.
@@ -137,11 +136,12 @@ Before writing any plan, code, or fetching any asset, YOU MUST READ THESE CORE F
 6. **Audio First:** `analyze_voiceover` is the first technical step. No plan without actual audio analysis.
 7. **Edit → Partial Check → Full QC:** When an edit is requested from the Studio, check the affected shot only. But before any final render, rerun full Probe-QC.
 8. **Anti-Hallucination:** No fake files, no empty reports, no guessed timings. Every number comes from an actual tool.
-9. **Stage Gates:** Dedicated gates (like `plan_gate.py`, `asset_gate.py`, `code_template_gate.py`, `probe_qc.py`) run before each phase. No skipping.
-10. **Taste is a Gate, Not Advice:** Motion personality and numbers are written in the scene plan, and `motion_validator.py` checks them. Failure = no build.
+9. **Smart Orchestrator (pipeline.py):** You are FORBIDDEN from running individual gates like `plan_gate.py` or `probe_qc.py` manually. You MUST strictly use the smart orchestrator: run `python scripts/pipeline.py <project_id>`. This script will intelligently detect changes via hashes and run all necessary gates automatically. No skipping.
+10. **Taste is a Gate, Not Advice:** Motion personality and numbers are written in the scene plan, and they will be verified automatically when you run `pipeline.py`. Failure = no build.
 11. **Reading Before Scene:** The agent must read the Taste Engine files before writing code for any scene.
 12. **Plan for Every Scene:** No build without a written scene plan approved by the user.
 13. **Exhaustive Property Completion:** When generating `05_blueprint.json` or writing a scene plan, you MUST explicitly provide ALL expected properties for the selected template. If a template displays text, provide `surface.text`. If it displays code/logs, provide `content.lines`. If it displays images, provide `content.images`. Never omit properties that drive the core visual of the template; do not rely on fallbacks.
+14. **Dynamic Template Inspection:** DO NOT guess template properties or read the huge catalog file. When you select a template, you MUST run `python scripts/inspect_template.py <TemplateName>` to instantly discover the exact `surface`, `content`, and `template_props` required for that specific template.
 # 🎨 Personal Design & Directing Protocol (Mandatory)
 
 ## 1. Spacing & Breathing Room

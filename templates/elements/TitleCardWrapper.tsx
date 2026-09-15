@@ -2,8 +2,11 @@ import React from "react";
 import { TitleCard } from "../../remotion-app/src/remotion/scenes/title-card";
 import type { TemplateProps } from "../../../registry/types";
 
-export const TitleCardWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const TitleCardWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <TitleCard title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <TitleCard  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

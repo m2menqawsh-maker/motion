@@ -3,7 +3,7 @@
 """
 open_studio.py — سكريبت وسيط لفتح الاستوديو بأمان وفي المسار الصحيح
 """
-import sys, os, subprocess
+import sys, os, subprocess, json
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):

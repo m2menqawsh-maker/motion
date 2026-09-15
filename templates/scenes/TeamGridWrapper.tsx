@@ -2,8 +2,11 @@ import React from "react";
 import { TeamGrid } from "../../remotion-app/src/remotion/scenes/team-grid";
 import type { TemplateProps } from "../../../registry/types";
 
-export const TeamGridWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const TeamGridWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <TeamGrid title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <TeamGrid  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

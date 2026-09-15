@@ -2,8 +2,11 @@ import React from "react";
 import { CommentCallout } from "../../remotion-app/src/remotion/scenes/comment-callout";
 import type { TemplateProps } from "../../../registry/types";
 
-export const CommentCalloutWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const CommentCalloutWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <CommentCallout  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <CommentCallout  {...template_props}  />
+  </div>
   );
 };

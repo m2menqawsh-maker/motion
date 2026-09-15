@@ -1,15 +1,17 @@
 import React from "react";
 import { StaggeredMotion } from "remotion-bits";
 
-export const StaggeredMotionWrapper = ({ surface, content }: any) => {
+export const StaggeredMotionWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   const animProps = surface?.animation || {};
   // Render dummy children for staggered motion based on text lines or images
   const items = content?.lines || content?.images || ["Item 1", "Item 2", "Item 3"];
 
   return (
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
     <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
       <StaggeredMotion
-        staggerDuration={animProps.staggerDuration || 15}
+ {...template_props}         staggerDuration={animProps.staggerDuration || 15}
         {...animProps}
       >
         {items.map((item: string, i: number) => (
@@ -26,5 +28,6 @@ export const StaggeredMotionWrapper = ({ surface, content }: any) => {
         ))}
       </StaggeredMotion>
     </div>
+  </div>
   );
 };

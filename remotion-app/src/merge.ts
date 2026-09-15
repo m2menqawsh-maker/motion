@@ -33,6 +33,7 @@ export interface MergedScene {
   captions_ref: string | null;
   content: SceneContent;
   effects?: any[];
+  template_props?: Record<string, any>;
 }
 
 export interface MergedProject {
@@ -40,6 +41,11 @@ export interface MergedProject {
   title: string;
   totalDurationFrames: number;
   scenes: MergedScene[];
+  audio?: {
+    voiceover?: string;
+    bgm?: string;
+    bgmVolume?: number;
+  };
 }
 
 /**
@@ -127,6 +133,7 @@ export function mergeScene(
     captions_ref: scene.captions_ref || null,
     content: finalContent,
     effects: (scene as any).effects || [],
+    template_props: (scene as any).template_props || {},
   };
 }
 
@@ -155,5 +162,6 @@ export function mergeProject(
     title: data.project.title,
     totalDurationFrames,
     scenes,
+    audio: (data as any).audio || (data.blueprint as any).audio,
   };
 }

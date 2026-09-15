@@ -2,8 +2,11 @@ import React from "react";
 import { LogoWall } from "../../remotion-app/src/remotion/scenes/logo-wall";
 import type { TemplateProps } from "../../../registry/types";
 
-export const LogoWallWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const LogoWallWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <LogoWall title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <LogoWall  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };

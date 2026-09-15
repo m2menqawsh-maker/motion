@@ -2,8 +2,11 @@ import React from "react";
 import { ImageExpand } from "../../remotion-app/src/compositions/image-expand";
 import type { TemplateProps } from "../../../registry/types";
 
-export const ImageExpandWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const ImageExpandWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <ImageExpand title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <ImageExpand  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

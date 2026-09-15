@@ -53,8 +53,8 @@
 5. Read `references/deep/motion-taste/director/motion-personality.md` and `references/deep/motion-taste/director/user-signature-style.md` for citations.
 6. Write the plan yourself, scene by scene, shot by shot.
 7. Save it to `projects/<project_id>/master_plan.md`.
-8. Run: `python scripts/plan_gate.py <project_id>` for validation.
-9. If validation fails, fix the plan and retry.
+8. Run: `python scripts/pipeline.py <project_id>` for validation of the entire plan via the Smart Orchestrator.
+9. If validation fails, fix the plan and retry the pipeline.
 
 #### Accepted Plan Criteria:
 - ✅ Every scene has a word table with exact timings.
@@ -94,7 +94,7 @@
 - All media enters the engine via `materialize_project.py` only (which requires the JSON files to exist first). Manual copying is forbidden.
 
 ### Step 2: Preview & Quality (Probe-QC & Studio)
-- Do not open the studio before the quality check `probe_qc.py` passes successfully.
+- Do not open the studio before running the Smart Orchestrator `python scripts/pipeline.py <project_id>` and ensuring all QC checks pass successfully.
 - Run Studio for preview: `python scripts/open_studio.py <project_id>` (Using npm/npx directly is forbidden).
 
 ### Step 3: Final Render

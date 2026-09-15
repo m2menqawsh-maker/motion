@@ -2,8 +2,11 @@ import React from "react";
 import { DeployReveal } from "../../remotion-app/src/compositions/deploy-reveal";
 import type { TemplateProps } from "../../../registry/types";
 
-export const DeployRevealWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const DeployRevealWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <DeployReveal  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <DeployReveal  {...template_props}  />
+  </div>
   );
 };

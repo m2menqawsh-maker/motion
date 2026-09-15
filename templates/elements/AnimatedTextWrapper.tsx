@@ -1,15 +1,17 @@
 import React from "react";
 import { AnimatedText } from "remotion-bits";
 
-export const AnimatedTextWrapper = ({ surface, content }: any) => {
+export const AnimatedTextWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   // text comes from content.text or surface.text
   const text = content?.text || surface?.text || "REMOTION BITS";
   const animProps = surface?.animation || {};
 
   return (
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
     <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <AnimatedText
-        transition={{
+ {...template_props}         transition={{
           ...animProps
         }}
         style={{
@@ -23,5 +25,6 @@ export const AnimatedTextWrapper = ({ surface, content }: any) => {
         {text}
       </AnimatedText>
     </div>
+  </div>
   );
 };

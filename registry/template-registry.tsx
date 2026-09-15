@@ -1202,3 +1202,26 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     defaults: {}
   }
 };
+
+// Aliases matching TEMPLATE_INDEX names
+const ALIAS_MAP: Record<string, string> = {
+  "Scene3Dwrapper": "scene3d-element",
+  "Devicemockupzoomwrapper": "rui-device-mockup-zoom",
+  "Statcardwrapper": "rui-stat-card",
+  "Matrixrainwrapper": "matrixrain-element",
+  "Terminalsimulatorwrapper": "rui-terminal-simulator",
+  "Dashboardpopulatewrapper": "rui-dashboard-populate",
+  "Particlesystemwrapper": "particlesystem-element",
+  "Endcardwrapper": "rui-end-card",
+  "Animatedtextwrapper": "animated-text-element",
+  "Typewriterwrapper": "typewriter-element",
+  "Codeblockwrapper": "codeblock-element",
+  "Animatedcounterwrapper": "animatedcounter-element",
+  "Gradientwrapper": "gradient-element"
+};
+
+for (const [alias, canonical] of Object.entries(ALIAS_MAP)) {
+  if (TEMPLATE_REGISTRY[canonical]) {
+    TEMPLATE_REGISTRY[alias] = TEMPLATE_REGISTRY[canonical];
+  }
+}

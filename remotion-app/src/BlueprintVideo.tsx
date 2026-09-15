@@ -3,7 +3,10 @@ import { AbsoluteFill, Sequence, Audio, continueRender, delayRender, staticFile 
 import { BrandProvider, BrandKit } from "../../contracts/brand";
 import { loadFont } from "../../contracts/fonts";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
+import { EFFECTS_RUNTIME } from "../../registry/effects-runtime";
 import { MergedProject } from "./merge";
+
+const EngineBridge: React.FC<{ children: React.ReactNode }> = ({ children }) => <>{children}</>;
 
 export interface BlueprintVideoProps {
   projectData: MergedProject;
@@ -76,6 +79,12 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
   return (
     <BrandProvider brand={brand}>
       <AbsoluteFill style={{ backgroundColor: brand.colors?.background || "#000" }}>
+        {projectData.audio?.voiceover && (
+          <Audio src={staticFile(projectData.audio.voiceover)} volume={1.0} />
+        )}
+        {projectData.audio?.bgm && (
+          <Audio src={staticFile(projectData.audio.bgm)} volume={projectData.audio.bgmVolume ?? 0.15} />
+        )}
         
         {projectData.scenes.map((scene, idx) => {
           const entry = TEMPLATE_REGISTRY[scene.template];
@@ -109,7 +118,7 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
             }
           }
 
-          let element = <Component surface={surfaceProps} content={content} />;
+          let element = <Component surface={surfaceProps} content={content} template_props={scene.template_props} />;
           let overlays: React.ReactNode[] = [];
 
           if (scene.effects && scene.effects.length > 0) {

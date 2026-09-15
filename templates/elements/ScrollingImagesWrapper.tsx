@@ -2,15 +2,17 @@ import React from "react";
 import { ScrollingColumns } from "remotion-bits";
 import { Img } from "remotion";
 
-export const ScrollingImagesWrapper = ({ surface, content }: any) => {
+export const ScrollingImagesWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   const images = content?.images || surface?.images || [];
   const animProps = surface?.animation || {};
 
   return (
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
     <div style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}>
       {images.length > 0 ? (
         <ScrollingColumns
-          direction={animProps.direction || "up"}
+ {...template_props}           direction={animProps.direction || "up"}
           speed={animProps.speed || 1}
           {...animProps}
         >
@@ -22,5 +24,6 @@ export const ScrollingImagesWrapper = ({ surface, content }: any) => {
         <div style={{ color: "white", padding: 40 }}>Missing content.images</div>
       )}
     </div>
+  </div>
   );
 };

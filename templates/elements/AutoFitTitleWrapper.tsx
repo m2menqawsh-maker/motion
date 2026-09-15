@@ -2,8 +2,11 @@ import React from "react";
 import { AutoFitTitle } from "../../remotion-app/src/remotion/scenes/auto-fit-title";
 import type { TemplateProps } from "../../../registry/types";
 
-export const AutoFitTitleWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const AutoFitTitleWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <AutoFitTitle title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <AutoFitTitle  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

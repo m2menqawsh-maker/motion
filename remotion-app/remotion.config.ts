@@ -26,10 +26,29 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 // =========================================================================
 if (process.argv.includes("render") || process.argv.includes("studio")) {
   try {
-    const unlockedPath = path.join(process.cwd(), "..", ".studio_unlocked");
-    
-    if (!fs.existsSync(unlockedPath)) {
-      throw new Error(`Probe-QC failed or hasn't run. ${unlockedPath} not found.`);
+    const rootUnlocked = path.join(process.cwd(), "..", ".studio_unlocked");
+    let unlocked = fs.existsSync(rootUnlocked);
+
+    if (!unlocked) {
+      // Check via PROJECT_ID env
+      const projId = process.env.PROJECT_ID;
+      if (projId && fs.existsSync(path.join(process.cwd(), "..", "projects", projId, ".studio_unlocked"))) {
+        unlocked = true;
+      }
+      
+      // Check via --props path
+      const propsIdx = process.argv.indexOf("--props");
+      if (!unlocked && propsIdx !== -1 && process.argv[propsIdx + 1]) {
+        const propsArg = process.argv[propsIdx + 1];
+        const projDir = path.dirname(path.resolve(propsArg));
+        if (fs.existsSync(path.join(projDir, ".studio_unlocked"))) {
+          unlocked = true;
+        }
+      }
+    }
+
+    if (!unlocked) {
+      throw new Error(`Probe-QC failed or hasn't run. Valid .studio_unlocked not found.`);
     }
     
     // Explicitly reject if --props is passed (Level 3 protection at runtime)

@@ -2,8 +2,11 @@ import React from "react";
 import { RoadmapLanes } from "../../remotion-app/src/remotion/scenes/roadmap-lanes";
 import type { TemplateProps } from "../../../registry/types";
 
-export const RoadmapLanesWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const RoadmapLanesWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <RoadmapLanes title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <RoadmapLanes  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };

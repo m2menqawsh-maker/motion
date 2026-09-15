@@ -2,8 +2,11 @@ import React from "react";
 import { OrgChartBuild } from "../../remotion-app/src/remotion/scenes/org-chart-build";
 import type { TemplateProps } from "../../../registry/types";
 
-export const OrgChartBuildWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const OrgChartBuildWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <OrgChartBuild title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <OrgChartBuild  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };

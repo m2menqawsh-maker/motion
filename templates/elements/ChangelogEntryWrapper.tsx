@@ -2,8 +2,11 @@ import React from "react";
 import { ChangelogEntry } from "../../remotion-app/src/remotion/scenes/changelog-entry";
 import type { TemplateProps } from "../../../registry/types";
 
-export const ChangelogEntryWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const ChangelogEntryWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <ChangelogEntry  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <ChangelogEntry  {...template_props}  />
+  </div>
   );
 };

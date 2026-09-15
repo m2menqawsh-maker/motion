@@ -2,8 +2,11 @@ import React from "react";
 import { HookCard } from "../../remotion-app/src/remotion/scenes/hook-card";
 import type { TemplateProps } from "../../../registry/types";
 
-export const HookCardWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const HookCardWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <HookCard subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <HookCard  {...template_props} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

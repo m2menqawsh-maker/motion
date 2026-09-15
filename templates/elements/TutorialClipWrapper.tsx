@@ -2,8 +2,11 @@ import React from "react";
 import { TutorialClip } from "../../remotion-app/src/compositions/tutorial-clip";
 import type { TemplateProps } from "../../../registry/types";
 
-export const TutorialClipWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const TutorialClipWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <TutorialClip title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <TutorialClip  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

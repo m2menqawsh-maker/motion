@@ -2,8 +2,11 @@ import React from "react";
 import { KanbanMove } from "../../remotion-app/src/remotion/scenes/kanban-move";
 import type { TemplateProps } from "../../../registry/types";
 
-export const KanbanMoveWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const KanbanMoveWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <KanbanMove  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <KanbanMove  {...template_props}  />
+  </div>
   );
 };

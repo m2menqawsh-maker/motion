@@ -1,0 +1,12 @@
+{
+  "templates": [
+    "Dashboardpopulatewrapper",
+    "Devicemockupzoomwrapper",
+    "Endcardwrapper",
+    "Matrixrainwrapper",
+    "Particlesystemwrapper",
+    "Scene3Dwrapper",
+    "Statcardwrapper",
+    "Terminalsimulatorwrapper"
+  ]
+}

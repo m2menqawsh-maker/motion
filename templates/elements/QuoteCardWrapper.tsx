@@ -2,8 +2,11 @@ import React from "react";
 import { QuoteCard } from "../../remotion-app/src/remotion/scenes/quote-card";
 import type { TemplateProps } from "../../../registry/types";
 
-export const QuoteCardWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const QuoteCardWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <QuoteCard  />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <QuoteCard  {...template_props}  />
+  </div>
   );
 };

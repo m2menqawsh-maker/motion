@@ -2,6 +2,7 @@
 """probe_qc.py — يولد تقرير فحص المشاهد
 Usage: python probe_qc.py <project_dir> <comp_id>"""
 import json, sys, os, subprocess, hashlib, secrets
+import concurrent.futures
 from pathlib import Path
 from datetime import datetime
 
@@ -53,12 +54,19 @@ if len(sys.argv) >= 2 and sys.argv[1] == "--verify":
         print("🛑 تقرير Probe-QC تم تعديله يدوياً")
         sys.exit(1)
 
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     print(__doc__)
     sys.exit(1)
 
-proj_dir = Path(sys.argv[1]).resolve()
-comp_id = sys.argv[2]
+target_arg = Path(sys.argv[1])
+if (Path("projects") / target_arg).exists():
+    proj_dir = (Path("projects") / target_arg).resolve()
+elif target_arg.exists():
+    proj_dir = target_arg.resolve()
+else:
+    proj_dir = target_arg.resolve()
+
+comp_id = sys.argv[2] if len(sys.argv) > 2 else "BlueprintVideo"
 bp_path = proj_dir / "05_blueprint.json"
 build_dir = proj_dir / "06_build"
 probe_dir = proj_dir / "03_probe_qc"
@@ -67,11 +75,37 @@ if not bp_path.exists():
     print("❌ لم نجد 05_blueprint.json")
     sys.exit(1)
 
-if not build_dir.exists():
-    print("❌ لم نجد مجلد 06_build. شغّل materialize_project.py أولاً.")
-    sys.exit(1)
-
 probe_dir.mkdir(parents=True, exist_ok=True)
+
+# تحضير render_props.json للمحرك المركزي
+def safe_load(name, default):
+    p = proj_dir / name
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
+
+combined_props = {
+    "projectData": {
+        "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
+        "blueprint": json.loads(bp_path.read_text(encoding="utf-8")),
+        "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
+        "overrides": safe_load("overrides.json", {"scenes": {}})
+    }
+}
+props_file = proj_dir / "render_props.json"
+props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
+props_file_abs = props_file.resolve()
+
+workspace_root = Path.cwd().resolve()
+engine_dir = workspace_root / "remotion-app"
+
+use_engine = False
+if not (build_dir / "src" / "index.ts").exists() and (engine_dir / "src" / "index.ts").exists():
+    exec_cwd = str(engine_dir)
+    use_engine = True
+else:
+    if not build_dir.exists():
+        print("❌ لم نجد مجلد 06_build. شغّل materialize_project.py أولاً.")
+        sys.exit(1)
+    exec_cwd = str(build_dir)
 
 bp = json.loads(bp_path.read_text(encoding="utf-8"))
 fps = bp.get("meta", {}).get("fps", 30)
@@ -81,7 +115,9 @@ critical_secs = {0.0} # Always first frame
 
 for sec in bp.get("timeline", []):
     s = sec.get("sec", 0)
-    critical_secs.add(float(s))
+    # Capture slightly after start (1.0s) to allow entrance animations to finish, 
+    # ensuring the component is fully visible in the contact sheet.
+    critical_secs.add(float(s) + 1.0)
     
     for e in sec.get("elements", []):
         # Captions or text
@@ -99,14 +135,20 @@ max_sec = max([e.get("end_sec", 0) for sec in bp.get("timeline", []) for e in se
 if max_sec > 0:
     critical_secs.add(float(max_sec) - 0.1)
 
-# Convert to frames
-critical_frames = sorted(list({int(round(s * fps)) for s in critical_secs}))
+# Convert to frames and clamp within valid composition range
+total_duration_frames = sum(s.get("durationFrames", 0) for s in bp.get("scenes", []))
+if not total_duration_frames:
+    total_duration_frames = int(round(fps * bp.get("meta", {}).get("duration_sec", 18)))
+max_allowed_frame = max(0, total_duration_frames - 1)
+
+critical_frames = sorted(list({min(max_allowed_frame, max(0, int(round(s * fps)))) for s in critical_secs}))
 
 print(f"🎬 جاري فحص {len(critical_frames)} لقطات مهمة لفحص الجودة...")
 
 rendered_files = []
-# Run remotion still for each frame
-for i, f in enumerate(critical_frames):
+
+def render_frame(args):
+    i, f = args
     out_file = probe_dir / f"probe_{i:02d}_f{f}.png"
     # Execute npx remotion still
     cmd = [
@@ -115,12 +157,23 @@ for i, f in enumerate(critical_frames):
         f"--frame={f}", 
         "--timeout=120000"
     ]
+    if use_engine:
+        cmd.extend(["--props", str(props_file_abs)])
     print(f"📸 توليد اللقطة {i:02d} (إطار {f})...")
-    res = subprocess.run(cmd, cwd=str(build_dir), shell=True)
+    res = subprocess.run(cmd, cwd=exec_cwd, shell=True, capture_output=True)
     if res.returncode != 0:
         print(f"❌ فشل توليد اللقطة {i:02d}")
+        return None
     else:
-        rendered_files.append(str(out_file.absolute()))
+        return str(out_file.absolute())
+
+# Run remotion still for each frame in parallel (max 5 concurrent browsers)
+print("🚀 تشغيل المعالجة المتوازية (Multi-threading) لتسريع الفحص...")
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    results = executor.map(render_frame, enumerate(critical_frames))
+    for res in results:
+        if res:
+            rendered_files.append(res)
 
 # Create contact sheet
 contact_sheet_sh = Path(__file__).resolve().parent / "verify" / "contact-sheet.sh"

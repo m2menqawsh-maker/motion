@@ -2,8 +2,11 @@ import React from "react";
 import { TalkingHeadLayout } from "../../remotion-app/src/remotion/scenes/talking-head-layout";
 import type { TemplateProps } from "../../../registry/types";
 
-export const TalkingHeadLayoutWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const TalkingHeadLayoutWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <TalkingHeadLayout title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <TalkingHeadLayout  {...template_props} title={content?.text || undefined} subtitle={content?.lines?.[0] || undefined} />
+  </div>
   );
 };

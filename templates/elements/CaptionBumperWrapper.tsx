@@ -2,8 +2,11 @@ import React from "react";
 import { CaptionBumper } from "../../remotion-app/src/remotion/scenes/caption-bumper";
 import type { TemplateProps } from "../../../registry/types";
 
-export const CaptionBumperWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const CaptionBumperWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <CaptionBumper text={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <CaptionBumper  {...template_props} text={content?.text || undefined} />
+  </div>
   );
 };

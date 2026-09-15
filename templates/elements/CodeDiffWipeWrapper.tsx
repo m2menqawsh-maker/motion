@@ -2,8 +2,11 @@ import React from "react";
 import { CodeDiffWipe } from "../../remotion-app/src/remotion/scenes/code-diff-wipe";
 import type { TemplateProps } from "../../../registry/types";
 
-export const CodeDiffWipeWrapper: React.FC<TemplateProps> = ({ surface, content }) => {
+export const CodeDiffWipeWrapper = ({ surface, content, ...rest }: any) => {
+  const template_props = rest.template_props || {};
   return (
-    <CodeDiffWipe title={content?.text || undefined} />
+    <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
+    <CodeDiffWipe  {...template_props} title={content?.text || undefined} />
+  </div>
   );
 };
