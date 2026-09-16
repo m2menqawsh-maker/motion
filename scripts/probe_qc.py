@@ -162,6 +162,8 @@ def render_frame(args):
     res = safe_subprocess(cmd, cwd=exec_cwd, shell=False, capture_output=True)
     if res.returncode != 0:
         print(f"❌ فشل توليد اللقطة {i:02d}")
+        print(f"DEBUG OUT: {res.stdout.decode('utf-8', errors='ignore') if res.stdout else ''}")
+        print(f"DEBUG ERR: {res.stderr.decode('utf-8', errors='ignore') if res.stderr else ''}")
         return None
     else:
         return str(out_file.absolute())

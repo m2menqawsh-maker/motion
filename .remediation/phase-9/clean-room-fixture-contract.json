@@ -1,0 +1,44 @@
+{
+  "contract_name": "Clean Room Fixture Contract",
+  "purpose": "Define the minimal necessary starting state and input fixtures for a valid Clean Room Phase 9.13 certification run.",
+  "required_inputs": [
+    {
+      "artifact": "00_answers.md",
+      "type": "Manual Input",
+      "description": "The initial user prompt and requirements describing the creative intent."
+    }
+  ],
+  "agent_responsibilities": [
+    {
+      "artifact": "02_asset_manifest.json",
+      "description": "Agent must assemble and write this manifest using audio-tools-mcp and media-sources-mcp."
+    },
+    {
+      "artifact": "04_timings.json",
+      "description": "Agent must execute analyze_voiceover and format the resulting timings into this structured file."
+    },
+    {
+      "artifact": "master_plan.md",
+      "description": "Agent must generate the full creative plan by correlating 00_answers.md with 04_timings.json."
+    },
+    {
+      "artifact": "05_blueprint.json",
+      "description": "Agent must translate the master_plan.md into the rigorous 05_blueprint.json specification, adhering strictly to the Logical Asset ID contract."
+    }
+  ],
+  "pipeline_responsibilities": [
+    {
+      "artifact": "media_map.json",
+      "description": "Generated implicitly by scripts/materialize_project.py during the Asset Gate."
+    },
+    {
+      "artifact": "render_props.json",
+      "description": "Generated implicitly by scripts/render_project.py."
+    }
+  ],
+  "invariants": {
+    "no_manual_generation": "Other than the Agent acting autonomously through tools, NO human intervention is allowed to generate timings, manifests, or blueprints.",
+    "no_llm_hallucination": "Timings MUST NOT be hallucinated by an LLM; they must strictly derive from MCP audio analysis output.",
+    "no_physical_paths": "Assets must be passed by Logical Asset IDs between stages."
+  }
+}

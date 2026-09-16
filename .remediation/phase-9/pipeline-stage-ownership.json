@@ -1,0 +1,90 @@
+[
+  {
+    "artifact": "00_answers.md",
+    "starting_input_or_generated": "starting_input",
+    "canonical_producer": "User/Agent Dialogue",
+    "producer_file_or_tool": "Manual creation or initial agent instruction",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": false,
+    "consumer": "generate_timings.py (Agent)",
+    "manual_intervention_currently_required": true,
+    "defect_if_any": "Not a defect; acts as the starting point (true starting input)."
+  },
+  {
+    "artifact": "02_asset_manifest.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "Agent / audio-tools-mcp",
+    "producer_file_or_tool": "audio-tools-mcp (get_voiceover_manifest) + Agent assembly",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": false,
+    "consumer": "asset_gate.py",
+    "manual_intervention_currently_required": true,
+    "defect_if_any": "The pipeline requires the Agent to explicitly assemble and write this file manually. There is no automated script to aggregate assets into the manifest."
+  },
+  {
+    "artifact": "04_timings.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "Agent / audio-tools-mcp",
+    "producer_file_or_tool": "audio-tools-mcp (analyze_voiceover)",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": false,
+    "consumer": "Agent (for master_plan.md) / pipeline.py",
+    "manual_intervention_currently_required": true,
+    "defect_if_any": "Agent runs analyze_voiceover but must manually format and save 04_timings.json. No unified script orchestrates audio -> timings.json automatically."
+  },
+  {
+    "artifact": "master_plan.md",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "Agent",
+    "producer_file_or_tool": "Agent / generate_plan.py (skeleton only)",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": false,
+    "consumer": "taste_gate.py / Agent (for blueprint)",
+    "manual_intervention_currently_required": true,
+    "defect_if_any": "Agent must read 04_timings.json and generate_plan.py skeleton to manually stitch the plan. The pipeline.py execution runner does not invoke plan generation."
+  },
+  {
+    "artifact": "05_blueprint.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "Agent",
+    "producer_file_or_tool": "Agent (translating master_plan.md to blueprint.json)",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": false,
+    "consumer": "validate_blueprint.py / render_project.py",
+    "manual_intervention_currently_required": true,
+    "defect_if_any": "No canonical automated script produces the blueprint; it relies entirely on the Agent acting as the producer."
+  },
+  {
+    "artifact": "media_map.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "materialize_project.py",
+    "producer_file_or_tool": "scripts/materialize_project.py",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": true,
+    "consumer": "remotion-app/src/merge.ts (Runtime resolver)",
+    "manual_intervention_currently_required": false,
+    "defect_if_any": "None. Fully automated by pipeline."
+  },
+  {
+    "artifact": "render_props.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "render_project.py",
+    "producer_file_or_tool": "scripts/render_project.py",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": true,
+    "consumer": "Remotion index.ts / Root.tsx",
+    "manual_intervention_currently_required": false,
+    "defect_if_any": "None. Fully automated by pipeline."
+  },
+  {
+    "artifact": ".pipeline_state.json",
+    "starting_input_or_generated": "generated",
+    "canonical_producer": "pipeline.py",
+    "producer_file_or_tool": "scripts/pipeline.py / CheckpointStore",
+    "producer_exists": true,
+    "producer_invoked_by_pipeline": true,
+    "consumer": "pipeline.py (RecoveryEngine)",
+    "manual_intervention_currently_required": false,
+    "defect_if_any": "None. Fully automated by pipeline."
+  }
+]

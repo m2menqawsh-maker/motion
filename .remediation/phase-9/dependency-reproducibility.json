@@ -1,0 +1,15 @@
+{
+  "verified_versions": {
+    "zod": "^3.25.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "@remotion/*": "4.0.524"
+  },
+  "evidence": {
+    "npm_ci_exit_code": 0,
+    "zod_resolution": "ondajs@0.9.2 strictly requires zod@^3.23.0. Forcing zod to 4.5.4 at the root previously caused ERESOLVE conflicts because NPM could not satisfy ondajs' peer dependency. Setting root zod to ^3.25.0 allows ondajs to resolve zod@3.25.x, while @remotion/* packages (which require zod@4.x) safely install their own nested zod@4.5.4 in their node_modules subtrees.",
+    "react_resolution": "React and react-dom were bumped to ^19.3.0 uniformly to match Remotion's internal peer dependency bounds for 4.0.524 and to ensure no duplicate React instances exist in the tree.",
+    "remotion_resolution": "All @remotion/* packages (cli, studio, captions, etc.) must be exactly identical to prevent internal lockfile conflicts. They are now pinned strictly to 4.0.524 across both the root package.json and remotion-app/package.json."
+  },
+  "conclusion": "The workspace dependency tree is now mathematically sound. No legacy-peer-deps flags are required, fulfilling the deterministic clean-room installation requirements."
+}

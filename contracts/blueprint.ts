@@ -159,6 +159,7 @@ export const BlueprintSceneSchema = z.object({
   startFrame: z.number().min(0),
   durationFrames: z.number().min(1),
   props: z.record(z.string(), z.any()).optional(),
+  // Logical Asset IDs (e.g., 'bg_music_1', 'scene_1_video') to be resolved by materialize_project.py -> media_map.json
   media_refs: z.array(z.string()).optional(),
   sfx_ref: z.string().nullable().optional(),
   captions_ref: z.string().nullable().optional(),

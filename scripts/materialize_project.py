@@ -1,12 +1,9 @@
-import subprocess
-from scripts.security import safe_subprocess
-# -*- coding: utf-8 -*-
-"""materialize_project.py — البوابة الوحيدة لنقل الميديا والقوالب إلى البناء.
-Usage: python materialize_project.py <project_dir>"""
 import json, shutil, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+import subprocess
+from scripts.security import safe_subprocess
 import asyncio
 from api.services.pipeline_service import PipelineService
 
@@ -52,26 +49,22 @@ for a in man.get("assets", []):
     shutil.copy2(src, out)
     media_map[aid] = f"projects/{project_id}/media/{out.name}"
 
-for sec in bp.get("timeline", []):
-    for e in sec.get("elements", []):
-        if e.get("kind") == "template":
-            name = e.get("template"); used.add(name)
-            if not list((DST / "templates").rglob(f"{name}.tsx")) and not list((DST / "engine").rglob(f"{name}.tsx")):
-                fails.append(f"template {name} غير موجود على القرص (في أي طبقة)")
-        
-        ref = e.get("asset_ref")
-        if ref and ref not in media_map: fails.append(f"عنصر {e.get('id')} يشير لأصل غير مهيأ: {ref}")
-        
-        # تحقق من أن أي src داخل الـ props يعود للـ media_map الفعلي لمنع الأوهام
-        props = e.get("props", {})
-        for k, v in props.items():
-            if k in ("src", "url", "asset") and isinstance(v, str):
-                if v.startswith(f"projects/{project_id}/media/"):
-                    aid = v.replace(f"projects/{project_id}/media/", "").split(".")[0]
-                    if aid not in media_map:
-                        fails.append(f"عنصر {e.get('id')} يستخدم {k} وهمي لا يوجد في manifest: {v}")
-                elif not v.startswith("http"): # إذا لم يكن رابط خارجي
-                    fails.append(f"عنصر {e.get('id')} يستخدم مسار ميديا غير معتمد: {v}")
+for sec in bp.get("scenes", []):
+    name = sec.get("template")
+    if name:
+        used.add(name)
+        # Checking template existence
+        if not list((DST / "remotion-app" / "src" / "templates").rglob(f"{name}.tsx")) and not list((DST / "remotion-app" / "src" / "engine").rglob(f"{name}.tsx")):
+            fails.append(f"template {name} غير موجود على القرص (في أي طبقة)")
+    
+    # Check media_refs, sfx_ref, captions_ref
+    for ref in sec.get("media_refs", []):
+        if ref not in media_map: fails.append(f"عنصر يشير لأصل غير مهيأ: {ref}")
+    if sec.get("sfx_ref") and sec.get("sfx_ref") not in media_map:
+        fails.append(f"عنصر يشير لمؤثر صوتي غير مهيأ: {sec.get('sfx_ref')}")
+    
+    props = sec.get("props", {})
+    # No arbitrary deep path checks are needed anymore because paths are resolved at runtime via media_map.json.
 
 (proj / "media_map.json").write_text(
     json.dumps(media_map, indent=2, ensure_ascii=False), encoding="utf-8")

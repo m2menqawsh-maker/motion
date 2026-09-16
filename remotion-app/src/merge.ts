@@ -20,6 +20,7 @@ export interface ProjectData {
   brand: BrandKit;
   overrides?: { scenes: Record<string, SceneOverride> };
   manifest?: any;
+  media_map?: Record<string, string>;
 }
 
 export interface MergedScene {
@@ -70,7 +71,8 @@ export function mergeScene(
   scene: BlueprintScene,
   registryEntry: TemplateEntry,
   brand: BrandKit,
-  override?: SceneOverride
+  override?: SceneOverride,
+  mediaMap?: Record<string, string>
 ): MergedScene {
   // 1. يبدأ من registryEntry.defaults
   const baseSurface = { ...registryEntry.defaults };
@@ -111,14 +113,24 @@ export function mergeScene(
   const startFrame = override?.timing?.startFrame ?? scene.startFrame;
   const durationFrames = override?.timing?.durationFrames ?? scene.durationFrames;
 
+  // Resolve Asset IDs via media_map.json
+  const resolveAsset = (ref: string | null | undefined): string | null => {
+    if (!ref) return null;
+    return (mediaMap && mediaMap[ref]) ? mediaMap[ref] : ref;
+  };
+
+  const resolvedMediaRefs = (scene.media_refs || []).map(ref => resolveAsset(ref) as string);
+  const resolvedSfxRef = resolveAsset(scene.sfx_ref);
+  const resolvedCaptionsRef = resolveAsset(scene.captions_ref);
+
   const finalContent: SceneContent = { ...scene.content };
   
-  if (!finalContent.images && scene.media_refs && scene.media_refs.length > 0) {
-    finalContent.images = [...scene.media_refs];
+  if (!finalContent.images && resolvedMediaRefs.length > 0) {
+    finalContent.images = [...resolvedMediaRefs];
   }
   
-  if (!finalContent.screen && scene.media_refs && scene.media_refs.length > 0) {
-    finalContent.screen = scene.media_refs[0];
+  if (!finalContent.screen && resolvedMediaRefs.length > 0) {
+    finalContent.screen = resolvedMediaRefs[0];
   }
   
   // 7. يرجع surface نهائية
@@ -128,9 +140,9 @@ export function mergeScene(
     startFrame,
     durationFrames,
     surface: surfaceWithOverrides,
-    media_refs: scene.media_refs || [],
-    sfx_ref: scene.sfx_ref || null,
-    captions_ref: scene.captions_ref || null,
+    media_refs: resolvedMediaRefs,
+    sfx_ref: resolvedSfxRef,
+    captions_ref: resolvedCaptionsRef,
     content: finalContent,
     effects: (scene as any).effects || [],
     template_props: (scene as any).template_props || {},
@@ -149,7 +161,7 @@ export function mergeProject(
         throw new Error(`Template not found in registry: ${scene.template}`);
       }
       const override = data.overrides?.scenes[scene.scene_id];
-      return mergeScene(scene, entry, data.brand, override);
+      return mergeScene(scene, entry, data.brand, override, data.media_map);
     });
 
   const totalDurationFrames = scenes.reduce((max, s) => {

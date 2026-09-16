@@ -113,7 +113,8 @@ def main():
                     "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
                     "blueprint": safe_load("05_blueprint.json", {}),
                     "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-                    "overrides": safe_load("overrides.json", {"scenes": {}})
+                    "overrides": safe_load("overrides.json", {"scenes": {}}),
+                    "media_map": safe_load("media_map.json", {})
                 }
             }
             props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")

@@ -1,11 +1,23 @@
 [
   {
-    "id": "CRD-001",
-    "severity": "HIGH",
-    "discovered_during": "Pre-freeze dependency reproducibility verification",
-    "root_cause": "Mismatch between remotion package versions (4.0.522 vs 4.0.524) and Zod version (4.6.2 instead of required 4.5.4) causing validation/bundler mismatch in Remotion.",
-    "fix": "Standardized all @remotion/* packages and remotion to 4.0.524, downgraded zod to 4.5.4. Ran npm install to regenerate package-lock.json, then deleted node_modules and ran npm ci.",
-    "regression_test": "npx remotion --version",
-    "status": "FIXED"
+    "defect_id": "CRD-001",
+    "category": "Dependencies",
+    "description": "NPM ERESOLVE conflict between ondajs and remotion due to conflicting zod versions, preventing clean `npm ci`.",
+    "status": "Resolved",
+    "remediation": "Aligned workspace root zod to ^3.25.0 and synchronized all @remotion/* packages to 4.0.524, allowing valid nested installations."
+  },
+  {
+    "defect_id": "CRD-010",
+    "category": "Asset Lifecycle",
+    "description": "Blueprint defined raw physical paths (sometimes pointing to agent-specific directories or developer-local paths) which break cross-environment portability.",
+    "status": "Resolved",
+    "remediation": "Enforced Logical Asset IDs in blueprint. materialize_project.py generates media_map.json. Runtime safely resolves logical IDs to relative paths."
+  },
+  {
+    "defect_id": "CRD-011",
+    "category": "Stage Orchestration",
+    "description": "04_timings.json, master_plan.md, and 05_blueprint.json lack a unified pipeline-invoked automation script. The canonical producer is the Agent interacting with MCPs and manually generating intermediate JSONs.",
+    "status": "Identified",
+    "remediation": "Documented the explicit pipeline boundary. The Agent is formally recognized as the orchestrating producer of these files, while the Python pipeline acts strictly as a mechanical validator/gatekeeper."
   }
 ]

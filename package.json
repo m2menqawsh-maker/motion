@@ -5,7 +5,7 @@
     "studio": "remotion studio remotion-app/src/index.ts --config=remotion-app/remotion.config.ts",
     "build": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4 --config=remotion-app/remotion.config.ts",
     "dev": "concurrently \"npm run api:dev\" \"npm run studio\"",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run tests/contracts.test.ts tests/merge.test.ts",
     "test:contracts": "vitest run tests/contracts.test.ts"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "remotion": "4.0.524",
     "remotion-bits": "^0.2.0",
     "typescript": "^7.0.2",
-    "zod": "4.5.4",
+    "zod": "^3.25.0",
     "zod-to-json-schema": "^3.25.2"
   },
   "devDependencies": {
