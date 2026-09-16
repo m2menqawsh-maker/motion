@@ -19,5 +19,12 @@
     "description": "04_timings.json, master_plan.md, and 05_blueprint.json lack a unified pipeline-invoked automation script. The canonical producer is the Agent interacting with MCPs and manually generating intermediate JSONs.",
     "status": "Identified",
     "remediation": "Documented the explicit pipeline boundary. The Agent is formally recognized as the orchestrating producer of these files, while the Python pipeline acts strictly as a mechanical validator/gatekeeper."
+  },
+  {
+    "defect_id": "CRD-012",
+    "category": "Dependencies",
+    "description": "Missing pytest-asyncio in requirements.txt caused async test suites in fresh venv to execute as sync, causing 15 test failures.",
+    "status": "Resolved",
+    "remediation": "Added pytest-asyncio to requirements.txt in main repository."
   }
 ]

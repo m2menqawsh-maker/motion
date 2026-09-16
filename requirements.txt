@@ -5,3 +5,4 @@ websockets
 python-multipart
 httpx
 pytest
+pytest-asyncio
