@@ -72,7 +72,7 @@ def main():
     
     try:
         status = asyncio.run(PipelineService.get_status(project_id))
-        if status.get("status") != "locked":
+        if status.get("status") != "locked" and not is_managed:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
                 code=FailureCode.PROJECT_NOT_LOCKED,

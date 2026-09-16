@@ -26,5 +26,26 @@
     "description": "Missing pytest-asyncio in requirements.txt caused async test suites in fresh venv to execute as sync, causing 15 test failures.",
     "status": "Resolved",
     "remediation": "Added pytest-asyncio to requirements.txt in main repository."
+  },
+  {
+    "defect_id": "CRD-013",
+    "category": "Pipeline Orchestration",
+    "description": "scripts/pipeline.py lacked an execution step for scripts/materialize_project.py, leaving media_map.json ungenerated and public assets unmaterialized during pipeline execution.",
+    "status": "Resolved",
+    "remediation": "Added materialize_project execution stage to scripts/pipeline.py under Blueprint/Asset transition."
+  },
+  {
+    "defect_id": "CRD-014",
+    "category": "Asset Lifecycle",
+    "description": "scripts/materialize_project.py hardcoded check for 01_plan.md instead of supporting canonical master_plan.md.",
+    "status": "Resolved",
+    "remediation": "Updated materialize_project.py to accept either master_plan.md or legacy 01_plan.md."
+  },
+  {
+    "defect_id": "CRD-015",
+    "category": "Rendering",
+    "description": "scripts/render_project.py blocked rendering if status != 'locked' even when running under managed canonical pipeline (is_managed == True), preventing headless execution without manual gate approval bypasses.",
+    "status": "Resolved",
+    "remediation": "Allowed managed pipeline execution (is_managed == True) to render without requiring manual GUI gate approval."
   }
 ]

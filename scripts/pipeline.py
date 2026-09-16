@@ -296,9 +296,14 @@ def main():
             print("🛑 توقف التنفيذ. قوالب الكود بها مشاكل.")
             sys.exit(1)
             
+        if not run_script(logger, "blueprint", "materialize_project", "materialize_project.py", IdempotencyClass.SAFE_TO_RETRY, str(proj_dir)):
+            print("🛑 توقف التنفيذ. فشل تهيئة أصول المشروع (materialize_project).")
+            sys.exit(1)
+            
         save_checkpoint(CheckpointStage.BLUEPRINT_READY, [
             ("master_plan.md", ValidationLevel.SHA256),
-            ("05_blueprint.json", ValidationLevel.SHA256)
+            ("05_blueprint.json", ValidationLevel.SHA256),
+            ("media_map.json", ValidationLevel.SHA256)
         ])
         next_stage = CheckpointStage.BLUEPRINT_READY
     else:
