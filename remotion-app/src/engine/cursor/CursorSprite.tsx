@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate } from "remotion";
-import { EASE } from "../../tokens";
+import { EASE } from "../tokens";
 
 // Cursor SVGs from Phosphor Icons (MIT license)
 // https://github.com/phosphor-icons/core
