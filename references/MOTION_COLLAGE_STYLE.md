@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Motion Collage Explainer Style (SOP)
 
 The recipe behind the `motion-collage-explainer` format: a bold, screen-print

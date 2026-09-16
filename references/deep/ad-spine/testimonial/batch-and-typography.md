@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Batch & Typography
 
 How to feed many reviews into one card design, plus the quote-typography craft that separates a credible testimonial from a sloppy one.

@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Batch Ad Pipeline — full template, parser, matrix, render
 
 This is the complete, runnable implementation behind the SKILL.md overview: a data-driven Remotion ad template, a CSV→props parser with validation, a one-variable test-matrix generator, a brand-lock theme, and the batch + multi-aspect render scripts. Hardcode nothing a marketer might want to A/B test.

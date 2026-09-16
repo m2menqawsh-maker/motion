@@ -1,3 +1,14 @@
+# HISTORICAL DOCUMENT
+
+This document describes a previous architecture.
+
+DO NOT use this document as an implementation reference.
+
+Current authority:
+- ARCHITECTURE_TRUTH.md
+- AGENTS.md
+
+---
 # 🏛️ الهيكل المعماري لنظام Clean Video Workspace (v4.0)
 
 يوضح هذا المستند بنية العمل المعمارية وكيفية تدفق البيانات والتحكم في النظام لمنع الأخطاء وضمان الجودة.

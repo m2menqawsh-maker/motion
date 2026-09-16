@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 ---
 name: launch-video
 description: This skill should be used when the user asks to "make a launch video", "create a product hype/sizzle film", "build a teaser/trailer for a drop", "do a reveal montage with an end-card CTA", "cut a hero video to the beat", or "export a launch film in 16:9/9:16/1:1". Covers the hook→tease→reveal→feature-montage→end-card arc and multi-aspect export.

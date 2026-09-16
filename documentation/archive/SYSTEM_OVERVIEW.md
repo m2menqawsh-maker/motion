@@ -1,3 +1,14 @@
+# HISTORICAL DOCUMENT
+
+This document describes a previous architecture.
+
+DO NOT use this document as an implementation reference.
+
+Current authority:
+- ARCHITECTURE_TRUTH.md
+- AGENTS.md
+
+---
 # Clean Video Workspace - System Overview
 
 ## 1. Introduction

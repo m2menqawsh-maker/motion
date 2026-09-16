@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 ---
 name: testimonial-video
 description: This skill should be used when the user asks to "make an animated testimonial", "create a quote video", "build a review video", "turn a customer testimonial into a graphic", "animate a customer review", "make a social proof video", "add an animated star rating", or "turn a list of reviews into videos". Covers quote typography, staggered line reveals, kinetic emphasis on key phrases, animated star ratings, the author block (name/role/avatar/company), and templating one card across many quotes.

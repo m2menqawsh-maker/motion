@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # MCP Toolbook — الدليل الشامل لخوادم وأدوات MCP السبعة
 
 > هذا الدليل هو المرجع التشغيلي الرسمي لكافة خوادم وأدوات MCP السبعة في مساحة العمل `tools/mcp-servers/`.

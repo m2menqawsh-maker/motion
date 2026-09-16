@@ -1,0 +1,14 @@
+- `[ ]` 1. Write `extract_proven_defaults.ts` using `typescript` AST to extract default values.
+- `[ ]` 2. Run `extract_proven_defaults.ts` to generate `phase_16_2_default_evidence.json`.
+- `[ ]` 3. Update `generate_registry.ts`:
+  - `[ ]` a. Load `phase_16_2_default_evidence.json` and inject into `propIntel.defaults`.
+  - `[ ]` b. Fix media mapping to be contextual (audioSrc -> audioUrl, etc.).
+  - `[ ]` c. Modify `deriveAdapterCapability` to return `generic_execution_v1` for purely scalar templates, so they aren't blocked by NO_SEMANTIC_ROLE.
+- `[ ]` 4. Update `validate_execution_contracts.ts`:
+  - `[ ]` a. Ensure optional props lacking defaults do NOT block execution.
+  - `[ ]` b. Ensure required props lacking defaults DO block execution.
+- `[ ]` 5. Rebuild Registry & validate contracts (`npx tsx scripts/generate_registry.ts` and `validate_execution_contracts.ts`).
+- `[ ]` 6. Write `validate_phase_16_2.ts` (Integrity validator).
+- `[ ]` 7. Run `validate_phase_16_2.ts` and ensure all constraints pass.
+- `[ ]` 8. Perform representative runtime samples (e.g. 2 scalar templates, 1 media template).
+- `[ ]` 9. Generate `PHASE_16_2_REPORT.md` with exact numbers and the final Decision Gate.

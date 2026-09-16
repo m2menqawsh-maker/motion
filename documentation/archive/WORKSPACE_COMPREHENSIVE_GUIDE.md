@@ -1,3 +1,14 @@
+# HISTORICAL DOCUMENT
+
+This document describes a previous architecture.
+
+DO NOT use this document as an implementation reference.
+
+Current authority:
+- ARCHITECTURE_TRUTH.md
+- AGENTS.md
+
+---
 # 🌌 الدليل الشامل والمرجع الكامل لمساحة عمل الموشن (Workspace Comprehensive Guide)
 
 هذا الملف عبارة عن مرجع مفصل جداً ومحايد 100% يشرح كل زاوية في مشروع `clean-video-workspace`. 

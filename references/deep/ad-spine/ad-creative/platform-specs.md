@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Platform Specs & Message-Match Worksheet
 
 Exact pixel safe zones, durations, aspect ratios, and format limits per placement (2025/2026), plus a worksheet for building message-matched hook→CTA pairs before they go into the CSV. Verify against each platform's current Ads Manager docs before a big spend — placements and safe zones shift.

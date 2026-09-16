@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Remotion Video Production Guide — Zero-Build Master Engine
 
 This document is the canonical reference for the **Zero-Build Master Engine** architecture used in this video workspace. It replaces all legacy "actor-based" or manual React coding workflows.

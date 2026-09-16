@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # HOOK & SCRIPT PLAYBOOK — misotts-article-sprint v3
 
 The canonical writing guide for the 26s avatar-hook + article-whip-scroll short. A writer (or LLM prompt) should be able to follow this mechanically.

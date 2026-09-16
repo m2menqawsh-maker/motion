@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # ROUTER.md — محرك القرار: متى MCP / متى أداة / متى قالب / متى مرجع
 > هذا الملف هو العقل الموجّه. أي مهمة فيديو تمر هنا أولاً قبل أي كود.
 

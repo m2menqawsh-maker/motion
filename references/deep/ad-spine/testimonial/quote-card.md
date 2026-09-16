@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Quote Card — complete runnable component
 
 A full testimonial card you can drop into a Remotion project, plus a zero-dependency HTML/CSS variant for non-Remotion pipelines. Both reveal in reading order, emphasize one phrase, fill stars to the real score, and sign off with the author.

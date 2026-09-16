@@ -1,3 +1,14 @@
+# HISTORICAL DOCUMENT
+
+This document describes a previous architecture.
+
+DO NOT use this document as an implementation reference.
+
+Current authority:
+- ARCHITECTURE_TRUTH.md
+- AGENTS.md
+
+---
 # نظرة عامة على المشروع (Project Overview)
 
 هذا الملف يحتوي على النظرة العامة الشاملة لبيئة وكيل الموشن التجاري `.agents`، شاملة شجرة الملفات وملفات التوجيه الأساسية.

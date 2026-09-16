@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # Seedance AI-Avatar Clip: GO / NO-GO for Your Two Goals
 
 **Verdict: NO-GO as a default line item. Demote the avatar from "always on" to "test-only, social-play-only." It buys ~0% of your PRIMARY goal and is a marginal, substitutable lever for your SECONDARY goal — yet it eats ~90% of per-video cost.**

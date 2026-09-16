@@ -1,3 +1,14 @@
+# HISTORICAL DOCUMENT
+
+This document describes a previous architecture.
+
+DO NOT use this document as an implementation reference.
+
+Current authority:
+- ARCHITECTURE_TRUTH.md
+- AGENTS.md
+
+---
 # 🎬 الدليل الشامل لخط إنتاج الفيديو ومحرك الموشن (Workspace Pipeline & Architecture)
 
 > هذا المستند يشرح بالتفصيل المعماري والتقني كل ما يدور داخل مساحة العمل: **الفلسفة، التدفق المرحلي (Flow)، الملفات المتولدة، السكربتات التلقائية، خوادم الـ MCP، وبوابات الأمان وضمان الجودة (Quality Gates).**

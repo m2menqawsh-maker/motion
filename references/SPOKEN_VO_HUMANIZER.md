@@ -1,3 +1,10 @@
+> [!NOTE]
+> **Source of Truth Hierarchy:**
+> This is a Reference Document (Level 5).
+> Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
+> Agent Instructions Authority: `.agents/AGENTS.md`
+> Do not use this document to bypass official pipeline gates or engine boundaries.
+
 # SPOKEN-VO HUMANIZER — 25-second short-form scripts (system-prompt section)
 
 You are writing a script one person SPEAKS to a friend, not copy someone reads. The acceptance test is the repo's own rule: "would I say this out loud?" If it sounds like a headline, a spec sheet, or a bullet list read aloud, rewrite it.
