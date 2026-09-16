@@ -1,0 +1,1043 @@
+{
+  "Dangling production asset references": 0,
+  "Hardcoded developer asset paths": 0,
+  "Case-sensitive production path mismatches": 0,
+  "graph": [
+    {
+      "source_file": "remotion-app/src/compositions/ai-composer-showcase/index.tsx",
+      "asset_reference": "logo.svg",
+      "exists": true,
+      "classification": "REAL_REQUIRED_ASSET",
+      "hardcoded": false
+    },
+    {
+      "source_file": "remotion-app/src/remotion/scenes/drag-drop-flow/index.tsx",
+      "asset_reference": "b-roll-rooftop.mov",
+      "exists": false,
+      "classification": "NON_ASSET_LITERAL",
+      "hardcoded": false
+    },
+    {
+      "source_file": "remotion-app/src/remotion/scenes/drag-drop-flow/index.tsx",
+      "asset_reference": "interview-cam-b.mp4",
+      "exists": false,
+      "classification": "NON_ASSET_LITERAL",
+      "hardcoded": false
+    },
+    {
+      "source_file": "remotion-app/src/remotion/scenes/drag-drop-flow/index.tsx",
+      "asset_reference": "hero-take.mp4",
+      "exists": false,
+      "classification": "NON_ASSET_LITERAL",
+      "hardcoded": false
+    },
+    {
+      "source_file": "remotion-app/src/remotion/scenes/file-tree-reveal/index.tsx",
+      "asset_reference": "logo.svg",
+      "exists": true,
+      "classification": "REAL_REQUIRED_ASSET",
+      "hardcoded": false
+    },
+    {
+      "source_file": "remotion-app/src/remotion/scenes/tab-switch-panel/index.tsx",
+      "asset_reference": "launch-teaser.mp4",
+      "exists": false,
+      "classification": "NON_ASSET_LITERAL",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "digital_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "keyboard_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "notification_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "pop_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "swoosh_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "whoosh_norm.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "bookmark.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "bot.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "brain.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "calculator.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "code.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "database.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "laptop.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "moon.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "python.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "repeat.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "success.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "telegram.svg",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "music_normalized.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "premium_ambient.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "tech_energetic_music.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "digital.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "keyboard.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "notification.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "pop.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "swoosh.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "whoosh.mp3",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "bg_ai_final.mp4",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "bg_code_final.mp4",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "coding_keyboard.mp4",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "vo_normalized.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "registry/tier-map.json",
+      "asset_reference": "\\u062a\\u062d\\u062f\\u064a \\u0628\\u0627\\u064a\\u062b\\u0648\\u0646.wav",
+      "exists": false,
+      "classification": "ACTIVE_REGISTRY_METADATA",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/agent-browser-proof.json",
+      "asset_reference": "assets/browser_proof_raw.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-explainer.json",
+      "asset_reference": "assets/avatar_raw.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-explainer.json",
+      "asset_reference": "assets/avatar_audio.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-explainer.json",
+      "asset_reference": "qc/broll_contact_sheet.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-explainer.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-explainer.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-hook-broll.json",
+      "asset_reference": "vo_master.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-hook-broll.json",
+      "asset_reference": "hook_vo.wav",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-hook-broll.json",
+      "asset_reference": "assets/hook_clip.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-hook-broll.json",
+      "asset_reference": "assets/video_track.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "avatar.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "article.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "badge.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "out.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "out.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "avatar.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-insta-split.json",
+      "asset_reference": "badge.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-product-walkthrough.json",
+      "asset_reference": "assets/avatar_greenscreen.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-product-walkthrough.json",
+      "asset_reference": "assets/demo_raw.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-product-walkthrough.json",
+      "asset_reference": "assets/demo_polished.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-product-walkthrough.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-product-walkthrough.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-vo-broll.json",
+      "asset_reference": "avatar.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-vo-broll.json",
+      "asset_reference": "out.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-vo-broll.json",
+      "asset_reference": "out.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/avatar-vo-broll.json",
+      "asset_reference": "avatar.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/captioned-talking-head.json",
+      "asset_reference": "public/source/main.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/faceless-broll-ad.json",
+      "asset_reference": "assets/voiceover.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/living-canvas-explainer.json",
+      "asset_reference": "vo_story.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/living-canvas-explainer.json",
+      "asset_reference": "vo_main.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/living-canvas-explainer.json",
+      "asset_reference": "music_bed.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/living-canvas-explainer.json",
+      "asset_reference": "music_score.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/living-canvas-explainer.json",
+      "asset_reference": "sfx_bus.wav",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/longform-repurpose.json",
+      "asset_reference": "inputs/source.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/misotts-article-sprint.json",
+      "asset_reference": "assets/screens/article_full.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/misotts-article-sprint.json",
+      "asset_reference": "assets/hook_clip.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/misotts-article-sprint.json",
+      "asset_reference": "assets/body.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/misotts-article-sprint.json",
+      "asset_reference": "assets/body_audio.wav",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/review-conquest-compilation.json",
+      "asset_reference": "assets/vo.mp3",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/screencast-demo.json",
+      "asset_reference": "assets/raw_recording.mp4",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/screencast-demo.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/screencast-demo.json",
+      "asset_reference": "thumbnail.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/tabletop-levels-explainer.json",
+      "asset_reference": "assets/character/character_hero.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "recipes/ugc-ai-ad.json",
+      "asset_reference": "assets/character/creator_hero.png",
+      "exists": false,
+      "classification": "GENERATED_AT_RUNTIME",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "digital_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/digital_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "keyboard_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/keyboard_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "notification_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/notification_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "pop_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/pop_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "swoosh_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/swoosh_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "whoosh_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/audio/whoosh_norm.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "bookmark.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/bookmark.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "bot.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/bot.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "brain.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/brain.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "calculator.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/calculator.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "code.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/code.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "database.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/database.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "laptop.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/laptop.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "moon.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/moon.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "python.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/python.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "repeat.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/repeat.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "success.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/success.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "telegram.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/icons/telegram.svg",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "music_normalized.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/music/music_normalized.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "premium_ambient.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/music/premium_ambient.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "tech_energetic_music.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/music/tech_energetic_music.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "digital.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/digital.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "keyboard.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/keyboard.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "notification.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/notification.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "pop.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/pop.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "swoosh.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/swoosh.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "whoosh.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/sfx/whoosh.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "bg_ai_final.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/video/bg_ai_final.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "bg_code_final.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/video/bg_code_final.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "coding_keyboard.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/video/coding_keyboard.mp4",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "vo_normalized.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/ready/vo/vo_normalized.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "tech_energetic_music.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/incoming/tech_energetic_music.mp3",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "تحدي بايثون.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    },
+    {
+      "source_file": "ground-truth/ASSET_INDEX.json",
+      "asset_reference": "assets/incoming/تحدي بايثون.wav",
+      "exists": false,
+      "classification": "CURRENT_GROUND_TRUTH_REFERENCE",
+      "hardcoded": false
+    }
+  ]
+}

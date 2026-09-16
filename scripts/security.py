@@ -7,7 +7,10 @@ ALLOWED_SCRIPTS = {
         "scripts/pipeline.py", "scripts/validate_schemas.py", "scripts/render_project.py", 
         "scripts/scene_compiler.py", ".agents/guardian/post_executor.py", 
         "scripts/scaffold_project.py", "scripts/migrate_state.py",
-        "scripts/template_lint.py", "scripts/benchmark_guards.py"
+        "scripts/template_lint.py", "scripts/benchmark_guards.py",
+        "scripts/asset_gate.py", "scripts/plan_gate.py", "scripts/taste_gate.py",
+        "scripts/validate_blueprint.py", "scripts/motion_validator.py",
+        "scripts/code_template_gate.py", "scripts/probe_qc.py"
     ],
     "npm": ["run", "build"], 
     "docker": ["info", "run"]
@@ -29,14 +32,27 @@ def safe_subprocess(cmd_list, **kwargs):
 
     if cmd not in ALLOWED_COMMANDS:
         if cmd in ALLOWED_SCRIPTS:
-            if len(cmd_list) < 2 or cmd_list[1] not in ALLOWED_SCRIPTS[cmd]:
-                # Allow npm run build specifically
-                if cmd == "npm" and len(cmd_list) >= 3 and cmd_list[1] == "run" and cmd_list[2] == "build":
-                    pass # Valid
-                elif cmd == "docker":
-                    pass # Valid for run and info
+                if len(cmd_list) >= 2:
+                    # Normalize slashes for Windows
+                    normalized_script = cmd_list[1].replace("\\", "/")
                 else:
-                    raise PermissionError(f"Command not allowed: {' '.join(cmd_list)}")
+                    normalized_script = ""
+                
+                is_allowed = False
+                if len(cmd_list) >= 2:
+                    for allowed in ALLOWED_SCRIPTS[cmd]:
+                        if normalized_script == allowed or normalized_script.endswith("/" + allowed):
+                            is_allowed = True
+                            break
+                            
+                if not is_allowed:
+                    # Allow npm run build specifically
+                    if cmd == "npm" and len(cmd_list) >= 3 and cmd_list[1] == "run" and cmd_list[2] == "build":
+                        pass # Valid
+                    elif cmd == "docker":
+                        pass # Valid for run and info
+                    else:
+                        raise PermissionError(f"Command not allowed: {' '.join(cmd_list)}")
         else:
             raise PermissionError(f"Command not allowed: {cmd}")
             

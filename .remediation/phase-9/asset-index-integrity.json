@@ -1,0 +1,9 @@
+{
+  "Ghost index entries": 0,
+  "Broken index paths": 0,
+  "Conflicting asset IDs": 0,
+  "Required unindexed assets": 0,
+  "indexes_checked": [
+    "registry/asset_metadata"
+  ]
+}

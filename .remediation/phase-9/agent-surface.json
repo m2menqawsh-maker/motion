@@ -1,0 +1,194 @@
+[
+  {
+    "path": ".agents\\AGENTS.md",
+    "type": "agent_instruction",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\guardian\\behavior_guard.py",
+    "type": "guardian",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\guardian\\command_guard.py",
+    "type": "guardian",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\guardian\\post_executor.py",
+    "type": "guardian",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\guardian\\utils.py",
+    "type": "guardian",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\guardian\\write_guard.py",
+    "type": "guardian",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\rules\\video-production-protocol.md",
+    "type": "agent_instruction",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": false,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\skills\\prompt-engineering-expert\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\plugin.json",
+    "type": "plugin",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\commands\\avatar-insta-reel.md",
+    "type": "command",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\skills\\remocn\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\skills\\snapcn\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\tools\\mcp-servers\\media-sources-mcp\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\tools\\skills\\playwright-cli\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\tools\\mcp-servers\\media-sources-mcp\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\tools\\skills\\playwright-component-testing\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\tools\\mcp-servers\\media-sources-mcp\\.venv\\Lib\\site-packages\\playwright\\driver\\package\\lib\\tools\\skills\\playwright-trace\\SKILL.md",
+    "type": "skill",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  },
+  {
+    "path": ".agents\\plugins\\super-video-maker-plugin\\mcp_config.json",
+    "type": "plugin",
+    "status": "active",
+    "agent_reachable": true,
+    "production_capable": true,
+    "canonical_path_compliant": true,
+    "security_reviewed": true,
+    "evidence": [
+      "Scanned during 9.5.0"
+    ]
+  }
+]

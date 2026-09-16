@@ -1,0 +1,26 @@
+{
+  "templates": {
+    "active": 126,
+    "deprecated": 0
+  },
+  "scenes": {
+    "active": 43,
+    "test_only": 0
+  },
+  "compositions": {
+    "active": 21
+  },
+  "effects": {
+    "active": 38
+  },
+  "primitives": {
+    "active": 24
+  },
+  "engine_features": {
+    "active": 69
+  },
+  "recipes": {
+    "active": 19
+  },
+  "registry_entries": 0
+}

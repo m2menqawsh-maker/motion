@@ -1,0 +1,9 @@
+{
+  "installed_package": "vite",
+  "version": "latest",
+  "reason": "Vitest required vite to execute tests/contracts.test.ts. Missing vite caused test failure ERR_MODULE_NOT_FOUND during 9.6 regression test.",
+  "is_dev_dependency": true,
+  "affects_production_bundle": false,
+  "action": "certification fix",
+  "security_revalidation_required_before_9_14": true
+}

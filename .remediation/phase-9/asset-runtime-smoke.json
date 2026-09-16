@@ -1,0 +1,16 @@
+{
+  "Renderer asset-resolution failures": 0,
+  "Asset failure-state integrity failures": 0,
+  "samples_tested": {
+    "image": "PASS",
+    "svg": "PASS",
+    "video": "PASS",
+    "audio": "PASS",
+    "font": "PASS"
+  },
+  "failure_behavior": {
+    "missing_asset_results_in_structured_failure": true,
+    "corrupt_asset_results_in_structured_failure": true,
+    "pipeline_does_not_silently_complete": true
+  }
+}

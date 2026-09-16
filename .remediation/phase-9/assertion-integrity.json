@@ -1,0 +1,110 @@
+[
+  {
+    "test": "scripts/tests/test_runtime_logger.py::test_logger_failure_does_not_kill_pipeline",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_guardrails.py::test_plan_gate_padding",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_guardrails.py::test_plan_gate_templates",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_guardrails.py::test_violations_config_regexes",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_security_path_traversal.py::test_validate_project_id_invalid",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_security_path_traversal.py::test_safe_resolve_traversal",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/test_security_path_traversal.py::test_safe_resolve_absolute",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/api/test_pipeline_service.py::test_invalid_gate_exception",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/api/test_pipeline_service.py::test_pipeline_lock_prevents_concurrent_runs",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/api/test_render.py::test_websocket_connect",
+    "finding": "FAKE_GREEN (assert True)"
+  },
+  {
+    "test": "tests/api/test_render.py::test_websocket_receive",
+    "finding": "FAKE_GREEN (assert True)"
+  },
+  {
+    "test": "tests/api/test_render.py::test_websocket_disconnect",
+    "finding": "FAKE_GREEN (assert True)"
+  },
+  {
+    "test": "tests/architecture/test_adapter_layer_rules.py::test_routers_do_not_import_scripts_directly",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_import_restrictions.py::test_no_legacy_gates_imports",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_no_parallel_pipeline.py::test_no_scripts_core_imports",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_no_parallel_pipeline.py::test_no_unified_pipeline_references",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_quarantine_isolation.py::test_no_quarantine_imports",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_state_file_integrity.py::test_no_state_json_writes",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/architecture/test_state_file_integrity.py::test_pipeline_service_is_only_writer_of_pipeline_state",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/documentation/test_agents_md_accuracy.py::test_agents_md_references_existing_files",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/documentation/test_references_validity.py::test_all_markdown_links_are_valid",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_mcp_security.py::test_no_execute_command_tools",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_path_traversal.py::test_path_traversal_rejected",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_path_traversal.py::test_symlink_attacks_blocked",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_subprocess_security.py::test_no_direct_subprocess_calls",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_subprocess_security.py::test_no_os_system_calls",
+    "finding": "FAKE_GREEN (No Assertions)"
+  },
+  {
+    "test": "tests/security/test_subprocess_security.py::test_no_shell_true",
+    "finding": "FAKE_GREEN (No Assertions)"
+  }
+]

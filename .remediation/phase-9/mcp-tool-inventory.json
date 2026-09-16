@@ -1,0 +1,49 @@
+{
+  "audio-tools-mcp": {
+    "tools": [
+      "trim_audio", "extend_audio", "normalize_loudness", 
+      "detect_and_trim_silence", "analyze_voiceover", 
+      "split_voiceover_sentences", "get_voiceover_manifest", 
+      "build_voiceover_timeline"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  },
+  "common-tools-mcp": {
+    "tools": [
+      "check_cache", "save_to_cache"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  },
+  "ffmpeg-mcp-server": {
+    "tools": [
+      "speed_up_video", "check_processing_status", 
+      "cancel_video_processing", "increase_keyframes", 
+      "get_files_info", "concatenate_videos"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  },
+  "image-tools-mcp": {
+    "tools": [
+      "upscale_image", "crop_to_ratio", "auto_crop_content"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  },
+  "media-sources-mcp": {
+    "tools": [
+      "download_direct_file", "download_media_page", 
+      "change_asset_status", "pixabay_search_images", 
+      "pixabay_search_videos", "pixabay_search_audio", 
+      "freesound_search", "pexels_search_images", 
+      "pexels_search_videos", "iconify_search", 
+      "download_iconify_icon"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  },
+  "video-tools-mcp": {
+    "tools": [
+      "trim_video", "extend_video", "resize_video", 
+      "detect_and_trim_black_frames"
+    ],
+    "classification": "SAFE_PRODUCTION"
+  }
+}

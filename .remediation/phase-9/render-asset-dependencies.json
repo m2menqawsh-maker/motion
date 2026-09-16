@@ -1,0 +1,103 @@
+{
+  "components_with_assets": 14,
+  "dependencies": [
+    {
+      "id": "BookFlipTransition",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "PushCutTransition",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "BRollStackWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "DeviceMockupZoomWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "MapFlightWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "NewsTickerBarWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "PricingCardWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "SearchResultsPopulateWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "TabSwitchPanelWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "AiComposerShowcaseWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "AiGenerationCanvasWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "HeroLoopWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "MediaSequenceWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    },
+    {
+      "id": "SplitScreenWrapper",
+      "missing_assets": [
+        "local_image.png",
+        "remote_video.mp4"
+      ]
+    }
+  ]
+}

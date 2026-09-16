@@ -1,0 +1,25 @@
+{
+  "boundary_definition": "A clean environment is one that contains only tracked repository source files, intentional documented configurations, and properly installed dependencies. It must not contain any residue from previous pipeline runs, previous renders, manual developer workarounds, or state files generated during prior executions.",
+  "excluded_artifacts": [
+    ".pipeline_state.json",
+    "out/",
+    "renders/",
+    "scratch/",
+    ".remediation/",
+    "logs/",
+    "__pycache__/",
+    ".pytest_cache/",
+    ".remotion/",
+    "node_modules/"
+  ],
+  "included_artifacts": [
+    "Repository source files (tracked by git)",
+    "Documented environment variable configuration templates (.env.example)"
+  ],
+  "rules": [
+    "No reuse of old pipeline state",
+    "No reliance on manually downloaded media",
+    "No reliance on developer-specific environment overrides",
+    "No hidden cache reuse (e.g. npm cache must be isolated or ci used)"
+  ]
+}

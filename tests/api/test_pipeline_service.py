@@ -90,6 +90,8 @@ def test_run_pipeline_extracts_hashes_and_merges(project_id, monkeypatch):
             stderr = ''
             
         def mock_subprocess(*args, **kwargs):
+            cmd = args[0]
+            assert "scripts/pipeline.py" in cmd, f"Expected pipeline script, got {cmd}"
             return MockResult()
             
         monkeypatch.setattr("api.services.pipeline_service.safe_subprocess", mock_subprocess)

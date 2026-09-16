@@ -1,0 +1,37 @@
+{
+  "verification_method": "git check-ignore -v",
+  "cache_ignored": true,
+  "node_caches_ignored": true,
+  "outputs_ignored": false,
+  "source_accidentally_ignored": false,
+  "path_evaluations": {
+    "out/test.mp4": {
+      "ignored": true,
+      "rule": ".gitignore:29:*.mp4\tout/test.mp4"
+    },
+    "renders/test.json": {
+      "ignored": false,
+      "rule": ""
+    },
+    "node_modules/test": {
+      "ignored": true,
+      "rule": ".gitignore:16:node_modules/\tnode_modules/test"
+    },
+    "__pycache__/test.pyc": {
+      "ignored": true,
+      "rule": ".gitignore:10:__pycache__/\t__pycache__/test.pyc"
+    },
+    ".pytest_cache/v/cache": {
+      "ignored": true,
+      "rule": ".gitignore:13:.pytest_cache/\t.pytest_cache/v/cache"
+    },
+    "tests/security/test_guardian.py": {
+      "ignored": false,
+      "rule": ""
+    },
+    "scripts/pipeline.py": {
+      "ignored": false,
+      "rule": ""
+    }
+  }
+}

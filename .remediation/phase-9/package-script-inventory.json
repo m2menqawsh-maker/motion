@@ -1,0 +1,170 @@
+[
+  {
+    "package_file": "package.json",
+    "script_name": "api:dev",
+    "command": "python -m uvicorn api.main:app --reload --port 8787",
+    "classification": "DEVELOPMENT",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "package.json",
+    "script_name": "studio",
+    "command": "remotion studio remotion-app/src/index.ts --config=remotion-app/remotion.config.ts",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "package.json",
+    "script_name": "build",
+    "command": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4 --config=remotion-app/remotion.config.ts",
+    "classification": "BUILD",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "package.json",
+    "script_name": "dev",
+    "command": "concurrently \"npm run api:dev\" \"npm run studio\"",
+    "classification": "DEVELOPMENT",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "package.json",
+    "script_name": "test",
+    "command": "vitest run --passWithNoTests",
+    "classification": "TEST",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "package.json",
+    "script_name": "test:contracts",
+    "command": "vitest run tests/contracts.test.ts",
+    "classification": "TEST",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/package.json",
+    "script_name": "studio",
+    "command": "cd remotion-app && npm run studio",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/package.json",
+    "script_name": "render",
+    "command": "cd remotion-app && npm run render",
+    "classification": "PRODUCTION",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/package.json",
+    "script_name": "start",
+    "command": "node server.js",
+    "classification": "DEVELOPMENT",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/package.json",
+    "script_name": "dev",
+    "command": "node server.js",
+    "classification": "DEVELOPMENT",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/.venv/Lib/site-packages/pyright/dist/package.json",
+    "script_name": "build",
+    "command": "rspack build -c rspack.config.js --mode production",
+    "classification": "BUILD",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/.venv/Lib/site-packages/pyright/dist/package.json",
+    "script_name": "clean",
+    "command": "shx rm -rf ./dist ./out README.md LICENSE.txt",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/.venv/Lib/site-packages/pyright/dist/package.json",
+    "script_name": "prepack",
+    "command": "npm run clean && shx cp ../../README.md . && shx cp ../../LICENSE.txt . && npm run build",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/.venv/Lib/site-packages/pyright/dist/package.json",
+    "script_name": "webpack",
+    "command": "rspack build -c rspack.config.js --mode development",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".remediation/plugin/references_deep/legacy/hyperframes-template/package.json",
+    "script_name": "preview",
+    "command": "hyperframes preview compositions/demo.html",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": ".remediation/plugin/references_deep/legacy/hyperframes-template/package.json",
+    "script_name": "render",
+    "command": "hyperframes render compositions/demo.html --output out/demo.mp4",
+    "classification": "PRODUCTION",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "remotion-app/package.json",
+    "script_name": "sync",
+    "command": "python ../scripts/sync_templates.py",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "remotion-app/package.json",
+    "script_name": "prebuild",
+    "command": "npm run sync",
+    "classification": "BUILD",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "remotion-app/package.json",
+    "script_name": "studio",
+    "command": "remotion studio",
+    "classification": "UNKNOWN",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "remotion-app/package.json",
+    "script_name": "render",
+    "command": "echo \u274c HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
+    "classification": "PRODUCTION",
+    "target_exists": true,
+    "status": "ACTIVE"
+  },
+  {
+    "package_file": "remotion-app/package.json",
+    "script_name": "lint",
+    "command": "npm run sync && tsc --noEmit",
+    "classification": "TEST",
+    "target_exists": true,
+    "status": "ACTIVE"
+  }
+]

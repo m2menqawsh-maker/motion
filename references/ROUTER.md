@@ -27,7 +27,6 @@ Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill De
 | image-tools-mcp | ترقية صور/قص نسب/حذف هوامش | upscale_image، crop_to_ratio، auto_crop_content |
 | common-tools-mcp | قبل أي معالجة (check_cache) وبعدها (save_to_cache) | check_cache، save_to_cache |
 | ffmpeg-mcp-server | مهام FFmpeg طويلة بالخلفية + حالة/إلغاء/دمج | jobs API |
-| Video_Editor_MCP | أوامر FFmpeg حرة فقط إن لم تغطِّها أداة متخصصة | freeform + progress |
 
 ### مصفوفة القرار السريع (أي خادم؟ أي أداة أولى؟)
 | المهمة | الخادم الإلزامي | الأداة الأولى |

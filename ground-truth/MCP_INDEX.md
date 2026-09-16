@@ -39,5 +39,3 @@
 | `video-tools-mcp` | `extend_video` | `(file_path: str, target_duration: float, method: str = "loop", short_duration_threshold: float = 2.0, output_path: str | None = None)` |
 | `video-tools-mcp` | `resize_video` | `(file_path: str, target_width: int, target_height: int, maintain_aspect_ratio: bool = True, output_path: str | None = None)` |
 | `video-tools-mcp` | `detect_and_trim_black_frames` | `(file_path: str, threshold: float = 0.1, min_duration: float = 0.1, trim_start: bool = True, trim_end: bool = True, output_path: str | None = None)` |
-| `Video_Editor_MCP` | `export_path` | `()` |
-| `Video_Editor_MCP` | `execute_command` | `(command: str, ctx: Context)` |

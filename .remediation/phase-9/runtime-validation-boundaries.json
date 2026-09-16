@@ -1,0 +1,14 @@
+[
+  {
+    "boundary": "API Request",
+    "validator": "Pydantic/FastAPI",
+    "fail-open/fail-closed": "fail-closed",
+    "Unvalidated production inputs": 0
+  },
+  {
+    "boundary": "CLI project input",
+    "validator": "argparse & jsonschema",
+    "fail-open/fail-closed": "fail-closed",
+    "Unvalidated production inputs": 0
+  }
+]

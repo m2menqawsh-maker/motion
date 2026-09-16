@@ -1,0 +1,205 @@
+[
+  {
+    "original_path": "chat-\u062a\u062d\u0644\u064a\u0644 \u0646\u0638\u0627\u0645 \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u0639\u0642\u062f.txt",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "governance-report.json",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "PROJECT_STRUCTURE.md",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "\u0627\u0644\u0627\u062e\u0637\u0627\u0621.md",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "\u062e\u0627\u0631\u0637\u0629 \u0637\u0631\u064a\u0642 \u0627\u0644\u0627\u0635\u0644\u0627\u062d.md",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/server.js.bak",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "remotion-app/src/templates/scenes/TestEngine.tsx",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/04_timings.json",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/agent_scanner.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/align_references.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/analyze_transcript.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/archive_docs.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/build_master_plan.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/check_templates.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/generate_blueprint.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/generate_final_plan.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/generate_full_markdown_log.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/generate_master_plan.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/generate_scope.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/inspect_transcript.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/move_primitives.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/patch_generator.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/patch_routers.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/patch_scripts.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/raw_executables.json",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/refactor_subprocess.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/search_engine.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/security_scanner.py",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  },
+  {
+    "original_path": "scratch/test_bp.json",
+    "action": "DELETE",
+    "destination": null,
+    "success": true,
+    "error": ""
+  }
+]

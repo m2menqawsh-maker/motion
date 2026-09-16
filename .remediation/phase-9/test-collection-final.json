@@ -1,0 +1,11 @@
+{
+  "total_collected": 140,
+  "suites": {
+    "active": 140,
+    "plugin": 0,
+    "certification": 0,
+    "historical": 0,
+    "remove": 0
+  },
+  "notes": "All Python tests were moved to tests/ and collected officially by pytest. There are no active plugin tests."
+}

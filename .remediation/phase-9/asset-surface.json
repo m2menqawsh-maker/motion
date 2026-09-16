@@ -1,0 +1,2498 @@
+[
+  {
+    "path": "assets/cache/pexels_video_12172194.mp4",
+    "category": "video",
+    "lifecycle": "cache",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/cache/pixabay_image_7156594.jpg",
+    "category": "image",
+    "lifecycle": "cache",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.الموبايل الي بايدك_0d300042.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.الموبايل الي بايدك_norm_954726a6.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.تحدي الثلاثين يوما_206ec956.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.تحدي بايثون_1bf6b023.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.تعلم البرمجة_206ec956.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/.عالم التقنية_e872816a.analysis.json",
+    "category": "metadata",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_12433552.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_33315117.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_v_ai_illustration.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_v_ai_network.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_v_blurred_code.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_v_code_bg.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pexels_video_v_hacker_typing.mp4",
+    "category": "video",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_179500.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_566463.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_582449.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_585360.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech_norm.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_riser.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_tech_reveal.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_ui_click.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_ui_pop.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03_norm.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04_norm.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_pixabay_507828.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/pixabay_audio_tech_energetic_music.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/tech_energetic_music.mp3",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/الموبايل الي بايدك.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/الموبايل الي بايدك_norm.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/تحدي الثلاثين يوما.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/تحدي بايثون.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/تعلم البرمجة.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/incoming/عالم التقنية.wav",
+    "category": "audio",
+    "lifecycle": "incoming",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/phone_power_sentences/sentence_001.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/phone_power_sentences/sentence_002.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/phone_power_sentences/sentence_003.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/phone_power_sentences/sentence_004.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/prj_c05b1800_sentences/sentence_001.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/prj_c05b1800_sentences/sentence_002.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/prj_c05b1800_sentences/sentence_003.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/processing/prj_c05b1800_sentences/sentence_004.wav",
+    "category": "audio",
+    "lifecycle": "processing",
+    "production_referenced": false,
+    "runtime_reachable": false,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/cyber_synth_bgm_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/digital_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/keyboard_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/notification_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/pop_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/swoosh_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/audio/whoosh_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/bookmark.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/bot.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/brain.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/calculator.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/code.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/computer_lucide.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/cpu.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/cpu_solar/solar_cpu-bold-duotone.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/crescent_moon_noto.svg/noto_crescent-moon.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/database.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/instagram.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/laptop.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/light_bulb_noto.svg/noto_light-bulb.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/meteor.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/meteor_pkg/streamline-kameleon-color_meteor.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/moon.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/python.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/repeat.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/rocket.svg/solar_rocket-bold-duotone.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/rocket_cartoon.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/rocket_noto.svg/noto_rocket.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/satellite.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/satellite_solar.svg/solar_satellite-bold-duotone.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/shuttle_pkg/streamline-kameleon-color_space-shuttle.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/smartphone_lucide.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/space_shuttle.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/success.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/telegram.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/tiktok.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/twitter.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/icons/youtube.svg",
+    "category": "svg",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/moon_photo.png",
+    "category": "image",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/music/music_normalized.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/music/premium_ambient.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/music/premium_ambient_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/music/tech_energetic_music.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/music/tech_energetic_music_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/pexels_video_12172194_intra.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/pixabay_audio_a_sfx_ui_click_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/pixabay_audio_a_sfx_ui_pop_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/pixabay_image_7156594.webp",
+    "category": "image",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/digital.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/keyboard.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/notification.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/pop.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/swoosh.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/sfx/whoosh.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/tech_energetic_music_norm.mp3",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/ai_robot.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/bg_ai_final.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/bg_code_final.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/bg_neon_1_intra.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/bg_neon_2_intra.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/coding_keyboard.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/coding_keyboard_intra.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/pixabay_video_136942.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/pixabay_video_92511.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/scrolling_phone.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/smartphone.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/video/vintage_computer.mp4",
+    "category": "video",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/.mobile_nasa_vo_norm_954726a6.analysis.json",
+    "category": "metadata",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/.تحدي_الثلاثين_يوما_norm_bfbebf71.analysis.json",
+    "category": "metadata",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/mobile_collage_vo_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/mobile_nasa_vo_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/vo_mobile_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/vo_normalized.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/تحدي_الثلاثين_يوما_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/vo/تعلم_البرمجة_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "assets/ready/عالم التقنية_norm.wav",
+    "category": "audio",
+    "lifecycle": "ready",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/bgm_cyber_synth.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/bot.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/brain.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/code.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/icon_cpu.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/icon_satellite.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/instagram.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/meteor.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/moon.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_digital.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_keyboard.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_notification.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_pop.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_swoosh.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/sfx_whoosh.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/smartphone_lucide.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/space_shuttle.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/success.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/tiktok.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/twitter.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/vo_main.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "public/media/youtube.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/accent_chime.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/BG_intra.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/camera_click.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/logo.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/digital_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/keyboard_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/notification_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/pop_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/swoosh_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/audio/whoosh_norm.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/bookmark.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/bot.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/brain.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/calculator.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/code.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/database.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/laptop.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/moon.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/python.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/repeat.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/success.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/icons/telegram.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/music/music_normalized.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/music/premium_ambient.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/music/tech_energetic_music.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/digital.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/keyboard.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/notification.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/pop.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/swoosh.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/sfx/whoosh.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/video/bg_ai_final.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/video/bg_code_final.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/video/coding_keyboard.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/media/vo/vo_normalized.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/music_30s.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/bgm_cyber_synth.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_brain_ai.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_code_dev.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_cpu_chip.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_rocket_cartoon.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_smartphone.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_success_check.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_digital_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_keyboard_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_notification_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_pop_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_swoosh_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_whoosh_01.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/projects/prj_a68b0b6e/media/vo_main.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/video1_intra.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/video2_intra.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/video3_4_seamless.mp4",
+    "category": "video",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_1.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_2.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_3.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_4.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_5.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/vo_6.wav",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/warning.svg",
+    "category": "svg",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "path": "remotion-app/public/whoosh_cinematic.mp3",
+    "category": "audio",
+    "lifecycle": "public",
+    "production_referenced": false,
+    "runtime_reachable": true,
+    "source": "filesystem",
+    "status": "active",
+    "evidence": [
+      "Found in filesystem"
+    ]
+  }
+]

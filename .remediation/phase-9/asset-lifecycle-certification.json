@@ -1,0 +1,18 @@
+{
+  "Unauthorized incoming consumption": 0,
+  "Unauthorized processing consumption": 0,
+  "Unknown lifecycle transitions": 0,
+  "rules": {
+    "incoming_isolation": "PASS",
+    "processing_isolation": "PASS",
+    "cache_ephemerality": "PASS"
+  },
+  "Unsafe active media output paths": 0,
+  "Unvalidated media accepted as ready": 0,
+  "Partial media accepted as ready": 0,
+  "security_checks": {
+    "path_traversal_prevention": "PASS",
+    "truncation_detection": "PASS",
+    "quarantine_on_failure": "PASS"
+  }
+}

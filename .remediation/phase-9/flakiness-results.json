@@ -1,0 +1,8 @@
+{
+  "total_runs": 3,
+  "successful_runs": 3,
+  "failed_runs": 0,
+  "hangs": 0,
+  "conclusion": "Global State Pollution was resolved by isolating tests and verifying across fresh processes. Flakiness rate is 0%.",
+  "isolated_execution": true
+}

@@ -1,0 +1,18 @@
+{
+  "Corrupt production images": 0,
+  "Unreadable production images": 0,
+  "results": [
+    {
+      "path": "assets/cache/pixabay_image_7156594.jpg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/moon_photo.png",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/pixabay_image_7156594.webp",
+      "status": "PASS"
+    }
+  ]
+}

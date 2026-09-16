@@ -1,0 +1,253 @@
+{
+  "coverage": "100%",
+  "failed": 0,
+  "results": [
+    {
+      "id": "BookFlipTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 44,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "ClockWipeTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 44,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "CrosswarpTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 36,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "CrossZoomTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 16,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "DissolveTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 55,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "DreamyZoomTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 25,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "engine-bridge",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 44,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "FadeTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 31,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "FilmBurnTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 56,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "FlipTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 32,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "IrisTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 32,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "LinearBlurTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 49,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "PushCutTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 22,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "RippleTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 55,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "SlideTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 39,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "SwapTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 42,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "WipeTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 39,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "ZoomBlurTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 40,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    },
+    {
+      "id": "ZoomInOutTransition",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 30,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS"
+    }
+  ]
+}

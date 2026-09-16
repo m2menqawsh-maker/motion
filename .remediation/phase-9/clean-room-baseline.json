@@ -1,0 +1,14 @@
+{
+  "git": {
+    "HEAD": "8b178668453a5f1222f0e516b5c4d2d04b191af0",
+    "branch": "remediation/master-plan"
+  },
+  "environment": {
+    "node_version": "v26.7.0",
+    "npm_version": "11.19.0",
+    "python_version": "Python 3.14.7",
+    "ffmpeg_version": "9.0-full_build-www.gyan.dev",
+    "ffprobe_version": "9.0-full_build-www.gyan.dev",
+    "os": "Windows"
+  }
+}

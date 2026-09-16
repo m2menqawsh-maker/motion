@@ -2,6 +2,12 @@ import subprocess, json, shutil, pytest, asyncio
 from pathlib import Path
 from api.services.pipeline_service import PipelineService
 
+"""
+Classification: PARTIAL_INTEGRATION
+This test verifies the gate state transitions through PipelineService.
+It does NOT execute actual rendering, FFmpeg, or the Engine. True E2E coverage is deferred to Phase 9.13.
+"""
+
 def run(cmd):
     result = subprocess.run(cmd, capture_output=True, text=True)
     return result.returncode, result.stdout, result.stderr

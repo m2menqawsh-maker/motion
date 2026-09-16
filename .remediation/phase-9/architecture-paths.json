@@ -1,0 +1,16 @@
+{
+  "api_entry": "api/services/pipeline_service.py",
+  "cli_entry": "scripts/pipeline.py",
+  "agent_entry": "Agent connects via API/CLI",
+  "canonical_state": ".pipeline_state.json",
+  "pipeline_implementation": "scripts/pipeline.py",
+  "render_launcher": "scripts/render_project.py",
+  "engine_bridge": "templates/effects/engine-bridge.tsx",
+  "gate_implementations": [
+    "scripts/asset_gate.py",
+    "scripts/plan_gate.py",
+    "scripts/taste_gate.py",
+    "scripts/validate_blueprint.py",
+    "scripts/code_template_gate.py"
+  ]
+}

@@ -1,4 +1,4 @@
-import { TestEngine } from "../remotion-app/src/templates/scenes/TestEngine";
+
 import { AiComposerShowcaseWrapper } from "../templates/scenes/AiComposerShowcaseWrapper";
 import { AiGenerationCanvasWrapper } from "../templates/scenes/AiGenerationCanvasWrapper";
 import { BentoPanWrapper } from "../templates/elements/BentoPanWrapper";
@@ -1154,16 +1154,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     description: { ar: "مكون ZoomPanFrame من مكتبة Remotion UI", en: "Remotion UI Component" },
     category: "composition",
     component: ZoomPanFrameWrapper,
-    defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
-  },
-  "TestEngine": {
-    id: "TestEngine",
-    label: { ar: "TestEngine", en: "TestEngine" },
-    description: { ar: "TestEngine", en: "TestEngine" },
-    category: "composition",
-    component: TestEngine,
     defaultDurationFrames: 150,
     schema: {},
     defaults: {}

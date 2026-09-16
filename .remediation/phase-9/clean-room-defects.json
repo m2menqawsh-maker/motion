@@ -1,0 +1,11 @@
+[
+  {
+    "id": "CRD-001",
+    "severity": "HIGH",
+    "discovered_during": "Pre-freeze dependency reproducibility verification",
+    "root_cause": "Mismatch between remotion package versions (4.0.522 vs 4.0.524) and Zod version (4.6.2 instead of required 4.5.4) causing validation/bundler mismatch in Remotion.",
+    "fix": "Standardized all @remotion/* packages and remotion to 4.0.524, downgraded zod to 4.5.4. Ran npm install to regenerate package-lock.json, then deleted node_modules and ran npm ci.",
+    "regression_test": "npx remotion --version",
+    "status": "FIXED"
+  }
+]

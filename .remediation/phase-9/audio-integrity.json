@@ -1,0 +1,1955 @@
+{
+  "Unreadable required audio": 0,
+  "Undecodable required audio": 0,
+  "Audio contract without validation": 0,
+  "FFPROBE_UNAVAILABLE": false,
+  "results": [
+    {
+      "path": "assets/incoming/pixabay_audio_179500.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_179500.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "170.893063",
+        "size": "5468578",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_566463.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_566463.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "5.040000",
+        "size": "161280",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_582449.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_582449.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "3.108563",
+        "size": "99474",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_585360.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_585360.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "137.424000",
+        "size": "4397568",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_bgm_abstract_tech.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "176.065281",
+        "size": "5634089",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_bgm_abstract_tech_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_bgm_abstract_tech_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.025057",
+        "duration": "176.065306",
+        "size": "2817714",
+        "bit_rate": "128030",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_riser.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_riser.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "73.874281",
+        "size": "2363977",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_tech_reveal.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_tech_reveal.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "12.068563",
+        "size": "386194",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_ui_click.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_ui_click.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "12.480000",
+        "size": "399360",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_ui_pop.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_ui_pop.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "2.040000",
+        "size": "65280",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_01.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "5.040000",
+        "size": "161280",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.025057",
+        "duration": "5.040000",
+        "size": "81336",
+        "bit_rate": "129104",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_03.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "5.040000",
+        "size": "161280",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_03_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_03_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.025057",
+        "duration": "5.040000",
+        "size": "81336",
+        "bit_rate": "129104",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_04.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "3.024000",
+        "size": "96768",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_a_sfx_whoosh_04_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_a_sfx_whoosh_04_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.025057",
+        "duration": "3.024014",
+        "size": "49153",
+        "bit_rate": "130033",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_pixabay_507828.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_pixabay_507828.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "93.231000",
+        "size": "2983392",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/pixabay_audio_tech_energetic_music.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pixabay_audio_tech_energetic_music.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "89.782844",
+        "size": "2873051",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/tech_energetic_music.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\tech_energetic_music.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "89.782844",
+        "size": "2873051",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/incoming/الموبايل الي بايدك.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\الموبايل الي بايدك.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "856364",
+        "bit_rate": "384019",
+        "probe_score": 99
+      }
+    },
+    {
+      "path": "assets/incoming/الموبايل الي بايدك_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\الموبايل الي بايدك_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/تحدي الثلاثين يوما.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\تحدي الثلاثين يوما.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "50.680000",
+        "size": "2432684",
+        "bit_rate": "384006",
+        "probe_score": 99
+      }
+    },
+    {
+      "path": "assets/incoming/تحدي بايثون.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\تحدي بايثون.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "2499884",
+        "bit_rate": "384006",
+        "probe_score": 99
+      }
+    },
+    {
+      "path": "assets/incoming/تعلم البرمجة.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\تعلم البرمجة.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "50.680000",
+        "size": "2432684",
+        "bit_rate": "384006",
+        "probe_score": 99
+      }
+    },
+    {
+      "path": "assets/incoming/عالم التقنية.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\عالم التقنية.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "34.040000",
+        "size": "1633964",
+        "bit_rate": "384010",
+        "probe_score": 99
+      }
+    },
+    {
+      "path": "assets/processing/phone_power_sentences/sentence_001.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\phone_power_sentences\\sentence_001.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "4.840000",
+        "size": "426966",
+        "bit_rate": "705728",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/phone_power_sentences/sentence_002.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\phone_power_sentences\\sentence_002.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.640000",
+        "size": "232926",
+        "bit_rate": "705836",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/phone_power_sentences/sentence_003.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\phone_power_sentences\\sentence_003.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "5.060000",
+        "size": "446370",
+        "bit_rate": "705723",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/phone_power_sentences/sentence_004.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\phone_power_sentences\\sentence_004.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "3.580000",
+        "size": "315834",
+        "bit_rate": "705774",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/prj_c05b1800_sentences/sentence_001.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\prj_c05b1800_sentences\\sentence_001.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "4.950000",
+        "size": "436668",
+        "bit_rate": "705726",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/prj_c05b1800_sentences/sentence_002.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\prj_c05b1800_sentences\\sentence_002.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.920000",
+        "size": "257622",
+        "bit_rate": "705813",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/prj_c05b1800_sentences/sentence_003.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\prj_c05b1800_sentences\\sentence_003.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "5.500000",
+        "size": "485178",
+        "bit_rate": "705713",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/processing/prj_c05b1800_sentences/sentence_004.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\processing\\prj_c05b1800_sentences\\sentence_004.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "4.030000",
+        "size": "355524",
+        "bit_rate": "705754",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/cyber_synth_bgm_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\cyber_synth_bgm_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "89.782857",
+        "size": "15837774",
+        "bit_rate": "1411206",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/digital_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\digital_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.097143",
+        "size": "193614",
+        "bit_rate": "1411768",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/keyboard_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\keyboard_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "8.045714",
+        "size": "1419342",
+        "bit_rate": "1411277",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/notification_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\notification_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.828571",
+        "size": "322638",
+        "bit_rate": "1411541",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/pop_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\pop_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.056009",
+        "size": "186358",
+        "bit_rate": "1411790",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/swoosh_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\swoosh_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.063673",
+        "size": "364110",
+        "bit_rate": "1411502",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/audio/whoosh_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\audio\\whoosh_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.201633",
+        "size": "212046",
+        "bit_rate": "1411718",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/music/music_normalized.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\music_normalized.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "89.782859",
+        "size": "68953338",
+        "bit_rate": "6144009",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/music/premium_ambient.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\premium_ambient.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "124.029375",
+        "size": "3968940",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/ready/music/premium_ambient_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\premium_ambient_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "22.000000",
+        "size": "352748",
+        "bit_rate": "128272",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/music/tech_energetic_music.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\tech_energetic_music.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "89.782844",
+        "size": "2873051",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "assets/ready/music/tech_energetic_music_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\music\\tech_energetic_music_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.025057",
+        "duration": "89.782857",
+        "size": "1437195",
+        "bit_rate": "128059",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/pixabay_audio_a_sfx_ui_click_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\pixabay_audio_a_sfx_ui_click_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "12.480000",
+        "size": "200300",
+        "bit_rate": "128397",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/pixabay_audio_a_sfx_ui_pop_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\pixabay_audio_a_sfx_ui_pop_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "2.040000",
+        "size": "33260",
+        "bit_rate": "130431",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\pixabay_audio_a_sfx_whoosh_01_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "5.040000",
+        "size": "81260",
+        "bit_rate": "128984",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/digital.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\digital.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.097146",
+        "size": "18284",
+        "bit_rate": "133320",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/keyboard.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\keyboard.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "8.045729",
+        "size": "129644",
+        "bit_rate": "128907",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/notification.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\notification.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.828583",
+        "size": "30188",
+        "bit_rate": "132071",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/pop.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\pop.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.056000",
+        "size": "17516",
+        "bit_rate": "132696",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/swoosh.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\swoosh.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "2.063688",
+        "size": "33644",
+        "bit_rate": "130422",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/sfx/whoosh.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\sfx\\whoosh.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.201646",
+        "size": "20204",
+        "bit_rate": "134508",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/tech_energetic_music_norm.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\tech_energetic_music_norm.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "89.782854",
+        "size": "1437164",
+        "bit_rate": "128056",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/mobile_collage_vo_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\mobile_collage_vo_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/mobile_nasa_vo_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\mobile_nasa_vo_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/vo_mobile_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\vo_mobile_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/vo_normalized.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\vo_normalized.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "50.680000",
+        "size": "19461222",
+        "bit_rate": "3072016",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/تحدي_الثلاثين_يوما_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\تحدي_الثلاثين_يوما_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "50.680000",
+        "size": "4470054",
+        "bit_rate": "705612",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/vo/تعلم_البرمجة_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\vo\\تعلم_البرمجة_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "50.680000",
+        "size": "4470054",
+        "bit_rate": "705612",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/عالم التقنية_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\عالم التقنية_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "34.040000",
+        "size": "13071462",
+        "bit_rate": "3072023",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/bgm_cyber_synth.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\bgm_cyber_synth.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "89.782854",
+        "size": "1437164",
+        "bit_rate": "128056",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_digital.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_digital.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.097143",
+        "size": "193614",
+        "bit_rate": "1411768",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_keyboard.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_keyboard.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "8.045714",
+        "size": "1419342",
+        "bit_rate": "1411277",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_notification.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_notification.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.828571",
+        "size": "322638",
+        "bit_rate": "1411541",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_pop.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_pop.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.056009",
+        "size": "186358",
+        "bit_rate": "1411790",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_swoosh.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_swoosh.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.063673",
+        "size": "364110",
+        "bit_rate": "1411502",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/sfx_whoosh.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\sfx_whoosh.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.201633",
+        "size": "212046",
+        "bit_rate": "1411718",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "public/media/vo_main.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\public\\media\\vo_main.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/accent_chime.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\accent_chime.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.828583",
+        "size": "30188",
+        "bit_rate": "132071",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/camera_click.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\camera_click.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.056000",
+        "size": "17516",
+        "bit_rate": "132696",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/digital_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\digital_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.097143",
+        "size": "193614",
+        "bit_rate": "1411768",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/keyboard_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\keyboard_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "8.045714",
+        "size": "1419342",
+        "bit_rate": "1411277",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/notification_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\notification_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.828571",
+        "size": "322638",
+        "bit_rate": "1411541",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/pop_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\pop_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.056009",
+        "size": "186358",
+        "bit_rate": "1411790",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/swoosh_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\swoosh_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.063673",
+        "size": "364110",
+        "bit_rate": "1411502",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/audio/whoosh_norm.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\audio\\whoosh_norm.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.201633",
+        "size": "212046",
+        "bit_rate": "1411718",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/music/music_normalized.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\music\\music_normalized.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "9186990",
+        "bit_rate": "1411211",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/music/premium_ambient.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\music\\premium_ambient.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "124.029375",
+        "size": "3968940",
+        "bit_rate": "256000",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "remotion-app/public/media/music/tech_energetic_music.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\music\\tech_energetic_music.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "89.782844",
+        "size": "2873051",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/digital.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\digital.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.097146",
+        "size": "18284",
+        "bit_rate": "133320",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/keyboard.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\keyboard.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "8.045729",
+        "size": "129644",
+        "bit_rate": "128907",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/notification.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\notification.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.828583",
+        "size": "30188",
+        "bit_rate": "132071",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/pop.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\pop.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.056000",
+        "size": "17516",
+        "bit_rate": "132696",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/swoosh.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\swoosh.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "2.063688",
+        "size": "33644",
+        "bit_rate": "130422",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/sfx/whoosh.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\sfx\\whoosh.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.201646",
+        "size": "20204",
+        "bit_rate": "134508",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/vo/vo_normalized.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\vo\\vo_normalized.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/music_30s.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\music_30s.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "89.782844",
+        "size": "2873051",
+        "bit_rate": "255999",
+        "probe_score": 52
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/bgm_cyber_synth.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\bgm_cyber_synth.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "89.782857",
+        "size": "15837774",
+        "bit_rate": "1411206",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_digital_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_digital_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.097143",
+        "size": "193614",
+        "bit_rate": "1411768",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_keyboard_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_keyboard_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "8.045714",
+        "size": "1419342",
+        "bit_rate": "1411277",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_notification_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_notification_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.828571",
+        "size": "322638",
+        "bit_rate": "1411541",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_pop_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_pop_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.056009",
+        "size": "186358",
+        "bit_rate": "1411790",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_swoosh_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_swoosh_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "2.063673",
+        "size": "364110",
+        "bit_rate": "1411502",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/sfx_whoosh_01.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\sfx_whoosh_01.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "1.201633",
+        "size": "212046",
+        "bit_rate": "1411718",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/vo_main.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\projects\\prj_a68b0b6e\\media\\vo_main.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "17.840000",
+        "size": "1573566",
+        "bit_rate": "705634",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_1.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_1.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_2.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_2.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_3.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_3.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_4.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_4.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_5.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_5.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/vo_6.wav",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\vo_6.wav",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "wav",
+        "format_long_name": "WAV / WAVE (Waveform Audio)",
+        "duration": "52.080000",
+        "size": "4593534",
+        "bit_rate": "705611",
+        "probe_score": 99,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/whoosh_cinematic.mp3",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\whoosh_cinematic.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.023021",
+        "duration": "1.201646",
+        "size": "20204",
+        "bit_rate": "134508",
+        "probe_score": 52,
+        "tags": {
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    }
+  ]
+}

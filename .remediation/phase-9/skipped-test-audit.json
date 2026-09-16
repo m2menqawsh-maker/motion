@@ -1,0 +1,9 @@
+[
+  {
+    "test": "tests/security/test_path_traversal.py:83",
+    "reason": "Windows symlink lacks permission",
+    "condition": "environment-blocked",
+    "critical": false,
+    "temporary": true
+  }
+]

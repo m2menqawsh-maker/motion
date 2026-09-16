@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "shell_enforcement",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "guardian_command_bypass",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "canonical_state_writer",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "gate_bypass",
+    "caught": true,
+    "restored": true
+  }
+]

@@ -1,0 +1,657 @@
+{
+  "Unreadable production video files": 0,
+  "Corrupt production videos": 0,
+  "Unsupported required videos": 0,
+  "Zero-duration required videos": 0,
+  "FFPROBE_UNAVAILABLE": false,
+  "results": [
+    {
+      "path": "assets/cache/pexels_video_12172194.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\cache\\pexels_video_12172194.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "24.446667",
+        "size": "1476855",
+        "bit_rate": "483290",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42isomavc1",
+          "creation_time": "2022-05-17T21:58:06.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_12433552.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_12433552.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.040000",
+        "duration": "41.520000",
+        "size": "72732881",
+        "bit_rate": "14014042",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "iso5",
+          "minor_version": "512",
+          "compatible_brands": "iso5iso6mp41",
+          "encoder": "Lavf60.16.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_33315117.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_33315117.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "9.160000",
+        "size": "1466275",
+        "bit_rate": "1280589",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "iso5",
+          "minor_version": "512",
+          "compatible_brands": "iso5iso6mp41",
+          "encoder": "Lavf60.16.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_v_ai_illustration.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_v_ai_illustration.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "16.700000",
+        "size": "33568971",
+        "bit_rate": "16080944",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "iso5",
+          "minor_version": "512",
+          "compatible_brands": "iso5iso6mp41",
+          "encoder": "Lavf60.16.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_v_ai_network.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_v_ai_network.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "3843497",
+        "bit_rate": "3074797",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42isomavc1",
+          "creation_time": "2023-06-07T19:28:37.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_v_blurred_code.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_v_blurred_code.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "9.160000",
+        "size": "1466275",
+        "bit_rate": "1280589",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "iso5",
+          "minor_version": "512",
+          "compatible_brands": "iso5iso6mp41",
+          "encoder": "Lavf60.16.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_v_code_bg.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_v_code_bg.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "16.880000",
+        "size": "4384360",
+        "bit_rate": "2077895",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "iso5",
+          "minor_version": "512",
+          "compatible_brands": "iso5iso6mp41",
+          "encoder": "Lavf61.7.100"
+        }
+      }
+    },
+    {
+      "path": "assets/incoming/pexels_video_v_hacker_typing.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\incoming\\pexels_video_v_hacker_typing.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "22.280000",
+        "size": "9036471",
+        "bit_rate": "3244693",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2021-07-12T16:17:28.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/pexels_video_12172194_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\pexels_video_12172194_intra.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "24.446667",
+        "size": "4467547",
+        "bit_rate": "1461973",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/ai_robot.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\ai_robot.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.120000",
+        "size": "7691030",
+        "bit_rate": "6079865",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/bg_ai_final.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\bg_ai_final.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "30742003",
+        "bit_rate": "24593602",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "date": "2025/12/11 16:45:06",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/bg_code_final.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\bg_code_final.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.120000",
+        "size": "28882740",
+        "bit_rate": "16364158",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/bg_neon_1_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\bg_neon_1_intra.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "18306858",
+        "bit_rate": "14645486",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "date": "2024/06/11 10:19:14",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/bg_neon_2_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\bg_neon_2_intra.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "20.000000",
+        "size": "125092735",
+        "bit_rate": "50037094",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/coding_keyboard.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\coding_keyboard.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.206667",
+        "size": "5273463",
+        "bit_rate": "2969570",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2020-09-17T07:10:20.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/coding_keyboard_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\coding_keyboard_intra.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.200000",
+        "size": "37342782",
+        "bit_rate": "21038187",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/pixabay_video_136942.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\pixabay_video_136942.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "20.333333",
+        "size": "65246030",
+        "bit_rate": "25670569",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42isomavc1",
+          "creation_time": "2022-10-30T16:55:55.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/pixabay_video_92511.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\pixabay_video_92511.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "8334670",
+        "bit_rate": "6667736",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2021-10-22T00:30:42.000000Z"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/scrolling_phone.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\scrolling_phone.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "16.895000",
+        "size": "15826279",
+        "bit_rate": "7493946",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/smartphone.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\smartphone.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "15.018333",
+        "size": "18544603",
+        "bit_rate": "9878381",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "assets/ready/video/vintage_computer.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\assets\\ready\\video\\vintage_computer.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "11.800000",
+        "size": "11743365",
+        "bit_rate": "7961603",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/BG_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\BG_intra.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "30742003",
+        "bit_rate": "24593602",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "date": "2025/12/11 16:45:06",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/video/bg_ai_final.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\video\\bg_ai_final.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "10.000000",
+        "size": "30742003",
+        "bit_rate": "24593602",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "date": "2025/12/11 16:45:06",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/video/bg_code_final.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\video\\bg_code_final.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.120000",
+        "size": "28882740",
+        "bit_rate": "16364158",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/media/video/coding_keyboard.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\media\\video\\coding_keyboard.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.206667",
+        "size": "5273463",
+        "bit_rate": "2969570",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2020-09-17T07:10:20.000000Z"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/video1_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\video1_intra.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.206667",
+        "size": "5273463",
+        "bit_rate": "2969570",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2020-09-17T07:10:20.000000Z"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/video2_intra.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\video2_intra.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 1,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.120000",
+        "size": "28882740",
+        "bit_rate": "16364158",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.100"
+        }
+      }
+    },
+    {
+      "path": "remotion-app/public/video3_4_seamless.mp4",
+      "status": "PASS",
+      "info": {
+        "filename": "c:\\video\\clean-video-workspace\\remotion-app\\public\\video3_4_seamless.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.206667",
+        "size": "5273463",
+        "bit_rate": "2969570",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "mp42",
+          "minor_version": "0",
+          "compatible_brands": "mp42mp41isomavc1",
+          "creation_time": "2020-09-17T07:10:20.000000Z"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "scripts/audit_imports.py",
+    "line": "plugin_root = r\"c:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\"",
+    "classification": "DEVELOPMENT_ONLY"
+  },
+  {
+    "file": "scripts/check_orphans.py",
+    "line": "plugin_root = r\"c:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\"",
+    "classification": "DEVELOPMENT_ONLY"
+  },
+  {
+    "file": "scripts/classify_templates.py",
+    "line": "DST = Path(r\"C:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\")",
+    "classification": "DEVELOPMENT_ONLY"
+  },
+  {
+    "file": "scripts/tests/orchestration.test.ts",
+    "line": "\"main\": \"C:\\\\Windows\\\\System32\\\\foo.mp4\"",
+    "classification": "TEST_ONLY"
+  },
+  {
+    "file": "scripts/transcript_cleaner.py",
+    "line": "base = r\"C:\\Users\\momen\\.gemini\\antigravity-ide\\brain\"",
+    "classification": "DEVELOPMENT_ONLY"
+  },
+  {
+    "file": "tests/test_security_path_traversal.py",
+    "line": "safe_resolve(base, \"C:\\\\Windows\\\\System32\")",
+    "classification": "TEST_ONLY"
+  },
+  {
+    "file": "tests/architecture/test_architecture_guards.py",
+    "line": "WORKSPACE_ROOT = Path(r\"C:\\video\\clean-video-workspace\")",
+    "classification": "TEST_ONLY"
+  },
+  {
+    "file": "remotion-app/src/remotion/scenes/terminal-simulator/index.tsx",
+    "line": "prompt = \"~/remotion-ui\"",
+    "classification": "PORTABLE"
+  }
+]

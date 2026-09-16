@@ -44,9 +44,44 @@ def main():
     project_id = validate_project_id(project_id)
 
     print(f"✅ جاري التحقق من المشروع {project_id}...")
+    
+    import uuid
+    import time
+    import os
+    from scripts.runtime_logger import RuntimeLogger, RunContext
+    from scripts.failure_model import FailureInfo, FailureCode
+    
+    run_id = os.environ.get("AGY_RUN_ID")
+    is_managed = os.environ.get("AGY_IS_MANAGED") == "1"
+    attempt = int(os.environ.get("AGY_ATTEMPT", "1"))
+    
+    if not run_id:
+        if is_managed:
+            print("🛑 [TRACE ERROR] Missing AGY_RUN_ID in managed execution. Trace propagation failed.")
+            sys.exit(1)
+        run_id = str(uuid.uuid4())
+        
+    parent_span_id = os.environ.get("AGY_SPAN_ID")
+    span_id = f"render-{uuid.uuid4().hex[:6]}"
+    
+    ctx = RunContext(run_id=run_id, project_id=project_id, span_id=span_id, parent_span_id=parent_span_id, attempt=attempt)
+    logger = RuntimeLogger(ctx)
+    
+    start_time = time.time()
+    logger.event("render.execution", status="started", stage="render", component="remotion")
+    
     try:
         status = asyncio.run(PipelineService.get_status(project_id))
         if status.get("status") != "locked":
+            duration_ms = int((time.time() - start_time) * 1000)
+            failure = FailureInfo(
+                code=FailureCode.PROJECT_NOT_LOCKED,
+                message="Project is not locked for rendering",
+                cause_type="Validation",
+                stage="render",
+                component="remotion"
+            )
+            logger.event("render.execution", status="failure", duration_ms=duration_ms, failure_info=failure)
             print(f"\n{'='*60}")
             print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
             print(f"{'='*60}")
@@ -60,7 +95,9 @@ def main():
             env = os.environ.copy()
             env["PROJECT_ID"] = project_id
             
-            out_file = project_dir / "out.mp4"
+            final_out_file = project_dir / "out.mp4"
+            tmp_out_file = project_dir / f"out.attempt-{attempt}.tmp.mp4"
+            
             npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
             engine_dir = workspace_root / "remotion-app"
             
@@ -83,7 +120,7 @@ def main():
             
             print(f"🎥 جاري الرندر (محلي)...")
             result = safe_subprocess(
-                [npx_cmd, "remotion", "render", "src/index.ts", "BlueprintVideo", str(out_file), "--props", str(props_file_abs)],
+                [npx_cmd, "remotion", "render", "src/index.ts", "BlueprintVideo", str(tmp_out_file), "--props", str(props_file_abs)],
                 env=env,
                 cwd=str(engine_dir),
                 check=True,
@@ -91,7 +128,15 @@ def main():
                 text=True
             )
             print(result.stdout)
-            print(f"✅ نجاح الرندر! تم حفظ الفيديو في: {out_file}")
+            duration_ms = int((time.time() - start_time) * 1000)
+            
+            if tmp_out_file.exists():
+                os.replace(tmp_out_file, final_out_file)
+            else:
+                raise FileNotFoundError("Render finished but tmp_out_file not found")
+                
+            logger.event("render.execution", status="success", stage="render", component="remotion", duration_ms=duration_ms)
+            print(f"✅ نجاح الرندر! تم حفظ الفيديو في: {final_out_file}")
         else:
             if not is_docker_running():
                 print("❌ [Docker Error] محرك Docker غير يعمل أو غير مثبت في النظام. الرجاء تشغيله أولاً.")
@@ -99,24 +144,53 @@ def main():
                 
             print(f"🐳 جاري الرندر عبر حاوية Docker (clean-video-builder)...")
             
+            final_out_file = project_dir / "out.mp4"
+            tmp_out_file = project_dir / f"out.attempt-{attempt}.tmp.mp4"
+            
             docker_cmd = [
                 "docker", "run", "--rm",
+                "-e", f"AGY_RUN_ID={ctx.run_id}",
                 "-v", f"{workspace_root}:/workspace:ro",
                 "-v", f"{project_dir}:/workspace/projects/{project_id}:rw",
                 "-w", "/workspace/remotion-app",
                 "--memory", "4g",
                 "clean-video-builder",
-                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.mp4 --props ../projects/{project_id}/05_blueprint.json && chmod a+rw ../projects/{project_id}/out.mp4"
+                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4 --props ../projects/{project_id}/05_blueprint.json && chmod a+rw ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4"
             ]
             
             proc = safe_subprocess(docker_cmd)
+            duration_ms = int((time.time() - start_time) * 1000)
             if proc.returncode == 0:
-                print(f"✅ نجاح الرندر عبر Docker! تم حفظ الفيديو في: {project_dir / 'out.mp4'}")
+                if tmp_out_file.exists():
+                    os.replace(tmp_out_file, final_out_file)
+                else:
+                    raise FileNotFoundError("Docker Render finished but tmp_out_file not found")
+                    
+                logger.event("render.execution", status="success", stage="render", component="docker", duration_ms=duration_ms)
+                print(f"✅ نجاح الرندر عبر Docker! تم حفظ الفيديو في: {final_out_file}")
             else:
+                failure = FailureInfo(
+                    code=FailureCode.RENDER_DOCKER_FAILED,
+                    message=f"Exit code {proc.returncode}",
+                    cause_type="SubprocessError",
+                    stage="render",
+                    component="docker"
+                )
+                logger.event("render.execution", status="failure", duration_ms=duration_ms, failure_info=failure)
                 print(f"❌ فشل الرندر عبر Docker.")
                 sys.exit(proc.returncode)
                 
     except Exception as e:
+        duration_ms = int((time.time() - start_time) * 1000)
+        failure = FailureInfo(
+            code=FailureCode.UNEXPECTED_INTERNAL_ERROR,
+            message=str(e),
+            cause_type=type(e).__name__,
+            stage="render",
+            component="remotion",
+            is_fallback=True
+        )
+        logger.event("render.execution", status="failure", duration_ms=duration_ms, failure_info=failure)
         print(f"❌ فشل الرندر: {str(e)}")
         sys.exit(1)
 

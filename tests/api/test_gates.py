@@ -65,7 +65,9 @@ def test_approve_gate_invalid():
     try:
         res = client.post(f"/gates/{pid}/approve/99")
         assert res.status_code == 500
-    except Exception:
+    except Exception as e:
+        if isinstance(e, AssertionError):
+            raise
         pass # TestClient might raise directly
 
 def test_status_updates():

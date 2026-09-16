@@ -1,0 +1,72 @@
+{
+  ".remediation\\plugin\\test_video_recipes.py": [
+    "Direct subprocess usage: subprocess.run at line 15"
+  ],
+  ".remediation\\quarantine\\documentation\\legacy\\spec-driven\\scene_compiler.py": [
+    "shell=True used at line 86",
+    "Direct subprocess usage: subprocess.run at line 86"
+  ],
+  ".remediation\\quarantine\\workflows\\avatar-insta-split\\build_reel.py": [
+    "Direct subprocess usage: subprocess.run at line 24",
+    "Direct subprocess usage: subprocess.run at line 31",
+    "Direct subprocess usage: subprocess.run at line 37",
+    "Direct subprocess usage: subprocess.run at line 92"
+  ],
+  ".remediation\\quarantine\\workflows\\avatar-insta-split\\gen_avatar.py": [
+    "Direct subprocess usage: subprocess.run at line 37"
+  ],
+  ".remediation\\quarantine\\workflows\\avatar-insta-split\\make_sfx.py": [
+    "Direct subprocess usage: subprocess.run at line 9",
+    "Direct subprocess usage: subprocess.run at line 45"
+  ],
+  ".remediation\\quarantine\\workflows\\avatar-vo-broll\\build_vo_broll.py": [
+    "Direct subprocess usage: subprocess.run at line 66",
+    "Direct subprocess usage: subprocess.run at line 72"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\assemble.py": [
+    "Direct subprocess usage: subprocess.run at line 24",
+    "Direct subprocess usage: subprocess.run at line 95"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\capture_anim.py": [
+    "Direct subprocess usage: subprocess.run at line 36"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\finalize.py": [
+    "Direct subprocess usage: subprocess.run at line 29",
+    "Direct subprocess usage: subprocess.run at line 32"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\gen_craft_clip.py": [
+    "Direct subprocess usage: subprocess.run at line 34"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\gen_presenter.py": [
+    "Direct subprocess usage: subprocess.run at line 43"
+  ],
+  ".remediation\\quarantine\\workflows\\tabletop-levels-explainer\\whisper_timeline.py": [
+    "Direct subprocess usage: subprocess.run at line 26",
+    "Direct subprocess usage: subprocess.run at line 16"
+  ],
+  ".remediation\\quarantine\\zombie-tools\\demo_video_composer.py": [
+    "Direct subprocess usage: subprocess.run at line 588"
+  ],
+  ".remediation\\quarantine\\zombie-tools\\local_explainer_broll.py": [
+    "Direct subprocess usage: subprocess.run at line 174"
+  ],
+  ".remediation\\quarantine\\zombie-tools\\ugc_ad_runner.py": [
+    "Direct subprocess usage: subprocess.run at line 133",
+    "Direct subprocess usage: subprocess.run at line 305",
+    "Direct subprocess usage: subprocess.run at line 512"
+  ],
+  "scratch\\security_scanner.py": [
+    "powershell reference at line 34",
+    "powershell reference at line 35",
+    "cmd.exe reference at line 36",
+    "cmd.exe reference at line 37",
+    "child_process reference at line 39",
+    "child_process reference at line 40"
+  ],
+  "scripts\\custom_code_validator.py": [
+    "child_process reference at line 39"
+  ],
+  "scripts\\template_proposal_validator.py": [
+    "child_process reference at line 156"
+  ]
+}

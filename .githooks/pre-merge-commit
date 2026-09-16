@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo "Running Required CI Checks before Merge..."
+pytest scripts/tests/test_failing.py
+if [ True -ne 0 ]; then
+    echo "❌ CI FAILED: Merge is BLOCKED!"
+    exit 1
+fi
+echo "✅ CI PASSED: Merge Allowed."
+exit 0

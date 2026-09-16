@@ -146,9 +146,22 @@ class PipelineService:
             raise PipelineAlreadyRunningException(f"Pipeline is already running for {project_id}")
             
         async with lock:
-            # Execute pipeline in a thread to avoid blocking the event loop
             import functools
-            func = functools.partial(safe_subprocess, ["python", "scripts/pipeline.py", project_id], capture_output=True, text=True)
+            import uuid
+            
+            run_id = str(uuid.uuid4())
+            env = os.environ.copy()
+            env["AGY_RUN_ID"] = run_id
+            env["AGY_IS_MANAGED"] = "1"
+            
+            # Execute pipeline in a thread to avoid blocking the event loop
+            func = functools.partial(
+                safe_subprocess, 
+                ["python", "scripts/pipeline.py", project_id], 
+                capture_output=True, 
+                text=True,
+                env=env
+            )
             result = await asyncio.to_thread(func)
             
             new_hashes = {}

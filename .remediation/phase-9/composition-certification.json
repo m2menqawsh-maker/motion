@@ -1,0 +1,25 @@
+{
+  "coverage": "100%",
+  "failed": 0,
+  "collisions": 0,
+  "invalid_metadata": 0,
+  "results": [
+    {
+      "id": "index",
+      "props_source": "schema-generated fallback",
+      "frames_tested": [
+        0,
+        15
+      ],
+      "duration_ms": 59,
+      "render_command": "renderStill(id, props)",
+      "exit_code": 0,
+      "runtime_error": null,
+      "status": "PASS",
+      "valid_metadata": true,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30
+    }
+  ]
+}

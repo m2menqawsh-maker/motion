@@ -1,0 +1,926 @@
+[
+  {
+    "path": "contracts/animations.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/blueprint.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/brand.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/fonts.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/override-validator.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/positions.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/SceneContent.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "contracts/StyleSurface.ts",
+    "type": "contract",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Zod",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/blueprint.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/brand.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/manifest.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/overrides.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/project.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/state.json",
+    "type": "fixture",
+    "source_of_truth": "contracts",
+    "generated": false,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/blueprint.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/brand.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/manifest.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/overrides.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/project.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/state.schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/template_proposal_schema.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/blueprint.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/brand.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/manifest.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/overrides.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/project.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "schemas/examples/prj_demo/state.json",
+    "type": "generated_schema",
+    "source_of_truth": "contracts",
+    "generated": true,
+    "runtime_reachable": false,
+    "validator": "Ajv/JSONSchema",
+    "status": "test_only",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/auto-generated-entries.ts",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/docs-extractor.ts",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/docs-worklist.json",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/effects-catalog.ts",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/effects-runtime.ts",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/engine-classification.json",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/ids.json",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/README.md",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/tier-map.json",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "registry/types.ts",
+    "type": "registry",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/agent-browser-proof.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/avatar-explainer.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/avatar-hook-broll.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/avatar-insta-split.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/avatar-product-walkthrough.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/avatar-vo-broll.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/captioned-talking-head.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/dynamic-montage-ad.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/faceless-broll-ad.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/living-canvas-explainer.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/longform-repurpose.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/misotts-article-sprint.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/motion-collage-explainer.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/motion-graphics.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/README.md",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/review-conquest-compilation.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/schema.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/screencast-demo.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/tabletop-levels-explainer.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "recipes/ugc-ai-ad.json",
+    "type": "recipe",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/adapter_family_candidates.json",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/ASSET_INDEX.json",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/CANONICAL_PATHS.json",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/CINEMATIC_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/MCP_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/orchestration_resolved_spec.json",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/PLAYBOOKS_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/RECIPES_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/template_catalog.json",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/TEMPLATE_DUPLICATES.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/TEMPLATE_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/TOOLS_INDEX.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/VOCAB_REMAP.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/collections/ads.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/collections/explainers.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/collections/product.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/collections/saas.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "ground-truth/collections/social.md",
+    "type": "canonical_data",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "config/violations_config.json",
+    "type": "config",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  },
+  {
+    "path": "config/violations_config.schema.json",
+    "type": "config",
+    "source_of_truth": "self",
+    "generated": false,
+    "runtime_reachable": true,
+    "validator": "Ajv/JSONSchema",
+    "status": "active",
+    "evidence": [
+      "Found in scan"
+    ]
+  }
+]

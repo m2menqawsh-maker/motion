@@ -1,0 +1,13 @@
+{
+  "generator": "scripts/generate_schema.ts",
+  "source_contracts": "contracts/**/*.ts",
+  "generated_files": [
+    "schemas/blueprint.schema.json"
+  ],
+  "hashes": {
+    "run1": "55b9c0df3faec67426d8978af5261111d986ea66834988a6aa60c76797007a30",
+    "run2": "55b9c0df3faec67426d8978af5261111d986ea66834988a6aa60c76797007a30"
+  },
+  "deterministic": true,
+  "drift": false
+}

@@ -20,24 +20,6 @@
 
 ---
 
-## 📊 تقارير المراحل والتدقيق (Reports)
-
-يحتوي هذا المجلد على أرشيف تقارير تطوير المراحل التاريخية وتوثيق مسار البناء والتحقق:
-
-| التقرير | موضوع التقرير | الرابط |
-|---|---|---|
-| **Phase 12 Report** | Adapter Intelligence & E2E Validation | [reports/PHASE_12_REPORT.md](reports/PHASE_12_REPORT.md) |
-| **Phase 13 Report** | Execution Coverage Expansion & Adapter Family Scaling | [reports/PHASE_13_REPORT.md](reports/PHASE_13_REPORT.md) |
-| **Phase 15 Report** | Template Execution Completion & Contract-Based Coverage | [reports/PHASE_15_REPORT.md](reports/PHASE_15_REPORT.md) |
-| **Phase 15.1 Report** | Verification Integrity & Coverage Consistency Cleanup | [reports/PHASE_15_1_REPORT.md](reports/PHASE_15_1_REPORT.md) |
-| **Phase 16.1 Report** | Specialized Template Family Mining & Adapter Compression | [reports/PHASE_16_1_REPORT.md](reports/PHASE_16_1_REPORT.md) |
-| **Phase 16.2 Report** | Generic Scalar Defaults & Media Mapping Unlock Report | [reports/PHASE_16_2_REPORT.md](reports/PHASE_16_2_REPORT.md) |
-| **Audit Report** | تقرير التدقيق الآلي للروابط والأصول | [reports/AUDIT_REPORT.md](reports/AUDIT_REPORT.md) |
-| **سجل المهام (Tasks)** | مهام وخطط العمل المرحلية | [reports/task.md](reports/task.md) |
-| **خطة التنفيذ (Plan)** | مسودة خطة التنفيذ للمرحلة 16.2 | [reports/implementation_plan.md](reports/implementation_plan.md) |
-
----
-
 ## 🔍 مراجع إضافية (References)
 
 للاطلاع على أدلة الذوق الحركي (Motion Taste)، دفاتر تشغيل الفيديو، وكتالوجات القوالب، تفضل بزيارة المجلد الأساسي للمراجع:

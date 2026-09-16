@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "registry_ghost",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "invalid_schema_acceptance",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "failure_injection_bypass",
+    "caught": true,
+    "restored": true
+  },
+  {
+    "mutation": "alternate_api_pipeline_path",
+    "caught": true,
+    "restored": true
+  }
+]

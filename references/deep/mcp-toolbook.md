@@ -21,7 +21,7 @@ graph TD
     D --> E["4. image-tools-mcp (Upscale / Crop)"]
     D --> F["5. video-tools-mcp (Trim / Resize / Extend)"]
     C & E & F --> G["6. Remotion / Build (super-video-maker)"]
-    G --> H["7. ffmpeg / Video_Editor_MCP (Render / Concat / Keyframes)"]
+    G --> H["7. ffmpeg (Render / Concat / Keyframes)"]
     H --> I["حفظ في الكاش: common-tools-mcp (save_to_cache)"]
 ```
 
@@ -363,9 +363,9 @@ graph TD
 
 ---
 
-## 7️⃣ `video-editor` / `Video_Editor_MCP` (محرك التنفيذ المباشر والحر)
-> **المسار:** `tools/mcp-servers/Video_Editor_MCP`  
-> **الهدف الأساسي:** توفير بيئة تشغيل لأوامر FFmpeg المعقدة والمركبة (Complex Filtergraphs) عندما لا تغطي الأدوات القياسية الحالة المطلوبة.
+## 7️⃣ `video-editor` / `Video_Editor_MCP` [HISTORICAL / DELETED IN PHASE 9]
+> **المسار:** `tools/mcp-servers/Video_Editor_MCP` (DELETED)
+> **الهدف الأساسي:** توفير بيئة تشغيل لأوامر FFmpeg المعقدة والمركبة (Complex Filtergraphs) عندما لا تغطي الأدوات القياسية الحالة المطلوبة. تم حذفه لأسباب أمنية.
 
 ### 🛠️ الأدوات:
 

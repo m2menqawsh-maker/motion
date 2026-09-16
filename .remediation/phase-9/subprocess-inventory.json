@@ -1,0 +1,342 @@
+[
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": true,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/voiceover_ops.py",
+    "classification": "AGENT_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": true,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/plugin/test_video_recipes.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/deprecated-systems/tests-gates/test_stage_gate.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/documentation/legacy/spec-driven/scene_compiler.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": true,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/avatar-insta-split/build_reel.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/avatar-insta-split/gen_avatar.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/avatar-insta-split/make_sfx.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/avatar-vo-broll/build_vo_broll.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/assemble.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/capture_anim.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/finalize.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/gen_craft_clip.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/gen_presenter.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/workflows/tabletop-levels-explainer/whisper_timeline.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": ".remediation/quarantine/zombie-tools/demo_video_composer.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/zombie-tools/local_explainer_broll.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": ".remediation/quarantine/zombie-tools/ugc_ad_runner.py",
+    "classification": "HISTORICAL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scratch/phase98_probe.py",
+    "classification": "CERTIFICATION_TEMPORARY",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": true,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scratch/phase_9_6_scanner.py",
+    "classification": "CERTIFICATION_TEMPORARY",
+    "production_reachable": false,
+    "details": {
+      "shell_true": true,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scripts/benchmark_guards.py",
+    "classification": "MANUAL_CLI_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": "scripts/final_qc.py",
+    "classification": "MANUAL_CLI_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scripts/security.py",
+    "classification": "PRODUCTION",
+    "production_reachable": true,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scripts/smart_qc.py",
+    "classification": "MANUAL_CLI_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "scripts/vo_quality_check.py",
+    "classification": "MANUAL_CLI_TOOL",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "tests/test_scaffold.py",
+    "classification": "TEST_SUPPORT",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "tests/test_snapshots.py",
+    "classification": "TEST_SUPPORT",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": false
+    }
+  },
+  {
+    "path": "tests/e2e/test_full_pipeline.py",
+    "classification": "TEST_SUPPORT",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  },
+  {
+    "path": "tests/security/test_guardian.py",
+    "classification": "TEST_SUPPORT",
+    "production_reachable": false,
+    "details": {
+      "shell_true": false,
+      "has_timeout": false,
+      "arbitrary_execution": true
+    }
+  }
+]

@@ -62,7 +62,37 @@ def main():
             for pkg in extract_packages(command):
                 if pkg not in allowed_packages:
                     block(f"🛑 ممنوع تثبيت حزمة غير معتمدة: {pkg}. أضفها إلى plugin.json أولاً.", command)
+                    
+        # Shell Injection & Meta-characters Protection
+        shell_chars = ["&", "|", ";", ">", "<", "$(", "`"]
+        if any(char in command for char in shell_chars):
+            block("🛑 Shell chaining/redirection is strictly forbidden.", command)
+            
+        if "powershell" in command.lower() or "cmd" in command.lower() or "curl" in command.lower() or "wget" in command.lower():
+            block("🛑 Arbitrary shell/network execution is forbidden.", command)
+            
+        # Fail Closed: Only allow specific command prefixes
+        allowed_prefixes = [
+            "python scripts/",
+            "python -m pytest",
+            "pytest",
+            "npm run",
+            "python scratch/",
+            "python .agents/"
+        ]
         
+        if not any(command.startswith(prefix) for prefix in allowed_prefixes):
+            block(f"🛑 Fail Closed: Unrecognized command prefix: {command}", command)
+            
+        # Enforce pipeline orchestration (No direct gate or render bypass)
+        pipeline_bypass_scripts = [
+            "asset_gate.py", "plan_gate.py", "taste_gate.py", 
+            "render_project.py", "probe_qc.py", "motion_validator.py", 
+            "code_template_gate.py", "validate_blueprint.py"
+        ]
+        if any(script in command for script in pipeline_bypass_scripts):
+            block(f"🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running {command} directly.", command)
+            
         allow(command)
         
     except Exception as e:

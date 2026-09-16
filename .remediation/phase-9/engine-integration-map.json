@@ -1,0 +1,8 @@
+{
+  "engine-bridge.tsx": {
+    "exists": true,
+    "imports_active_modules": true,
+    "unauthorized_bypasses_found": 0,
+    "broken_paths": 0
+  }
+}

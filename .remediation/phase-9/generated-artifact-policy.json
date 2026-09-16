@@ -1,0 +1,37 @@
+[
+  {
+    "class": "Render Output",
+    "path_pattern": "out/*",
+    "generator": "Render pipeline",
+    "tracked_policy": "IGNORED",
+    "reason": "Binary generated video/media files."
+  },
+  {
+    "class": "Render Manifest",
+    "path_pattern": "renders/*",
+    "generator": "Render pipeline",
+    "tracked_policy": "IGNORED",
+    "reason": "Temporary frame renders and JSON metadata."
+  },
+  {
+    "class": "Python Caches",
+    "path_pattern": "__pycache__/*, .pytest_cache/*",
+    "generator": "Python runtime / Pytest",
+    "tracked_policy": "IGNORED",
+    "reason": "Runtime bytecode."
+  },
+  {
+    "class": "Node Caches",
+    "path_pattern": "node_modules/*",
+    "generator": "npm install",
+    "tracked_policy": "IGNORED",
+    "reason": "Dependency vendor cache."
+  },
+  {
+    "class": "Remediation Phase JSONs",
+    "path_pattern": ".remediation/phase-9/*.json",
+    "generator": "Phase 9 Orchestrators",
+    "tracked_policy": "TRACKED (Evidence)",
+    "reason": "Forms the canonical evidence chain for System Certification."
+  }
+]

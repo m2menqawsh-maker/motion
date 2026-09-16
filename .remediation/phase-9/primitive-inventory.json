@@ -1,0 +1,314 @@
+[
+  {
+    "id": "Camera",
+    "path": "remotion-app/src/lib/onda/primitives/Camera.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Glow",
+    "path": "remotion-app/src/lib/onda/primitives/Glow.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "GridField",
+    "path": "remotion-app/src/lib/onda/primitives/GridField.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/lib/onda/primitives/index.ts",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Surface",
+    "path": "remotion-app/src/lib/onda/primitives/Surface.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "audio-pulse",
+    "path": "remotion-app/src/remotion/primitives/audio-pulse.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "audiogram-bars",
+    "path": "remotion-app/src/remotion/primitives/audiogram-bars.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "caption-highlight",
+    "path": "remotion-app/src/remotion/primitives/caption-highlight.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "counter",
+    "path": "remotion-app/src/remotion/primitives/counter.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "directional-wipe",
+    "path": "remotion-app/src/remotion/primitives/directional-wipe.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "fade-in",
+    "path": "remotion-app/src/remotion/primitives/fade-in.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "karaoke-captions",
+    "path": "remotion-app/src/remotion/primitives/karaoke-captions.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "line-chart-draw",
+    "path": "remotion-app/src/remotion/primitives/line-chart-draw.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "map-markers",
+    "path": "remotion-app/src/remotion/primitives/map-markers.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "multi-device-lineup",
+    "path": "remotion-app/src/remotion/primitives/multi-device-lineup.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "path-draw",
+    "path": "remotion-app/src/remotion/primitives/path-draw.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "slide-up",
+    "path": "remotion-app/src/remotion/primitives/slide-up.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "spring-in",
+    "path": "remotion-app/src/remotion/primitives/spring-in.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "stagger-children",
+    "path": "remotion-app/src/remotion/primitives/stagger-children.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-fade",
+    "path": "remotion-app/src/remotion/primitives/transition-fade.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-slide",
+    "path": "remotion-app/src/remotion/primitives/transition-slide.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-wipe",
+    "path": "remotion-app/src/remotion/primitives/transition-wipe.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "typewriter",
+    "path": "remotion-app/src/remotion/primitives/typewriter.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "waveform-line",
+    "path": "remotion-app/src/remotion/primitives/waveform-line.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  }
+]

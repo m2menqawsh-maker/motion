@@ -1,0 +1,772 @@
+[
+  {
+    "path": ".agents/guardian/behavior_guard.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/guardian/command_guard.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/guardian/post_executor.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/guardian/utils.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/guardian/write_guard.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/verify.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/media_pipeline.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/replicate_video.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/server.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/src/audio_tools_mcp/__init__.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/manifest_builder.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/sentence_splitter.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/timeline_builder.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/voiceover_ops.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/server.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/src/common_tools_mcp/__init__.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/utils/cache_ops.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/server.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/src/image_tools_mcp/__init__.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp/utils/image_ops.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/dump_html.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/server.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_attrs.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_click.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_internal_api.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_network.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_pix.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_playwright.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_regex.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_scrape.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_workflow.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/test_workflow_final.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/src/media_sources_mcp/__init__.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/freesound.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/iconify.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/pexels.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/tools/pixabay.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/downloader.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/file_organizer.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/http_client.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp/utils/pixabay_scraper.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/server.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/src/video_tools_mcp/__init__.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py",
+    "classification": "AGENT_TOOL",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "api/services/pipeline_service.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\api\\services\\pipeline_serv"
+  },
+  {
+    "path": "scripts/failure_injection.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": ""
+  },
+  {
+    "path": "scripts/failure_model.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": ""
+  },
+  {
+    "path": "scripts/open_studio.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\open_studio.py\", l"
+  },
+  {
+    "path": "scripts/path_security.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/pipeline.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\pipeline.py\", line"
+  },
+  {
+    "path": "scripts/render_project.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\render_project.py\""
+  },
+  {
+    "path": "scripts/retry_policy.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\retry_policy.py\", "
+  },
+  {
+    "path": "scripts/runtime_logger.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\runtime_logger.py\""
+  },
+  {
+    "path": "scripts/security.py",
+    "classification": "PRODUCTION",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/test_schemas.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/verify_links.py",
+    "classification": "AUDIT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\verify_links.py\", "
+  },
+  {
+    "path": "scripts/verify_media_layer.py",
+    "classification": "AUDIT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\verify_media_layer"
+  },
+  {
+    "path": "scripts/tests/test_failure_classification.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_failure_injection.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_metrics.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_recovery.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_runtime_logger.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_safe_retry.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/tests/test_trace_identity.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "scripts/verify/verify_preview.py",
+    "classification": "AUDIT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "PASS",
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\verify\\verify_prev"
+  },
+  {
+    "path": "tests/conftest.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/test_guardrails.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/test_scaffold.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/test_security_path_traversal.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/test_snapshots.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/test_unified_pipeline.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/api/test_gates.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/api/test_pipeline_service.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/api/test_projects.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/api/test_render.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_adapter_layer_rules.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_architecture_guards.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_import_restrictions.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_no_parallel_pipeline.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_quarantine_isolation.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/architecture/test_state_file_integrity.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/contracts/test_pipeline_service_contract.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/contracts/test_state_schema.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/documentation/test_agents_md_accuracy.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/documentation/test_architecture_truth.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/documentation/test_references_validity.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/e2e/test_full_pipeline.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/golden_scenarios/test_concurrent_requests.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/golden_scenarios/test_failure_recovery.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/golden_scenarios/test_happy_path.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/golden_scenarios/test_migration_from_legacy.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/performance/test_api_response_times.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/performance/test_pipeline_performance.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/security/test_guardian.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/security/test_mcp_security.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/security/test_path_traversal.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/security/test_race_conditions.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  },
+  {
+    "path": "tests/security/test_subprocess_security.py",
+    "classification": "TEST_SUPPORT",
+    "syntax_check": "PASS",
+    "behavior_smoke": "SKIPPED",
+    "log": ""
+  }
+]

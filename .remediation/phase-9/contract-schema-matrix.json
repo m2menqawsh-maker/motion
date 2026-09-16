@@ -1,0 +1,9 @@
+[
+  {
+    "contract": "contracts/blueprint.ts",
+    "schema": "schemas/blueprint.schema.json",
+    "Orphan": false,
+    "Semantic_mismatch": false,
+    "Status": "PASS"
+  }
+]

@@ -1,0 +1,825 @@
+{
+  "BookFlipTransition": {
+    "id": "BookFlipTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "ClockWipeTransition": {
+    "id": "ClockWipeTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "CrosswarpTransition": {
+    "id": "CrosswarpTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "CrossZoomTransition": {
+    "id": "CrossZoomTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "DissolveTransition": {
+    "id": "DissolveTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "DreamyZoomTransition": {
+    "id": "DreamyZoomTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "engine-bridge": {
+    "id": "engine-bridge",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "FadeTransition": {
+    "id": "FadeTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "FilmBurnTransition": {
+    "id": "FilmBurnTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "FlipTransition": {
+    "id": "FlipTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "IrisTransition": {
+    "id": "IrisTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "LinearBlurTransition": {
+    "id": "LinearBlurTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "PushCutTransition": {
+    "id": "PushCutTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "RippleTransition": {
+    "id": "RippleTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "SlideTransition": {
+    "id": "SlideTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "SwapTransition": {
+    "id": "SwapTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "WipeTransition": {
+    "id": "WipeTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "ZoomBlurTransition": {
+    "id": "ZoomBlurTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "ZoomInOutTransition": {
+    "id": "ZoomInOutTransition",
+    "props": {
+      "intensity": 1
+    },
+    "source": "schema-generated fallback"
+  },
+  "AnimatedBarChartWrapper": {
+    "id": "AnimatedBarChartWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AnimatedCounterWrapper": {
+    "id": "AnimatedCounterWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AnimatedTextWrapper": {
+    "id": "AnimatedTextWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AutoFitTitleWrapper": {
+    "id": "AutoFitTitleWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "BentoPanWrapper": {
+    "id": "BentoPanWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "BRollStackWrapper": {
+    "id": "BRollStackWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CalendarMonthFillWrapper": {
+    "id": "CalendarMonthFillWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CaptionBumperWrapper": {
+    "id": "CaptionBumperWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ChangelogEntryWrapper": {
+    "id": "ChangelogEntryWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ChatToPreviewWrapper": {
+    "id": "ChatToPreviewWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CodeAccordionWrapper": {
+    "id": "CodeAccordionWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CodeBlockWrapper": {
+    "id": "CodeBlockWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CodeDiffWipeWrapper": {
+    "id": "CodeDiffWipeWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CodeRevealWrapper": {
+    "id": "CodeRevealWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CommitGraphWrapper": {
+    "id": "CommitGraphWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ComparisonTableWrapper": {
+    "id": "ComparisonTableWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CountdownTimerWrapper": {
+    "id": "CountdownTimerWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DashboardPopulateWrapper": {
+    "id": "DashboardPopulateWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DeployRevealWrapper": {
+    "id": "DeployRevealWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DeviceMockupZoomWrapper": {
+    "id": "DeviceMockupZoomWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "EndCardWrapper": {
+    "id": "EndCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "FaqAccordionWrapper": {
+    "id": "FaqAccordionWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "FeatureListWrapper": {
+    "id": "FeatureListWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "FileTreeRevealWrapper": {
+    "id": "FileTreeRevealWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "GradientWrapper": {
+    "id": "GradientWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "HookCardWrapper": {
+    "id": "HookCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ImageExpandWrapper": {
+    "id": "ImageExpandWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "KanbanMoveWrapper": {
+    "id": "KanbanMoveWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "LogoRevealWrapper": {
+    "id": "LogoRevealWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "LogoWallWrapper": {
+    "id": "LogoWallWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "LowerThirdWrapper": {
+    "id": "LowerThirdWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "MapFlightWrapper": {
+    "id": "MapFlightWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "MatrixRainWrapper": {
+    "id": "MatrixRainWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "MediaFrameWrapper": {
+    "id": "MediaFrameWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "MetricTickerWrapper": {
+    "id": "MetricTickerWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "NewsTickerBarWrapper": {
+    "id": "NewsTickerBarWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "NotificationStackWrapper": {
+    "id": "NotificationStackWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "OrgChartBuildWrapper": {
+    "id": "OrgChartBuildWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ParticleSystemWrapper": {
+    "id": "ParticleSystemWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "PodcastClipWrapper": {
+    "id": "PodcastClipWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "PollOverlayWrapper": {
+    "id": "PollOverlayWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "PricingCardWrapper": {
+    "id": "PricingCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "PricingFocusWrapper": {
+    "id": "PricingFocusWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "QuizQuestionWrapper": {
+    "id": "QuizQuestionWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "QuoteCardWrapper": {
+    "id": "QuoteCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ReactionBurstWrapper": {
+    "id": "ReactionBurstWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "RoadmapLanesWrapper": {
+    "id": "RoadmapLanesWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "Scene3DWrapper": {
+    "id": "Scene3DWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ScrollingImagesWrapper": {
+    "id": "ScrollingImagesWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "SearchResultsPopulateWrapper": {
+    "id": "SearchResultsPopulateWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "SocialClipWrapper": {
+    "id": "SocialClipWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "SportsScorebugWrapper": {
+    "id": "SportsScorebugWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "StaggeredMotionWrapper": {
+    "id": "StaggeredMotionWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "StatCardWrapper": {
+    "id": "StatCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TabSwitchPanelWrapper": {
+    "id": "TabSwitchPanelWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TerminalSimulatorWrapper": {
+    "id": "TerminalSimulatorWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "THEMESWrapper": {
+    "id": "THEMESWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TimelineStepsWrapper": {
+    "id": "TimelineStepsWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TitleCardWrapper": {
+    "id": "TitleCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TutorialClipWrapper": {
+    "id": "TutorialClipWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TypeWriterWrapper": {
+    "id": "TypeWriterWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "WeatherCardWrapper": {
+    "id": "WeatherCardWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ZoomPanFrameWrapper": {
+    "id": "ZoomPanFrameWrapper",
+    "props": {
+      "text": "Hello",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AiComposerShowcaseWrapper": {
+    "id": "AiComposerShowcaseWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AiGenerationCanvasWrapper": {
+    "id": "AiGenerationCanvasWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "AudiogramSceneWrapper": {
+    "id": "AudiogramSceneWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "BrowserFlowWrapper": {
+    "id": "BrowserFlowWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CaptionSceneWrapper": {
+    "id": "CaptionSceneWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "CreatorReelWrapper": {
+    "id": "CreatorReelWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DataFlowPipesWrapper": {
+    "id": "DataFlowPipesWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DataStoryWrapper": {
+    "id": "DataStoryWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "DragDropFlowWrapper": {
+    "id": "DragDropFlowWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "EcosystemOrbitWrapper": {
+    "id": "EcosystemOrbitWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "FormFillSequenceWrapper": {
+    "id": "FormFillSequenceWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "HeroDeviceAssembleWrapper": {
+    "id": "HeroDeviceAssembleWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "HeroLoopWrapper": {
+    "id": "HeroLoopWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "IntroWrapper": {
+    "id": "IntroWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "LandingCodeShowcaseWrapper": {
+    "id": "LandingCodeShowcaseWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "LiveCodeSplitWrapper": {
+    "id": "LiveCodeSplitWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "MediaSequenceWrapper": {
+    "id": "MediaSequenceWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ShowcaseWrapper": {
+    "id": "ShowcaseWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "SplitScreenWrapper": {
+    "id": "SplitScreenWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "TeamGridWrapper": {
+    "id": "TeamGridWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "ToolMenuSlideWrapper": {
+    "id": "ToolMenuSlideWrapper",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  },
+  "index": {
+    "id": "index",
+    "props": {
+      "durationInFrames": 30,
+      "fps": 30,
+      "width": 1080,
+      "height": 1920
+    },
+    "source": "schema-generated fallback"
+  },
+  "TestEngine": {
+    "id": "TestEngine",
+    "props": {
+      "title": "Scene",
+      "durationInFrames": 30
+    },
+    "source": "schema-generated fallback"
+  }
+}

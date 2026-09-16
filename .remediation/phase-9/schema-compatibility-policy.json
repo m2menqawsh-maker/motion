@@ -1,0 +1,7 @@
+[
+  {
+    "schema": "Blueprint",
+    "policy": "STRICT",
+    "unknown_keys_tested": true
+  }
+]

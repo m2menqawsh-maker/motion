@@ -1,0 +1,74 @@
+[
+  {
+    "contract": "contracts/animations.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/blueprint.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/brand.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/fonts.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/override-validator.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/positions.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/SceneContent.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  },
+  {
+    "contract": "contracts/StyleSurface.ts",
+    "Who imports it?": "remotion-app/src, scripts/generate_schema.ts",
+    "Who validates against it?": "Zod in TS, validate_blueprint.py in Python via generated schema",
+    "Does runtime use it?": true,
+    "Does API use it?": true,
+    "Does rendering use it?": true,
+    "Does schema generation consume it?": true
+  }
+]

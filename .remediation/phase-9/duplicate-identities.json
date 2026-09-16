@@ -1,0 +1,743 @@
+{
+  "duplicates": [
+    {
+      "id": "BookFlipTransition",
+      "paths": [
+        "templates/effects/BookFlipTransition.tsx",
+        "remotion-app/src/templates/effects/BookFlipTransition.tsx"
+      ]
+    },
+    {
+      "id": "ClockWipeTransition",
+      "paths": [
+        "templates/effects/ClockWipeTransition.tsx",
+        "remotion-app/src/templates/effects/ClockWipeTransition.tsx"
+      ]
+    },
+    {
+      "id": "CrosswarpTransition",
+      "paths": [
+        "templates/effects/CrosswarpTransition.tsx",
+        "remotion-app/src/templates/effects/CrosswarpTransition.tsx"
+      ]
+    },
+    {
+      "id": "CrossZoomTransition",
+      "paths": [
+        "templates/effects/CrossZoomTransition.tsx",
+        "remotion-app/src/templates/effects/CrossZoomTransition.tsx"
+      ]
+    },
+    {
+      "id": "DissolveTransition",
+      "paths": [
+        "templates/effects/DissolveTransition.tsx",
+        "remotion-app/src/templates/effects/DissolveTransition.tsx"
+      ]
+    },
+    {
+      "id": "DreamyZoomTransition",
+      "paths": [
+        "templates/effects/DreamyZoomTransition.tsx",
+        "remotion-app/src/templates/effects/DreamyZoomTransition.tsx"
+      ]
+    },
+    {
+      "id": "engine-bridge",
+      "paths": [
+        "templates/effects/engine-bridge.tsx",
+        "remotion-app/src/templates/effects/engine-bridge.tsx"
+      ]
+    },
+    {
+      "id": "FadeTransition",
+      "paths": [
+        "templates/effects/FadeTransition.tsx",
+        "remotion-app/src/templates/effects/FadeTransition.tsx"
+      ]
+    },
+    {
+      "id": "FilmBurnTransition",
+      "paths": [
+        "templates/effects/FilmBurnTransition.tsx",
+        "remotion-app/src/templates/effects/FilmBurnTransition.tsx"
+      ]
+    },
+    {
+      "id": "FlipTransition",
+      "paths": [
+        "templates/effects/FlipTransition.tsx",
+        "remotion-app/src/templates/effects/FlipTransition.tsx"
+      ]
+    },
+    {
+      "id": "IrisTransition",
+      "paths": [
+        "templates/effects/IrisTransition.tsx",
+        "remotion-app/src/templates/effects/IrisTransition.tsx"
+      ]
+    },
+    {
+      "id": "LinearBlurTransition",
+      "paths": [
+        "templates/effects/LinearBlurTransition.tsx",
+        "remotion-app/src/templates/effects/LinearBlurTransition.tsx"
+      ]
+    },
+    {
+      "id": "PushCutTransition",
+      "paths": [
+        "templates/effects/PushCutTransition.tsx",
+        "remotion-app/src/templates/effects/PushCutTransition.tsx"
+      ]
+    },
+    {
+      "id": "RippleTransition",
+      "paths": [
+        "templates/effects/RippleTransition.tsx",
+        "remotion-app/src/templates/effects/RippleTransition.tsx"
+      ]
+    },
+    {
+      "id": "SlideTransition",
+      "paths": [
+        "templates/effects/SlideTransition.tsx",
+        "remotion-app/src/templates/effects/SlideTransition.tsx"
+      ]
+    },
+    {
+      "id": "SwapTransition",
+      "paths": [
+        "templates/effects/SwapTransition.tsx",
+        "remotion-app/src/templates/effects/SwapTransition.tsx"
+      ]
+    },
+    {
+      "id": "WipeTransition",
+      "paths": [
+        "templates/effects/WipeTransition.tsx",
+        "remotion-app/src/templates/effects/WipeTransition.tsx"
+      ]
+    },
+    {
+      "id": "ZoomBlurTransition",
+      "paths": [
+        "templates/effects/ZoomBlurTransition.tsx",
+        "remotion-app/src/templates/effects/ZoomBlurTransition.tsx"
+      ]
+    },
+    {
+      "id": "ZoomInOutTransition",
+      "paths": [
+        "templates/effects/ZoomInOutTransition.tsx",
+        "remotion-app/src/templates/effects/ZoomInOutTransition.tsx"
+      ]
+    },
+    {
+      "id": "AnimatedBarChartWrapper",
+      "paths": [
+        "templates/elements/AnimatedBarChartWrapper.tsx",
+        "remotion-app/src/templates/elements/AnimatedBarChartWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AnimatedCounterWrapper",
+      "paths": [
+        "templates/elements/AnimatedCounterWrapper.tsx",
+        "remotion-app/src/templates/elements/AnimatedCounterWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AnimatedTextWrapper",
+      "paths": [
+        "templates/elements/AnimatedTextWrapper.tsx",
+        "remotion-app/src/templates/elements/AnimatedTextWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AutoFitTitleWrapper",
+      "paths": [
+        "templates/elements/AutoFitTitleWrapper.tsx",
+        "remotion-app/src/templates/elements/AutoFitTitleWrapper.tsx"
+      ]
+    },
+    {
+      "id": "BentoPanWrapper",
+      "paths": [
+        "templates/elements/BentoPanWrapper.tsx",
+        "remotion-app/src/templates/elements/BentoPanWrapper.tsx"
+      ]
+    },
+    {
+      "id": "BRollStackWrapper",
+      "paths": [
+        "templates/elements/BRollStackWrapper.tsx",
+        "remotion-app/src/templates/elements/BRollStackWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CalendarMonthFillWrapper",
+      "paths": [
+        "templates/elements/CalendarMonthFillWrapper.tsx",
+        "remotion-app/src/templates/elements/CalendarMonthFillWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CaptionBumperWrapper",
+      "paths": [
+        "templates/elements/CaptionBumperWrapper.tsx",
+        "remotion-app/src/templates/elements/CaptionBumperWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ChangelogEntryWrapper",
+      "paths": [
+        "templates/elements/ChangelogEntryWrapper.tsx",
+        "remotion-app/src/templates/elements/ChangelogEntryWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ChatToPreviewWrapper",
+      "paths": [
+        "templates/elements/ChatToPreviewWrapper.tsx",
+        "remotion-app/src/templates/elements/ChatToPreviewWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CodeAccordionWrapper",
+      "paths": [
+        "templates/elements/CodeAccordionWrapper.tsx",
+        "remotion-app/src/templates/elements/CodeAccordionWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CodeBlockWrapper",
+      "paths": [
+        "templates/elements/CodeBlockWrapper.tsx",
+        "remotion-app/src/templates/elements/CodeBlockWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CodeDiffWipeWrapper",
+      "paths": [
+        "templates/elements/CodeDiffWipeWrapper.tsx",
+        "remotion-app/src/templates/elements/CodeDiffWipeWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CodeRevealWrapper",
+      "paths": [
+        "templates/elements/CodeRevealWrapper.tsx",
+        "remotion-app/src/templates/elements/CodeRevealWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CommitGraphWrapper",
+      "paths": [
+        "templates/elements/CommitGraphWrapper.tsx",
+        "remotion-app/src/templates/elements/CommitGraphWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ComparisonTableWrapper",
+      "paths": [
+        "templates/elements/ComparisonTableWrapper.tsx",
+        "remotion-app/src/templates/elements/ComparisonTableWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CountdownTimerWrapper",
+      "paths": [
+        "templates/elements/CountdownTimerWrapper.tsx",
+        "remotion-app/src/templates/elements/CountdownTimerWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DashboardPopulateWrapper",
+      "paths": [
+        "templates/elements/DashboardPopulateWrapper.tsx",
+        "remotion-app/src/templates/elements/DashboardPopulateWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DeployRevealWrapper",
+      "paths": [
+        "templates/elements/DeployRevealWrapper.tsx",
+        "remotion-app/src/templates/elements/DeployRevealWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DeviceMockupZoomWrapper",
+      "paths": [
+        "templates/elements/DeviceMockupZoomWrapper.tsx",
+        "remotion-app/src/templates/elements/DeviceMockupZoomWrapper.tsx"
+      ]
+    },
+    {
+      "id": "EndCardWrapper",
+      "paths": [
+        "templates/elements/EndCardWrapper.tsx",
+        "remotion-app/src/templates/elements/EndCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "FaqAccordionWrapper",
+      "paths": [
+        "templates/elements/FaqAccordionWrapper.tsx",
+        "remotion-app/src/templates/elements/FaqAccordionWrapper.tsx"
+      ]
+    },
+    {
+      "id": "FeatureListWrapper",
+      "paths": [
+        "templates/elements/FeatureListWrapper.tsx",
+        "remotion-app/src/templates/elements/FeatureListWrapper.tsx"
+      ]
+    },
+    {
+      "id": "FileTreeRevealWrapper",
+      "paths": [
+        "templates/elements/FileTreeRevealWrapper.tsx",
+        "remotion-app/src/templates/elements/FileTreeRevealWrapper.tsx"
+      ]
+    },
+    {
+      "id": "GradientWrapper",
+      "paths": [
+        "templates/elements/GradientWrapper.tsx",
+        "remotion-app/src/templates/elements/GradientWrapper.tsx"
+      ]
+    },
+    {
+      "id": "HookCardWrapper",
+      "paths": [
+        "templates/elements/HookCardWrapper.tsx",
+        "remotion-app/src/templates/elements/HookCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ImageExpandWrapper",
+      "paths": [
+        "templates/elements/ImageExpandWrapper.tsx",
+        "remotion-app/src/templates/elements/ImageExpandWrapper.tsx"
+      ]
+    },
+    {
+      "id": "KanbanMoveWrapper",
+      "paths": [
+        "templates/elements/KanbanMoveWrapper.tsx",
+        "remotion-app/src/templates/elements/KanbanMoveWrapper.tsx"
+      ]
+    },
+    {
+      "id": "LogoRevealWrapper",
+      "paths": [
+        "templates/elements/LogoRevealWrapper.tsx",
+        "remotion-app/src/templates/elements/LogoRevealWrapper.tsx"
+      ]
+    },
+    {
+      "id": "LogoWallWrapper",
+      "paths": [
+        "templates/elements/LogoWallWrapper.tsx",
+        "remotion-app/src/templates/elements/LogoWallWrapper.tsx"
+      ]
+    },
+    {
+      "id": "LowerThirdWrapper",
+      "paths": [
+        "templates/elements/LowerThirdWrapper.tsx",
+        "remotion-app/src/templates/elements/LowerThirdWrapper.tsx"
+      ]
+    },
+    {
+      "id": "MapFlightWrapper",
+      "paths": [
+        "templates/elements/MapFlightWrapper.tsx",
+        "remotion-app/src/templates/elements/MapFlightWrapper.tsx"
+      ]
+    },
+    {
+      "id": "MatrixRainWrapper",
+      "paths": [
+        "templates/elements/MatrixRainWrapper.tsx",
+        "remotion-app/src/templates/elements/MatrixRainWrapper.tsx"
+      ]
+    },
+    {
+      "id": "MediaFrameWrapper",
+      "paths": [
+        "templates/elements/MediaFrameWrapper.tsx",
+        "remotion-app/src/templates/elements/MediaFrameWrapper.tsx"
+      ]
+    },
+    {
+      "id": "MetricTickerWrapper",
+      "paths": [
+        "templates/elements/MetricTickerWrapper.tsx",
+        "remotion-app/src/templates/elements/MetricTickerWrapper.tsx"
+      ]
+    },
+    {
+      "id": "NewsTickerBarWrapper",
+      "paths": [
+        "templates/elements/NewsTickerBarWrapper.tsx",
+        "remotion-app/src/templates/elements/NewsTickerBarWrapper.tsx"
+      ]
+    },
+    {
+      "id": "NotificationStackWrapper",
+      "paths": [
+        "templates/elements/NotificationStackWrapper.tsx",
+        "remotion-app/src/templates/elements/NotificationStackWrapper.tsx"
+      ]
+    },
+    {
+      "id": "OrgChartBuildWrapper",
+      "paths": [
+        "templates/elements/OrgChartBuildWrapper.tsx",
+        "remotion-app/src/templates/elements/OrgChartBuildWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ParticleSystemWrapper",
+      "paths": [
+        "templates/elements/ParticleSystemWrapper.tsx",
+        "remotion-app/src/templates/elements/ParticleSystemWrapper.tsx"
+      ]
+    },
+    {
+      "id": "PodcastClipWrapper",
+      "paths": [
+        "templates/elements/PodcastClipWrapper.tsx",
+        "remotion-app/src/templates/elements/PodcastClipWrapper.tsx"
+      ]
+    },
+    {
+      "id": "PollOverlayWrapper",
+      "paths": [
+        "templates/elements/PollOverlayWrapper.tsx",
+        "remotion-app/src/templates/elements/PollOverlayWrapper.tsx"
+      ]
+    },
+    {
+      "id": "PricingCardWrapper",
+      "paths": [
+        "templates/elements/PricingCardWrapper.tsx",
+        "remotion-app/src/templates/elements/PricingCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "PricingFocusWrapper",
+      "paths": [
+        "templates/elements/PricingFocusWrapper.tsx",
+        "remotion-app/src/templates/elements/PricingFocusWrapper.tsx"
+      ]
+    },
+    {
+      "id": "QuizQuestionWrapper",
+      "paths": [
+        "templates/elements/QuizQuestionWrapper.tsx",
+        "remotion-app/src/templates/elements/QuizQuestionWrapper.tsx"
+      ]
+    },
+    {
+      "id": "QuoteCardWrapper",
+      "paths": [
+        "templates/elements/QuoteCardWrapper.tsx",
+        "remotion-app/src/templates/elements/QuoteCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ReactionBurstWrapper",
+      "paths": [
+        "templates/elements/ReactionBurstWrapper.tsx",
+        "remotion-app/src/templates/elements/ReactionBurstWrapper.tsx"
+      ]
+    },
+    {
+      "id": "RoadmapLanesWrapper",
+      "paths": [
+        "templates/elements/RoadmapLanesWrapper.tsx",
+        "remotion-app/src/templates/elements/RoadmapLanesWrapper.tsx"
+      ]
+    },
+    {
+      "id": "Scene3DWrapper",
+      "paths": [
+        "templates/elements/Scene3DWrapper.tsx",
+        "remotion-app/src/templates/elements/Scene3DWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ScrollingImagesWrapper",
+      "paths": [
+        "templates/elements/ScrollingImagesWrapper.tsx",
+        "remotion-app/src/templates/elements/ScrollingImagesWrapper.tsx"
+      ]
+    },
+    {
+      "id": "SearchResultsPopulateWrapper",
+      "paths": [
+        "templates/elements/SearchResultsPopulateWrapper.tsx",
+        "remotion-app/src/templates/elements/SearchResultsPopulateWrapper.tsx"
+      ]
+    },
+    {
+      "id": "SocialClipWrapper",
+      "paths": [
+        "templates/elements/SocialClipWrapper.tsx",
+        "remotion-app/src/templates/elements/SocialClipWrapper.tsx"
+      ]
+    },
+    {
+      "id": "SportsScorebugWrapper",
+      "paths": [
+        "templates/elements/SportsScorebugWrapper.tsx",
+        "remotion-app/src/templates/elements/SportsScorebugWrapper.tsx"
+      ]
+    },
+    {
+      "id": "StaggeredMotionWrapper",
+      "paths": [
+        "templates/elements/StaggeredMotionWrapper.tsx",
+        "remotion-app/src/templates/elements/StaggeredMotionWrapper.tsx"
+      ]
+    },
+    {
+      "id": "StatCardWrapper",
+      "paths": [
+        "templates/elements/StatCardWrapper.tsx",
+        "remotion-app/src/templates/elements/StatCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TabSwitchPanelWrapper",
+      "paths": [
+        "templates/elements/TabSwitchPanelWrapper.tsx",
+        "remotion-app/src/templates/elements/TabSwitchPanelWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TerminalSimulatorWrapper",
+      "paths": [
+        "templates/elements/TerminalSimulatorWrapper.tsx",
+        "remotion-app/src/templates/elements/TerminalSimulatorWrapper.tsx"
+      ]
+    },
+    {
+      "id": "THEMESWrapper",
+      "paths": [
+        "templates/elements/THEMESWrapper.tsx",
+        "remotion-app/src/templates/elements/THEMESWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TimelineStepsWrapper",
+      "paths": [
+        "templates/elements/TimelineStepsWrapper.tsx",
+        "remotion-app/src/templates/elements/TimelineStepsWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TitleCardWrapper",
+      "paths": [
+        "templates/elements/TitleCardWrapper.tsx",
+        "remotion-app/src/templates/elements/TitleCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TutorialClipWrapper",
+      "paths": [
+        "templates/elements/TutorialClipWrapper.tsx",
+        "remotion-app/src/templates/elements/TutorialClipWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TypeWriterWrapper",
+      "paths": [
+        "templates/elements/TypeWriterWrapper.tsx",
+        "remotion-app/src/templates/elements/TypeWriterWrapper.tsx"
+      ]
+    },
+    {
+      "id": "WeatherCardWrapper",
+      "paths": [
+        "templates/elements/WeatherCardWrapper.tsx",
+        "remotion-app/src/templates/elements/WeatherCardWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ZoomPanFrameWrapper",
+      "paths": [
+        "templates/elements/ZoomPanFrameWrapper.tsx",
+        "remotion-app/src/templates/elements/ZoomPanFrameWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AiComposerShowcaseWrapper",
+      "paths": [
+        "templates/scenes/AiComposerShowcaseWrapper.tsx",
+        "remotion-app/src/templates/scenes/AiComposerShowcaseWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AiGenerationCanvasWrapper",
+      "paths": [
+        "templates/scenes/AiGenerationCanvasWrapper.tsx",
+        "remotion-app/src/templates/scenes/AiGenerationCanvasWrapper.tsx"
+      ]
+    },
+    {
+      "id": "AudiogramSceneWrapper",
+      "paths": [
+        "templates/scenes/AudiogramSceneWrapper.tsx",
+        "remotion-app/src/templates/scenes/AudiogramSceneWrapper.tsx"
+      ]
+    },
+    {
+      "id": "BrowserFlowWrapper",
+      "paths": [
+        "templates/scenes/BrowserFlowWrapper.tsx",
+        "remotion-app/src/templates/scenes/BrowserFlowWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CaptionSceneWrapper",
+      "paths": [
+        "templates/scenes/CaptionSceneWrapper.tsx",
+        "remotion-app/src/templates/scenes/CaptionSceneWrapper.tsx"
+      ]
+    },
+    {
+      "id": "CreatorReelWrapper",
+      "paths": [
+        "templates/scenes/CreatorReelWrapper.tsx",
+        "remotion-app/src/templates/scenes/CreatorReelWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DataFlowPipesWrapper",
+      "paths": [
+        "templates/scenes/DataFlowPipesWrapper.tsx",
+        "remotion-app/src/templates/scenes/DataFlowPipesWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DataStoryWrapper",
+      "paths": [
+        "templates/scenes/DataStoryWrapper.tsx",
+        "remotion-app/src/templates/scenes/DataStoryWrapper.tsx"
+      ]
+    },
+    {
+      "id": "DragDropFlowWrapper",
+      "paths": [
+        "templates/scenes/DragDropFlowWrapper.tsx",
+        "remotion-app/src/templates/scenes/DragDropFlowWrapper.tsx"
+      ]
+    },
+    {
+      "id": "EcosystemOrbitWrapper",
+      "paths": [
+        "templates/scenes/EcosystemOrbitWrapper.tsx",
+        "remotion-app/src/templates/scenes/EcosystemOrbitWrapper.tsx"
+      ]
+    },
+    {
+      "id": "FormFillSequenceWrapper",
+      "paths": [
+        "templates/scenes/FormFillSequenceWrapper.tsx",
+        "remotion-app/src/templates/scenes/FormFillSequenceWrapper.tsx"
+      ]
+    },
+    {
+      "id": "HeroDeviceAssembleWrapper",
+      "paths": [
+        "templates/scenes/HeroDeviceAssembleWrapper.tsx",
+        "remotion-app/src/templates/scenes/HeroDeviceAssembleWrapper.tsx"
+      ]
+    },
+    {
+      "id": "HeroLoopWrapper",
+      "paths": [
+        "templates/scenes/HeroLoopWrapper.tsx",
+        "remotion-app/src/templates/scenes/HeroLoopWrapper.tsx"
+      ]
+    },
+    {
+      "id": "IntroWrapper",
+      "paths": [
+        "templates/scenes/IntroWrapper.tsx",
+        "remotion-app/src/templates/scenes/IntroWrapper.tsx"
+      ]
+    },
+    {
+      "id": "LandingCodeShowcaseWrapper",
+      "paths": [
+        "templates/scenes/LandingCodeShowcaseWrapper.tsx",
+        "remotion-app/src/templates/scenes/LandingCodeShowcaseWrapper.tsx"
+      ]
+    },
+    {
+      "id": "LiveCodeSplitWrapper",
+      "paths": [
+        "templates/scenes/LiveCodeSplitWrapper.tsx",
+        "remotion-app/src/templates/scenes/LiveCodeSplitWrapper.tsx"
+      ]
+    },
+    {
+      "id": "MediaSequenceWrapper",
+      "paths": [
+        "templates/scenes/MediaSequenceWrapper.tsx",
+        "remotion-app/src/templates/scenes/MediaSequenceWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ShowcaseWrapper",
+      "paths": [
+        "templates/scenes/ShowcaseWrapper.tsx",
+        "remotion-app/src/templates/scenes/ShowcaseWrapper.tsx"
+      ]
+    },
+    {
+      "id": "SplitScreenWrapper",
+      "paths": [
+        "templates/scenes/SplitScreenWrapper.tsx",
+        "remotion-app/src/templates/scenes/SplitScreenWrapper.tsx"
+      ]
+    },
+    {
+      "id": "TeamGridWrapper",
+      "paths": [
+        "templates/scenes/TeamGridWrapper.tsx",
+        "remotion-app/src/templates/scenes/TeamGridWrapper.tsx"
+      ]
+    },
+    {
+      "id": "ToolMenuSlideWrapper",
+      "paths": [
+        "templates/scenes/ToolMenuSlideWrapper.tsx",
+        "remotion-app/src/templates/scenes/ToolMenuSlideWrapper.tsx"
+      ]
+    },
+    {
+      "id": "schema",
+      "paths": [
+        "recipes/schema.json",
+        "remotion-app/src/engine/schema.ts"
+      ]
+    },
+    {
+      "id": "types",
+      "paths": [
+        "remotion-app/src/engine/audio/types.ts",
+        "remotion-app/src/engine/camera/types.ts",
+        "remotion-app/src/engine/cursor/types.ts",
+        "remotion-app/src/engine/types.ts",
+        "remotion-app/src/engine/ui-state/types.ts"
+      ]
+    }
+  ],
+  "Conflicting duplicate IDs": 0
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "original_path": "fix.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\ndirectory = 'remotion-app/src/templates/effects'\nfor filename in os.listdir(di"
+  },
+  {
+    "original_path": "fix1.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix1.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\ndirectory = 'templates/effects'\nfor filename in os.listdir(directory):\n    if "
+  },
+  {
+    "original_path": "fix2.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix2.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\nfiles = [\n    'templates/elements/BRollStackWrapper.tsx',\n    'templates/eleme"
+  },
+  {
+    "original_path": "fix3.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix3.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\nfilepath = 'templates/brand-resolver.ts'\nwith open(filepath, 'r', encoding='ut"
+  },
+  {
+    "original_path": "fix_map.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix_map.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\nfiles = [\n    'remotion-app/src/templates/elements/BRollStackWrapper.tsx',\n   "
+  },
+  {
+    "original_path": "fix_map2.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix_map2.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport os\nimport re\n\nfiles = [\n    'remotion-app/src/templates/elements/BRollStackWrapper.tsx',\n   "
+  },
+  {
+    "original_path": "fix_registry.py",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\fix_registry.py",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "\ufeffimport re\n\nfilepath = 'registry/template-registry.tsx'\nwith open(filepath, 'r', encoding='utf-8') a"
+  },
+  {
+    "original_path": "smoke_test.ps1",
+    "quarantined_path": ".remediation\\phase-9\\quarantine\\smoke_test.ps1",
+    "reason": "Root level ad-hoc fix script with no callers, Agent usage, or Production usage. Manually quarantined per Phase 9.9 policy.",
+    "content_preview": "$workspace = \"c:\\video\\clean-video-workspace\"\n$plugin_base = \"$workspace\\.agents\\plugins\\super-video"
+  }
+]

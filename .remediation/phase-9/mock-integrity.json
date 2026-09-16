@@ -1,0 +1,10 @@
+[
+  {
+    "test": "tests/api/test_render.py::test_render_service_mock",
+    "mocked_components": [
+      "api.services.render_service.asyncio.create_subprocess_exec"
+    ],
+    "real_components": [],
+    "level": "MOCKED_INTEGRATION"
+  }
+]

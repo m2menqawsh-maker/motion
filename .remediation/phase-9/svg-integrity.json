@@ -1,0 +1,265 @@
+{
+  "Broken required SVGs": 0,
+  "results": [
+    {
+      "path": "assets/ready/icons/bookmark.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/bot.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/brain.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/calculator.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/code.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/computer_lucide.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/cpu.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/cpu_solar/solar_cpu-bold-duotone.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/crescent_moon_noto.svg/noto_crescent-moon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/database.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/instagram.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/laptop.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/light_bulb_noto.svg/noto_light-bulb.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/meteor.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/meteor_pkg/streamline-kameleon-color_meteor.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/moon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/python.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/repeat.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/rocket.svg/solar_rocket-bold-duotone.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/rocket_cartoon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/rocket_noto.svg/noto_rocket.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/satellite.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/satellite_solar.svg/solar_satellite-bold-duotone.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/shuttle_pkg/streamline-kameleon-color_space-shuttle.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/smartphone_lucide.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/space_shuttle.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/success.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/telegram.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/tiktok.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/twitter.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "assets/ready/icons/youtube.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/bot.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/brain.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/code.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/icon_cpu.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/icon_satellite.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/instagram.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/meteor.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/moon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/smartphone_lucide.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/space_shuttle.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/success.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/tiktok.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/twitter.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "public/media/youtube.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/logo.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/bookmark.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/bot.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/brain.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/calculator.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/code.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/database.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/laptop.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/moon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/python.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/repeat.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/success.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/media/icons/telegram.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_brain_ai.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_code_dev.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_cpu_chip.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_rocket_cartoon.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_smartphone.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/projects/prj_a68b0b6e/media/icon_success_check.svg",
+      "status": "PASS"
+    },
+    {
+      "path": "remotion-app/public/warning.svg",
+      "status": "PASS"
+    }
+  ]
+}

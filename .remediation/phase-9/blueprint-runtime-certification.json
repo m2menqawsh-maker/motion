@@ -1,0 +1,9 @@
+{
+  "Minimal Blueprint": "PASS",
+  "Multi-scene Blueprint": "PASS",
+  "Template-heavy": "PASS",
+  "Engine-backed": "PASS",
+  "Audio/assets": "PASS",
+  "Recipe-generated": "PASS",
+  "failures": 0
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "Command": "avatar-insta-reel",
+    "Current?": True,
+    "Canonical pipeline?": True,
+    "Uses gates?": True,
+    "Uses canonical state?": True,
+    "Uses approved MCP?": True,
+    "Direct FFmpeg?": False,
+    "Direct rendering?": False,
+    "Direct filesystem bypass?": False,
+    "QC required?": True,
+    "PASS/FAIL": "PASS"
+  }
+]

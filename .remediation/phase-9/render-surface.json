@@ -1,0 +1,4422 @@
+[
+  {
+    "id": "BookFlipTransition",
+    "path": "templates/effects/BookFlipTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ClockWipeTransition",
+    "path": "templates/effects/ClockWipeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CrosswarpTransition",
+    "path": "templates/effects/CrosswarpTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CrossZoomTransition",
+    "path": "templates/effects/CrossZoomTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DissolveTransition",
+    "path": "templates/effects/DissolveTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DreamyZoomTransition",
+    "path": "templates/effects/DreamyZoomTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "engine-bridge",
+    "path": "templates/effects/engine-bridge.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FadeTransition",
+    "path": "templates/effects/FadeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FilmBurnTransition",
+    "path": "templates/effects/FilmBurnTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FlipTransition",
+    "path": "templates/effects/FlipTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "IrisTransition",
+    "path": "templates/effects/IrisTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LinearBlurTransition",
+    "path": "templates/effects/LinearBlurTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PushCutTransition",
+    "path": "templates/effects/PushCutTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "RippleTransition",
+    "path": "templates/effects/RippleTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SlideTransition",
+    "path": "templates/effects/SlideTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SwapTransition",
+    "path": "templates/effects/SwapTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "WipeTransition",
+    "path": "templates/effects/WipeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomBlurTransition",
+    "path": "templates/effects/ZoomBlurTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomInOutTransition",
+    "path": "templates/effects/ZoomInOutTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedBarChartWrapper",
+    "path": "templates/elements/AnimatedBarChartWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedCounterWrapper",
+    "path": "templates/elements/AnimatedCounterWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedTextWrapper",
+    "path": "templates/elements/AnimatedTextWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AutoFitTitleWrapper",
+    "path": "templates/elements/AutoFitTitleWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BentoPanWrapper",
+    "path": "templates/elements/BentoPanWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BRollStackWrapper",
+    "path": "templates/elements/BRollStackWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CalendarMonthFillWrapper",
+    "path": "templates/elements/CalendarMonthFillWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CaptionBumperWrapper",
+    "path": "templates/elements/CaptionBumperWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ChangelogEntryWrapper",
+    "path": "templates/elements/ChangelogEntryWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ChatToPreviewWrapper",
+    "path": "templates/elements/ChatToPreviewWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeAccordionWrapper",
+    "path": "templates/elements/CodeAccordionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeBlockWrapper",
+    "path": "templates/elements/CodeBlockWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeDiffWipeWrapper",
+    "path": "templates/elements/CodeDiffWipeWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeRevealWrapper",
+    "path": "templates/elements/CodeRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CommitGraphWrapper",
+    "path": "templates/elements/CommitGraphWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ComparisonTableWrapper",
+    "path": "templates/elements/ComparisonTableWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CountdownTimerWrapper",
+    "path": "templates/elements/CountdownTimerWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DashboardPopulateWrapper",
+    "path": "templates/elements/DashboardPopulateWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DeployRevealWrapper",
+    "path": "templates/elements/DeployRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DeviceMockupZoomWrapper",
+    "path": "templates/elements/DeviceMockupZoomWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "EndCardWrapper",
+    "path": "templates/elements/EndCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FaqAccordionWrapper",
+    "path": "templates/elements/FaqAccordionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FeatureListWrapper",
+    "path": "templates/elements/FeatureListWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FileTreeRevealWrapper",
+    "path": "templates/elements/FileTreeRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "GradientWrapper",
+    "path": "templates/elements/GradientWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HookCardWrapper",
+    "path": "templates/elements/HookCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ImageExpandWrapper",
+    "path": "templates/elements/ImageExpandWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "KanbanMoveWrapper",
+    "path": "templates/elements/KanbanMoveWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LogoRevealWrapper",
+    "path": "templates/elements/LogoRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LogoWallWrapper",
+    "path": "templates/elements/LogoWallWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LowerThirdWrapper",
+    "path": "templates/elements/LowerThirdWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MapFlightWrapper",
+    "path": "templates/elements/MapFlightWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MatrixRainWrapper",
+    "path": "templates/elements/MatrixRainWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MediaFrameWrapper",
+    "path": "templates/elements/MediaFrameWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MetricTickerWrapper",
+    "path": "templates/elements/MetricTickerWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "NewsTickerBarWrapper",
+    "path": "templates/elements/NewsTickerBarWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "NotificationStackWrapper",
+    "path": "templates/elements/NotificationStackWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "OrgChartBuildWrapper",
+    "path": "templates/elements/OrgChartBuildWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ParticleSystemWrapper",
+    "path": "templates/elements/ParticleSystemWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PodcastClipWrapper",
+    "path": "templates/elements/PodcastClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PollOverlayWrapper",
+    "path": "templates/elements/PollOverlayWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PricingCardWrapper",
+    "path": "templates/elements/PricingCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PricingFocusWrapper",
+    "path": "templates/elements/PricingFocusWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "QuizQuestionWrapper",
+    "path": "templates/elements/QuizQuestionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "QuoteCardWrapper",
+    "path": "templates/elements/QuoteCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ReactionBurstWrapper",
+    "path": "templates/elements/ReactionBurstWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "RoadmapLanesWrapper",
+    "path": "templates/elements/RoadmapLanesWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Scene3DWrapper",
+    "path": "templates/elements/Scene3DWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ScrollingImagesWrapper",
+    "path": "templates/elements/ScrollingImagesWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SearchResultsPopulateWrapper",
+    "path": "templates/elements/SearchResultsPopulateWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SocialClipWrapper",
+    "path": "templates/elements/SocialClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SportsScorebugWrapper",
+    "path": "templates/elements/SportsScorebugWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "StaggeredMotionWrapper",
+    "path": "templates/elements/StaggeredMotionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "StatCardWrapper",
+    "path": "templates/elements/StatCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TabSwitchPanelWrapper",
+    "path": "templates/elements/TabSwitchPanelWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TerminalSimulatorWrapper",
+    "path": "templates/elements/TerminalSimulatorWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "THEMESWrapper",
+    "path": "templates/elements/THEMESWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TimelineStepsWrapper",
+    "path": "templates/elements/TimelineStepsWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TitleCardWrapper",
+    "path": "templates/elements/TitleCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TutorialClipWrapper",
+    "path": "templates/elements/TutorialClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TypeWriterWrapper",
+    "path": "templates/elements/TypeWriterWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "WeatherCardWrapper",
+    "path": "templates/elements/WeatherCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomPanFrameWrapper",
+    "path": "templates/elements/ZoomPanFrameWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AiComposerShowcaseWrapper",
+    "path": "templates/scenes/AiComposerShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AiGenerationCanvasWrapper",
+    "path": "templates/scenes/AiGenerationCanvasWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AudiogramSceneWrapper",
+    "path": "templates/scenes/AudiogramSceneWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BrowserFlowWrapper",
+    "path": "templates/scenes/BrowserFlowWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CaptionSceneWrapper",
+    "path": "templates/scenes/CaptionSceneWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CreatorReelWrapper",
+    "path": "templates/scenes/CreatorReelWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DataFlowPipesWrapper",
+    "path": "templates/scenes/DataFlowPipesWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DataStoryWrapper",
+    "path": "templates/scenes/DataStoryWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DragDropFlowWrapper",
+    "path": "templates/scenes/DragDropFlowWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "EcosystemOrbitWrapper",
+    "path": "templates/scenes/EcosystemOrbitWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FormFillSequenceWrapper",
+    "path": "templates/scenes/FormFillSequenceWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HeroDeviceAssembleWrapper",
+    "path": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HeroLoopWrapper",
+    "path": "templates/scenes/HeroLoopWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "IntroWrapper",
+    "path": "templates/scenes/IntroWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LandingCodeShowcaseWrapper",
+    "path": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LiveCodeSplitWrapper",
+    "path": "templates/scenes/LiveCodeSplitWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MediaSequenceWrapper",
+    "path": "templates/scenes/MediaSequenceWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ShowcaseWrapper",
+    "path": "templates/scenes/ShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SplitScreenWrapper",
+    "path": "templates/scenes/SplitScreenWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TeamGridWrapper",
+    "path": "templates/scenes/TeamGridWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ToolMenuSlideWrapper",
+    "path": "templates/scenes/ToolMenuSlideWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "engine-classification",
+    "path": "registry/engine-classification.json",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": true,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "agent-browser-proof",
+    "path": "recipes/agent-browser-proof.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "avatar-explainer",
+    "path": "recipes/avatar-explainer.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "avatar-hook-broll",
+    "path": "recipes/avatar-hook-broll.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "avatar-insta-split",
+    "path": "recipes/avatar-insta-split.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "avatar-product-walkthrough",
+    "path": "recipes/avatar-product-walkthrough.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "avatar-vo-broll",
+    "path": "recipes/avatar-vo-broll.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "captioned-talking-head",
+    "path": "recipes/captioned-talking-head.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "dynamic-montage-ad",
+    "path": "recipes/dynamic-montage-ad.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "faceless-broll-ad",
+    "path": "recipes/faceless-broll-ad.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "living-canvas-explainer",
+    "path": "recipes/living-canvas-explainer.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "longform-repurpose",
+    "path": "recipes/longform-repurpose.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "misotts-article-sprint",
+    "path": "recipes/misotts-article-sprint.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "motion-collage-explainer",
+    "path": "recipes/motion-collage-explainer.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "motion-graphics",
+    "path": "recipes/motion-graphics.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "review-conquest-compilation",
+    "path": "recipes/review-conquest-compilation.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "schema",
+    "path": "recipes/schema.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "screencast-demo",
+    "path": "recipes/screencast-demo.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "tabletop-levels-explainer",
+    "path": "recipes/tabletop-levels-explainer.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ugc-ai-ad",
+    "path": "recipes/ugc-ai-ad.json",
+    "type": "recipe",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/ai-composer-showcase/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/ai-generation-canvas/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/bento-pan/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/browser-flow/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/creator-reel/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/dashboard-populate/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/data-story/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/deploy-reveal/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/ecosystem-orbit/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/hero-device-assemble/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/hero-loop/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/image-expand/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/intro/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/landing-code-showcase/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/live-code-split/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/podcast-clip/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/pricing-focus/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/showcase/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/social-clip/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/tool-menu-slide/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/compositions/tutorial-clip/index.tsx",
+    "type": "composition",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AudioManager",
+    "path": "remotion-app/src/engine/audio/AudioManager.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/audio/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "resolveCues",
+    "path": "remotion-app/src/engine/audio/resolveCues.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "types",
+    "path": "remotion-app/src/engine/audio/types.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AutoZoom",
+    "path": "remotion-app/src/engine/camera/AutoZoom.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CameraRig",
+    "path": "remotion-app/src/engine/camera/CameraRig.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/camera/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "interpolate",
+    "path": "remotion-app/src/engine/camera/interpolate.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "resolveTimeline",
+    "path": "remotion-app/src/engine/camera/resolveTimeline.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "types",
+    "path": "remotion-app/src/engine/camera/types.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "filterCursorPath",
+    "path": "remotion-app/src/engine/choreography/filterCursorPath.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/choreography/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "mapCursorPath",
+    "path": "remotion-app/src/engine/choreography/mapCursorPath.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "resolveWindowPose",
+    "path": "remotion-app/src/engine/choreography/resolveWindowPose.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "arc",
+    "path": "remotion-app/src/engine/cursor/arc.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Cursor",
+    "path": "remotion-app/src/engine/cursor/Cursor.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CursorSprite",
+    "path": "remotion-app/src/engine/cursor/CursorSprite.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/cursor/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "resolveAnchor",
+    "path": "remotion-app/src/engine/cursor/resolveAnchor.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "types",
+    "path": "remotion-app/src/engine/cursor/types.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "fonts",
+    "path": "remotion-app/src/engine/fonts.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AppFromDescriptor",
+    "path": "remotion-app/src/engine/primitives/app-ui/AppFromDescriptor.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AppShell",
+    "path": "remotion-app/src/engine/primitives/app-ui/AppShell.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Avatar",
+    "path": "remotion-app/src/engine/primitives/app-ui/Avatar.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Badge",
+    "path": "remotion-app/src/engine/primitives/app-ui/Badge.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Button",
+    "path": "remotion-app/src/engine/primitives/app-ui/Button.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DataTable",
+    "path": "remotion-app/src/engine/primitives/app-ui/DataTable.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/primitives/app-ui/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ListItems",
+    "path": "remotion-app/src/engine/primitives/app-ui/ListItems.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MessageList",
+    "path": "remotion-app/src/engine/primitives/app-ui/MessageList.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "NotificationToast",
+    "path": "remotion-app/src/engine/primitives/app-ui/NotificationToast.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Panel",
+    "path": "remotion-app/src/engine/primitives/app-ui/Panel.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PanelGrid",
+    "path": "remotion-app/src/engine/primitives/app-ui/PanelGrid.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Placeholder",
+    "path": "remotion-app/src/engine/primitives/app-ui/Placeholder.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SearchBar",
+    "path": "remotion-app/src/engine/primitives/app-ui/SearchBar.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SidebarNav",
+    "path": "remotion-app/src/engine/primitives/app-ui/SidebarNav.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "StatCard",
+    "path": "remotion-app/src/engine/primitives/app-ui/StatCard.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TabBar",
+    "path": "remotion-app/src/engine/primitives/app-ui/TabBar.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TopNav",
+    "path": "remotion-app/src/engine/primitives/app-ui/TopNav.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CountUp",
+    "path": "remotion-app/src/engine/primitives/CountUp.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "EndCard",
+    "path": "remotion-app/src/engine/primitives/EndCard.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Enter",
+    "path": "remotion-app/src/engine/primitives/Enter.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Exit",
+    "path": "remotion-app/src/engine/primitives/Exit.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Headline",
+    "path": "remotion-app/src/engine/primitives/Headline.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Highlight",
+    "path": "remotion-app/src/engine/primitives/Highlight.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/primitives/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Pulse",
+    "path": "remotion-app/src/engine/primitives/Pulse.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ScenePush",
+    "path": "remotion-app/src/engine/primitives/ScenePush.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Stagger",
+    "path": "remotion-app/src/engine/primitives/Stagger.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TrafficLights",
+    "path": "remotion-app/src/engine/primitives/TrafficLights.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TypeWriter",
+    "path": "remotion-app/src/engine/primitives/TypeWriter.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Wallpaper",
+    "path": "remotion-app/src/engine/primitives/Wallpaper.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Window",
+    "path": "remotion-app/src/engine/primitives/Window.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ChaosDesktop",
+    "path": "remotion-app/src/engine/scenes/ChaosDesktop.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Closer",
+    "path": "remotion-app/src/engine/scenes/Closer.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DynamicWindows",
+    "path": "remotion-app/src/engine/scenes/DynamicWindows.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FeatureShowcase",
+    "path": "remotion-app/src/engine/scenes/FeatureShowcase.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HeadlineResolution",
+    "path": "remotion-app/src/engine/scenes/HeadlineResolution.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/scenes/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ProductReveal",
+    "path": "remotion-app/src/engine/scenes/ProductReveal.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "schema",
+    "path": "remotion-app/src/engine/schema.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "tokens",
+    "path": "remotion-app/src/engine/tokens.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "types",
+    "path": "remotion-app/src/engine/types.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "generatePressKeyframes",
+    "path": "remotion-app/src/engine/ui-state/generatePressKeyframes.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/engine/ui-state/index.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "types",
+    "path": "remotion-app/src/engine/ui-state/types.ts",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "UIStateProvider",
+    "path": "remotion-app/src/engine/ui-state/UIStateProvider.tsx",
+    "type": "engine_feature",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Camera",
+    "path": "remotion-app/src/lib/onda/primitives/Camera.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Glow",
+    "path": "remotion-app/src/lib/onda/primitives/Glow.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "GridField",
+    "path": "remotion-app/src/lib/onda/primitives/GridField.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "index",
+    "path": "remotion-app/src/lib/onda/primitives/index.ts",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Surface",
+    "path": "remotion-app/src/lib/onda/primitives/Surface.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "audio-pulse",
+    "path": "remotion-app/src/remotion/primitives/audio-pulse.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "audiogram-bars",
+    "path": "remotion-app/src/remotion/primitives/audiogram-bars.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "caption-highlight",
+    "path": "remotion-app/src/remotion/primitives/caption-highlight.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "counter",
+    "path": "remotion-app/src/remotion/primitives/counter.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "directional-wipe",
+    "path": "remotion-app/src/remotion/primitives/directional-wipe.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "fade-in",
+    "path": "remotion-app/src/remotion/primitives/fade-in.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "karaoke-captions",
+    "path": "remotion-app/src/remotion/primitives/karaoke-captions.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "line-chart-draw",
+    "path": "remotion-app/src/remotion/primitives/line-chart-draw.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "map-markers",
+    "path": "remotion-app/src/remotion/primitives/map-markers.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "multi-device-lineup",
+    "path": "remotion-app/src/remotion/primitives/multi-device-lineup.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "path-draw",
+    "path": "remotion-app/src/remotion/primitives/path-draw.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "slide-up",
+    "path": "remotion-app/src/remotion/primitives/slide-up.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "spring-in",
+    "path": "remotion-app/src/remotion/primitives/spring-in.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "stagger-children",
+    "path": "remotion-app/src/remotion/primitives/stagger-children.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-fade",
+    "path": "remotion-app/src/remotion/primitives/transition-fade.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-slide",
+    "path": "remotion-app/src/remotion/primitives/transition-slide.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "transition-wipe",
+    "path": "remotion-app/src/remotion/primitives/transition-wipe.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "typewriter",
+    "path": "remotion-app/src/remotion/primitives/typewriter.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "waveform-line",
+    "path": "remotion-app/src/remotion/primitives/waveform-line.tsx",
+    "type": "primitive",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": false,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BookFlipTransition",
+    "path": "remotion-app/src/templates/effects/BookFlipTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ClockWipeTransition",
+    "path": "remotion-app/src/templates/effects/ClockWipeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CrosswarpTransition",
+    "path": "remotion-app/src/templates/effects/CrosswarpTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CrossZoomTransition",
+    "path": "remotion-app/src/templates/effects/CrossZoomTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DissolveTransition",
+    "path": "remotion-app/src/templates/effects/DissolveTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DreamyZoomTransition",
+    "path": "remotion-app/src/templates/effects/DreamyZoomTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "engine-bridge",
+    "path": "remotion-app/src/templates/effects/engine-bridge.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FadeTransition",
+    "path": "remotion-app/src/templates/effects/FadeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FilmBurnTransition",
+    "path": "remotion-app/src/templates/effects/FilmBurnTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FlipTransition",
+    "path": "remotion-app/src/templates/effects/FlipTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "IrisTransition",
+    "path": "remotion-app/src/templates/effects/IrisTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LinearBlurTransition",
+    "path": "remotion-app/src/templates/effects/LinearBlurTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PushCutTransition",
+    "path": "remotion-app/src/templates/effects/PushCutTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "RippleTransition",
+    "path": "remotion-app/src/templates/effects/RippleTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SlideTransition",
+    "path": "remotion-app/src/templates/effects/SlideTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SwapTransition",
+    "path": "remotion-app/src/templates/effects/SwapTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "WipeTransition",
+    "path": "remotion-app/src/templates/effects/WipeTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomBlurTransition",
+    "path": "remotion-app/src/templates/effects/ZoomBlurTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomInOutTransition",
+    "path": "remotion-app/src/templates/effects/ZoomInOutTransition.tsx",
+    "type": "effect",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedBarChartWrapper",
+    "path": "remotion-app/src/templates/elements/AnimatedBarChartWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedCounterWrapper",
+    "path": "remotion-app/src/templates/elements/AnimatedCounterWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AnimatedTextWrapper",
+    "path": "remotion-app/src/templates/elements/AnimatedTextWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AutoFitTitleWrapper",
+    "path": "remotion-app/src/templates/elements/AutoFitTitleWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BentoPanWrapper",
+    "path": "remotion-app/src/templates/elements/BentoPanWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BRollStackWrapper",
+    "path": "remotion-app/src/templates/elements/BRollStackWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CalendarMonthFillWrapper",
+    "path": "remotion-app/src/templates/elements/CalendarMonthFillWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CaptionBumperWrapper",
+    "path": "remotion-app/src/templates/elements/CaptionBumperWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ChangelogEntryWrapper",
+    "path": "remotion-app/src/templates/elements/ChangelogEntryWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ChatToPreviewWrapper",
+    "path": "remotion-app/src/templates/elements/ChatToPreviewWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeAccordionWrapper",
+    "path": "remotion-app/src/templates/elements/CodeAccordionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeBlockWrapper",
+    "path": "remotion-app/src/templates/elements/CodeBlockWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeDiffWipeWrapper",
+    "path": "remotion-app/src/templates/elements/CodeDiffWipeWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CodeRevealWrapper",
+    "path": "remotion-app/src/templates/elements/CodeRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CommitGraphWrapper",
+    "path": "remotion-app/src/templates/elements/CommitGraphWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ComparisonTableWrapper",
+    "path": "remotion-app/src/templates/elements/ComparisonTableWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CountdownTimerWrapper",
+    "path": "remotion-app/src/templates/elements/CountdownTimerWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DashboardPopulateWrapper",
+    "path": "remotion-app/src/templates/elements/DashboardPopulateWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DeployRevealWrapper",
+    "path": "remotion-app/src/templates/elements/DeployRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DeviceMockupZoomWrapper",
+    "path": "remotion-app/src/templates/elements/DeviceMockupZoomWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "EndCardWrapper",
+    "path": "remotion-app/src/templates/elements/EndCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FaqAccordionWrapper",
+    "path": "remotion-app/src/templates/elements/FaqAccordionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FeatureListWrapper",
+    "path": "remotion-app/src/templates/elements/FeatureListWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FileTreeRevealWrapper",
+    "path": "remotion-app/src/templates/elements/FileTreeRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "GradientWrapper",
+    "path": "remotion-app/src/templates/elements/GradientWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HookCardWrapper",
+    "path": "remotion-app/src/templates/elements/HookCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ImageExpandWrapper",
+    "path": "remotion-app/src/templates/elements/ImageExpandWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "KanbanMoveWrapper",
+    "path": "remotion-app/src/templates/elements/KanbanMoveWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LogoRevealWrapper",
+    "path": "remotion-app/src/templates/elements/LogoRevealWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LogoWallWrapper",
+    "path": "remotion-app/src/templates/elements/LogoWallWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LowerThirdWrapper",
+    "path": "remotion-app/src/templates/elements/LowerThirdWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MapFlightWrapper",
+    "path": "remotion-app/src/templates/elements/MapFlightWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MatrixRainWrapper",
+    "path": "remotion-app/src/templates/elements/MatrixRainWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MediaFrameWrapper",
+    "path": "remotion-app/src/templates/elements/MediaFrameWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MetricTickerWrapper",
+    "path": "remotion-app/src/templates/elements/MetricTickerWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "NewsTickerBarWrapper",
+    "path": "remotion-app/src/templates/elements/NewsTickerBarWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "NotificationStackWrapper",
+    "path": "remotion-app/src/templates/elements/NotificationStackWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "OrgChartBuildWrapper",
+    "path": "remotion-app/src/templates/elements/OrgChartBuildWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ParticleSystemWrapper",
+    "path": "remotion-app/src/templates/elements/ParticleSystemWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PodcastClipWrapper",
+    "path": "remotion-app/src/templates/elements/PodcastClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PollOverlayWrapper",
+    "path": "remotion-app/src/templates/elements/PollOverlayWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PricingCardWrapper",
+    "path": "remotion-app/src/templates/elements/PricingCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "PricingFocusWrapper",
+    "path": "remotion-app/src/templates/elements/PricingFocusWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "QuizQuestionWrapper",
+    "path": "remotion-app/src/templates/elements/QuizQuestionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "QuoteCardWrapper",
+    "path": "remotion-app/src/templates/elements/QuoteCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ReactionBurstWrapper",
+    "path": "remotion-app/src/templates/elements/ReactionBurstWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "RoadmapLanesWrapper",
+    "path": "remotion-app/src/templates/elements/RoadmapLanesWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "Scene3DWrapper",
+    "path": "remotion-app/src/templates/elements/Scene3DWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ScrollingImagesWrapper",
+    "path": "remotion-app/src/templates/elements/ScrollingImagesWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SearchResultsPopulateWrapper",
+    "path": "remotion-app/src/templates/elements/SearchResultsPopulateWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SocialClipWrapper",
+    "path": "remotion-app/src/templates/elements/SocialClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SportsScorebugWrapper",
+    "path": "remotion-app/src/templates/elements/SportsScorebugWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "StaggeredMotionWrapper",
+    "path": "remotion-app/src/templates/elements/StaggeredMotionWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "StatCardWrapper",
+    "path": "remotion-app/src/templates/elements/StatCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TabSwitchPanelWrapper",
+    "path": "remotion-app/src/templates/elements/TabSwitchPanelWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TerminalSimulatorWrapper",
+    "path": "remotion-app/src/templates/elements/TerminalSimulatorWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "THEMESWrapper",
+    "path": "remotion-app/src/templates/elements/THEMESWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TimelineStepsWrapper",
+    "path": "remotion-app/src/templates/elements/TimelineStepsWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TitleCardWrapper",
+    "path": "remotion-app/src/templates/elements/TitleCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TutorialClipWrapper",
+    "path": "remotion-app/src/templates/elements/TutorialClipWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TypeWriterWrapper",
+    "path": "remotion-app/src/templates/elements/TypeWriterWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "WeatherCardWrapper",
+    "path": "remotion-app/src/templates/elements/WeatherCardWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ZoomPanFrameWrapper",
+    "path": "remotion-app/src/templates/elements/ZoomPanFrameWrapper.tsx",
+    "type": "template",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AiComposerShowcaseWrapper",
+    "path": "remotion-app/src/templates/scenes/AiComposerShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AiGenerationCanvasWrapper",
+    "path": "remotion-app/src/templates/scenes/AiGenerationCanvasWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "AudiogramSceneWrapper",
+    "path": "remotion-app/src/templates/scenes/AudiogramSceneWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "BrowserFlowWrapper",
+    "path": "remotion-app/src/templates/scenes/BrowserFlowWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CaptionSceneWrapper",
+    "path": "remotion-app/src/templates/scenes/CaptionSceneWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "CreatorReelWrapper",
+    "path": "remotion-app/src/templates/scenes/CreatorReelWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DataFlowPipesWrapper",
+    "path": "remotion-app/src/templates/scenes/DataFlowPipesWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DataStoryWrapper",
+    "path": "remotion-app/src/templates/scenes/DataStoryWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "DragDropFlowWrapper",
+    "path": "remotion-app/src/templates/scenes/DragDropFlowWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "EcosystemOrbitWrapper",
+    "path": "remotion-app/src/templates/scenes/EcosystemOrbitWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "FormFillSequenceWrapper",
+    "path": "remotion-app/src/templates/scenes/FormFillSequenceWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HeroDeviceAssembleWrapper",
+    "path": "remotion-app/src/templates/scenes/HeroDeviceAssembleWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "HeroLoopWrapper",
+    "path": "remotion-app/src/templates/scenes/HeroLoopWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "IntroWrapper",
+    "path": "remotion-app/src/templates/scenes/IntroWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LandingCodeShowcaseWrapper",
+    "path": "remotion-app/src/templates/scenes/LandingCodeShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "LiveCodeSplitWrapper",
+    "path": "remotion-app/src/templates/scenes/LiveCodeSplitWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "MediaSequenceWrapper",
+    "path": "remotion-app/src/templates/scenes/MediaSequenceWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ShowcaseWrapper",
+    "path": "remotion-app/src/templates/scenes/ShowcaseWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "SplitScreenWrapper",
+    "path": "remotion-app/src/templates/scenes/SplitScreenWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TeamGridWrapper",
+    "path": "remotion-app/src/templates/scenes/TeamGridWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "TestEngine",
+    "path": "remotion-app/src/templates/scenes/TestEngine.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  },
+  {
+    "id": "ToolMenuSlideWrapper",
+    "path": "remotion-app/src/templates/scenes/ToolMenuSlideWrapper.tsx",
+    "type": "scene",
+    "status": "active",
+    "registered": false,
+    "runtime_reachable": true,
+    "production_reachable": true,
+    "renderable": true,
+    "evidence": [
+      "Found in filesystem"
+    ]
+  }
+]
