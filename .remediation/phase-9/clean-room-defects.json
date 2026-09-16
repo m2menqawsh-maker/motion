@@ -61,5 +61,12 @@
     "description": "scripts/asset_gate.py expected a direct manifest path argument, while scripts/pipeline.py passes project_id, causing asset_gate to skip manifest validation during canonical pipeline execution.",
     "status": "Resolved",
     "remediation": "Updated asset_gate.py to resolve project_id or project directory to 02_asset_manifest.json."
+  },
+  {
+    "defect_id": "CRD-018",
+    "category": "Security & Sandboxing",
+    "description": "scripts/security.py did not include scripts/materialize_project.py in ALLOWED_SCRIPTS['python'], causing safe_subprocess to block materialize_project during Phase 3 canonical pipeline execution.",
+    "status": "Resolved",
+    "remediation": "Added scripts/materialize_project.py to ALLOWED_SCRIPTS['python'] in scripts/security.py."
   }
 ]
