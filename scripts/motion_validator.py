@@ -237,7 +237,13 @@ def get_template_family(templates):
         'ParallaxPan': 'Motion Effects',
         'ParticleExplosion': 'Motion Effects',
         'MatrixRain': 'Full Scenes & Hooks',
-        'ZoomThrough': 'Full Scenes & Hooks'
+        'ZoomThrough': 'Full Scenes & Hooks',
+        # Add wrappers mapped to families
+        'Terminalsimulatorwrapper': 'UI & Layouts',
+        'Dashboardpopulatewrapper': 'Data & Stats',
+        'Particlesystemwrapper': 'Motion Effects',
+        'Endcardwrapper': 'Full Scenes & Hooks',
+        'matrix-rain': 'Full Scenes & Hooks'
     }
     families = set()
     for tpl in templates:
@@ -327,7 +333,7 @@ def get_unique_families(templates):
 
 if __name__ == "__main__":
     import sys
-from scripts.path_security import validate_project_id, safe_resolve
+    from scripts.path_security import validate_project_id, safe_resolve
     if len(sys.argv) > 1:
         target_path = Path(sys.argv[1])
         if target_path.suffix == ".json":

@@ -149,9 +149,9 @@ rendered_files = []
 def render_frame(args):
     i, f = args
     out_file = probe_dir / f"probe_{i:02d}_f{f}.png"
-    # Execute npx remotion still
+    npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
     cmd = [
-        "npx", "remotion", "still", "src/index.ts", comp_id, 
+        npx_cmd, "remotion", "still", "src/index.ts", comp_id, 
         str(out_file.absolute()), 
         f"--frame={f}", 
         "--timeout=120000"

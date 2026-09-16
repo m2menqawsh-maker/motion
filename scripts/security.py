@@ -13,7 +13,9 @@ ALLOWED_SCRIPTS = {
         "scripts/code_template_gate.py", "scripts/probe_qc.py"
     ],
     "npm": ["run", "build"], 
-    "docker": ["info", "run"]
+    "docker": ["info", "run"],
+    "npx": ["remotion"],
+    "npx.cmd": ["remotion"]
 }
 
 def safe_subprocess(cmd_list, **kwargs):
@@ -29,6 +31,8 @@ def safe_subprocess(cmd_list, **kwargs):
     if "python" in cmd: cmd = "python"
     elif "npm" in cmd: cmd = "npm"
     elif "docker" in cmd: cmd = "docker"
+    elif "npx.cmd" in cmd: cmd = "npx.cmd"
+    elif "npx" in cmd: cmd = "npx"
 
     if cmd not in ALLOWED_COMMANDS:
         if cmd in ALLOWED_SCRIPTS:
@@ -59,6 +63,6 @@ def safe_subprocess(cmd_list, **kwargs):
     # Force safe defaults
     kwargs["shell"] = False
     if "timeout" not in kwargs:
-        kwargs["timeout"] = 60
+        kwargs["timeout"] = 900
         
     return subprocess.run(cmd_list, **kwargs)

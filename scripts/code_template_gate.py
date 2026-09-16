@@ -4,7 +4,10 @@ from scripts.security import safe_subprocess
 """code_template_gate.py — يمنع الارتجال ويجبر الوكيل على استخدام القوالب
 Usage: python code_template_gate.py <project_dir>"""
 import sys
-from scripts.path_security import validate_project_id, safe_resolve, json, re, hashlib, subprocess
+import json
+import re
+import hashlib
+from scripts.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
