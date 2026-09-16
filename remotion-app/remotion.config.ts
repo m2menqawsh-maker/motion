@@ -12,6 +12,10 @@ Config.overrideWebpackConfig((currentConfiguration) => {
     ...currentConfiguration,
     resolve: {
       ...currentConfiguration.resolve,
+      modules: [
+        ...(currentConfiguration.resolve?.modules || ["node_modules"]),
+        path.join(appDir, "node_modules")
+      ],
       alias: {
         ...(currentConfiguration.resolve?.alias ?? {}),
         "@": path.join(appDir, "src"),
