@@ -1,0 +1,18 @@
+{
+  "workspace_path": "C:\\video\\phase-9-13-clean-room",
+  "source_snapshot": "f5b28b54538e2ced19f5e85d89ef0e7113ba40c7",
+  "method": "git archive HEAD --format=tar | tar -xf",
+  "excluded": [
+    "node_modules",
+    ".pytest_cache",
+    "__pycache__",
+    ".remotion",
+    "scratch",
+    "renders",
+    "out",
+    ".pipeline_state.json",
+    ".studio_approved",
+    "logs",
+    "tmp"
+  ]
+}
