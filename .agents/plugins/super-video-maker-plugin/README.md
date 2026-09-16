@@ -1,21 +1,16 @@
 # Super Video Maker Plugin
 
 > Commercial motion director for agentic video production.
-> An Antigravity Agent Plugin that routes between 7 MCP servers, 19 Python tools,
-> 81 Remotion templates, 64 cinematic engine components, and 17 production recipes.
+> An Antigravity Agent Plugin that routes between MCP servers, unified Remotion templates, and production recipes.
 
 ## What It Does
 
-This plugin transforms video ideas into polished, production-ready videos using:
+This plugin transforms video ideas into polished, production-ready videos relying on the unified pipeline:
 
-- **81 Remotion Templates**: Cinematic titles, transitions, data visualizations, 
-  and VFX overlays
-- **7 MCP Servers**: Audio processing, media sourcing, video editing, image 
-  manipulation, caching, FFmpeg, and video editing
-- **19 Python Tools**: HeyGen avatars, Seedance b-roll, ElevenLabs voice, 
-  quality gates, and more
-- **17 Production Recipes**: UGC ads, SaaS explainers, talking-head videos, 
-  motion graphics, and more
+- **Remotion Templates**: Cinematic titles, transitions, data visualizations, and VFX overlays in `templates/`
+- **MCP Servers**: Audio processing, media sourcing, video tools, image tools, and common tools.
+- **Active Tools**: `media_pipeline.py`, `image_provider.py`, `elevenlabs_voice.py`, `heygen_client.py`.
+- **Active Recipes**: `avatar-insta-reel.md`.
 
 ## Requirements
 
@@ -23,7 +18,6 @@ This plugin transforms video ideas into polished, production-ready videos using:
 - Python 3.10+
 - uv (Python package manager)
 - FFmpeg
-- ImageMagick (optional, for badge generation)
 
 ## Environment Variables
 
@@ -32,74 +26,16 @@ Copy `.env.example` to `.env` and fill in the keys you need:
 | Variable | Required For |
 |----------|-------------|
 | HEYGEN_API_KEY | Avatar generation |
-| HEYGEN_AVATAR_ID | Avatar selection |
-| HEYGEN_VOICE_ID | Avatar voice |
 | FALAI_API_KEY | Seedance video generation |
 | OPENAI_API_KEY | Image generation, Whisper |
 | ELEVENLABS_API_KEY | Voice generation, music |
 | GROQ_API_KEY | Fast transcription |
-| REPLICATE_API_TOKEN | Legacy video fallback |
-| AWS_* | S3 upload (optional) |
-
-## Installation
-
-### As an Antigravity Plugin (workspace-level)
-```bash
-cp -r super-video-maker-plugin <workspace>/.agents/plugins/
-```
-
-### As an Antigravity Plugin (global)
-```bash
-cp -r super-video-maker-plugin ~/.gemini/config/plugins/
-```
-
-## Setup
-
-```bash
-cd super-video-maker-plugin
-
-# Install Remotion dependencies
-cd remotion-app && npm install && cd ..
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Install MCP server dependencies
-cd tools/mcp-servers/audio-tools-mcp && uv sync && cd ../../..
-cd tools/mcp-servers/media-sources-mcp && uv sync && cd ../../..
-cd tools/mcp-servers/video-tools-mcp && uv sync && cd ../../..
-cd tools/mcp-servers/image-tools-mcp && uv sync && cd ../../..
-cd tools/mcp-servers/common-tools-mcp && uv sync && cd ../../..
-cd tools/mcp-servers/Video_Editor_MCP && uv sync && cd ../../..
-cd tools/mcp-servers/ffmpeg-mcp-server && npm install && cd ../../..
-
-# Sync templates to Remotion
-python scripts/sync_templates.py
-
-# Copy environment template
-cp .env.example .env
-# Edit .env with your API keys
-```
 
 ## Quick Start
 
 ### Generate a video
 ```bash
-python tools/video_recipes.py match --goal "make a SaaS product explainer"
-python tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
-```
-
-### Preview in Remotion Studio
-```bash
-cd remotion-app
-npm run studio
-```
-
-### Render a video
-```bash
-cd remotion-app
-npx remotion render src/index.ts DynamicRenderer out/video.mp4 \
-  --props='{"templateId": "cinematic-title-intro", "durationInFrames": 150}'
+python scripts/pipeline.py <project_id>
 ```
 
 ## Plugin Structure
@@ -107,43 +43,24 @@ npx remotion render src/index.ts DynamicRenderer out/video.mp4 \
 ```
 super-video-maker-plugin/
 ├── plugin.json              # Plugin manifest
-├── mcp.json                 # MCP server definitions (7 servers)
+├── mcp.json                 # MCP server definitions
 ├── .env.example             # Environment template
 ├── README.md                # This file
-├── package.json             # Root JS orchestration
+├── package.json             # Orchestration
 ├── requirements.txt         # Python dependencies
-├── docs/                    # Central documentation & reports hub
-│   ├── README.md            # Documentation index
-│   ├── guides/              # Usage, installation, architecture & playbooks
-│   └── reports/             # Phase reports, audits & development tasks
-├── skills/
-│   └── super-video-maker/
-│       └── SKILL.md         # Main skill instructions
-├── templates/               # 81 Remotion templates (source of truth)
-├── cinematic-engine/        # 64 cinematic components
-├── recipes/                 # 17 production recipes
-├── tools/                   # 19 Python tools
-│   └── mcp-servers/         # 7 MCP servers
-├── references/              # Deep reference docs & playbooks
-├── remotion-app/            # Remotion project (build target)
-├── hyperframes-template/    # HyperFrames alternative
-├── workflows/               # Production workflow scripts
+├── docs/                    # Central documentation
+├── skills/                  # Agent skills
+├── templates/               # Remotion templates (source of truth)
+├── recipes/                 # Production recipes
+├── tools/                   # Python tools & MCP servers
 ├── commands/                # Quick command templates
-├── scripts/                 # Verification & build scripts
-└── tests/                   # Unit tests
+└── scripts/                 # Verification & build scripts
 ```
 
 ## Documentation
 
-Comprehensive guides and historical development reports are organized in the [`docs/`](docs/README.md) directory:
-
-- **[Documentation Index](docs/README.md)** — Master overview of all documentation.
 - **[Usage Guide](docs/guides/USAGE.md)** — Quickstart and detailed operational instructions.
-- **[Installation Guide](docs/guides/INSTALLATION.md)** — Prerequisites and setup walkthrough.
-- **[Architecture (v2.0)](docs/guides/ARCHITECTURE.md)** — Core design principles and engine layout.
-- **[Changelog](docs/guides/CHANGELOG.md)** — Version history and release notes.
-- **[Distribution Checklist](docs/guides/DISTRIBUTION_CHECKLIST.md)** — Pre-publish verification steps.
-- **[Reports Archive](docs/reports/)** — Phase reports (Phase 12 through 16.2), audits, and tasks.
+- **[Architecture (v2.0)](docs/guides/ARCHITECTURE.md)** — Core design principles.
 
 ## MCP Servers
 
@@ -154,25 +71,7 @@ Comprehensive guides and historical development reports are organized in the [`d
 | video-tools-mcp | Video trimming, resizing, black frame detection |
 | image-tools-mcp | Image upscaling, cropping, auto-crop |
 | common-tools-mcp | Asset caching (check/save) |
-| ffmpeg-mcp-server | Background FFmpeg jobs, concatenation |
-| Video_Editor_MCP | Free-form FFmpeg command execution |
-
-## Recipes
-
-Run `python tools/video_recipes.py list` to see all 17 available recipes.
-
-Key recipes:
-- `living-canvas-explainer` — Boutique SaaS launch videos
-- `ugc-ai-ad` — AI-generated UGC creator ads
-- `avatar-explainer` — Proof-driven avatar explainers
-- `faceless-broll-ad` — Hook-driven faceless ads
-- `motion-collage-explainer` — Artistic concept explainers
-- `tabletop-levels-explainer` — Tiered concept builders
 
 ## License
 
 MIT
-
-## Credits
-
-Originally built by the Distribb team. Converted to Antigravity Agent Plugin format.
