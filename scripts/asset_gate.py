@@ -17,6 +17,11 @@ def get_base_name(filename):
 
 def run_gate(manifest_path_str):
     manifest_path = Path(manifest_path_str)
+    if (Path("projects") / manifest_path / "02_asset_manifest.json").exists():
+        manifest_path = Path("projects") / manifest_path / "02_asset_manifest.json"
+    elif manifest_path.is_dir() and (manifest_path / "02_asset_manifest.json").exists():
+        manifest_path = manifest_path / "02_asset_manifest.json"
+
     if not manifest_path.exists():
         return True, "No manifest found, passing."
 
