@@ -47,5 +47,12 @@
     "description": "scripts/render_project.py blocked rendering if status != 'locked' even when running under managed canonical pipeline (is_managed == True), preventing headless execution without manual gate approval bypasses.",
     "status": "Resolved",
     "remediation": "Allowed managed pipeline execution (is_managed == True) to render without requiring manual GUI gate approval."
+  },
+  {
+    "defect_id": "CRD-016",
+    "category": "Asset Lifecycle & QC",
+    "description": "scripts/probe_qc.py and scripts/open_studio.py generated render_props.json without including media_map, causing QC frame rendering and Studio preview to fail asset resolution for Logical Asset IDs.",
+    "status": "Resolved",
+    "remediation": "Included media_map: safe_load('media_map.json', {}) in projectData for both scripts/probe_qc.py and scripts/open_studio.py."
   }
 ]

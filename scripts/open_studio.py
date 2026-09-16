@@ -81,7 +81,8 @@ def main():
             "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
             "blueprint": json.loads((proj_dir / "05_blueprint.json").read_text(encoding="utf-8")),
             "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-            "overrides": safe_load("overrides.json", {"scenes": {}})
+            "overrides": safe_load("overrides.json", {"scenes": {}}),
+            "media_map": safe_load("media_map.json", {})
         }
     }
     

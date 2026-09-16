@@ -86,7 +86,8 @@ combined_props = {
         "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
         "blueprint": json.loads(bp_path.read_text(encoding="utf-8")),
         "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-        "overrides": safe_load("overrides.json", {"scenes": {}})
+        "overrides": safe_load("overrides.json", {"scenes": {}}),
+        "media_map": safe_load("media_map.json", {})
     }
 }
 props_file = proj_dir / "render_props.json"
