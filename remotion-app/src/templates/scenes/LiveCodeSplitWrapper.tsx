@@ -1,6 +1,6 @@
 import React from "react";
-import { LiveCodeSplit } from "../../remotion-app/src/compositions/live-code-split";
-import type { TemplateProps } from "../../../registry/types";
+import { LiveCodeSplit } from "@/compositions/live-code-split";
+import type { TemplateProps } from "@registry/types";
 
 export const LiveCodeSplitWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

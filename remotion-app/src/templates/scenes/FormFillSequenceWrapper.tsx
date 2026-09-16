@@ -1,6 +1,6 @@
 import React from "react";
-import { FormFillSequence } from "../../remotion-app/src/remotion/scenes/form-fill-sequence";
-import type { TemplateProps } from "../../../registry/types";
+import { FormFillSequence } from "@/remotion/scenes/form-fill-sequence";
+import type { TemplateProps } from "@registry/types";
 
 export const FormFillSequenceWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

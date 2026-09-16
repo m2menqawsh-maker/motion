@@ -1,6 +1,6 @@
 import React from "react";
-import { HookCard } from "../../remotion-app/src/remotion/scenes/hook-card";
-import type { TemplateProps } from "../../../registry/types";
+import { HookCard } from "@/remotion/scenes/hook-card";
+import type { TemplateProps } from "@registry/types";
 
 export const HookCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

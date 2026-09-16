@@ -19,6 +19,12 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@registry/*": [
+        "../registry/*"
+      ],
+      "@contracts/*": [
+        "../contracts/*"
       ]
     }
   },

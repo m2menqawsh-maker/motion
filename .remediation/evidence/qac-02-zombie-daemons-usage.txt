@@ -1,0 +1,24 @@
+الاخطاء.md:198:| CLN-03 | **Delete `agent_watcher.py`** - Zombie daemon | MEDIUM |
+الاخطاء.md:199:| CLN-04 | **Delete `process_media.py`** - Zombie script | MEDIUM |
+.agents\AGENTS.md:46:- **Dynamic Scripts**: Write and run scripts in `scratch/` (e.g., `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\project_overview.md:1767:- **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\SYSTEM_OVERVIEW.md:9:2. **Core Scripts**: The backbone of the operations located in `.agents/plugins/super-video-maker-plugin/scripts/`. Includes scripts like `pipeline_guard.py` and `process_media.py`.
+documentation\WORKSPACE_COMPREHENSIVE_GUIDE.md:329:### السكربت: `agent_watcher.py`
+documentation\WORKSPACE_COMPREHENSIVE_GUIDE.md:330:- **المسار:** `scripts/agent_watcher.py`
+documentation\WORKSPACE_COMPREHENSIVE_GUIDE.md:469:### السكربت: `process_media.py`
+documentation\WORKSPACE_COMPREHENSIVE_GUIDE.md:470:- **المسار:** `scripts/process_media.py`
+documentation\workspace_overview.md:700:    📄 process_media.py - ملف موارد
+documentation\workspace_overview.md:790:- **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\architecture\SYSTEM_ARCHITECTURE.md:18:        VO --> Media[process_media.py]
+documentation\architecture\SYSTEM_ARCHITECTURE.md:48:   - السكريبتات: `process_media.py` / `vo_quality_check.py`
+documentation\archive\project_full_overview.md:1990:│   ├── 📄 process_media.py
+documentation\archive\project_full_overview.md:4100:        process_media.py
+documentation\archive\project_full_overview.md:4208:- **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\archive\project_full_overview.md:6564:- **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\archive\project_full_overview.md:7336:- **السكريبتات الديناميكية**: تكتب وتُشغل سكريبتات في `scratch/` (مثل `fetch_mcp_videos.py`, `process_media.py`, `fix_icons.py`).
+documentation\audits\AUDIT_REPORT.md:15:- `build_asset_index.py`: ملغى بسبب `process_media.py`.
+documentation\audits\AUDIT_REPORT.md:40:6. `process_media.py`: لتوحيد وتطبيع الميديا (المرحلة 1).
+scripts\agent_watcher.py:65:            f.write(f"- **المصدر:** agent_watcher.py\n")
+scripts\agent_watcher.py:105:        print("الاستخدام: python agent_watcher.py <project_id> <brain_session_path>")
+scripts\process_media.py:5:process_media.py — أدوات معالجة وفحص الميديا
+tests\documentation\test_agents_md_accuracy.py:81:                             "probe_qc_report.json", "fetch_mcp_videos.py", "process_media.py",

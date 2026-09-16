@@ -1,6 +1,6 @@
 import React from "react";
-import { WeatherCard } from "../../remotion-app/src/remotion/scenes/weather-card";
-import type { TemplateProps } from "../../../registry/types";
+import { WeatherCard } from "@/remotion/scenes/weather-card";
+import type { TemplateProps } from "@registry/types";
 
 export const WeatherCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

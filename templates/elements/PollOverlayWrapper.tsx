@@ -1,6 +1,6 @@
 import React from "react";
-import { PollOverlay } from "../../remotion-app/src/remotion/scenes/poll-overlay";
-import type { TemplateProps } from "../../../registry/types";
+import { PollOverlay } from "@/remotion/scenes/poll-overlay";
+import type { TemplateProps } from "@registry/types";
 
 export const PollOverlayWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

@@ -9,7 +9,7 @@ export const PushCutTransition = ({ surface }: any) => {
         <div style={{ backgroundColor: surface?.background || "#000", width: "100%", height: "100%" }} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
-        presentation={pushCut()}
+        presentation={pushCut({} as any)}
         timing={linearTiming({ durationInFrames: 30 })}
       />
       <TransitionSeries.Sequence durationInFrames={30}>

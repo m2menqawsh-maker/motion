@@ -1,6 +1,6 @@
 import React from "react";
-import { TitleCard } from "../../remotion-app/src/remotion/scenes/title-card";
-import type { TemplateProps } from "../../../registry/types";
+import { TitleCard } from "@/remotion/scenes/title-card";
+import type { TemplateProps } from "@registry/types";
 
 export const TitleCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

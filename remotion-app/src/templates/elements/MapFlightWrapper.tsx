@@ -1,6 +1,6 @@
 import React from "react";
-import { MapFlight } from "../../remotion-app/src/remotion/scenes/map-flight";
-import type { TemplateProps } from "../../../registry/types";
+import { MapFlight } from "@/remotion/scenes/map-flight";
+import type { TemplateProps } from "@registry/types";
 
 export const MapFlightWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

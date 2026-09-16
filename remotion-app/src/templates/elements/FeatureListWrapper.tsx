@@ -1,6 +1,6 @@
 import React from "react";
-import { FeatureList } from "../../remotion-app/src/remotion/scenes/feature-list";
-import type { TemplateProps } from "../../../registry/types";
+import { FeatureList } from "@/remotion/scenes/feature-list";
+import type { TemplateProps } from "@registry/types";
 
 export const FeatureListWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

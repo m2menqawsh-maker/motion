@@ -1,6 +1,6 @@
 import React from "react";
-import { HeroLoop } from "../../remotion-app/src/compositions/hero-loop";
-import type { TemplateProps } from "../../../registry/types";
+import { HeroLoop } from "@/compositions/hero-loop";
+import type { TemplateProps } from "@registry/types";
 
 export const HeroLoopWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

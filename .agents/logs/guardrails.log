@@ -372,3 +372,43 @@
 [2026-09-16T00:11:17.581812] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
 [2026-09-16T00:11:18.852830] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
 [2026-09-16T00:11:19.094531] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-16T01:06:30.602897] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:06:30.868083] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-16T01:06:31.118598] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-16T01:06:31.360971] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-16T01:06:31.601464] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:06:32.852019] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-16T01:06:33.051888] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-16T01:11:11.222394] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:11:11.457688] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-16T01:11:11.677127] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-16T01:11:11.898996] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-16T01:11:12.108986] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:11:13.234977] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-16T01:11:13.427705] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-16T01:11:56.642270] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:11:56.867027] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-16T01:11:57.103678] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-16T01:11:57.318165] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-16T01:11:57.540970] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:11:58.637049] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-16T01:11:58.846155] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-16T01:22:21.850943] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:22:22.118002] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-16T01:22:22.377651] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-16T01:22:22.627492] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-16T01:22:22.862327] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T01:22:23.927740] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-16T01:22:24.103561] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.
+[2026-09-16T14:01:01.564754] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T14:01:01.826466] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-16T14:01:02.063347] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-16T14:01:02.297797] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-16T14:01:02.525583] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-16T14:01:03.659541] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-16T14:01:03.886731] [COMMAND_GUARD] [ALLOW] CONTEXT: bad_cmd | REASON: Command is safe.

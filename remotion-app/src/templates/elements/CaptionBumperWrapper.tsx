@@ -1,6 +1,6 @@
 import React from "react";
-import { CaptionBumper } from "../../remotion-app/src/remotion/scenes/caption-bumper";
-import type { TemplateProps } from "../../../registry/types";
+import { CaptionBumper } from "@/remotion/scenes/caption-bumper";
+import type { TemplateProps } from "@registry/types";
 
 export const CaptionBumperWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

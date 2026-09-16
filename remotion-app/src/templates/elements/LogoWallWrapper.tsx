@@ -1,6 +1,6 @@
 import React from "react";
-import { LogoWall } from "../../remotion-app/src/remotion/scenes/logo-wall";
-import type { TemplateProps } from "../../../registry/types";
+import { LogoWall } from "@/remotion/scenes/logo-wall";
+import type { TemplateProps } from "@registry/types";
 
 export const LogoWallWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

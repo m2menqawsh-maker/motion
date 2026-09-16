@@ -1,6 +1,6 @@
 import React from "react";
-import { AnimatedBarChart } from "../../remotion-app/src/remotion/scenes/animated-bar-chart";
-import type { TemplateProps } from "../../../registry/types";
+import { AnimatedBarChart } from "@/remotion/scenes/animated-bar-chart";
+import type { TemplateProps } from "@registry/types";
 
 export const AnimatedBarChartWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

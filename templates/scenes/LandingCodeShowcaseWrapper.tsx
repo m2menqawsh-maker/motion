@@ -1,6 +1,6 @@
 import React from "react";
-import { LandingCodeShowcase } from "../../remotion-app/src/compositions/landing-code-showcase";
-import type { TemplateProps } from "../../../registry/types";
+import { LandingCodeShowcase } from "@/compositions/landing-code-showcase";
+import type { TemplateProps } from "@registry/types";
 
 export const LandingCodeShowcaseWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

@@ -3,7 +3,7 @@
  * يترجم مفاتيح الألوان والخطوط والشعار من BrandKit
  */
 
-import type { BrandKit } from "../contracts/brand";
+import type { BrandKit } from "@contracts/brand";
 
 /**
  * تحليل رموز الهوية البصرية إلى قيمتها الفعلية

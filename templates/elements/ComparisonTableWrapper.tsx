@@ -1,6 +1,6 @@
 import React from "react";
-import { ComparisonTable } from "../../remotion-app/src/remotion/scenes/comparison-table";
-import type { TemplateProps } from "../../../registry/types";
+import { ComparisonTable } from "@/remotion/scenes/comparison-table";
+import type { TemplateProps } from "@registry/types";
 
 export const ComparisonTableWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

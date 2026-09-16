@@ -9,7 +9,7 @@ export const ZoomInOutTransition = ({ surface }: any) => {
         <div style={{ backgroundColor: surface?.background || "#000", width: "100%", height: "100%" }} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
-        presentation={zoomInOut()}
+        presentation={zoomInOut({} as any)}
         timing={linearTiming({ durationInFrames: 30 })}
       />
       <TransitionSeries.Sequence durationInFrames={30}>

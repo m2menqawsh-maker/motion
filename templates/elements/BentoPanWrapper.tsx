@@ -1,6 +1,6 @@
 import React from "react";
-import { BentoPan } from "../../remotion-app/src/compositions/bento-pan";
-import type { TemplateProps } from "../../../registry/types";
+import { BentoPan } from "@/compositions/bento-pan";
+import type { TemplateProps } from "@registry/types";
 
 export const BentoPanWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

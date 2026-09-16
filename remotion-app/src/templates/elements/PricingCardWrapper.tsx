@@ -1,6 +1,6 @@
 import React from "react";
-import { PricingCard } from "../../remotion-app/src/remotion/scenes/pricing-card";
-import type { TemplateProps } from "../../../registry/types";
+import { PricingCard } from "@/remotion/scenes/pricing-card";
+import type { TemplateProps } from "@registry/types";
 
 export const PricingCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

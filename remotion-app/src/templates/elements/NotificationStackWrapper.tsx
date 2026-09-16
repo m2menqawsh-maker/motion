@@ -1,6 +1,6 @@
 import React from "react";
-import { NotificationStack } from "../../remotion-app/src/remotion/scenes/notification-stack";
-import type { TemplateProps } from "../../../registry/types";
+import { NotificationStack } from "@/remotion/scenes/notification-stack";
+import type { TemplateProps } from "@registry/types";
 
 export const NotificationStackWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

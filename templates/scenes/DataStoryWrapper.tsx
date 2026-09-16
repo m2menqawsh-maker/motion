@@ -1,6 +1,6 @@
 import React from "react";
-import { DataStory } from "../../remotion-app/src/compositions/data-story";
-import type { TemplateProps } from "../../../registry/types";
+import { DataStory } from "@/compositions/data-story";
+import type { TemplateProps } from "@registry/types";
 
 export const DataStoryWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

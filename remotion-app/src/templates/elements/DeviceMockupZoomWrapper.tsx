@@ -1,7 +1,7 @@
 import React from "react";
-import { DeviceMockupZoom } from "../../remotion-app/src/remotion/scenes/device-mockup-zoom";
+import { DeviceMockupZoom } from "@/remotion/scenes/device-mockup-zoom";
 import { staticFile } from "remotion";
-import type { TemplateProps } from "../../../registry/types";
+import type { TemplateProps } from "@registry/types";
 
 export const DeviceMockupZoomWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

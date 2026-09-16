@@ -1,6 +1,6 @@
 import React from "react";
-import { QuoteCard } from "../../remotion-app/src/remotion/scenes/quote-card";
-import type { TemplateProps } from "../../../registry/types";
+import { QuoteCard } from "@/remotion/scenes/quote-card";
+import type { TemplateProps } from "@registry/types";
 
 export const QuoteCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

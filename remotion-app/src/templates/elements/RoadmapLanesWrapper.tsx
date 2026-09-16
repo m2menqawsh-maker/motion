@@ -1,6 +1,6 @@
 import React from "react";
-import { RoadmapLanes } from "../../remotion-app/src/remotion/scenes/roadmap-lanes";
-import type { TemplateProps } from "../../../registry/types";
+import { RoadmapLanes } from "@/remotion/scenes/roadmap-lanes";
+import type { TemplateProps } from "@registry/types";
 
 export const RoadmapLanesWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

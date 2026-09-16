@@ -1,0 +1,304 @@
+الاخطاء.md:121:    *   `demo_video_composer.py` - Manual compositing (banned)
+الاخطاء.md:122:    *   `local_explainer_broll.py` - Ad-hoc code generation (banned)
+الاخطاء.md:123:    *   `video_orchestrator.py` - Replaced by `pipeline.py`
+الاخطاء.md:124:    *   `ugc_ad_runner.py` - Old recipe system
+الاخطاء.md:125:    *   `video_recipes.py` - Old plan system
+الاخطاء.md:197:| CLN-02 | **Delete zombie tools** - `demo_video_composer.py`, `local_explainer_broll.py`, `video_orchestrator.py`, `ugc_ad_runner.py`, `video_recipes.py` | HIGH |
+.agents\plugins\super-video-maker-plugin\README.md:88:python tools/video_recipes.py match --goal "make a SaaS product explainer"
+.agents\plugins\super-video-maker-plugin\README.md:89:python tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+.agents\plugins\super-video-maker-plugin\README.md:162:Run `python tools/video_recipes.py list` to see all 17 available recipes.
+.agents\plugins\super-video-maker-plugin\docs\guides\DISTRIBUTION_CHECKLIST.md:11:- [ ] Run `python tools/video_recipes.py validate` (should pass)
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:9:python tools/video_recipes.py match --goal "make a SaaS product explainer"
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:12:python tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:91:python tools/video_recipes.py list
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:97:python tools/video_recipes.py show living-canvas-explainer
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:103:python tools/video_recipes.py match --goal "make a UGC ad for my product"
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:109:python tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
+.agents\plugins\super-video-maker-plugin\docs\guides\USAGE.md:137:python tools/video_recipes.py templates
+.agents\plugins\super-video-maker-plugin\reference\legacy\REFERENCE_legacy.md:8:Recipes are defined in `recipes/*.json` and managed with `tools/video_recipes.py`
+.agents\plugins\super-video-maker-plugin\reference\legacy\REFERENCE_legacy.md:950:| Generated b-roll (last resort) | Documentary-realism Seedance | Documentary-realism `gpt-image-2` high-quality still + Ken Burns, then `local_explainer_broll.py` |
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:41:- `recipes/README.md` and `tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:74:19. **Use fal.ai for Seedance 2.5 by default.** `tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:139:python3 tools/video_recipes.py list
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:140:python3 tools/video_recipes.py match --goal "<user request>"
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:141:python3 tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:296:- `local_explainer_broll.py` as a no-credit fallback when fal/Seedance is unavailable.
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:322:python3 tools/video_recipes.py list
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:323:python3 tools/video_recipes.py test
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:329:python3 tools/local_explainer_broll.py
+.agents\plugins\super-video-maker-plugin\reference\legacy\SKILL_51_RULES.md:331:python3 tools/demo_video_composer.py
+.agents\plugins\super-video-maker-plugin\references\MOTION_COLLAGE_STYLE.md:184:2. Concatenate clips on sentence boundaries (`tools/video_orchestrator.py` / FFmpeg).
+.agents\plugins\super-video-maker-plugin\references\README.md:70:│   ├── video_recipes.py             # Match, plan, and validate video recipes
+.agents\plugins\super-video-maker-plugin\references\README.md:71:│   ├── video_orchestrator.py        # Job lifecycle and state orchestrator
+.agents\plugins\super-video-maker-plugin\references\README.md:79:│   ├── demo_video_composer.py       # Polished product demo composer
+.agents\plugins\super-video-maker-plugin\references\README.md:82:│   ├── local_explainer_broll.py     # Local fallback b-roll renderer
+.agents\plugins\super-video-maker-plugin\references\README.md:83:│   ├── ugc_ad_runner.py             # UGC ad test runner and variant generator
+.agents\plugins\super-video-maker-plugin\references\README.md:439:- One-command `video_orchestrator.py` recipe runner for `avatar-explainer`.
+.agents\plugins\super-video-maker-plugin\references\ROUTER.md:7:2. Recipe Match: `python tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+.agents\plugins\super-video-maker-plugin\references\ROUTER.md:40:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+.agents\plugins\super-video-maker-plugin\references\ROUTER.md:59:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+.agents\plugins\super-video-maker-plugin\references\ROUTER.md:179:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+.agents\plugins\super-video-maker-plugin\references\WORKFLOW_EXAMPLES.md:24:python3 tools/demo_video_composer.py
+.agents\plugins\super-video-maker-plugin\references\WORKFLOW_EXAMPLES.md:202:5. If Seedance credits are unavailable, use `local_explainer_broll.py` as a temporary animated fallback.
+.agents\plugins\super-video-maker-plugin\references\WORKFLOW_EXAMPLES.md:211:python3 tools/local_explainer_broll.py
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\REFERENCE_legacy.md:8:Recipes are defined in `recipes/*.json` and managed with `tools/video_recipes.py`
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\REFERENCE_legacy.md:950:| Generated b-roll (last resort) | Documentary-realism Seedance | Documentary-realism `gpt-image-2` high-quality still + Ken Burns, then `local_explainer_broll.py` |
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:41:- `recipes/README.md` and `tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:74:19. **Use fal.ai for Seedance 2.5 by default.** `tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:139:python3 tools/video_recipes.py list
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:140:python3 tools/video_recipes.py match --goal "<user request>"
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:141:python3 tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:296:- `local_explainer_broll.py` as a no-credit fallback when fal/Seedance is unavailable.
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:322:python3 tools/video_recipes.py list
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:323:python3 tools/video_recipes.py test
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:329:python3 tools/local_explainer_broll.py
+.agents\plugins\super-video-maker-plugin\references\deep\legacy\SKILL_51_RULES.md:331:python3 tools/demo_video_composer.py
+.agents\plugins\super-video-maker-plugin\tests\test_video_recipes.py:2:"""Pytest-free recipe tests (run directly or via video_recipes.py test)."""
+.agents\plugins\super-video-maker-plugin\tests\test_video_recipes.py:11:TOOL = SKILL_ROOT / "tools" / "video_recipes.py"
+.agents\plugins\super-video-maker-plugin\tools\demo_video_composer.py:13:    from demo_video_composer import compose_demo_video
+.agents\plugins\super-video-maker-plugin\tools\demo_video_composer.py:46:logger = logging.getLogger("demo_video_composer")
+.agents\plugins\super-video-maker-plugin\tools\screen_recorder.py:12:zoom/click effects via demo_video_composer.py.
+.agents\plugins\super-video-maker-plugin\tools\ugc_ad_runner.py:5:    python3 tools/ugc_ad_runner.py
+.agents\plugins\super-video-maker-plugin\tools\ugc_ad_runner.py:52:ORCH_TOOL = SKILL_DIR / "tools" / "video_orchestrator.py"
+.agents\plugins\super-video-maker-plugin\tools\ugc_ad_runner.py:121:    print(f"[ugc_ad_runner] {msg}", flush=True)
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:7:    python3 video_recipes.py list
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:8:    python3 video_recipes.py show avatar-explainer
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:9:    python3 video_recipes.py validate
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:10:    python3 video_recipes.py match --goal "TikTok ad for my SaaS waitlist"
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:11:    python3 video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+.agents\plugins\super-video-maker-plugin\tools\video_recipes.py:12:    python3 video_recipes.py test
+documentation\PROJECT_AUDIT_REPORT.md:246:│   ├── ugc_ad_runner.py            # خط إنتاج إعلانات المحتوى المنشأ من المستخدم (UGC)
+documentation\PROJECT_AUDIT_REPORT.md:247:│   ├── demo_video_composer.py      # مؤلف عروض الفيديو التوضيحية للبرمجيات
+documentation\PROJECT_AUDIT_REPORT.md:263:   - مثل `demo_video_composer.py` و `ugc_ad_runner.py` و `video_orchestrator.py`، والتي تتيح تجميع الفيديوهات بنقرة واحدة عبر قوالب وسيناريوهات محددة مسبقاً.
+documentation\project_overview.md:1464:│       │   └── test_video_recipes.py
+documentation\project_overview.md:1590:│       │   ├── demo_video_composer.py
+documentation\project_overview.md:1596:│       │   ├── local_explainer_broll.py
+documentation\project_overview.md:1601:│       │   ├── ugc_ad_runner.py
+documentation\project_overview.md:1603:│       │   ├── video_orchestrator.py
+documentation\project_overview.md:1604:│       │   └── video_recipes.py
+documentation\project_overview.md:2013:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+documentation\project_overview.md:2046:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+documentation\project_overview.md:2065:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+documentation\project_overview.md:2173:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+documentation\workspace_overview.md:415:          📄 test_video_recipes.py - ملف موارد
+documentation\workspace_overview.md:420:          📄 demo_video_composer.py - ملف موارد
+documentation\workspace_overview.md:426:          📄 local_explainer_broll.py - ملف موارد
+documentation\workspace_overview.md:431:          📄 ugc_ad_runner.py - ملف موارد
+documentation\workspace_overview.md:433:          📄 video_orchestrator.py - ملف موارد
+documentation\workspace_overview.md:434:          📄 video_recipes.py - ملف موارد
+documentation\workspace_overview.md:1021:- [ ] Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate` (should pass)
+documentation\workspace_overview.md:1469:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
+documentation\workspace_overview.md:1470:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+documentation\workspace_overview.md:1527:Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list` to see all 17 available recipes.
+documentation\workspace_overview.md:1561:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
+documentation\workspace_overview.md:1564:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+documentation\workspace_overview.md:1643:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\workspace_overview.md:1649:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show living-canvas-explainer
+documentation\workspace_overview.md:1655:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a UGC ad for my product"
+documentation\workspace_overview.md:1661:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
+documentation\workspace_overview.md:1689:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py templates
+documentation\workspace_overview.md:2002:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\workspace_overview.md:2003:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show avatar-explainer
+documentation\workspace_overview.md:2004:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "TikTok ad for waitlist"
+documentation\workspace_overview.md:2005:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+documentation\workspace_overview.md:2006:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate
+documentation\workspace_overview.md:2007:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
+documentation\workspace_overview.md:2031:2. Run `python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate`.
+documentation\workspace_overview.md:2032:3. Add a matcher case in `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` `cmd_test` if the recipe needs a dedicated routing test.
+documentation\workspace_overview.md:4110:2. Concatenate clips on sentence boundaries (`.agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py` / FFmpeg).
+documentation\workspace_overview.md:4232:│   ├── video_recipes.py             # Match, plan, and validate video recipes
+documentation\workspace_overview.md:4233:│   ├── video_orchestrator.py        # Job lifecycle and state orchestrator
+documentation\workspace_overview.md:4241:│   ├── demo_video_composer.py       # Polished product demo composer
+documentation\workspace_overview.md:4244:│   ├── local_explainer_broll.py     # Local fallback b-roll renderer
+documentation\workspace_overview.md:4245:│   ├── ugc_ad_runner.py             # UGC ad test runner and variant generator
+documentation\workspace_overview.md:4601:- One-command `video_orchestrator.py` recipe runner for `avatar-explainer`.
+documentation\workspace_overview.md:5471:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+documentation\workspace_overview.md:5504:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+documentation\workspace_overview.md:5524:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+documentation\workspace_overview.md:5598:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+documentation\workspace_overview.md:6383:python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+documentation\workspace_overview.md:6561:5. If Seedance credits are unavailable, use `local_explainer_broll.py` as a temporary animated fallback.
+documentation\workspace_overview.md:6570:python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
+documentation\workspace_overview.md:10308:| `demo_video_composer.py` | Demo Video Composer — Produces polished screen recording demos. |
+documentation\workspace_overview.md:10314:| `local_explainer_broll.py` | — |
+documentation\workspace_overview.md:10319:| `ugc_ad_runner.py` | Run ugc-ai-ad recipe test iterations (intake -> character -> clips -> assemble -> QC). |
+documentation\workspace_overview.md:10321:| `video_orchestrator.py` | Small job-state orchestrator for Super Video Maker. |
+documentation\workspace_overview.md:10322:| `video_recipes.py` | List, validate, match, and dry-run Super Video Maker recipes. |
+documentation\workspace_overview.md:10369:Recipes are defined in `recipes/*.json` and managed with `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py`
+documentation\workspace_overview.md:11311:| Generated b-roll (last resort) | Documentary-realism Seedance | Documentary-realism `gpt-image-2` high-quality still + Ken Burns, then `local_explainer_broll.py` |
+documentation\workspace_overview.md:11381:- `recipes/README.md` and `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
+documentation\workspace_overview.md:11414:19. **Use fal.ai for Seedance 2.5 by default.** `.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
+documentation\workspace_overview.md:11479:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\workspace_overview.md:11480:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<user request>"
+documentation\workspace_overview.md:11481:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
+documentation\workspace_overview.md:11636:- `local_explainer_broll.py` as a no-credit fallback when fal/Seedance is unavailable.
+documentation\workspace_overview.md:11662:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\workspace_overview.md:11663:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
+documentation\workspace_overview.md:11669:python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
+documentation\workspace_overview.md:11671:python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+documentation\workspace_overview.md:19547:1. مطابقة وصفة: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"`
+documentation\workspace_overview.md:20550:2. طابق الوصفة: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"`
+documentation\workspace_overview.md:20893:- c:\video\clean-video-workspace\.agents\plugins\super-video-maker-plugin\tools\video_recipes.py (LANGUAGE_PYTHON)
+documentation\archive\project_full_overview.md:1497:│   │       │   └── 📄 test_video_recipes.py
+documentation\archive\project_full_overview.md:1502:│   │       │   ├── 📄 demo_video_composer.py
+documentation\archive\project_full_overview.md:1508:│   │       │   ├── 📄 local_explainer_broll.py
+documentation\archive\project_full_overview.md:1635:│   │       │   ├── 📄 ugc_ad_runner.py
+documentation\archive\project_full_overview.md:1637:│   │       │   ├── 📄 video_orchestrator.py
+documentation\archive\project_full_overview.md:1638:│   │       │   └── 📄 video_recipes.py
+documentation\archive\project_full_overview.md:3710:                    test_video_recipes.py
+documentation\archive\project_full_overview.md:3715:                    demo_video_composer.py
+documentation\archive\project_full_overview.md:3721:                    local_explainer_broll.py
+documentation\archive\project_full_overview.md:3726:                    ugc_ad_runner.py
+documentation\archive\project_full_overview.md:3728:                    video_orchestrator.py
+documentation\archive\project_full_overview.md:3729:                    video_recipes.py
+documentation\archive\project_full_overview.md:4452:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+documentation\archive\project_full_overview.md:4485:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+documentation\archive\project_full_overview.md:4504:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+documentation\archive\project_full_overview.md:4579:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+documentation\archive\project_full_overview.md:6261:│       │   └── test_video_recipes.py
+documentation\archive\project_full_overview.md:6387:│       │   ├── demo_video_composer.py
+documentation\archive\project_full_overview.md:6393:│       │   ├── local_explainer_broll.py
+documentation\archive\project_full_overview.md:6398:│       │   ├── ugc_ad_runner.py
+documentation\archive\project_full_overview.md:6400:│       │   ├── video_orchestrator.py
+documentation\archive\project_full_overview.md:6401:│       │   └── video_recipes.py
+documentation\archive\project_full_overview.md:6810:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+documentation\archive\project_full_overview.md:6843:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+documentation\archive\project_full_overview.md:6862:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+documentation\archive\project_full_overview.md:6970:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+documentation\archive\project_full_overview.md:7678:- [ ] Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate` (should pass)
+documentation\archive\project_full_overview.md:8123:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
+documentation\archive\project_full_overview.md:8124:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+documentation\archive\project_full_overview.md:8181:Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list` to see all 17 available recipes.
+documentation\archive\project_full_overview.md:8214:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a SaaS product explainer"
+documentation\archive\project_full_overview.md:8217:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe living-canvas-explainer --goal "SaaS explainer"
+documentation\archive\project_full_overview.md:8296:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\archive\project_full_overview.md:8302:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show living-canvas-explainer
+documentation\archive\project_full_overview.md:8308:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "make a UGC ad for my product"
+documentation\archive\project_full_overview.md:8314:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Product launch ad"
+documentation\archive\project_full_overview.md:8342:python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py templates
+documentation\archive\project_full_overview.md:15885:| `demo_video_composer.py` | Demo Video Composer — Produces polished screen recording demos. |
+documentation\archive\project_full_overview.md:15891:| `local_explainer_broll.py` | — |
+documentation\archive\project_full_overview.md:15896:| `ugc_ad_runner.py` | Run ugc-ai-ad recipe test iterations (intake -> character -> clips -> assemble -> QC). |
+documentation\archive\project_full_overview.md:15898:| `video_orchestrator.py` | Small job-state orchestrator for Super Video Maker. |
+documentation\archive\project_full_overview.md:15899:| `video_recipes.py` | List, validate, match, and dry-run Super Video Maker recipes. |
+documentation\archive\project_full_overview.md:20836:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\archive\project_full_overview.md:20837:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py show avatar-explainer
+documentation\archive\project_full_overview.md:20838:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "TikTok ad for waitlist"
+documentation\archive\project_full_overview.md:20839:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+documentation\archive\project_full_overview.md:20840:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate
+documentation\archive\project_full_overview.md:20841:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
+documentation\archive\project_full_overview.md:20865:2. Run `python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate`.
+documentation\archive\project_full_overview.md:20866:3. Add a matcher case in `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` `cmd_test` if the recipe needs a dedicated routing test.
+documentation\archive\project_full_overview.md:20938:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:21056:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:21476:        "Compose demo with demo_video_composer or direct FFmpeg chroma key"
+documentation\archive\project_full_overview.md:21500:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:21503:    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+documentation\archive\project_full_overview.md:21720:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:21824:    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+documentation\archive\project_full_overview.md:21980:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:21983:    ".agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py",
+documentation\archive\project_full_overview.md:22120:    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+documentation\archive\project_full_overview.md:22243:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:22586:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:22695:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:23026:        "Run demo_video_composer with zoom-on-click and laptop frame",
+documentation\archive\project_full_overview.md:23043:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:23045:    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+documentation\archive\project_full_overview.md:23051:    "compose": "demo_video_composer",
+documentation\archive\project_full_overview.md:23314:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+documentation\archive\project_full_overview.md:25336:2. Concatenate clips on sentence boundaries (`.agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py` / FFmpeg).
+documentation\archive\project_full_overview.md:25457:│   ├── video_recipes.py             # Match, plan, and validate video recipes
+documentation\archive\project_full_overview.md:25458:│   ├── video_orchestrator.py        # Job lifecycle and state orchestrator
+documentation\archive\project_full_overview.md:25466:│   ├── demo_video_composer.py       # Polished product demo composer
+documentation\archive\project_full_overview.md:25469:│   ├── local_explainer_broll.py     # Local fallback b-roll renderer
+documentation\archive\project_full_overview.md:25470:│   ├── ugc_ad_runner.py             # UGC ad test runner and variant generator
+documentation\archive\project_full_overview.md:25826:- One-command `video_orchestrator.py` recipe runner for `avatar-explainer`.
+documentation\archive\project_full_overview.md:26693:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+documentation\archive\project_full_overview.md:26726:video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (دورة حياة الوظيفة) • elevenlabs_voice.py • heygen_client.py • fal_seedance_video.py • image_provider.py • replicate_video.py (احتياطي) • screen_recorder.py + agent_browser_recorder.py • demo_video_composer.py • video_captioner.py • music_provider.py • local_explainer_broll.py • ugc_ad_runner.py • media_pipeline.py (تنسيق دورة حياة الأصول) • ffmpeg_qc.py • broll_layout_qc.py • ad_quality_gate.py + materialize_project.py (بوابة نقل الميديا للبناء — scripts/)
+documentation\archive\project_full_overview.md:26745:| استعراض شاشة تفاعلي SaaS | screencast-demo | demo_video_composer.py |
+documentation\archive\project_full_overview.md:26865:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+documentation\archive\project_full_overview.md:27645:python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+documentation\archive\project_full_overview.md:27823:5. If Seedance credits are unavailable, use `local_explainer_broll.py` as a temporary animated fallback.
+documentation\archive\project_full_overview.md:27832:python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
+documentation\archive\project_full_overview.md:31347:Recipes are defined in `recipes/*.json` and managed with `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py`
+documentation\archive\project_full_overview.md:32289:| Generated b-roll (last resort) | Documentary-realism Seedance | Documentary-realism `gpt-image-2` high-quality still + Ken Burns, then `local_explainer_broll.py` |
+documentation\archive\project_full_overview.md:32358:- `recipes/README.md` and `.agents/plugins/super-video-maker-plugin/tools/video_recipes.py` for machine-readable video recipes (list, match, plan, validate).
+documentation\archive\project_full_overview.md:32391:19. **Use fal.ai for Seedance 2.5 by default.** `.agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py` targets 2.5 unless you pass `--seedance-version 2.0` or set `SEEDANCE_VERSION=2.0`. 2.5 is entitled on this account and verified working (2026-08-09), so treat a 2.5 clip as the normal result, not a hoped-for one. Three standing rules: (i) `fal_client` must be installed in the interpreter running the tools (`python3 -m pip install fal-client`), or every Seedance call dies on `ModuleNotFoundError` before reaching fal; (ii) never strip the tool's placeholder guard, because fal answers an *unentitled* 2.5 request with HTTP 200 and its canned example clip rather than an error, and the automatic 2.0 fallback is the only thing keeping stock footage out of a finished video; (iii) always check `fell_back` in the RESULT payload before claiming a clip came from 2.5 — `true` now means access lapsed, and is worth surfacing rather than shipping past. 2.5 is the pricier version (~$0.4730/s at 720p vs $0.3024/s on 2.0 standard and $0.2419/s on 2.0 fast), so spend it on shots that carry the video and use `--fast` for filler beats. `--fast` and `--mini` pin a call to 2.0, which is the only version with distilled tiers. When fal Seedance is throttled or out of credit, fall back in this order: (a) Replicate Seedance only if `REPLICATE_API_TOKEN` is configured and fal is unavailable; (b) real source screenshots, UI mockups, stock footage, or typographic cards that directly explain the beat; (c) OpenAI `gpt-image-2` stills at `quality=high`, native 16:9 (`2048x1152`) + FFmpeg Ken Burns with scale-to-fill/crop; (d) `local_explainer_broll.py` only when it can render an actual UI/event/state change. Never fall back to abstract dark-cosmic, glowing, floating, or symbolic "AI" imagery.
+documentation\archive\project_full_overview.md:32456:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\archive\project_full_overview.md:32457:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<user request>"
+documentation\archive\project_full_overview.md:32458:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py plan --recipe <recipe_id> --goal "<user request>"
+documentation\archive\project_full_overview.md:32613:- `local_explainer_broll.py` as a no-credit fallback when fal/Seedance is unavailable.
+documentation\archive\project_full_overview.md:32639:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py list
+documentation\archive\project_full_overview.md:32640:python3 .agents/plugins/super-video-maker-plugin/tools/video_recipes.py test
+documentation\archive\project_full_overview.md:32646:python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py
+documentation\archive\project_full_overview.md:32648:python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+documentation\archive\project_full_overview.md:154182:## 📄 `.agents\plugins\super-video-maker-plugin\tests\test_video_recipes.py`
+documentation\archive\project_full_overview.md:154186:"""Pytest-free recipe tests (run directly or via video_recipes.py test)."""
+documentation\archive\project_full_overview.md:154195:TOOL = SKILL_ROOT / "tools" / "video_recipes.py"
+documentation\archive\project_full_overview.md:155575:## 📄 `.agents\plugins\super-video-maker-plugin\tools\demo_video_composer.py`
+documentation\archive\project_full_overview.md:155590:    from demo_video_composer import compose_demo_video
+documentation\archive\project_full_overview.md:155623:logger = logging.getLogger("demo_video_composer")
+documentation\archive\project_full_overview.md:158078:## 📄 `.agents\plugins\super-video-maker-plugin\tools\local_explainer_broll.py`
+documentation\archive\project_full_overview.md:158937:zoom/click effects via demo_video_composer.py.
+documentation\archive\project_full_overview.md:159350:## 📄 `.agents\plugins\super-video-maker-plugin\tools\ugc_ad_runner.py`
+documentation\archive\project_full_overview.md:159357:    python3 .agents/plugins/super-video-maker-plugin/tools/ugc_ad_runner.py
+documentation\archive\project_full_overview.md:159404:ORCH_TOOL = SKILL_DIR / "tools" / "video_orchestrator.py"
+documentation\archive\project_full_overview.md:159473:    print(f"[ugc_ad_runner] {msg}", flush=True)
+documentation\archive\project_full_overview.md:160598:## 📄 `.agents\plugins\super-video-maker-plugin\tools\video_orchestrator.py`
+documentation\archive\project_full_overview.md:160704:## 📄 `.agents\plugins\super-video-maker-plugin\tools\video_recipes.py`
+documentation\archive\project_full_overview.md:160713:    python3 video_recipes.py list
+documentation\archive\project_full_overview.md:160714:    python3 video_recipes.py show avatar-explainer
+documentation\archive\project_full_overview.md:160715:    python3 video_recipes.py validate
+documentation\archive\project_full_overview.md:160716:    python3 video_recipes.py match --goal "TikTok ad for my SaaS waitlist"
+documentation\archive\project_full_overview.md:160717:    python3 video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+documentation\archive\project_full_overview.md:160718:    python3 video_recipes.py test
+documentation\legacy\spec-driven\ground-truth\TOOLS_INDEX.md:13:| `demo_video_composer.py` | Demo Video Composer — Produces polished screen recording demos. |
+documentation\legacy\spec-driven\ground-truth\TOOLS_INDEX.md:19:| `local_explainer_broll.py` | — |
+documentation\legacy\spec-driven\ground-truth\TOOLS_INDEX.md:24:| `ugc_ad_runner.py` | Run ugc-ai-ad recipe test iterations (intake -> character -> clips -> assemble -> QC). |
+documentation\legacy\spec-driven\ground-truth\TOOLS_INDEX.md:26:| `video_orchestrator.py` | Small job-state orchestrator for Super Video Maker. |
+documentation\legacy\spec-driven\ground-truth\TOOLS_INDEX.md:27:| `video_recipes.py` | List, validate, match, and dry-run Super Video Maker recipes. |
+ground-truth\TOOLS_INDEX.md:12:| `demo_video_composer.py` | Demo Video Composer — Produces polished screen recording demos. |
+ground-truth\TOOLS_INDEX.md:18:| `local_explainer_broll.py` | — |
+ground-truth\TOOLS_INDEX.md:23:| `ugc_ad_runner.py` | Run ugc-ai-ad recipe test iterations (intake -> character -> clips -> assemble -> QC). |
+ground-truth\TOOLS_INDEX.md:25:| `video_orchestrator.py` | Small job-state orchestrator for Super Video Maker. |
+ground-truth\TOOLS_INDEX.md:26:| `video_recipes.py` | List, validate, match, and dry-run Super Video Maker recipes. |
+recipes\agent-browser-proof.json:61:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\avatar-explainer.json:84:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\avatar-product-walkthrough.json:45:        "Compose demo with demo_video_composer or direct FFmpeg chroma key"
+recipes\avatar-product-walkthrough.json:69:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\avatar-product-walkthrough.json:72:    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+recipes\captioned-talking-head.json:59:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\dynamic-montage-ad.json:72:    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+recipes\faceless-broll-ad.json:62:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\faceless-broll-ad.json:65:    ".agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py",
+recipes\living-canvas-explainer.json:101:    ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
+recipes\longform-repurpose.json:60:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\motion-collage-explainer.json:79:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\motion-graphics.json:60:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\README.md:10:python3 tools/video_recipes.py list
+recipes\README.md:11:python3 tools/video_recipes.py show avatar-explainer
+recipes\README.md:12:python3 tools/video_recipes.py match --goal "TikTok ad for waitlist"
+recipes\README.md:13:python3 tools/video_recipes.py plan --recipe ugc-ai-ad --goal "Waitlist ad"
+recipes\README.md:14:python3 tools/video_recipes.py validate
+recipes\README.md:15:python3 tools/video_recipes.py test
+recipes\README.md:39:2. Run `python3 tools/video_recipes.py validate`.
+recipes\README.md:40:3. Add a matcher case in `tools/video_recipes.py` `cmd_test` if the recipe needs a dedicated routing test.
+recipes\screencast-demo.json:43:        "Run demo_video_composer with zoom-on-click and laptop frame",
+recipes\screencast-demo.json:60:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+recipes\screencast-demo.json:62:    ".agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py",
+recipes\screencast-demo.json:68:    "compose": "demo_video_composer",
+recipes\ugc-ai-ad.json:85:    ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
+references\MOTION_COLLAGE_STYLE.md:184:2. Concatenate clips on sentence boundaries (`.agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py` / FFmpeg).
+references\README.md:68:│   ├── video_recipes.py             # Match, plan, and validate video recipes
+references\README.md:69:│   ├── video_orchestrator.py        # Job lifecycle and state orchestrator
+references\README.md:77:│   ├── demo_video_composer.py       # Polished product demo composer
+references\README.md:80:│   ├── local_explainer_broll.py     # Local fallback b-roll renderer
+references\README.md:81:│   ├── ugc_ad_runner.py             # UGC ad test runner and variant generator
+references\README.md:426:- One-command `video_orchestrator.py` recipe runner for `avatar-explainer`.
+references\ROUTER.md:7:2. Recipe Match: `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py match --goal "<الهدف>"` إلزامي قبل أي بناء.
+references\ROUTER.md:59:| استعراض شاشة تفاعلي SaaS | screencast-demo | scripts/demo_video_composer.py |
+references\ROUTER.md:179:عمود فقري 4 أسطر + `video_recipes.py match --goal` + personality + جدول أصول (مرفوع/مجلوب) + خطة SFX.
+references\WORKFLOW_EXAMPLES.md:24:python3 .agents/plugins/super-video-maker-plugin/tools/demo_video_composer.py
+references\WORKFLOW_EXAMPLES.md:202:5. If Seedance credits are unavailable, use `local_explainer_broll.py` as a temporary animated fallback.
+references\WORKFLOW_EXAMPLES.md:211:python3 .agents/plugins/super-video-maker-plugin/tools/local_explainer_broll.py

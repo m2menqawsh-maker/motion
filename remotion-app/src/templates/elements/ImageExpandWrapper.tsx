@@ -1,6 +1,6 @@
 import React from "react";
-import { ImageExpand } from "../../remotion-app/src/compositions/image-expand";
-import type { TemplateProps } from "../../../registry/types";
+import { ImageExpand } from "@/compositions/image-expand";
+import type { TemplateProps } from "@registry/types";
 
 export const ImageExpandWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

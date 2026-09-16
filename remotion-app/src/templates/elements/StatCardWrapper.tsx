@@ -1,6 +1,6 @@
 import React from "react";
-import { StatCard } from "../../remotion-app/src/remotion/scenes/stat-card";
-import type { TemplateProps } from "../../../registry/types";
+import { StatCard } from "@/remotion/scenes/stat-card";
+import type { TemplateProps } from "@registry/types";
 
 export const StatCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

@@ -1,6 +1,6 @@
 import React from "react";
-import { CommitGraph } from "../../remotion-app/src/remotion/scenes/commit-graph";
-import type { TemplateProps } from "../../../registry/types";
+import { CommitGraph } from "@/remotion/scenes/commit-graph";
+import type { TemplateProps } from "@registry/types";
 
 export const CommitGraphWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

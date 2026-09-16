@@ -1,6 +1,6 @@
 import React from "react";
-import { AutoFitTitle } from "../../remotion-app/src/remotion/scenes/auto-fit-title";
-import type { TemplateProps } from "../../../registry/types";
+import { AutoFitTitle } from "@/remotion/scenes/auto-fit-title";
+import type { TemplateProps } from "@registry/types";
 
 export const AutoFitTitleWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

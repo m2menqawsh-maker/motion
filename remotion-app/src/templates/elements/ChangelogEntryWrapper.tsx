@@ -1,6 +1,6 @@
 import React from "react";
-import { ChangelogEntry } from "../../remotion-app/src/remotion/scenes/changelog-entry";
-import type { TemplateProps } from "../../../registry/types";
+import { ChangelogEntry } from "@/remotion/scenes/changelog-entry";
+import type { TemplateProps } from "@registry/types";
 
 export const ChangelogEntryWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

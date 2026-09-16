@@ -1,6 +1,6 @@
 import React from "react";
-import { EndCard } from "../../remotion-app/src/remotion/scenes/end-card";
-import type { TemplateProps } from "../../../registry/types";
+import { EndCard } from "@/remotion/scenes/end-card";
+import type { TemplateProps } from "@registry/types";
 
 export const EndCardWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

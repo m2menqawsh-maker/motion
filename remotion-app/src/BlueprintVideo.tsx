@@ -157,18 +157,18 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
           }
 
           // Determine presentation based on string
-          let presentation = fade();
-          if (scene.transition && scene.transition.type) {
-             const type = scene.transition.type;
-             if (type === "slide") presentation = slide();
-             else if (type === "wipe") presentation = wipe();
-             else if (type === "flip") presentation = flip();
-             else if (type === "zoom") presentation = zoomInOut();
-             else if (type === "cross-zoom") presentation = crossZoom();
-             else if (type === "film-burn") presentation = filmBurn();
-             else if (type === "dissolve") presentation = dissolve();
-             else if (type === "iris") presentation = iris();
-             else if (type === "none") presentation = none();
+          let presentation: any = fade({} as any);
+          if ((scene as any).transition && (scene as any).transition.type) {
+             const type = (scene as any).transition.type;
+             if (type === "slide") presentation = slide({} as any);
+             else if (type === "wipe") presentation = wipe({} as any);
+             else if (type === "flip") presentation = flip({} as any);
+             else if (type === "zoom") presentation = zoomInOut({} as any);
+             else if (type === "cross-zoom") presentation = crossZoom({} as any);
+             else if (type === "film-burn") presentation = filmBurn({} as any);
+             else if (type === "dissolve") presentation = dissolve({} as any);
+             else if (type === "iris") presentation = iris({} as any);
+             else if (type === "none") presentation = none({} as any);
           }
 
           return (
@@ -183,10 +183,10 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
                 </EngineBridge>
               </TransitionSeries.Sequence>
               
-              {idx < projectData.scenes.length - 1 && scene.transition && (
+              {idx < projectData.scenes.length - 1 && (scene as any).transition && (
                 <TransitionSeries.Transition
                   presentation={presentation}
-                  timing={linearTiming({ durationInFrames: scene.transition.durationFrames || 15 })}
+                  timing={linearTiming({ durationInFrames: (scene as any).transition.durationFrames || 15 })}
                 />
               )}
             </React.Fragment>

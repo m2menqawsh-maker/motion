@@ -1,6 +1,6 @@
 import React from "react";
-import { MediaFrame } from "../../remotion-app/src/remotion/scenes/media-frame";
-import type { TemplateProps } from "../../../registry/types";
+import { MediaFrame } from "@/remotion/scenes/media-frame";
+import type { TemplateProps } from "@registry/types";
 
 export const MediaFrameWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

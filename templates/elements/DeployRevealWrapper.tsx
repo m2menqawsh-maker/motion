@@ -1,6 +1,6 @@
 import React from "react";
-import { DeployReveal } from "../../remotion-app/src/compositions/deploy-reveal";
-import type { TemplateProps } from "../../../registry/types";
+import { DeployReveal } from "@/compositions/deploy-reveal";
+import type { TemplateProps } from "@registry/types";
 
 export const DeployRevealWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

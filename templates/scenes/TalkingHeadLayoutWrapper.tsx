@@ -1,6 +1,6 @@
 import React from "react";
-import { TalkingHeadLayout } from "../../remotion-app/src/remotion/scenes/talking-head-layout";
-import type { TemplateProps } from "../../../registry/types";
+import { TalkingHeadLayout } from "@/remotion/scenes/talking-head-layout";
+import type { TemplateProps } from "@registry/types";
 
 export const TalkingHeadLayoutWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

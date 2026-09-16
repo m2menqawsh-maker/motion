@@ -1,6 +1,6 @@
 import React from "react";
-import { FileTreeReveal } from "../../remotion-app/src/remotion/scenes/file-tree-reveal";
-import type { TemplateProps } from "../../../registry/types";
+import { FileTreeReveal } from "@/remotion/scenes/file-tree-reveal";
+import type { TemplateProps } from "@registry/types";
 
 export const FileTreeRevealWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

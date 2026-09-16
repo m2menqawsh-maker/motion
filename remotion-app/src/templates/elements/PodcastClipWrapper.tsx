@@ -1,6 +1,6 @@
 import React from "react";
-import { PodcastClip } from "../../remotion-app/src/compositions/podcast-clip";
-import type { TemplateProps } from "../../../registry/types";
+import { PodcastClip } from "@/compositions/podcast-clip";
+import type { TemplateProps } from "@registry/types";
 
 export const PodcastClipWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

@@ -1,6 +1,6 @@
 import React from "react";
-import { CalloutSpotlight } from "../../remotion-app/src/remotion/scenes/callout-spotlight";
-import type { TemplateProps } from "../../../registry/types";
+import { CalloutSpotlight } from "@/remotion/scenes/callout-spotlight";
+import type { TemplateProps } from "@registry/types";
 
 export const CalloutSpotlightWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

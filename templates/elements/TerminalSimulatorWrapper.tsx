@@ -1,6 +1,6 @@
 import React from "react";
-import { TerminalSimulator } from "../../remotion-app/src/remotion/scenes/terminal-simulator";
-import type { TemplateProps } from "../../../registry/types";
+import { TerminalSimulator } from "@/remotion/scenes/terminal-simulator";
+import type { TemplateProps } from "@registry/types";
 
 export const TerminalSimulatorWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

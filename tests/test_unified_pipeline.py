@@ -6,17 +6,13 @@ from pathlib import Path
 
 client = TestClient(app)
 
-def test_unified_pipeline_full_flow():
-    # 1. Scaffold Project
-    create_payload = {
-        "name": "Integration Test Project",
-        "aspect": "16:9",
-        "fps": 30,
-        "language": "ar"
-    }
-    create_res = client.post("/projects/", json=create_payload)
-    assert create_res.status_code == 200
-    project_id = create_res.json()["project_id"]
+def test_unified_pipeline_full_flow(test_project, mock_subprocess):
+    project_id = test_project
+    
+    # Initialize state since we are not using the real scaffold API route
+    import asyncio
+    from api.services.pipeline_service import PipelineService
+    asyncio.run(PipelineService.scaffold_project(project_id))
     
     # 2. Check Initial Status (Backward compatibility)
     status_res = client.get(f"/gates/{project_id}/status")

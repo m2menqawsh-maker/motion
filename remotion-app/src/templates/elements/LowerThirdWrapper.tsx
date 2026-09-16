@@ -1,6 +1,6 @@
 import React from "react";
-import { LowerThird } from "../../remotion-app/src/remotion/scenes/lower-third";
-import type { TemplateProps } from "../../../registry/types";
+import { LowerThird } from "@/remotion/scenes/lower-third";
+import type { TemplateProps } from "@registry/types";
 
 export const LowerThirdWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

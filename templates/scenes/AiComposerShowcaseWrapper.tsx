@@ -1,6 +1,6 @@
 import React from "react";
-import { AiComposerShowcase } from "../../remotion-app/src/compositions/ai-composer-showcase";
-import type { TemplateProps } from "../../../registry/types";
+import { AiComposerShowcase } from "@/compositions/ai-composer-showcase";
+import type { TemplateProps } from "@registry/types";
 
 export const AiComposerShowcaseWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

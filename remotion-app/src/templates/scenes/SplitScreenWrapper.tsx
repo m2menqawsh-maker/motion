@@ -1,6 +1,6 @@
 import React from "react";
-import { SplitScreen } from "../../remotion-app/src/remotion/scenes/split-screen";
-import type { TemplateProps } from "../../../registry/types";
+import { SplitScreen } from "@/remotion/scenes/split-screen";
+import type { TemplateProps } from "@registry/types";
 
 export const SplitScreenWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

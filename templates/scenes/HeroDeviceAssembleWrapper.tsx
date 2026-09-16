@@ -1,6 +1,6 @@
 import React from "react";
-import { HeroDeviceAssemble } from "../../remotion-app/src/compositions/hero-device-assemble";
-import type { TemplateProps } from "../../../registry/types";
+import { HeroDeviceAssemble } from "@/compositions/hero-device-assemble";
+import type { TemplateProps } from "@registry/types";
 
 export const HeroDeviceAssembleWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

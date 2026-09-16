@@ -1,6 +1,6 @@
 import React from "react";
-import { CalendarMonthFill } from "../../remotion-app/src/remotion/scenes/calendar-month-fill";
-import type { TemplateProps } from "../../../registry/types";
+import { CalendarMonthFill } from "@/remotion/scenes/calendar-month-fill";
+import type { TemplateProps } from "@registry/types";
 
 export const CalendarMonthFillWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

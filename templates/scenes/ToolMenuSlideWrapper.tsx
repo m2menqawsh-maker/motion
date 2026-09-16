@@ -1,6 +1,6 @@
 import React from "react";
-import { ToolMenuSlide } from "../../remotion-app/src/compositions/tool-menu-slide";
-import type { TemplateProps } from "../../../registry/types";
+import { ToolMenuSlide } from "@/compositions/tool-menu-slide";
+import type { TemplateProps } from "@registry/types";
 
 export const ToolMenuSlideWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

@@ -27,7 +27,7 @@ export interface SchemaField {
 }
 
 /** التصنيفات الأساسية للقوالب */
-export type TemplateCategory = "text" | "media" | "brand" | "layout" | "effect" | "data" | "audio";
+export type TemplateCategory = "text" | "media" | "brand" | "layout" | "effect" | "data" | "audio" | "composition" | "element" | "wrapper" | "ui-block" | "overlay";
 
 /**
  * مدخلة القالب في السجل
@@ -66,4 +66,11 @@ export interface TemplateEntry {
   tier?: string;
   /** معرفات تأثيرات المحرك (effects-catalog) التي يعتمد عليها القالب جوهرياً */
   usesEffects?: string[];
+}
+
+export interface TemplateProps {
+  surface?: Partial<StyleSurface>;
+  content?: Record<string, any>;
+  template_props?: Record<string, any>;
+  [key: string]: any;
 }

@@ -12,7 +12,7 @@ def project_id():
 @pytest.fixture(autouse=True)
 def setup_teardown(project_id):
     # Setup
-    state_file = Path(f"projects/{project_id}/.pipeline_state.json")
+    state_file = PipelineService._get_state_path(project_id)
     if state_file.exists():
         state_file.unlink()
     
@@ -30,7 +30,7 @@ async def test_pipeline_state_has_required_fields(project_id):
     await PipelineService.scaffold_project(project_id)
     
     # We can write fake data to simulate pipeline run
-    state_file = Path(f"projects/{project_id}/.pipeline_state.json")
+    state_file = PipelineService._get_state_path(project_id)
     state = json.loads(state_file.read_text(encoding="utf-8"))
     
     state["master_plan_hash"] = "abc"

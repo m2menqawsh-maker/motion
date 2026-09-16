@@ -1,6 +1,6 @@
 import React from "react";
-import { AudiogramScene } from "../../remotion-app/src/remotion/scenes/audiogram-scene";
-import type { TemplateProps } from "../../../registry/types";
+import { AudiogramScene } from "@/remotion/scenes/audiogram-scene";
+import type { TemplateProps } from "@registry/types";
 
 export const AudiogramSceneWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

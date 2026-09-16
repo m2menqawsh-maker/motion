@@ -1,6 +1,6 @@
 import React from "react";
-import { CodeAccordion } from "../../remotion-app/src/remotion/scenes/code-accordion";
-import type { TemplateProps } from "../../../registry/types";
+import { CodeAccordion } from "@/remotion/scenes/code-accordion";
+import type { TemplateProps } from "@registry/types";
 
 export const CodeAccordionWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

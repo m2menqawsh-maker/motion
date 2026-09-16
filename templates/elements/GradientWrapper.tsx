@@ -1,7 +1,7 @@
 import React from "react";
 import { GradientTransition } from "remotion-bits";
 
-export const GradientWrapper = ({ surface }: any) => {
+export const GradientWrapper = ({ surface, template_props = {} }: any) => {
   const animProps = surface?.animation || {};
   
   return (

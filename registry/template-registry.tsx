@@ -30,8 +30,6 @@ import { CaptionSceneWrapper } from "../templates/scenes/CaptionSceneWrapper";
 import { ChangelogEntryWrapper } from "../templates/elements/ChangelogEntryWrapper";
 import { THEMESWrapper } from "../templates/elements/THEMESWrapper";
 import { ChatToPreviewWrapper } from "../templates/elements/ChatToPreviewWrapper";
-import { THEMESWrapper } from "../templates/elements/THEMESWrapper";
-import { THEMESWrapper } from "../templates/elements/THEMESWrapper";
 import { CodeAccordionWrapper } from "../templates/elements/CodeAccordionWrapper";
 import { CodeDiffWipeWrapper } from "../templates/elements/CodeDiffWipeWrapper";
 import { CodeRevealWrapper } from "../templates/elements/CodeRevealWrapper";
@@ -58,7 +56,6 @@ import { MediaSequenceWrapper } from "../templates/scenes/MediaSequenceWrapper";
 import { MetricTickerWrapper } from "../templates/elements/MetricTickerWrapper";
 import { NewsTickerBarWrapper } from "../templates/elements/NewsTickerBarWrapper";
 import { NotificationStackWrapper } from "../templates/elements/NotificationStackWrapper";
-import { THEMESWrapper } from "../templates/elements/THEMESWrapper";
 import { OrgChartBuildWrapper } from "../templates/elements/OrgChartBuildWrapper";
 import { PollOverlayWrapper } from "../templates/elements/PollOverlayWrapper";
 import { PricingCardWrapper } from "../templates/elements/PricingCardWrapper";
@@ -76,7 +73,6 @@ import { TeamGridWrapper } from "../templates/scenes/TeamGridWrapper";
 import { TerminalSimulatorWrapper } from "../templates/elements/TerminalSimulatorWrapper";
 import { TimelineStepsWrapper } from "../templates/elements/TimelineStepsWrapper";
 import { TitleCardWrapper } from "../templates/elements/TitleCardWrapper";
-import { THEMESWrapper } from "../templates/elements/THEMESWrapper";
 import { WeatherCardWrapper } from "../templates/elements/WeatherCardWrapper";
 import { ZoomPanFrameWrapper } from "../templates/elements/ZoomPanFrameWrapper";
 import type { TemplateEntry } from "./types";
@@ -711,26 +707,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     schema: {},
     defaults: {}
   },
-  "rui-t-h-e-m-e-s": {
-    id: "rui-t-h-e-m-e-s",
-    label: { ar: "THEMES (RUI)", en: "THEMES" },
-    description: { ar: "مكون THEMES من مكتبة Remotion UI", en: "Remotion UI Component" },
-    category: "composition",
-    component: THEMESWrapper,
-    defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
-  },
-  "rui-t-h-e-m-e-s": {
-    id: "rui-t-h-e-m-e-s",
-    label: { ar: "THEMES (RUI)", en: "THEMES" },
-    description: { ar: "مكون THEMES من مكتبة Remotion UI", en: "Remotion UI Component" },
-    category: "composition",
-    component: THEMESWrapper,
-    defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
-  },
   "rui-code-accordion": {
     id: "rui-code-accordion",
     label: { ar: "CodeAccordion (RUI)", en: "CodeAccordion" },
@@ -991,16 +967,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     schema: {},
     defaults: {}
   },
-  "rui-t-h-e-m-e-s": {
-    id: "rui-t-h-e-m-e-s",
-    label: { ar: "THEMES (RUI)", en: "THEMES" },
-    description: { ar: "مكون THEMES من مكتبة Remotion UI", en: "Remotion UI Component" },
-    category: "composition",
-    component: THEMESWrapper,
-    defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
-  },
   "rui-org-chart-build": {
     id: "rui-org-chart-build",
     label: { ar: "OrgChartBuild (RUI)", en: "OrgChartBuild" },
@@ -1167,16 +1133,6 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     description: { ar: "مكون TitleCard من مكتبة Remotion UI", en: "Remotion UI Component" },
     category: "composition",
     component: TitleCardWrapper,
-    defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
-  },
-  "rui-t-h-e-m-e-s": {
-    id: "rui-t-h-e-m-e-s",
-    label: { ar: "THEMES (RUI)", en: "THEMES" },
-    description: { ar: "مكون THEMES من مكتبة Remotion UI", en: "Remotion UI Component" },
-    category: "composition",
-    component: THEMESWrapper,
     defaultDurationFrames: 150,
     schema: {},
     defaults: {}

@@ -1,6 +1,6 @@
 import React from "react";
-import { DashboardPopulate } from "../../remotion-app/src/compositions/dashboard-populate";
-import type { TemplateProps } from "../../../registry/types";
+import { DashboardPopulate } from "@/compositions/dashboard-populate";
+import type { TemplateProps } from "@registry/types";
 
 export const DashboardPopulateWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};

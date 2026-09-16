@@ -1,6 +1,6 @@
 import React from "react";
-import { SportsScorebug } from "../../remotion-app/src/remotion/scenes/sports-scorebug";
-import type { TemplateProps } from "../../../registry/types";
+import { SportsScorebug } from "@/remotion/scenes/sports-scorebug";
+import type { TemplateProps } from "@registry/types";
 
 export const SportsScorebugWrapper = ({ surface, content, ...rest }: any) => {
   const template_props = rest.template_props || {};
