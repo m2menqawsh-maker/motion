@@ -23,6 +23,52 @@
     "notes": ""
   },
   {
+    "id": "custom/LevelOneScene",
+    "name": "Levelonescene",
+    "type": "custom",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/custom/LevelOneScene.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "general_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "custom/LevelZeroBox",
+    "name": "Levelzerobox",
+    "type": "custom",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/custom/LevelZeroBox.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "general_element"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
     "id": "effects/BookFlipTransition",
     "name": "Bookfliptransition",
     "type": "effect",
@@ -155,6 +201,29 @@
     "intents": [
       "transition",
       "image_motion"
+    ],
+    "moods": [
+      "technical"
+    ],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "effects/engine-bridge",
+    "name": "EngineBridge",
+    "type": "effect",
+    "family": "core",
+    "quality": "C",
+    "status": "production-ready",
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/engine-bridge.tsx",
+    "use_cases": [
+      "explainer",
+      "ad"
+    ],
+    "intents": [
+      "general_element"
     ],
     "moods": [
       "technical"
@@ -456,8 +525,8 @@
     ],
     "intents": [
       "windows",
-      "stat",
-      "ui_element"
+      "ui_element",
+      "stat"
     ],
     "moods": [
       "technical"
@@ -481,8 +550,8 @@
     ],
     "intents": [
       "windows",
-      "stat",
-      "ui_element"
+      "ui_element",
+      "stat"
     ],
     "moods": [
       "technical"
@@ -505,8 +574,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -529,9 +598,9 @@
       "ad"
     ],
     "intents": [
-      "title_reveal",
+      "ui_element",
       "windows",
-      "ui_element"
+      "title_reveal"
     ],
     "moods": [
       "technical"
@@ -554,8 +623,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -578,8 +647,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -601,9 +670,9 @@
       "ad"
     ],
     "intents": [
+      "ui_element",
       "windows",
-      "cta",
-      "ui_element"
+      "cta"
     ],
     "moods": [
       "technical"
@@ -626,8 +695,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -650,9 +719,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "caption",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -675,8 +744,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -699,9 +768,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "messaging",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -725,8 +794,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -750,8 +819,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -775,9 +844,9 @@
     ],
     "intents": [
       "code_demo",
+      "ui_element",
       "transition",
-      "windows",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -801,8 +870,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -825,8 +894,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -849,9 +918,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "stat",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -874,10 +943,10 @@
       "ad"
     ],
     "intents": [
-      "navigation",
-      "windows",
       "data_display",
-      "ui_element"
+      "ui_element",
+      "navigation",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -900,9 +969,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "stat",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -925,8 +994,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "playful"
@@ -949,8 +1018,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -997,9 +1066,9 @@
       "ad"
     ],
     "intents": [
+      "ui_element",
       "windows",
-      "cta",
-      "ui_element"
+      "cta"
     ],
     "moods": [
       "technical"
@@ -1022,8 +1091,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1046,9 +1115,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "data_display",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1071,8 +1140,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1095,8 +1164,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1118,9 +1187,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
+      "ui_element",
       "hook",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1143,8 +1212,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1167,8 +1236,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1191,9 +1260,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
+      "ui_element",
       "logo",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1216,9 +1285,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
+      "ui_element",
       "logo",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1241,8 +1310,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1265,8 +1334,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1289,8 +1358,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1313,8 +1382,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1337,8 +1406,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1361,8 +1430,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1385,9 +1454,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
+      "notification",
       "ui_element",
-      "notification"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1411,8 +1480,8 @@
     ],
     "intents": [
       "windows",
-      "stat",
-      "ui_element"
+      "ui_element",
+      "stat"
     ],
     "moods": [
       "technical"
@@ -1435,8 +1504,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1458,8 +1527,8 @@
       "social"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1482,8 +1551,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1506,8 +1575,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1530,8 +1599,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1554,8 +1623,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1578,8 +1647,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1602,8 +1671,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1626,8 +1695,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1650,8 +1719,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1674,8 +1743,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1698,9 +1767,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "search_ui",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "playful"
@@ -1723,8 +1792,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1747,8 +1816,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1771,10 +1840,10 @@
       "ad"
     ],
     "intents": [
-      "element_animation",
       "windows",
+      "badge",
       "ui_element",
-      "badge"
+      "element_animation"
     ],
     "moods": [
       "technical"
@@ -1798,8 +1867,8 @@
     ],
     "intents": [
       "windows",
-      "stat",
-      "ui_element"
+      "ui_element",
+      "stat"
     ],
     "moods": [
       "technical"
@@ -1822,9 +1891,9 @@
       "ad"
     ],
     "intents": [
+      "ui_element",
       "navigation",
-      "windows",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1848,8 +1917,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1872,8 +1941,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1896,8 +1965,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1920,9 +1989,9 @@
       "ad"
     ],
     "intents": [
-      "title_reveal",
+      "ui_element",
       "windows",
-      "ui_element"
+      "title_reveal"
     ],
     "moods": [
       "technical"
@@ -1945,8 +2014,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1969,9 +2038,9 @@
       "ad"
     ],
     "intents": [
+      "ui_element",
       "typing",
-      "windows",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1994,8 +2063,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2043,8 +2112,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2067,8 +2136,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2091,8 +2160,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2115,8 +2184,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2139,9 +2208,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "caption",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2163,8 +2232,8 @@
       "social"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2187,9 +2256,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "data_display",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2212,9 +2281,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "data_display",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2237,8 +2306,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2261,8 +2330,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2285,9 +2354,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
       "ui_element",
-      "form_ui"
+      "form_ui",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2310,8 +2379,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2334,8 +2403,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2357,9 +2426,9 @@
       "ad"
     ],
     "intents": [
-      "windows",
+      "ui_element",
       "hook",
-      "ui_element"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2383,8 +2452,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2408,8 +2477,8 @@
     ],
     "intents": [
       "code_demo",
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2432,8 +2501,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2456,8 +2525,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2480,8 +2549,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2504,8 +2573,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2528,8 +2597,8 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
+      "ui_element",
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2552,1648 +2621,10 @@
       "ad"
     ],
     "intents": [
-      "windows",
-      "ui_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "audio/AudioManager",
-    "name": "Audiomanager",
-    "type": "engine",
-    "family": "audio",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/audio/AudioManager.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "audio/resolveCues",
-    "name": "Resolvecues",
-    "type": "engine",
-    "family": "audio",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/audio/resolveCues.ts",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "audio/types",
-    "name": "Types",
-    "type": "engine",
-    "family": "audio",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/audio/types.ts",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "camera/AutoZoom",
-    "name": "Autozoom",
-    "type": "engine",
-    "family": "camera",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/camera/AutoZoom.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "image_motion",
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "camera/CameraRig",
-    "name": "Camerarig",
-    "type": "engine",
-    "family": "camera",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/camera/CameraRig.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "camera/interpolate",
-    "name": "Interpolate",
-    "type": "engine",
-    "family": "camera",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/camera/interpolate.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "camera/resolveTimeline",
-    "name": "Resolvetimeline",
-    "type": "engine",
-    "family": "camera",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/camera/resolveTimeline.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "camera/types",
-    "name": "Types",
-    "type": "engine",
-    "family": "camera",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/camera/types.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "choreography/filterCursorPath",
-    "name": "Filtercursorpath",
-    "type": "engine",
-    "family": "choreography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/choreography/filterCursorPath.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "choreography/mapCursorPath",
-    "name": "Mapcursorpath",
-    "type": "engine",
-    "family": "choreography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/choreography/mapCursorPath.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "choreography/resolveWindowPose",
-    "name": "Resolvewindowpose",
-    "type": "engine",
-    "family": "choreography",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/choreography/resolveWindowPose.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "windows",
       "ui_element",
-      "camera_movement"
+      "windows"
     ],
     "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "cursor/arc",
-    "name": "Arc",
-    "type": "engine",
-    "family": "cursor",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/cursor/arc.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "cursor/Cursor",
-    "name": "Cursor",
-    "type": "engine",
-    "family": "cursor",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/cursor/Cursor.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "cursor/CursorSprite",
-    "name": "Cursorsprite",
-    "type": "engine",
-    "family": "cursor",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/cursor/CursorSprite.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "cursor/resolveAnchor",
-    "name": "Resolveanchor",
-    "type": "engine",
-    "family": "cursor",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/cursor/resolveAnchor.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "cursor/types",
-    "name": "Types",
-    "type": "engine",
-    "family": "cursor",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/cursor/types.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "fonts",
-    "name": "Fonts",
-    "type": "misc",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/fonts.ts",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "layout/LayoutContext",
-    "name": "Layoutcontext",
-    "type": "engine",
-    "family": "layout",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/layout/LayoutContext.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "layout/LayoutWindow",
-    "name": "Layoutwindow",
-    "type": "engine",
-    "family": "layout",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/layout/LayoutWindow.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "windows",
-      "ui_element",
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "layout/types",
-    "name": "Types",
-    "type": "engine",
-    "family": "layout",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/layout/types.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "layout/useWindowRect",
-    "name": "Usewindowrect",
-    "type": "engine",
-    "family": "layout",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/layout/useWindowRect.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "windows",
-      "ui_element",
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "layout/zones",
-    "name": "Zones",
-    "type": "engine",
-    "family": "layout",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/layout/zones.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/AppFromDescriptor",
-    "name": "Appfromdescriptor",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/AppFromDescriptor.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "windows",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/AppShell",
-    "name": "Appshell",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/AppShell.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "windows",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/Avatar",
-    "name": "Avatar",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/Avatar.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "avatar",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/Badge",
-    "name": "Badge",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/Badge.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "badge",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/Button",
-    "name": "Button",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/Button.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/DataTable",
-    "name": "Datatable",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/DataTable.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "navigation",
-      "data_display",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/ListItems",
-    "name": "Listitems",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/ListItems.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "data_display",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/MessageList",
-    "name": "Messagelist",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/MessageList.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "messaging",
-      "data_display",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/NotificationToast",
-    "name": "Notificationtoast",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/NotificationToast.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element",
-      "notification"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/Panel",
-    "name": "Panel",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/Panel.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/PanelGrid",
-    "name": "Panelgrid",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/PanelGrid.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/Placeholder",
-    "name": "Placeholder",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/Placeholder.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/SearchBar",
-    "name": "Searchbar",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/SearchBar.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "search_ui",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/SidebarNav",
-    "name": "Sidebarnav",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/SidebarNav.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "navigation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/StatCard",
-    "name": "Statcard",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/StatCard.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "stat",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/TabBar",
-    "name": "Tabbar",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/TabBar.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "navigation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/app-ui/TopNav",
-    "name": "Topnav",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/app-ui/TopNav.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "navigation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/CountUp",
-    "name": "Countup",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/CountUp.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "stat",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/EndCard",
-    "name": "Endcard",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/EndCard.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "cta",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Enter",
-    "name": "Enter",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Enter.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "element_animation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Exit",
-    "name": "Exit",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Exit.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "element_animation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Headline",
-    "name": "Headline",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Headline.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "title_reveal",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Highlight",
-    "name": "Highlight",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Highlight.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "emphasis",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Pulse",
-    "name": "Pulse",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Pulse.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "emphasis",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/ScenePush",
-    "name": "Scenepush",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/ScenePush.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Stagger",
-    "name": "Stagger",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Stagger.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "badge",
-      "element_animation",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/TrafficLights",
-    "name": "Trafficlights",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/TrafficLights.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/TypeWriter",
-    "name": "Typewriter",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/TypeWriter.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "typing",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Wallpaper",
-    "name": "Wallpaper",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Wallpaper.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "background",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "primitives/Window",
-    "name": "Window",
-    "type": "engine",
-    "family": "primitives",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/primitives/Window.tsx",
-    "use_cases": [
-      "saas",
-      "explainer",
-      "product",
-      "ad"
-    ],
-    "intents": [
-      "scene_element",
-      "windows",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/ChaosDesktop",
-    "name": "Chaosdesktop",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/ChaosDesktop.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/Closer",
-    "name": "Closer",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/Closer.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "cta"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/DynamicWindows",
-    "name": "Dynamicwindows",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/DynamicWindows.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "windows",
-      "ui_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/FeatureShowcase",
-    "name": "Featureshowcase",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/FeatureShowcase.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/HeadlineResolution",
-    "name": "Headlineresolution",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/HeadlineResolution.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/ProductReveal",
-    "name": "Productreveal",
-    "type": "scene",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/scenes/ProductReveal.tsx",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "tokens",
-    "name": "Tokens",
-    "type": "misc",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/tokens.ts",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "types",
-    "name": "Types",
-    "type": "misc",
-    "family": "core",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/types.ts",
-    "use_cases": [
-      "explainer",
-      "ad"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ui-state/generatePressKeyframes",
-    "name": "Generatepresskeyframes",
-    "type": "engine",
-    "family": "ui-state",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/ui-state/generatePressKeyframes.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ui-state/types",
-    "name": "Types",
-    "type": "engine",
-    "family": "ui-state",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/ui-state/types.ts",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "ui-state/UIStateProvider",
-    "name": "Uistateprovider",
-    "type": "engine",
-    "family": "ui-state",
-    "quality": "A",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "engine",
-    "path": "engine/ui-state/UIStateProvider.tsx",
-    "use_cases": [
-      "saas",
-      "product"
-    ],
-    "intents": [
-      "stat",
-      "camera_movement"
-    ],
-    "moods": [
-      "cinematic",
       "technical"
     ],
     "capabilities": [],

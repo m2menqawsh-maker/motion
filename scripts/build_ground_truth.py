@@ -1,5 +1,3 @@
-import subprocess
-from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """build_ground_truth.py — Generates ground-truth indices from actual disk scan.
 Zero-hardcode: every line is from a real scan. Exit 1 on failure."""
@@ -13,8 +11,8 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 SCRIPT = Path(__file__).resolve()
-DST = SCRIPT.parent.parent            # super-video-maker
-WS  = DST.parent.parent.parent        # video-workspace
+DST = SCRIPT.parent.parent            # canonical workspace root
+sys.path.insert(0, str(DST))
 OUT = DST / "ground-truth"
 OUT.mkdir(parents=True, exist_ok=True)
 TS  = datetime.now().isoformat(timespec="seconds")
@@ -156,8 +154,6 @@ scan_templates(templates_dir, "new_unified")
 scan_templates(engine_dir, "engine")
 
 # --- Classify Templates ---
-import sys
-from scripts.path_security import validate_project_id, safe_resolve
 sys.path.append(str(DST / "scripts"))
 try:
     import classify_templates

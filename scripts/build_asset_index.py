@@ -1,5 +1,3 @@
-import subprocess
-from scripts.security import safe_subprocess
 import os
 import json
 import hashlib
@@ -41,6 +39,7 @@ def determine_type(filepath):
     return "other"
 
 def main():
+    repo_root = Path(__file__).resolve().parent.parent
     dirs = {
         "assets/ready": "ready",
         "assets/cache": "cache-raw",
@@ -50,7 +49,7 @@ def main():
     index = []
     
     for dir_path_str, state in dirs.items():
-        dir_path = Path(dir_path_str)
+        dir_path = repo_root / dir_path_str
         if not dir_path.exists():
             continue
             
@@ -62,7 +61,7 @@ def main():
                     continue
                     
                 # Use forward slashes for cross-platform consistency in JSON
-                rel_path = filepath.as_posix()
+                rel_path = filepath.relative_to(repo_root).as_posix()
                 
                 # Try to extract lufs if applicable (mock logic, as we don't parse wav metadata here without ffmpeg)
                 lufs = -16 if ("vo" in str(filepath) and "_norm" in file) else (-24 if ("sfx" in str(filepath) and "_norm" in file) else None)
@@ -78,12 +77,12 @@ def main():
                 }
                 index.append(entry)
                 
-    output_path1 = Path(".agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json")
-    output_path1.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path1, "w", encoding="utf-8") as f:
+    output_path = repo_root / "ground-truth" / "ASSET_INDEX.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(index, f, indent=2, ensure_ascii=False)
         
-    print(f"Generated ASSET_INDEX.json with {len(index)} entries.")
+    print(f"Generated ASSET_INDEX.json with {len(index)} entries at {output_path}.")
     
     # Print first 10 entries as requested
     print(json.dumps(index[:10], indent=2, ensure_ascii=False))

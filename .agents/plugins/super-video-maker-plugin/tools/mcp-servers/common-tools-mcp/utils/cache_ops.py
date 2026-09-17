@@ -6,14 +6,24 @@ import json
 
 logger = logging.getLogger(__name__)
 
+def _resolve_repo_root() -> Path:
+    env_root = os.environ.get("SVM_DATA_DIR")
+    if env_root and Path(env_root).exists():
+        return Path(env_root).resolve()
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "scripts" / "pipeline.py").exists() or (parent / ".git").exists():
+            return parent.resolve()
+    return Path("C:/video/clean-video-workspace").resolve()
+
 def _dirs():
-    data = Path(os.environ.get("SVM_DATA_DIR", "C:/video/clean-video-workspace"))
+    repo_root = _resolve_repo_root()
+    data = repo_root
     plugin = Path(os.environ.get("SVM_PLUGIN_ROOT",
-               str(data / ".agents" / "plugins" / "super-video-maker-plugin")))
+               str(repo_root / ".agents" / "plugins" / "super-video-maker-plugin")))
     return data, plugin
 
 DATA_DIR, PLUGIN_ROOT = _dirs()
-INDEX_PATH = PLUGIN_ROOT / "ground-truth" / "ASSET_INDEX.json"
+INDEX_PATH = DATA_DIR / "ground-truth" / "ASSET_INDEX.json"
 READY_DIR  = DATA_DIR / "assets" / "ready"
 CACHE_DIR  = DATA_DIR / "assets" / "cache"
 

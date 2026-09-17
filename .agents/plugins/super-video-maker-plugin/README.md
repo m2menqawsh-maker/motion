@@ -43,24 +43,22 @@ python scripts/pipeline.py <project_id>
 ```
 super-video-maker-plugin/
 ├── plugin.json              # Plugin manifest
-├── mcp.json                 # MCP server definitions
+├── mcp_config.json          # MCP server definitions
 ├── .env.example             # Environment template
 ├── README.md                # This file
-├── package.json             # Orchestration
+├── package.json             # Package configuration
 ├── requirements.txt         # Python dependencies
-├── docs/                    # Central documentation
-├── skills/                  # Agent skills
-├── templates/               # Remotion templates (source of truth)
-├── recipes/                 # Production recipes
+├── skills/                  # Agent skills (remocn, snapcn)
 ├── tools/                   # Python tools & MCP servers
-├── commands/                # Quick command templates
-└── scripts/                 # Verification & build scripts
+└── commands/                # Agent command wrappers
 ```
 
-## Documentation
+## Architecture & Integration
 
-- **[Usage Guide](docs/guides/USAGE.md)** — Quickstart and detailed operational instructions.
-- **[Architecture (v2.0)](docs/guides/ARCHITECTURE.md)** — Core design principles.
+This plugin operates as a `REPO_COUPLED` integration subsystem:
+- Canonical templates, scripts, recipes, references, security configs, and ground truth are owned by the **Repository Root**.
+- The plugin provides IDE discovery, Agent skills (`remocn`, `snapcn`), MCP servers, and tool adapters.
+- See root documentation: `documentation/PLUGIN_ARCHITECTURE.md` and `ARCHITECTURE_TRUTH.md`.
 
 ## MCP Servers
 

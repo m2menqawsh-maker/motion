@@ -33,17 +33,12 @@ def run_gate(manifest_path_str):
     except Exception as e:
         return False, f"Failed to read manifest: {e}"
 
-    index_path = Path(".agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json")
+    repo_root = Path(__file__).resolve().parent.parent
+    index_path = repo_root / "ground-truth" / "ASSET_INDEX.json"
     index = []
     if index_path.exists():
         with open(index_path, 'r', encoding='utf-8') as f:
             index = json.load(f)
-            
-    # Also check the other possible path just in case
-    index_path2 = Path("ground-truth/ASSET_INDEX.json")
-    if index_path2.exists():
-         with open(index_path2, 'r', encoding='utf-8') as f:
-            index.extend(json.load(f))
 
     items = manifest.get("assets", []) if isinstance(manifest, dict) else manifest
     for item in items:

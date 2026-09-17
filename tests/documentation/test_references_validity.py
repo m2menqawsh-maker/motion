@@ -8,12 +8,10 @@ class TestReferencesValidity:
     def test_all_markdown_links_are_valid(self):
         """كل الروابط في الملفات المرجعية يجب أن تكون صالحة (باستثناء الروابط الخارجية)"""
         base_dir = Path(__file__).parent.parent.parent
-        references_dir = base_dir / ".agents" / "plugins" / "super-video-maker-plugin" / "references"
+        references_dir = base_dir / "references"
         
         if not references_dir.exists():
-            references_dir = base_dir / "references"
-            if not references_dir.exists():
-                pytest.skip("references directory not found")
+            pytest.skip("canonical root references directory not found")
         
         # We'll just scan all .md files in .agents as well for valid relative links
         md_files = list(references_dir.rglob("*.md"))

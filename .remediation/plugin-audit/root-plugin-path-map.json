@@ -1,0 +1,178 @@
+[
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/plugin.json",
+    "root_counterpart": null,
+    "relationship": "PLUGIN_MANIFEST",
+    "confidence": "HIGH",
+    "evidence": [
+      "Manifest file parsed by Antigravity IDE agent-plugins runtime",
+      "Defines plugin identity 'super-video-maker' v1.0.0 and description",
+      "References root templates and root recipes in metadata description"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+    "root_counterpart": null,
+    "relationship": "PLUGIN_MCP_REGISTRY",
+    "confidence": "HIGH",
+    "evidence": [
+      "Sole MCP server configuration file in the entire workspace",
+      "Configures 6 stdio MCP servers running from tools/mcp-servers/",
+      "Referenced by Antigravity IDE runtime and Phase 9.5 certification"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/package.json",
+    "root_counterpart": "package.json",
+    "relationship": "INDEPENDENT_PACKAGE_DESCRIPTOR",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin package.json defines standalone skill package metadata (super-video-maker-skill)",
+      "Root package.json defines the workspace runtime, Remotion CLI, React 19, Vitest, and test scripts",
+      "Completely distinct responsibilities and dependency sets"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/requirements.txt",
+    "root_counterpart": "requirements.txt",
+    "relationship": "INDEPENDENT_REQUIREMENTS_DESCRIPTOR",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin requirements.txt lists Python tool dependencies (fal-client, openai, replicate, ffmpeg-python, pillow, boto3)",
+      "Root requirements.txt lists workspace pipeline and API dependencies (fastapi, uvicorn, jsonschema, pytest, pytest-asyncio)",
+      "Completely distinct dependency sets"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/.gitignore",
+    "root_counterpart": ".gitignore",
+    "relationship": "PLUGIN_LOCAL_GITIGNORE",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin-local ignore rules for local .venv, .env, and caches",
+      "Root .gitignore governs repository-wide ignores"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/.env",
+    "root_counterpart": ".env.example",
+    "relationship": "LOCAL_CREDENTIALS_INSTANCE",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin .env stores local API keys for fal, heygen, openai, elevenlabs",
+      "Root .env.example provides template for workspace environment"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/LICENSE",
+    "root_counterpart": null,
+    "relationship": "STANDALONE_LICENSE",
+    "confidence": "HIGH",
+    "evidence": [
+      "MIT license for plugin distribution package"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/README.md",
+    "root_counterpart": "documentation/README.md",
+    "relationship": "PLUGIN_OVERVIEW_VS_WORKSPACE_OVERVIEW",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin README describes plugin features, MCP tools, and recipes",
+      "Root documentation/README.md describes workspace architecture and documentation structure"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/verify.py",
+    "root_counterpart": "scripts/ci_run_all.py",
+    "relationship": "PLUGIN_SANITY_CHECKER",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin verify.py inspects workspace paths (templates, engine, scripts, assets, projects) and plugin paths",
+      "Root scripts/ci_run_all.py executes repository-wide test gates"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/config/",
+    "root_counterpart": "config/",
+    "relationship": "STALE_PLUGIN_MIRROR",
+    "confidence": "HIGH",
+    "evidence": [
+      "Root config/violations_config.json is actively loaded by .agents/guardian/utils.py and tested by test_guardian.py",
+      "Root config/ contains violations_config.schema.json",
+      "Plugin config/violations_config.json contains outdated regex rules and is never loaded at runtime"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/ground-truth/",
+    "root_counterpart": "ground-truth/",
+    "relationship": "INVERTED_ACTIVE_GENERATION_TARGET",
+    "confidence": "HIGH",
+    "evidence": [
+      "scripts/build_asset_index.py explicitly outputs to .agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json",
+      "scripts/asset_gate.py and common-tools-mcp/cache_ops.py read from the plugin copy",
+      "Root ground-truth/ASSET_INDEX.json is an un-updated snapshot from commit 9dcb888",
+      "Other ground-truth indexes (TEMPLATE_INDEX, TOOLS_INDEX, MCP_INDEX, RECIPES_INDEX) reside exclusively in root ground-truth/"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/commands/",
+    "root_counterpart": "recipes/",
+    "relationship": "AGENT_COMMAND_ORCHESTRATION_WRAPPER",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin commands/avatar-insta-reel.md provides an agent prompt workflow",
+      "It instructs the agent to scaffold, write plan, collect assets, build blueprint, and invoke root scripts/pipeline.py",
+      "Directly corresponds to recipe goal in recipes/avatar-insta-split.json"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/docs/",
+    "root_counterpart": "documentation/",
+    "relationship": "PLUGIN_GUIDES_VS_WORKSPACE_DOCUMENTATION",
+    "confidence": "HIGH",
+    "evidence": [
+      "Plugin docs/ contains 10 guide files (ARCHITECTURE, DISTRIBUTION_CHECKLIST, USAGE, etc.) written for plugin standalone packaging",
+      "Root documentation/ contains workspace guides, developer guides, governance, and audit records",
+      "scripts/build_ground_truth.py historically referenced docs/guides"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/references/",
+    "root_counterpart": "references/",
+    "relationship": "DIVERGED_LEGACY_PLUGIN_COPIES",
+    "confidence": "HIGH",
+    "evidence": [
+      "Root references/ is the authoritative Level 5 reference set under ARCHITECTURE_TRUTH.md",
+      "Every root reference file has a constitutional Source of Truth Hierarchy alert block",
+      "Root references/REMOTION_VIDEO_GUIDE.md was rewritten for the Zero-Build Master Engine (142 lines); plugin copy has obsolete manual React guide (676 lines)",
+      "Root references/ contains references/deep/ (including SFX_BINDING_MATRIX.md); references/deep/ was deleted from plugin in commit 7e94c15",
+      "Plugin references/ still contains CUSTOM_CODE_GUIDE.md and WORKFLOW_EXAMPLES.md which were quarantined in root"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/skills/",
+    "root_counterpart": "registry/",
+    "relationship": "PLUGIN_AGENT_SKILLS_EXPORT",
+    "confidence": "HIGH",
+    "evidence": [
+      "Skills remocn and snapcn exist ONLY in the plugin",
+      "Root registry/docs-extractor.ts extracts component definitions directly from plugin skills/snapcn/references/components",
+      "Root tests/registry.test.ts verifies template conformity against plugin skills directories",
+      "Root skills-lock.json records Git hashes for remocn and snapcn from plugin"
+    ]
+  },
+  {
+    "plugin_path": ".agents/plugins/super-video-maker-plugin/tools/",
+    "root_counterpart": "scripts/",
+    "relationship": "TOOL_ADAPTERS_AND_MCP_SERVERS",
+    "confidence": "HIGH",
+    "evidence": [
+      "Contains 13 standalone Python tool scripts and 6 MCP servers in tools/mcp-servers/",
+      "Root ground-truth/TOOLS_INDEX.md scans and indexes tools/*.py from plugin",
+      "Root ground-truth/MCP_INDEX.md scans and indexes tools/mcp-servers/ from plugin",
+      "Root recipes/*.json reference tools by name",
+      "MCP servers execute directly out of tools/mcp-servers/ via plugin/mcp_config.json"
+    ]
+  }
+]

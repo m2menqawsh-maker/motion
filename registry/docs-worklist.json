@@ -1,7 +1,7 @@
 [
   {
     "name": "TEMPLATE_PROPOSAL_GUIDE",
-    "path": ".agents/plugins/super-video-maker-plugin/references/TEMPLATE_PROPOSAL_GUIDE.md",
+    "path": "references/TEMPLATE_PROPOSAL_GUIDE.md",
     "tier": "C",
     "implemented": false,
     "deferred": false,

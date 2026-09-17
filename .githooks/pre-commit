@@ -6,8 +6,8 @@ echo "🔄 Running auto-sync for ground-truth (Approach 1)..."
 echo "==========================================================="
 
 # Path to the generator script
-GENERATOR_SCRIPT=".agents/plugins/super-video-maker-plugin/scripts/build_ground_truth.py"
-GROUND_TRUTH_DIR=".agents/plugins/super-video-maker-plugin/ground-truth/"
+GENERATOR_SCRIPT="scripts/build_ground_truth.py"
+GROUND_TRUTH_DIR="ground-truth/"
 
 if [ ! -f "$GENERATOR_SCRIPT" ]; then
     echo "⚠️ Warning: $GENERATOR_SCRIPT not found. Skipping auto-sync."

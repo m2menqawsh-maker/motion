@@ -79,3 +79,22 @@ The Agent is a master planner and pipeline orchestrator. It does not manually bu
 - **INVARIANT-04**: The Agent MUST NOT bypass pipeline gates.
 - **INVARIANT-05**: Engine features MUST enter rendering through approved integration boundaries (`EngineBridge`).
 - **INVARIANT-06**: No unrestricted shell execution may be exposed to the Agent.
+- **INVARIANT-07**: The plugin MUST NOT mirror root canonical scripts, templates, recipes, references, security configuration, or system ground truth without an explicit generated contract. All tools and MCP servers must resolve canonical resources through the repository root.
+
+## 15. Plugin Architectural Boundary & Ownership
+
+- **Canonical Ownership**: The repository root owns all canonical application and runtime truths:
+  - `templates/` (Remotion templates)
+  - `scripts/` (Pipeline orchestrators, gates, and build scripts)
+  - `recipes/` (Production recipes)
+  - `references/` (Documentation and guides)
+  - `config/` (Security policies and violations configuration)
+  - `ground-truth/` (System ground-truth indexes, including `ASSET_INDEX.json`)
+
+- **Plugin Role**: `.agents/plugins/super-video-maker-plugin` is a `REPO_COUPLED` integration subsystem responsible exclusively for:
+  - Plugin discovery manifest (`plugin.json`)
+  - Agent skills (`skills/remocn/`, `skills/snapcn/`)
+  - MCP configuration (`mcp_config.json`)
+  - MCP server implementations (`tools/mcp-servers/`)
+  - External tool adapters (`tools/*.py`)
+  - Agent command wrappers (`commands/*.md`)
