@@ -525,8 +525,8 @@
     ],
     "intents": [
       "stat",
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -550,8 +550,8 @@
     ],
     "intents": [
       "stat",
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -598,9 +598,9 @@
       "explainer"
     ],
     "intents": [
-      "title_reveal",
       "ui_element",
-      "windows"
+      "windows",
+      "title_reveal"
     ],
     "moods": [
       "technical"
@@ -719,9 +719,9 @@
       "explainer"
     ],
     "intents": [
+      "caption",
       "ui_element",
-      "windows",
-      "caption"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -768,9 +768,9 @@
       "explainer"
     ],
     "intents": [
+      "messaging",
       "ui_element",
-      "windows",
-      "messaging"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -843,9 +843,9 @@
       "explainer"
     ],
     "intents": [
+      "transition",
       "code_demo",
       "ui_element",
-      "transition",
       "windows"
     ],
     "moods": [
@@ -944,9 +944,9 @@
     ],
     "intents": [
       "data_display",
-      "navigation",
       "ui_element",
-      "windows"
+      "windows",
+      "navigation"
     ],
     "moods": [
       "technical"
@@ -1187,9 +1187,9 @@
       "ad"
     ],
     "intents": [
+      "hook",
       "windows",
-      "ui_element",
-      "hook"
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -1260,9 +1260,9 @@
       "explainer"
     ],
     "intents": [
-      "logo",
       "ui_element",
-      "windows"
+      "windows",
+      "logo"
     ],
     "moods": [
       "technical"
@@ -1285,9 +1285,9 @@
       "explainer"
     ],
     "intents": [
-      "logo",
       "ui_element",
-      "windows"
+      "windows",
+      "logo"
     ],
     "moods": [
       "technical"
@@ -1454,9 +1454,9 @@
       "explainer"
     ],
     "intents": [
+      "notification",
       "ui_element",
-      "windows",
-      "notification"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1480,8 +1480,8 @@
     ],
     "intents": [
       "stat",
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -1840,9 +1840,9 @@
       "explainer"
     ],
     "intents": [
+      "badge",
       "element_animation",
       "ui_element",
-      "badge",
       "windows"
     ],
     "moods": [
@@ -1867,8 +1867,8 @@
     ],
     "intents": [
       "stat",
-      "ui_element",
-      "windows"
+      "windows",
+      "ui_element"
     ],
     "moods": [
       "technical"
@@ -1989,9 +1989,9 @@
       "explainer"
     ],
     "intents": [
-      "title_reveal",
       "ui_element",
-      "windows"
+      "windows",
+      "title_reveal"
     ],
     "moods": [
       "technical"
@@ -2038,8 +2038,8 @@
       "explainer"
     ],
     "intents": [
-      "ui_element",
       "typing",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2208,9 +2208,9 @@
       "explainer"
     ],
     "intents": [
+      "caption",
       "ui_element",
-      "windows",
-      "caption"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2354,8 +2354,8 @@
       "explainer"
     ],
     "intents": [
-      "ui_element",
       "form_ui",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2426,9 +2426,9 @@
       "ad"
     ],
     "intents": [
+      "hook",
       "windows",
-      "ui_element",
-      "hook"
+      "ui_element"
     ],
     "moods": [
       "technical"

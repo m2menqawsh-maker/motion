@@ -37,6 +37,8 @@ def test_safe_resolve_absolute(tmp_path):
     base = tmp_path / "projects"
     base.mkdir()
     
-    # On Windows, absolute path traversal 
+    # Absolute path traversal (both Windows and Unix)
     with pytest.raises(ValueError, match="Path traversal detected"):
         safe_resolve(base, "C:\\Windows\\System32")
+    with pytest.raises(ValueError, match="Path traversal detected"):
+        safe_resolve(base, "/etc/passwd")

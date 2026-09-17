@@ -8,8 +8,15 @@ def validate_project_id(project_id: str) -> str:
     return project_id
 
 def safe_resolve(base_dir: Path, user_path: str) -> Path:
-    # Normalize backslashes for cross-platform safety (e.g. Windows paths on Linux)
-    normalized_path = str(user_path).replace("\\", "/")
+    raw = str(user_path)
+    # Reject Windows drive letters (e.g. C:\ or C:/) regardless of host OS
+    if re.match(r'^[a-zA-Z]:', raw):
+        raise ValueError(f"Path traversal detected: {user_path}")
+
+    # Normalize backslashes for cross-platform safety
+    normalized_path = raw.replace("\\", "/")
+    if normalized_path.startswith("/"):
+        raise ValueError(f"Path traversal detected: {user_path}")
     
     # Resolve against base_dir and resolve symlinks/.. 
     resolved_path = (base_dir / normalized_path).resolve()
