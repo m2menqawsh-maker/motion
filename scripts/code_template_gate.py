@@ -121,6 +121,44 @@ def run_gate(proj_path):
                         fails.append(f"FAIL: 'terminal-simulator' requires 'content.lines' array in {scene.get('scene_id')}. Cannot be empty.")
                     elif len(lines) == 1 and lines[0] == stext:
                         fails.append(f"FAIL: 'terminal-simulator' in {scene.get('scene_id')} has duplicate content.lines! You must provide actual log outputs.")
+                if tpl in ("Datastorywrapper", "DataStoryWrapper", "rui-data-story"):
+                    tprops = scene.get("template_props")
+                    if tprops is not None:
+                        if not isinstance(tprops, dict):
+                            fails.append(f"FAIL: 'template_props' in {scene.get('scene_id')} must be a dict/object.")
+                        else:
+                            if "barData" in tprops and tprops["barData"] is not None:
+                                bd = tprops["barData"]
+                                if not isinstance(bd, list):
+                                    fails.append(f"FAIL: 'template_props.barData' in {scene.get('scene_id')} must be an array/list.")
+                                else:
+                                    for idx, item in enumerate(bd):
+                                        if not isinstance(item, dict) or "label" not in item or "value" not in item or not isinstance(item["value"], (int, float)):
+                                            fails.append(f"FAIL: 'template_props.barData[{idx}]' in {scene.get('scene_id')} must be an object with string 'label' and number 'value'.")
+                            elif "barData" in tprops and tprops["barData"] is None:
+                                fails.append(f"FAIL: 'template_props.barData' in {scene.get('scene_id')} cannot be null.")
+
+                            if "metrics" in tprops and tprops["metrics"] is not None:
+                                m = tprops["metrics"]
+                                if not isinstance(m, list):
+                                    fails.append(f"FAIL: 'template_props.metrics' in {scene.get('scene_id')} must be an array/list.")
+                                else:
+                                    for idx, item in enumerate(m):
+                                        if not isinstance(item, dict) or "label" not in item or "value" not in item or not isinstance(item["value"], (int, float)):
+                                            fails.append(f"FAIL: 'template_props.metrics[{idx}]' in {scene.get('scene_id')} must be an object with string 'label' and number 'value'.")
+                            elif "metrics" in tprops and tprops["metrics"] is None:
+                                fails.append(f"FAIL: 'template_props.metrics' in {scene.get('scene_id')} cannot be null.")
+
+                            if "steps" in tprops and tprops["steps"] is not None:
+                                s = tprops["steps"]
+                                if not isinstance(s, list):
+                                    fails.append(f"FAIL: 'template_props.steps' in {scene.get('scene_id')} must be an array/list.")
+                                else:
+                                    for idx, item in enumerate(s):
+                                        if not isinstance(item, dict) or "title" not in item or not isinstance(item["title"], str):
+                                            fails.append(f"FAIL: 'template_props.steps[{idx}]' in {scene.get('scene_id')} must be an object with string 'title'.")
+                            elif "steps" in tprops and tprops["steps"] is None:
+                                fails.append(f"FAIL: 'template_props.steps' in {scene.get('scene_id')} cannot be null.")
         except Exception as e:
             fails.append(f"FAIL: خطأ في قراءة 05_blueprint.json: {e}")
             
