@@ -10,8 +10,8 @@
     "source": "legacy",
     "path": "templates/brand-resolver.ts",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -33,8 +33,8 @@
     "source": "legacy",
     "path": "templates/custom/LevelOneScene.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -56,8 +56,8 @@
     "source": "legacy",
     "path": "templates/custom/LevelZeroBox.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -79,8 +79,8 @@
     "source": "legacy",
     "path": "templates/effects/BookFlipTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -102,8 +102,8 @@
     "source": "legacy",
     "path": "templates/effects/ClockWipeTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -125,8 +125,8 @@
     "source": "legacy",
     "path": "templates/effects/CrosswarpTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -148,8 +148,8 @@
     "source": "legacy",
     "path": "templates/effects/CrossZoomTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "image_motion",
@@ -172,8 +172,8 @@
     "source": "legacy",
     "path": "templates/effects/DissolveTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -195,8 +195,8 @@
     "source": "legacy",
     "path": "templates/effects/DreamyZoomTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "image_motion",
@@ -219,8 +219,8 @@
     "source": "legacy",
     "path": "templates/effects/engine-bridge.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "general_element"
@@ -242,8 +242,8 @@
     "source": "legacy",
     "path": "templates/effects/FadeTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -265,8 +265,8 @@
     "source": "legacy",
     "path": "templates/effects/FilmBurnTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -288,8 +288,8 @@
     "source": "legacy",
     "path": "templates/effects/FlipTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -311,8 +311,8 @@
     "source": "legacy",
     "path": "templates/effects/IrisTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -334,8 +334,8 @@
     "source": "legacy",
     "path": "templates/effects/LinearBlurTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -357,8 +357,8 @@
     "source": "legacy",
     "path": "templates/effects/PushCutTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -380,8 +380,8 @@
     "source": "legacy",
     "path": "templates/effects/RippleTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -403,8 +403,8 @@
     "source": "legacy",
     "path": "templates/effects/SlideTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -426,8 +426,8 @@
     "source": "legacy",
     "path": "templates/effects/SwapTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -449,8 +449,8 @@
     "source": "legacy",
     "path": "templates/effects/WipeTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "transition"
@@ -472,8 +472,8 @@
     "source": "legacy",
     "path": "templates/effects/ZoomBlurTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "image_motion",
@@ -496,8 +496,8 @@
     "source": "legacy",
     "path": "templates/effects/ZoomInOutTransition.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "image_motion",
@@ -520,12 +520,12 @@
     "source": "legacy",
     "path": "templates/elements/AnimatedBarChartWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -545,12 +545,12 @@
     "source": "legacy",
     "path": "templates/elements/AnimatedCounterWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -570,8 +570,8 @@
     "source": "legacy",
     "path": "templates/elements/AnimatedTextWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -594,12 +594,12 @@
     "source": "legacy",
     "path": "templates/elements/AutoFitTitleWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "title_reveal",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -619,8 +619,8 @@
     "source": "legacy",
     "path": "templates/elements/BentoPanWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -643,8 +643,8 @@
     "source": "legacy",
     "path": "templates/elements/BRollStackWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -670,8 +670,8 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
       "cta",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -691,8 +691,8 @@
     "source": "legacy",
     "path": "templates/elements/CalloutSpotlightWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -715,12 +715,12 @@
     "source": "legacy",
     "path": "templates/elements/CaptionBumperWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "caption",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -740,8 +740,8 @@
     "source": "legacy",
     "path": "templates/elements/ChangelogEntryWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -764,12 +764,12 @@
     "source": "legacy",
     "path": "templates/elements/ChatToPreviewWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "messaging",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -789,12 +789,12 @@
     "source": "legacy",
     "path": "templates/elements/CodeAccordionWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -814,12 +814,12 @@
     "source": "legacy",
     "path": "templates/elements/CodeBlockWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -839,13 +839,13 @@
     "source": "legacy",
     "path": "templates/elements/CodeDiffWipeWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
       "transition",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -865,12 +865,12 @@
     "source": "legacy",
     "path": "templates/elements/CodeRevealWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -890,8 +890,8 @@
     "source": "legacy",
     "path": "templates/elements/CommentCalloutWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -914,12 +914,12 @@
     "source": "legacy",
     "path": "templates/elements/CommitGraphWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -939,13 +939,13 @@
     "source": "legacy",
     "path": "templates/elements/ComparisonTableWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
-      "navigation",
       "data_display",
+      "navigation",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -965,12 +965,12 @@
     "source": "legacy",
     "path": "templates/elements/CountdownTimerWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -990,8 +990,8 @@
     "source": "legacy",
     "path": "templates/elements/DashboardPopulateWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1014,8 +1014,8 @@
     "source": "legacy",
     "path": "templates/elements/DeployRevealWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1038,12 +1038,12 @@
     "source": "legacy",
     "path": "templates/elements/DeviceMockupZoomWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "image_motion",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1066,8 +1066,8 @@
       "ad"
     ],
     "intents": [
-      "ui_element",
       "cta",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1087,8 +1087,8 @@
     "source": "legacy",
     "path": "templates/elements/FaqAccordionWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1111,12 +1111,12 @@
     "source": "legacy",
     "path": "templates/elements/FeatureListWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "data_display",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1136,8 +1136,8 @@
     "source": "legacy",
     "path": "templates/elements/FileTreeRevealWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1160,8 +1160,8 @@
     "source": "legacy",
     "path": "templates/elements/GradientWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1187,9 +1187,9 @@
       "ad"
     ],
     "intents": [
+      "hook",
       "ui_element",
-      "windows",
-      "hook"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1208,8 +1208,8 @@
     "source": "legacy",
     "path": "templates/elements/ImageExpandWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1232,8 +1232,8 @@
     "source": "legacy",
     "path": "templates/elements/KanbanMoveWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1256,13 +1256,13 @@
     "source": "legacy",
     "path": "templates/elements/LogoRevealWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
+      "logo",
       "ui_element",
-      "windows",
-      "logo"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1281,13 +1281,13 @@
     "source": "legacy",
     "path": "templates/elements/LogoWallWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
+      "logo",
       "ui_element",
-      "windows",
-      "logo"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -1306,8 +1306,8 @@
     "source": "legacy",
     "path": "templates/elements/LowerThirdWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1330,8 +1330,8 @@
     "source": "legacy",
     "path": "templates/elements/MapFlightWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1354,8 +1354,8 @@
     "source": "legacy",
     "path": "templates/elements/MatrixRainWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1378,8 +1378,8 @@
     "source": "legacy",
     "path": "templates/elements/MediaFrameWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1402,8 +1402,8 @@
     "source": "legacy",
     "path": "templates/elements/MetricTickerWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1426,8 +1426,8 @@
     "source": "legacy",
     "path": "templates/elements/NewsTickerBarWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1450,12 +1450,12 @@
     "source": "legacy",
     "path": "templates/elements/NotificationStackWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "notification",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1475,12 +1475,12 @@
     "source": "legacy",
     "path": "templates/elements/OrgChartBuildWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1500,8 +1500,8 @@
     "source": "legacy",
     "path": "templates/elements/ParticleSystemWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1547,8 +1547,8 @@
     "source": "legacy",
     "path": "templates/elements/PollOverlayWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1571,8 +1571,8 @@
     "source": "legacy",
     "path": "templates/elements/PricingCardWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1595,8 +1595,8 @@
     "source": "legacy",
     "path": "templates/elements/PricingFocusWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1619,8 +1619,8 @@
     "source": "legacy",
     "path": "templates/elements/QuizQuestionWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1643,8 +1643,8 @@
     "source": "legacy",
     "path": "templates/elements/QuoteCardWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1667,8 +1667,8 @@
     "source": "legacy",
     "path": "templates/elements/ReactionBurstWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1691,8 +1691,8 @@
     "source": "legacy",
     "path": "templates/elements/RoadmapLanesWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1715,8 +1715,8 @@
     "source": "legacy",
     "path": "templates/elements/Scene3DWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1739,8 +1739,8 @@
     "source": "legacy",
     "path": "templates/elements/ScrollingImagesWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1763,12 +1763,12 @@
     "source": "legacy",
     "path": "templates/elements/SearchResultsPopulateWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "search_ui",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1788,8 +1788,8 @@
     "source": "legacy",
     "path": "templates/elements/SocialClipWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1812,8 +1812,8 @@
     "source": "legacy",
     "path": "templates/elements/SportsScorebugWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1836,13 +1836,13 @@
     "source": "legacy",
     "path": "templates/elements/StaggeredMotionWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "badge",
       "element_animation",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1862,12 +1862,12 @@
     "source": "legacy",
     "path": "templates/elements/StatCardWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "stat",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1887,12 +1887,12 @@
     "source": "legacy",
     "path": "templates/elements/TabSwitchPanelWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "navigation",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1912,12 +1912,12 @@
     "source": "legacy",
     "path": "templates/elements/TerminalSimulatorWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -1937,8 +1937,8 @@
     "source": "legacy",
     "path": "templates/elements/THEMESWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1961,8 +1961,8 @@
     "source": "legacy",
     "path": "templates/elements/TimelineStepsWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -1985,12 +1985,12 @@
     "source": "legacy",
     "path": "templates/elements/TitleCardWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "title_reveal",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2010,8 +2010,8 @@
     "source": "legacy",
     "path": "templates/elements/TutorialClipWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2034,12 +2034,12 @@
     "source": "legacy",
     "path": "templates/elements/TypeWriterWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "typing",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2059,8 +2059,8 @@
     "source": "legacy",
     "path": "templates/elements/WeatherCardWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2083,12 +2083,12 @@
     "source": "legacy",
     "path": "templates/elements/ZoomPanFrameWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "image_motion",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2108,8 +2108,8 @@
     "source": "legacy",
     "path": "templates/scenes/AiComposerShowcaseWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2132,8 +2132,8 @@
     "source": "legacy",
     "path": "templates/scenes/AiGenerationCanvasWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2156,8 +2156,8 @@
     "source": "legacy",
     "path": "templates/scenes/AudiogramSceneWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2180,8 +2180,8 @@
     "source": "legacy",
     "path": "templates/scenes/BrowserFlowWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2204,12 +2204,12 @@
     "source": "legacy",
     "path": "templates/scenes/CaptionSceneWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "caption",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2252,12 +2252,12 @@
     "source": "legacy",
     "path": "templates/scenes/DataFlowPipesWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "data_display",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2277,12 +2277,12 @@
     "source": "legacy",
     "path": "templates/scenes/DataStoryWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "data_display",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2302,8 +2302,8 @@
     "source": "legacy",
     "path": "templates/scenes/DragDropFlowWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2326,8 +2326,8 @@
     "source": "legacy",
     "path": "templates/scenes/EcosystemOrbitWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2350,12 +2350,12 @@
     "source": "legacy",
     "path": "templates/scenes/FormFillSequenceWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "form_ui",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2375,8 +2375,8 @@
     "source": "legacy",
     "path": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2399,8 +2399,8 @@
     "source": "legacy",
     "path": "templates/scenes/HeroLoopWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2426,9 +2426,9 @@
       "ad"
     ],
     "intents": [
+      "hook",
       "ui_element",
-      "windows",
-      "hook"
+      "windows"
     ],
     "moods": [
       "technical"
@@ -2447,12 +2447,12 @@
     "source": "legacy",
     "path": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2472,12 +2472,12 @@
     "source": "legacy",
     "path": "templates/scenes/LiveCodeSplitWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
-      "ui_element",
       "code_demo",
+      "ui_element",
       "windows"
     ],
     "moods": [
@@ -2497,8 +2497,8 @@
     "source": "legacy",
     "path": "templates/scenes/MediaSequenceWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2521,8 +2521,8 @@
     "source": "legacy",
     "path": "templates/scenes/ShowcaseWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2545,8 +2545,8 @@
     "source": "legacy",
     "path": "templates/scenes/SplitScreenWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2569,8 +2569,8 @@
     "source": "legacy",
     "path": "templates/scenes/TalkingHeadLayoutWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2593,8 +2593,8 @@
     "source": "legacy",
     "path": "templates/scenes/TeamGridWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",
@@ -2617,8 +2617,8 @@
     "source": "legacy",
     "path": "templates/scenes/ToolMenuSlideWrapper.tsx",
     "use_cases": [
-      "explainer",
-      "ad"
+      "ad",
+      "explainer"
     ],
     "intents": [
       "ui_element",

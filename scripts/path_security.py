@@ -8,8 +8,11 @@ def validate_project_id(project_id: str) -> str:
     return project_id
 
 def safe_resolve(base_dir: Path, user_path: str) -> Path:
+    # Normalize backslashes for cross-platform safety (e.g. Windows paths on Linux)
+    normalized_path = str(user_path).replace("\\", "/")
+    
     # Resolve against base_dir and resolve symlinks/.. 
-    resolved_path = (base_dir / user_path).resolve()
+    resolved_path = (base_dir / normalized_path).resolve()
     
     # Check if the resolved path is inside the base_dir
     try:
