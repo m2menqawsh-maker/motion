@@ -1,0 +1,166 @@
+{
+  "contract_name": "final-environment-contract",
+  "version": "1.0.0",
+  "generated_at": "2026-09-17T19:14:00Z",
+  "environment_audit": {
+    "developer_env_dependency_during_cert": 0,
+    "embedded_secrets_detected": 0,
+    "undeclared_required_env_vars": 0
+  },
+  "required_env_vars": [
+    {
+      "name": "PATH",
+      "description": "System path containing Node.js, npm, Python, FFmpeg, and FFprobe binaries.",
+      "is_secret": false
+    }
+  ],
+  "optional_env_vars": [
+    {
+      "name": "AGY_ENV",
+      "description": "Execution environment tier: 'production', 'test', or 'dev'. Defaults to 'dev'.",
+      "is_secret": false,
+      "default": "dev"
+    },
+    {
+      "name": "AGY_IS_MANAGED",
+      "description": "Flag indicating managed pipeline invocation ('1' or '0').",
+      "is_secret": false,
+      "default": "0"
+    },
+    {
+      "name": "AGY_RUN_ID",
+      "description": "UUID tracking the execution run across distributed tracing spans.",
+      "is_secret": false
+    },
+    {
+      "name": "AGY_SPAN_ID",
+      "description": "Span ID for hierarchical execution tracing.",
+      "is_secret": false
+    },
+    {
+      "name": "AGY_ATTEMPT",
+      "description": "Current retry attempt index.",
+      "is_secret": false
+    },
+    {
+      "name": "SVM_DATA_DIR",
+      "description": "Path to local cache and runtime asset data directory.",
+      "is_secret": false
+    },
+    {
+      "name": "SVM_PLUGIN_ROOT",
+      "description": "Root path to super-video-maker-plugin assets.",
+      "is_secret": false
+    },
+    {
+      "name": "AGY_FAILURE_INJECTION_ENABLED",
+      "description": "Test-only flag to enable failure injection. Hard-blocked in production.",
+      "is_secret": false
+    },
+    {
+      "name": "AGY_INJECT_FAILURE",
+      "description": "Test-only failure scenario specification string.",
+      "is_secret": false
+    }
+  ],
+  "secret_bearing_env_vars": [
+    {
+      "name": "OPENAI_API_KEY",
+      "description": "Optional API key for GPT-based planning and transcription tools.",
+      "is_secret": true
+    },
+    {
+      "name": "ELEVENLABS_API_KEY",
+      "description": "Optional API key for ElevenLabs voiceover generation.",
+      "is_secret": true
+    },
+    {
+      "name": "PEXELS_API_KEY",
+      "description": "Optional API key for Pexels video/image search.",
+      "is_secret": true
+    },
+    {
+      "name": "PIXABAY_API_KEY",
+      "description": "Optional API key for Pixabay media search.",
+      "is_secret": true
+    },
+    {
+      "name": "FREESOUND_API_KEY",
+      "description": "Optional API key for Freesound audio search.",
+      "is_secret": true
+    },
+    {
+      "name": "FAL_KEY",
+      "description": "Optional API key for Fal.ai image generation.",
+      "is_secret": true
+    },
+    {
+      "name": "HEYGEN_API_KEY",
+      "description": "Optional API key for HeyGen avatar video generation.",
+      "is_secret": true
+    },
+    {
+      "name": "REPLICATE_API_TOKEN",
+      "description": "Optional API key for Replicate inference models.",
+      "is_secret": true
+    }
+  ],
+  "external_binaries": [
+    {
+      "name": "python",
+      "min_version": "3.10",
+      "verified_version": "Python 3.14.7",
+      "purpose": "Pipeline orchestration, gate enforcement, security checks, test execution"
+    },
+    {
+      "name": "node",
+      "min_version": "18.0.0",
+      "purpose": "Remotion runtime and Vitest execution"
+    },
+    {
+      "name": "npm / npx / npx.cmd",
+      "min_version": "9.0.0",
+      "purpose": "Remotion bundling, still rendering, and video composition compilation"
+    },
+    {
+      "name": "ffmpeg",
+      "min_version": "4.4",
+      "purpose": "Audio loudness normalization, video transcoding, concatenation"
+    },
+    {
+      "name": "ffprobe",
+      "min_version": "4.4",
+      "purpose": "Audio/video stream and codec inspection, probe QC frame validation"
+    }
+  ],
+  "network_dependent_features": [
+    "Remote media downloading via media-sources-mcp (Pexels, Pixabay, Freesound)",
+    "AI voice generation via ElevenLabs API",
+    "Avatar video generation via HeyGen API",
+    "Icon downloading via Iconify MCP"
+  ],
+  "offline_capable_features": [
+    "Full pipeline execution (Phase 1 through Phase 5)",
+    "Asset gate validation",
+    "Plan gate & Taste gate validation",
+    "Blueprint validation & Motion validation",
+    "Code template gate validation",
+    "Asset materialization (from local cache / incoming)",
+    "Remotion video rendering (out.mp4)",
+    "Probe QC frame rendering & contact sheet generation",
+    "Local Studio preview server",
+    "FFmpeg audio/video processing and normalization",
+    "All unit, integration, and security test suites"
+  ],
+  "platform_assumptions": {
+    "supported_os": ["windows-nt", "linux-posix", "darwin"],
+    "verified_os": "Windows 11 (win32, x64)",
+    "shell_assumptions": "safe_subprocess forces shell=False across all platforms",
+    "platform_limitations": [
+      {
+        "limitation": "Windows symlink creation requires SeCreateSymbolicLinkPrivilege",
+        "workaround": "Safe path resolution relies on canonical Path.resolve() and commonpath containment rather than OS symlinks"
+      }
+    ]
+  }
+}

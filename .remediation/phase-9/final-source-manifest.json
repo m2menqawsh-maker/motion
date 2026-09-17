@@ -1,0 +1,395 @@
+{
+  "manifest_name": "final-source-manifest",
+  "final_source_sha": "843c379a5ff079c1f0f7a1bc17af93b685720c46",
+  "final_branch": "remediation/master-plan",
+  "generation_timestamp": "2026-09-17T19:15:00Z",
+  "hash_algorithm": "SHA-256",
+  "file_count": 77,
+  "files": [
+    {
+      "path": ".agents/AGENTS.md",
+      "sha256": "191a19e7a8ecc70aff9c203d7210f1121d26d6d532772e03e575e2aa825a86cd",
+      "size_bytes": 5011
+    },
+    {
+      "path": ".agents/plugins/super-video-maker-plugin/plugin.json",
+      "sha256": "8e2ec2b2b05f7bc4eb56393ac75a58f4078b72dc806aa688c67259156426381c",
+      "size_bytes": 807
+    },
+    {
+      "path": "api/services/pipeline_service.py",
+      "sha256": "abe61774fb0af15521a9f7eddb0ca9049dfb27d031966095d9c7629f92f44e00",
+      "size_bytes": 7934
+    },
+    {
+      "path": "contracts\\SceneContent.ts",
+      "sha256": "1821474744cc6e42182ef65fee5c779cc7d3fb5896f747d2defff3e92847bb0a",
+      "size_bytes": 497
+    },
+    {
+      "path": "contracts\\StyleSurface.ts",
+      "sha256": "cf495d905c89453043c754abdc0c3551a1d3794eb9e3fbf93b7d9ce88d9dcd2d",
+      "size_bytes": 3039
+    },
+    {
+      "path": "contracts\\animations.ts",
+      "sha256": "7f810e204f608d580e450f83febe2cb82488276652d37a989b0852d8ffe6275b",
+      "size_bytes": 5822
+    },
+    {
+      "path": "contracts\\blueprint.ts",
+      "sha256": "a904041fe9b55de81dbe9b775924a43bd325587affc56d788d41628bd202764d",
+      "size_bytes": 6675
+    },
+    {
+      "path": "contracts\\brand.ts",
+      "sha256": "3ac78724ecd8c7b574bbee88629e0e9e7daa9d22791af6aabadcbbdd8eb60948",
+      "size_bytes": 2407
+    },
+    {
+      "path": "contracts\\fonts.ts",
+      "sha256": "bdb30d63423be76d15acdb270d2f7107fc35e2bf511d0d9f4607a534a0825d56",
+      "size_bytes": 2849
+    },
+    {
+      "path": "contracts\\override-validator.ts",
+      "sha256": "d93ae1ad6faaef5e810f20cca735b87cffab41c1a7e264b69585e867910fc414",
+      "size_bytes": 1851
+    },
+    {
+      "path": "contracts\\positions.ts",
+      "sha256": "ec8f04e623e04a8981ea48da140bf2c42badfd0935f3d9603fe2dd3c00aafeba",
+      "size_bytes": 2410
+    },
+    {
+      "path": "ground-truth\\ASSET_INDEX.json",
+      "sha256": "3b9442a2465007b30cf3edbe2d971d71a9979536de0a13af3a0135e87f97f3cc",
+      "size_bytes": 7542
+    },
+    {
+      "path": "ground-truth\\CANONICAL_PATHS.json",
+      "sha256": "1acedbed6737ba84bfc81ab9a33aaec2fbf2fe03bd73c1cd425d9ca754ef95bd",
+      "size_bytes": 608
+    },
+    {
+      "path": "ground-truth\\CINEMATIC_INDEX.md",
+      "sha256": "f31e1ff488cad3567056fffbb3ebf5b583163983435d13aaac85b4088011d2fa",
+      "size_bytes": 5874
+    },
+    {
+      "path": "ground-truth\\MCP_INDEX.md",
+      "sha256": "aea9c9b62b0c20d62e1a70dd414121e8039e5975d5b24c2b8a5ae48d8a310dfd",
+      "size_bytes": 4553
+    },
+    {
+      "path": "ground-truth\\PLAYBOOKS_INDEX.md",
+      "sha256": "15a3cf2c9a78df53b3b534a18a861c7db3cc9063362b6229dbd345ff785f1dbb",
+      "size_bytes": 265
+    },
+    {
+      "path": "ground-truth\\RECIPES_INDEX.md",
+      "sha256": "e5513ad8f3bebaed38462fa93e282c7d46cafb0e773ab5c3e7b8fc2084a2da68",
+      "size_bytes": 3751
+    },
+    {
+      "path": "ground-truth\\TEMPLATE_DUPLICATES.md",
+      "sha256": "6edbc3fea4c769b69d68fe1e4de32e0b5a19b30272cfffdec22f4902fcd08884",
+      "size_bytes": 3050
+    },
+    {
+      "path": "ground-truth\\TEMPLATE_INDEX.md",
+      "sha256": "758a9a54d503a0fe6d63d857ccffd9aef1738cd12eb534984f378c2b5e24a55f",
+      "size_bytes": 16103
+    },
+    {
+      "path": "ground-truth\\TOOLS_INDEX.md",
+      "sha256": "fd964cb180bb84eda9ed3a04902caf8bab6530adc05bff37621bc922d0090aa4",
+      "size_bytes": 2011
+    },
+    {
+      "path": "ground-truth\\VOCAB_REMAP.md",
+      "sha256": "9961c9d71265074b7ca237c740c98ff6f4bed7160d8c3360c3be23c3467ed209",
+      "size_bytes": 1661
+    },
+    {
+      "path": "ground-truth\\adapter_family_candidates.json",
+      "sha256": "e2724141d3cfcfaeb811cd124ee1381a7f5454ccace71e31c4de6e83239c1522",
+      "size_bytes": 37361
+    },
+    {
+      "path": "ground-truth\\orchestration_resolved_spec.json",
+      "sha256": "b19ba606e13712f8a7c03695bcb3043efd46975ced08a85973708ea391322099",
+      "size_bytes": 4252
+    },
+    {
+      "path": "ground-truth\\template_catalog.json",
+      "sha256": "fc3366aab04e0246d084660a626a8cb3a79e834cf28bf4b45be31c6bbdb710d0",
+      "size_bytes": 87555
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e7aedac71bc24eda2c383bc1d2514529b258b807cae9671784e69fa371e75779",
+      "size_bytes": 266711
+    },
+    {
+      "path": "package.json",
+      "sha256": "68c4a864071edbffcadef41362695982ea962a9b547084ffdf04c55c8a193bb1",
+      "size_bytes": 1317
+    },
+    {
+      "path": "recipes\\agent-browser-proof.json",
+      "sha256": "c5c90667b35f779494b64c3e23cbd27d062c4ab03bea4a9e48b549d2a1c07ff1",
+      "size_bytes": 2823
+    },
+    {
+      "path": "recipes\\avatar-explainer.json",
+      "sha256": "db71607c5d6039a123c74c49b5156404e1dde588ecd3fbea6ebb2d551c5c8904",
+      "size_bytes": 4728
+    },
+    {
+      "path": "recipes\\avatar-hook-broll.json",
+      "sha256": "f9f3ec90d750cc2a6c205145f44f8c40b394468ca9d8238a17c9ffc504b45326",
+      "size_bytes": 7380
+    },
+    {
+      "path": "recipes\\avatar-insta-split.json",
+      "sha256": "a7b3698ce0962edefe5c940003242bf9f3c964a64f6c484eec7ca9567b8d38b1",
+      "size_bytes": 8801
+    },
+    {
+      "path": "recipes\\avatar-product-walkthrough.json",
+      "sha256": "3c883fbe4ef9044163402e629e7d44b655e0300d96989989dc4da0be9176a89b",
+      "size_bytes": 3373
+    },
+    {
+      "path": "recipes\\avatar-vo-broll.json",
+      "sha256": "0a6e6c4947944272047e69415de890acfc4b50039faf08151087ba1ac7617bf7",
+      "size_bytes": 5725
+    },
+    {
+      "path": "recipes\\captioned-talking-head.json",
+      "sha256": "32ffb59c99994f295064b8cdbe74c9435d79f813edfb6b2e53047413a42e2c10",
+      "size_bytes": 2633
+    },
+    {
+      "path": "recipes\\dynamic-montage-ad.json",
+      "sha256": "d96f2230b7ffba11ca23833c71be143b94267fbcfac394fe96e7623f0e27b0fc",
+      "size_bytes": 5922
+    },
+    {
+      "path": "recipes\\faceless-broll-ad.json",
+      "sha256": "24f077a2e7ac52736f6d9c5407916a170d288007e84e5f5a018a03d2396ba594",
+      "size_bytes": 3295
+    },
+    {
+      "path": "recipes\\living-canvas-explainer.json",
+      "sha256": "4720884e22c5edd1d2a8f4928bef0916e4c978888a3e0dc88da61f7908f23430",
+      "size_bytes": 14418
+    },
+    {
+      "path": "recipes\\longform-repurpose.json",
+      "sha256": "92c6f8810310a4065df59490d505a2bc2f1cd3efe30d8f5abdafb8c9effd07ae",
+      "size_bytes": 2745
+    },
+    {
+      "path": "recipes\\misotts-article-sprint.json",
+      "sha256": "cdf8a2be85997a927fa87f438e86f4b56de119961cbe7a611457b19fab3521a7",
+      "size_bytes": 16129
+    },
+    {
+      "path": "recipes\\motion-collage-explainer.json",
+      "sha256": "80d83f7c8de12d5abd82c8e14627a8947682f4f2bfd60c806732999e8985d100",
+      "size_bytes": 5494
+    },
+    {
+      "path": "recipes\\motion-graphics.json",
+      "sha256": "52291809644d1f3434111fa7b816d2fb6d45222f5abbcf3bb0be863fb0703358",
+      "size_bytes": 2741
+    },
+    {
+      "path": "recipes\\review-conquest-compilation.json",
+      "sha256": "fd2931704eea9db34c03d81c89496c76a47aff09f79a978b7d123e4c9e14e0e1",
+      "size_bytes": 5363
+    },
+    {
+      "path": "recipes\\schema.json",
+      "sha256": "c7d6f496c883a6a19d32c77068948a818fa304de141492ad65760b6245bcf362",
+      "size_bytes": 3156
+    },
+    {
+      "path": "recipes\\screencast-demo.json",
+      "sha256": "be110e24443ab4321d53ddac9932e89984e15457664a887e773928a15abc77d7",
+      "size_bytes": 2967
+    },
+    {
+      "path": "recipes\\tabletop-levels-explainer.json",
+      "sha256": "b416cd037909ec1f37a964e808d1e11dde263e28f93103a37d1523f5e5503c0d",
+      "size_bytes": 10569
+    },
+    {
+      "path": "recipes\\ugc-ai-ad.json",
+      "sha256": "2206a2f0f5f80701e62f1d5a8afd6ebdd4088e41c9a8b4b576687882437444e4",
+      "size_bytes": 4557
+    },
+    {
+      "path": "registry/template-aliases.ts",
+      "sha256": "f848cd3947baee40fc58ab734f8f20373a13fc30d6475c589903c7bffed22bc0",
+      "size_bytes": 10340
+    },
+    {
+      "path": "registry/template-registry.tsx",
+      "sha256": "ea574e16ef5f68afcd16f6a1424ee3010f7b5813a75b5c5e27e7bb807faaaf52",
+      "size_bytes": 48797
+    },
+    {
+      "path": "remotion-app/package-lock.json",
+      "sha256": "d4461259643df903feecb38bec0302065c3af0912061e60d27f3bebbdae4dd75",
+      "size_bytes": 345813
+    },
+    {
+      "path": "remotion-app/package.json",
+      "sha256": "76ad02a97bff329b11df1477b6343b3bbd0623c52db0820b9190f4e7d4de5e18",
+      "size_bytes": 1376
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "292b268b67315f8b98067f0490395cfabbb3e32ea9b80ca8983a6cb15a38b12a",
+      "size_bytes": 90
+    },
+    {
+      "path": "schemas\\blueprint.schema.json",
+      "sha256": "55b9c0df3faec67426d8978af5261111d986ea66834988a6aa60c76797007a30",
+      "size_bytes": 424
+    },
+    {
+      "path": "schemas\\brand.schema.json",
+      "sha256": "9decc9ddb4d58f18cebdcbde1eb7c283e360a43eef3cdf8acb6353ba15c6b7c4",
+      "size_bytes": 2169
+    },
+    {
+      "path": "schemas\\manifest.schema.json",
+      "sha256": "98047058d22cc32b9d3e4e0d7bc81c5086c19237c0999c82f3f79fbb294af32a",
+      "size_bytes": 2782
+    },
+    {
+      "path": "schemas\\overrides.schema.json",
+      "sha256": "b7932a433ed8b2b81d85f767dc955983d09ae994695648cee35fd0a072a53d7c",
+      "size_bytes": 1828
+    },
+    {
+      "path": "schemas\\project.schema.json",
+      "sha256": "e7d5acec034e44ed695db3fbb2eb65fa1ca68b3902c12c9ef605ff10e339ec3e",
+      "size_bytes": 3576
+    },
+    {
+      "path": "schemas\\state.schema.json",
+      "sha256": "b1814db8f12c76b7f9ab8abc24baf3561d032fb6f3a4434f8ecf55e6197ca532",
+      "size_bytes": 3329
+    },
+    {
+      "path": "schemas\\template_proposal_schema.json",
+      "sha256": "1eb8784d860ceb4e24415305daa1245db2f612189947068dae5e7335b4939875",
+      "size_bytes": 2971
+    },
+    {
+      "path": "scripts/asset_gate.py",
+      "sha256": "4bedd910b8ba9cde2bead342bd69db75f44be95fd372c9f60656e717c7260bf3",
+      "size_bytes": 3529
+    },
+    {
+      "path": "scripts/checkpoint_model.py",
+      "sha256": "b9ad53b9eef48433f523a63b22ed37cd3592c4e3c99244ea9b71009783dd3c83",
+      "size_bytes": 2705
+    },
+    {
+      "path": "scripts/checkpoint_store.py",
+      "sha256": "07f172a43c40e74e0a8e782decc03c113cdbd333f8b34026bb662ea2f200c6ea",
+      "size_bytes": 2580
+    },
+    {
+      "path": "scripts/code_template_gate.py",
+      "sha256": "129d212f589b2cf75d4770efe57773e143c4c0ae41cab5ce333e59c46b81af1c",
+      "size_bytes": 14606
+    },
+    {
+      "path": "scripts/failure_injection.py",
+      "sha256": "ffe0825d6d3f31e3a3d86d1c5aa483a22eea898feaeffeaeaa4ae38c38bbe8b9",
+      "size_bytes": 3522
+    },
+    {
+      "path": "scripts/generate_template_aliases.py",
+      "sha256": "0a684a0dab4d9866ebce1e16b94175a32b5087f8466ff3086dcdd35a07f51002",
+      "size_bytes": 4050
+    },
+    {
+      "path": "scripts/materialize_project.py",
+      "sha256": "7d6b33f69e4d44204121980a4eaa229c0116a24f60822cc1f7d69b3c857e6f76",
+      "size_bytes": 3329
+    },
+    {
+      "path": "scripts/metrics_collector.py",
+      "sha256": "7242239bd06bda7dba489d7872f47459889a959d5c2126b8604b80af6c074a31",
+      "size_bytes": 5797
+    },
+    {
+      "path": "scripts/motion_validator.py",
+      "sha256": "26a769e6c9b2442cfcd8d56cb4777929052e0eba64ca002358e1accd4bfb67ed",
+      "size_bytes": 18532
+    },
+    {
+      "path": "scripts/open_studio.py",
+      "sha256": "3d22e769cbc37a44eba75077eea10d56c783071312e7ba9ddbed225f8044079b",
+      "size_bytes": 5138
+    },
+    {
+      "path": "scripts/path_security.py",
+      "sha256": "23568f5b94f4fc1a28b0807f6a7094f430facfbc7aee5e14bdca33f61d578638",
+      "size_bytes": 648
+    },
+    {
+      "path": "scripts/pipeline.py",
+      "sha256": "78ee47ad2695e249180ec262910facc8b242c41d40649d38083b65e0b99e2182",
+      "size_bytes": 17601
+    },
+    {
+      "path": "scripts/probe_qc.py",
+      "sha256": "6aa633e4a2e3414c92fb017c576b5be7f909f26918a0fe26d928a41954c648a4",
+      "size_bytes": 10783
+    },
+    {
+      "path": "scripts/recovery_engine.py",
+      "sha256": "27eb49c99033f1f5e6263d529dc2a6fd3a8848bd1f4808ef9298dde0f1a93f00",
+      "size_bytes": 3576
+    },
+    {
+      "path": "scripts/render_project.py",
+      "sha256": "12b66a0e02f45a592c5d1b9dc0a59cc908fb3b700a8e9a75582464edcca9affd",
+      "size_bytes": 8623
+    },
+    {
+      "path": "scripts/retry_policy.py",
+      "sha256": "601f2fd9049ec4dc61d288bb77ca1eb5add7b43600844a4069e49ab4bbd1c21c",
+      "size_bytes": 3730
+    },
+    {
+      "path": "scripts/runtime_logger.py",
+      "sha256": "025518ed764621334713b6627a9992b203f15be23284a23509d3838fbb65345b",
+      "size_bytes": 4485
+    },
+    {
+      "path": "scripts/security.py",
+      "sha256": "073eadaa5736225e3122a6cd3a43f2bcde26966c0863a04cd95e5f3b1d32ea08",
+      "size_bytes": 2621
+    },
+    {
+      "path": "scripts/taste_gate.py",
+      "sha256": "9fac7627b7e79bc4561afdfc27686beb9410c4b8de18eda09b7902a2ad590cb9",
+      "size_bytes": 6621
+    },
+    {
+      "path": "templates/effects/engine-bridge.tsx",
+      "sha256": "b77fb2de2f41f99c0ccefbb045853abb877900e6c8d623238e408c1049e54580",
+      "size_bytes": 1123
+    }
+  ]
+}

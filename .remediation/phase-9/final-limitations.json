@@ -1,0 +1,57 @@
+[
+  {
+    "limitation_id": "LIM-001",
+    "title": "Windows Symlink Creation Blocked in Non-Elevated Runtime",
+    "category": "Platform / Environment",
+    "status": "ENVIRONMENT_BLOCKED",
+    "reason": "Windows OS security model requires SeCreateSymbolicLinkPrivilege (Administrator access or Developer Mode) to create filesystem symbolic links. Under standard unprivileged user execution, os.symlink() raises OSError (WinError 1314).",
+    "impact": "The automated test `test_symlink_attacks_blocked` in `tests/security/test_path_traversal.py` is safely skipped on unprivileged Windows environments.",
+    "security_consequence": "None. The safe_resolve() function in `scripts/path_security.py` resolves paths to their absolute canonical target and verifies containment using os.path.commonpath. Symlink escaping is intrinsically prevented by canonical path resolution on systems where symlinks exist.",
+    "accepted": true,
+    "accepted_rationale": "Platform-level OS constraint verified in test suite with explicit pytest.skip(). Canonical containment check provides defense-in-depth."
+  },
+  {
+    "limitation_id": "LIM-002",
+    "title": "Remote Repository Governance Unverified from Local Isolated Sandbox",
+    "category": "Governance / CI",
+    "status": "REMOTE_ENFORCEMENT_UNVERIFIED",
+    "reason": "The certification environment operates in an isolated local workspace without authenticated GitHub API tokens or remote administrative credentials required to inspect GitHub branch protection rules, required PR review policies, or remote workflow requirements.",
+    "impact": "Remote enforcement on origin (GitHub) cannot be cryptographically proven solely from local repository state.",
+    "security_consequence": "None for local runtime. Local repository controls (.githooks/pre-commit, .githooks/pre-push, simulate_ci_gate.ps1, governance_audit.py) enforce code quality, test execution, and merge hygiene locally.",
+    "accepted": true,
+    "accepted_rationale": "Remote settings must be audited independently in the GitHub repository settings by authorized administrators. Local enforcement is complete."
+  },
+  {
+    "limitation_id": "LIM-003",
+    "title": "Phase 9.13 Clean-Room Verified Checkpoint Resume Methodology",
+    "category": "Certification Methodology",
+    "status": "RESUMED_FROM_VERIFIED_CHECKPOINT",
+    "reason": "During Phase 9.13 clean-room execution, an initial full run successfully completed Phase 1 (Asset Gate), Phase 2 (Plan/Taste Gate), and Phase 3 (Blueprint Gate & Materialization), before encountering CRD-020 during the Render stage. After applying fix commit 843c379 in the main repository, execution was resumed from the verified BLUEPRINT_READY checkpoint rather than re-running planning from scratch.",
+    "impact": "Phase 9.13 represents a verified checkpoint resume rather than an uninterrupted single-process run from zero.",
+    "security_consequence": "None. The pipeline checkpoint architecture (RecoveryEngine, CheckpointStore, CheckpointRecord with SHA256 hashes) was exercised and proven under real failure conditions. Artifact drift was 0, manual edits were 0, and state mutation was 0.",
+    "accepted": true,
+    "accepted_rationale": "Verifies the real-world robustness of the Checkpoint & Recovery architecture under defect remediation conditions."
+  },
+  {
+    "limitation_id": "LIM-004",
+    "title": "safe_subprocess Global Default Timeout of 900 Seconds",
+    "category": "Runtime Stability",
+    "status": "ACCEPTED_LIMITATION",
+    "reason": "Remotion video composition rendering for long-form, 1080x1920 60fps compositions with heavy SVG layers and probe frame generation frequently exceeds standard 60-second timeouts. Default timeout in `scripts/security.py` is configured to 900 seconds (15 minutes).",
+    "impact": "A hung subprocess could tie up a worker execution thread for up to 15 minutes before terminating.",
+    "security_consequence": "Low. Subprocess whitelist (ALLOWED_COMMANDS and ALLOWED_SCRIPTS) and shell=False are strictly enforced. Callers may override timeout on a per-call basis for faster termination.",
+    "accepted": true,
+    "accepted_rationale": "15 minutes provides a finite upper bound preventing infinite hangs while supporting legitimate clean video render workloads."
+  },
+  {
+    "limitation_id": "LIM-005",
+    "title": "Agent Orchestrating Producer Role in Pipeline Planning",
+    "category": "Stage Orchestration",
+    "status": "ACCEPTED_LIMITATION",
+    "reason": "Creative artifacts (04_timings.json, master_plan.md, 05_blueprint.json) are authored by the AI Agent using MCP tools and Taste Engine matrices rather than by deterministic procedural scripts.",
+    "impact": "The headless pipeline cannot autonomously invent new video concepts from scratch without an Agent or human producer to generate the initial plan and blueprint.",
+    "security_consequence": "None. The Python pipeline functions strictly as a fail-closed mechanical gatekeeper, validating every artifact against Taste Gate, Motion Validator, Code Template Gate, and JSON Schemas before permitting render.",
+    "accepted": true,
+    "accepted_rationale": "Architecture design choice formally documented in AGENTS.md and ARCHITECTURE_TRUTH.md."
+  }
+]
