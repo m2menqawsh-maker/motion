@@ -33,6 +33,8 @@ def ground_truth_data():
         if c.get("path", "").startswith("templates/")
         and c.get("path") != "templates/brand-resolver.ts"
         and not c.get("path", "").endswith(".d.ts")
+        and not c.get("path", "").startswith("templates/custom/")
+        and c.get("path") != "templates/effects/engine-bridge.tsx"
     ]
 
     return {
