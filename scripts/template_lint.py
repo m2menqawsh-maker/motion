@@ -1,11 +1,14 @@
-import subprocess
-from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """template_lint.py — بوابة الحوكمة قبل أي رندر.
 Usage: python template_lint.py <tsx-or-dir> [--timings-required] [--verify-build <project_dir>]
 Exit 0 = pass | 1 = fail"""
-import re, sys
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import subprocess
+from scripts.security import safe_subprocess
+import re
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")

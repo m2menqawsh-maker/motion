@@ -1,14 +1,16 @@
-import subprocess
-from scripts.security import safe_subprocess
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import subprocess
+from scripts.security import safe_subprocess
 from scripts.path_security import validate_project_id, safe_resolve
 import re
 import json
 import os
-from pathlib import Path
 from collections import Counter
 
 def ask_llm_judge(plan_content: str, scenes_count: int) -> tuple[bool, list]:

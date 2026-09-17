@@ -1,14 +1,16 @@
-import subprocess
-from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """code_template_gate.py — يمنع الارتجال ويجبر الوكيل على استخدام القوالب
 Usage: python code_template_gate.py <project_dir>"""
 import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import subprocess
+from scripts.security import safe_subprocess
 import json
 import re
 import hashlib
 from scripts.path_security import validate_project_id, safe_resolve
-from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")

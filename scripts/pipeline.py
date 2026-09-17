@@ -70,6 +70,9 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
         if current_attempt_ctx.project_id:
             env["AGY_PROJECT_ID"] = current_attempt_ctx.project_id
         env["AGY_IS_MANAGED"] = "1"
+        workspace_dir = str(Path(__file__).resolve().parent.parent)
+        existing_pythonpath = env.get("PYTHONPATH", "")
+        env["PYTHONPATH"] = f"{workspace_dir}{os.pathsep}{existing_pythonpath}" if existing_pythonpath else workspace_dir
         
         # Determine injection point based on stage/component
         injection_point = None

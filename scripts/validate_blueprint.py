@@ -1,5 +1,3 @@
-import subprocess
-from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """validate_blueprint.py — بوابة عقد الـ Blueprint قبل البناء.
 Usage:
@@ -8,8 +6,13 @@ Usage:
   python validate_blueprint.py <bp.json> --lock                      # قفل العقد
   python validate_blueprint.py <bp.json> --verify-build <proj_dir>   # الكود المبني == العقد
 Exit 0 = PASS."""
-import json, re, sys
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import subprocess
+from scripts.security import safe_subprocess
+import json, re
 from collections import Counter
 
 if hasattr(sys.stdout, "reconfigure"):

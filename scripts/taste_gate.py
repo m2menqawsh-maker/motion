@@ -1,7 +1,10 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import subprocess
 from scripts.security import safe_subprocess
-import json, sys, re
-from pathlib import Path
+import json, re
 
 def fail(msg):
     print("❌ TASTE GATE FAILED:", msg)

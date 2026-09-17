@@ -1,9 +1,12 @@
-import subprocess
-from scripts.security import safe_subprocess
 # -*- coding: utf-8 -*-
 """motion_validator.py — مدقق شخصية الحركة المبني ديناميكياً على motion-personality.md"""
-import re, json, sys
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import subprocess
+from scripts.security import safe_subprocess
+import re, json
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -243,11 +246,33 @@ def get_template_family(templates):
         'Dashboardpopulatewrapper': 'Data & Stats',
         'Particlesystemwrapper': 'Motion Effects',
         'Endcardwrapper': 'Full Scenes & Hooks',
-        'matrix-rain': 'Full Scenes & Hooks'
+        'matrix-rain': 'Full Scenes & Hooks',
+        'Herodeviceassemblewrapper': 'Full Scenes & Hooks',
+        'Splitscreenwrapper': 'UI & Layouts',
+        'Landingcodeshowcasewrapper': 'UI & Layouts',
+        'Datastorywrapper': 'Data & Stats',
+        'Creatorreelwrapper': 'Full Scenes & Hooks',
     }
+
+    def resolve_one(t):
+        if t in family_map:
+            return family_map[t]
+        tl = t.lower()
+        if any(k in tl for k in ['text', 'typewriter', 'title', 'caption']):
+            return 'Typography'
+        if any(k in tl for k in ['data', 'chart', 'counter', 'metric', 'stat']):
+            return 'Data & Stats'
+        if any(k in tl for k in ['device', 'split', 'terminal', 'code', 'card', 'screen', 'layout', 'showcase']):
+            return 'UI & Layouts'
+        if any(k in tl for k in ['particle', 'pan', 'motion', 'zoom', 'bento']):
+            return 'Motion Effects'
+        if any(k in tl for k in ['scene', 'reel', 'hero', 'intro', 'end']):
+            return 'Full Scenes & Hooks'
+        return 'Unknown'
+
     families = set()
     for tpl in templates:
-        families.add(family_map.get(tpl, 'Unknown'))
+        families.add(resolve_one(tpl))
     if len(families) == 1:
         return next(iter(families))
     return 'Mixed' if families else 'Unknown'
