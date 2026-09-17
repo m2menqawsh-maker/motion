@@ -3,7 +3,7 @@ import os
 import re
 from pathlib import Path
 
-WORKSPACE_ROOT = Path(r"C:\video\clean-video-workspace")
+WORKSPACE_ROOT = Path(__file__).resolve().parent.parent.parent
 
 def get_active_markdown_files():
     active_files = []

@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from scripts.security import safe_subprocess
 
-GUARDIAN_DIR = Path("c:/video/clean-video-workspace/.agents/guardian")
+GUARDIAN_DIR = Path(__file__).resolve().parent.parent.parent / ".agents" / "guardian"
 
 def check_command(cmd_str: str) -> bool:
     if not GUARDIAN_DIR.exists():
