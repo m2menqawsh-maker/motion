@@ -1,3 +1,6 @@
+# ==========================================
+# Core Engine Dependencies
+# ==========================================
 jsonschema>=4.0.0
 fastapi
 uvicorn
@@ -6,3 +9,17 @@ python-multipart
 httpx
 pytest
 pytest-asyncio
+
+# ==========================================
+# Antigravity Agents Dependencies (Super Video Maker)
+# ==========================================
+requests
+python-dotenv
+fal-client
+openai
+replicate
+ffmpeg-python
+Pillow
+boto3
+mysql-connector-python
+playwright

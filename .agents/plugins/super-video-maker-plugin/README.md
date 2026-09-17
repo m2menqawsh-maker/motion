@@ -1,5 +1,6 @@
 # Super Video Maker Plugin
 
+> Developed by **Momen (m2menqawsh-maker)**.
 > Commercial motion director for agentic video production.
 > An Antigravity Agent Plugin that routes between MCP servers, unified Remotion templates, and production recipes.
 
