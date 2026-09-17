@@ -9,16 +9,16 @@
 | `Aigenerationcanvaswrapper` | C | `templates/scenes/AiGenerationCanvasWrapper.tsx` | ui_element, windows |
 | `Audiogramscenewrapper` | C | `templates/scenes/AudiogramSceneWrapper.tsx` | ui_element, windows |
 | `Browserflowwrapper` | C | `templates/scenes/BrowserFlowWrapper.tsx` | ui_element, windows |
-| `Captionscenewrapper` | C | `templates/scenes/CaptionSceneWrapper.tsx` | ui_element, windows, caption |
-| `Dataflowpipeswrapper` | C | `templates/scenes/DataFlowPipesWrapper.tsx` | data_display, ui_element, windows |
-| `Datastorywrapper` | C | `templates/scenes/DataStoryWrapper.tsx` | data_display, ui_element, windows |
+| `Captionscenewrapper` | C | `templates/scenes/CaptionSceneWrapper.tsx` | ui_element, caption, windows |
+| `Dataflowpipeswrapper` | C | `templates/scenes/DataFlowPipesWrapper.tsx` | ui_element, data_display, windows |
+| `Datastorywrapper` | C | `templates/scenes/DataStoryWrapper.tsx` | ui_element, data_display, windows |
 | `Dragdropflowwrapper` | C | `templates/scenes/DragDropFlowWrapper.tsx` | ui_element, windows |
 | `Ecosystemorbitwrapper` | C | `templates/scenes/EcosystemOrbitWrapper.tsx` | ui_element, windows |
-| `Formfillsequencewrapper` | C | `templates/scenes/FormFillSequenceWrapper.tsx` | ui_element, windows, form_ui |
+| `Formfillsequencewrapper` | C | `templates/scenes/FormFillSequenceWrapper.tsx` | ui_element, form_ui, windows |
 | `Herodeviceassemblewrapper` | C | `templates/scenes/HeroDeviceAssembleWrapper.tsx` | ui_element, windows |
 | `Heroloopwrapper` | C | `templates/scenes/HeroLoopWrapper.tsx` | ui_element, windows |
-| `Landingcodeshowcasewrapper` | C | `templates/scenes/LandingCodeShowcaseWrapper.tsx` | code_demo, ui_element, windows |
-| `Livecodesplitwrapper` | C | `templates/scenes/LiveCodeSplitWrapper.tsx` | code_demo, ui_element, windows |
+| `Landingcodeshowcasewrapper` | C | `templates/scenes/LandingCodeShowcaseWrapper.tsx` | ui_element, code_demo, windows |
+| `Livecodesplitwrapper` | C | `templates/scenes/LiveCodeSplitWrapper.tsx` | ui_element, code_demo, windows |
 | `Mediasequencewrapper` | C | `templates/scenes/MediaSequenceWrapper.tsx` | ui_element, windows |
 | `Showcasewrapper` | C | `templates/scenes/ShowcaseWrapper.tsx` | ui_element, windows |
 | `Splitscreenwrapper` | C | `templates/scenes/SplitScreenWrapper.tsx` | ui_element, windows |
@@ -29,43 +29,43 @@
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Animatedbarchartwrapper` | C | `templates/elements/AnimatedBarChartWrapper.tsx` | stat, ui_element, windows |
-| `Animatedcounterwrapper` | C | `templates/elements/AnimatedCounterWrapper.tsx` | stat, ui_element, windows |
+| `Animatedbarchartwrapper` | C | `templates/elements/AnimatedBarChartWrapper.tsx` | ui_element, windows, stat |
+| `Animatedcounterwrapper` | C | `templates/elements/AnimatedCounterWrapper.tsx` | ui_element, windows, stat |
 | `Animatedtextwrapper` | C | `templates/elements/AnimatedTextWrapper.tsx` | ui_element, windows |
-| `Autofittitlewrapper` | C | `templates/elements/AutoFitTitleWrapper.tsx` | ui_element, windows, title_reveal |
+| `Autofittitlewrapper` | C | `templates/elements/AutoFitTitleWrapper.tsx` | title_reveal, ui_element, windows |
 | `Bentopanwrapper` | C | `templates/elements/BentoPanWrapper.tsx` | ui_element, windows |
 | `Brollstackwrapper` | C | `templates/elements/BRollStackWrapper.tsx` | ui_element, windows |
 | `Calloutspotlightwrapper` | C | `templates/elements/CalloutSpotlightWrapper.tsx` | ui_element, windows |
-| `Captionbumperwrapper` | C | `templates/elements/CaptionBumperWrapper.tsx` | ui_element, windows, caption |
+| `Captionbumperwrapper` | C | `templates/elements/CaptionBumperWrapper.tsx` | ui_element, caption, windows |
 | `Changelogentrywrapper` | C | `templates/elements/ChangelogEntryWrapper.tsx` | ui_element, windows |
-| `Chattopreviewwrapper` | C | `templates/elements/ChatToPreviewWrapper.tsx` | ui_element, windows, messaging |
-| `Codeaccordionwrapper` | C | `templates/elements/CodeAccordionWrapper.tsx` | code_demo, ui_element, windows |
-| `Codeblockwrapper` | C | `templates/elements/CodeBlockWrapper.tsx` | code_demo, ui_element, windows |
-| `Codediffwipewrapper` | C | `templates/elements/CodeDiffWipeWrapper.tsx` | code_demo, ui_element, windows, transition |
-| `Coderevealwrapper` | C | `templates/elements/CodeRevealWrapper.tsx` | code_demo, ui_element, windows |
+| `Chattopreviewwrapper` | C | `templates/elements/ChatToPreviewWrapper.tsx` | ui_element, messaging, windows |
+| `Codeaccordionwrapper` | C | `templates/elements/CodeAccordionWrapper.tsx` | ui_element, code_demo, windows |
+| `Codeblockwrapper` | C | `templates/elements/CodeBlockWrapper.tsx` | ui_element, code_demo, windows |
+| `Codediffwipewrapper` | C | `templates/elements/CodeDiffWipeWrapper.tsx` | ui_element, transition, code_demo, windows |
+| `Coderevealwrapper` | C | `templates/elements/CodeRevealWrapper.tsx` | ui_element, code_demo, windows |
 | `Commentcalloutwrapper` | C | `templates/elements/CommentCalloutWrapper.tsx` | ui_element, windows |
-| `Commitgraphwrapper` | C | `templates/elements/CommitGraphWrapper.tsx` | stat, ui_element, windows |
-| `Comparisontablewrapper` | C | `templates/elements/ComparisonTableWrapper.tsx` | navigation, data_display, ui_element, windows |
-| `Countdowntimerwrapper` | C | `templates/elements/CountdownTimerWrapper.tsx` | stat, ui_element, windows |
+| `Commitgraphwrapper` | C | `templates/elements/CommitGraphWrapper.tsx` | ui_element, stat, windows |
+| `Comparisontablewrapper` | C | `templates/elements/ComparisonTableWrapper.tsx` | ui_element, data_display, navigation, windows |
+| `Countdowntimerwrapper` | C | `templates/elements/CountdownTimerWrapper.tsx` | ui_element, stat, windows |
 | `Dashboardpopulatewrapper` | C | `templates/elements/DashboardPopulateWrapper.tsx` | ui_element, windows |
 | `Deployrevealwrapper` | C | `templates/elements/DeployRevealWrapper.tsx` | ui_element, windows |
-| `Devicemockupzoomwrapper` | C | `templates/elements/DeviceMockupZoomWrapper.tsx` | windows, ui_element, image_motion |
+| `Devicemockupzoomwrapper` | C | `templates/elements/DeviceMockupZoomWrapper.tsx` | image_motion, ui_element, windows |
 | `Faqaccordionwrapper` | C | `templates/elements/FaqAccordionWrapper.tsx` | ui_element, windows |
-| `Featurelistwrapper` | C | `templates/elements/FeatureListWrapper.tsx` | data_display, ui_element, windows |
+| `Featurelistwrapper` | C | `templates/elements/FeatureListWrapper.tsx` | ui_element, data_display, windows |
 | `Filetreerevealwrapper` | C | `templates/elements/FileTreeRevealWrapper.tsx` | ui_element, windows |
 | `Gradientwrapper` | C | `templates/elements/GradientWrapper.tsx` | ui_element, windows |
 | `Imageexpandwrapper` | C | `templates/elements/ImageExpandWrapper.tsx` | ui_element, windows |
 | `Kanbanmovewrapper` | C | `templates/elements/KanbanMoveWrapper.tsx` | ui_element, windows |
-| `Logorevealwrapper` | C | `templates/elements/LogoRevealWrapper.tsx` | logo, ui_element, windows |
-| `Logowallwrapper` | C | `templates/elements/LogoWallWrapper.tsx` | logo, ui_element, windows |
+| `Logorevealwrapper` | C | `templates/elements/LogoRevealWrapper.tsx` | ui_element, logo, windows |
+| `Logowallwrapper` | C | `templates/elements/LogoWallWrapper.tsx` | ui_element, logo, windows |
 | `Lowerthirdwrapper` | C | `templates/elements/LowerThirdWrapper.tsx` | ui_element, windows |
 | `Mapflightwrapper` | C | `templates/elements/MapFlightWrapper.tsx` | ui_element, windows |
 | `Matrixrainwrapper` | C | `templates/elements/MatrixRainWrapper.tsx` | ui_element, windows |
 | `Mediaframewrapper` | C | `templates/elements/MediaFrameWrapper.tsx` | ui_element, windows |
 | `Metrictickerwrapper` | C | `templates/elements/MetricTickerWrapper.tsx` | ui_element, windows |
 | `Newstickerbarwrapper` | C | `templates/elements/NewsTickerBarWrapper.tsx` | ui_element, windows |
-| `Notificationstackwrapper` | C | `templates/elements/NotificationStackWrapper.tsx` | notification, ui_element, windows |
-| `Orgchartbuildwrapper` | C | `templates/elements/OrgChartBuildWrapper.tsx` | stat, ui_element, windows |
+| `Notificationstackwrapper` | C | `templates/elements/NotificationStackWrapper.tsx` | ui_element, notification, windows |
+| `Orgchartbuildwrapper` | C | `templates/elements/OrgChartBuildWrapper.tsx` | ui_element, windows, stat |
 | `Particlesystemwrapper` | C | `templates/elements/ParticleSystemWrapper.tsx` | ui_element, windows |
 | `Polloverlaywrapper` | C | `templates/elements/PollOverlayWrapper.tsx` | ui_element, windows |
 | `Pricingcardwrapper` | C | `templates/elements/PricingCardWrapper.tsx` | ui_element, windows |
@@ -76,20 +76,20 @@
 | `Roadmaplaneswrapper` | C | `templates/elements/RoadmapLanesWrapper.tsx` | ui_element, windows |
 | `Scene3Dwrapper` | C | `templates/elements/Scene3DWrapper.tsx` | ui_element, windows |
 | `Scrollingimageswrapper` | C | `templates/elements/ScrollingImagesWrapper.tsx` | ui_element, windows |
-| `Searchresultspopulatewrapper` | C | `templates/elements/SearchResultsPopulateWrapper.tsx` | search_ui, ui_element, windows |
+| `Searchresultspopulatewrapper` | C | `templates/elements/SearchResultsPopulateWrapper.tsx` | ui_element, search_ui, windows |
 | `Socialclipwrapper` | C | `templates/elements/SocialClipWrapper.tsx` | ui_element, windows |
 | `Sportsscorebugwrapper` | C | `templates/elements/SportsScorebugWrapper.tsx` | ui_element, windows |
-| `Staggeredmotionwrapper` | C | `templates/elements/StaggeredMotionWrapper.tsx` | element_animation, ui_element, windows, badge |
-| `Statcardwrapper` | C | `templates/elements/StatCardWrapper.tsx` | stat, ui_element, windows |
-| `Tabswitchpanelwrapper` | C | `templates/elements/TabSwitchPanelWrapper.tsx` | navigation, ui_element, windows |
-| `Terminalsimulatorwrapper` | C | `templates/elements/TerminalSimulatorWrapper.tsx` | code_demo, ui_element, windows |
+| `Staggeredmotionwrapper` | C | `templates/elements/StaggeredMotionWrapper.tsx` | badge, ui_element, element_animation, windows |
+| `Statcardwrapper` | C | `templates/elements/StatCardWrapper.tsx` | ui_element, windows, stat |
+| `Tabswitchpanelwrapper` | C | `templates/elements/TabSwitchPanelWrapper.tsx` | ui_element, navigation, windows |
+| `Terminalsimulatorwrapper` | C | `templates/elements/TerminalSimulatorWrapper.tsx` | ui_element, code_demo, windows |
 | `Themeswrapper` | C | `templates/elements/THEMESWrapper.tsx` | ui_element, windows |
 | `Timelinestepswrapper` | C | `templates/elements/TimelineStepsWrapper.tsx` | ui_element, windows |
-| `Titlecardwrapper` | C | `templates/elements/TitleCardWrapper.tsx` | ui_element, windows, title_reveal |
+| `Titlecardwrapper` | C | `templates/elements/TitleCardWrapper.tsx` | title_reveal, ui_element, windows |
 | `Tutorialclipwrapper` | C | `templates/elements/TutorialClipWrapper.tsx` | ui_element, windows |
 | `Typewriterwrapper` | C | `templates/elements/TypeWriterWrapper.tsx` | ui_element, windows, typing |
 | `Weathercardwrapper` | C | `templates/elements/WeatherCardWrapper.tsx` | ui_element, windows |
-| `Zoompanframewrapper` | C | `templates/elements/ZoomPanFrameWrapper.tsx` | windows, ui_element, image_motion |
+| `Zoompanframewrapper` | C | `templates/elements/ZoomPanFrameWrapper.tsx` | image_motion, ui_element, windows |
 
 ## Effects
 | Name | Quality | Path | Intents |

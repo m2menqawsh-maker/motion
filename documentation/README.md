@@ -11,6 +11,7 @@
 documentation/
 ├── README.md                      # هذا الفهرس المرجعي
 ├── architecture/                  # المخططات المعمارية وتدفق البيانات
+│   ├── ARCHITECTURE_TRUTH.md      # الدستور المعماري المرجعي الموحد
 │   ├── SYSTEM_ARCHITECTURE.md     # المعمارية الأساسية ونظام بوابات الأمان
 │   └── WORKSPACE_PIPELINE_EXPLAINED.md # شرح تفصيلي لمراحل خط الإنتاج التسع
 ├── audits/                        # تقارير الجودة والتدقيق والاختبارات
@@ -33,6 +34,8 @@ documentation/
 
 ## 🏛️ 1. الهندسة والمعمارية (Architecture)
 
+* [ARCHITECTURE_TRUTH.md](file:///c:/video/clean-video-workspace/documentation/architecture/ARCHITECTURE_TRUTH.md)
+  * **الملخص:** الدستور المعماري المرجعي الموحد لمنظومة إنتاج الفيديو، يحدد المعمارية الرسمية لخط الإنتاج، إدارة الحالة، ونقاط الدخول المعتمدة.
 * [SYSTEM_ARCHITECTURE.md](file:///c:/video/clean-video-workspace/documentation/architecture/SYSTEM_ARCHITECTURE.md)
   * **الملخص:** يوضح تدفق خط الإنتاج (Core Pipeline)، هندسة بوابات الأمان الأربعة (Default Deny Gates)، وبنية نظام إدارة الذاكرة لتفادي Context Bloat.
 * [WORKSPACE_PIPELINE_EXPLAINED.md](file:///c:/video/clean-video-workspace/documentation/architecture/WORKSPACE_PIPELINE_EXPLAINED.md)
