@@ -1,0 +1,1062 @@
+{
+  "metadata": {
+    "total_active_production_templates": 105,
+    "consistent_count": 105,
+    "missing_runtime_registration_count": 0,
+    "missing_implementation_count": 0,
+    "validator_drift_count": 0,
+    "unknown_count": 0
+  },
+  "templates": [
+    {
+      "name": "Aicomposershowcasewrapper",
+      "stem": "AiComposerShowcaseWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-ai-composer-showcase",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Aigenerationcanvaswrapper",
+      "stem": "AiGenerationCanvasWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-ai-generation-canvas",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Animatedbarchartwrapper",
+      "stem": "AnimatedBarChartWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-animated-bar-chart",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Animatedcounterwrapper",
+      "stem": "AnimatedCounterWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "animatedcounter-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Animatedtextwrapper",
+      "stem": "AnimatedTextWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "animated-text-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Audiogramscenewrapper",
+      "stem": "AudiogramSceneWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-audiogram-scene",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Autofittitlewrapper",
+      "stem": "AutoFitTitleWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-auto-fit-title",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Bentopanwrapper",
+      "stem": "BentoPanWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-bento-pan",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Bookfliptransition",
+      "stem": "BookFlipTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "book-flip-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Brollstackwrapper",
+      "stem": "BRollStackWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-b-roll-stack",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Browserflowwrapper",
+      "stem": "BrowserFlowWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-browser-flow",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Calendarmonthfillwrapper",
+      "stem": "CalendarMonthFillWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-calendar-month-fill",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Calloutspotlightwrapper",
+      "stem": "CalloutSpotlightWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-callout-spotlight",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Captionbumperwrapper",
+      "stem": "CaptionBumperWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-caption-bumper",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Captionscenewrapper",
+      "stem": "CaptionSceneWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-caption-scene",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Changelogentrywrapper",
+      "stem": "ChangelogEntryWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-changelog-entry",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Chattopreviewwrapper",
+      "stem": "ChatToPreviewWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-chat-to-preview",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Clockwipetransition",
+      "stem": "ClockWipeTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "clock-wipe-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Codeaccordionwrapper",
+      "stem": "CodeAccordionWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-code-accordion",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Codeblockwrapper",
+      "stem": "CodeBlockWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "codeblock-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Codediffwipewrapper",
+      "stem": "CodeDiffWipeWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-code-diff-wipe",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Coderevealwrapper",
+      "stem": "CodeRevealWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-code-reveal",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Commentcalloutwrapper",
+      "stem": "CommentCalloutWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-comment-callout",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Commitgraphwrapper",
+      "stem": "CommitGraphWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-commit-graph",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Comparisontablewrapper",
+      "stem": "ComparisonTableWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-comparison-table",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Countdowntimerwrapper",
+      "stem": "CountdownTimerWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-countdown-timer",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Creatorreelwrapper",
+      "stem": "CreatorReelWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-creator-reel",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Crosswarptransition",
+      "stem": "CrosswarpTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "crosswarp-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Crosszoomtransition",
+      "stem": "CrossZoomTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "cross-zoom-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Dashboardpopulatewrapper",
+      "stem": "DashboardPopulateWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-dashboard-populate",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Dataflowpipeswrapper",
+      "stem": "DataFlowPipesWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-data-flow-pipes",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Datastorywrapper",
+      "stem": "DataStoryWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-data-story",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Deployrevealwrapper",
+      "stem": "DeployRevealWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-deploy-reveal",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Devicemockupzoomwrapper",
+      "stem": "DeviceMockupZoomWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-device-mockup-zoom",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Dissolvetransition",
+      "stem": "DissolveTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "dissolve-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Dragdropflowwrapper",
+      "stem": "DragDropFlowWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-drag-drop-flow",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Dreamyzoomtransition",
+      "stem": "DreamyZoomTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "dreamy-zoom-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Ecosystemorbitwrapper",
+      "stem": "EcosystemOrbitWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-ecosystem-orbit",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Endcardwrapper",
+      "stem": "EndCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-end-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Fadetransition",
+      "stem": "FadeTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "fade-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Faqaccordionwrapper",
+      "stem": "FaqAccordionWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-faq-accordion",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Featurelistwrapper",
+      "stem": "FeatureListWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-feature-list",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Filetreerevealwrapper",
+      "stem": "FileTreeRevealWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-file-tree-reveal",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Filmburntransition",
+      "stem": "FilmBurnTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "film-burn-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Fliptransition",
+      "stem": "FlipTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "flip-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Formfillsequencewrapper",
+      "stem": "FormFillSequenceWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-form-fill-sequence",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Gradientwrapper",
+      "stem": "GradientWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "gradient-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Herodeviceassemblewrapper",
+      "stem": "HeroDeviceAssembleWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-hero-device-assemble",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Heroloopwrapper",
+      "stem": "HeroLoopWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-hero-loop",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Hookcardwrapper",
+      "stem": "HookCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-hook-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Imageexpandwrapper",
+      "stem": "ImageExpandWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-image-expand",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Introwrapper",
+      "stem": "IntroWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-intro",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Iristransition",
+      "stem": "IrisTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "iris-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Kanbanmovewrapper",
+      "stem": "KanbanMoveWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-kanban-move",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Landingcodeshowcasewrapper",
+      "stem": "LandingCodeShowcaseWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-landing-code-showcase",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Linearblurtransition",
+      "stem": "LinearBlurTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "linear-blur-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Livecodesplitwrapper",
+      "stem": "LiveCodeSplitWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-live-code-split",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Logorevealwrapper",
+      "stem": "LogoRevealWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-logo-reveal",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Logowallwrapper",
+      "stem": "LogoWallWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-logo-wall",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Lowerthirdwrapper",
+      "stem": "LowerThirdWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-lower-third",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Mapflightwrapper",
+      "stem": "MapFlightWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-map-flight",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Matrixrainwrapper",
+      "stem": "MatrixRainWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "matrixrain-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Mediaframewrapper",
+      "stem": "MediaFrameWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-media-frame",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Mediasequencewrapper",
+      "stem": "MediaSequenceWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-media-sequence",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Metrictickerwrapper",
+      "stem": "MetricTickerWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-metric-ticker",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Newstickerbarwrapper",
+      "stem": "NewsTickerBarWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-news-ticker-bar",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Notificationstackwrapper",
+      "stem": "NotificationStackWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-notification-stack",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Orgchartbuildwrapper",
+      "stem": "OrgChartBuildWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-org-chart-build",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Particlesystemwrapper",
+      "stem": "ParticleSystemWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "particlesystem-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Podcastclipwrapper",
+      "stem": "PodcastClipWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-podcast-clip",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Polloverlaywrapper",
+      "stem": "PollOverlayWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-poll-overlay",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Pricingcardwrapper",
+      "stem": "PricingCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-pricing-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Pricingfocuswrapper",
+      "stem": "PricingFocusWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-pricing-focus",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Pushcuttransition",
+      "stem": "PushCutTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "push-cut-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Quizquestionwrapper",
+      "stem": "QuizQuestionWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-quiz-question",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Quotecardwrapper",
+      "stem": "QuoteCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-quote-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Reactionburstwrapper",
+      "stem": "ReactionBurstWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-reaction-burst",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Rippletransition",
+      "stem": "RippleTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "ripple-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Roadmaplaneswrapper",
+      "stem": "RoadmapLanesWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-roadmap-lanes",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Scene3Dwrapper",
+      "stem": "Scene3DWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "scene3d-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Scrollingimageswrapper",
+      "stem": "ScrollingImagesWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "scrollingimages-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Searchresultspopulatewrapper",
+      "stem": "SearchResultsPopulateWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-search-results-populate",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Showcasewrapper",
+      "stem": "ShowcaseWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-showcase",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Slidetransition",
+      "stem": "SlideTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "slide-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Socialclipwrapper",
+      "stem": "SocialClipWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-social-clip",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Splitscreenwrapper",
+      "stem": "SplitScreenWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-split-screen",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Sportsscorebugwrapper",
+      "stem": "SportsScorebugWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-sports-scorebug",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Staggeredmotionwrapper",
+      "stem": "StaggeredMotionWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "staggeredmotion-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Statcardwrapper",
+      "stem": "StatCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-stat-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Swaptransition",
+      "stem": "SwapTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "swap-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Tabswitchpanelwrapper",
+      "stem": "TabSwitchPanelWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-tab-switch-panel",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Talkingheadlayoutwrapper",
+      "stem": "TalkingHeadLayoutWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-talking-head-layout",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Teamgridwrapper",
+      "stem": "TeamGridWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-team-grid",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Terminalsimulatorwrapper",
+      "stem": "TerminalSimulatorWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-terminal-simulator",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Themeswrapper",
+      "stem": "THEMESWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-t-h-e-m-e-s",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Timelinestepswrapper",
+      "stem": "TimelineStepsWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-timeline-steps",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Titlecardwrapper",
+      "stem": "TitleCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-title-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Toolmenuslidewrapper",
+      "stem": "ToolMenuSlideWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-tool-menu-slide",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Tutorialclipwrapper",
+      "stem": "TutorialClipWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-tutorial-clip",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Typewriterwrapper",
+      "stem": "TypeWriterWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "typewriter-element",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Weathercardwrapper",
+      "stem": "WeatherCardWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-weather-card",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Wipetransition",
+      "stem": "WipeTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "wipe-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Zoomblurtransition",
+      "stem": "ZoomBlurTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "zoom-blur-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Zoominouttransition",
+      "stem": "ZoomInOutTransition",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "zoom-in-out-transition",
+      "status": "CONSISTENT"
+    },
+    {
+      "name": "Zoompanframewrapper",
+      "stem": "ZoomPanFrameWrapper",
+      "ground_truth_active": true,
+      "validator_accepts": true,
+      "implementation_exists": true,
+      "runtime_registry_resolves": true,
+      "runtime_target": "rui-zoom-pan-frame",
+      "status": "CONSISTENT"
+    }
+  ]
+}

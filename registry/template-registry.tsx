@@ -106,7 +106,7 @@ import { Scene3DWrapper } from "../templates/elements/Scene3DWrapper";
 import { StaggeredMotionWrapper } from "../templates/elements/StaggeredMotionWrapper";
 import { GradientWrapper } from "../templates/elements/GradientWrapper";
 
-export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
+const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
   "fade-transition": {
     id: "fade-transition",
     label: { ar: "تلاشي", en: "Fade" },
@@ -1160,25 +1160,38 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
   }
 };
 
-// Aliases matching TEMPLATE_INDEX names
-const ALIAS_MAP: Record<string, string> = {
-  "Scene3Dwrapper": "scene3d-element",
-  "Devicemockupzoomwrapper": "rui-device-mockup-zoom",
-  "Statcardwrapper": "rui-stat-card",
-  "Matrixrainwrapper": "matrixrain-element",
-  "Terminalsimulatorwrapper": "rui-terminal-simulator",
-  "Dashboardpopulatewrapper": "rui-dashboard-populate",
-  "Particlesystemwrapper": "particlesystem-element",
-  "Endcardwrapper": "rui-end-card",
-  "Animatedtextwrapper": "animated-text-element",
-  "Typewriterwrapper": "typewriter-element",
-  "Codeblockwrapper": "codeblock-element",
-  "Animatedcounterwrapper": "animatedcounter-element",
-  "Gradientwrapper": "gradient-element"
-};
+import { TEMPLATE_ALIASES } from "./template-aliases";
 
-for (const [alias, canonical] of Object.entries(ALIAS_MAP)) {
-  if (TEMPLATE_REGISTRY[canonical]) {
-    TEMPLATE_REGISTRY[alias] = TEMPLATE_REGISTRY[canonical];
+/**
+ * Proxied registry that transparently resolves ground-truth names,
+ * component stems, and canonical IDs without polluting enumerable keys or Object.values().
+ */
+export const TEMPLATE_REGISTRY: Record<string, TemplateEntry> = new Proxy(CANONICAL_TEMPLATE_REGISTRY, {
+  get(target, prop, receiver) {
+    if (typeof prop === "string" && !(prop in target)) {
+      const canonicalId = TEMPLATE_ALIASES[prop];
+      if (canonicalId && canonicalId in target) {
+        return target[canonicalId];
+      }
+    }
+    return Reflect.get(target, prop, receiver);
+  },
+  has(target, prop) {
+    if (typeof prop === "string" && prop in TEMPLATE_ALIASES) {
+      const canonicalId = TEMPLATE_ALIASES[prop];
+      if (canonicalId && canonicalId in target) {
+        return true;
+      }
+    }
+    return Reflect.has(target, prop);
   }
+});
+
+/**
+ * Resolves a template entry by canonical ID, ground-truth name, or component stem.
+ * Fails closed (returns undefined) for unknown template names.
+ */
+export function getRegistryEntry(templateName: string): TemplateEntry | undefined {
+  if (!templateName) return undefined;
+  return TEMPLATE_REGISTRY[templateName];
 }

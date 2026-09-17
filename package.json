@@ -5,8 +5,9 @@
     "studio": "remotion studio remotion-app/src/index.ts --config=remotion-app/remotion.config.ts",
     "build": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4 --config=remotion-app/remotion.config.ts",
     "dev": "concurrently \"npm run api:dev\" \"npm run studio\"",
-    "test": "vitest run tests/contracts.test.ts tests/merge.test.ts",
-    "test:contracts": "vitest run tests/contracts.test.ts"
+    "test": "vitest run tests/contracts.test.ts tests/merge.test.ts tests/template_runtime_resolution.test.ts",
+    "test:contracts": "vitest run tests/contracts.test.ts",
+    "test:templates": "vitest run tests/template_runtime_resolution.test.ts"
   },
   "dependencies": {
     "@remotion/cli": "4.0.524",

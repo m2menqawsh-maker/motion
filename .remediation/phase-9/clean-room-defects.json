@@ -68,5 +68,12 @@
     "description": "scripts/security.py did not include scripts/materialize_project.py in ALLOWED_SCRIPTS['python'], causing safe_subprocess to block materialize_project during Phase 3 canonical pipeline execution.",
     "status": "Resolved",
     "remediation": "Added scripts/materialize_project.py to ALLOWED_SCRIPTS['python'] in scripts/security.py."
+  },
+  {
+    "defect_id": "CRD-019",
+    "category": "Template Registry / Ground-Truth Drift",
+    "description": "Herodeviceassemblewrapper accepted upstream by ground truth and pipeline validators, but getRegistryEntry('Herodeviceassemblewrapper') returned undefined during Remotion rendering due to drift between ground truth names, component stems, and TEMPLATE_REGISTRY keys.",
+    "status": "Resolved",
+    "remediation": "Established deterministic derivation of 210 runtime aliases from authoritative metadata (scripts/generate_template_aliases.py -> registry/template-aliases.ts) and wrapped TEMPLATE_REGISTRY in a transparent Proxy in registry/template-registry.tsx. All 105 active production templates resolve by canonical ID, ground-truth title-case name, and PascalCase component stem without polluting Object.values(). Enforced by permanent consistency tests in pytest (tests/test_template_registry_consistency.py) and Vitest (tests/template_runtime_resolution.test.ts), verified with 5/5 Remotion renderStill smoke tests."
   }
 ]
