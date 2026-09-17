@@ -2,5 +2,261 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "blueprint.schema.json",
   "title": "المخطط التنفيذي — Blueprint (مصدر الحقيقة الوحيد المولد آلياً من Zod)",
-  "description": "عقد المخطط التنفيذي: يصف المشاهد والأنماط والحركات والأصوات — المصدر الوحيد للحقيقة لبناء الفيديو"
+  "description": "عقد المخطط التنفيذي: يصف المشاهد والأنماط والحركات والأصوات — المصدر الوحيد للحقيقة لبناء الفيديو",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "fps": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 120
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "motion_personality": {
+          "type": "string",
+          "enum": [
+            "Cinematic",
+            "Energetic",
+            "Playful",
+            "Technical"
+          ]
+        },
+        "approval": {
+          "type": "object",
+          "properties": {
+            "blueprint_approved": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "timings_path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video",
+              "audio",
+              "font",
+              "json"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "user_upload",
+              "cache",
+              "mcp_fetch",
+              "generated"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          },
+          "paid": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "asset_id",
+          "type",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scene_id": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "startFrame": {
+            "type": "number",
+            "minimum": 0
+          },
+          "durationFrames": {
+            "type": "number",
+            "minimum": 1
+          },
+          "props": {
+            "type": "object",
+            "additionalProperties": {}
+          },
+          "media_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sfx_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "captions_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "content": {
+            "type": "object",
+            "properties": {
+              "lines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "words": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "word": {
+                      "type": "string"
+                    },
+                    "startMs": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "endMs": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "word",
+                    "startMs",
+                    "endMs"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "images": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "screen": {
+                "type": "string"
+              },
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "range": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "number"
+                  },
+                  "to": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to"
+                ],
+                "additionalProperties": false
+              },
+              "path": {
+                "type": "string"
+              },
+              "icons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "audioRef": {
+                "type": "string"
+              },
+              "spectrum": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "layout": {
+            "type": "object",
+            "properties": {
+              "layer": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "coverage_pct": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            },
+            "additionalProperties": false
+          },
+          "effects": {
+            "type": "array"
+          },
+          "template_props": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "scene_id",
+          "template",
+          "startFrame",
+          "durationFrames"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "project_id",
+    "version",
+    "fps",
+    "scenes"
+  ],
+  "additionalProperties": false
 }

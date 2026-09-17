@@ -4,7 +4,7 @@ from scripts.path_security import validate_project_id
 async def get_status(project_id: str) -> dict:
     """Thin wrapper around PipelineService for backward compatibility"""
     validate_project_id(project_id)
-    return await PipelineService.get_status(project_id)
+    return PipelineService.get_status(project_id)
 
 async def start_stage(project_id: str, stage: str) -> dict:
     validate_project_id(project_id)

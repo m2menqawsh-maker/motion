@@ -70,7 +70,7 @@ if "--verify-build" in sys.argv:
     import json as _j
     proj = Path(sys.argv[sys.argv.index("--verify-build") + 1]).resolve()
     bp = _j.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
-    planned = {e.get("template") for s in bp.get("timeline", []) for e in s.get("elements", []) if e.get("kind") == "template"}
+    planned = {s.get("template") for s in bp.get("scenes", []) if s.get("template")}
     imported = set()
     for f in (proj / "06_build" / "src").rglob("*.tsx"):
         imported |= set(re.findall(r"from\s+['\"][^'\"]*templates/([\w-]+)['\"]", f.read_text(encoding="utf-8")))

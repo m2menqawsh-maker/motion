@@ -252,3 +252,6 @@ if report.get("status") == "pass":
     unlock_file = proj_dir / ".studio_unlocked"
     unlock_file.write_text(f"unlocked_at={datetime.now().isoformat()}", encoding="utf-8")
     print(f"🔓 تم إنشاء {unlock_file}")
+else:
+    print("❌ فشل Probe-QC: بعض اللقطات لم تكتمل بنجاح.")
+    sys.exit(1)

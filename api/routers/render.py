@@ -1,9 +1,8 @@
 from scripts.path_security import validate_project_id
-import subprocess
-from scripts.security import safe_subprocess
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, BackgroundTasks
 from api.services.render_service import render_project_async
 from api.websocket import manager
+from api.schemas import StandardResponse
 import asyncio
 
 router = APIRouter()
@@ -18,8 +17,8 @@ async def websocket_endpoint(websocket: WebSocket, project_id: str):
     except WebSocketDisconnect:
         manager.disconnect(websocket, project_id)
 
-@router.post("/{project_id}")
+@router.post("/{project_id}", response_model=StandardResponse)
 async def render(project_id: str, background_tasks: BackgroundTasks):
     project_id = validate_project_id(project_id)
     background_tasks.add_task(render_project_async, project_id, manager)
-    return {"status": "rendering"}
+    return StandardResponse(status="rendering", message="Render job queued")

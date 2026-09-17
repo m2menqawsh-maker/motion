@@ -3,8 +3,8 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
 
-from scripts.checkpoint_model import CheckpointRecord, CheckpointStage, ValidationLevel
-from scripts.checkpoint_store import CheckpointStore
+from scripts.state_model import CheckpointStage, ValidationLevel, ProjectState
+from scripts.state_store import StateStore
 
 @dataclass
 class ResumeDecision:
@@ -14,34 +14,15 @@ class ResumeDecision:
     recommended_action: Optional[str] = None
     
 class RecoveryEngine:
-    CURRENT_SCHEMA_VERSION = "1.0"
-    CURRENT_PIPELINE_VERSION = "1.0"
-    
     @staticmethod
     def evaluate(project_dir: Path) -> ResumeDecision:
-        record = CheckpointStore.load(project_dir)
+        state = StateStore.load(project_dir)
         
-        if not record:
-            return ResumeDecision(can_resume=False, next_stage=CheckpointStage.INITIALIZED, reason="No checkpoint found")
-            
-        if record.checkpoint_schema_version != RecoveryEngine.CURRENT_SCHEMA_VERSION:
-            return ResumeDecision(
-                can_resume=False,
-                next_stage=CheckpointStage.INITIALIZED,
-                reason=f"Unsupported schema version: {record.checkpoint_schema_version}",
-                recommended_action="restart_from_scratch"
-            )
-            
-        if record.pipeline_version != RecoveryEngine.CURRENT_PIPELINE_VERSION:
-            return ResumeDecision(
-                can_resume=False,
-                next_stage=CheckpointStage.INITIALIZED,
-                reason=f"Unsupported pipeline version: {record.pipeline_version}",
-                recommended_action="restart_from_scratch"
-            )
+        if not state:
+            return ResumeDecision(can_resume=False, next_stage=CheckpointStage.INITIALIZED, reason="No state found")
             
         # Validate Artifacts
-        for artifact in record.artifact_references:
+        for artifact in state.artifact_references:
             full_path = project_dir / artifact.path
             
             if not full_path.exists():
@@ -63,7 +44,7 @@ class RecoveryEngine:
                     )
                     
             if artifact.validation == ValidationLevel.SHA256:
-                current_hash = CheckpointStore._compute_sha256(full_path)
+                current_hash = StateStore._compute_sha256(full_path)
                 if current_hash != artifact.sha256:
                     return ResumeDecision(
                         can_resume=False,
@@ -73,12 +54,10 @@ class RecoveryEngine:
                     )
                     
         # Determine next stage based on current checkpoint
-        # The pipeline expects next_stage to match the PRE-CONDITION of the phase it should run.
-        # Since the checkpoint records the last successful phase, it IS the pre-condition for the next phase.
-        next_stage = record.checkpoint
+        next_stage = state.checkpoint
         
         return ResumeDecision(
             can_resume=True,
             next_stage=next_stage,
-            reason=f"Resuming from {record.checkpoint.value}"
+            reason=f"Resuming from {state.checkpoint}"
         )

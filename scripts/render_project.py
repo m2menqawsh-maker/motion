@@ -71,12 +71,19 @@ def main():
     logger.event("render.execution", status="started", stage="render", component="remotion")
     
     try:
-        status = asyncio.run(PipelineService.get_status(project_id))
-        if status.get("status") != "locked" and not is_managed:
+        from scripts.state_store import StateStore
+        from scripts.state_model import GateStatus
+        workspace_root = Path.cwd().resolve()
+        project_dir = workspace_root / "projects" / project_id
+        
+        state = StateStore.load(project_dir)
+        is_approved = state and state.gates["gate_3"].status == GateStatus.APPROVED
+        
+        if not is_approved and not is_managed:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
                 code=FailureCode.PROJECT_NOT_LOCKED,
-                message="Project is not locked for rendering",
+                message="Project is not approved (gate_3) for rendering",
                 cause_type="Validation",
                 stage="render",
                 component="remotion"
@@ -85,7 +92,7 @@ def main():
             print(f"\n{'='*60}")
             print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
             print(f"{'='*60}")
-            print("لم يتم إصدار موافقة بشرية على المشروع (status != locked)")
+            print("لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED)")
             sys.exit(1)
             
         workspace_root = Path.cwd().resolve()

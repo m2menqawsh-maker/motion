@@ -22,7 +22,7 @@ project_id = proj.name
 
 # ─── الفحص الإجباري قبل أي بناء ───
 try:
-    status = asyncio.run(PipelineService.get_status(project_id))
+    status = PipelineService.get_status(project_id)
     has_plan = (proj / "master_plan.md").exists() or (proj / "01_plan.md").exists()
     if not (proj / "05_blueprint.json").exists() or not has_plan:
         raise Exception("Missing plan or blueprint")

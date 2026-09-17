@@ -686,3 +686,10 @@
 [2026-09-16T20:00:09.759441] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
 [2026-09-16T20:00:09.936768] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
 [2026-09-16T20:00:10.112872] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-17T22:43:30.522756] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-17T22:43:30.758713] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-17T22:43:31.030688] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-17T22:43:31.264863] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-17T22:43:31.472144] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-17T22:43:31.849319] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-17T22:43:32.264576] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.

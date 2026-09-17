@@ -98,38 +98,36 @@ def validate(bp, file_path):
         
     rule = rules[pers]
     
-    for sec in bp.get("timeline", []):
-        for e in sec.get("elements", []):
-            if e.get("kind") == "template" or "motion" in e:
-                mot = e.get("motion", {})
-                notes = str(e.get("notes", "")).strip()
-                # يجب وجود استشهاد صريح في الملاحظات أو الخطة
-                # الاستشهاد يُفحص أساساً في stage_gate، لكننا نتأكد من التبرير هنا
-                valid_notes = len(notes) >= 15
+    for scene in bp.get("scenes", []):
+        if "template" in scene or "motion" in scene:
+            e = scene
+            mot = e.get("motion", {})
+            notes = str(e.get("notes", "")).strip()
+            valid_notes = len(notes) >= 15
+            
+            if not mot:
+                continue
+            
+            d = mot.get("duration_ms")
+            easing = mot.get("easing")
+            overshoot = mot.get("overshoot")
+            
+            if d is None:
+                fails.append(f"عنصر {e.get('scene_id')}: duration_ms مفقود من كتلة motion")
+            elif not (rule["duration_min"] <= d <= rule["duration_max"]) and not valid_notes:
+                fails.append(f"عنصر {e.get('scene_id')}: duration {d}ms خارج النطاق {rule['duration_min']}-{rule['duration_max']} ولم يتم تبريره")
                 
-                if not mot:
-                    continue # Some elements don't have motion
+            if easing is None:
+                fails.append(f"عنصر {e.get('scene_id')}: easing مفقود من كتلة motion")
+            elif easing != rule["easing"] and not valid_notes:
+                fails.append(f"عنصر {e.get('scene_id')}: easing {easing} مخالف للقاعدة {rule['easing']}")
                 
-                d = mot.get("duration_ms")
-                easing = mot.get("easing")
-                overshoot = mot.get("overshoot")
+            if overshoot is None:
+                fails.append(f"عنصر {e.get('scene_id')}: overshoot مفقود من كتلة motion")
+            elif overshoot not in rule["overshoot"] and not valid_notes:
+                allowed_os = ", ".join(rule["overshoot"]) if len(rule["overshoot"]) < 5 else f"{rule['overshoot'][0]}-{rule['overshoot'][-1]}"
+                fails.append(f"عنصر {e.get('scene_id')}: overshoot {overshoot} مخالف للمسموح ({allowed_os})")
                 
-                if d is None:
-                    fails.append(f"عنصر {e.get('id')}: duration_ms مفقود من كتلة motion")
-                elif not (rule["duration_min"] <= d <= rule["duration_max"]) and not valid_notes:
-                    fails.append(f"عنصر {e.get('id')}: duration {d}ms خارج النطاق {rule['duration_min']}-{rule['duration_max']} ولم يتم تبريره")
-                    
-                if easing is None:
-                    fails.append(f"عنصر {e.get('id')}: easing مفقود من كتلة motion")
-                elif easing != rule["easing"] and not valid_notes:
-                    fails.append(f"عنصر {e.get('id')}: easing {easing} مخالف للقاعدة {rule['easing']}")
-                    
-                if overshoot is None:
-                    fails.append(f"عنصر {e.get('id')}: overshoot مفقود من كتلة motion")
-                elif overshoot not in rule["overshoot"] and not valid_notes:
-                    allowed_os = ", ".join(rule["overshoot"]) if len(rule["overshoot"]) < 5 else f"{rule['overshoot'][0]}-{rule['overshoot'][-1]}"
-                    fails.append(f"عنصر {e.get('id')}: overshoot {overshoot} مخالف للمسموح ({allowed_os})")
-                    
     return fails
 
 
@@ -330,11 +328,10 @@ def extract_all_templates(project_blueprint):
         p = Path(project_blueprint)
         if p.exists():
             project_blueprint = json.loads(p.read_text(encoding="utf-8"))
-    if isinstance(project_blueprint, dict) and 'timeline' in project_blueprint:
-        for scene in project_blueprint['timeline']:
-            for el in scene.get('elements', []):
-                if 'template' in el:
-                    templates.append(el['template'])
+    if isinstance(project_blueprint, dict) and 'scenes' in project_blueprint:
+        for scene in project_blueprint['scenes']:
+            if 'template' in scene:
+                templates.append(scene['template'])
     return templates
 
 def count_template_usage(templates):

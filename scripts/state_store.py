@@ -4,10 +4,10 @@ import hashlib
 from pathlib import Path
 from typing import Optional
 
-from scripts.checkpoint_model import CheckpointRecord, ArtifactRecord, ValidationLevel
+from scripts.state_model import ProjectState, ArtifactRecord, ValidationLevel
 
-class CheckpointStore:
-    CHECKPOINT_FILE = ".pipeline_checkpoint.json"
+class StateStore:
+    STATE_FILE = ".pipeline_state.json"
     
     @staticmethod
     def _compute_sha256(path: Path) -> str:
@@ -33,37 +33,43 @@ class CheckpointStore:
             record.size_bytes = full_path.stat().st_size
             
         if validation == ValidationLevel.SHA256:
-            record.sha256 = CheckpointStore._compute_sha256(full_path)
+            record.sha256 = StateStore._compute_sha256(full_path)
             
         return record
 
     @staticmethod
-    def save(project_dir: Path, record: CheckpointRecord) -> None:
+    def save(project_dir: Path, state: ProjectState) -> None:
         """
-        Atomically saves the checkpoint record to the project directory.
+        Atomically saves the state record to the project directory.
         """
-        checkpoint_file = project_dir / CheckpointStore.CHECKPOINT_FILE
-        tmp_file = project_dir / f"{CheckpointStore.CHECKPOINT_FILE}.tmp"
+        state_file = project_dir / StateStore.STATE_FILE
+        tmp_file = project_dir / f"{StateStore.STATE_FILE}.tmp"
         
         with open(tmp_file, "w", encoding="utf-8") as f:
-            json.dump(record.to_dict(), f, ensure_ascii=False, indent=2)
+            # We dump the model, explicitly converting enums to values.
+            # Using model_dump (Pydantic v2) or dict (Pydantic v1)
+            if hasattr(state, "model_dump"):
+                data = state.model_dump(mode='json')
+            else:
+                data = state.dict()
+            json.dump(data, f, ensure_ascii=False, indent=2)
             f.flush()
-            os.fsync(f.fileno()) # Ensure it is written to disk
+            os.fsync(f.fileno())
             
-        os.replace(tmp_file, checkpoint_file)
+        os.replace(tmp_file, state_file)
         
     @staticmethod
-    def load(project_dir: Path) -> Optional[CheckpointRecord]:
+    def load(project_dir: Path) -> Optional[ProjectState]:
         """
-        Loads the checkpoint record from the project directory if it exists.
+        Loads the state record from the project directory if it exists.
         """
-        checkpoint_file = project_dir / CheckpointStore.CHECKPOINT_FILE
-        if not checkpoint_file.exists():
+        state_file = project_dir / StateStore.STATE_FILE
+        if not state_file.exists():
             return None
             
         try:
-            with open(checkpoint_file, "r", encoding="utf-8") as f:
+            with open(state_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            return CheckpointRecord.from_dict(data)
+            return ProjectState(**data)
         except Exception:
             return None

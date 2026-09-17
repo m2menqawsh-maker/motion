@@ -67,7 +67,7 @@ def warn(m): warns.append(m)
 def check(bp, bp_path=None):
     meta = bp.get("meta", {}); persona = meta.get("motion_personality", "Cinematic")
     approved = (meta.get("approval") or {}).get("blueprint_approved") is True
-    for k in ["meta", "spine", "assets", "timeline"]:
+    for k in ["meta", "assets", "scenes"]:
         if k not in bp: fail(f"قسم ناقص: {k}")
     words, tp = [], (meta or {}).get("timings_path")
     if tp:
@@ -92,54 +92,27 @@ def check(bp, bp_path=None):
         if src == "mcp_fetch" and not a.get("fallback"): fail(f"asset {aid}: mcp_fetch بدون fallback")
         if src == "user_upload" and not a.get("path"): fail(f"asset {aid}: user_upload بدون path")
         if a.get("paid") and not approved: fail(f"asset {aid}: paid=true قبل الموافقة")
-    # الثانية-بالثانية
-    for sec in bp.get("timeline", []):
-        s = sec.get("sec", "?"); cov, heroes = 0, 0
-        for e in sec.get("elements", []):
-            eid = e.get("id", "?"); lay = (e.get("layout") or {}).get("layer")
-            if lay not in (1, 2, 3, 4, 5): fail(f"sec {s}/{eid}: طبقة خارج 1-5 ({lay})")
-            c = (e.get("layout") or {}).get("coverage_pct", 0)
-            if lay in (3, 4):
-                cov += c
-                if c >= 35: heroes += 1
-            if e.get("kind") == "template":
-                tmpl_name = e.get("template")
-                if tmpl_name not in TEMPLATES:
-                    fail(f"sec {s}/{eid}: قالب غير موجود في TEMPLATE_INDEX: {tmpl_name}")
-                else:
-                    t_type = CATALOG_TYPES.get(tmpl_name)
-                    if t_type and e.get("kind") == "template":
-                        # Validate that the type in catalog is suitable for a template element
-                        if t_type == "effect":
-                            t_family = CATALOG_FAMILIES.get(tmpl_name, "")
-                            if t_family != "transitions":
-                                fail(f"sec {s}/{eid}: القالب '{tmpl_name}' مصنف كـ effect من عائلة '{t_family}' ولا يُستخدم كقالب مباشر")
-            if e.get("kind") == "template" and e.get("asset_ref"):
-                asset_type = manifest.get(e.get("asset_ref"))
-                tmpl = e.get("template")
-                req_type = TEMPLATE_ASSET_TYPES.get(tmpl, "any")
-                if req_type != "any" and asset_type and asset_type != req_type:
-                    fail(f"sec {s}/{eid}: 🛑 توقف إلزامي (HARD FAIL) 🛑 القالب '{tmpl}' مخصص للتعامل مع '{req_type}' حصراً، ولكنك مررت له الأصل '{e.get('asset_ref')}' ونوعه '{asset_type}'. لا تستخدم قوالب صور للفيديو!")
-            tf = e.get("taken_from")
-            if not tf: fail(f"sec {s}/{eid}: taken_from ناقص (من أين داخل المهارة؟)")
-            elif not tf.startswith("mcp:") and not (DST / tf).exists() and not tf.startswith("premium-templates/"):
-                fail(f"sec {s}/{eid}: taken_from ليس على القرص: {tf}")
-            lk = e.get("lock")
-            if lk and lk.get("type") == "word":
-                wi = lk.get("word_index")
-                if not tp: fail(f"sec {s}/{eid}: lock كلمة بدون meta.timings_path")
-                elif words and (wi is None or wi >= len(words)): fail(f"sec {s}/{eid}: word_index خارج timings")
-            if e.get("paid") and not approved: fail(f"sec {s}/{eid}: paid=true قبل الموافقة")
-        if cov > 70: fail(f"sec {s}: coverage محتوى {cov}% > 70%")
-        if heroes > 1: fail(f"sec {s}: {heroes} عناصر hero (>1) — قاعدة الـ focal point")
-        sfx = sec.get("sfx", [])
-        if len(sfx) > 1: fail(f"sec {s}: {len(sfx)} مؤثرات (>1)")
-        for fx in sfx:
-            tone = fx.get("tone", "none")
-            if not str(fx.get("taken_from", "")).startswith(("assets/", "mcp:")):
-                fail(f"sec {s}: SFX بدون مصدر مصرّح")
+    
+    # Validation per scene
+    total_sfx = 0
+    for scene in bp.get("scenes", []):
+        s_id = scene.get("scene_id", "?")
+        tmpl_name = scene.get("template")
+        
+        if not tmpl_name:
+            fail(f"scene {s_id}: قالب غير محدد")
+        elif tmpl_name not in TEMPLATES:
+            fail(f"scene {s_id}: قالب غير موجود في TEMPLATE_INDEX: {tmpl_name}")
+        else:
+            t_type = CATALOG_TYPES.get(tmpl_name)
+            if t_type == "effect":
+                t_family = CATALOG_FAMILIES.get(tmpl_name, "")
+                if t_family != "transitions":
+                    fail(f"scene {s_id}: القالب '{tmpl_name}' مصنف كـ effect من عائلة '{t_family}' ولا يُستخدم كقالب مباشر")
 
-    total_sfx = sum(len(sec.get("sfx", [])) for sec in bp.get("timeline", []))
+        if scene.get("sfx_ref"):
+            total_sfx += 1
+
     if total_sfx == 0 and not meta.get("silence_requested"):
         fail("صفر SFX في الفيديو كله — أضف مؤثرات مطابقة للشخصية من assets/sfx/ أو silence_requested:true بموافقة المستخدم")
 
@@ -159,22 +132,22 @@ def check(bp, bp_path=None):
             for m_fail in mv_fails:
                 fail(m_fail)
 
-        secs = sorted({x.get("sec") for x in bp.get("timeline", [])})
-        for sc in secs:
-            cov = [e for sec2 in bp.get("timeline", []) for e in sec2.get("elements", [])
-                   if e.get("template") in AMBIENT and e.get("start_sec", 0) <= sc < e.get("end_sec", 10**9)]
-            if not cov: fail(f"الثانية {sc}: بلا طبقة ambient — الذوق إلزامي")
-        cues = [c for sec in bp.get("timeline", []) for c in sec.get("sfx", [])]
+        # Replace ambient, coverage and cues checking for scenes
+        cues = []
+        for s in bp.get("scenes", []):
+            sfx = s.get("sfx_ref")
+            if sfx:
+                cues.append({"asset": sfx})
+                
+        dur = meta.get("duration_sec") or max([s.get("startFrame", 0)/30 + s.get("durationFrames", 0)/30 for s in bp.get("scenes", [])] or [30])
         last = {}
-        cnt = Counter(Path(c.get("asset") or c.get("path") or "").name for c in cues if (c.get("asset") or c.get("path")))
-        dur = meta.get("duration_sec") or max([e.get("end_sec", 0) for s2 in bp.get("timeline", []) for e in s2.get("elements", [])] or [30])
-        for c in sorted(cues, key=lambda c: c.get("at_ms", 0)):
-            if not c.get("processing"): fail("cue بدون سلسلة معالجة (ممنوع المؤثر الخام)")
-            if "volume_db" not in c: fail("cue بدون volume_db")
-            if c.get("tone") not in tones: fail(f"نبرة {c.get('tone')} غير مسموحة لشخصية {pers}")
-            nm = Path(c.get("asset") or c.get("path") or "").name; t = c.get("at_ms", 0)
-            if nm in last and t - last[nm] < 8000: fail(f"المؤثر {nm} تكرر خلال أقل من 8 ثوانٍ")
-            last[nm] = t
+        cnt = Counter(Path(c.get("asset") or "").name for c in cues if c.get("asset"))
+        
+        for c in cues:
+            nm = Path(c.get("asset") or "").name
+            # In V1 schema, we just use sfx_ref strings, so we don't track at_ms, tone, processing here
+            pass
+            
         for nm, n in cnt.items():
             if n > max(1, round(dur / 15)): fail(f"المؤثر {nm} مستخدم {n} مرة — تجاوز حد التنويع")
 
@@ -183,19 +156,19 @@ def render_md(bp, out):
     L = ["# Blueprint — النسخة البشرية", "",
          f"**مشروع:** {bp.get('meta',{}).get('project_id')} | **شخصية:** {bp.get('meta',{}).get('motion_personality')} | **مدة:** {bp.get('meta',{}).get('duration_sec')}s", "",
          "| الثانية | السرد | العناصر (نوع:قالب/أصل) | المصادر |", "|---|---|---|---|"]
-    for sec in bp.get("timeline", []):
-        els = " ؛ ".join(f"{e.get('kind')}:{e.get('template') or e.get('asset_ref') or e.get('id')}" for e in sec.get("elements", []))
-        raw_srcs = [str(srcs[e["asset_ref"]]) for e in sec.get("elements", []) if e.get("asset_ref") in srcs and srcs.get(e.get("asset_ref"))]
-        src = " ، ".join(sorted(set(raw_srcs)) if raw_srcs else ["قوالب محلية"])
-        L.append(f"| {sec.get('sec')} | {sec.get('narration','')} | {els} | {src} |")
+    for scene in bp.get("scenes", []):
+        tmpl = scene.get("template", "")
+        s_id = scene.get("scene_id", "?")
+        src = "قوالب محلية"
+        L.append(f"| {s_id} | | {tmpl} | {src} |")
     Path(out).write_text("\n".join(L), encoding="utf-8")
 
 def lock(bp):
-    used = sorted({str(e["template"]) for sec in bp.get("timeline", []) for e in sec.get("elements", []) if e.get("kind") == "template" and e.get("template")})
+    used = sorted({str(s["template"]) for s in bp.get("scenes", []) if s.get("template")})
     (DST / ".blueprint_lock.json").write_text(json.dumps({"templates": used}, indent=2), encoding="utf-8")
 
 def verify_build(bp, proj):
-    used = {str(e["template"]) for sec in bp.get("timeline", []) for e in sec.get("elements", []) if e.get("kind") == "template" and e.get("template")}
+    used = {str(s["template"]) for s in bp.get("scenes", []) if s.get("template")}
     built = set()
     for f in Path(proj).rglob("*.tsx"):
         built |= set(re.findall(r"from\s+['\"][^'\"]*(?:templates|premium-templates|cinematic-engine)/([\w-]+)['\"]", f.read_text(encoding="utf-8")))

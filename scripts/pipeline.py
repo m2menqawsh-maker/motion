@@ -7,6 +7,9 @@ Smart Orchestrator Pipeline (المنسق الذكي)
 """
 
 import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from scripts.path_security import validate_project_id, safe_resolve
 import os
 import json
@@ -27,16 +30,7 @@ def get_file_hash(filepath: Path) -> str:
     hasher.update(filepath.read_bytes())
     return hasher.hexdigest()
 
-def load_state(state_file: Path) -> dict:
-    if state_file.exists():
-        try:
-            return json.loads(state_file.read_text(encoding="utf-8"))
-        except Exception:
-            return {}
-    return {}
 
-def print_state_marker(state: dict):
-    print(f"__PIPELINE_STATE__{json.dumps(state)}__PIPELINE_STATE__")
 
 import uuid
 import time
@@ -184,8 +178,7 @@ def main():
         print(f"❌ المشروع {project_id} غير موجود في المجلد projects/")
         sys.exit(1)
         
-    state_file = proj_dir / ".pipeline_state.json"
-    state = load_state(state_file)
+    state = None
     
     run_id = os.environ.get("AGY_RUN_ID")
     if not run_id:
@@ -200,8 +193,8 @@ def main():
     # ==========================================
     # Initialization & Recovery
     # ==========================================
-    from scripts.checkpoint_store import CheckpointStore
-    from scripts.checkpoint_model import CheckpointStage, CheckpointRecord, ValidationLevel
+    from scripts.state_store import StateStore
+    from scripts.state_model import CheckpointStage, ValidationLevel, ProjectState
     from scripts.recovery_engine import RecoveryEngine
     import time
     
@@ -210,7 +203,7 @@ def main():
     if decision.can_resume:
         logger.event("recovery.resumed", status="resumed") # Using same run_id for now as it's passed or generated
         next_stage = decision.next_stage
-        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة التالية: {next_stage.value}")
+        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة التالية: {next_stage}")
     else:
         if decision.recommended_action and decision.recommended_action.startswith("restart_from_stage"):
             logger.event("recovery.rejected", status="rejected")
@@ -234,16 +227,40 @@ def main():
     def save_checkpoint(stage: CheckpointStage, artifacts: list):
         refs = []
         for path, val_level in artifacts:
-            refs.append(CheckpointStore.create_artifact_record(proj_dir, path, val_level))
+            refs.append(StateStore.create_artifact_record(proj_dir, path, val_level))
         
-        record = CheckpointRecord(
-            project_id=project_id,
-            run_id=ctx.run_id,
-            checkpoint=stage,
-            timestamp=time.time(),
-            artifact_references=refs
-        )
-        CheckpointStore.save(proj_dir, record)
+        state = StateStore.load(proj_dir)
+        if not state:
+            state = ProjectState(project_id=project_id)
+            
+        state.run_id = ctx.run_id
+        state.checkpoint = stage
+        state.artifact_references = refs
+        
+        from scripts.state_model import StageStatus
+        from datetime import datetime
+        now = datetime.utcnow().isoformat()
+        
+        if stage == CheckpointStage.ASSETS_READY:
+            state.current_stage = 0
+            state.stages["0"].status = StageStatus.DONE
+            state.stages["0"].finished_at = now
+        elif stage == CheckpointStage.PLAN_READY:
+            state.current_stage = 1
+            state.stages["1"].status = StageStatus.DONE
+            state.stages["1"].finished_at = now
+        elif stage == CheckpointStage.BLUEPRINT_READY:
+            state.current_stage = 2
+            state.stages["2"].status = StageStatus.DONE
+            state.stages["2"].finished_at = now
+        elif stage in (CheckpointStage.PROBE_READY, CheckpointStage.APPROVED, CheckpointStage.RENDERED, CheckpointStage.QC_PASSED):
+            state.current_stage = 3
+            if stage == CheckpointStage.QC_PASSED:
+                state.stages["3"].status = StageStatus.DONE
+                state.stages["3"].finished_at = now
+                
+        state.updated_at = now
+        StateStore.save(proj_dir, state)
 
     # ==========================================
     # Phase 1: Asset Gate
@@ -313,10 +330,51 @@ def main():
         print(f"\n➔ المرحلة الثالثة (Blueprint): تخطي (منجز ✅)")
 
     # ==========================================
-    # Phase 4: Render
+    # Phase 4: Probe QC (Screenshots)
     # ==========================================
     if next_stage == CheckpointStage.BLUEPRINT_READY:
-        print(f"\n➔ المرحلة الرابعة (Render):")
+        print(f"\n➔ المرحلة الرابعة (Probe QC):")
+        # probe_qc.py generates screenshots and .studio_unlocked
+        if not run_script(logger, "qc", "probe_qc", "probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            print("🛑 توقف التنفيذ. الفحص الأولي (Probe QC) فشل.")
+            sys.exit(1)
+            
+        save_checkpoint(CheckpointStage.PROBE_READY, [
+            ("master_plan.md", ValidationLevel.SHA256),
+            ("05_blueprint.json", ValidationLevel.SHA256),
+            ("probe_qc_report.json", ValidationLevel.EXISTS)
+        ])
+        next_stage = CheckpointStage.PROBE_READY
+    else:
+        print(f"\n➔ المرحلة الرابعة (Probe QC): تخطي (منجز ✅)")
+        
+    # ==========================================
+    # Phase 5: Studio Review (Approval Gate)
+    # ==========================================
+    if next_stage == CheckpointStage.PROBE_READY:
+        print(f"\n➔ المرحلة الخامسة (Studio Review - Approval Gate):")
+        
+        from scripts.state_store import StateStore
+        from scripts.state_model import GateStatus
+        current_state = StateStore.load(proj_dir)
+        
+        # Checking gate_3 for Studio Approval
+        if current_state and current_state.gates["gate_3"].status == GateStatus.APPROVED:
+            print("✅ تم الحصول على موافقة الاستوديو! جاري المتابعة...")
+            save_checkpoint(CheckpointStage.APPROVED, [])
+            next_stage = CheckpointStage.APPROVED
+        else:
+            print(f"\n⏸️ المنسق متوقف مؤقتاً.")
+            print(f"المشروع جاهز للمعاينة في الاستوديو. يرجى مراجعة الفيديو والموافقة عليه (Approval) قبل الرندر النهائي.")
+            sys.exit(0) # Exit gracefully, waiting for user action
+    else:
+        print(f"\n➔ المرحلة الخامسة (Studio Review): تخطي (منجز ✅)")
+
+    # ==========================================
+    # Phase 6: Final Render
+    # ==========================================
+    if next_stage == CheckpointStage.APPROVED:
+        print(f"\n➔ المرحلة السادسة (Final Render):")
         # render_project.py generates out.mp4
         FailureInjector.maybe_inject(InjectionPoint.BEFORE_RENDER)
         if not run_script(logger, "render", "remotion", "render_project.py", IdempotencyClass.CONDITIONALLY_RETRYABLE, project_id, expected_artifacts=[str(proj_dir / "out.mp4")]):
@@ -331,16 +389,16 @@ def main():
         ])
         next_stage = CheckpointStage.RENDERED
     else:
-        print(f"\n➔ المرحلة الرابعة (Render): تخطي (منجز ✅)")
+        print(f"\n➔ المرحلة السادسة (Final Render): تخطي (منجز ✅)")
         
     # ==========================================
-    # Phase 5: QC
+    # Phase 7: Final QC
     # ==========================================
     if next_stage == CheckpointStage.RENDERED:
-        print(f"\n➔ المرحلة الخامسة (QC):")
-        # probe_qc.py expects <project_id>
-        if not run_script(logger, "qc", "probe_qc", "probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
-            print("🛑 توقف التنفيذ. الجودة النهائية (QC) فشلت.")
+        print(f"\n➔ المرحلة السابعة (Final QC):")
+        out_mp4 = proj_dir / "out.mp4"
+        if not out_mp4.exists():
+            print("🛑 توقف التنفيذ. ملف الفيديو النهائي غير موجود.")
             sys.exit(1)
             
         save_checkpoint(CheckpointStage.QC_PASSED, [
@@ -350,7 +408,7 @@ def main():
         ])
         next_stage = CheckpointStage.COMPLETE
     else:
-        print(f"\n➔ المرحلة الخامسة (QC): تخطي (منجز ✅)")
+        print(f"\n➔ المرحلة السابعة (Final QC): تخطي (منجز ✅)")
 
     logger.event("pipeline.execution", status="success", stage="pipeline", component="pipeline")
     print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%.")
