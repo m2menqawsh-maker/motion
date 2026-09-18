@@ -48,7 +48,7 @@ jobs:
       - name: Schema Drift Check
         run: |
           python scripts/core/state_model.py
-          npx ts-node scripts/remotion_interop/infer_schemas_ast.ts
+          npx tsx scripts/remotion_interop/infer_schemas_ast.ts
           python scripts/generators/build_ground_truth.py
           if [[ -n $(git status --porcelain) ]]; then
             echo "❌ Schema Drift Detected! The generated JSON Schemas or ground truth files do not match the committed versions."

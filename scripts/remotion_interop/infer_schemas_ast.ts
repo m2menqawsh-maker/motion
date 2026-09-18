@@ -1,6 +1,10 @@
 import { Project, SyntaxKind, ObjectLiteralExpression, PropertyAssignment, SourceFile } from "ts-morph";
 import * as fs from "fs";
-import * as path from "path";
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const project = new Project({
   tsConfigFilePath: path.join(__dirname, "tsconfig.json"),
