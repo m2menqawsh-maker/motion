@@ -10,18 +10,18 @@
     "test:templates": "vitest run tests/template_runtime_resolution.test.ts"
   },
   "dependencies": {
-    "@remotion/cli": "^4.0.525",
-    "@remotion/google-fonts": "^4.0.525",
-    "@remotion/transitions": "^4.0.525",
+    "@remotion/cli": "4.0.525",
+    "@remotion/google-fonts": "4.0.525",
+    "@remotion/transitions": "4.0.525",
     "culori": "^4.0.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "remotion": "^4.0.525",
+    "remotion": "4.0.525",
     "remotion-bits": "^0.2.0",
     "ts-morph": "^28.0.0",
     "typescript": "^7.0.2",
-    "zod": "^3.25.0",
-    "zod-to-json-schema": "^3.25.2"
+    "zod": "3.25.76",
+    "zod-to-json-schema": "3.25.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
