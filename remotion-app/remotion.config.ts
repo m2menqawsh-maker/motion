@@ -13,12 +13,17 @@ Config.overrideWebpackConfig((currentConfiguration) => {
     resolve: {
       ...currentConfiguration.resolve,
       modules: [
+        path.resolve(appDir, "node_modules"),
+        path.resolve(appDir, "..", "node_modules"),
         ...(currentConfiguration.resolve?.modules || ["node_modules"]),
-        path.join(appDir, "node_modules")
       ],
       alias: {
         ...(currentConfiguration.resolve?.alias ?? {}),
-        "@": path.join(appDir, "src"),
+        "@": path.resolve(appDir, "src"),
+        "@registry": path.resolve(appDir, "..", "registry"),
+        "@contracts": path.resolve(appDir, "..", "contracts"),
+        "react": path.resolve(appDir, "node_modules", "react"),
+        "react-dom": path.resolve(appDir, "node_modules", "react-dom"),
       },
     },
   };
