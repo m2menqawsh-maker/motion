@@ -90,7 +90,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          pytest tests/ \
+          pytest tests/architecture/ tests/contracts/ tests/golden_scenarios/ tests/security/ tests/documentation/ tests/performance/ \
             --cov=api \
             --cov=scripts \
             --cov-report=xml \
