@@ -25,6 +25,9 @@
       ],
       "@contracts/*": [
         "../contracts/*"
+      ],
+      "*": [
+        "./node_modules/*"
       ]
     }
   },
