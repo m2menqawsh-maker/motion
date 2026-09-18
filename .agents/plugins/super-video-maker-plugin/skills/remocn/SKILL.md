@@ -7,7 +7,7 @@ description: Build Remotion videos with remocn. Select components from the templ
 
 ## 1. القاعدة الأساسية (المسار المعياري - Level 2)
 الأولوية القصوى دائماً هي استخدام القوالب الجاهزة من السجل:
-1. ابحث عن القوالب المناسبة في `templates/elements/` و `templates/scenes/` (استخدم `scripts/inspect_template.py <TemplateName>`).
+1. ابحث عن القوالب المناسبة في `templates/elements/` و `templates/scenes/` (استخدم `scripts/validators/inspect_template.py <TemplateName>`).
 2. اجمعها في ملف `05_blueprint.json` وفقاً لـ `contracts/blueprint.ts`.
 3. دع `scripts/pipeline.py` يتولى التجميع والتحقق والرندر.
 
@@ -42,8 +42,8 @@ description: Build Remotion videos with remocn. Select components from the templ
      ```
 4. **الفحص والتحقق الإلزامي:**
    - شغّل فحص التحقق من القالب:
-     `python scripts/validate_template.py <path_to_tsx>`
-   - تأكد من اجتياز فحص `python scripts/custom_code_validator.py`.
+     `python scripts/validators/validate_template.py <path_to_tsx>`
+   - تأكد من اجتياز فحص `python scripts/validators/custom_code_validator.py`.
    - تأكد من عدم وجود أخطاء TypeScript (`npx tsc --noEmit`).
 
 ---

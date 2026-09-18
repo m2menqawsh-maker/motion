@@ -292,7 +292,7 @@
       "size_bytes": 2971
     },
     {
-      "path": "scripts/asset_gate.py",
+      "path": "scripts/gates/asset_gate.py",
       "sha256": "4bedd910b8ba9cde2bead342bd69db75f44be95fd372c9f60656e717c7260bf3",
       "size_bytes": 3529
     },
@@ -307,32 +307,32 @@
       "size_bytes": 2580
     },
     {
-      "path": "scripts/code_template_gate.py",
+      "path": "scripts/gates/code_template_gate.py",
       "sha256": "129d212f589b2cf75d4770efe57773e143c4c0ae41cab5ce333e59c46b81af1c",
       "size_bytes": 14606
     },
     {
-      "path": "scripts/failure_injection.py",
+      "path": "scripts/core/failure_injection.py",
       "sha256": "ffe0825d6d3f31e3a3d86d1c5aa483a22eea898feaeffeaeaa4ae38c38bbe8b9",
       "size_bytes": 3522
     },
     {
-      "path": "scripts/generate_template_aliases.py",
+      "path": "scripts/generators/generate_template_aliases.py",
       "sha256": "0a684a0dab4d9866ebce1e16b94175a32b5087f8466ff3086dcdd35a07f51002",
       "size_bytes": 4050
     },
     {
-      "path": "scripts/materialize_project.py",
+      "path": "scripts/generators/materialize_project.py",
       "sha256": "7d6b33f69e4d44204121980a4eaa229c0116a24f60822cc1f7d69b3c857e6f76",
       "size_bytes": 3329
     },
     {
-      "path": "scripts/metrics_collector.py",
+      "path": "scripts/metrics/metrics_collector.py",
       "sha256": "7242239bd06bda7dba489d7872f47459889a959d5c2126b8604b80af6c074a31",
       "size_bytes": 5797
     },
     {
-      "path": "scripts/motion_validator.py",
+      "path": "scripts/gates/motion_validator.py",
       "sha256": "26a769e6c9b2442cfcd8d56cb4777929052e0eba64ca002358e1accd4bfb67ed",
       "size_bytes": 18532
     },
@@ -342,7 +342,7 @@
       "size_bytes": 5138
     },
     {
-      "path": "scripts/path_security.py",
+      "path": "scripts/security/path_security.py",
       "sha256": "23568f5b94f4fc1a28b0807f6a7094f430facfbc7aee5e14bdca33f61d578638",
       "size_bytes": 648
     },
@@ -352,12 +352,12 @@
       "size_bytes": 17601
     },
     {
-      "path": "scripts/probe_qc.py",
+      "path": "scripts/gates/probe_qc.py",
       "sha256": "6aa633e4a2e3414c92fb017c576b5be7f909f26918a0fe26d928a41954c648a4",
       "size_bytes": 10783
     },
     {
-      "path": "scripts/recovery_engine.py",
+      "path": "scripts/core/recovery_engine.py",
       "sha256": "27eb49c99033f1f5e6263d529dc2a6fd3a8848bd1f4808ef9298dde0f1a93f00",
       "size_bytes": 3576
     },
@@ -367,22 +367,22 @@
       "size_bytes": 8623
     },
     {
-      "path": "scripts/retry_policy.py",
+      "path": "scripts/core/retry_policy.py",
       "sha256": "601f2fd9049ec4dc61d288bb77ca1eb5add7b43600844a4069e49ab4bbd1c21c",
       "size_bytes": 3730
     },
     {
-      "path": "scripts/runtime_logger.py",
+      "path": "scripts/core/runtime_logger.py",
       "sha256": "025518ed764621334713b6627a9992b203f15be23284a23509d3838fbb65345b",
       "size_bytes": 4485
     },
     {
-      "path": "scripts/security.py",
+      "path": "scripts/security/security.py",
       "sha256": "073eadaa5736225e3122a6cd3a43f2bcde26966c0863a04cd95e5f3b1d32ea08",
       "size_bytes": 2621
     },
     {
-      "path": "scripts/taste_gate.py",
+      "path": "scripts/gates/taste_gate.py",
       "sha256": "9fac7627b7e79bc4561afdfc27686beb9410c4b8de18eda09b7902a2ad590cb9",
       "size_bytes": 6621
     },

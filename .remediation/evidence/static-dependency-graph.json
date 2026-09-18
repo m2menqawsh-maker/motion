@@ -62,28 +62,28 @@
         "assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/video/smartphone.mp4",
         "assets/ready/video/bg_neon_1_intra.mp4",
-        "scripts/validate_blueprint.py",
+        "scripts/gates/validate_blueprint.py",
         "scripts/open_studio.py",
         "scratch/test_bp.json",
         "projects/prj_a68b0b6e/assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/audio/keyboard_norm.wav",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         "projects/prj_a68b0b6e/.studio_unlocked",
         "templates/effects/engine-bridge.tsx",
         "assets/ready/icons/smartphone_lucide.svg",
         "assets/ready/icons/success.svg",
         "assets/ready/icons/rocket_cartoon.svg",
         "assets/ready/audio/whoosh_norm.wav",
-        "scripts/plan_gate.py",
+        "scripts/gates/plan_gate.py",
         "scratch/generate_final_plan.py",
         "projects/prj_a68b0b6e/assets/ready/vo_norm.wav",
-        "scripts/probe_qc.py",
+        "scripts/gates/probe_qc.py",
         "scratch/analyze_transcript.py",
         "templates/elements/MatrixRainWrapper.tsx",
         "scratch/patch_generator.py",
         "scratch/check_templates.py",
         "assets/ready/audio/notification_norm.wav",
-        "scripts/asset_gate.py",
+        "scripts/gates/asset_gate.py",
         "projects/prj_a68b0b6e/assets/ready/icons/success.svg",
         "templates/elements/DashboardPopulateWrapper.tsx",
         "remotion-app/src/BlueprintVideo.tsx",
@@ -154,17 +154,17 @@
       "imports": [],
       "mentions": [
         "scripts/open_studio.py",
-        "scripts/inspect_template.py",
+        "scripts/validators/inspect_template.py",
         ".studio_unlocked",
-        "scripts/materialize_project.py",
-        "scripts/validate_template.py",
+        "scripts/generators/materialize_project.py",
+        "scripts/validators/validate_template.py",
         "references/ROUTER.md",
         "references/deep/motion-taste/director/SFX_BINDING_MATRIX.md",
         ".agents/rules/video-production-protocol.md",
         "references/PLAN_TEMPLATE.md",
         "scripts/pipeline.py",
         "scripts/render_project.py",
-        "scripts/template_router.py"
+        "scripts/maintenance/template_router.py"
       ]
     },
     ".agents/docker/Dockerfile.remotion": {
@@ -227,7 +227,7 @@
       "imports": [],
       "mentions": [
         "requirements.txt",
-        "scripts/sync_templates.py",
+        "scripts/maintenance/sync_templates.py",
         ".env.example",
         "package.json"
       ]
@@ -244,12 +244,12 @@
       "imports": [],
       "mentions": [
         "scripts/open_studio.py",
-        "scripts/materialize_project.py",
-        "scripts/probe_qc.py",
+        "scripts/generators/materialize_project.py",
+        "scripts/gates/probe_qc.py",
         "recipes/avatar-insta-split.json",
         "scripts/render_project.py",
-        "scripts/code_template_gate.py",
-        "scripts/scene_compiler.py"
+        "scripts/gates/code_template_gate.py",
+        "scripts/maintenance/scene_compiler.py"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/commands/avatar-vo-reel.md": {
@@ -277,16 +277,16 @@
     ".agents/plugins/super-video-maker-plugin/docs/guides/CHANGELOG.md": {
       "imports": [],
       "mentions": [
-        "scripts/sync_templates.py",
+        "scripts/maintenance/sync_templates.py",
         ".env.example",
         "package.json",
-        "scripts/validate_blueprint.py"
+        "scripts/gates/validate_blueprint.py"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/docs/guides/DISTRIBUTION_CHECKLIST.md": {
       "imports": [],
       "mentions": [
-        "scripts/sync_templates.py",
+        "scripts/maintenance/sync_templates.py",
         ".env.example",
         ".gitignore"
       ]
@@ -299,7 +299,7 @@
       "imports": [],
       "mentions": [
         "requirements.txt",
-        "scripts/sync_templates.py",
+        "scripts/maintenance/sync_templates.py",
         ".env.example",
         "package-lock.json"
       ]
@@ -329,7 +329,7 @@
       "mentions": [
         "scripts/phase16/validate_phase_16_2.ts",
         "scripts/phase15/validate_execution_contracts.ts",
-        "scripts/generate_registry.ts"
+        "scripts/generators/generate_registry.ts"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_12_REPORT.md": {
@@ -339,7 +339,7 @@
     ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_13_REPORT.md": {
       "imports": [],
       "mentions": [
-        "scripts/certify_templates.ts",
+        "scripts/remotion_interop/certify_templates.ts",
         "scripts/phase13/prioritize.ts",
         "scripts/phase13/baseline.ts",
         "scripts/phase13/coverage.ts"
@@ -350,7 +350,7 @@
       "mentions": [
         "scripts/phase15/validate_verification_integrity.ts",
         "scripts/phase15/validate_execution_contracts.ts",
-        "scripts/generate_registry.ts"
+        "scripts/generators/generate_registry.ts"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_15_REPORT.md": {
@@ -367,13 +367,13 @@
         "scripts/phase16/extract_proven_defaults.ts",
         "scripts/phase16/validate_phase_16_2.ts",
         "scripts/phase15/validate_execution_contracts.ts",
-        "scripts/generate_registry.ts"
+        "scripts/generators/generate_registry.ts"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/docs/reports/task.md": {
       "imports": [],
       "mentions": [
-        "scripts/generate_registry.ts"
+        "scripts/generators/generate_registry.ts"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json": {
@@ -869,7 +869,7 @@
     ".agents/plugins/super-video-maker-plugin/references/CUSTOM_CODE_GUIDE.md": {
       "imports": [],
       "mentions": [
-        "scripts/custom_code_validator.py"
+        "scripts/validators/custom_code_validator.py"
       ]
     },
     ".agents/plugins/super-video-maker-plugin/references/FFMPEG_PLAYBOOK.md": {
@@ -917,8 +917,8 @@
     ".agents/plugins/super-video-maker-plugin/references/ROUTER.md": {
       "imports": [],
       "mentions": [
-        "scripts/materialize_project.py",
-        "scripts/template_router.py",
+        "scripts/generators/materialize_project.py",
+        "scripts/maintenance/template_router.py",
         ".blueprint_lock.json",
         "ground-truth/CINEMATIC_INDEX.md",
         "ground-truth/TOOLS_INDEX.md",
@@ -2203,7 +2203,7 @@
       "mentions": [
         "references/deep/motion-taste/director/motion-personality.md",
         "scripts/open_studio.py",
-        "scripts/validate_template.py",
+        "scripts/validators/validate_template.py",
         "references/deep/motion-taste/director/SFX_BINDING_MATRIX.md",
         "references/deep/motion-taste/director/user-signature-style.md",
         "ground-truth/TEMPLATE_INDEX.md",
@@ -2929,10 +2929,10 @@
       "mentions": [
         "scripts/open_studio.py",
         "hooks.json",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         ".studio_unlocked",
         ".agents/logs/guardrails.log",
-        "scripts/plan_gate.py",
+        "scripts/gates/plan_gate.py",
         "scripts/render_project.py"
       ]
     },
@@ -2950,7 +2950,7 @@
         "references/deep/motion-taste/director/motion-personality.md",
         ".gitignore",
         "references/deep/motion-taste/director/choreography.md",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         "scripts/verify/contact-sheet.sh",
         ".agents/rules/video-production-protocol.md",
         "references/deep/motion-taste/reference/timing-easing-tables.md",
@@ -2972,12 +2972,12 @@
     "documentation/SECURITY_PATCH_NOTES.md": {
       "imports": [],
       "mentions": [
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         ".studio_unlocked",
         ".agents/rules/video-production-protocol.md",
         ".agents/AGENTS.md",
-        "scripts/probe_qc.py",
-        "scripts/code_template_gate.py"
+        "scripts/gates/probe_qc.py",
+        "scripts/gates/code_template_gate.py"
       ]
     },
     "documentation/SYSTEM_OVERVIEW.md": {
@@ -2997,63 +2997,63 @@
     "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md": {
       "imports": [],
       "mentions": [
-        "scripts/enforce_contracts.ts",
-        "scripts/batch_builder.py",
-        "scripts/sync_templates.py",
-        "scripts/verify_media_layer.py",
-        "scripts/vo_quality_check.py",
-        "scripts/generate_registry.ts",
-        "scripts/certify_templates.ts",
+        "scripts/remotion_interop/enforce_contracts.ts",
+        "scripts/maintenance/batch_builder.py",
+        "scripts/maintenance/sync_templates.py",
+        "scripts/validators/verify_media_layer.py",
+        "scripts/gates/vo_quality_check.py",
+        "scripts/generators/generate_registry.ts",
+        "scripts/remotion_interop/certify_templates.ts",
         "package.json",
-        "scripts/template_lint.py",
-        "scripts/code_template_gate.py",
-        "scripts/template_router.py",
+        "scripts/validators/template_lint.py",
+        "scripts/gates/code_template_gate.py",
+        "scripts/maintenance/template_router.py",
         "scripts/test_schemas.py",
-        "scripts/build_asset_index.py",
-        "scripts/smart_qc.py",
-        "scripts/motion_validator.py",
-        "scripts/check_orphans.py",
-        "scripts/audit_skill.py",
-        "scripts/build_video.ts",
-        "scripts/final_qc.py",
-        "scripts/custom_code_validator.py",
-        "scripts/validate_blueprint.py",
+        "scripts/generators/build_asset_index.py",
+        "scripts/gates/smart_qc.py",
+        "scripts/gates/motion_validator.py",
+        "scripts/maintenance/check_orphans.py",
+        "scripts/validators/audit_skill.py",
+        "scripts/remotion_interop/build_video.ts",
+        "scripts/gates/final_qc.py",
+        "scripts/validators/custom_code_validator.py",
+        "scripts/gates/validate_blueprint.py",
         "scripts/open_studio.py",
-        "scripts/update_schema.py",
-        "scripts/stitch_skill.py",
-        "scripts/build_catalog.py",
-        "scripts/materialize_project.py",
+        "scripts/maintenance/update_schema.py",
+        "scripts/archive/stitch_skill.py",
+        "scripts/generators/build_catalog.py",
+        "scripts/generators/materialize_project.py",
         "scripts/process_media.py",
-        "scripts/session_manager.py",
-        "scripts/validate_schemas.py",
-        "scripts/spec_validator.py",
-        "scripts/build_ground_truth.py",
-        "scripts/plan_gate.py",
-        "scripts/probe_qc.py",
-        "scripts/template_proposal_validator.py",
-        "scripts/verify_links.py",
-        "scripts/taste_gate.py",
-        "scripts/audit_imports.py",
-        "scripts/asset_gate.py",
-        "scripts/promote_template.py",
-        "scripts/migrate_assets.py",
+        "scripts/core/session_manager.py",
+        "scripts/validators/validate_schemas.py",
+        "scripts/validators/spec_validator.py",
+        "scripts/generators/build_ground_truth.py",
+        "scripts/gates/plan_gate.py",
+        "scripts/gates/probe_qc.py",
+        "scripts/validators/template_proposal_validator.py",
+        "scripts/validators/verify_links.py",
+        "scripts/gates/taste_gate.py",
+        "scripts/validators/audit_imports.py",
+        "scripts/gates/asset_gate.py",
+        "scripts/maintenance/promote_template.py",
+        "scripts/archive/migrate_assets.py",
         "scripts/agent_watcher.py",
-        "scripts/auto_backup.py",
-        "scripts/generate_matrix.ts",
-        "scripts/analyze_adapter_families.ts",
+        "scripts/maintenance/auto_backup.py",
+        "scripts/generators/generate_matrix.ts",
+        "scripts/remotion_interop/analyze_adapter_families.ts",
         "scripts/render_project.py",
         "tsconfig.json",
-        "scripts/generate_plan.py",
-        "scripts/scene_compiler.py",
-        "scripts/classify_templates.py"
+        "scripts/generators/generate_plan.py",
+        "scripts/maintenance/scene_compiler.py",
+        "scripts/archive/classify_templates.py"
       ]
     },
     "documentation/workspace_overview.md": {
       "imports": [],
       "mentions": [
         "requirements.txt",
-        "scripts/sync_templates.py",
-        "scripts/verify_media_layer.py",
+        "scripts/maintenance/sync_templates.py",
+        "scripts/validators/verify_media_layer.py",
         ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
         "engine/ui-state/UIStateProvider.tsx",
         "engine/types.ts",
@@ -3066,7 +3066,7 @@
         "engine/cursor/arc.ts",
         "engine/ui-state/types.ts",
         "ground-truth/RECIPES_INDEX.md",
-        "scripts/template_lint.py",
+        "scripts/validators/template_lint.py",
         "ground-truth/MCP_INDEX.md",
         "package-lock.json",
         "ground-truth/PLAYBOOKS_INDEX.md",
@@ -3086,16 +3086,16 @@
         "engine/camera/interpolate.ts",
         "engine/layout/types.ts",
         "engine/ui-state/generatePressKeyframes.ts",
-        "scripts/validate_blueprint.py",
-        "scripts/stitch_skill.py",
-        "scripts/materialize_project.py",
+        "scripts/gates/validate_blueprint.py",
+        "scripts/archive/stitch_skill.py",
+        "scripts/generators/materialize_project.py",
         ".agents/rules/video-production-protocol.md",
         ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
         ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
         ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/build_reel.py",
         ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
         "engine/camera/AutoZoom.tsx",
-        "scripts/verify_links.py",
+        "scripts/validators/verify_links.py",
         ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
         "engine/choreography/mapCursorPath.ts",
         ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
@@ -3156,7 +3156,7 @@
     "documentation/archive/project_full_overview.md": {
       "imports": [],
       "mentions": [
-        "scripts/sync_templates.py",
+        "scripts/maintenance/sync_templates.py",
         "engine/primitives/app-ui/Badge.tsx",
         ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/gen_avatar.py",
         "assets/ready/audio/swoosh_norm.wav",
@@ -3195,14 +3195,14 @@
         "ground-truth/TEMPLATE_INDEX.md",
         "assets/ready/audio/pop_norm.wav",
         "engine/primitives/TypeWriter.tsx",
-        "scripts/verify_media_layer.py",
+        "scripts/validators/verify_media_layer.py",
         "assets/ready/video/coding_keyboard.mp4",
         ".blueprint_lock.json",
         ".agents/plugins/super-video-maker-plugin/mcp_config.json",
         "recipes/avatar-vo-broll.json",
         "engine/primitives/app-ui/Avatar.tsx",
         ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
-        "scripts/template_router.py",
+        "scripts/maintenance/template_router.py",
         "ground-truth/MCP_INDEX.md",
         "package-lock.json",
         "assets/ready/icons/python.svg",
@@ -3213,12 +3213,12 @@
         "assets/ready/icons/brain.svg",
         "engine/camera/types.ts",
         "engine/layout/types.ts",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         ".agents/rules/video-production-protocol.md",
         ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
         "engine/primitives/app-ui/Panel.tsx",
         "assets/ready/audio/whoosh_norm.wav",
-        "scripts/build_ground_truth.py",
+        "scripts/generators/build_ground_truth.py",
         "engine/primitives/Headline.tsx",
         "assets/ready/icons/bookmark.svg",
         "engine/primitives/app-ui/SearchBar.tsx",
@@ -3235,7 +3235,7 @@
         ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
         ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
         "engine/camera/resolveTimeline.ts",
-        "scripts/classify_templates.py",
+        "scripts/archive/classify_templates.py",
         "requirements.txt",
         ".agents/plugins/super-video-maker-plugin/workflows/avatar-insta-split/make_badge.py",
         "assets/ready/music/music_normalized.wav",
@@ -3256,7 +3256,7 @@
         "engine/primitives/EndCard.tsx",
         "assets/ready/music/premium_ambient.mp3",
         ".agents/plugins/super-video-maker-plugin/tools/video_orchestrator.py",
-        "scripts/stitch_skill.py",
+        "scripts/archive/stitch_skill.py",
         "assets/ready/music/tech_energetic_music.mp3",
         "scripts/verify/contact-sheet.sh",
         "assets/ready/icons/telegram.svg",
@@ -3298,13 +3298,13 @@
         "engine/primitives/app-ui/Button.tsx",
         "engine/scenes/HeadlineResolution.tsx",
         "engine/layout/useWindowRect.ts",
-        "scripts/validate_blueprint.py",
+        "scripts/gates/validate_blueprint.py",
         "engine/ui-state/generatePressKeyframes.ts",
         "assets/ready/sfx/notification.mp3",
         "assets/ready/sfx/digital.mp3",
         ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
         ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
-        "scripts/verify_links.py",
+        "scripts/validators/verify_links.py",
         "references/deep/motion-taste/reference/timing-easing-tables.md",
         "engine/scenes/FeatureShowcase.tsx",
         ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
@@ -3367,7 +3367,7 @@
     "documentation/audits/HEALTH.md": {
       "imports": [],
       "mentions": [
-        "scripts/validate_schemas.py"
+        "scripts/validators/validate_schemas.py"
       ]
     },
     "documentation/audits/INTEGRATION_TEST_REPORT.md": {
@@ -3400,18 +3400,18 @@
     "documentation/guides/DATA_DRIVEN_MIGRATION.md": {
       "imports": [],
       "mentions": [
-        "scripts/e2e_data_render.py"
+        "scripts/core/e2e_data_render.py"
       ]
     },
     "documentation/guides/SECURITY_PATCH_NOTES.md": {
       "imports": [],
       "mentions": [
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         ".studio_unlocked",
         ".agents/rules/video-production-protocol.md",
         ".agents/AGENTS.md",
-        "scripts/probe_qc.py",
-        "scripts/code_template_gate.py"
+        "scripts/gates/probe_qc.py",
+        "scripts/gates/code_template_gate.py"
       ]
     },
     "documentation/guides/UPGRADE_NOTES.md": {
@@ -3685,7 +3685,7 @@
     "documentation/legacy/spec-driven/ground-truth/TOOLS_INDEX.md": {
       "imports": [],
       "mentions": [
-        "scripts/materialize_project.py"
+        "scripts/generators/materialize_project.py"
       ]
     },
     "documentation/legacy/spec-driven/ground-truth/VOCAB_REMAP.md": {
@@ -4391,7 +4391,7 @@
     "ground-truth/TOOLS_INDEX.md": {
       "imports": [],
       "mentions": [
-        "scripts/materialize_project.py"
+        "scripts/generators/materialize_project.py"
       ]
     },
     "ground-truth/VOCAB_REMAP.md": {
@@ -4723,28 +4723,28 @@
         "assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/video/smartphone.mp4",
         "assets/ready/video/bg_neon_1_intra.mp4",
-        "scripts/validate_blueprint.py",
+        "scripts/gates/validate_blueprint.py",
         "scripts/open_studio.py",
         "scratch/test_bp.json",
         "projects/prj_a68b0b6e/assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/audio/keyboard_norm.wav",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         "projects/prj_a68b0b6e/.studio_unlocked",
         "templates/effects/engine-bridge.tsx",
         "assets/ready/icons/smartphone_lucide.svg",
         "assets/ready/icons/success.svg",
         "assets/ready/icons/rocket_cartoon.svg",
         "assets/ready/audio/whoosh_norm.wav",
-        "scripts/plan_gate.py",
+        "scripts/gates/plan_gate.py",
         "scratch/generate_final_plan.py",
         "projects/prj_a68b0b6e/assets/ready/vo_norm.wav",
-        "scripts/probe_qc.py",
+        "scripts/gates/probe_qc.py",
         "scratch/analyze_transcript.py",
         "templates/elements/MatrixRainWrapper.tsx",
         "scratch/patch_generator.py",
         "scratch/check_templates.py",
         "assets/ready/audio/notification_norm.wav",
-        "scripts/asset_gate.py",
+        "scripts/gates/asset_gate.py",
         "projects/prj_a68b0b6e/assets/ready/icons/success.svg",
         "templates/elements/DashboardPopulateWrapper.tsx",
         "remotion-app/src/BlueprintVideo.tsx",
@@ -4802,28 +4802,28 @@
         "assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/video/smartphone.mp4",
         "assets/ready/video/bg_neon_1_intra.mp4",
-        "scripts/validate_blueprint.py",
+        "scripts/gates/validate_blueprint.py",
         "scripts/open_studio.py",
         "scratch/test_bp.json",
         "projects/prj_a68b0b6e/assets/ready/icons/brain.svg",
         "projects/prj_a68b0b6e/assets/ready/audio/keyboard_norm.wav",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         "projects/prj_a68b0b6e/.studio_unlocked",
         "templates/effects/engine-bridge.tsx",
         "assets/ready/icons/smartphone_lucide.svg",
         "assets/ready/icons/success.svg",
         "assets/ready/icons/rocket_cartoon.svg",
         "assets/ready/audio/whoosh_norm.wav",
-        "scripts/plan_gate.py",
+        "scripts/gates/plan_gate.py",
         "scratch/generate_final_plan.py",
         "projects/prj_a68b0b6e/assets/ready/vo_norm.wav",
-        "scripts/probe_qc.py",
+        "scripts/gates/probe_qc.py",
         "scratch/analyze_transcript.py",
         "templates/elements/MatrixRainWrapper.tsx",
         "scratch/patch_generator.py",
         "scratch/check_templates.py",
         "assets/ready/audio/notification_norm.wav",
-        "scripts/asset_gate.py",
+        "scripts/gates/asset_gate.py",
         "projects/prj_a68b0b6e/assets/ready/icons/success.svg",
         "templates/elements/DashboardPopulateWrapper.tsx",
         "remotion-app/src/BlueprintVideo.tsx",
@@ -5346,7 +5346,7 @@
     "references/CUSTOM_CODE_GUIDE.md": {
       "imports": [],
       "mentions": [
-        "scripts/custom_code_validator.py"
+        "scripts/validators/custom_code_validator.py"
       ]
     },
     "references/FFMPEG_PLAYBOOK.md": {
@@ -5402,7 +5402,7 @@
       "mentions": [
         "scripts/open_studio.py",
         "scripts/render_project.py",
-        "scripts/materialize_project.py"
+        "scripts/generators/materialize_project.py"
       ]
     },
     "references/REVIEW_VIDEO_PLAYBOOK.md": {
@@ -5423,12 +5423,12 @@
         ".agents/plugins/super-video-maker-plugin/tools/video_recipes.py",
         "ground-truth/CINEMATIC_INDEX.md",
         "ground-truth/template_catalog.json",
-        "scripts/template_router.py",
+        "scripts/maintenance/template_router.py",
         "ground-truth/MCP_INDEX.md",
         "references/deep/motion-taste/director/motion-personality.md",
         "references/LIVING_CANVAS_PLAYBOOK.md",
         "references/SEEDANCE_AVATAR_ROI.md",
-        "scripts/materialize_project.py",
+        "scripts/generators/materialize_project.py",
         "references/REVIEW_VIDEO_PLAYBOOK.md",
         "references/REMOTION_VIDEO_GUIDE.md",
         "references/deep/ad-spine/ad-creative/SKILL.md",
@@ -7312,55 +7312,55 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/analyze_adapter_families.ts": {
+    "scripts/remotion_interop/analyze_adapter_families.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/asset_gate.py": {
+    "scripts/gates/asset_gate.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/audit_imports.py": {
+    "scripts/validators/audit_imports.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/audit_skill.py": {
+    "scripts/validators/audit_skill.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/auto_backup.py": {
+    "scripts/maintenance/auto_backup.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/batch_builder.py": {
+    "scripts/maintenance/batch_builder.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/benchmark_guards.py": {
+    "scripts/metrics/benchmark_guards.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/build_asset_index.py": {
+    "scripts/generators/build_asset_index.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/build_catalog.py": {
+    "scripts/generators/build_catalog.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/build_ground_truth.py": {
+    "scripts/generators/build_ground_truth.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/build_video.ts": {
+    "scripts/remotion_interop/build_video.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/certify_templates.ts": {
+    "scripts/remotion_interop/certify_templates.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/check_orphans.py": {
+    "scripts/maintenance/check_orphans.py": {
       "imports": [],
       "mentions": []
     },
@@ -7368,72 +7368,72 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/classify_templates.py": {
+    "scripts/archive/classify_templates.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/cleanup_assets.py": {
+    "scripts/maintenance/cleanup_assets.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/code_template_gate.py": {
+    "scripts/gates/code_template_gate.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/custom_code_validator.py": {
+    "scripts/validators/custom_code_validator.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/e2e_data_render.py": {
+    "scripts/core/e2e_data_render.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/enforce_contracts.ts": {
+    "scripts/remotion_interop/enforce_contracts.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/final_qc.py": {
+    "scripts/gates/final_qc.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/generate_matrix.ts": {
+    "scripts/generators/generate_matrix.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/generate_plan.py": {
+    "scripts/generators/generate_plan.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/generate_registry.ts": {
+    "scripts/generators/generate_registry.ts": {
       "imports": [],
       "mentions": []
     },
-    "scripts/generate_schema.ts": {
+    "scripts/generators/generate_schema.ts": {
       "imports": [
         "contracts/blueprint.ts"
       ],
       "mentions": []
     },
-    "scripts/inspect_template.py": {
+    "scripts/validators/inspect_template.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/materialize_project.py": {
+    "scripts/generators/materialize_project.py": {
       "imports": [
         "scripts/core/gates.py",
         "scripts/core/pipeline.py"
       ],
       "mentions": []
     },
-    "scripts/migrate_assets.py": {
+    "scripts/archive/migrate_assets.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/migrate_legacy_projects.py": {
+    "scripts/archive/migrate_legacy_projects.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/motion_validator.py": {
+    "scripts/gates/motion_validator.py": {
       "imports": [],
       "mentions": []
     },
@@ -7445,11 +7445,11 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/plan_gate.py": {
+    "scripts/gates/plan_gate.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/probe_qc.py": {
+    "scripts/gates/probe_qc.py": {
       "imports": [],
       "mentions": []
     },
@@ -7457,7 +7457,7 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/promote_template.py": {
+    "scripts/maintenance/promote_template.py": {
       "imports": [],
       "mentions": []
     },
@@ -7468,7 +7468,7 @@
       ],
       "mentions": []
     },
-    "scripts/retier_docs.py": {
+    "scripts/maintenance/retier_docs.py": {
       "imports": [],
       "mentions": []
     },
@@ -7476,47 +7476,47 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/scene_compiler.py": {
+    "scripts/maintenance/scene_compiler.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/session_manager.py": {
+    "scripts/core/session_manager.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/setup_docker.py": {
+    "scripts/maintenance/setup_docker.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/smart_qc.py": {
+    "scripts/gates/smart_qc.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/spec_validator.py": {
+    "scripts/validators/spec_validator.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/stitch_skill.py": {
+    "scripts/archive/stitch_skill.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/sync_templates.py": {
+    "scripts/maintenance/sync_templates.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/taste_gate.py": {
+    "scripts/gates/taste_gate.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/template_lint.py": {
+    "scripts/validators/template_lint.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/template_proposal_validator.py": {
+    "scripts/validators/template_proposal_validator.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/template_router.py": {
+    "scripts/maintenance/template_router.py": {
       "imports": [],
       "mentions": []
     },
@@ -7524,39 +7524,39 @@
       "imports": [],
       "mentions": []
     },
-    "scripts/transcript_cleaner.py": {
+    "scripts/maintenance/transcript_cleaner.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/tsconfig.json": {
+    "scripts/remotion_interop/tsconfig.json": {
       "imports": [],
       "mentions": []
     },
-    "scripts/update_schema.py": {
+    "scripts/maintenance/update_schema.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/validate_blueprint.py": {
+    "scripts/gates/validate_blueprint.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/validate_schemas.py": {
+    "scripts/validators/validate_schemas.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/validate_template.py": {
+    "scripts/validators/validate_template.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/verify_links.py": {
+    "scripts/validators/verify_links.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/verify_media_layer.py": {
+    "scripts/validators/verify_media_layer.py": {
       "imports": [],
       "mentions": []
     },
-    "scripts/vo_quality_check.py": {
+    "scripts/gates/vo_quality_check.py": {
       "imports": [],
       "mentions": []
     },
@@ -8373,7 +8373,7 @@
     },
     "tests/test_guardrails.py": {
       "imports": [
-        "scripts/plan_gate.py"
+        "scripts/gates/plan_gate.py"
       ],
       "mentions": []
     },
@@ -8539,7 +8539,7 @@
       "remotion-app/src/loadProjectData.ts",
       "remotion-app/src/merge.ts",
       "remotion-app/src/__tests__/merge.test.ts",
-      "scripts/generate_schema.ts"
+      "scripts/generators/generate_schema.ts"
     ],
     "engine/audio/resolveCues.ts": [
       "engine/audio/AudioManager.tsx"
@@ -9117,12 +9117,12 @@
       "remotion-app/src/templates/custom/LevelOneScene.tsx"
     ],
     "scripts/core/gates.py": [
-      "scripts/materialize_project.py",
+      "scripts/generators/materialize_project.py",
       "scripts/render_project.py",
       "tests/test_gates_and_pipeline.py"
     ],
     "scripts/core/pipeline.py": [
-      "scripts/materialize_project.py",
+      "scripts/generators/materialize_project.py",
       "scripts/render_project.py",
       "tests/test_gates_and_pipeline.py"
     ],
@@ -9388,7 +9388,7 @@
     "remotion-app/src/loadProjectData.ts": [
       "tests/merge.test.ts"
     ],
-    "scripts/plan_gate.py": [
+    "scripts/gates/plan_gate.py": [
       "tests/test_guardrails.py"
     ],
     "api/main.py": [
@@ -9617,7 +9617,7 @@
       "projects/prj_a68b0b6e/conversation_log.md",
       "projects/prj_a68b0b6e/FULL_CONVERSATION_LOG.md"
     ],
-    "scripts/validate_blueprint.py": [
+    "scripts/gates/validate_blueprint.py": [
       "FULL_CONVERSATION_LOG.md",
       ".agents/plugins/super-video-maker-plugin/docs/guides/CHANGELOG.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
@@ -9653,7 +9653,7 @@
       "projects/prj_a68b0b6e/conversation_log.md",
       "projects/prj_a68b0b6e/FULL_CONVERSATION_LOG.md"
     ],
-    "scripts/materialize_project.py": [
+    "scripts/generators/materialize_project.py": [
       "FULL_CONVERSATION_LOG.md",
       ".agents/AGENTS.md",
       ".agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md",
@@ -9704,7 +9704,7 @@
       "projects/prj_a68b0b6e/conversation_log.md",
       "projects/prj_a68b0b6e/FULL_CONVERSATION_LOG.md"
     ],
-    "scripts/plan_gate.py": [
+    "scripts/gates/plan_gate.py": [
       "FULL_CONVERSATION_LOG.md",
       "documentation/PROJECT_AUDIT_REPORT.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
@@ -9721,7 +9721,7 @@
       "projects/prj_a68b0b6e/conversation_log.md",
       "projects/prj_a68b0b6e/FULL_CONVERSATION_LOG.md"
     ],
-    "scripts/probe_qc.py": [
+    "scripts/gates/probe_qc.py": [
       "FULL_CONVERSATION_LOG.md",
       ".agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md",
       "documentation/SECURITY_PATCH_NOTES.md",
@@ -9759,7 +9759,7 @@
       "projects/prj_a68b0b6e/conversation_log.md",
       "projects/prj_a68b0b6e/FULL_CONVERSATION_LOG.md"
     ],
-    "scripts/asset_gate.py": [
+    "scripts/gates/asset_gate.py": [
       "FULL_CONVERSATION_LOG.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "projects/prj_a68b0b6e/conversation_log.md",
@@ -9887,10 +9887,10 @@
       ".agents/AGENTS.md",
       ".agents/rules/video-production-protocol.md"
     ],
-    "scripts/inspect_template.py": [
+    "scripts/validators/inspect_template.py": [
       ".agents/AGENTS.md"
     ],
-    "scripts/validate_template.py": [
+    "scripts/validators/validate_template.py": [
       ".agents/AGENTS.md",
       ".agents/rules/video-production-protocol.md"
     ],
@@ -9923,7 +9923,7 @@
       "references/README.md",
       "references/REMOTION_VIDEO_GUIDE.md"
     ],
-    "scripts/template_router.py": [
+    "scripts/maintenance/template_router.py": [
       ".agents/AGENTS.md",
       ".agents/plugins/super-video-maker-plugin/references/ROUTER.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
@@ -9939,7 +9939,7 @@
       "documentation/archive/project_full_overview.md",
       "references/README.md"
     ],
-    "scripts/sync_templates.py": [
+    "scripts/maintenance/sync_templates.py": [
       ".agents/plugins/super-video-maker-plugin/README.md",
       ".agents/plugins/super-video-maker-plugin/docs/guides/CHANGELOG.md",
       ".agents/plugins/super-video-maker-plugin/docs/guides/DISTRIBUTION_CHECKLIST.md",
@@ -9966,13 +9966,13 @@
       "documentation/workspace_overview.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/code_template_gate.py": [
+    "scripts/gates/code_template_gate.py": [
       ".agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md",
       "documentation/SECURITY_PATCH_NOTES.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/guides/SECURITY_PATCH_NOTES.md"
     ],
-    "scripts/scene_compiler.py": [
+    "scripts/maintenance/scene_compiler.py": [
       ".agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
@@ -10004,14 +10004,14 @@
       ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_15_1_REPORT.md",
       ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_16_2_REPORT.md"
     ],
-    "scripts/generate_registry.ts": [
+    "scripts/generators/generate_registry.ts": [
       ".agents/plugins/super-video-maker-plugin/docs/reports/implementation_plan.md",
       ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_15_1_REPORT.md",
       ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_16_2_REPORT.md",
       ".agents/plugins/super-video-maker-plugin/docs/reports/task.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/certify_templates.ts": [
+    "scripts/remotion_interop/certify_templates.ts": [
       ".agents/plugins/super-video-maker-plugin/docs/reports/PHASE_13_REPORT.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
@@ -10093,7 +10093,7 @@
       "documentation/workspace_overview.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/custom_code_validator.py": [
+    "scripts/validators/custom_code_validator.py": [
       ".agents/plugins/super-video-maker-plugin/references/CUSTOM_CODE_GUIDE.md",
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "references/CUSTOM_CODE_GUIDE.md"
@@ -10237,112 +10237,112 @@
     "documentation/audits/FINAL_AUDIT_REPORT.md": [
       "documentation/USER_GUIDE.md"
     ],
-    "scripts/enforce_contracts.ts": [
+    "scripts/remotion_interop/enforce_contracts.ts": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/batch_builder.py": [
+    "scripts/maintenance/batch_builder.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/verify_media_layer.py": [
+    "scripts/validators/verify_media_layer.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/workspace_overview.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/vo_quality_check.py": [
+    "scripts/gates/vo_quality_check.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/template_lint.py": [
+    "scripts/validators/template_lint.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/workspace_overview.md"
     ],
     "scripts/test_schemas.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/build_asset_index.py": [
+    "scripts/generators/build_asset_index.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/smart_qc.py": [
+    "scripts/gates/smart_qc.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/motion_validator.py": [
+    "scripts/gates/motion_validator.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/check_orphans.py": [
+    "scripts/maintenance/check_orphans.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/audit_skill.py": [
+    "scripts/validators/audit_skill.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/build_video.ts": [
+    "scripts/remotion_interop/build_video.ts": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/final_qc.py": [
+    "scripts/gates/final_qc.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/update_schema.py": [
+    "scripts/maintenance/update_schema.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/stitch_skill.py": [
+    "scripts/archive/stitch_skill.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/workspace_overview.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/build_catalog.py": [
+    "scripts/generators/build_catalog.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
     "scripts/process_media.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/session_manager.py": [
+    "scripts/core/session_manager.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/validate_schemas.py": [
+    "scripts/validators/validate_schemas.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/audits/HEALTH.md"
     ],
-    "scripts/spec_validator.py": [
+    "scripts/validators/spec_validator.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/build_ground_truth.py": [
+    "scripts/generators/build_ground_truth.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/template_proposal_validator.py": [
+    "scripts/validators/template_proposal_validator.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/verify_links.py": [
+    "scripts/validators/verify_links.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/workspace_overview.md",
       "documentation/archive/project_full_overview.md"
     ],
-    "scripts/taste_gate.py": [
+    "scripts/gates/taste_gate.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/audit_imports.py": [
+    "scripts/validators/audit_imports.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/promote_template.py": [
+    "scripts/maintenance/promote_template.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/migrate_assets.py": [
+    "scripts/archive/migrate_assets.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
     "scripts/agent_watcher.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/auto_backup.py": [
+    "scripts/maintenance/auto_backup.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/generate_matrix.ts": [
+    "scripts/generators/generate_matrix.ts": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/analyze_adapter_families.ts": [
+    "scripts/remotion_interop/analyze_adapter_families.ts": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/generate_plan.py": [
+    "scripts/generators/generate_plan.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md"
     ],
-    "scripts/classify_templates.py": [
+    "scripts/archive/classify_templates.py": [
       "documentation/WORKSPACE_COMPREHENSIVE_GUIDE.md",
       "documentation/archive/project_full_overview.md"
     ],
@@ -10841,7 +10841,7 @@
       "ground-truth/collections/ads.md",
       "ground-truth/collections/explainers.md"
     ],
-    "scripts/e2e_data_render.py": [
+    "scripts/core/e2e_data_render.py": [
       "documentation/guides/DATA_DRIVEN_MIGRATION.md"
     ],
     "templates/effects/ZoomInOutTransition.tsx": [

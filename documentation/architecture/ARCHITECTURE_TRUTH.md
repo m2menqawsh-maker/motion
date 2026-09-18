@@ -48,7 +48,7 @@ The engine provides advanced video rendering effects and primitives.
 ## 8. Templates / Scenes / Compositions
 Templates are strictly registered structural components.
 - Ad-hoc template generation that bypasses the registry is forbidden.
-- **Evidence:** `scripts/template_router.py` strictly accesses registered components.
+- **Evidence:** `scripts/maintenance/template_router.py` strictly accesses registered components.
 
 ## 9. Contracts & Schemas
 - **Data Contracts:** Located in `schemas/` (Python) and `contracts/` (TypeScript).

@@ -133,13 +133,13 @@ flowchart TD
 
     subgraph Phase2 ["المرحلة 2: الخطة التفصيلية (🛑 STOP 2)"]
         Stop1 --> HumanPlan[كتابة الخطة يدويًا: master_plan.md]
-        HumanPlan --> PlanGate[فحص الخطة: python scripts/plan_gate.py]
+        HumanPlan --> PlanGate[فحص الخطة: python scripts/gates/plan_gate.py]
         PlanGate --> Stop2[🛑 STOP 2: اعتماد الخطة التفصيلية]
     end
 
     subgraph Phase3 ["المرحلة 3: البناء، المعاينة، والرندر (🛑 STOP 3)"]
         Stop2 --> GenJSON[إعداد 05_05_blueprint.json والبيان]
-        GenJSON --> Materialize[نقل الأصول: scripts/materialize_project.py]
+        GenJSON --> Materialize[نقل الأصول: scripts/generators/materialize_project.py]
         Materialize --> Compile[تجميع المشاهد: scene_compiler.py]
         Compile --> ASTGate[فحص الكود: code_template_gate.py]
         ASTGate --> ProbeQC[الفحص الخفي واستخراج الختم: probe_qc.py]
@@ -162,7 +162,7 @@ flowchart TD
 3. **المرحلة 2 (Detailed Plan — 🛑 STOP 2):**
    - صياغة خطة `master_plan.md` بواسطة الوكيل حصراً دون الاستعانة بسكربتات توليد آلي.
    - الالتزام بالمعايير: جدول زمني للكلمات، لقطتان على الأقل لكل مشهد، 3 قوالب مختلفة كحد أدنى، 3 مؤثرات صوتية مختلفة، وتوثيق الاستشهادات الحركية.
-   - التحقق عبر `python scripts/plan_gate.py <project_id>`.
+   - التحقق عبر `python scripts/gates/plan_gate.py <project_id>`.
    - توقف إجباري للموافقة على الخطة.
 4. **المرحلة 3 (Build, Preview & Render — 🛑 STOP 3):**
    - توليد `05_05_blueprint.json` و `02_asset_manifest.json`.

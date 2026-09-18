@@ -157,37 +157,37 @@
     ],
     [
       ".remediation/quarantine/deprecated-systems/core/gates.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/core/pipeline.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/gates/checks.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/gates/plan_report.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/gates/plan_report.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/gates/stage_gate.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/deprecated-systems/gates/stage_gate.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -257,82 +257,82 @@
     ],
     [
       ".remediation/quarantine/zombie-daemons/agent_watcher.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/zombie-daemons/agent_watcher.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       ".remediation/quarantine/zombie-daemons/process_media.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       ".remediation/quarantine/zombie-daemons/process_media.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/main.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/main.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/websocket.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/websocket.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/__init__.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/__init__.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/routers/blueprint.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/blueprint.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/routers/brand.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/brand.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/routers/gates.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/gates.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
@@ -342,12 +342,12 @@
     ],
     [
       "api/routers/projects.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/projects.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
@@ -362,12 +362,12 @@
     ],
     [
       "api/routers/render.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/render.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
@@ -382,12 +382,12 @@
     ],
     [
       "api/routers/__init__.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/routers/__init__.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
@@ -397,22 +397,22 @@
     ],
     [
       "api/services/gate_service.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/services/pipeline_service.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/services/pipeline_service.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/services/render_service.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -427,22 +427,22 @@
     ],
     [
       "api/services/scaffold_service.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/services/scaffold_service.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "api/services/__init__.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "api/services/__init__.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
@@ -1751,73 +1751,73 @@
       "import"
     ],
     [
-      "scripts/asset_gate.py",
-      "scripts/security.py",
+      "scripts/gates/asset_gate.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/asset_gate.py",
-      "scripts/path_security.py",
+      "scripts/gates/asset_gate.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/audit_imports.py",
-      "scripts/security.py",
+      "scripts/validators/audit_imports.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/audit_skill.py",
-      "scripts/security.py",
+      "scripts/validators/audit_skill.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/auto_backup.py",
-      "scripts/security.py",
+      "scripts/maintenance/auto_backup.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/batch_builder.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/batch_builder.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/batch_builder.py",
-      "scripts/security.py",
+      "scripts/maintenance/batch_builder.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/benchmark_guards.py",
+      "scripts/metrics/benchmark_guards.py",
       "python",
       "subprocess"
     ],
     [
-      "scripts/benchmark_guards.py",
-      "scripts/security.py",
+      "scripts/metrics/benchmark_guards.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/benchmark_guards.py",
-      "scripts/path_security.py",
+      "scripts/metrics/benchmark_guards.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/build_asset_index.py",
-      "scripts/security.py",
+      "scripts/generators/build_asset_index.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/build_catalog.py",
-      "scripts/security.py",
+      "scripts/generators/build_catalog.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/build_ground_truth.py",
-      "scripts/security.py",
+      "scripts/generators/build_ground_truth.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/build_ground_truth.py",
-      "scripts/path_security.py",
+      "scripts/generators/build_ground_truth.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -1826,218 +1826,218 @@
       "import"
     ],
     [
-      "scripts/check_orphans.py",
-      "scripts/security.py",
+      "scripts/maintenance/check_orphans.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/ci_run_all.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/ci_run_all.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/classify_templates.py",
-      "scripts/security.py",
+      "scripts/archive/classify_templates.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/cleanup_assets.py",
-      "scripts/security.py",
+      "scripts/maintenance/cleanup_assets.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/cleanup_assets.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/cleanup_assets.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/code_template_gate.py",
-      "scripts/security.py",
+      "scripts/gates/code_template_gate.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/code_template_gate.py",
-      "scripts/path_security.py",
+      "scripts/gates/code_template_gate.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/custom_code_validator.py",
-      "scripts/path_security.py",
+      "scripts/validators/custom_code_validator.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/custom_code_validator.py",
-      "scripts/security.py",
+      "scripts/validators/custom_code_validator.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/e2e_data_render.py",
-      "scripts/security.py",
+      "scripts/core/e2e_data_render.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/e2e_data_render.py",
+      "scripts/core/e2e_data_render.py",
       "api/services/pipeline_service.py",
       "import"
     ],
     [
-      "scripts/final_qc.py",
-      "scripts/path_security.py",
+      "scripts/gates/final_qc.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/final_qc.py",
-      "scripts/security.py",
+      "scripts/gates/final_qc.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/generate_plan.py",
-      "scripts/security.py",
+      "scripts/generators/generate_plan.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/generate_plan.py",
-      "scripts/path_security.py",
+      "scripts/generators/generate_plan.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/generate_schema.ts",
+      "scripts/generators/generate_schema.ts",
       "contracts/blueprint.ts",
       "import"
     ],
     [
-      "scripts/health.py",
-      "scripts/metrics_collector.py",
+      "scripts/metrics/health.py",
+      "scripts/metrics/metrics_collector.py",
       "import"
     ],
     [
-      "scripts/health.py",
-      "scripts/metrics_model.py",
+      "scripts/metrics/health.py",
+      "scripts/metrics/metrics_model.py",
       "import"
     ],
     [
-      "scripts/inspect_template.py",
-      "scripts/security.py",
+      "scripts/validators/inspect_template.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/inspect_template.py",
-      "scripts/path_security.py",
+      "scripts/validators/inspect_template.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/materialize_project.py",
-      "scripts/security.py",
+      "scripts/generators/materialize_project.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/materialize_project.py",
+      "scripts/generators/materialize_project.py",
       "api/services/pipeline_service.py",
       "import"
     ],
     [
-      "scripts/metrics_collector.py",
-      "scripts/metrics_model.py",
+      "scripts/metrics/metrics_collector.py",
+      "scripts/metrics/metrics_model.py",
       "import"
     ],
     [
-      "scripts/migrate_assets.py",
-      "scripts/security.py",
+      "scripts/archive/migrate_assets.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/migrate_legacy_projects.py",
-      "scripts/security.py",
+      "scripts/archive/migrate_legacy_projects.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/motion_validator.py",
-      "scripts/security.py",
+      "scripts/gates/motion_validator.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/motion_validator.py",
-      "scripts/path_security.py",
-      "import"
-    ],
-    [
-      "scripts/open_studio.py",
-      "scripts/security.py",
+      "scripts/gates/motion_validator.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "scripts/open_studio.py",
-      "scripts/path_security.py",
+      "scripts/security/security.py",
+      "import"
+    ],
+    [
+      "scripts/open_studio.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "scripts/pipeline.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
       "scripts/pipeline.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/pipeline.py",
-      "scripts/runtime_logger.py",
+      "scripts/core/runtime_logger.py",
       "import"
     ],
     [
       "scripts/pipeline.py",
-      "scripts/retry_policy.py",
+      "scripts/core/retry_policy.py",
       "import"
     ],
     [
       "scripts/pipeline.py",
-      "scripts/failure_injection.py",
+      "scripts/core/failure_injection.py",
       "import"
     ],
     [
-      "scripts/plan_gate.py",
-      "scripts/security.py",
+      "scripts/gates/plan_gate.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/plan_gate.py",
-      "scripts/path_security.py",
+      "scripts/gates/plan_gate.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/probe_qc.py",
-      "scripts/security.py",
+      "scripts/gates/probe_qc.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/promote_template.py",
-      "scripts/security.py",
+      "scripts/maintenance/promote_template.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/promote_template.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/promote_template.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/recovery_engine.py",
+      "scripts/core/recovery_engine.py",
       "scripts/checkpoint_model.py",
       "import"
     ],
     [
-      "scripts/recovery_engine.py",
+      "scripts/core/recovery_engine.py",
       "scripts/checkpoint_store.py",
       "import"
     ],
     [
       "scripts/render_project.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -2047,32 +2047,32 @@
     ],
     [
       "scripts/render_project.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/retier_docs.py",
-      "scripts/security.py",
+      "scripts/maintenance/retier_docs.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/retry_policy.py",
-      "scripts/failure_model.py",
+      "scripts/core/retry_policy.py",
+      "scripts/core/failure_model.py",
       "import"
     ],
     [
-      "scripts/runtime_logger.py",
-      "scripts/failure_model.py",
-      "import"
-    ],
-    [
-      "scripts/scaffold_project.py",
-      "scripts/security.py",
+      "scripts/core/runtime_logger.py",
+      "scripts/core/failure_model.py",
       "import"
     ],
     [
       "scripts/scaffold_project.py",
-      "scripts/path_security.py",
+      "scripts/security/security.py",
+      "import"
+    ],
+    [
+      "scripts/scaffold_project.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -2081,178 +2081,178 @@
       "import"
     ],
     [
-      "scripts/scene_compiler.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/scene_compiler.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/scene_compiler.py",
-      "scripts/security.py",
+      "scripts/maintenance/scene_compiler.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/session_manager.py",
-      "scripts/security.py",
+      "scripts/core/session_manager.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/setup_docker.py",
-      "scripts/security.py",
+      "scripts/maintenance/setup_docker.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/setup_docker.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/setup_docker.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/smart_qc.py",
-      "scripts/path_security.py",
+      "scripts/gates/smart_qc.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/smart_qc.py",
-      "scripts/security.py",
+      "scripts/gates/smart_qc.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/spec_validator.py",
-      "scripts/security.py",
+      "scripts/validators/spec_validator.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/spec_validator.py",
-      "scripts/path_security.py",
+      "scripts/validators/spec_validator.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/stitch_skill.py",
-      "scripts/security.py",
+      "scripts/archive/stitch_skill.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/stitch_skill.py",
-      "scripts/path_security.py",
+      "scripts/archive/stitch_skill.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/taste_gate.py",
-      "scripts/security.py",
+      "scripts/gates/taste_gate.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/template_lint.py",
-      "scripts/security.py",
+      "scripts/validators/template_lint.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/template_proposal_validator.py",
-      "scripts/path_security.py",
+      "scripts/validators/template_proposal_validator.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/template_proposal_validator.py",
-      "scripts/security.py",
+      "scripts/validators/template_proposal_validator.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/template_router.py",
-      "scripts/security.py",
-      "import"
-    ],
-    [
-      "scripts/test_schemas.py",
-      "scripts/security.py",
+      "scripts/maintenance/template_router.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/test_schemas.py",
-      "scripts/path_security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/transcript_cleaner.py",
-      "scripts/security.py",
+      "scripts/test_schemas.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/transcript_cleaner.py",
-      "scripts/path_security.py",
+      "scripts/maintenance/transcript_cleaner.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/update_schema.py",
-      "scripts/security.py",
+      "scripts/maintenance/transcript_cleaner.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/validate_blueprint.py",
-      "scripts/security.py",
+      "scripts/maintenance/update_schema.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/validate_schemas.py",
-      "scripts/security.py",
+      "scripts/gates/validate_blueprint.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/validate_schemas.py",
-      "scripts/path_security.py",
+      "scripts/validators/validate_schemas.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/validate_template.py",
-      "scripts/security.py",
+      "scripts/validators/validate_schemas.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/validate_template.py",
-      "scripts/path_security.py",
+      "scripts/validators/validate_template.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/verify_links.py",
-      "scripts/security.py",
+      "scripts/validators/validate_template.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/verify_media_layer.py",
-      "scripts/security.py",
+      "scripts/validators/verify_links.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/verify_media_layer.py",
-      "scripts/path_security.py",
+      "scripts/validators/verify_media_layer.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
-      "scripts/vo_quality_check.py",
-      "scripts/path_security.py",
+      "scripts/validators/verify_media_layer.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
-      "scripts/vo_quality_check.py",
-      "scripts/security.py",
+      "scripts/gates/vo_quality_check.py",
+      "scripts/security/path_security.py",
+      "import"
+    ],
+    [
+      "scripts/gates/vo_quality_check.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/tests/test_failure_classification.py",
-      "scripts/failure_model.py",
+      "scripts/core/failure_model.py",
       "import"
     ],
     [
       "scripts/tests/test_failure_injection.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/tests/test_metrics.py",
-      "scripts/metrics_model.py",
+      "scripts/metrics/metrics_model.py",
       "import"
     ],
     [
       "scripts/tests/test_metrics.py",
-      "scripts/metrics_collector.py",
+      "scripts/metrics/metrics_collector.py",
       "import"
     ],
     [
@@ -2267,47 +2267,47 @@
     ],
     [
       "scripts/tests/test_recovery.py",
-      "scripts/recovery_engine.py",
+      "scripts/core/recovery_engine.py",
       "import"
     ],
     [
       "scripts/tests/test_runtime_logger.py",
-      "scripts/runtime_logger.py",
+      "scripts/core/runtime_logger.py",
       "import"
     ],
     [
       "scripts/tests/test_runtime_logger.py",
-      "scripts/failure_model.py",
+      "scripts/core/failure_model.py",
       "import"
     ],
     [
       "scripts/tests/test_safe_retry.py",
-      "scripts/failure_model.py",
+      "scripts/core/failure_model.py",
       "import"
     ],
     [
       "scripts/tests/test_safe_retry.py",
-      "scripts/retry_policy.py",
+      "scripts/core/retry_policy.py",
       "import"
     ],
     [
       "scripts/tests/test_safe_retry.py",
-      "scripts/runtime_logger.py",
+      "scripts/core/runtime_logger.py",
       "import"
     ],
     [
       "scripts/tests/test_trace_identity.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/verify/verify_preview.py",
-      "scripts/security.py",
+      "scripts/security/security.py",
       "import"
     ],
     [
       "scripts/verify/verify_preview.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -2397,12 +2397,12 @@
     ],
     [
       "tests/test_guardrails.py",
-      "scripts/plan_gate.py",
+      "scripts/gates/plan_gate.py",
       "import"
     ],
     [
       "tests/test_security_path_traversal.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [
@@ -2472,7 +2472,7 @@
     ],
     [
       "tests/golden_scenarios/test_migration_from_legacy.py",
-      "scripts/migrate_state.py",
+      "scripts/archive/migrate_state.py",
       "import"
     ],
     [
@@ -2497,7 +2497,7 @@
     ],
     [
       "tests/security/test_path_traversal.py",
-      "scripts/path_security.py",
+      "scripts/security/path_security.py",
       "import"
     ],
     [

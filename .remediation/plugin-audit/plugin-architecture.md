@@ -49,7 +49,7 @@ Historically, in early development (prior to commit `9dcb888`), the entire video
       |                                     |                   |    `documentation/`                 |
       | 5. Standalone Packaging Artifacts   |                   |                                     |
       |    `package.json`, `.env`, etc.     |                   | 5. Security & Gate Enforcement      |
-      +-------------------------------------+                   |    `scripts/security.py`            |
+      +-------------------------------------+                   |    `scripts/security/security.py`            |
                                                                 |    `.agents/guardian/` (Guardian)   |
                                                                 |    `config/violations_config.json`  |
                                                                 +-------------------------------------+
@@ -74,19 +74,19 @@ graph TD
     
     S2 -->|cache_ops.py reads| P_AI[plugin/ground-truth/ASSET_INDEX.json]
     
-    ROOT_GEN[scripts/build_asset_index.py] -->|Generates directly into| P_AI
+    ROOT_GEN[scripts/generators/build_asset_index.py] -->|Generates directly into| P_AI
     
     AGENT[AI Agent] -->|Reads Directives| AGENTS_MD[.agents/AGENTS.md]
     AGENTS_MD -->|Mandates Unified Pipeline| PIPELINE[scripts/pipeline.py]
     
-    PIPELINE -->|Stage 1: Asset Gate| AG[scripts/asset_gate.py]
+    PIPELINE -->|Stage 1: Asset Gate| AG[scripts/gates/asset_gate.py]
     AG -->|Reads cache index| P_AI
     
-    PIPELINE -->|Stage 2: Plan Gate| PG[scripts/plan_gate.py]
-    PIPELINE -->|Stage 3: Taste Gate| TG[scripts/taste_gate.py]
+    PIPELINE -->|Stage 2: Plan Gate| PG[scripts/gates/plan_gate.py]
+    PIPELINE -->|Stage 3: Taste Gate| TG[scripts/gates/taste_gate.py]
     TG -->|Validates against| SFX[references/deep/motion-taste/.../SFX_BINDING_MATRIX.md]
     
-    PIPELINE -->|Stage 4: Materialize| MAT[scripts/materialize_project.py]
+    PIPELINE -->|Stage 4: Materialize| MAT[scripts/generators/materialize_project.py]
     MAT -->|Enforces template presence in| RT[remotion-app/src/templates/]
     MAT -->|Copies assets to| PUB[remotion-app/public/projects/]
     
@@ -111,11 +111,11 @@ graph TD
 | **Recipes** | **ROOT** | `ROOT_IS_SOURCE_OF_TRUTH` | 17 production recipes in `recipes/*.json` validated by `recipes/schema.json` and indexed in `ground-truth/RECIPES_INDEX.md`. Plugin contains only 1 markdown wrapper command. |
 | **References** | **ROOT** | `ROOT_IS_SOURCE_OF_TRUTH` | Root `references/` is constitutional Level 5 authority under `ARCHITECTURE_TRUTH.md`. All root files have authority banners and Zero-Build engine instructions. Root contains `references/deep/` (with `SFX_BINDING_MATRIX.md`). Plugin copies are diverged legacy versions. |
 | **Configuration** | **ROOT** | `ROOT_IS_SOURCE_OF_TRUTH` | `.agents/guardian/utils.py` strictly loads `config/violations_config.json` from root. Plugin copy is an unmaintained, unreferenced remnant. |
-| **Tools (Adapters)** | **PLUGIN** | `PLUGIN_IS_SOURCE_OF_TRUTH` | 13 Python scripts in `.agents/plugins/.../tools/` provide tool adapters (elevenlabs, heygen, browser recorder, fal, replicate). Scanned by `scripts/build_ground_truth.py` and called by `recipes/*.json`. |
+| **Tools (Adapters)** | **PLUGIN** | `PLUGIN_IS_SOURCE_OF_TRUTH` | 13 Python scripts in `.agents/plugins/.../tools/` provide tool adapters (elevenlabs, heygen, browser recorder, fal, replicate). Scanned by `scripts/generators/build_ground_truth.py` and called by `recipes/*.json`. |
 | **MCP Servers** | **PLUGIN** | `PLUGIN_IS_SOURCE_OF_TRUTH` | Declared in `.agents/plugins/.../mcp_config.json` and implemented in `tools/mcp-servers/`. Executed via stdio by Antigravity runtime. Zero root counterparts exist. |
 | **Skills (`remocn`/`snapcn`)**| **PLUGIN** | `PLUGIN_IS_SOURCE_OF_TRUTH` | Loaded by Antigravity IDE from plugin directory. Component documentation parsed by root `registry/docs-extractor.ts` and validated by `tests/registry.test.ts`. |
 | **Ground Truth (General)** | **ROOT** | `ROOT_IS_SOURCE_OF_TRUTH` | `TEMPLATE_INDEX.md`, `TOOLS_INDEX.md`, `MCP_INDEX.md`, `RECIPES_INDEX.md`, `CINEMATIC_INDEX.md` reside exclusively in root `ground-truth/`. |
-| **Asset Index (`ASSET_INDEX.json`)**| **PLUGIN** | `GENERATED_FROM_ROOT` *(Inverted)* | `scripts/build_asset_index.py` actively writes to `.agents/plugins/.../ground-truth/ASSET_INDEX.json`. Read by `common-tools-mcp` and `asset_gate.py`. Root copy is a stale snapshot from commit `9dcb888`. |
+| **Asset Index (`ASSET_INDEX.json`)**| **PLUGIN** | `GENERATED_FROM_ROOT` *(Inverted)* | `scripts/generators/build_asset_index.py` actively writes to `.agents/plugins/.../ground-truth/ASSET_INDEX.json`. Read by `common-tools-mcp` and `asset_gate.py`. Root copy is a stale snapshot from commit `9dcb888`. |
 
 ---
 

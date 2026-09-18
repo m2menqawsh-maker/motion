@@ -114,7 +114,7 @@ plan_gate.py (للتحقق من الخطة) • code_template_gate.py (لفحص 
 
 للبحث عن أفضل قالب، استخدم:
 ```bash
-python scripts/template_router.py --intent <النية> --use-case <حالة_الاستخدام> --mood <المزاج> --type <النوع> --min-quality <الجودة>
+python scripts/maintenance/template_router.py --intent <النية> --use-case <حالة_الاستخدام> --mood <المزاج> --type <النوع> --min-quality <الجودة>
 ```
 
 القيم المتاحة:
@@ -126,7 +126,7 @@ python scripts/template_router.py --intent <النية> --use-case <حالة_ا�
 
 مثال:
 ```bash
-python scripts/template_router.py --intent hook --use-case ad --mood energetic --type scene --min-quality A
+python scripts/maintenance/template_router.py --intent hook --use-case ad --mood energetic --type scene --min-quality A
 ```
 
 > **ملاحظة**: الراوتر يعيد أفضل 5 نتائج مرتبة بالنقاط. اختر الأنسب للمشهد.
@@ -213,7 +213,7 @@ JSON ثانية-بثانية بهيكل ملحق (ب) الكامل (عناصر �
 ملف حالة القفل: `.blueprint_lock.json` (يُنشأ تلقائياً عند قفل الـ Blueprint عبر `validate_blueprint.py --lock` لمنع خرق القوالب).
 
 ### المرحلة 6 — البناء
-شغّل `python scripts/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
+شغّل `python scripts/generators/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
 
 ### المرحلة 7 — رندر ومعاينة متدرجة
 رندر ثوانٍ قليلة → معاينة → contact-sheet → إصلاح. ممنوع رندر كامل قبل معاينة جزئية ناجحة.

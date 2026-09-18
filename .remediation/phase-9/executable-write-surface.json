@@ -816,7 +816,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/analyze_adapter_families.ts",
+    "path": "scripts/remotion_interop/analyze_adapter_families.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -836,7 +836,7 @@
     ]
   },
   {
-    "path": "scripts/build_asset_index.py",
+    "path": "scripts/generators/build_asset_index.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -856,7 +856,7 @@
     ]
   },
   {
-    "path": "scripts/certify_templates.ts",
+    "path": "scripts/remotion_interop/certify_templates.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -897,7 +897,7 @@
     ]
   },
   {
-    "path": "scripts/classify_templates.py",
+    "path": "scripts/archive/classify_templates.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -917,7 +917,7 @@
     ]
   },
   {
-    "path": "scripts/enforce_contracts.ts",
+    "path": "scripts/remotion_interop/enforce_contracts.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -937,7 +937,7 @@
     ]
   },
   {
-    "path": "scripts/generate_matrix.ts",
+    "path": "scripts/generators/generate_matrix.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -957,7 +957,7 @@
     ]
   },
   {
-    "path": "scripts/generate_registry.ts",
+    "path": "scripts/generators/generate_registry.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -978,7 +978,7 @@
     ]
   },
   {
-    "path": "scripts/generate_schema.ts",
+    "path": "scripts/generators/generate_schema.ts",
     "language": ".ts",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -998,7 +998,7 @@
     ]
   },
   {
-    "path": "scripts/metrics_collector.py",
+    "path": "scripts/metrics/metrics_collector.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -1018,7 +1018,7 @@
     ]
   },
   {
-    "path": "scripts/retier_docs.py",
+    "path": "scripts/maintenance/retier_docs.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -1038,7 +1038,7 @@
     ]
   },
   {
-    "path": "scripts/scene_compiler.py",
+    "path": "scripts/maintenance/scene_compiler.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -1058,7 +1058,7 @@
     ]
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -1079,7 +1079,7 @@
     ]
   },
   {
-    "path": "scripts/transcript_cleaner.py",
+    "path": "scripts/maintenance/transcript_cleaner.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",
@@ -1099,7 +1099,7 @@
     ]
   },
   {
-    "path": "scripts/update_schema.py",
+    "path": "scripts/maintenance/update_schema.py",
     "language": ".py",
     "classification": "MANUAL_CLI_TOOL",
     "classification_confidence": "medium",

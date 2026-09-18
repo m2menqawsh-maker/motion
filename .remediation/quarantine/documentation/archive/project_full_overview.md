@@ -4247,7 +4247,7 @@ clean-video-workspace/
 2. **ممنوع الاستوديو قبل الفحص:** لا فتح استوديو قبل نجاح `probe_qc_report.json` بحالة "pass".
 3. **القفل الميكانيكي مقدس:** لا اختراق لـ `mechanical_lock` بأي طريقة. القفل يُفتح فقط عبر ملف `.studio_unlocked` الذي يُنشأ تلقائياً بعد نجاح الـ Probe-QC.
 4. **صفر ارتجال:** ممنوع كتابة `spring()` أو `interpolate()` خارج `templates/` و `cinematic-engine/`. كل كود حركة يجب أن يكون من قالب معتمد في `TEMPLATE_INDEX.md`.
-5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/materialize_project.py` فقط. ممنوع النسخ اليدوي.
+5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/generators/materialize_project.py` فقط. ممنوع النسخ اليدوي.
 6. **الصوت أولاً:** `analyze_voiceover` هي أول خطوة تقنية في أي مشروع. لا خطة بدون تحليل صوتي فعلي.
 7. **التعديل → فحص جزئي → QC كامل:** عند طلب تعديل من الاستوديو، نفحص اللقطة المتأثرة فقط. لكن قبل أي رندر نهائي، نعيد الـ Probe-QC الكامل.
 8. **مكافحة الأوهام:** لا ملفات وهمية، لا تقارير فارغة، لا توقيتات مخمنة. كل رقم يأتي من أداة فعلية.
@@ -4607,7 +4607,7 @@ JSON ثانية-بثانية بهيكل ملحق (ب) الكامل (عناصر �
 ملف حالة القفل: `.blueprint_lock.json` (يُنشأ تلقائياً عند قفل الـ Blueprint عبر `validate_blueprint.py --lock` لمنع خرق القوالب).
 
 ### المرحلة 6 — البناء
-شغّل `python scripts/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
+شغّل `python scripts/generators/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
 
 ### المرحلة 7 — رندر ومعاينة متدرجة
 رندر ثوانٍ قليلة → معاينة → contact-sheet → إصلاح. ممنوع رندر كامل قبل معاينة جزئية ناجحة.
@@ -6603,7 +6603,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 2. **ممنوع الاستوديو قبل الفحص:** لا فتح استوديو قبل نجاح `probe_qc_report.json` بحالة "pass".
 3. **القفل الميكانيكي مقدس:** لا اختراق لـ `mechanical_lock` بأي طريقة. القفل يُفتح فقط عبر ملف `.studio_unlocked` الذي يُنشأ تلقائياً بعد نجاح الـ Probe-QC.
 4. **صفر ارتجال:** ممنوع كتابة `spring()` أو `interpolate()` خارج `templates/` و `cinematic-engine/`. كل كود حركة يجب أن يكون من قالب معتمد في `TEMPLATE_INDEX.md`.
-5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/materialize_project.py` فقط. ممنوع النسخ اليدوي.
+5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/generators/materialize_project.py` فقط. ممنوع النسخ اليدوي.
 6. **الصوت أولاً:** `analyze_voiceover` هي أول خطوة تقنية في أي مشروع. لا خطة بدون تحليل صوتي فعلي.
 7. **التعديل → فحص جزئي → QC كامل:** عند طلب تعديل من الاستوديو، نفحص اللقطة المتأثرة فقط. لكن قبل أي رندر نهائي، نعيد الـ Probe-QC الكامل.
 8. **مكافحة الأوهام:** لا ملفات وهمية، لا تقارير فارغة، لا توقيتات مخمنة. كل رقم يأتي من أداة فعلية.
@@ -6998,7 +6998,7 @@ JSON ثانية-بثانية بهيكل ملحق (ب) الكامل (عناصر �
 ملف حالة القفل: `.blueprint_lock.json` (يُنشأ تلقائياً عند قفل الـ Blueprint عبر `validate_blueprint.py --lock` لمنع خرق القوالب).
 
 ### المرحلة 6 — البناء
-شغّل `python scripts/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
+شغّل `python scripts/generators/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
 
 ### المرحلة 7 — رندر ومعاينة متدرجة
 رندر ثوانٍ قليلة → معاينة → contact-sheet → إصلاح. ممنوع رندر كامل قبل معاينة جزئية ناجحة.
@@ -7379,7 +7379,7 @@ ffmpeg_qc + broll_layout_qc + ad_quality_gate + probe-mp4 → `08_qc_report.json
 2. **ممنوع الاستوديو قبل الفحص:** لا فتح استوديو قبل نجاح `probe_qc_report.json` بحالة "pass".
 3. **القفل الميكانيكي مقدس:** لا اختراق لـ `mechanical_lock` بأي طريقة. القفل يُفتح فقط عبر ملف `.studio_unlocked` الذي يُنشأ تلقائياً بعد نجاح الـ Probe-QC.
 4. **صفر ارتجال:** ممنوع كتابة `spring()` أو `interpolate()` خارج `templates/` و `engine/`. كل كود حركة يجب أن يكون من قالب معتمد في `TEMPLATE_INDEX.md`.
-5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/materialize_project.py` فقط. ممنوع النسخ اليدوي.
+5. **بوابة واحدة للميديا:** كل ميديا تدخل البناء عبر `scripts/generators/materialize_project.py` فقط. ممنوع النسخ اليدوي.
 6. **الصوت أولاً:** `analyze_voiceover` هي أول خطوة تقنية في أي مشروع. لا خطة بدون تحليل صوتي فعلي.
 7. **التعديل → فحص جزئي → QC كامل:** عند طلب تعديل من الاستوديو، نفحص اللقطة المتأثرة فقط. لكن قبل أي رندر نهائي، نعيد الـ Probe-QC الكامل.
 8. **مكافحة الأوهام:** لا ملفات وهمية، لا تقارير فارغة، لا توقيتات مخمنة. كل رقم يأتي من أداة فعلية.
@@ -7623,8 +7623,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Integrated premium 2026 component libraries into premium-templates/ as the primary layer of templates.
 - Added Onda (kinetic typography & transitions), RemotionUI (social clips), Snapcn (text reveals), and Remocn (skills).
-- Updated scripts/validate_blueprint.py to recognize the new path.
-- Updated scripts/sync_templates.py to sync nested structures properly and inject them into TEMPLATE_INDEX.md as priority #1.
+- Updated scripts/gates/validate_blueprint.py to recognize the new path.
+- Updated scripts/maintenance/sync_templates.py to sync nested structures properly and inject them into TEMPLATE_INDEX.md as priority #1.
 ### Changed
 - Performed RTL normalization on selected test components (WordStagger.tsx, 	ext-reveal.tsx, social-clip/index.tsx) enforcing Arabic typography (Cairo, Tajawal), right-to-left flex wrapping, and willChange: transform to prevent sub-pixel issues.
 - Fixed 
@@ -7676,7 +7676,7 @@ Before publishing to GitHub:
 - [ ] Verify `.gitignore` excludes secrets and build artifacts
 - [ ] Run `npm run lint` in remotion-template (should be 0 errors)
 - [ ] Run `python .agents/plugins/super-video-maker-plugin/tools/video_recipes.py validate` (should pass)
-- [ ] Run `python scripts/sync_templates.py` (should sync 81 templates)
+- [ ] Run `python scripts/maintenance/sync_templates.py` (should sync 81 templates)
 - [ ] Test MCP server imports (all 7 should import cleanly)
 - [ ] Remove any personal API keys or sensitive data
 - [ ] Verify no absolute paths remain (grep for C:/ or /Users/)
@@ -7966,7 +7966,7 @@ cd ../../..
 ### 5. Sync templates
 
 ```bash
-python scripts/sync_templates.py
+python scripts/maintenance/sync_templates.py
 ```
 
 ### 6. Configure environment
@@ -8023,7 +8023,7 @@ python -c "import server; print('OK')"
 ### Templates not syncing
 
 ```bash
-python scripts/sync_templates.py
+python scripts/maintenance/sync_templates.py
 ```
 
 ```
@@ -8109,7 +8109,7 @@ cd tools/mcp-servers/Video_Editor_MCP && uv sync && cd ../../..
 cd tools/mcp-servers/ffmpeg-mcp-server && npm install && cd ../../..
 
 # Sync templates to Remotion
-python scripts/sync_templates.py
+python scripts/maintenance/sync_templates.py
 
 # Copy environment template
 cp .env.example .env
@@ -8607,7 +8607,7 @@ critical = [
     'tools/mcp-servers', 'references', 'remotion-template',
     'remotion-template/package.json', 'remotion-template/tsconfig.json',
     'remotion-template/src/Root.tsx',
-    'scripts/sync_templates.py',
+    'scripts/maintenance/sync_templates.py',
     '.env.example', '.gitignore', 'README.md',
     'package.json', 'requirements.txt',
 ]
@@ -15872,7 +15872,7 @@ export function resolveUIState<T extends object>(
 ```markdown
 # TOOLS_INDEX — أدوات Python
 > AUTO-GENERATED by build_ground_truth.py — DO NOT EDIT BY HAND
-> Source: `tools/*.py + scripts/materialize_project.py` | Generated: 2026-08-28T18:47:34
+> Source: `tools/*.py + scripts/generators/materialize_project.py` | Generated: 2026-08-28T18:47:34
 
 **العدد: 19**
 
@@ -26794,7 +26794,7 @@ video_recipes.py (match/plan/validate أولاً) • video_orchestrator.py (د�
 
 للبحث عن أفضل قالب، استخدم:
 ```bash
-python scripts/template_router.py --intent <النية> --use-case <حالة_الاستخدام> --mood <المزاج> --type <النوع> --min-quality <الجودة>
+python scripts/maintenance/template_router.py --intent <النية> --use-case <حالة_الاستخدام> --mood <المزاج> --type <النوع> --min-quality <الجودة>
 ```
 
 القيم المتاحة:
@@ -26806,7 +26806,7 @@ python scripts/template_router.py --intent <النية> --use-case <حالة_ا�
 
 مثال:
 ```bash
-python scripts/template_router.py --intent hook --use-case ad --mood energetic --type scene --min-quality A
+python scripts/maintenance/template_router.py --intent hook --use-case ad --mood energetic --type scene --min-quality A
 ```
 
 > **ملاحظة**: الراوتر يعيد أفضل 5 نتائج مرتبة بالنقاط. اختر الأنسب للمشهد.
@@ -26893,7 +26893,7 @@ JSON ثانية-بثانية بهيكل ملحق (ب) الكامل (عناصر �
 ملف حالة القفل: `.blueprint_lock.json` (يُنشأ تلقائياً عند قفل الـ Blueprint عبر `validate_blueprint.py --lock` لمنع خرق القوالب).
 
 ### المرحلة 6 — البناء
-شغّل `python scripts/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
+شغّل `python scripts/generators/materialize_project.py projects/<id>` أولاً (ينقل الميديا والقوالب من المصادر المعتمدة ويكتب media_map.json)؛ ممنوع نسخ ميديا يدوياً؛ ثم كود من الـ Blueprint فقط + `template_lint.py --verify-build`.
 
 ### المرحلة 7 — رندر ومعاينة متدرجة
 رندر ثوانٍ قليلة → معاينة → contact-sheet → إصلاح. ممنوع رندر كامل قبل معاينة جزئية ناجحة.
@@ -42049,7 +42049,7 @@ if __name__ == "__main__":
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "sync": "python ../scripts/sync_templates.py",
+        "sync": "python ../scripts/maintenance/sync_templates.py",
         "prebuild": "npm run sync",
         "studio": "remotion studio",
         "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
@@ -133053,7 +133053,7 @@ for py in tool_files:
     m = re.search(r'"""(.*?)"""', py.read_text(encoding="utf-8"), re.S)
     desc = m.group(1).strip().splitlines()[0] if m and m.group(1).strip() else "—"
     n += 1; out.append(f"| `{py.name}` | {desc} |")
-(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — أدوات Python", "tools/*.py + scripts/materialize_project.py")
+(OUT / "TOOLS_INDEX.md").write_text(hdr("TOOLS_INDEX — أدوات Python", "tools/*.py + scripts/generators/materialize_project.py")
     + f"**العدد: {n}**\n\n" + "\n".join(out) + "\n", encoding="utf-8")
 print(f"TOOLS_INDEX: {n}")
 
@@ -133797,7 +133797,7 @@ def content_checks(proj, stage):
             if not gate_script.exists():
                 gate_script = Path(__file__).resolve().parent / "asset_gate.py" # try local scripts dir
             if not gate_script.exists():
-                gate_script = Path("scripts/asset_gate.py")
+                gate_script = Path("scripts/gates/asset_gate.py")
             gate_res = subprocess.run(
                 [sys.executable, str(gate_script), str(proj / "02_asset_manifest.json")],
                 capture_output=True, text=True, encoding="utf-8"
@@ -135032,9 +135032,9 @@ if __name__ == "__main__":
 
 | الأداة | المسار | الوظيفة |
 |---|---|---|
-| template_router.py | scripts/template_router.py | البحث عن أفضل قالب حسب الحاجة |
-| classify_templates.py | scripts/classify_templates.py | تصنيف القوالب آلياً |
-| build_ground_truth.py | scripts/build_ground_truth.py | توليد الفهارس من القرص |
+| template_router.py | scripts/maintenance/template_router.py | البحث عن أفضل قالب حسب الحاجة |
+| classify_templates.py | scripts/archive/classify_templates.py | تصنيف القوالب آلياً |
+| build_ground_truth.py | scripts/generators/build_ground_truth.py | توليد الفهارس من القرص |
 
 ## القواعد
 
@@ -139363,8 +139363,8 @@ description: >
 2. ممنوع import قالب غير مسجل في `reference/ground-truth/TEMPLATE_INDEX.md`.
 3. ممنوع أصل (صورة/صوت/أيقونة) بدون بوابة الملاءمة (`ROUTER.md` §1).
 4. ممنوع تخمين frames: التوقيت من `analyze_voiceover` حصراً (ms→frame: `Math.round(ms*fps/1000)`).
-5. بعد أي تعديل على ملفات المهارة شغّل `scripts/audit_skill.py`.
-6. **المهارة قراءة فقط للميديا:** لا يُكتب ولا يُنسخ أي أصل داخل مجلد المهارة أبداً (remotion-template/public للعينات فقط). المصدر الوحيد = مجلدات دورة الحياة (${PLUGIN_DATA}/assets/${PLUGIN_DATA}/processed/storage)، والبناء يستلم الميديا حصراً عبر `scripts/materialize_project.py` مع قفل `.materialized.lock`.
+5. بعد أي تعديل على ملفات المهارة شغّل `scripts/validators/audit_skill.py`.
+6. **المهارة قراءة فقط للميديا:** لا يُكتب ولا يُنسخ أي أصل داخل مجلد المهارة أبداً (remotion-template/public للعينات فقط). المصدر الوحيد = مجلدات دورة الحياة (${PLUGIN_DATA}/assets/${PLUGIN_DATA}/processed/storage)، والبناء يستلم الميديا حصراً عبر `scripts/generators/materialize_project.py` مع قفل `.materialized.lock`.
 7. **لا مؤثر خام:** كل cue صوتي يُعالج (trim للمدة المرئية + afade out 0.2s + normalize_loudness(-24)) عبر audio-tools-mcp ويُكاش؛ ممنوع رمي ملف SFX خام في التركيب؛ ممنوع extend_audio على مؤثر one-shot. إذا عولج لـ -24 يُشغل بـ volume=1.
 8. **الذوق بوابة لا نصيحة:** شخصية الحركة وأرقامها تُكتب في الخطة (master_plan.md)، وvalidate_blueprint يفحص ضد الذوق ديناميكياً؛ فشل الفحص = لا بناء.
 9. 🛑 **إلزامي (HARD RULE):** يجب قراءة ملفات `reference/motion-taste/director/` قبل الخطة واستخدام اقتباس دقيق. يُمنع التأليف وتخمين الأرقام.
@@ -139392,7 +139392,7 @@ description: >
 - القواعد التشغيلية الـ 51: `reference/legacy/SKILL_51_RULES.md` • المرجع القديم: `reference/legacy/REFERENCE_legacy.md`
 - الدفاتر: `FFMPEG_PLAYBOOK.md` • `VIDEO_COPY_PLAYBOOK.md` • `SPOKEN_VO_HUMANIZER.md` • `HOOK_PLAYBOOK_ARTICLE_SPRINT.md` • `LIVING_CANVAS_PLAYBOOK.md` • `TABLETOP_EXPLAINER_PLAYBOOK.md` • `MOTION_COLLAGE_STYLE.md` • `HYPERREALISTIC_IMAGE_SOP.md` • `REVIEW_VIDEO_PLAYBOOK.md` • `SEEDANCE_AVATAR_ROI.md` • `REMOTION_VIDEO_GUIDE.md` • `WORKFLOW_EXAMPLES.md`
 - الأوامر الجاهزة: `commands/avatar-insta-reel.md` • `commands/avatar-vo-reel.md` • `commands/review-video.md`
-- أدوات التحقق والصيانة الداخلية: `scripts/stitch_skill.py` (تجميع داخلي) • `scripts/verify_links.py` (تحقق الروابط) • `scripts/verify_media_layer.py` (تحقق طبقة الميديا)
+- أدوات التحقق والصيانة الداخلية: `scripts/archive/stitch_skill.py` (تجميع داخلي) • `scripts/validators/verify_links.py` (تحقق الروابط) • `scripts/validators/verify_media_layer.py` (تحقق طبقة الميديا)
 - التنفيذ والاختبار: `commands/` • `recipes/` • `tools/` • `workflows/` • `templates/` • `tests/` • `remotion-template/` • `hyperframes-template/`
 
 ### ملحق (أ) — أسئلة الاستيضاح الـ10 (تُطبع كاملة حرفياً)
@@ -175960,7 +175960,7 @@ if __name__ == "__main__":
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync": "python ../scripts/sync_templates.py",
+    "sync": "python ../scripts/maintenance/sync_templates.py",
     "prebuild": "npm run sync",
     "studio": "remotion studio",
     "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",
@@ -178873,7 +178873,7 @@ if __name__ == "__main__":
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync": "python ../scripts/sync_templates.py",
+    "sync": "python ../scripts/maintenance/sync_templates.py",
     "prebuild": "npm run sync",
     "studio": "remotion studio",
     "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",

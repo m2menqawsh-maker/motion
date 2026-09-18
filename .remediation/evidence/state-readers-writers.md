@@ -21,12 +21,12 @@ This is the legacy/parallel state tracking system (Gate 1, 2, 3 logic).
 
 **Readers:**
 - `scripts/gates/checks.py`
-- `scripts/validate_schemas.py`
+- `scripts/validators/validate_schemas.py`
 - `tests/gates/test_stage_gate.py` (Extensively tested, showing it was heavily developed before being abandoned)
 
 ## Other State Files Found
 - `.prep_state.json`: Used by `scripts/core/pipeline.py` (Zombie)
-- `.session_state.json`: Used by `scripts/session_manager.py`
+- `.session_state.json`: Used by `scripts/core/session_manager.py`
 - `job_state.json`: Heavy usage found in `.json` recipes (e.g., `avatar-explainer.json`) and legacy documentation (`WORKFLOW_EXAMPLES.md`). It seems to be an old workflow standard.
 
 ## Architectural Violation Detected

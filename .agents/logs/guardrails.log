@@ -742,3 +742,183 @@
 [2026-09-18T11:49:01.932805] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
 [2026-09-18T11:49:02.222279] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
 [2026-09-18T11:49:02.490915] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T16:08:11.444949] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T16:08:11.680342] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T16:08:11.900671] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:08:12.174736] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T16:08:12.383818] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:08:12.573596] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T16:08:12.760700] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T16:08:23.475428] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:08:23.714992] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T16:08:23.953106] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T16:08:24.183610] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T16:08:24.408311] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:08:25.632455] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T16:08:25.842265] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T16:22:47.726593] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T16:22:47.910542] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T16:22:48.096054] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:22:48.271156] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T16:22:48.447702] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:22:48.636346] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T16:22:48.819593] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T16:22:59.055282] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:22:59.251867] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T16:22:59.454144] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T16:22:59.647859] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T16:22:59.836071] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:23:00.865092] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T16:23:01.043041] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T16:35:29.504102] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T16:35:29.850054] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T16:35:30.155425] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:35:30.397182] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T16:35:30.601737] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:35:30.816101] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T16:35:31.015637] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T16:35:43.758293] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:35:43.993739] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T16:35:44.218513] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T16:35:44.437144] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T16:35:44.694833] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:35:45.772138] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T16:35:45.968027] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T16:37:36.408709] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T16:37:36.679831] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T16:37:36.921077] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:37:37.127056] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T16:37:37.328319] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T16:37:37.535069] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T16:37:37.740616] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T16:37:49.742246] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:37:49.982531] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T16:37:50.215001] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T16:37:50.425936] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T16:37:50.631464] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T16:37:51.700585] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T16:37:51.901975] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:00:28.443369] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:00:28.625130] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:00:28.812603] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:00:28.987271] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:00:29.163479] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:00:29.423366] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:00:29.625096] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:00:38.869793] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:00:39.115056] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:00:39.362577] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:00:39.583125] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:00:39.799570] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:00:40.855765] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:00:41.044532] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:07:33.822778] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:07:34.024100] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:07:34.207995] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:07:34.386274] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:07:34.562762] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:07:34.746502] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:07:34.932432] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:07:45.894385] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:07:46.123255] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:07:46.336882] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:07:46.538563] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:07:46.734178] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:07:47.770484] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:07:47.946390] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:10:27.724594] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:10:28.167244] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:10:28.420944] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:10:28.625210] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:10:28.814445] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:10:29.013462] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:10:29.202147] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:10:40.595869] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:10:40.828894] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:10:41.054727] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:10:41.267568] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:10:41.471127] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:10:42.523523] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:10:42.698965] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:12:18.537361] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:12:18.717817] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:12:18.897655] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:12:19.071304] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:12:19.241708] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:12:19.421233] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:12:19.594182] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:12:30.509524] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:12:30.747339] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:12:30.973916] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:12:31.193073] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:12:31.396603] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:12:32.436931] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:12:32.616253] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:14:31.906853] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:14:32.175677] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:14:32.417146] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:14:32.617939] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:14:32.809463] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:14:33.007020] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:14:33.203274] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:14:44.464949] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:14:44.701877] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:14:44.924423] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:14:45.127616] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:14:45.328663] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:14:46.365044] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:14:46.541235] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:20:24.365090] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:20:24.543153] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:20:24.720048] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:20:24.895429] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:20:25.070899] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:20:25.253654] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:20:25.427022] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:20:36.226083] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:20:36.446720] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:20:36.655858] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:20:36.855559] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:20:37.053628] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:20:38.249119] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:20:38.430378] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:27:47.126549] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:27:47.303807] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:27:47.541318] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:27:47.782584] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:27:47.992385] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:27:48.240420] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:27:48.428838] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:27:54.008526] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:27:54.214625] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:27:54.457531] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:27:54.675062] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:27:54.889602] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:27:55.936577] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:27:56.113898] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.
+[2026-09-18T17:30:15.730469] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T17:30:15.909380] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T17:30:16.084604] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:30:16.257449] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T17:30:16.428427] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T17:30:16.650617] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T17:30:16.858615] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/gates/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/gates/asset_gate.py directly.
+[2026-09-18T17:30:23.725052] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/.studio_approved | REASON: 🛑 ممنوع تعديل أو إنشاء ملف .studio_approved يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:30:23.968955] [WRITE_GUARD] [BLOCK] CONTEXT: C:/Windows/System32 | REASON: 🛑 مسار غير آمن! (مطلق، أو يحتوي على .. ، أو غير مصرح به). المسموح: ['projects/', 'scratch/', 'assets/incoming/', '.agents/logs/']
+[2026-09-18T17:30:24.302114] [COMMAND_GUARD] [BLOCK] CONTEXT: npm run studio projects/proj_1 | REASON: ممنوع فتح الاستوديو عبر npm مباشرة. استخدم السكربت المعتمد: python scripts/open_studio.py <project_id>
+[2026-09-18T17:30:24.524509] [BEHAVIOR_GUARD] [BLOCK] CONTEXT: Current Tool Call | REASON: 🛑 [BEHAVIOR BLOCK] (HIGH): محظور استخدام أدوات التحميل الخارجية.
+الإجراء المطلوب: يجب عليك استخدام أدوات MCP المخصصة (media-sources-mcp) لجلب الوسائط.
+[2026-09-18T17:30:24.731486] [WRITE_GUARD] [BLOCK] CONTEXT: projects/proj_1/04_timings.json | REASON: 🛑 ممنوع تعديل أو إنشاء ملف 04_timings.json يدوياً لمنع التزوير وحماية الأختام الميكانيكية.
+[2026-09-18T17:30:25.770670] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 CIRCUIT BREAKER TRIPPED: Tool failed 3 times. Stop and ask the user for manual intervention.
+[2026-09-18T17:30:25.948067] [COMMAND_GUARD] [BLOCK] CONTEXT: bad_cmd | REASON: 🛑 Arbitrary shell/network execution is forbidden.

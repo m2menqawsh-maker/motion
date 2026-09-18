@@ -9884,91 +9884,91 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/analyze_adapter_families.ts",
+    "path": "scripts/remotion_interop/analyze_adapter_families.ts",
     "type": "ts",
     "size": 5618,
     "last_modified": "2026-08-29T21:59:27.716480",
     "directory": "scripts"
   },
   {
-    "path": "scripts/asset_gate.py",
+    "path": "scripts/gates/asset_gate.py",
     "type": "py",
     "size": 3005,
     "last_modified": "2026-09-07T18:58:55.167068",
     "directory": "scripts"
   },
   {
-    "path": "scripts/audit_imports.py",
+    "path": "scripts/validators/audit_imports.py",
     "type": "py",
     "size": 2225,
     "last_modified": "2026-09-07T18:58:55.135943",
     "directory": "scripts"
   },
   {
-    "path": "scripts/audit_skill.py",
+    "path": "scripts/validators/audit_skill.py",
     "type": "py",
     "size": 7177,
     "last_modified": "2026-09-07T18:58:55.137950",
     "directory": "scripts"
   },
   {
-    "path": "scripts/auto_backup.py",
+    "path": "scripts/maintenance/auto_backup.py",
     "type": "py",
     "size": 1117,
     "last_modified": "2026-09-13T22:01:59.651816",
     "directory": "scripts"
   },
   {
-    "path": "scripts/batch_builder.py",
+    "path": "scripts/maintenance/batch_builder.py",
     "type": "py",
     "size": 5777,
     "last_modified": "2026-09-07T18:58:55.139893",
     "directory": "scripts"
   },
   {
-    "path": "scripts/benchmark_guards.py",
+    "path": "scripts/metrics/benchmark_guards.py",
     "type": "py",
     "size": 828,
     "last_modified": "2026-09-13T21:48:11.457723",
     "directory": "scripts"
   },
   {
-    "path": "scripts/build_asset_index.py",
+    "path": "scripts/generators/build_asset_index.py",
     "type": "py",
     "size": 3250,
     "last_modified": "2026-09-07T18:58:55.167068",
     "directory": "scripts"
   },
   {
-    "path": "scripts/build_catalog.py",
+    "path": "scripts/generators/build_catalog.py",
     "type": "py",
     "size": 1861,
     "last_modified": "2026-09-13T21:38:27.054425",
     "directory": "scripts"
   },
   {
-    "path": "scripts/build_ground_truth.py",
+    "path": "scripts/generators/build_ground_truth.py",
     "type": "py",
     "size": 16117,
     "last_modified": "2026-09-13T21:38:27.068501",
     "directory": "scripts"
   },
   {
-    "path": "scripts/build_video.ts",
+    "path": "scripts/remotion_interop/build_video.ts",
     "type": "ts",
     "size": 5014,
     "last_modified": "2026-08-29T21:59:27.769610",
     "directory": "scripts"
   },
   {
-    "path": "scripts/certify_templates.ts",
+    "path": "scripts/remotion_interop/certify_templates.ts",
     "type": "ts",
     "size": 9948,
     "last_modified": "2026-08-29T21:59:27.784037",
     "directory": "scripts"
   },
   {
-    "path": "scripts/check_orphans.py",
+    "path": "scripts/maintenance/check_orphans.py",
     "type": "py",
     "size": 1365,
     "last_modified": "2026-09-07T18:58:55.143193",
@@ -9982,112 +9982,112 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/classify_templates.py",
+    "path": "scripts/archive/classify_templates.py",
     "type": "py",
     "size": 8477,
     "last_modified": "2026-08-29T21:59:27.801236",
     "directory": "scripts"
   },
   {
-    "path": "scripts/cleanup_assets.py",
+    "path": "scripts/maintenance/cleanup_assets.py",
     "type": "py",
     "size": 2252,
     "last_modified": "2026-09-13T20:49:28.822373",
     "directory": "scripts"
   },
   {
-    "path": "scripts/code_template_gate.py",
+    "path": "scripts/gates/code_template_gate.py",
     "type": "py",
     "size": 11046,
     "last_modified": "2026-09-14T17:49:54.093338",
     "directory": "scripts"
   },
   {
-    "path": "scripts/custom_code_validator.py",
+    "path": "scripts/validators/custom_code_validator.py",
     "type": "py",
     "size": 6323,
     "last_modified": "2026-09-02T14:07:38.013415",
     "directory": "scripts"
   },
   {
-    "path": "scripts/e2e_data_render.py",
+    "path": "scripts/core/e2e_data_render.py",
     "type": "py",
     "size": 3398,
     "last_modified": "2026-09-13T22:01:16.468177",
     "directory": "scripts"
   },
   {
-    "path": "scripts/enforce_contracts.ts",
+    "path": "scripts/remotion_interop/enforce_contracts.ts",
     "type": "ts",
     "size": 4346,
     "last_modified": "2026-08-29T21:59:27.818458",
     "directory": "scripts"
   },
   {
-    "path": "scripts/final_qc.py",
+    "path": "scripts/gates/final_qc.py",
     "type": "py",
     "size": 8284,
     "last_modified": "2026-09-07T18:58:55.145294",
     "directory": "scripts"
   },
   {
-    "path": "scripts/generate_matrix.ts",
+    "path": "scripts/generators/generate_matrix.ts",
     "type": "ts",
     "size": 2228,
     "last_modified": "2026-08-29T21:59:27.824495",
     "directory": "scripts"
   },
   {
-    "path": "scripts/generate_plan.py",
+    "path": "scripts/generators/generate_plan.py",
     "type": "py",
     "size": 2956,
     "last_modified": "2026-09-07T18:58:55.145984",
     "directory": "scripts"
   },
   {
-    "path": "scripts/generate_registry.ts",
+    "path": "scripts/generators/generate_registry.ts",
     "type": "ts",
     "size": 19427,
     "last_modified": "2026-08-29T21:59:27.831659",
     "directory": "scripts"
   },
   {
-    "path": "scripts/generate_schema.ts",
+    "path": "scripts/generators/generate_schema.ts",
     "type": "ts",
     "size": 1465,
     "last_modified": "2026-09-12T22:59:00.471425",
     "directory": "scripts"
   },
   {
-    "path": "scripts/inspect_template.py",
+    "path": "scripts/validators/inspect_template.py",
     "type": "py",
     "size": 2438,
     "last_modified": "2026-09-15T14:03:45.666027",
     "directory": "scripts"
   },
   {
-    "path": "scripts/materialize_project.py",
+    "path": "scripts/generators/materialize_project.py",
     "type": "py",
     "size": 3885,
     "last_modified": "2026-09-14T13:11:52.332580",
     "directory": "scripts"
   },
   {
-    "path": "scripts/migrate_assets.py",
+    "path": "scripts/archive/migrate_assets.py",
     "type": "py",
     "size": 2780,
     "last_modified": "2026-09-07T18:58:55.168578",
     "directory": "scripts"
   },
   {
-    "path": "scripts/migrate_legacy_projects.py",
+    "path": "scripts/archive/migrate_legacy_projects.py",
     "type": "py",
     "size": 1617,
     "last_modified": "2026-09-13T21:57:24.983583",
     "directory": "scripts"
   },
   {
-    "path": "scripts/motion_validator.py",
+    "path": "scripts/gates/motion_validator.py",
     "type": "py",
     "size": 17015,
     "last_modified": "2026-09-13T22:53:18.651356",
@@ -10108,14 +10108,14 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/plan_gate.py",
+    "path": "scripts/gates/plan_gate.py",
     "type": "py",
     "size": 10422,
     "last_modified": "2026-09-13T22:00:29.724145",
     "directory": "scripts"
   },
   {
-    "path": "scripts/probe_qc.py",
+    "path": "scripts/gates/probe_qc.py",
     "type": "py",
     "size": 10605,
     "last_modified": "2026-09-15T14:36:35.751378",
@@ -10129,7 +10129,7 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/promote_template.py",
+    "path": "scripts/maintenance/promote_template.py",
     "type": "py",
     "size": 5544,
     "last_modified": "2026-09-07T18:58:55.152618",
@@ -10143,7 +10143,7 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/retier_docs.py",
+    "path": "scripts/maintenance/retier_docs.py",
     "type": "py",
     "size": 1864,
     "last_modified": "2026-09-06T17:25:52.859663",
@@ -10157,77 +10157,77 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/scene_compiler.py",
+    "path": "scripts/maintenance/scene_compiler.py",
     "type": "py",
     "size": 3469,
     "last_modified": "2026-09-07T18:58:55.154625",
     "directory": "scripts"
   },
   {
-    "path": "scripts/session_manager.py",
+    "path": "scripts/core/session_manager.py",
     "type": "py",
     "size": 1189,
     "last_modified": "2026-09-07T18:58:55.154625",
     "directory": "scripts"
   },
   {
-    "path": "scripts/setup_docker.py",
+    "path": "scripts/maintenance/setup_docker.py",
     "type": "py",
     "size": 780,
     "last_modified": "2026-09-13T20:42:22.169242",
     "directory": "scripts"
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "type": "py",
     "size": 8452,
     "last_modified": "2026-09-07T18:58:55.154625",
     "directory": "scripts"
   },
   {
-    "path": "scripts/spec_validator.py",
+    "path": "scripts/validators/spec_validator.py",
     "type": "py",
     "size": 3727,
     "last_modified": "2026-09-13T21:38:27.067498",
     "directory": "scripts"
   },
   {
-    "path": "scripts/stitch_skill.py",
+    "path": "scripts/archive/stitch_skill.py",
     "type": "py",
     "size": 5462,
     "last_modified": "2026-09-07T18:58:55.156631",
     "directory": "scripts"
   },
   {
-    "path": "scripts/sync_templates.py",
+    "path": "scripts/maintenance/sync_templates.py",
     "type": "py",
     "size": 3210,
     "last_modified": "2026-09-15T15:25:30.748921",
     "directory": "scripts"
   },
   {
-    "path": "scripts/taste_gate.py",
+    "path": "scripts/gates/taste_gate.py",
     "type": "py",
     "size": 5815,
     "last_modified": "2026-09-07T18:58:55.156631",
     "directory": "scripts"
   },
   {
-    "path": "scripts/template_lint.py",
+    "path": "scripts/validators/template_lint.py",
     "type": "py",
     "size": 4032,
     "last_modified": "2026-09-13T22:15:50.657696",
     "directory": "scripts"
   },
   {
-    "path": "scripts/template_proposal_validator.py",
+    "path": "scripts/validators/template_proposal_validator.py",
     "type": "py",
     "size": 8584,
     "last_modified": "2026-09-07T18:58:55.158637",
     "directory": "scripts"
   },
   {
-    "path": "scripts/template_router.py",
+    "path": "scripts/maintenance/template_router.py",
     "type": "py",
     "size": 2821,
     "last_modified": "2026-09-07T18:58:55.158637",
@@ -10241,63 +10241,63 @@
     "directory": "scripts"
   },
   {
-    "path": "scripts/transcript_cleaner.py",
+    "path": "scripts/maintenance/transcript_cleaner.py",
     "type": "py",
     "size": 6450,
     "last_modified": "2026-09-13T22:01:57.545056",
     "directory": "scripts"
   },
   {
-    "path": "scripts/tsconfig.json",
+    "path": "scripts/remotion_interop/tsconfig.json",
     "type": "json",
     "size": 287,
     "last_modified": "2026-09-12T22:59:39.148845",
     "directory": "scripts"
   },
   {
-    "path": "scripts/update_schema.py",
+    "path": "scripts/maintenance/update_schema.py",
     "type": "py",
     "size": 646,
     "last_modified": "2026-09-06T18:04:07.756042",
     "directory": "scripts"
   },
   {
-    "path": "scripts/validate_blueprint.py",
+    "path": "scripts/gates/validate_blueprint.py",
     "type": "py",
     "size": 12856,
     "last_modified": "2026-09-07T18:58:55.158637",
     "directory": "scripts"
   },
   {
-    "path": "scripts/validate_schemas.py",
+    "path": "scripts/validators/validate_schemas.py",
     "type": "py",
     "size": 4335,
     "last_modified": "2026-09-06T12:05:29.108339",
     "directory": "scripts"
   },
   {
-    "path": "scripts/validate_template.py",
+    "path": "scripts/validators/validate_template.py",
     "type": "py",
     "size": 1344,
     "last_modified": "2026-09-15T15:18:26.688933",
     "directory": "scripts"
   },
   {
-    "path": "scripts/verify_links.py",
+    "path": "scripts/validators/verify_links.py",
     "type": "py",
     "size": 2950,
     "last_modified": "2026-09-07T18:58:55.158637",
     "directory": "scripts"
   },
   {
-    "path": "scripts/verify_media_layer.py",
+    "path": "scripts/validators/verify_media_layer.py",
     "type": "py",
     "size": 3362,
     "last_modified": "2026-09-07T18:58:55.158637",
     "directory": "scripts"
   },
   {
-    "path": "scripts/vo_quality_check.py",
+    "path": "scripts/gates/vo_quality_check.py",
     "type": "py",
     "size": 2042,
     "last_modified": "2026-09-07T18:58:55.158637",

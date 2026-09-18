@@ -96,7 +96,7 @@ python scripts/pipeline.py <project_id>
 **2. Inspect Health & Metrics**
 *(Will be available in Phase 7.6 collector / or manual inspection of runtime.jsonl)*
 ```bash
-python scripts/metrics_collector.py <project_id>
+python scripts/metrics/metrics_collector.py <project_id>
 ```
 
 **3. Run Phase 7 Assurance Tests**

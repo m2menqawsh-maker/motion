@@ -29,7 +29,7 @@
   "pipeline_responsibilities": [
     {
       "artifact": "media_map.json",
-      "description": "Generated implicitly by scripts/materialize_project.py during the Asset Gate."
+      "description": "Generated implicitly by scripts/generators/materialize_project.py during the Asset Gate."
     },
     {
       "artifact": "render_props.json",

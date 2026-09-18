@@ -1,16 +1,16 @@
 [
   {
-    "file": "scripts/audit_imports.py",
+    "file": "scripts/validators/audit_imports.py",
     "line": "plugin_root = r\"c:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\"",
     "classification": "DEVELOPMENT_ONLY"
   },
   {
-    "file": "scripts/check_orphans.py",
+    "file": "scripts/maintenance/check_orphans.py",
     "line": "plugin_root = r\"c:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\"",
     "classification": "DEVELOPMENT_ONLY"
   },
   {
-    "file": "scripts/classify_templates.py",
+    "file": "scripts/archive/classify_templates.py",
     "line": "DST = Path(r\"C:\\video\\clean-video-workspace\\.agents\\plugins\\super-video-maker-plugin\")",
     "classification": "DEVELOPMENT_ONLY"
   },
@@ -20,7 +20,7 @@
     "classification": "TEST_ONLY"
   },
   {
-    "file": "scripts/transcript_cleaner.py",
+    "file": "scripts/maintenance/transcript_cleaner.py",
     "line": "base = r\"C:\\Users\\momen\\.gemini\\antigravity-ide\\brain\"",
     "classification": "DEVELOPMENT_ONLY"
   },

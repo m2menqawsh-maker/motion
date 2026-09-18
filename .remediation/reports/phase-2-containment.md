@@ -15,12 +15,12 @@ Phase 2 containment has been fully implemented. All security tasks aimed at clos
 - **Reference Cleanup**: Patched the `commands/avatar-insta-reel.md` and `commands/avatar-vo-reel.md` to remove references to quarantined workflows.
 
 ### 3. SEC-03: Restrict `subprocess`
-- **Action**: Created a centralized `scripts/security.py` module containing the `safe_subprocess` wrapper.
+- **Action**: Created a centralized `scripts/security/security.py` module containing the `safe_subprocess` wrapper.
 - **Constraint Enforcement**: `shell=False` is strictly enforced. Timeout defaults to 60s. Python scripts are restricted via an exact `ALLOWED_SCRIPTS` list.
 - **Refactor**: Ran a bulk AST patch script (`refactor_subprocess.py`) that successfully rewrote all 55 usages of `subprocess.run` across `scripts/` and `api/` to utilize `safe_subprocess`.
 
 ### 4. SEC-04: Fix Path Traversal Vulnerabilities
-- **Action**: Created `scripts/path_security.py` with `validate_project_id` and `safe_resolve` functions.
+- **Action**: Created `scripts/security/path_security.py` with `validate_project_id` and `safe_resolve` functions.
 - **Patching**: Rewrote all FastAPI endpoints in `api/routers/` to validate `project_id` before using it in any Path operations. Added similar validation logic in all CLI scripts accessing `sys.argv[1]` via the `patch_scripts.py` bulk-updater.
 - **Testing**: Added `tests/test_security_path_traversal.py` that confirms `../` and absolute paths trigger a `ValueError`. Tests are passing 100%.
 

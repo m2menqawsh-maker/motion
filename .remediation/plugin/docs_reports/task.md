@@ -7,7 +7,7 @@
 - `[ ]` 4. Update `validate_execution_contracts.ts`:
   - `[ ]` a. Ensure optional props lacking defaults do NOT block execution.
   - `[ ]` b. Ensure required props lacking defaults DO block execution.
-- `[ ]` 5. Rebuild Registry & validate contracts (`npx tsx scripts/generate_registry.ts` and `validate_execution_contracts.ts`).
+- `[ ]` 5. Rebuild Registry & validate contracts (`npx tsx scripts/generators/generate_registry.ts` and `validate_execution_contracts.ts`).
 - `[ ]` 6. Write `validate_phase_16_2.ts` (Integrity validator).
 - `[ ]` 7. Run `validate_phase_16_2.ts` and ensure all constraints pass.
 - `[ ]` 8. Perform representative runtime samples (e.g. 2 scalar templates, 1 media template).

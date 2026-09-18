@@ -4,7 +4,7 @@
 
 - **Defect ID**: CRD-019
 - **Category**: Template Registry / Ground-Truth Drift
-- **Root Cause**: Upstream catalog generation (`scripts/build_ground_truth.py`) formatted PascalCase component stems using Python's `.title()` method (e.g. `HeroDeviceAssembleWrapper` -> `Herodeviceassemblewrapper`). The upstream pipeline validators (`scripts/validate_blueprint.py`, `scripts/motion_validator.py`) validated against this ground-truth title-case name. However, the runtime registry (`registry/template-registry.tsx`) registered templates under kebab-case IDs (e.g. `rui-hero-device-assemble`) and only contained 13 manual aliases. During the Phase 9.13 Clean-Room render, Remotion threw: `Template not found in registry: Herodeviceassemblewrapper`.
+- **Root Cause**: Upstream catalog generation (`scripts/generators/build_ground_truth.py`) formatted PascalCase component stems using Python's `.title()` method (e.g. `HeroDeviceAssembleWrapper` -> `Herodeviceassemblewrapper`). The upstream pipeline validators (`scripts/gates/validate_blueprint.py`, `scripts/gates/motion_validator.py`) validated against this ground-truth title-case name. However, the runtime registry (`registry/template-registry.tsx`) registered templates under kebab-case IDs (e.g. `rui-hero-device-assemble`) and only contained 13 manual aliases. During the Phase 9.13 Clean-Room render, Remotion threw: `Template not found in registry: Herodeviceassemblewrapper`.
 - **Status**: **RESOLVED**
 - **Invariant Established**: `ACTIVE + VALIDATOR-ACCEPTED ⊆ RUNTIME-RESOLVABLE` with 0 missing registrations, 0 missing implementations, and 0 drift.
 
@@ -13,7 +13,7 @@
 ## 2. Architecture & Implementation
 
 ### A. Deterministic Derivation (No Manual Duplication)
-Rather than manually maintaining 105 or 210 static entries, `scripts/generate_template_aliases.py` was created to deterministically derive all aliases from authoritative metadata:
+Rather than manually maintaining 105 or 210 static entries, `scripts/generators/generate_template_aliases.py` was created to deterministically derive all aliases from authoritative metadata:
 ```text
 template_catalog ground-truth name (Title-case)
 + component stem (PascalCase)
@@ -42,7 +42,7 @@ The production wrapper `SplitScreenWrapper.tsx` was verified against its upstrea
 ## 3. Authoritative Verification
 
 ### A. Targeted Remotion Stills (5 Clean-Room Templates)
-Executed `scripts/smoke_crd019_templates.py` via Remotion `still`:
+Executed `scripts/archive/smoke_crd019_templates.py` via Remotion `still`:
 1. `Herodeviceassemblewrapper` (Frame 10): **PASS** (945,393 bytes)
 2. `Splitscreenwrapper` (Frame 40): **PASS** (280,905 bytes)
 3. `Landingcodeshowcasewrapper` (Frame 70): **PASS** (943,214 bytes)

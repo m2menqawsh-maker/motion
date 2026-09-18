@@ -474849,7 +474849,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/analyze_adapter_families.ts",
+    "path": "scripts/remotion_interop/analyze_adapter_families.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474858,7 +474858,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/asset_gate.py",
+    "path": "scripts/gates/asset_gate.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474867,7 +474867,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/audit_imports.py",
+    "path": "scripts/validators/audit_imports.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474876,7 +474876,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/audit_skill.py",
+    "path": "scripts/validators/audit_skill.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474885,7 +474885,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/auto_backup.py",
+    "path": "scripts/maintenance/auto_backup.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474894,7 +474894,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/batch_builder.py",
+    "path": "scripts/maintenance/batch_builder.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474903,7 +474903,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/benchmark_guards.py",
+    "path": "scripts/metrics/benchmark_guards.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474912,7 +474912,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/build_asset_index.py",
+    "path": "scripts/generators/build_asset_index.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474921,7 +474921,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/build_catalog.py",
+    "path": "scripts/generators/build_catalog.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474930,7 +474930,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/build_ground_truth.py",
+    "path": "scripts/generators/build_ground_truth.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474939,7 +474939,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/build_video.ts",
+    "path": "scripts/remotion_interop/build_video.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474948,7 +474948,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/certify_templates.ts",
+    "path": "scripts/remotion_interop/certify_templates.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474975,7 +474975,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/check_orphans.py",
+    "path": "scripts/maintenance/check_orphans.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -474993,7 +474993,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/classify_templates.py",
+    "path": "scripts/archive/classify_templates.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475002,7 +475002,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/cleanup_assets.py",
+    "path": "scripts/maintenance/cleanup_assets.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475011,7 +475011,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/code_template_gate.py",
+    "path": "scripts/gates/code_template_gate.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475020,7 +475020,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/custom_code_validator.py",
+    "path": "scripts/validators/custom_code_validator.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475029,7 +475029,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/e2e_data_render.py",
+    "path": "scripts/core/e2e_data_render.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475038,7 +475038,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/enforce_contracts.ts",
+    "path": "scripts/remotion_interop/enforce_contracts.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475047,7 +475047,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/failure_injection.py",
+    "path": "scripts/core/failure_injection.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475056,7 +475056,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/failure_model.py",
+    "path": "scripts/core/failure_model.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475065,7 +475065,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/final_qc.py",
+    "path": "scripts/gates/final_qc.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475074,7 +475074,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/generate_matrix.ts",
+    "path": "scripts/generators/generate_matrix.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475083,7 +475083,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/generate_plan.py",
+    "path": "scripts/generators/generate_plan.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475092,7 +475092,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/generate_registry.ts",
+    "path": "scripts/generators/generate_registry.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475101,7 +475101,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/generate_schema.ts",
+    "path": "scripts/generators/generate_schema.ts",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475110,7 +475110,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/health.py",
+    "path": "scripts/metrics/health.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475119,7 +475119,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/inspect_template.py",
+    "path": "scripts/validators/inspect_template.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475128,7 +475128,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/materialize_project.py",
+    "path": "scripts/generators/materialize_project.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475137,7 +475137,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/metrics_collector.py",
+    "path": "scripts/metrics/metrics_collector.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475146,7 +475146,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/metrics_model.py",
+    "path": "scripts/metrics/metrics_model.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475155,7 +475155,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/migrate_assets.py",
+    "path": "scripts/archive/migrate_assets.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475164,7 +475164,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/migrate_legacy_projects.py",
+    "path": "scripts/archive/migrate_legacy_projects.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475173,7 +475173,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/migrate_state.py",
+    "path": "scripts/archive/migrate_state.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475182,7 +475182,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/motion_validator.py",
+    "path": "scripts/gates/motion_validator.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475200,7 +475200,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/path_security.py",
+    "path": "scripts/security/path_security.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475218,7 +475218,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/plan_gate.py",
+    "path": "scripts/gates/plan_gate.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475227,7 +475227,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/probe_qc.py",
+    "path": "scripts/gates/probe_qc.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475236,7 +475236,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/promote_template.py",
+    "path": "scripts/maintenance/promote_template.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475245,7 +475245,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/recovery_engine.py",
+    "path": "scripts/core/recovery_engine.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475263,7 +475263,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/retier_docs.py",
+    "path": "scripts/maintenance/retier_docs.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475272,7 +475272,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/retry_policy.py",
+    "path": "scripts/core/retry_policy.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475281,7 +475281,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/runtime_logger.py",
+    "path": "scripts/core/runtime_logger.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475299,7 +475299,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/scene_compiler.py",
+    "path": "scripts/maintenance/scene_compiler.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475308,7 +475308,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/security.py",
+    "path": "scripts/security/security.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475317,7 +475317,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/session_manager.py",
+    "path": "scripts/core/session_manager.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475326,7 +475326,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/setup_docker.py",
+    "path": "scripts/maintenance/setup_docker.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475335,7 +475335,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475344,7 +475344,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/spec_validator.py",
+    "path": "scripts/validators/spec_validator.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475353,7 +475353,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/stitch_skill.py",
+    "path": "scripts/archive/stitch_skill.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475362,7 +475362,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/sync_templates.py",
+    "path": "scripts/maintenance/sync_templates.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475371,7 +475371,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/taste_gate.py",
+    "path": "scripts/gates/taste_gate.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475380,7 +475380,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/template_lint.py",
+    "path": "scripts/validators/template_lint.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475389,7 +475389,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/template_proposal_validator.py",
+    "path": "scripts/validators/template_proposal_validator.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475398,7 +475398,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/template_router.py",
+    "path": "scripts/maintenance/template_router.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475416,7 +475416,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/transcript_cleaner.py",
+    "path": "scripts/maintenance/transcript_cleaner.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475425,7 +475425,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/tsconfig.json",
+    "path": "scripts/remotion_interop/tsconfig.json",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475434,7 +475434,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/update_schema.py",
+    "path": "scripts/maintenance/update_schema.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475443,7 +475443,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/validate_blueprint.py",
+    "path": "scripts/gates/validate_blueprint.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475452,7 +475452,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/validate_schemas.py",
+    "path": "scripts/validators/validate_schemas.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475461,7 +475461,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/validate_template.py",
+    "path": "scripts/validators/validate_template.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475470,7 +475470,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/verify_links.py",
+    "path": "scripts/validators/verify_links.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475479,7 +475479,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/verify_media_layer.py",
+    "path": "scripts/validators/verify_media_layer.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,
@@ -475488,7 +475488,7 @@
     "status": "PASS"
   },
   {
-    "path": "scripts/vo_quality_check.py",
+    "path": "scripts/gates/vo_quality_check.py",
     "class": "active",
     "owner": "Agent",
     "production_reachable": true,

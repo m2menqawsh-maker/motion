@@ -18,7 +18,7 @@ Please review the plan below. We will use a script to statically analyze the tem
 - Write to `ground-truth/phase_16_2_default_evidence.json`.
 
 ### 2. Generic Engine Updates
-#### [MODIFY] [generate_registry.ts](file:///c:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/scripts/generate_registry.ts)
+#### [MODIFY] [generate_registry.ts](file:///c:/video/clean-video-workspace/.agents/plugins/super-video-maker-plugin/scripts/generators/generate_registry.ts)
 - **Media Mapping:** Enhance `derivePropIntelligence` to map props named `audioSrc`, `src`, `media`, `poster`, etc., resolving the 3 `genericMappingCandidates`.
 - **Capability:** Update `deriveAdapterCapability` to assign `generic_execution_v1` to scalar templates, even if they have unmapped optional props, enabling them to bypass the `NO_SEMANTIC_ROLE` blocker.
 
@@ -38,7 +38,7 @@ Please review the plan below. We will use a script to statically analyze the tem
 
 ## Verification Plan
 ### Automated Tests
-- Run `npx tsx scripts/generate_registry.ts`
+- Run `npx tsx scripts/generators/generate_registry.ts`
 - Run `npx tsx scripts/phase15/validate_execution_contracts.ts`
 - Run `npx tsx scripts/phase16/validate_phase_16_2.ts`
 

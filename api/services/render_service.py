@@ -1,4 +1,4 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 import asyncio
 from api.websocket import ConnectionManager
 from api.services.pipeline_service import PipelineService

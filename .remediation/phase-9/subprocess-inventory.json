@@ -250,7 +250,7 @@
     }
   },
   {
-    "path": "scripts/benchmark_guards.py",
+    "path": "scripts/metrics/benchmark_guards.py",
     "classification": "MANUAL_CLI_TOOL",
     "production_reachable": false,
     "details": {
@@ -260,7 +260,7 @@
     }
   },
   {
-    "path": "scripts/final_qc.py",
+    "path": "scripts/gates/final_qc.py",
     "classification": "MANUAL_CLI_TOOL",
     "production_reachable": false,
     "details": {
@@ -270,7 +270,7 @@
     }
   },
   {
-    "path": "scripts/security.py",
+    "path": "scripts/security/security.py",
     "classification": "PRODUCTION",
     "production_reachable": true,
     "details": {
@@ -280,7 +280,7 @@
     }
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "classification": "MANUAL_CLI_TOOL",
     "production_reachable": false,
     "details": {
@@ -290,7 +290,7 @@
     }
   },
   {
-    "path": "scripts/vo_quality_check.py",
+    "path": "scripts/gates/vo_quality_check.py",
     "classification": "MANUAL_CLI_TOOL",
     "production_reachable": false,
     "details": {

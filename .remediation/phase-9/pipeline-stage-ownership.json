@@ -58,7 +58,7 @@
     "artifact": "media_map.json",
     "starting_input_or_generated": "generated",
     "canonical_producer": "materialize_project.py",
-    "producer_file_or_tool": "scripts/materialize_project.py",
+    "producer_file_or_tool": "scripts/generators/materialize_project.py",
     "producer_exists": true,
     "producer_invoked_by_pipeline": true,
     "consumer": "remotion-app/src/merge.ts (Runtime resolver)",

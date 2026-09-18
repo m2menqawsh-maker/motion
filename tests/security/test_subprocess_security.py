@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 import pytest
 from unittest.mock import patch
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 
 class TestSubprocessSecurity:
     """أمان الـ Subprocess"""
@@ -17,18 +17,22 @@ class TestSubprocessSecurity:
         if (base_dir / "scripts").exists():
             python_files.extend((base_dir / "scripts").rglob("*.py"))
         
-        allowed_files = {
-            str(base_dir / "scripts" / "security.py"), 
-            str(base_dir / "scripts" / "path_security.py"),
-            str(base_dir / "scripts" / "benchmark_guards.py")
-        }
+        # Exceptions - scripts allowed to use subprocess (they are wrapped/secured)
+        allowed_files = [
+            str(base_dir / "scripts" / "security" / "security.py"), 
+            str(base_dir / "scripts" / "security" / "path_security.py"),
+            str(base_dir / "scripts" / "metrics" / "benchmark_guards.py")
+        ]
         
-        for file in python_files:
-            if str(file) in allowed_files:
+        # Test file itself is allowed to have the word subprocess
+        allowed_files.append(str(Path(__file__).resolve()))
+        
+        for file_path in python_files:
+            if str(file_path) in allowed_files:
                 continue
             
             try:
-                tree = ast.parse(file.read_text(encoding="utf-8"))
+                tree = ast.parse(file_path.read_text(encoding="utf-8"))
             except SyntaxError:
                 continue
                 
@@ -59,7 +63,7 @@ class TestSubprocessSecurity:
                         if node.value.id == "os" and node.attr == "system":
                             pytest.fail(f"{file} uses os.system")
                             
-    @patch('scripts.security.subprocess.run')
+    @patch('scripts.security.security.subprocess.run')
     def test_safe_subprocess_forces_shell_false(self, mock_run):
         """يجب أن يجبر safe_subprocess shell=False حتى لو تم طلب True"""
         # Call with shell=True explicitly
@@ -70,7 +74,7 @@ class TestSubprocessSecurity:
         _, kwargs = mock_run.call_args
         assert kwargs.get('shell') is False, "Security guard MUST force shell=False"
         
-    @patch('scripts.security.subprocess.run')
+    @patch('scripts.security.security.subprocess.run')
     def test_safe_subprocess_enforces_timeout(self, mock_run):
         """يجب أن يحقن timeout افتراضي إذا لم يتم توفيره"""
         # Call without timeout

@@ -7,10 +7,10 @@
   "render_launcher": "scripts/render_project.py",
   "engine_bridge": "templates/effects/engine-bridge.tsx",
   "gate_implementations": [
-    "scripts/asset_gate.py",
-    "scripts/plan_gate.py",
-    "scripts/taste_gate.py",
-    "scripts/validate_blueprint.py",
-    "scripts/code_template_gate.py"
+    "scripts/gates/asset_gate.py",
+    "scripts/gates/plan_gate.py",
+    "scripts/gates/taste_gate.py",
+    "scripts/gates/validate_blueprint.py",
+    "scripts/gates/code_template_gate.py"
   ]
 }

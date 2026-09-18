@@ -10,7 +10,7 @@ All orchestration stages must now adhere to the **Logical Asset Contract**:
    The Blueprint (`05_blueprint.json`) must ONLY reference assets by their **Logical Asset ID** (e.g., `scene_1_video`, `bg_music_1`). These IDs must correspond precisely to the `asset_id` fields defined in `02_asset_manifest.json`.
 
 2. **Materialization (Gatekeeper):**
-   The `scripts/materialize_project.py` gate strictly extracts these Logical Asset IDs, verifies their existence in the manifest, and securely transfers the physical files to the project's public media folder. It generates a deterministic lookup map (`media_map.json`).
+   The `scripts/generators/materialize_project.py` gate strictly extracts these Logical Asset IDs, verifies their existence in the manifest, and securely transfers the physical files to the project's public media folder. It generates a deterministic lookup map (`media_map.json`).
    - *Rule:* Unknown Logical IDs cause a hard failure.
    - *Rule:* Missing physical files cause a hard failure.
    - *Rule:* Path traversal payloads (e.g., `../`) are neutralized.

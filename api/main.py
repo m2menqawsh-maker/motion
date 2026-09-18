@@ -1,6 +1,6 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers import projects, gates, render, brand, blueprint

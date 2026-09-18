@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "sync": "python ../scripts/sync_templates.py",
+        "sync": "python ../scripts/maintenance/sync_templates.py",
         "prebuild": "npm run sync",
         "studio": "remotion studio",
         "render": "echo ❌ HARD STOP: Direct rendering is banned. You MUST use python scripts/deliver_project.py && exit 1",

@@ -120,7 +120,7 @@ When generating a plan, you must assign a motion personality that dictates the s
 
 You DO NOT run `npm run` or `npx remotion` directly. You use the Python orchestrator scripts:
 
-1. **Materialize Media:** `python scripts/materialize_project.py projects/<id>` (Moves assets to public directory).
+1. **Materialize Media:** `python scripts/generators/materialize_project.py projects/<id>` (Moves assets to public directory).
 2. **Open Studio (Preview):** `python scripts/open_studio.py <project_id>` (Opens local server for user preview).
 3. **Render:** `python scripts/render_project.py <project_id>` (Generates final MP4 after user approves).
 

@@ -32,7 +32,7 @@
   "references\\deep\\mcp-toolbook.md",
   "scratch\\agent_scanner.py",
   "scratch\\generate_scope.py",
-  "scripts\\audit_skill.py",
-  "scripts\\verify_media_layer.py",
+  "scripts\\validators\\audit_skill.py",
+  "scripts\\validators\\verify_media_layer.py",
   "tests\\security\\test_mcp_security.py"
 ]

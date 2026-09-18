@@ -63000,7 +63000,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/analyze_adapter_families.ts",
+    "path": "scripts/remotion_interop/analyze_adapter_families.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63012,7 +63012,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/asset_gate.py",
+    "path": "scripts/gates/asset_gate.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63036,7 +63036,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/audit_imports.py",
+    "path": "scripts/validators/audit_imports.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63048,7 +63048,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/audit_skill.py",
+    "path": "scripts/validators/audit_skill.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63060,7 +63060,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/auto_backup.py",
+    "path": "scripts/maintenance/auto_backup.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63072,7 +63072,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/batch_builder.py",
+    "path": "scripts/maintenance/batch_builder.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63084,7 +63084,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/benchmark_guards.py",
+    "path": "scripts/metrics/benchmark_guards.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63096,7 +63096,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_asset_index.py",
+    "path": "scripts/generators/build_asset_index.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63108,7 +63108,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_catalog.py",
+    "path": "scripts/generators/build_catalog.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63120,7 +63120,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_ground_truth.py",
+    "path": "scripts/generators/build_ground_truth.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63132,7 +63132,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_video.ts",
+    "path": "scripts/remotion_interop/build_video.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63144,7 +63144,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/certify_templates.ts",
+    "path": "scripts/remotion_interop/certify_templates.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63180,7 +63180,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/check_orphans.py",
+    "path": "scripts/maintenance/check_orphans.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63204,7 +63204,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/classify_templates.py",
+    "path": "scripts/archive/classify_templates.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63216,7 +63216,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/cleanup_assets.py",
+    "path": "scripts/maintenance/cleanup_assets.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63228,7 +63228,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/code_template_gate.py",
+    "path": "scripts/gates/code_template_gate.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63240,7 +63240,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/custom_code_validator.py",
+    "path": "scripts/validators/custom_code_validator.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63252,7 +63252,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/e2e_data_render.py",
+    "path": "scripts/core/e2e_data_render.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63264,7 +63264,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/enforce_contracts.ts",
+    "path": "scripts/remotion_interop/enforce_contracts.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63276,7 +63276,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/failure_injection.py",
+    "path": "scripts/core/failure_injection.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63288,7 +63288,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/failure_model.py",
+    "path": "scripts/core/failure_model.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63300,7 +63300,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/final_qc.py",
+    "path": "scripts/gates/final_qc.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63312,7 +63312,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_matrix.ts",
+    "path": "scripts/generators/generate_matrix.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63324,7 +63324,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_plan.py",
+    "path": "scripts/generators/generate_plan.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63336,7 +63336,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_registry.ts",
+    "path": "scripts/generators/generate_registry.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63348,7 +63348,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_schema.ts",
+    "path": "scripts/generators/generate_schema.ts",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63360,7 +63360,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/health.py",
+    "path": "scripts/metrics/health.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63372,7 +63372,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/inspect_template.py",
+    "path": "scripts/validators/inspect_template.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63384,7 +63384,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/materialize_project.py",
+    "path": "scripts/generators/materialize_project.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63396,7 +63396,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/metrics_collector.py",
+    "path": "scripts/metrics/metrics_collector.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63408,7 +63408,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/metrics_model.py",
+    "path": "scripts/metrics/metrics_model.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63420,7 +63420,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_assets.py",
+    "path": "scripts/archive/migrate_assets.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63432,7 +63432,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_legacy_projects.py",
+    "path": "scripts/archive/migrate_legacy_projects.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63444,7 +63444,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_state.py",
+    "path": "scripts/archive/migrate_state.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63456,7 +63456,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/motion_validator.py",
+    "path": "scripts/gates/motion_validator.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63480,7 +63480,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/path_security.py",
+    "path": "scripts/security/path_security.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_CODE",
@@ -63504,7 +63504,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/plan_gate.py",
+    "path": "scripts/gates/plan_gate.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63516,7 +63516,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/probe_qc.py",
+    "path": "scripts/gates/probe_qc.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63528,7 +63528,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/promote_template.py",
+    "path": "scripts/maintenance/promote_template.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63540,7 +63540,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/recovery_engine.py",
+    "path": "scripts/core/recovery_engine.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63564,7 +63564,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/retier_docs.py",
+    "path": "scripts/maintenance/retier_docs.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63576,7 +63576,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/retry_policy.py",
+    "path": "scripts/core/retry_policy.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63588,7 +63588,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/runtime_logger.py",
+    "path": "scripts/core/runtime_logger.py",
     "tracked": false,
     "generated": false,
     "classification": "UNCLASSIFIED",
@@ -63612,7 +63612,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/scene_compiler.py",
+    "path": "scripts/maintenance/scene_compiler.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63624,7 +63624,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/security.py",
+    "path": "scripts/security/security.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_CODE",
@@ -63636,7 +63636,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/session_manager.py",
+    "path": "scripts/core/session_manager.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_CODE",
@@ -63648,7 +63648,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/setup_docker.py",
+    "path": "scripts/maintenance/setup_docker.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63660,7 +63660,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63672,7 +63672,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/spec_validator.py",
+    "path": "scripts/validators/spec_validator.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63684,7 +63684,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/stitch_skill.py",
+    "path": "scripts/archive/stitch_skill.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63696,7 +63696,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/sync_templates.py",
+    "path": "scripts/maintenance/sync_templates.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63708,7 +63708,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/taste_gate.py",
+    "path": "scripts/gates/taste_gate.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63720,7 +63720,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_lint.py",
+    "path": "scripts/validators/template_lint.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63732,7 +63732,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_proposal_validator.py",
+    "path": "scripts/validators/template_proposal_validator.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63744,7 +63744,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_router.py",
+    "path": "scripts/maintenance/template_router.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63756,7 +63756,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/transcript_cleaner.py",
+    "path": "scripts/maintenance/transcript_cleaner.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_CODE",
@@ -63768,7 +63768,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/tsconfig.json",
+    "path": "scripts/remotion_interop/tsconfig.json",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_CODE",
@@ -63780,7 +63780,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/update_schema.py",
+    "path": "scripts/maintenance/update_schema.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63792,7 +63792,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_blueprint.py",
+    "path": "scripts/gates/validate_blueprint.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63804,7 +63804,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_schemas.py",
+    "path": "scripts/validators/validate_schemas.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63816,7 +63816,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_template.py",
+    "path": "scripts/validators/validate_template.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63828,7 +63828,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/verify_links.py",
+    "path": "scripts/validators/verify_links.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63840,7 +63840,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/verify_media_layer.py",
+    "path": "scripts/validators/verify_media_layer.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",
@@ -63852,7 +63852,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/vo_quality_check.py",
+    "path": "scripts/gates/vo_quality_check.py",
     "tracked": true,
     "generated": false,
     "classification": "SOURCE_WITH_DEBUG_MARKERS",

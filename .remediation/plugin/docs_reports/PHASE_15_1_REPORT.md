@@ -74,7 +74,7 @@ A deterministic script (`scripts/phase15/validate_verification_integrity.ts`) wa
 ## 7. Files Modified
 
 - `remotion-app/src/engine/catalog/types.ts`
-- `scripts/generate_registry.ts`
+- `scripts/generators/generate_registry.ts`
 - `scripts/phase15/validate_execution_contracts.ts`
 - `scripts/phase15/validate_verification_integrity.ts` [NEW]
 - `ground-truth/phase_15_1_verification_audit.json` [NEW]

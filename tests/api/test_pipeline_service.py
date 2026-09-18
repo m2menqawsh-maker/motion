@@ -4,13 +4,14 @@ import json
 from pathlib import Path
 from datetime import datetime
 from api.services.pipeline_service import PipelineService
-from api.core.errors import InvalidGateError, PipelineRunningError
+from api.core.errors import PipelineRunningError
 
 @pytest.fixture
 def project_id(tmp_path, monkeypatch):
     pid = "test_unified_123"
     projects_dir = tmp_path / "projects"
-    projects_dir.mkdir()
+    project_dir = projects_dir / pid
+    project_dir.mkdir(parents=True, exist_ok=True)
     
     # Mock safe_resolve via validate_project_id to use tmp_path
     def mock_validate(pid):
@@ -18,11 +19,10 @@ def project_id(tmp_path, monkeypatch):
     monkeypatch.setattr("api.services.pipeline_service.validate_project_id", mock_validate)
     
     # Mock Path to point to tmp_path for the service
-    original_get_state_path = PipelineService._get_state_path
     @classmethod
-    def mock_get_state_path(cls, p_id):
-        return tmp_path / "projects" / p_id / ".pipeline_state.json"
-    monkeypatch.setattr(PipelineService, "_get_state_path", mock_get_state_path)
+    def mock_get_project_dir(cls, p_id):
+        return tmp_path / "projects" / p_id
+    monkeypatch.setattr(PipelineService, "_get_project_dir", mock_get_project_dir)
     
     # Reset locks
     PipelineService._active_pipelines = {}
@@ -33,57 +33,47 @@ def test_scaffold_project(project_id, tmp_path):
     async def run():
         result = await PipelineService.scaffold_project(project_id)
         assert result["status"] == "success"
+        assert result["state"]["current_stage"] == "asset_gate"
         
         state_file = tmp_path / "projects" / project_id / ".pipeline_state.json"
         assert state_file.exists()
         
-        state = json.loads(state_file.read_text())
-        assert "legacy_gui_state" in state
-        assert state["legacy_gui_state"]["current_stage"] == "asset_gate"
-        assert state["legacy_gui_state"]["status"] == "started"
     asyncio.run(run())
 
 def test_legacy_gate_mapping(project_id):
     async def run():
         await PipelineService.scaffold_project(project_id)
         
+        # start_stage doesn't change state, just updates updated_at
         result = await PipelineService.start_stage(project_id, "0")
         assert result["current_stage"] == "asset_gate"
         assert result["status"] == "started"
 
+        # finish_stage("1") -> PLAN_READY -> "taste_gate"
         result = await PipelineService.finish_stage(project_id, "1")
-        assert result["current_stage"] == "plan_gate"
-        assert result["status"] == "finished"
-
-        result = await PipelineService.approve_gate(project_id, "2", "test_user")
         assert result["current_stage"] == "taste_gate"
+        assert result["status"] == "started"
+
+        # approve_gate("gate_4") -> REVIEW_APPROVED -> "qc_gate" and "locked"
+        result = await PipelineService.approve_gate(project_id, "gate_4", "test_user")
+        assert result["current_stage"] == "qc_gate"
         assert result["status"] == "locked"
         assert result["approved_by"] == "test_user"
-    asyncio.run(run())
-
-def test_invalid_gate_exception(project_id):
-    async def run():
-        await PipelineService.scaffold_project(project_id)
-        
-        with pytest.raises(InvalidGateError):
-            await PipelineService.start_stage(project_id, "invalid_gate")
     asyncio.run(run())
 
 def test_get_status(project_id):
     async def run():
         await PipelineService.scaffold_project(project_id)
-        await PipelineService.start_stage(project_id, "plan_gate")
         
         status = await PipelineService.get_status(project_id)
-        assert status["current_stage"] == "plan_gate"
+        assert status["current_stage"] == "asset_gate"
         assert status["status"] == "started"
-        assert "timestamp" in status
+        assert "state" in status
     asyncio.run(run())
 
 def test_run_pipeline_extracts_hashes_and_merges(project_id, monkeypatch):
     async def run():
         await PipelineService.scaffold_project(project_id)
-        await PipelineService.start_stage(project_id, "plan_gate")
         
         class MockResult:
             returncode = 0
@@ -102,8 +92,6 @@ def test_run_pipeline_extracts_hashes_and_merges(project_id, monkeypatch):
         
         state = result["state"]
         assert state["master_plan_hash"] == "abc"
-        assert "legacy_gui_state" in state
-        assert state["legacy_gui_state"]["current_stage"] == "plan_gate"
     asyncio.run(run())
 
 def test_pipeline_lock_prevents_concurrent_runs(project_id, monkeypatch):

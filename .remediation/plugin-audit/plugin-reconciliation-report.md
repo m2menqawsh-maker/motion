@@ -13,7 +13,7 @@ This reconciliation executed the definitive architectural alignment between the 
 
 All 5 core constraints and safeguards approved by the user were strictly implemented and verified:
 1. **Resolved Path Convergence**: Proved dynamic repository root resolution across `build_asset_index.py`, `asset_gate.py`, and `cache_ops.py`. All three resolve identically to `C:\video\clean-video-workspace\ground-truth\ASSET_INDEX.json`.
-2. **Import Resolution Without Hacks**: Removed unused `safe_subprocess` from `build_asset_index.py`, allowing clean direct invocation `python scripts/build_asset_index.py` with `sys.path modification required = NO`.
+2. **Import Resolution Without Hacks**: Removed unused `safe_subprocess` from `build_asset_index.py`, allowing clean direct invocation `python scripts/generators/build_asset_index.py` with `sys.path modification required = NO`.
 3. **Semantic Asset Index Equivalence**: Conducted deep semantic comparison proving **0 semantic data loss** across 109 entries (matching canonical IDs, paths, metadata, 0 missing, 0 unexpected, 0 duplicates).
 4. **Clean Regression Criteria**: Achieved **0 Python failures**, **0 TypeScript failures**, **0 unexpected skips**, preserving the single documented environment-blocked skip on Windows symlinks.
 5. **Certification Lineage Preserved**: Tag `Zero-Known-Defects-v1.0` was kept strictly immutable. The new state is certified as `READY_FOR_ZERO-KNOWN-DEFECTS v1.0.1 = YES`.
@@ -61,20 +61,20 @@ PLUGIN = REPO_COUPLED integration subsystem
    - Removed empty directory: `.agents/plugins/super-video-maker-plugin/docs/`
 
 ### B. Modified Files
-1. `scripts/build_asset_index.py`:
+1. `scripts/generators/build_asset_index.py`:
    - Removed unused `subprocess` and `scripts.security` imports.
    - Set output path directly to canonical `REPO_ROOT / "ground-truth" / "ASSET_INDEX.json"`.
    - Relative paths resolved against repository root.
-2. `scripts/asset_gate.py`:
+2. `scripts/gates/asset_gate.py`:
    - Repointed from plugin index fallback to canonical `REPO_ROOT / "ground-truth" / "ASSET_INDEX.json"` exclusively.
 3. `.agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp/utils/cache_ops.py`:
    - Added robust `_resolve_repo_root()` finding repository boundary.
    - Guaranteed `DATA_DIR` equals repository root.
    - Set `INDEX_PATH = DATA_DIR / "ground-truth" / "ASSET_INDEX.json"`.
 4. `.githooks/pre-commit`:
-   - Repointed `GENERATOR_SCRIPT` to `scripts/build_ground_truth.py`.
+   - Repointed `GENERATOR_SCRIPT` to `scripts/generators/build_ground_truth.py`.
    - Repointed `GROUND_TRUTH_DIR` to `ground-truth/`.
-5. `scripts/build_ground_truth.py`:
+5. `scripts/generators/build_ground_truth.py`:
    - Cleaned up top-level imports and path definitions to canonical repository root.
 6. `tests/documentation/test_references_validity.py`:
    - Updated to validate canonical `base_dir / "references"` exclusively.

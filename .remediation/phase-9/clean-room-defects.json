@@ -30,14 +30,14 @@
   {
     "defect_id": "CRD-013",
     "category": "Pipeline Orchestration",
-    "description": "scripts/pipeline.py lacked an execution step for scripts/materialize_project.py, leaving media_map.json ungenerated and public assets unmaterialized during pipeline execution.",
+    "description": "scripts/pipeline.py lacked an execution step for scripts/generators/materialize_project.py, leaving media_map.json ungenerated and public assets unmaterialized during pipeline execution.",
     "status": "Resolved",
     "remediation": "Added materialize_project execution stage to scripts/pipeline.py under Blueprint/Asset transition."
   },
   {
     "defect_id": "CRD-014",
     "category": "Asset Lifecycle",
-    "description": "scripts/materialize_project.py hardcoded check for 01_plan.md instead of supporting canonical master_plan.md.",
+    "description": "scripts/generators/materialize_project.py hardcoded check for 01_plan.md instead of supporting canonical master_plan.md.",
     "status": "Resolved",
     "remediation": "Updated materialize_project.py to accept either master_plan.md or legacy 01_plan.md."
   },
@@ -51,30 +51,30 @@
   {
     "defect_id": "CRD-016",
     "category": "Asset Lifecycle & QC",
-    "description": "scripts/probe_qc.py and scripts/open_studio.py generated render_props.json without including media_map, causing QC frame rendering and Studio preview to fail asset resolution for Logical Asset IDs.",
+    "description": "scripts/gates/probe_qc.py and scripts/open_studio.py generated render_props.json without including media_map, causing QC frame rendering and Studio preview to fail asset resolution for Logical Asset IDs.",
     "status": "Resolved",
-    "remediation": "Included media_map: safe_load('media_map.json', {}) in projectData for both scripts/probe_qc.py and scripts/open_studio.py."
+    "remediation": "Included media_map: safe_load('media_map.json', {}) in projectData for both scripts/gates/probe_qc.py and scripts/open_studio.py."
   },
   {
     "defect_id": "CRD-017",
     "category": "Pipeline Orchestration",
-    "description": "scripts/asset_gate.py expected a direct manifest path argument, while scripts/pipeline.py passes project_id, causing asset_gate to skip manifest validation during canonical pipeline execution.",
+    "description": "scripts/gates/asset_gate.py expected a direct manifest path argument, while scripts/pipeline.py passes project_id, causing asset_gate to skip manifest validation during canonical pipeline execution.",
     "status": "Resolved",
     "remediation": "Updated asset_gate.py to resolve project_id or project directory to 02_asset_manifest.json."
   },
   {
     "defect_id": "CRD-018",
     "category": "Security & Sandboxing",
-    "description": "scripts/security.py did not include scripts/materialize_project.py in ALLOWED_SCRIPTS['python'], causing safe_subprocess to block materialize_project during Phase 3 canonical pipeline execution.",
+    "description": "scripts/security/security.py did not include scripts/generators/materialize_project.py in ALLOWED_SCRIPTS['python'], causing safe_subprocess to block materialize_project during Phase 3 canonical pipeline execution.",
     "status": "Resolved",
-    "remediation": "Added scripts/materialize_project.py to ALLOWED_SCRIPTS['python'] in scripts/security.py."
+    "remediation": "Added scripts/generators/materialize_project.py to ALLOWED_SCRIPTS['python'] in scripts/security/security.py."
   },
   {
     "defect_id": "CRD-019",
     "category": "Template Registry / Ground-Truth Drift",
     "description": "Herodeviceassemblewrapper accepted upstream by ground truth and pipeline validators, but getRegistryEntry('Herodeviceassemblewrapper') returned undefined during Remotion rendering due to drift between ground truth names, component stems, and TEMPLATE_REGISTRY keys.",
     "status": "Resolved",
-    "remediation": "Established deterministic derivation of 210 runtime aliases from authoritative metadata (scripts/generate_template_aliases.py -> registry/template-aliases.ts) and wrapped TEMPLATE_REGISTRY in a transparent Proxy in registry/template-registry.tsx. All 105 active production templates resolve by canonical ID, ground-truth title-case name, and PascalCase component stem without polluting Object.values(). Enforced by permanent consistency tests in pytest (tests/test_template_registry_consistency.py) and Vitest (tests/template_runtime_resolution.test.ts), verified with 5/5 Remotion renderStill smoke tests."
+    "remediation": "Established deterministic derivation of 210 runtime aliases from authoritative metadata (scripts/generators/generate_template_aliases.py -> registry/template-aliases.ts) and wrapped TEMPLATE_REGISTRY in a transparent Proxy in registry/template-registry.tsx. All 105 active production templates resolve by canonical ID, ground-truth title-case name, and PascalCase component stem without polluting Object.values(). Enforced by permanent consistency tests in pytest (tests/test_template_registry_consistency.py) and Vitest (tests/template_runtime_resolution.test.ts), verified with 5/5 Remotion renderStill smoke tests."
   },
   {
     "defect_id": "CRD-020",
@@ -83,6 +83,6 @@
     "description": "Deferred Runtime Prop Contract / Temporal Render Coverage: Datastorywrapper rendered successfully initially, then crashed when AnimatedBarChart mounted and received undefined data (TypeError: Cannot read properties of undefined reading 'slice').",
     "failure": "Datastorywrapper rendered successfully initially, then crashed when AnimatedBarChart mounted and received undefined data.",
     "status": "Resolved",
-    "remediation": "Restored exact canonical historical defaults from commit 9dcb888b (Root.tsx) directly inside remotion-app/src/compositions/data-story/index.tsx (DEFAULT_BAR_DATA, DEFAULT_METRICS, DEFAULT_STEPS) using nullish coalescing (??) to preserve explicit empty collections ([]). Added fail-closed runtime Zod validation in DataStory and Python gate validation in scripts/code_template_gate.py rejecting malformed inputs (strings, objects, nulls) while strictly preserving required contracts for child primitives (AnimatedBarChartProps.data, MetricTickerProps.metrics, TimelineStepsProps.steps). Added permanent Vitest and Pytest contract suites, and verified 14/14 multi-frame temporal runtime smoke renders across all Clean-Room scenario templates."
+    "remediation": "Restored exact canonical historical defaults from commit 9dcb888b (Root.tsx) directly inside remotion-app/src/compositions/data-story/index.tsx (DEFAULT_BAR_DATA, DEFAULT_METRICS, DEFAULT_STEPS) using nullish coalescing (??) to preserve explicit empty collections ([]). Added fail-closed runtime Zod validation in DataStory and Python gate validation in scripts/gates/code_template_gate.py rejecting malformed inputs (strings, objects, nulls) while strictly preserving required contracts for child primitives (AnimatedBarChartProps.data, MetricTickerProps.metrics, TimelineStepsProps.steps). Added permanent Vitest and Pytest contract suites, and verified 14/14 multi-frame temporal runtime smoke renders across all Clean-Room scenario templates."
   }
 ]

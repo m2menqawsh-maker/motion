@@ -1,5 +1,5 @@
 {
-  "generator": "scripts/generate_schema.ts",
+  "generator": "scripts/generators/generate_schema.ts",
   "source_contracts": "contracts/**/*.ts",
   "generated_files": [
     "schemas/blueprint.schema.json"

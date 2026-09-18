@@ -194,19 +194,19 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/asset_gate.py"
+      "source_file": "scripts/gates/asset_gate.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/batch_builder.py"
+      "source_file": "scripts/maintenance/batch_builder.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/benchmark_guards.py"
+      "source_file": "scripts/metrics/benchmark_guards.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/build_asset_index.py"
+      "source_file": "scripts/generators/build_asset_index.py"
     },
     {
       "type": "python_cli",
@@ -214,47 +214,47 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/classify_templates.py"
+      "source_file": "scripts/archive/classify_templates.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/cleanup_assets.py"
+      "source_file": "scripts/maintenance/cleanup_assets.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/code_template_gate.py"
+      "source_file": "scripts/gates/code_template_gate.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/custom_code_validator.py"
+      "source_file": "scripts/validators/custom_code_validator.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/e2e_data_render.py"
+      "source_file": "scripts/core/e2e_data_render.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/final_qc.py"
+      "source_file": "scripts/gates/final_qc.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/generate_plan.py"
+      "source_file": "scripts/generators/generate_plan.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/inspect_template.py"
+      "source_file": "scripts/validators/inspect_template.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/migrate_assets.py"
+      "source_file": "scripts/archive/migrate_assets.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/migrate_legacy_projects.py"
+      "source_file": "scripts/archive/migrate_legacy_projects.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/motion_validator.py"
+      "source_file": "scripts/gates/motion_validator.py"
     },
     {
       "type": "python_cli",
@@ -266,11 +266,11 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/plan_gate.py"
+      "source_file": "scripts/gates/plan_gate.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/promote_template.py"
+      "source_file": "scripts/maintenance/promote_template.py"
     },
     {
       "type": "python_cli",
@@ -278,7 +278,7 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/retier_docs.py"
+      "source_file": "scripts/maintenance/retier_docs.py"
     },
     {
       "type": "python_cli",
@@ -286,35 +286,35 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/scene_compiler.py"
+      "source_file": "scripts/maintenance/scene_compiler.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/setup_docker.py"
+      "source_file": "scripts/maintenance/setup_docker.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/smart_qc.py"
+      "source_file": "scripts/gates/smart_qc.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/spec_validator.py"
+      "source_file": "scripts/validators/spec_validator.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/sync_templates.py"
+      "source_file": "scripts/maintenance/sync_templates.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/taste_gate.py"
+      "source_file": "scripts/gates/taste_gate.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/template_proposal_validator.py"
+      "source_file": "scripts/validators/template_proposal_validator.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/template_router.py"
+      "source_file": "scripts/maintenance/template_router.py"
     },
     {
       "type": "python_cli",
@@ -322,23 +322,23 @@
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/transcript_cleaner.py"
+      "source_file": "scripts/maintenance/transcript_cleaner.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/validate_blueprint.py"
+      "source_file": "scripts/gates/validate_blueprint.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/validate_schemas.py"
+      "source_file": "scripts/validators/validate_schemas.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/validate_template.py"
+      "source_file": "scripts/validators/validate_template.py"
     },
     {
       "type": "python_cli",
-      "source_file": "scripts/vo_quality_check.py"
+      "source_file": "scripts/gates/vo_quality_check.py"
     },
     {
       "type": "python_cli",
@@ -537,7 +537,7 @@
     {
       "type": "npm_script",
       "name": "sync",
-      "command": "python ../scripts/sync_templates.py",
+      "command": "python ../scripts/maintenance/sync_templates.py",
       "source_file": "remotion-app/package.json"
     },
     {

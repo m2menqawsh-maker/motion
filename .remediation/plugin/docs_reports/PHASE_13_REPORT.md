@@ -41,7 +41,7 @@ Following a critical architectural Decision Gate, we opted to bifurcate the adap
 ---
 
 ## Certification Evidence
-- **Targeted Certification:** Modified `scripts/certify_templates.ts` to support `--template` and `--family` flags. 
+- **Targeted Certification:** Modified `scripts/remotion_interop/certify_templates.ts` to support `--template` and `--family` flags. 
 - **Preservation of History:** Upgraded the certification script to cleanly merge results with the existing `ground-truth/template_certification_report.json` to prevent overwriting unrelated records.
 
 ## TypeScript Verification
@@ -65,7 +65,7 @@ Following a critical architectural Decision Gate, we opted to bifurcate the adap
 
 ## Files Modified
 - `remotion-app/src/engine/planning/adapters/AdapterRegistry.ts` (Dynamic prop checking)
-- `scripts/certify_templates.ts` (Targeted flags & merging logic)
+- `scripts/remotion_interop/certify_templates.ts` (Targeted flags & merging logic)
 - `remotion-app/src/templates/elements/data/AudioVisualizer.tsx` (TS Fix)
 
 ---

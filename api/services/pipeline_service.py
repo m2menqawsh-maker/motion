@@ -3,10 +3,10 @@ import os
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Optional, Any
-from scripts.security import safe_subprocess
-from scripts.path_security import validate_project_id
-from scripts.state_store import StateStore
-from scripts.state_model import ProjectState, LifecycleState
+from scripts.security.security import safe_subprocess
+from scripts.security.path_security import validate_project_id
+from scripts.core.state_store import StateStore
+from scripts.core.state_model import ProjectState, LifecycleState
 
 from api.core.errors import InvalidGateError, PipelineRunningError
 

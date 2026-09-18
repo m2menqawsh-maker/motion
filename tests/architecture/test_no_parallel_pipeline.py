@@ -19,8 +19,8 @@ def get_python_files():
         
     return [f for f in files if "tests" not in f.parts and ".remediation" not in f.parts]
 
-def test_no_scripts_core_imports():
-    """لا يسمح بأي استيراد من scripts.core"""
+def test_no_scripts_pipeline_imports():
+    """لا يسمح بأي استيراد من scripts.pipeline"""
     python_files = get_python_files()
     
     for file in python_files:
@@ -28,16 +28,16 @@ def test_no_scripts_core_imports():
             tree = ast.parse(file.read_text(encoding="utf-8"))
             for node in ast.walk(tree):
                 if isinstance(node, ast.ImportFrom):
-                    if node.module and node.module.startswith("scripts.core"):
+                    if node.module and node.module == "scripts.pipeline":
                         pytest.fail(
-                            f"{file} يستورد من scripts.core — ممنوع! "
+                            f"{file} يستورد من scripts.pipeline — ممنوع! "
                             f"استخدم PipelineService بدلاً من ذلك"
                         )
                 elif isinstance(node, ast.Import):
                     for alias in node.names:
-                        if alias.name.startswith("scripts.core"):
+                        if alias.name == "scripts.pipeline":
                             pytest.fail(
-                                f"{file} يستورد من scripts.core — ممنوع! "
+                                f"{file} يستورد من scripts.pipeline — ممنوع! "
                                 f"استخدم PipelineService بدلاً من ذلك"
                             )
         except SyntaxError:

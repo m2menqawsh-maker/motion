@@ -26,12 +26,12 @@ def test_routers_do_not_import_scripts_directly():
             for node in ast.walk(tree):
                 if isinstance(node, ast.ImportFrom):
                     if node.module and node.module.startswith("scripts."):
-                        if node.module not in ["scripts.security", "scripts.path_security"]:
+                        if node.module not in ["scripts.security.security", "scripts.security.path_security"]:
                             pytest.fail(f"{router_file} يستورد من {node.module} مباشرة — يجب استخدام PipelineService!")
                 elif isinstance(node, ast.Import):
                     for alias in node.names:
                         if alias.name.startswith("scripts."):
-                            if alias.name not in ["scripts.security", "scripts.path_security"]:
+                            if alias.name not in ["scripts.security.security", "scripts.security.path_security"]:
                                 pytest.fail(f"{router_file} يستورد من {alias.name} مباشرة — يجب استخدام PipelineService!")
         except SyntaxError:
             pass

@@ -1,4 +1,4 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 from fastapi import APIRouter
 from api.services.gate_service import (
     get_status, start_stage, finish_stage, approve_gate, reject_gate

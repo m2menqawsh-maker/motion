@@ -44,7 +44,7 @@ The canonical historical defaults were recovered from git history:
   - `undefined`: falls back to canonical historical defaults (`barData ?? DEFAULT_BAR_DATA`).
   - Explicit empty array `[]`: preserved as-is.
   - `null` / malformed objects / non-array scalars: rejected fail-closed via runtime Zod schema parsing before render.
-- **Pre-Render Gate**: `scripts/code_template_gate.py` rejects invalid shapes in `template_props` for `Datastorywrapper` ahead of Remotion execution.
+- **Pre-Render Gate**: `scripts/gates/code_template_gate.py` rejects invalid shapes in `template_props` for `Datastorywrapper` ahead of Remotion execution.
 
 ## 4. Deferred Branches Discovered
 Within `DataStory` (duration 420 frames):
@@ -58,7 +58,7 @@ Within `DataStory` (duration 420 frames):
 All three deferred data-consuming child scenes (`AnimatedBarChart`, `MetricTicker`, `TimelineSteps`) were vulnerable to `undefined` prop dereferencing when optional props were omitted. All three were remediated under the same contract.
 
 ## 5. Temporal Smoke Evidence
-Multi-frame temporal smoke script `scripts/smoke_crd020_temporal.py` exercised 14 local lifecycle frames across all 4 Clean-Room templates:
+Multi-frame temporal smoke script `scripts/archive/smoke_crd020_temporal.py` exercised 14 local lifecycle frames across all 4 Clean-Room templates:
 - `Herodeviceassemblewrapper`: frames 0, 90, 179 (PASS)
 - `Splitscreenwrapper`: frames 0, 90, 179 (PASS)
 - `Datastorywrapper`:

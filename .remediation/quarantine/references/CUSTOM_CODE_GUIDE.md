@@ -41,7 +41,7 @@ export const CustomAnimation: React.FC = () => {
 
 ### 4. اختبر الكود قبل الدمج
 ```bash
-python .agents/plugins/super-video-maker-plugin/scripts/custom_code_validator.py <project_id>
+python .agents/plugins/super-video-maker-plugin/scripts/validators/custom_code_validator.py <project_id>
 ```
 
 ## أمثلة على استخدام الكود المخصص
@@ -129,7 +129,7 @@ export const InteractiveCards: React.FC = () => {
 
 عند تشغيل `materialize_project.py`، سيتم فحص الكود المخصص تلقائياً:
 ```bash
-python scripts/custom_code_validator.py <project_id>
+python scripts/validators/custom_code_validator.py <project_id>
 ```
 
 إذا فشل الفحص، لن يُسمح بالبناء حتى تُصلح الأخطاء.

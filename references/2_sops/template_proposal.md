@@ -108,12 +108,12 @@ import MyCustomTemplate from '@templates/my-custom-template';
 
 ### 3. فحص الجودة
 ```bash
-python .agents/plugins/super-video-maker-plugin/scripts/template_proposal_validator.py my-custom-template
+python .agents/plugins/super-video-maker-plugin/scripts/validators/template_proposal_validator.py my-custom-template
 ```
 
 ### 4. الترقية (بعد الموافقة)
 ```bash
-python .agents/plugins/super-video-maker-plugin/scripts/promote_template.py my-custom-template
+python .agents/plugins/super-video-maker-plugin/scripts/maintenance/promote_template.py my-custom-template
 ```
 
 ## أمثلة على قوالب مقترحة ناجحة

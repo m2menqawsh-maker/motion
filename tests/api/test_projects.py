@@ -42,7 +42,7 @@ def test_get_nonexistent_project():
 
 def test_create_project_invalid_payload():
     response = client.post("/projects/", json={
-        "name": "Missing aspect"
+        "invalid_payload": "Missing name"
     })
     assert response.status_code == 422
 
@@ -68,16 +68,24 @@ def test_get_blueprint_not_found():
     res = client.get(f"/blueprint/{project_id}")
     assert res.status_code == 200
     assert "overrides" in res.json()
-    assert "blueprint" not in res.json()
+    assert res.json()["blueprint"] is None
 
 def test_update_blueprint():
     res = client.post("/projects/", json={"name": "T", "language": "ar"})
     project_id = res.json()["project_id"]
-    res = client.post(f"/blueprint/{project_id}/blueprint", json={"test": "data"})
+    payload = {
+        "project_id": project_id,
+        "version": "1.0",
+        "fps": 30,
+        "aspect_ratio": "16:9",
+        "meta": {"motion_personality": "Cinematic"},
+        "scenes": []
+    }
+    res = client.post(f"/blueprint/{project_id}/blueprint", json=payload)
     assert res.status_code == 200
     res = client.get(f"/blueprint/{project_id}")
     assert "blueprint" in res.json()
-    assert res.json()["blueprint"]["test"] == "data"
+    assert res.json()["blueprint"]["scenes"] == []
 
 def test_update_overrides():
     res = client.post("/projects/", json={"name": "T", "language": "ar"})

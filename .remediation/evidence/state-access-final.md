@@ -32,9 +32,9 @@ Based on `scripts/gates/stage_gate.py` operations:
 ## 3. Parallel Pipeline `scripts/core/` Imports
 Found imports in:
 - `tests/test_gates_and_pipeline.py`: `from scripts.core.pipeline import UnifiedPipeline`
-- `scripts/materialize_project.py`: `from scripts.core.pipeline import UnifiedPipeline`
+- `scripts/generators/materialize_project.py`: `from scripts.core.pipeline import UnifiedPipeline`
 - `scripts/render_project.py`: `from scripts.core.pipeline import UnifiedPipeline`
-- `scripts/probe_qc.py`: `from core.pipeline import UnifiedPipeline`
+- `scripts/gates/probe_qc.py`: `from core.pipeline import UnifiedPipeline`
 - `api/services/render_service.py`: Direct dynamic import `from scripts.core.pipeline import UnifiedPipeline`
 
 **Conclusion**: The API and some scripts (render, probe) actively depend on the deprecated `scripts.core.pipeline.UnifiedPipeline`.
@@ -43,8 +43,8 @@ Found imports in:
 Found imports/executions in:
 - `tests/e2e/test_full_pipeline.py`: Runs `scripts/gates/stage_gate.py` multiple times.
 - `tests/gates/test_stage_gate.py`: Validates `scripts/gates/stage_gate.py`.
-- `scripts/e2e_data_render.py`: Runs `scripts/gates/stage_gate.py` to simulate gate approvals.
-- `scripts/security.py`: Specifically allowed `scripts/gates/stage_gate.py` and `plan_report.py` (needs to be removed in future).
+- `scripts/core/e2e_data_render.py`: Runs `scripts/gates/stage_gate.py` to simulate gate approvals.
+- `scripts/security/security.py`: Specifically allowed `scripts/gates/stage_gate.py` and `plan_report.py` (needs to be removed in future).
 - `api/services/gate_service.py`: Executes `scripts/gates/stage_gate.py` as a subprocess.
 
 ## Summary & Action Items for Unification

@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.security import safe_subprocess
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.security import safe_subprocess
+from scripts.security.path_security import validate_project_id, safe_resolve
 import uuid
 import json
 import datetime

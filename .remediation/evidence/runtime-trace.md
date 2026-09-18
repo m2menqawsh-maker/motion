@@ -4,7 +4,7 @@
 Due to the absence of an integrated test harness and broken execution paths (e.g. pytest is not configured globally), a static trace of all `subprocess` calls was conducted to map what the system actually executes externally.
 
 ## Core Services (Legitimate Executions)
-- **`scripts/probe_qc.py`**: Executes `ffprobe` and `ffmpeg` for media quality control.
+- **`scripts/gates/probe_qc.py`**: Executes `ffprobe` and `ffmpeg` for media quality control.
 - **`scripts/process_media.py`**: Executes FFmpeg for media normalization.
 - **`scripts/open_studio.py`**: Executes `docker info` and Docker container launch commands.
 - **`scripts/render_project.py`**: Executes Docker and local npm/Remotion builds.

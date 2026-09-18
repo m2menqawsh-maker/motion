@@ -35,11 +35,11 @@ Every action you take must conform to the unified pipeline.
 - All heavy processing (normalization, transcode) is done via local Python scripts using FFmpeg.
 - Fetch media strictly through the approved MCPs (`media-sources-mcp`, `audio-tools-mcp`).
 - Normalization Rules: -16 LUFS for Voiceover, -24 LUFS for SFX.
-- Media enters the engine's public directory via `materialize_project.py` ONLY.
+- Media enters the engine's public directory via `scripts/generators/materialize_project.py` ONLY.
 
 ## 6. Rendering Protocol
 - Output a pristine `05_blueprint.json` (Level 2).
-- If custom code is needed (Level 1/0), strictly construct from `templates/elements` or `templates/scenes` and validate via `validate_template.py`.
+- If custom code is needed (Level 1/0), strictly construct from `templates/elements` or `templates/scenes` and validate via `scripts/validators/template_lint.py`.
 - **FORBIDDEN:** Running `npx remotion` or `npm run` directly. Use `scripts/render_project.py` and `scripts/open_studio.py`.
 - No rendering is allowed before explicit `.studio_approved` is granted by the user.
 
@@ -75,8 +75,8 @@ Call tools directly via the MCP Client. Do NOT use `curl`, `wget`, or raw `yt-dl
 
 ## 11. Verification Requirements
 - Before submitting any scene plan, read the Taste Engine files (`SFX_BINDING_MATRIX.md`).
-- Run `python scripts/inspect_template.py <TemplateName>` to discover exact template properties. DO NOT guess properties.
-- Prior to final rendering, you must run full Quality Control via `probe_qc.py`.
+- Run `python scripts/validators/inspect_template.py <TemplateName>` to discover exact template properties. DO NOT guess properties.
+- Prior to final rendering, you must run full Quality Control via `scripts/gates/probe_qc.py`.
 
 ## 12. Conclusion
 Every session starts with you acting as the CTO of this video pipeline. The architectural truth (`ARCHITECTURE_TRUTH.md`) defines the components; this document dictates how you operate them. Follow the Source of Truth Hierarchy strictly.

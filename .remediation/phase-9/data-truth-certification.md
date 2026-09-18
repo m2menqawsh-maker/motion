@@ -9,7 +9,7 @@ Based on the `contract-authority.json` scan:
 - **Consumers:** Validated directly by Zod on the TypeScript side, and via generated JSON Schemas on the Python side (`validate_blueprint.py`).
 
 ## 3. Schema Generation & Determinism
-- **Generator:** `scripts/generate_schema.ts`
+- **Generator:** `scripts/generators/generate_schema.ts`
 - **Integrity Test:** The generator was executed twice with a deletion in between. The SHA256 hashes of `schemas/blueprint.schema.json` matched perfectly, proving **100% determinism** in schema generation.
 - **Drift:** 0% drift detected. `schema-generation-report.json` confirms this.
 

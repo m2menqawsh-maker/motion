@@ -11484,7 +11484,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/analyze_adapter_families.ts",
+    "path": "scripts/remotion_interop/analyze_adapter_families.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11502,7 +11502,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/asset_gate.py",
+    "path": "scripts/gates/asset_gate.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11520,7 +11520,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/audit_imports.py",
+    "path": "scripts/validators/audit_imports.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11538,7 +11538,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/audit_skill.py",
+    "path": "scripts/validators/audit_skill.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11556,7 +11556,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/auto_backup.py",
+    "path": "scripts/maintenance/auto_backup.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11574,7 +11574,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/batch_builder.py",
+    "path": "scripts/maintenance/batch_builder.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11592,7 +11592,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/benchmark_guards.py",
+    "path": "scripts/metrics/benchmark_guards.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11610,7 +11610,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_asset_index.py",
+    "path": "scripts/generators/build_asset_index.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11628,7 +11628,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_catalog.py",
+    "path": "scripts/generators/build_catalog.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11646,7 +11646,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_ground_truth.py",
+    "path": "scripts/generators/build_ground_truth.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11664,7 +11664,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/build_video.ts",
+    "path": "scripts/remotion_interop/build_video.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11682,7 +11682,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/certify_templates.ts",
+    "path": "scripts/remotion_interop/certify_templates.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11736,7 +11736,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/check_orphans.py",
+    "path": "scripts/maintenance/check_orphans.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11772,7 +11772,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/classify_templates.py",
+    "path": "scripts/archive/classify_templates.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11790,7 +11790,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/cleanup_assets.py",
+    "path": "scripts/maintenance/cleanup_assets.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11808,7 +11808,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/code_template_gate.py",
+    "path": "scripts/gates/code_template_gate.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11826,7 +11826,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/custom_code_validator.py",
+    "path": "scripts/validators/custom_code_validator.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11844,7 +11844,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/e2e_data_render.py",
+    "path": "scripts/core/e2e_data_render.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11862,7 +11862,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/enforce_contracts.ts",
+    "path": "scripts/remotion_interop/enforce_contracts.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11880,7 +11880,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/failure_injection.py",
+    "path": "scripts/core/failure_injection.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11898,7 +11898,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/failure_model.py",
+    "path": "scripts/core/failure_model.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11916,7 +11916,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/final_qc.py",
+    "path": "scripts/gates/final_qc.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11934,7 +11934,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_matrix.ts",
+    "path": "scripts/generators/generate_matrix.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11952,7 +11952,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_plan.py",
+    "path": "scripts/generators/generate_plan.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11970,7 +11970,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_registry.ts",
+    "path": "scripts/generators/generate_registry.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -11988,7 +11988,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/generate_schema.ts",
+    "path": "scripts/generators/generate_schema.ts",
     "language": ".ts",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12006,7 +12006,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/health.py",
+    "path": "scripts/metrics/health.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12024,7 +12024,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/inspect_template.py",
+    "path": "scripts/validators/inspect_template.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12042,7 +12042,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/materialize_project.py",
+    "path": "scripts/generators/materialize_project.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12060,7 +12060,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/metrics_collector.py",
+    "path": "scripts/metrics/metrics_collector.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12078,7 +12078,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/metrics_model.py",
+    "path": "scripts/metrics/metrics_model.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12096,7 +12096,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_assets.py",
+    "path": "scripts/archive/migrate_assets.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12114,7 +12114,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_legacy_projects.py",
+    "path": "scripts/archive/migrate_legacy_projects.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12132,7 +12132,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/migrate_state.py",
+    "path": "scripts/archive/migrate_state.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12150,7 +12150,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/motion_validator.py",
+    "path": "scripts/gates/motion_validator.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12186,7 +12186,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/path_security.py",
+    "path": "scripts/security/path_security.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12222,7 +12222,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/plan_gate.py",
+    "path": "scripts/gates/plan_gate.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12240,7 +12240,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/probe_qc.py",
+    "path": "scripts/gates/probe_qc.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12258,7 +12258,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/promote_template.py",
+    "path": "scripts/maintenance/promote_template.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12276,7 +12276,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/recovery_engine.py",
+    "path": "scripts/core/recovery_engine.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12312,7 +12312,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/retier_docs.py",
+    "path": "scripts/maintenance/retier_docs.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12330,7 +12330,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/retry_policy.py",
+    "path": "scripts/core/retry_policy.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12348,7 +12348,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/runtime_logger.py",
+    "path": "scripts/core/runtime_logger.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12384,7 +12384,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/scene_compiler.py",
+    "path": "scripts/maintenance/scene_compiler.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12402,7 +12402,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/security.py",
+    "path": "scripts/security/security.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12420,7 +12420,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/session_manager.py",
+    "path": "scripts/core/session_manager.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12438,7 +12438,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/setup_docker.py",
+    "path": "scripts/maintenance/setup_docker.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12456,7 +12456,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/smart_qc.py",
+    "path": "scripts/gates/smart_qc.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12474,7 +12474,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/spec_validator.py",
+    "path": "scripts/validators/spec_validator.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12492,7 +12492,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/stitch_skill.py",
+    "path": "scripts/archive/stitch_skill.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12510,7 +12510,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/sync_templates.py",
+    "path": "scripts/maintenance/sync_templates.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12528,7 +12528,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/taste_gate.py",
+    "path": "scripts/gates/taste_gate.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12546,7 +12546,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_lint.py",
+    "path": "scripts/validators/template_lint.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12564,7 +12564,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_proposal_validator.py",
+    "path": "scripts/validators/template_proposal_validator.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12582,7 +12582,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/template_router.py",
+    "path": "scripts/maintenance/template_router.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12618,7 +12618,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/transcript_cleaner.py",
+    "path": "scripts/maintenance/transcript_cleaner.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12636,7 +12636,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/update_schema.py",
+    "path": "scripts/maintenance/update_schema.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12654,7 +12654,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_blueprint.py",
+    "path": "scripts/gates/validate_blueprint.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12672,7 +12672,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_schemas.py",
+    "path": "scripts/validators/validate_schemas.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12690,7 +12690,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/validate_template.py",
+    "path": "scripts/validators/validate_template.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12708,7 +12708,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/verify_links.py",
+    "path": "scripts/validators/verify_links.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12726,7 +12726,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/verify_media_layer.py",
+    "path": "scripts/validators/verify_media_layer.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",
@@ -12744,7 +12744,7 @@
     "evidence": []
   },
   {
-    "path": "scripts/vo_quality_check.py",
+    "path": "scripts/gates/vo_quality_check.py",
     "language": ".py",
     "classification": "UNKNOWN",
     "classification_confidence": "low",

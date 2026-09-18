@@ -109,8 +109,8 @@
     "relationship": "INVERTED_ACTIVE_GENERATION_TARGET",
     "confidence": "HIGH",
     "evidence": [
-      "scripts/build_asset_index.py explicitly outputs to .agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json",
-      "scripts/asset_gate.py and common-tools-mcp/cache_ops.py read from the plugin copy",
+      "scripts/generators/build_asset_index.py explicitly outputs to .agents/plugins/super-video-maker-plugin/ground-truth/ASSET_INDEX.json",
+      "scripts/gates/asset_gate.py and common-tools-mcp/cache_ops.py read from the plugin copy",
       "Root ground-truth/ASSET_INDEX.json is an un-updated snapshot from commit 9dcb888",
       "Other ground-truth indexes (TEMPLATE_INDEX, TOOLS_INDEX, MCP_INDEX, RECIPES_INDEX) reside exclusively in root ground-truth/"
     ]
@@ -134,7 +134,7 @@
     "evidence": [
       "Plugin docs/ contains 10 guide files (ARCHITECTURE, DISTRIBUTION_CHECKLIST, USAGE, etc.) written for plugin standalone packaging",
       "Root documentation/ contains workspace guides, developer guides, governance, and audit records",
-      "scripts/build_ground_truth.py historically referenced docs/guides"
+      "scripts/generators/build_ground_truth.py historically referenced docs/guides"
     ]
   },
   {

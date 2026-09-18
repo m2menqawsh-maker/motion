@@ -13,7 +13,7 @@ The objective of Phase 16.2 was to unlock the maximum number of blocked template
    - Extracted **72 proven defaults** across the `defaultFixCandidates`.
 
 2. **Registry Integration**:
-   - `scripts/generate_registry.ts` was updated to seamlessly load the extracted default evidence (`ground-truth/phase_16_2_default_evidence.json`).
+   - `scripts/generators/generate_registry.ts` was updated to seamlessly load the extracted default evidence (`ground-truth/phase_16_2_default_evidence.json`).
    - We updated `deriveAdapterCapability` so that any template without an explicit structural adapter would attempt to use `generic_execution_v1`.
    - Updated `generate_registry.ts` to contextually map ambiguous media props (like `poster`, `audioSrc`, `src`) by checking component nomenclature and the legacy `contract.media` definitions.
 

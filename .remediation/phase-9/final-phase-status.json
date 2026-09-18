@@ -27,7 +27,7 @@
       "name": "Subprocess & Execution Sandboxing Certification",
       "status": "PASS",
       "source_sha": "8b178668453a5f1222f0e516b5c4d2d04b191af0",
-      "evidence_reference": ".remediation/phase-9/subprocess-inventory.json, scripts/security.py, tests/security/test_subprocess_security.py",
+      "evidence_reference": ".remediation/phase-9/subprocess-inventory.json, scripts/security/security.py, tests/security/test_subprocess_security.py",
       "known_limitations": "CRD-009 global default timeout of 900s in safe_subprocess",
       "remediation_history": "Subprocess whitelist enforced with shell=False, strict command filtering, and security interceptors."
     },
@@ -36,7 +36,7 @@
       "name": "Security, Path Traversal & Injection Hardening",
       "status": "PASS",
       "source_sha": "8b178668453a5f1222f0e516b5c4d2d04b191af0",
-      "evidence_reference": ".remediation/phase-9/security-certification.md, .remediation/phase-9/security-findings.json, scripts/path_security.py",
+      "evidence_reference": ".remediation/phase-9/security-certification.md, .remediation/phase-9/security-findings.json, scripts/security/path_security.py",
       "known_limitations": "Windows symlink traversal test ENVIRONMENT_BLOCKED due to SeCreateSymbolicLinkPrivilege requirement",
       "remediation_history": "Path traversal safe_resolve() hardened; shell injection strictly banned; Guardian fail-closed hooks verified."
     },
@@ -63,7 +63,7 @@
       "name": "Asset Lifecycle & Materialization Integrity",
       "status": "PASS",
       "source_sha": "16e48c68ec755a5ee3d1223933c0429f60fc5f28",
-      "evidence_reference": ".remediation/phase-9/crd-010-asset-contract.md, scripts/materialize_project.py, .remediation/phase-9/media-certification.md",
+      "evidence_reference": ".remediation/phase-9/crd-010-asset-contract.md, scripts/generators/materialize_project.py, .remediation/phase-9/media-certification.md",
       "known_limitations": "None",
       "remediation_history": "CRD-010 resolved with Logical Asset ID contract and media_map.json propagation."
     },

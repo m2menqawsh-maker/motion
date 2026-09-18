@@ -6,7 +6,7 @@
     "status": "ENVIRONMENT_BLOCKED",
     "reason": "Windows OS security model requires SeCreateSymbolicLinkPrivilege (Administrator access or Developer Mode) to create filesystem symbolic links. Under standard unprivileged user execution, os.symlink() raises OSError (WinError 1314).",
     "impact": "The automated test `test_symlink_attacks_blocked` in `tests/security/test_path_traversal.py` is safely skipped on unprivileged Windows environments.",
-    "security_consequence": "None. The safe_resolve() function in `scripts/path_security.py` resolves paths to their absolute canonical target and verifies containment using os.path.commonpath. Symlink escaping is intrinsically prevented by canonical path resolution on systems where symlinks exist.",
+    "security_consequence": "None. The safe_resolve() function in `scripts/security/path_security.py` resolves paths to their absolute canonical target and verifies containment using os.path.commonpath. Symlink escaping is intrinsically prevented by canonical path resolution on systems where symlinks exist.",
     "accepted": true,
     "accepted_rationale": "Platform-level OS constraint verified in test suite with explicit pytest.skip(). Canonical containment check provides defense-in-depth."
   },
@@ -37,7 +37,7 @@
     "title": "safe_subprocess Global Default Timeout of 900 Seconds",
     "category": "Runtime Stability",
     "status": "ACCEPTED_LIMITATION",
-    "reason": "Remotion video composition rendering for long-form, 1080x1920 60fps compositions with heavy SVG layers and probe frame generation frequently exceeds standard 60-second timeouts. Default timeout in `scripts/security.py` is configured to 900 seconds (15 minutes).",
+    "reason": "Remotion video composition rendering for long-form, 1080x1920 60fps compositions with heavy SVG layers and probe frame generation frequently exceeds standard 60-second timeouts. Default timeout in `scripts/security/security.py` is configured to 900 seconds (15 minutes).",
     "impact": "A hung subprocess could tie up a worker execution thread for up to 15 minutes before terminating.",
     "security_consequence": "Low. Subprocess whitelist (ALLOWED_COMMANDS and ALLOWED_SCRIPTS) and shell=False are strictly enforced. Callers may override timeout on a per-call basis for faster termination.",
     "accepted": true,

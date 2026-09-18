@@ -1,4 +1,4 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, BackgroundTasks
 from api.services.render_service import render_project_async
 from api.websocket import manager

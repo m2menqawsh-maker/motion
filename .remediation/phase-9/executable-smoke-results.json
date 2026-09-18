@@ -399,14 +399,14 @@
     "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\api\\services\\pipeline_serv"
   },
   {
-    "path": "scripts/failure_injection.py",
+    "path": "scripts/core/failure_injection.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",
     "log": ""
   },
   {
-    "path": "scripts/failure_model.py",
+    "path": "scripts/core/failure_model.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",
@@ -420,7 +420,7 @@
     "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\open_studio.py\", l"
   },
   {
-    "path": "scripts/path_security.py",
+    "path": "scripts/security/path_security.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "SKIPPED",
@@ -441,21 +441,21 @@
     "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\render_project.py\""
   },
   {
-    "path": "scripts/retry_policy.py",
+    "path": "scripts/core/retry_policy.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",
-    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\retry_policy.py\", "
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\core\\retry_policy.py\", "
   },
   {
-    "path": "scripts/runtime_logger.py",
+    "path": "scripts/core/runtime_logger.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",
-    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\runtime_logger.py\""
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\core\\runtime_logger.py\""
   },
   {
-    "path": "scripts/security.py",
+    "path": "scripts/security/security.py",
     "classification": "PRODUCTION",
     "syntax_check": "PASS",
     "behavior_smoke": "SKIPPED",
@@ -469,14 +469,14 @@
     "log": ""
   },
   {
-    "path": "scripts/verify_links.py",
+    "path": "scripts/validators/verify_links.py",
     "classification": "AUDIT",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",
-    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\verify_links.py\", "
+    "log": "Traceback (most recent call last):\n  File \"C:\\video\\clean-video-workspace\\scripts\\validators\\verify_links.py\", "
   },
   {
-    "path": "scripts/verify_media_layer.py",
+    "path": "scripts/validators/verify_media_layer.py",
     "classification": "AUDIT",
     "syntax_check": "PASS",
     "behavior_smoke": "PASS",

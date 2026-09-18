@@ -25,7 +25,10 @@ def project_setup():
     bp = {
         "project_id": project_id,
         "version": "1.0",
-                "scenes": []
+        "fps": 30,
+        "aspect_ratio": "16:9",
+        "meta": {"motion_personality": "Cinematic"},
+        "scenes": []
     }
     (project_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
     
@@ -48,27 +51,27 @@ def test_scaffold_creates_project(project_setup):
 
 def test_blueprint_passes_schema(project_setup):
     project_id, project_dir = project_setup
-    code, _, _ = run(["python", "scripts/validate_schemas.py", str(project_dir)])
+    code, _, _ = run(["python", "scripts/validators/validate_schemas.py", str(project_dir)])
     assert code == 0
 
 def test_stage_gate_allows_transitions(project_setup):
     project_id, project_dir = project_setup
     
     async def run_transitions():
-        await PipelineService.start_stage(project_id, "asset_gate")
-        await PipelineService.finish_stage(project_id, "asset_gate")
-        await PipelineService.approve_gate(project_id, "asset_gate", approved_by="test_user")
+        await PipelineService.start_stage(project_id, "0")
+        await PipelineService.finish_stage(project_id, "0")
+        await PipelineService.approve_gate(project_id, "gate_1", approved_by="test_user")
         
-        await PipelineService.start_stage(project_id, "plan_gate")
-        await PipelineService.finish_stage(project_id, "plan_gate")
-        await PipelineService.approve_gate(project_id, "plan_gate", approved_by="test_user")
+        await PipelineService.start_stage(project_id, "1")
+        await PipelineService.finish_stage(project_id, "1")
+        await PipelineService.approve_gate(project_id, "gate_2", approved_by="test_user")
         
-        await PipelineService.start_stage(project_id, "taste_gate")
-        await PipelineService.finish_stage(project_id, "taste_gate")
-        await PipelineService.approve_gate(project_id, "taste_gate", approved_by="test_user")
+        await PipelineService.start_stage(project_id, "3")
+        await PipelineService.finish_stage(project_id, "3")
+        await PipelineService.approve_gate(project_id, "gate_4", approved_by="test_user")
         
         status = await PipelineService.get_status(project_id)
         assert status["status"] == "locked"
-        assert status["current_stage"] == "taste_gate"
+        assert status["current_stage"] == "qc_gate"
         
     asyncio.run(run_transitions())

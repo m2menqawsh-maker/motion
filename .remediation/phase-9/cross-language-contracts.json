@@ -1,7 +1,7 @@
 [
   {
     "concept": "Blueprint",
-    "python_validator": "scripts/validate_blueprint.py",
+    "python_validator": "scripts/gates/validate_blueprint.py",
     "ts_validator": "contracts/blueprint.ts",
     "semantic_disagreements": 0
   }

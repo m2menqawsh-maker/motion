@@ -63,10 +63,10 @@
     "child_process reference at line 39",
     "child_process reference at line 40"
   ],
-  "scripts\\custom_code_validator.py": [
+  "scripts\\validators\\custom_code_validator.py": [
     "child_process reference at line 39"
   ],
-  "scripts\\template_proposal_validator.py": [
+  "scripts\\validators\\template_proposal_validator.py": [
     "child_process reference at line 156"
   ]
 }

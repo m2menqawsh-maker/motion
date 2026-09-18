@@ -130,7 +130,7 @@
   {
     "package_file": "remotion-app/package.json",
     "script_name": "sync",
-    "command": "python ../scripts/sync_templates.py",
+    "command": "python ../scripts/maintenance/sync_templates.py",
     "classification": "UNKNOWN",
     "target_exists": true,
     "status": "ACTIVE"

@@ -46,16 +46,16 @@ In accordance with `documentation/governance/DEFECT_POLICY.md`, **Zero Known Def
 
 ### Certified Production Scope
 - **Canonical Orchestrator:** `scripts/pipeline.py` (exclusive production execution pipeline).
-- **Runtime State Engine:** `.pipeline_state.json`, `scripts/checkpoint_store.py`, `scripts/checkpoint_model.py`, `scripts/recovery_engine.py`, `scripts/retry_policy.py`.
+- **Runtime State Engine:** `.pipeline_state.json`, `scripts/checkpoint_store.py`, `scripts/checkpoint_model.py`, `scripts/core/recovery_engine.py`, `scripts/core/retry_policy.py`.
 - **Mechanical Validation Gates:**
-  - `scripts/asset_gate.py` (Asset manifest and logical ID resolution).
-  - `scripts/taste_gate.py` (Scene duration, beat density, transitions, camera movement).
-  - `scripts/motion_validator.py` (Composition kinematics and template family contracts).
-  - `scripts/code_template_gate.py` (Template usage enforcement, AST imports, and prop contracts).
-  - `scripts/materialize_project.py` (Asset copy, normalization, and `media_map.json` generation).
+  - `scripts/gates/asset_gate.py` (Asset manifest and logical ID resolution).
+  - `scripts/gates/taste_gate.py` (Scene duration, beat density, transitions, camera movement).
+  - `scripts/gates/motion_validator.py` (Composition kinematics and template family contracts).
+  - `scripts/gates/code_template_gate.py` (Template usage enforcement, AST imports, and prop contracts).
+  - `scripts/generators/materialize_project.py` (Asset copy, normalization, and `media_map.json` generation).
 - **Rendering & Studio:**
   - `scripts/render_project.py` (Headless Remotion rendering to `out.mp4`).
-  - `scripts/probe_qc.py` (Multi-frame visual inspection and contact sheet generation).
+  - `scripts/gates/probe_qc.py` (Multi-frame visual inspection and contact sheet generation).
   - `scripts/open_studio.py` (Interactive Studio launcher with `media_map` prop integration).
 - **Template System & Runtime Registry:**
   - `registry/template-registry.tsx` (Proxy-based runtime resolution).
@@ -65,8 +65,8 @@ In accordance with `documentation/governance/DEFECT_POLICY.md`, **Zero Known Def
 - **API & Client Adapters:**
   - `api/services/pipeline_service.py` (Strict delegation to canonical pipeline via `safe_subprocess`).
 - **Security Sandboxing:**
-  - `scripts/security.py` (`safe_subprocess` whitelist, shell=False enforcement).
-  - `scripts/path_security.py` (`safe_resolve`, path traversal containment).
+  - `scripts/security/security.py` (`safe_subprocess` whitelist, shell=False enforcement).
+  - `scripts/security/path_security.py` (`safe_resolve`, path traversal containment).
   - `scripts/command_guard.py` (Shell chaining, bypass prevention, and Guardian hooks).
 
 ### Excluded / Non-Production Scope
@@ -84,11 +84,11 @@ In accordance with `documentation/governance/DEFECT_POLICY.md`, **Zero Known Def
 | :--- | :--- | :---: | :--- |
 | **9.0** | Architectural Integrity & Pipeline Topology | **PASS** | `.remediation/phase-9/pipeline-stage-ownership.json` |
 | **9.1** | Repository Scope & Path Boundary Certification | **PASS** | `.remediation/phase-9/repository-scope-final.json` |
-| **9.2** | Subprocess & Execution Sandboxing Certification | **PASS** | `scripts/security.py`, `tests/security/test_subprocess_security.py` |
-| **9.3** | Security, Path Traversal & Injection Hardening | **PASS** | `tests/security/test_path_traversal.py`, `scripts/path_security.py` |
+| **9.2** | Subprocess & Execution Sandboxing Certification | **PASS** | `scripts/security/security.py`, `tests/security/test_subprocess_security.py` |
+| **9.3** | Security, Path Traversal & Injection Hardening | **PASS** | `tests/security/test_path_traversal.py`, `scripts/security/path_security.py` |
 | **9.4** | Clean Documentation & Reference Truth Certification | **PASS** | `references/`, `.agents/AGENTS.md`, `ARCHITECTURE_TRUTH.md` |
 | **9.5** | Template Registry & Runtime Consistency | **PASS** | `registry/template-aliases.ts`, `tests/test_template_registry_consistency.py` |
-| **9.6** | Asset Lifecycle & Materialization Integrity | **PASS** | `scripts/materialize_project.py`, `tests/test_asset_resolution.py` |
+| **9.6** | Asset Lifecycle & Materialization Integrity | **PASS** | `scripts/generators/materialize_project.py`, `tests/test_asset_resolution.py` |
 | **9.7** | Engine Integration & Render Surface Certification | **PASS** | `templates/effects/engine-bridge.tsx`, `render-surface.json` |
 | **9.8** | Media Processing & Codec / Audio Pipeline | **PASS** | `scripts/media_normalizer.py`, `tests/test_asset_resolution.py` |
 | **9.9** | Repository Hygiene & Zombie Code Elimination | **PASS** | `package.json`, `.remediation/phase-9/repository-hygiene-certification.md` |

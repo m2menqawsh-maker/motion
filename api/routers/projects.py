@@ -1,4 +1,4 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 from fastapi import APIRouter
 from pydantic import BaseModel
 from api.services.scaffold_service import create_project

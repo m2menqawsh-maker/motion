@@ -21,15 +21,15 @@ The reconciliation resolved architectural duplication, removed historical ghost 
    - Transferred sole ownership of `ground-truth/ASSET_INDEX.json` to the repository root.
    - Proved 0 semantic data loss across all 109 cataloged asset entries.
    - Removed the stale inverted copy and empty directory at `.agents/plugins/super-video-maker-plugin/ground-truth/`.
-   - Verified that `scripts/build_asset_index.py`, `scripts/asset_gate.py`, and `common-tools-mcp/utils/cache_ops.py` resolve identically to `ROOT/ground-truth/ASSET_INDEX.json`.
+   - Verified that `scripts/generators/build_asset_index.py`, `scripts/gates/asset_gate.py`, and `common-tools-mcp/utils/cache_ops.py` resolve identically to `ROOT/ground-truth/ASSET_INDEX.json`.
 2. **Purge of Stale Plugin Mirrors**:
    - Removed 17 diverged/historical playbook documents in `plugin/references/`.
    - Removed duplicate security policy `plugin/config/violations_config.json`.
    - Removed 10 standalone packaging guide documents in `plugin/docs/`.
    - Updated `plugin/README.md` to reflect the clean `REPO_COUPLED` integration model.
 3. **Pre-Commit Hook & Generator Repair**:
-   - Repointed `.githooks/pre-commit` to canonical `scripts/build_ground_truth.py` and root `ground-truth/`.
-   - Corrected `scripts/build_ground_truth.py` repository-root resolution and cleaned unused subprocess/security imports.
+   - Repointed `.githooks/pre-commit` to canonical `scripts/generators/build_ground_truth.py` and root `ground-truth/`.
+   - Corrected `scripts/generators/build_ground_truth.py` repository-root resolution and cleaned unused subprocess/security imports.
 4. **Constitutional Guard & Drift Protection**:
    - Updated `ARCHITECTURE_TRUTH.md` with Section 15 and `INVARIANT-07`.
    - Published `documentation/PLUGIN_ARCHITECTURE.md`.

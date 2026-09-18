@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 import sys
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, safe_resolve
 import shutil
 
 CHECKS = [
     (["python", "-m", "pytest", "tests/"], "Unit Tests"),
     (["npx.cmd" if sys.platform == "win32" else "npx", "tsc", "--noEmit"], "TypeScript Build"),
-    (["python", "scripts/template_lint.py", "templates"], "Template Lint"),
+    (["python", "scripts/validators/template_lint.py", "templates"], "Template Lint"),
     (["python", ".agents/plugins/super-video-maker-plugin/verify.py"], "Plugin Verify"),
-    (["python", "scripts/benchmark_guards.py"], "Performance Benchmark"),
+    (["python", "scripts/metrics/benchmark_guards.py"], "Performance Benchmark"),
 ]
 
 def run_check(cmd, name):

@@ -13,7 +13,7 @@
 - The tests checking for direct subprocess usage failed initially on test utilities (`test_failure_injection.py` and `test_trace_identity.py`). These were fixed and replaced with `safe_subprocess`. Tests now pass 100%.
 
 ### Security Guards
-- The occurrences of `child_process` and `eval`/`exec` found in `scripts/custom_code_validator.py` and `scripts/template_proposal_validator.py` are **Regex string patterns** used by the validators to block malicious TSX code, not execution calls.
+- The occurrences of `child_process` and `eval`/`exec` found in `scripts/validators/custom_code_validator.py` and `scripts/validators/template_proposal_validator.py` are **Regex string patterns** used by the validators to block malicious TSX code, not execution calls.
 
 ### Quarantined / Historical (Isolated)
 - Multiple `subprocess.run` and `shell=True` calls exist in `.remediation/quarantine/` and `.remediation/plugin/`.

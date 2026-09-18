@@ -1,7 +1,7 @@
 import pytest
 import json
 from pathlib import Path
-from scripts.migrate_state import migrate_project
+from scripts.archive.migrate_state import migrate_project
 from api.services.pipeline_service import PipelineService
 
 class TestMigrationFromLegacy:
@@ -12,7 +12,7 @@ class TestMigrationFromLegacy:
         """state.json القديم يجب أن يرحل إلى .pipeline_state.json"""
         
         # We need to mock Path in migrate_state so it uses tmp_path
-        import scripts.migrate_state as ms
+        import scripts.archive.migrate_state as ms
         original_path = ms.Path
         
         class MockPath:

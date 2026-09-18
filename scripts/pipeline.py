@@ -10,12 +10,12 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, safe_resolve
 import os
 import json
 import hashlib
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -24,9 +24,9 @@ if hasattr(sys.stderr, "reconfigure"):
 
 import uuid
 import time
-from scripts.runtime_logger import RuntimeLogger, RunContext
-from scripts.retry_policy import RetryPolicyEngine, IdempotencyClass
-from scripts.failure_injection import FailureInjector, InjectionPoint
+from scripts.core.runtime_logger import RuntimeLogger, RunContext
+from scripts.core.retry_policy import RetryPolicyEngine, IdempotencyClass
+from scripts.core.failure_injection import FailureInjector, InjectionPoint
 
 def run_script(logger, stage: str, component: str, script_name: str, idempotency: IdempotencyClass, *args, expected_artifacts=None) -> bool:
     script_path = Path("scripts") / script_name
@@ -86,7 +86,7 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
                 
         except Exception as e:
             duration_ms = int((time.time() - start_time) * 1000)
-            from scripts.failure_model import FailureInfo, FailureCode
+            from scripts.core.failure_model import FailureInfo, FailureCode
             failure = FailureInfo(
                 code=FailureCode.GATE_EXECUTION_FAILED,
                 message=str(e),
@@ -180,9 +180,9 @@ def main():
     # ==========================================
     # Initialization & Recovery
     # ==========================================
-    from scripts.state_store import StateStore
-    from scripts.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
-    from scripts.recovery_engine import RecoveryEngine
+    from scripts.core.state_store import StateStore
+    from scripts.core.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
+    from scripts.core.recovery_engine import RecoveryEngine
     import time
     
     decision = RecoveryEngine.evaluate(proj_dir)
@@ -229,7 +229,7 @@ def main():
         # 1. DRAFT -> ASSETS_READY
         if next_state == LifecycleState.DRAFT:
             print(f"\n➔ الانتقال من DRAFT إلى ASSETS_READY:")
-            if not run_script(logger, "assets", "asset_gate", "asset_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            if not run_script(logger, "assets", "asset_gate", "gates/asset_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.ASSETS_READY, [("02_asset_manifest.json", ValidationLevel.EXISTS)])
@@ -238,11 +238,11 @@ def main():
         # 2. ASSETS_READY -> PLAN_READY
         elif next_state == LifecycleState.ASSETS_READY:
             print(f"\n➔ الانتقال من ASSETS_READY إلى PLAN_READY:")
-            if not run_script(logger, "plan", "plan_gate", "plan_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            if not run_script(logger, "plan", "plan_gate", "gates/plan_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
                 mark_failed()
                 sys.exit(1)
             plan_file = proj_dir / "master_plan.md"
-            if not run_script(logger, "plan", "taste_gate", "taste_gate.py", IdempotencyClass.SAFE_TO_RETRY, str(plan_file)):
+            if not run_script(logger, "plan", "taste_gate", "gates/taste_gate.py", IdempotencyClass.SAFE_TO_RETRY, str(plan_file)):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.PLAN_READY, [("master_plan.md", ValidationLevel.SHA256)])
@@ -252,13 +252,13 @@ def main():
         elif next_state == LifecycleState.PLAN_READY:
             print(f"\n➔ الانتقال من PLAN_READY إلى BLUEPRINT_READY:")
             blueprint_file = proj_dir / "05_blueprint.json"
-            if not run_script(logger, "blueprint", "validate_blueprint", "validate_blueprint.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
+            if not run_script(logger, "blueprint", "validate_blueprint", "gates/validate_blueprint.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
                 mark_failed()
                 sys.exit(1)
-            if not run_script(logger, "blueprint", "motion_validator", "motion_validator.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
+            if not run_script(logger, "blueprint", "motion_validator", "gates/motion_validator.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
                 mark_failed()
                 sys.exit(1)
-            if not run_script(logger, "blueprint", "code_template_gate", "code_template_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            if not run_script(logger, "blueprint", "code_template_gate", "gates/code_template_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.BLUEPRINT_READY, [
@@ -270,7 +270,7 @@ def main():
         # 4. BLUEPRINT_READY -> MATERIALIZED
         elif next_state == LifecycleState.BLUEPRINT_READY:
             print(f"\n➔ الانتقال من BLUEPRINT_READY إلى MATERIALIZED:")
-            if not run_script(logger, "blueprint", "materialize_project", "materialize_project.py", IdempotencyClass.SAFE_TO_RETRY, str(proj_dir)):
+            if not run_script(logger, "blueprint", "materialize_project", "generators/materialize_project.py", IdempotencyClass.SAFE_TO_RETRY, str(proj_dir)):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.MATERIALIZED, [
@@ -283,7 +283,7 @@ def main():
         # 5. MATERIALIZED -> PROBE_PASSED
         elif next_state == LifecycleState.MATERIALIZED:
             print(f"\n➔ الانتقال من MATERIALIZED إلى PROBE_PASSED:")
-            if not run_script(logger, "qc", "probe_qc", "probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            if not run_script(logger, "qc", "probe_qc", "gates/probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.PROBE_PASSED, [
@@ -329,7 +329,7 @@ def main():
         # 9. RENDERED -> FINAL_QC_PASSED
         elif next_state == LifecycleState.RENDERED:
             print(f"\n➔ الانتقال من RENDERED إلى FINAL_QC_PASSED:")
-            if not run_script(logger, "qc", "final_qc", "final_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+            if not run_script(logger, "qc", "final_qc", "gates/final_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
                 mark_failed()
                 sys.exit(1)
             save_state(LifecycleState.FINAL_QC_PASSED, [
