@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 const project = new Project({
-  tsConfigFilePath: "tsconfig.json",
+  tsConfigFilePath: path.join(__dirname, "tsconfig.json"),
 });
 
 const registryPath = path.resolve(process.cwd(), "registry/template-registry.tsx");

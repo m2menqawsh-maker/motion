@@ -16,7 +16,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 SCRIPT = Path(__file__).resolve()
-DST = SCRIPT.parent.parent
+DST = SCRIPT.parent.parent.parent
 ALLOWED = [DST / "templates", DST / "cinematic-engine", DST / "workflows", DST / "remotion-app"]
 
 def load_registry():

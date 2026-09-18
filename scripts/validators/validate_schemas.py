@@ -98,7 +98,7 @@ def main():
 
     # حدد مجلد العقود (schemas/) — بجانب scripts/ أو في الجذر
     script_dir = Path(__file__).resolve().parent
-    workspace_root = script_dir.parent.parent
+    workspace_root = script_dir.parent.parent.parent
     schemas_dir = workspace_root / "schemas"
 
     if not schemas_dir.is_dir():

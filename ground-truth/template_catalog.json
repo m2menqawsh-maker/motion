@@ -14,16 +14,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/FadeTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -42,16 +35,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -70,16 +56,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -98,16 +77,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/SlideTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -126,16 +98,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -154,16 +119,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -182,16 +140,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -210,16 +161,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/WipeTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -238,16 +182,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -266,16 +203,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -294,16 +224,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -322,16 +245,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/ClockWipeTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -350,16 +266,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -378,16 +287,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -406,16 +308,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -434,16 +329,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -462,16 +350,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/FlipTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -490,16 +371,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -518,16 +392,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -546,16 +413,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -574,17 +434,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/CrossZoomTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition",
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -603,16 +455,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -631,16 +476,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -659,16 +497,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/CrosswarpTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -687,16 +518,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -715,16 +539,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -743,16 +560,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/DissolveTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -771,16 +581,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -799,16 +602,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -827,17 +623,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/DreamyZoomTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition",
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -856,16 +644,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -884,16 +665,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -912,16 +686,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/FilmBurnTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -940,16 +707,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -968,16 +728,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -996,16 +749,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/IrisTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1024,16 +770,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1052,16 +791,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1080,16 +812,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/LinearBlurTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1108,16 +833,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1136,16 +854,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1164,16 +875,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/PushCutTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1192,16 +896,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1220,16 +917,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1248,16 +938,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/RippleTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1276,16 +959,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1304,16 +980,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1332,16 +1001,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/SwapTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1360,16 +1022,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1388,16 +1043,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1416,17 +1064,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/ZoomBlurTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition",
-      "image_motion"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1445,16 +1085,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1473,16 +1106,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1501,17 +1127,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/ZoomInOutTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition",
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1530,16 +1148,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1558,16 +1169,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1586,16 +1190,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "templates/effects/BookFlipTransition",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1614,16 +1211,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1642,16 +1232,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1670,18 +1253,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/AnimatedTextWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1700,16 +1274,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1728,16 +1295,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1756,16 +1316,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1784,16 +1337,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1812,16 +1358,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1840,17 +1379,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TypeWriterWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "typing"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1869,16 +1400,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1897,16 +1421,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1925,16 +1442,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1953,16 +1463,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -1981,16 +1484,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2009,17 +1505,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CodeBlockWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2038,16 +1526,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2066,16 +1547,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2094,16 +1568,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2122,16 +1589,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2150,16 +1610,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2178,17 +1631,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/MatrixRainWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2207,16 +1652,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2235,16 +1673,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2263,16 +1694,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2291,16 +1715,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2319,16 +1736,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2347,16 +1757,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2375,16 +1778,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2403,16 +1799,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2431,17 +1820,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/AnimatedCounterWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2460,16 +1841,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2488,16 +1862,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2516,16 +1883,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2544,16 +1904,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2572,16 +1925,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2600,16 +1946,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2628,16 +1967,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2656,16 +1988,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2684,16 +2009,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2712,17 +2030,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ScrollingImagesWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2741,16 +2051,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2769,16 +2072,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2797,16 +2093,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2825,17 +2114,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ParticleSystemWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2854,16 +2135,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2882,16 +2156,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2910,16 +2177,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2938,16 +2198,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2966,16 +2219,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -2994,16 +2240,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3022,16 +2261,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3050,16 +2282,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3078,17 +2303,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/Scene3DWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3107,16 +2324,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3135,16 +2345,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3163,16 +2366,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3191,16 +2387,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3219,18 +2408,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/StaggeredMotionWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "element_animation",
-      "badge"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3249,16 +2429,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3277,16 +2450,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3305,16 +2471,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3333,16 +2492,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3361,16 +2513,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3389,16 +2534,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3417,17 +2555,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/GradientWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3446,16 +2576,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3474,16 +2597,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3502,17 +2618,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/AiComposerShowcaseWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3531,17 +2639,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/AiGenerationCanvasWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3560,17 +2660,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/BentoPanWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3589,17 +2681,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/BrowserFlowWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3618,16 +2702,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3646,16 +2723,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3674,16 +2744,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/CreatorReelWrapper",
-    "use_cases": [
-      "social"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3702,18 +2765,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/DashboardPopulateWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "playful",
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3732,16 +2786,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3760,16 +2807,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3788,16 +2828,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3816,16 +2849,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3844,16 +2870,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3872,17 +2891,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/DataStoryWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "data_display"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3901,16 +2912,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3929,16 +2933,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3957,16 +2954,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -3985,16 +2975,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4013,16 +2996,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4041,16 +3017,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4069,17 +3038,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/DeployRevealWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4098,17 +3059,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/EcosystemOrbitWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4127,17 +3080,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/HeroDeviceAssembleWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4156,16 +3101,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4184,16 +3122,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4212,17 +3143,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/HeroLoopWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4241,17 +3164,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ImageExpandWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4270,16 +3185,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4298,16 +3206,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4326,16 +3227,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/IntroWrapper",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "hook"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4354,16 +3248,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4382,16 +3269,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4410,17 +3290,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/LandingCodeShowcaseWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4439,17 +3311,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/LiveCodeSplitWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4468,16 +3332,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/PodcastClipWrapper",
-    "use_cases": [
-      "social"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4496,16 +3353,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4524,16 +3374,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4552,17 +3395,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/PricingFocusWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4581,17 +3416,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/ShowcaseWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4610,16 +3437,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4638,16 +3458,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4666,17 +3479,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/SocialClipWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4695,17 +3500,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/ToolMenuSlideWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4724,17 +3521,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TutorialClipWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4753,16 +3542,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4781,16 +3563,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4809,17 +3584,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/AnimatedBarChartWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4838,16 +3605,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4866,16 +3626,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4894,17 +3647,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/AudiogramSceneWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4923,16 +3668,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4951,16 +3689,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -4979,17 +3710,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/AutoFitTitleWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5008,16 +3731,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5036,16 +3752,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5064,17 +3773,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/BRollStackWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5093,16 +3794,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5121,16 +3815,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5149,16 +3836,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CalendarMonthFillWrapper",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "cta"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5177,17 +3857,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CalloutSpotlightWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5206,16 +3878,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5234,16 +3899,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5262,17 +3920,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CaptionBumperWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "caption"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5291,16 +3941,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5319,17 +3962,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/CaptionSceneWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "caption"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5348,16 +3983,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5376,17 +4004,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ChangelogEntryWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5405,17 +4025,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/THEMESWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5434,17 +4046,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ChatToPreviewWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "messaging"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5463,16 +4067,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5491,17 +4088,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CodeAccordionWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5520,16 +4109,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5548,18 +4130,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CodeDiffWipeWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition",
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5578,16 +4151,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5606,17 +4172,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CodeRevealWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5635,16 +4193,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5663,17 +4214,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CommentCalloutWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5692,17 +4235,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CommitGraphWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5721,18 +4256,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ComparisonTableWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "data_display",
-      "navigation"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5751,16 +4277,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5779,17 +4298,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/CountdownTimerWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5808,16 +4319,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5836,17 +4340,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/DataFlowPipesWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "data_display"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5865,17 +4361,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/DeviceMockupZoomWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5894,16 +4382,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5922,16 +4403,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5950,16 +4424,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -5978,16 +4445,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6006,16 +4466,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6034,16 +4487,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6062,16 +4508,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6090,17 +4529,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/DragDropFlowWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6119,16 +4550,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6147,16 +4571,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/EndCardWrapper",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "cta"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6175,16 +4592,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6203,16 +4613,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6231,16 +4634,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6259,17 +4655,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/FaqAccordionWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6288,16 +4676,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6316,16 +4697,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6344,17 +4718,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/FeatureListWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "data_display"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6373,16 +4739,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6401,17 +4760,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/FileTreeRevealWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6430,16 +4781,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6458,17 +4802,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/FormFillSequenceWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "form_ui"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6487,16 +4823,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6515,16 +4844,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6543,16 +4865,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/HookCardWrapper",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "hook"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6571,16 +4886,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6599,17 +4907,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/KanbanMoveWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6628,17 +4928,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/LogoRevealWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "logo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6657,17 +4949,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/LogoWallWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "logo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6686,16 +4970,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6714,17 +4991,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/LowerThirdWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6743,16 +5012,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6771,16 +5033,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6799,17 +5054,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/MapFlightWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6828,17 +5075,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/MediaFrameWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6857,16 +5096,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6885,17 +5117,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/MediaSequenceWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6914,16 +5138,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6942,17 +5159,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/MetricTickerWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6971,16 +5180,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -6999,17 +5201,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/NewsTickerBarWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7028,17 +5222,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/NotificationStackWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "notification"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7057,17 +5243,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/OrgChartBuildWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7086,16 +5264,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7114,17 +5285,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/PollOverlayWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7143,17 +5306,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/PricingCardWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7172,17 +5327,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/QuizQuestionWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7201,17 +5348,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/QuoteCardWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7230,17 +5369,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ReactionBurstWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7259,17 +5390,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/RoadmapLanesWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7288,16 +5411,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7316,18 +5432,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/SearchResultsPopulateWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "search_ui"
-    ],
-    "moods": [
-      "playful",
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7346,17 +5453,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/SplitScreenWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7375,16 +5474,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7403,17 +5495,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/SportsScorebugWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7432,17 +5516,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/StatCardWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "stat"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7461,16 +5537,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7489,16 +5558,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7517,16 +5579,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7545,16 +5600,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7573,16 +5621,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7601,16 +5642,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7629,17 +5663,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TabSwitchPanelWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "navigation"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7658,17 +5684,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/TalkingHeadLayoutWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7687,16 +5705,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7715,16 +5726,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7743,17 +5747,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/scenes/TeamGridWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7772,16 +5768,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7800,16 +5789,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7828,17 +5810,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TerminalSimulatorWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "code_demo"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7857,16 +5831,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7885,16 +5852,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7913,16 +5873,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7941,16 +5894,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7969,17 +5915,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TimelineStepsWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -7998,16 +5936,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8026,17 +5957,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/TitleCardWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "title_reveal"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8055,16 +5978,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8083,16 +5999,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8111,17 +6020,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/WeatherCardWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8140,17 +6041,9 @@
     "rtl_ready": false,
     "source": "premium",
     "path": "templates/elements/ZoomPanFrameWrapper",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion"
-    ],
-    "moods": [
-      "cinematic",
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
@@ -8169,16 +6062,9 @@
     "rtl_ready": false,
     "source": "legacy",
     "path": "",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   }
