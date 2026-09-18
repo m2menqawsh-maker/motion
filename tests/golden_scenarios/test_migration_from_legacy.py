@@ -40,7 +40,8 @@ class TestMigrationFromLegacy:
         migrate_project(test_project)
         
         # التحقق من الترحيل
-        new_state = PipelineService._load_state(test_project)
+        new_state_path = PipelineService._get_project_dir(test_project) / ".pipeline_state.json"
+        new_state = json.loads(new_state_path.read_text(encoding="utf-8"))
         assert "legacy_gui_state" in new_state
         assert new_state["legacy_gui_state"]["approved_by"] == "legacy_user"
         assert new_state["legacy_gui_state"]["current_stage"] == "plan_gate"

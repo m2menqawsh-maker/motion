@@ -15,9 +15,7 @@ async def status(project_id: str):
     if not res:
         raise ProjectNotFoundError(project_id)
         
-    from scripts.state_model import ProjectState
-    state = ProjectState(**res) if isinstance(res, dict) else res
-    return StageStatusResponse(state=state)
+    return StageStatusResponse(state=res)
 
 @router.post("/{project_id}/start/{stage}", response_model=GateResponse)
 async def start(project_id: str, stage: str):

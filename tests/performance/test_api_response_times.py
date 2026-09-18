@@ -13,13 +13,15 @@ async def test_state_read_performance(tmp_path, monkeypatch):
     """
     اختبار أن قراءة حالة الـ Pipeline سريعة جداً.
     """
-    def mock_get_state_path(project_id):
-        path = tmp_path / f".pipeline_state_{project_id}.json"
-        if not path.exists():
-            path.write_text('{"legacy_gui_state": {"status": "pending"}}', encoding="utf-8")
+    def mock_get_project_dir(project_id):
+        path = tmp_path / f"projects_{project_id}"
+        path.mkdir(exist_ok=True)
+        state_path = path / ".pipeline_state.json"
+        if not state_path.exists():
+            state_path.write_text('{"legacy_gui_state": {"status": "pending"}}', encoding="utf-8")
         return path
     
-    monkeypatch.setattr("api.services.pipeline_service.PipelineService._get_state_path", mock_get_state_path)
+    monkeypatch.setattr("api.services.pipeline_service.PipelineService._get_project_dir", mock_get_project_dir)
     
     start_time = time.perf_counter()
     

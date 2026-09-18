@@ -238,8 +238,8 @@ def main():
         state.artifact_references = refs
         
         from scripts.state_model import StageStatus
-        from datetime import datetime
-        now = datetime.utcnow().isoformat()
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
         
         if stage == CheckpointStage.ASSETS_READY:
             state.current_stage = 0

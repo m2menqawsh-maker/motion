@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
-from scripts.state_model import ProjectState
 
 class ProjectCreateRequest(BaseModel):
     name: str = Field(..., description="Project name")
@@ -17,4 +16,4 @@ class ProjectListResponse(BaseModel):
 class ProjectResponse(BaseModel):
     project: Optional[Dict[str, Any]] = None
     manifest: Optional[Dict[str, Any]] = None
-    state: ProjectState
+    state: Dict[str, Any]

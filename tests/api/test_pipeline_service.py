@@ -3,7 +3,8 @@ import asyncio
 import json
 from pathlib import Path
 from datetime import datetime
-from api.services.pipeline_service import PipelineService, InvalidGateException, PipelineAlreadyRunningException
+from api.services.pipeline_service import PipelineService
+from api.core.errors import InvalidGateError, PipelineRunningError
 
 @pytest.fixture
 def project_id(tmp_path, monkeypatch):
@@ -64,7 +65,7 @@ def test_invalid_gate_exception(project_id):
     async def run():
         await PipelineService.scaffold_project(project_id)
         
-        with pytest.raises(InvalidGateException):
+        with pytest.raises(InvalidGateError):
             await PipelineService.start_stage(project_id, "invalid_gate")
     asyncio.run(run())
 
@@ -114,7 +115,7 @@ def test_pipeline_lock_prevents_concurrent_runs(project_id, monkeypatch):
             PipelineService._active_pipelines[p_id] = asyncio.Lock()
         lock = PipelineService._active_pipelines[p_id]
         if lock.locked():
-            raise PipelineAlreadyRunningException()
+            raise PipelineRunningError(project_id)
         async with lock:
             await slow_pipeline()
             return {"status": "success"}
@@ -125,7 +126,7 @@ def test_pipeline_lock_prevents_concurrent_runs(project_id, monkeypatch):
         
         t2 = asyncio.create_task(mock_run_pipeline(project_id))
         
-        with pytest.raises(PipelineAlreadyRunningException):
+        with pytest.raises(PipelineRunningError):
             await t2
             
         await t1

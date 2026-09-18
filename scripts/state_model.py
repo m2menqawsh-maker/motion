@@ -1,7 +1,7 @@
 from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 class StageStatus(str, Enum):
     PENDING = "pending"
@@ -62,8 +62,9 @@ class ProjectState(BaseModel):
         "gate_1": GateEntry(),
         "gate_2": GateEntry(),
         "gate_3": GateEntry(),
+        "gate_4": GateEntry(),
     })
-    updated_at: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+    updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     
     # Merged from CheckpointRecord
     run_id: Optional[str] = None

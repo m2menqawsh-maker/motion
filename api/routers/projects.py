@@ -39,14 +39,11 @@ async def get_project(project_id: str):
         else:
             data[filename.replace(".json", "")] = {}
             
-    state_dict = PipelineService.get_status(project_id)
-    
-    from scripts.state_model import ProjectState
-    state = ProjectState(**state_dict) if isinstance(state_dict, dict) else state_dict
+    state_dict = await PipelineService.get_status(project_id)
             
     return ProjectResponse(
         project=data.get("project", {}),
         manifest=data.get("manifest", {}),
-        state=state
+        state=state_dict
     )
 

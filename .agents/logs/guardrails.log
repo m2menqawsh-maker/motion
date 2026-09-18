@@ -693,3 +693,52 @@
 [2026-09-17T22:43:31.472144] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
 [2026-09-17T22:43:31.849319] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
 [2026-09-17T22:43:32.264576] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T01:19:57.378276] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T01:19:57.911457] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T01:19:58.193003] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:19:58.439036] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T01:19:58.674722] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:19:58.915372] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T01:19:59.142652] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T01:22:11.383565] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T01:22:11.590408] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T01:22:11.792097] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:22:11.974956] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T01:22:12.159957] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:22:12.351758] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T01:22:12.537659] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T01:24:09.328370] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T01:24:09.537604] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T01:24:09.733603] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:24:09.924823] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T01:24:10.113172] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:24:10.304813] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T01:24:10.490146] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T01:28:01.377555] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T01:28:01.576547] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T01:28:01.781993] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:28:01.973774] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T01:28:02.159381] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:28:02.352490] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T01:28:02.537275] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T01:30:49.499142] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T01:30:49.705547] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T01:30:49.910125] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:30:50.099730] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T01:30:50.296520] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T01:30:50.528698] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T01:30:50.755191] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T11:46:12.592157] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T11:46:12.920337] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T11:46:13.228696] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T11:46:13.498483] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T11:46:13.777270] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T11:46:14.067825] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T11:46:14.349880] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
+[2026-09-18T11:49:00.801048] [COMMAND_GUARD] [ALLOW] CONTEXT: python scripts/pipeline.py project_1 | REASON: Command is safe.
+[2026-09-18T11:49:01.078404] [COMMAND_GUARD] [BLOCK] CONTEXT: npm install unknown-malicious-package | REASON: 🛑 ممنوع تثبيت حزمة غير معتمدة: unknown-malicious-package. أضفها إلى plugin.json أولاً.
+[2026-09-18T11:49:01.349150] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py && echo Hacked | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T11:49:01.658051] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/pipeline.py ; rm -rf / | REASON: 🛑 ممنوع حذف ملفات النظام الحرجة.
+[2026-09-18T11:49:01.932805] [COMMAND_GUARD] [BLOCK] CONTEXT: echo test | grep t | REASON: 🛑 Shell chaining/redirection is strictly forbidden.
+[2026-09-18T11:49:02.222279] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/render_project.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/render_project.py directly.
+[2026-09-18T11:49:02.490915] [COMMAND_GUARD] [BLOCK] CONTEXT: python scripts/asset_gate.py | REASON: 🛑 Pipeline Bypass Detected: You must use python scripts/pipeline.py <project_id> instead of running python scripts/asset_gate.py directly.
