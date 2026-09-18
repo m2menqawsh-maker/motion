@@ -40,8 +40,7 @@ def create_mock_project(tmp_path: Path, scene_template_props=None) -> Path:
 
     bp = {
         "project_id": "prj_test",
-        "fps": 30,
-        "scenes": [scene]
+                "scenes": [scene]
     }
     
     (proj_dir / "05_blueprint.json").write_text(json.dumps(bp, ensure_ascii=False), encoding="utf-8")

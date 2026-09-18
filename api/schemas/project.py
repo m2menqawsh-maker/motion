@@ -3,8 +3,6 @@ from typing import Optional, List, Dict, Any
 
 class ProjectCreateRequest(BaseModel):
     name: str = Field(..., description="Project name")
-    aspect: str = Field(..., description="Aspect ratio (e.g., 16:9, 9:16, 1:1)")
-    fps: int = Field(30, description="Frames per second")
     language: str = Field("ar", description="Project language")
 
 class ProjectCreateResponse(BaseModel):

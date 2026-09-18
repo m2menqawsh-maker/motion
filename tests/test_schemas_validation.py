@@ -57,9 +57,7 @@ def validate(schema: dict, data: dict, resolver: RefResolver) -> list[str]:
 VALID_PROJECT = {
     "project_id": "prj_test-01",
     "name": "مشروع اختباري",
-    "aspect": "9:16",
-    "fps": 30,
-    "language": "ar",
+            "language": "ar",
     "brand": None,
     "created_at": "2026-09-06T12:00:00+03:00",
     "voiceover": {
@@ -72,8 +70,7 @@ VALID_PROJECT = {
 VALID_BLUEPRINT = {
     "project_id": "prj_test-01",
     "version": 1,
-    "fps": 30,
-    "scenes": [
+        "scenes": [
         {
             "scene_id": "scene_01",
             "template": "text-reveal",

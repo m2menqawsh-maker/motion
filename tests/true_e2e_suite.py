@@ -77,8 +77,7 @@ sentence_index: 1
     blueprint = {
         "project_id": project_dir.name,
         "version": "1.0",
-        "fps": 30,
-        "meta": {
+                "meta": {
             "motion_personality": "Cinematic",
             "timings_path": f"projects/{project_dir.name}/04_timings.json",
             "approval": {"blueprint_approved": True}
@@ -109,7 +108,7 @@ def run_scenario(name: str, aspect: str):
     
     # 1. Scaffold
     scaffold_proc = subprocess.run(
-        [sys.executable, "scripts/scaffold_project.py", "--name", name, "--aspect", aspect, "--fps", "30", "--language", "ar"],
+        [sys.executable, "scripts/scaffold_project.py", "--name", name, "--language", "ar"],
         cwd=str(workspace_root), capture_output=True, text=True
     )
     if scaffold_proc.returncode != 0:

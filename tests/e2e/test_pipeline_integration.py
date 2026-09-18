@@ -14,7 +14,7 @@ def run(cmd):
 
 @pytest.fixture(scope="module")
 def project_setup():
-    code, stdout, stderr = run(["python", "scripts/scaffold_project.py", "--name", "Test", "--aspect", "9:16", "--fps", "30", "--language", "ar"])
+    code, stdout, stderr = run(["python", "scripts/scaffold_project.py", "--name", "Test", "--language", "ar"])
     assert code == 0
     project_id = stdout.strip()
     project_dir = Path("projects") / project_id
@@ -25,8 +25,7 @@ def project_setup():
     bp = {
         "project_id": project_id,
         "version": "1.0",
-        "fps": 30,
-        "scenes": []
+                "scenes": []
     }
     (project_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
     

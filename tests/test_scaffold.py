@@ -11,7 +11,7 @@ def run_scaffold():
         "python", "scripts/scaffold_project.py",
         "--name", "Test Project",
         "--aspect", "9:16",
-        "--fps", "30",
+        
         "--language", "ar"
     ]
     result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")

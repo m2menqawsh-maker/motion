@@ -4,7 +4,7 @@ from api.main import app
 client = TestClient(app)
 
 def create_proj():
-    return client.post("/projects/", json={"name": "T", "aspect": "1:1", "fps": 30, "language": "ar"}).json()["project_id"]
+    return client.post("/projects/", json={"name": "T", "language": "ar"}).json()["project_id"]
 
 def test_status_initial():
     pid = create_proj()

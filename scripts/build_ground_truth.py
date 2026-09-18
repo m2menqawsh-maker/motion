@@ -33,8 +33,8 @@ def fam_of(n):
     return "Unclassified"
 
 # ── 1) TEMPLATE_CATALOG & TEMPLATE_INDEX ─────────────────────────────
-templates_dir = DST / "templates"
-engine_dir = DST / "engine"
+templates_dir = DST / "remotion-app/src/templates"
+engine_dir = DST / "remotion-app/src/engine"
 (OUT / "collections").mkdir(parents=True, exist_ok=True)
 
 catalog = []
@@ -139,7 +139,7 @@ def scan_templates(base_dir, source_name):
             "type": t_type,
             "family": t_family,
             "quality": get_quality(rel_path, source_name),
-            "status": "production-ready",
+            "status": "experimental",
             "rtl_ready": get_rtl_ready(rel_path),
             "source": get_source(rel_path, source_name),
             "path": rel_path,
@@ -309,7 +309,7 @@ def cin_family(rel):
     return "Core"
 
 lines, n = ["| File | Exports | Props (First 12) | Family |", "|---|---|---|---|"], 0
-ce = DST / "engine"
+ce = DST / "remotion-app/src/engine"
 if ce.exists():
     for f in sorted(list(ce.rglob("*.tsx")) + list(ce.rglob("*.ts"))):
         if f.name == "index.ts": continue

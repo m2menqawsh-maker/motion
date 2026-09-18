@@ -19,8 +19,6 @@ def generate_timestamp():
 def main():
     parser = argparse.ArgumentParser(description="Scaffold a new Clean Video Workspace project")
     parser.add_argument("--name", required=True)
-    parser.add_argument("--aspect", required=True)
-    parser.add_argument("--fps", type=int, required=True)
     parser.add_argument("--language", required=True)
     
     args = parser.parse_args()
@@ -39,8 +37,6 @@ def main():
         project_data = {
             "project_id": project_id,
             "name": args.name,
-            "aspect": args.aspect,
-            "fps": args.fps,
             "language": args.language,
             "voiceover": {"mode": "none"},
             "created_at": timestamp

@@ -34,8 +34,7 @@ def test_materialize_asset_resolution(tmp_path):
     blueprint = {
         "project_id": project_id,
         "version": "1.0",
-        "fps": 30,
-        "scenes": [
+                "scenes": [
             {
                 "scene_id": "scene_1",
                 "template": "ShowcaseWrapper",
@@ -87,8 +86,7 @@ def test_unknown_asset_id_fails_closed(tmp_path):
     blueprint = {
         "project_id": project_id,
         "version": "1.0",
-        "fps": 30,
-        "scenes": [
+                "scenes": [
             {
                 "scene_id": "scene_1",
                 "template": "ShowcaseWrapper",
@@ -128,8 +126,7 @@ def test_missing_materialized_asset_fails(tmp_path):
     blueprint = {
         "project_id": project_id,
         "version": "1.0",
-        "fps": 30,
-        "scenes": [
+                "scenes": [
             {
                 "scene_id": "scene_1",
                 "template": "ShowcaseWrapper",
@@ -160,8 +157,7 @@ def test_developer_path_fails(tmp_path):
     blueprint = {
         "project_id": project_id,
         "version": "1.0",
-        "fps": 30,
-        "scenes": [
+                "scenes": [
             {
                 "scene_id": "scene_1",
                 "template": "ShowcaseWrapper",
