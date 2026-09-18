@@ -31,7 +31,8 @@ export function loadProjectData(projectDir: string): ProjectData {
   const blueprintPath = path.join(projectDir, "05_blueprint.json");
   const brandPath = path.join(projectDir, "brand.json");
   const overridesPath = path.join(projectDir, "overrides.json");
-  const manifestPath = path.join(projectDir, "manifest.json");
+  const assetManifestPath = path.join(projectDir, "02_asset_manifest.json");
+  const mediaMapPath = path.join(projectDir, "media_map.json");
 
   if (!fs.existsSync(blueprintPath)) {
     throw new Error(`Missing mandatory file: 05_blueprint.json in ${projectDir}`);
@@ -39,10 +40,11 @@ export function loadProjectData(projectDir: string): ProjectData {
 
   const project = fs.existsSync(projectPath)
     ? JSON.parse(fs.readFileSync(projectPath, "utf-8"))
-    : { fps: 30, title: "Untitled" };
+    : { title: "Untitled" };
 
   const rawBlueprint = JSON.parse(fs.readFileSync(blueprintPath, "utf-8"));
   
+  // Zod parsing will strictly throw an error if the blueprint is invalid
   const blueprint = BlueprintSchema.parse(rawBlueprint);
   
   const brand = fs.existsSync(brandPath)
@@ -53,9 +55,13 @@ export function loadProjectData(projectDir: string): ProjectData {
     ? JSON.parse(fs.readFileSync(overridesPath, "utf-8"))
     : { scenes: {} };
 
-  const manifest = fs.existsSync(manifestPath)
-    ? JSON.parse(fs.readFileSync(manifestPath, "utf-8"))
+  const asset_manifest = fs.existsSync(assetManifestPath)
+    ? JSON.parse(fs.readFileSync(assetManifestPath, "utf-8"))
     : null;
 
-  return { project, blueprint, brand, overrides, manifest };
+  const media_map = fs.existsSync(mediaMapPath)
+    ? JSON.parse(fs.readFileSync(mediaMapPath, "utf-8"))
+    : null;
+
+  return { project, blueprint, brand, overrides, asset_manifest, media_map };
 }

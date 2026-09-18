@@ -10,7 +10,7 @@ ALLOWED_SCRIPTS = {
         "scripts/template_lint.py", "scripts/benchmark_guards.py",
         "scripts/asset_gate.py", "scripts/plan_gate.py", "scripts/taste_gate.py",
         "scripts/validate_blueprint.py", "scripts/motion_validator.py",
-        "scripts/code_template_gate.py", "scripts/materialize_project.py", "scripts/probe_qc.py"
+        "scripts/code_template_gate.py", "scripts/materialize_project.py", "scripts/probe_qc.py", "scripts/final_qc.py"
     ],
     "npm": ["run", "build"], 
     "docker": ["info", "run"],

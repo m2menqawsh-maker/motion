@@ -52,8 +52,8 @@ export interface TemplateEntry {
   thumbPath?: string;
   /** هيكل بيانات الخصائص (Props Schema) للقالب */
   schema: Record<string, SchemaField>;
-  /** القيم الافتراضية المستندة لـ StyleSurface */
-  defaults: Partial<StyleSurface>;
+  /** القيم الافتراضية المستندة للمخطط */
+  defaults: Record<string, any>;
   /** الحد الأدنى للمدة بالإطارات */
   minDurationFrames?: number;
   /** الحد الأقصى للمدة بالإطارات */
@@ -62,6 +62,10 @@ export interface TemplateEntry {
   consumes?: ("lines"|"words"|"images"|"screen"|"numbers"|"range"|"path"|"icons"|"audioRef"|"spectrum")[];
   /** أصل القالب (مثل "docs") */
   origin?: string;
+  /** حالة استقرار القالب */
+  status?: "experimental" | "verified" | "production";
+  /** أبعاد الفيديو المدعومة من قبل القالب */
+  supported_aspects?: string[];
   /** تصنيف الجودة (A, B, C, unknown) */
   tier?: string;
   /** معرفات تأثيرات المحرك (effects-catalog) التي يعتمد عليها القالب جوهرياً */

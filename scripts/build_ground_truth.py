@@ -38,120 +38,80 @@ engine_dir = DST / "remotion-app/src/engine"
 (OUT / "collections").mkdir(parents=True, exist_ok=True)
 
 catalog = []
-PREMIUM_PATHS = [
-    "elements/typography/blur-reveal", "elements/typography/rgb-glitch-text",
-    "elements/typography/tracking-in", "elements/typography/typewriter",
-    "elements/typography/word-stagger", "elements/typography/text-reveal",
-    "elements/captions/captions", "elements/code/code-block",
-    "elements/code/code-diff", "elements/code/terminal",
-    "elements/ui/split-screen", "elements/ui/remocn-ui",
-    "elements/ui/remotion-bits", "elements/data/AudioVisualizer",
-    "scenes/social/social-clip",
-    "scenes/social/SocialClip", "scenes/product/ken-burns",
-    "effects/transitions/glass-wipe", "effects/transitions/type-mask",
-    "effects/transitions/blur-out-up", "effects/transitions/whip-pan",
-    "elements/typography/caret", "elements/typography/typewriter-remocn"
-]
 
-def get_quality(relative_path, source_name):
-    if source_name == "engine":
-        return "A"
-    for p in PREMIUM_PATHS:
-        if p in relative_path:
-            return "A"
-    return "C"
-
-def get_rtl_ready(relative_path):
-    rtl_dirs = ["elements/typography", "elements/captions"]
-    for d in rtl_dirs:
-        if d in relative_path:
-            return True
-    return False
-
-REMOCN_PATHS = [
-    "elements/typography/caret",
-    "elements/typography/typewriter-remocn",
-    "effects/transitions/blur-out-up",
-    "effects/transitions/whip-pan",
-    "elements/ui/remocn-ui"
-]
-
-def get_source(relative_path, source_name):
-    if source_name == "engine":
-        return "engine"
+registry_path = DST / "registry" / "template-registry.tsx"
+if registry_path.exists():
+    content = registry_path.read_text(encoding="utf-8")
+    m = re.search(r"CANONICAL_TEMPLATE_REGISTRY(?:[\s\S]*?)=\s*\{([\s\S]*?)\n\};", content)
+    if m:
+        entries_str = m.group(1)
+        parts = re.split(r'\n\s+"([a-zA-Z0-9_-]+)":\s*\{', "\n  " + entries_str)
         
-    for p in REMOCN_PATHS:
-        if p in relative_path:
-            return "remocn"
-    
-    PREMIUM_PATHS_SOURCE = [
-        "elements/typography/blur-reveal", "elements/typography/rgb-glitch-text",
-        "elements/typography/tracking-in", "elements/typography/typewriter",
-        "elements/typography/word-stagger", "elements/typography/text-reveal",
-        "elements/captions/captions", "elements/code/code-block",
-        "elements/code/code-diff", "elements/code/terminal",
-        "elements/ui/split-screen", "elements/ui/remocn-ui",
-        "elements/ui/remotion-bits", "elements/data/AudioVisualizer",
-        "scenes/social/social-clip",
-        "scenes/social/SocialClip", "scenes/product/ken-burns",
-        "effects/transitions/glass-wipe", "effects/transitions/type-mask",
-        "effects/transitions/blur-out-up", "effects/transitions/whip-pan",
-        "elements/typography/caret", "elements/typography/typewriter-remocn"
-    ]
-    
-    for p in PREMIUM_PATHS_SOURCE:
-        if p in relative_path:
-            if "remocn" in relative_path:
-                return "remocn"
-            if "remotion-bits" in relative_path:
-                return "remotion-bits"
-            return "premium"
-    
-    return "legacy"
-
-
-def scan_templates(base_dir, source_name):
-    if not base_dir.exists(): return
-    for f in sorted(list(base_dir.rglob("*.tsx")) + list(base_dir.rglob("*.ts"))):
-        if f.name == "index.ts" or f.name.endswith(".d.ts") or f.name == "schema.ts": continue
-        rel_path = f.relative_to(base_dir.parent).as_posix()
-        parts = rel_path.split("/")
-        
-        t_type = "misc"
-        t_family = "core"
-        if len(parts) >= 3:
-            t_type = parts[1]
-            if t_type == "scenes": t_type = "scene"
-            elif t_type == "elements": t_type = "element"
-            elif t_type == "effects": t_type = "effect"
-            elif source_name == "engine": 
-                if t_type == "scenes": t_type = "scene"
-                else: t_type = "engine"
+        for i in range(1, len(parts), 2):
+            key = parts[i]
+            body = parts[i+1]
             
-            t_family = parts[2] if len(parts) > 3 else "core"
-            if source_name == "engine" and t_type == "engine":
-                t_family = parts[1]
-        
-        id_path = "/".join(parts[1:-1]) if len(parts) > 2 else f.stem
-        catalog.append({
-            "id": f"{id_path}/{f.stem}" if not id_path.endswith(f.stem) else id_path,
-            "name": f.stem.replace("-", " ").title().replace(" ", ""),
-            "type": t_type,
-            "family": t_family,
-            "quality": get_quality(rel_path, source_name),
-            "status": "experimental",
-            "rtl_ready": get_rtl_ready(rel_path),
-            "source": get_source(rel_path, source_name),
-            "path": rel_path,
-            "use_cases": [],
-            "intents": [],
-            "moods": [],
-            "capabilities": [],
-            "notes": ""
-        })
+            status_m = re.search(r"status\s*:\s*['\"]([^'\"]+)['\"]", body)
+            status = status_m.group(1) if status_m else "experimental"
+            
+            cat_m = re.search(r"category\s*:\s*['\"]([^'\"]+)['\"]", body)
+            t_type = cat_m.group(1) if cat_m else "misc"
+            if t_type == "composition": t_type = "scene"
+            
+            aspects_m = re.search(r"supported_aspects\s*:\s*\[([^\]]+)\]", body)
+            supported_aspects = []
+            if aspects_m:
+                supported_aspects = [a.strip("'\" \n") for a in aspects_m.group(1).split(",")]
+            else:
+                supported_aspects = ["16:9", "9:16", "1:1"]
+                
+            comp_m = re.search(r"component\s*:\s*([a-zA-Z0-9_]+)", body)
+            component = comp_m.group(1) if comp_m else ""
+            
+            rel_path = ""
+            if component:
+                imp_m = re.search(r"import\s*\{?\s*" + component + r"\s*\}?\s*from\s*['\"]([^'\"]+)['\"]", content)
+                if imp_m:
+                    rel_path = imp_m.group(1).lstrip(".").strip("/")
+            
+            t_family = "core"
+            path_parts = rel_path.split("/")
+            if len(path_parts) > 2:
+                t_family = path_parts[2]
+            
+            # Simple heuristic for quality & source (same as before)
+            quality = "C"
+            source = "legacy"
+            if "remocn" in rel_path:
+                source = "remocn"
+                quality = "A"
+            elif "remotion-bits" in rel_path:
+                source = "remotion-bits"
+                quality = "A"
+            elif "engine" in rel_path:
+                source = "engine"
+                quality = "A"
+            elif "premium" in rel_path or "elements/" in rel_path or "scenes/" in rel_path:
+                source = "premium"
+                quality = "A"
 
-scan_templates(templates_dir, "new_unified")
-scan_templates(engine_dir, "engine")
+            catalog.append({
+                "id": key,
+                "name": key.replace("-", " ").title().replace(" ", ""),
+                "type": t_type,
+                "family": t_family,
+                "quality": quality,
+                "status": status,
+                "supported_aspects": supported_aspects,
+                "rtl_ready": True if "typography" in rel_path or "captions" in rel_path else False,
+                "source": source,
+                "path": rel_path,
+                "use_cases": [],
+                "intents": [],
+                "moods": [],
+                "capabilities": [],
+                "notes": ""
+            })
 
 # --- Classify Templates ---
 sys.path.append(str(DST / "scripts"))

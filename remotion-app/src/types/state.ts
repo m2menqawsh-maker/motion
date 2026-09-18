@@ -6,62 +6,49 @@
  */
 
 export type ProjectId = string;
-export type CurrentStage = number;
-export type LastError = string | null;
-export type StageStatus = "pending" | "running" | "done" | "failed";
-export type StartedAt = string | null;
-export type FinishedAt = string | null;
-export type GateStatus = "locked" | "awaiting" | "approved" | "rejected";
-export type ApprovedBy = string | null;
-export type ApprovedAt = string | null;
-export type Note = string | null;
-export type UpdatedAt = string;
-export type RunId = string | null;
-export type CheckpointStage =
-  | "INITIALIZED"
+export type SchemaVersion = number;
+export type Revision = number;
+export type LifecycleState =
+  | "DRAFT"
   | "ASSETS_READY"
   | "PLAN_READY"
   | "BLUEPRINT_READY"
-  | "PROBE_READY"
-  | "APPROVED"
+  | "MATERIALIZED"
+  | "PROBE_PASSED"
+  | "AWAITING_REVIEW"
+  | "REVIEW_APPROVED"
   | "RENDERED"
-  | "QC_PASSED"
-  | "COMPLETE";
+  | "FINAL_QC_PASSED"
+  | "COMPLETE"
+  | "FAILED"
+  | "CANCELLED";
+export type StructuredErrors = {
+  [k: string]: unknown;
+}[];
 export type Path = string;
 export type ValidationLevel = "EXISTS" | "SIZE" | "SHA256";
 export type SizeBytes = number | null;
 export type Sha256 = string | null;
-export type ArtifactReferences = ArtifactRecord[];
+export type ArtifactRecords = ArtifactRecord[];
+export type CreatedAt = string;
+export type UpdatedAt = string;
 
 export interface ProjectState {
   project_id: ProjectId;
-  current_stage?: CurrentStage;
-  last_error?: LastError;
-  stages?: Stages;
-  gates?: Gates;
+  schema_version?: SchemaVersion;
+  revision?: Revision;
+  lifecycle_state?: LifecycleState;
+  run_metadata?: RunMetadata;
+  approval_metadata?: ApprovalMetadata;
+  structured_errors?: StructuredErrors;
+  artifact_records?: ArtifactRecords;
+  created_at?: CreatedAt;
   updated_at?: UpdatedAt;
-  run_id?: RunId;
-  checkpoint?: CheckpointStage;
-  artifact_references?: ArtifactReferences;
+}
+export interface RunMetadata {
   [k: string]: unknown;
 }
-export interface Stages {
-  [k: string]: StageEntry;
-}
-export interface StageEntry {
-  status?: StageStatus;
-  started_at?: StartedAt;
-  finished_at?: FinishedAt;
-  [k: string]: unknown;
-}
-export interface Gates {
-  [k: string]: GateEntry;
-}
-export interface GateEntry {
-  status?: GateStatus;
-  approved_by?: ApprovedBy;
-  approved_at?: ApprovedAt;
-  note?: Note;
+export interface ApprovalMetadata {
   [k: string]: unknown;
 }
 export interface ArtifactRecord {

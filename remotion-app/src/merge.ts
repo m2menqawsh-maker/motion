@@ -15,11 +15,11 @@ export interface SceneOverride {
 }
 
 export interface ProjectData {
-  project: { fps: number; title: string };
-  blueprint: { scenes: BlueprintScene[] };
+  project: { title: string };
+  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[] };
   brand: BrandKit;
   overrides?: { scenes: Record<string, SceneOverride> };
-  manifest?: any;
+  asset_manifest?: any;
   media_map?: Record<string, string>;
 }
 
@@ -177,7 +177,7 @@ export function mergeProject(
   }, 0);
 
   return {
-    fps: data.project.fps,
+    fps: data.blueprint.fps ?? 30,
     title: data.project.title,
     totalDurationFrames,
     scenes,

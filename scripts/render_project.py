@@ -72,12 +72,11 @@ def main():
     
     try:
         from scripts.state_store import StateStore
-        from scripts.state_model import GateStatus
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
         
         state = StateStore.load(project_dir)
-        is_approved = state and state.gates["gate_3"].status == GateStatus.APPROVED
+        is_approved = (project_dir / ".studio_approved").exists()
         
         if not is_approved and not is_managed:
             duration_ms = int((time.time() - start_time) * 1000)

@@ -41,119 +41,23 @@
       "title": "ArtifactRecord",
       "type": "object"
     },
-    "CheckpointStage": {
+    "LifecycleState": {
       "enum": [
-        "INITIALIZED",
+        "DRAFT",
         "ASSETS_READY",
         "PLAN_READY",
         "BLUEPRINT_READY",
-        "PROBE_READY",
-        "APPROVED",
+        "MATERIALIZED",
+        "PROBE_PASSED",
+        "AWAITING_REVIEW",
+        "REVIEW_APPROVED",
         "RENDERED",
-        "QC_PASSED",
-        "COMPLETE"
+        "FINAL_QC_PASSED",
+        "COMPLETE",
+        "FAILED",
+        "CANCELLED"
       ],
-      "title": "CheckpointStage",
-      "type": "string"
-    },
-    "GateEntry": {
-      "properties": {
-        "status": {
-          "$ref": "#/$defs/GateStatus",
-          "default": "locked"
-        },
-        "approved_by": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Approved By"
-        },
-        "approved_at": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Approved At"
-        },
-        "note": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Note"
-        }
-      },
-      "title": "GateEntry",
-      "type": "object"
-    },
-    "GateStatus": {
-      "enum": [
-        "locked",
-        "awaiting",
-        "approved",
-        "rejected"
-      ],
-      "title": "GateStatus",
-      "type": "string"
-    },
-    "StageEntry": {
-      "properties": {
-        "status": {
-          "$ref": "#/$defs/StageStatus",
-          "default": "pending"
-        },
-        "started_at": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Started At"
-        },
-        "finished_at": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Finished At"
-        }
-      },
-      "title": "StageEntry",
-      "type": "object"
-    },
-    "StageStatus": {
-      "enum": [
-        "pending",
-        "running",
-        "done",
-        "failed"
-      ],
-      "title": "StageStatus",
+      "title": "LifecycleState",
       "type": "string"
     },
     "ValidationLevel": {
@@ -166,69 +70,58 @@
       "type": "string"
     }
   },
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
     "project_id": {
       "title": "Project Id",
       "type": "string"
     },
-    "current_stage": {
-      "default": 0,
-      "title": "Current Stage",
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
       "type": "integer"
     },
-    "last_error": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Last Error"
+    "revision": {
+      "default": 1,
+      "title": "Revision",
+      "type": "integer"
     },
-    "stages": {
-      "additionalProperties": {
-        "$ref": "#/$defs/StageEntry"
-      },
-      "title": "Stages",
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "DRAFT"
+    },
+    "run_metadata": {
+      "additionalProperties": true,
+      "title": "Run Metadata",
       "type": "object"
     },
-    "gates": {
-      "additionalProperties": {
-        "$ref": "#/$defs/GateEntry"
-      },
-      "title": "Gates",
+    "approval_metadata": {
+      "additionalProperties": true,
+      "title": "Approval Metadata",
       "type": "object"
+    },
+    "structured_errors": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Structured Errors",
+      "type": "array"
+    },
+    "artifact_records": {
+      "items": {
+        "$ref": "#/$defs/ArtifactRecord"
+      },
+      "title": "Artifact Records",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
     },
     "updated_at": {
       "title": "Updated At",
       "type": "string"
-    },
-    "run_id": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Run Id"
-    },
-    "checkpoint": {
-      "$ref": "#/$defs/CheckpointStage",
-      "default": "INITIALIZED"
-    },
-    "artifact_references": {
-      "items": {
-        "$ref": "#/$defs/ArtifactRecord"
-      },
-      "title": "Artifact References",
-      "type": "array"
     }
   },
   "required": [

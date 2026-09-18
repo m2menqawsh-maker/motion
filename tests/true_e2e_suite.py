@@ -12,7 +12,6 @@ workspace_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(workspace_root))
 
 from scripts.state_store import StateStore
-from scripts.state_model import GateStatus, CheckpointStage
 
 def create_dummy_media(project_dir: Path):
     # Create a dummy image
@@ -77,10 +76,11 @@ sentence_index: 1
     blueprint = {
         "project_id": project_dir.name,
         "version": "1.0",
-                "meta": {
+        "fps": 30,
+        "aspect_ratio": aspect,
+        "meta": {
             "motion_personality": "Cinematic",
             "timings_path": f"projects/{project_dir.name}/04_timings.json",
-            "approval": {"blueprint_approved": True}
         },
         "assets": [
             {"asset_id": "swoosh_sfx", "type": "audio", "source": "user_upload", "path": "assets/sfx/swoosh.wav", "paid": False}
@@ -92,8 +92,8 @@ sentence_index: 1
                 "durationFrames": 90,
                 "template": "Animatedtextwrapper",
                 "content": {
-                    "text": "مرحباً بالعالم!",
-                    "audio_ref": "voice_1"
+                    "lines": ["مرحباً بالعالم!"],
+                    "audioRef": "voice_1"
                 },
                 "sfx_ref": "swoosh_sfx",
                 "template_props": {}
@@ -142,9 +142,6 @@ def run_scenario(name: str, aspect: str):
     
     # 4. Approve project
     print("Simulating Studio Approval...")
-    state = StateStore.load(project_dir)
-    state.gates["gate_3"].status = GateStatus.APPROVED
-    StateStore.save(project_dir, state)
     (project_dir / ".studio_approved").write_text("", encoding="utf-8")
     
     # 5. Run Pipeline (Pass 2) -> Should run Render and Final QC

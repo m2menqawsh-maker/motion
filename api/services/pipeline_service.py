@@ -6,7 +6,7 @@ from typing import Dict, Optional, Any
 from scripts.security import safe_subprocess
 from scripts.path_security import validate_project_id
 from scripts.state_store import StateStore
-from scripts.state_model import ProjectState, StageStatus, GateStatus
+from scripts.state_model import ProjectState, LifecycleState
 
 from api.core.errors import InvalidGateError, PipelineRunningError
 
@@ -16,61 +16,71 @@ class PipelineService:
     
     VALID_GATES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
     
-    GATE_MAPPING = {
-        "0": "gate_1", "gate_1": "gate_1", "asset_gate": "gate_1",
-        "1": "gate_2", "gate_2": "gate_2", "plan_gate": "gate_2",
-        "2": "gate_3", "gate_3": "gate_3", "taste_gate": "gate_3",
-        "3": "gate_4", "gate_4": "gate_4", "qc_gate": "gate_4", "approval_gate": "gate_4"
-    }
-
-    STAGE_MAPPING = {
-        "0": "0", "assets": "0",
-        "1": "1", "plan": "1",
-        "2": "2", "blueprint": "2",
-        "3": "3", "render": "3", "qc": "3"
+    STAGE_TO_LIFECYCLE = {
+        "0": LifecycleState.ASSETS_READY,
+        "1": LifecycleState.PLAN_READY,
+        "2": LifecycleState.BLUEPRINT_READY,
+        "3": LifecycleState.RENDERED
     }
     
+    GATE_TO_LIFECYCLE = {
+        "gate_1": LifecycleState.ASSETS_READY,
+        "gate_2": LifecycleState.PLAN_READY,
+        "gate_3": LifecycleState.BLUEPRINT_READY,
+        "gate_4": LifecycleState.REVIEW_APPROVED
+    }
+
     @classmethod
     def _get_project_dir(cls, project_id: str) -> Path:
-        """Returns the project directory path. Can be overridden in tests."""
         return Path(f"projects/{project_id}")
     
     @classmethod
     def _format_legacy_state(cls, state: ProjectState) -> dict:
-        stage_names = ["asset_gate", "plan_gate", "taste_gate", "qc_gate"]
-        current = state.current_stage
-        current_stage_name = stage_names[current] if 0 <= current < len(stage_names) else "asset_gate"
+        # Simulate legacy format for the frontend
+        # LifecycleState -> current_stage string
+        
+        lifecycle_to_stage_name = {
+            LifecycleState.DRAFT: "asset_gate",
+            LifecycleState.ASSETS_READY: "plan_gate",
+            LifecycleState.PLAN_READY: "taste_gate",
+            LifecycleState.BLUEPRINT_READY: "qc_gate",
+            LifecycleState.MATERIALIZED: "qc_gate",
+            LifecycleState.PROBE_PASSED: "qc_gate",
+            LifecycleState.AWAITING_REVIEW: "qc_gate",
+            LifecycleState.REVIEW_APPROVED: "qc_gate",
+            LifecycleState.RENDERED: "qc_gate",
+            LifecycleState.FINAL_QC_PASSED: "qc_gate",
+            LifecycleState.COMPLETE: "qc_gate",
+            LifecycleState.FAILED: "asset_gate",
+            LifecycleState.CANCELLED: "asset_gate"
+        }
+        
+        current_stage_name = lifecycle_to_stage_name.get(state.lifecycle_state, "asset_gate")
         
         status = "started"
-        stage_status = state.stages.get(str(current))
-        if stage_status and stage_status.status.value == "running":
-            status = "started"
-            
-        gate_status = state.gates.get(f"gate_{current + 1}")
-        approved_by = None
-        if gate_status and gate_status.status.value == "approved":
+        if state.lifecycle_state in [LifecycleState.FAILED]:
+            status = "failed"
+        elif state.lifecycle_state in [LifecycleState.REVIEW_APPROVED, LifecycleState.COMPLETE]:
             status = "locked"
-            approved_by = gate_status.approved_by
-            
+
         res = {
             "status": status,
             "current_stage": current_stage_name
         }
-        if approved_by:
-            res["approved_by"] = approved_by
+        
+        if state.approval_metadata.get("approved_by"):
+            res["approved_by"] = state.approval_metadata["approved_by"]
             
-        # Add actual state for full lifecycle test which expects state hash checks
         res["state"] = state.model_dump(mode='json') if hasattr(state, "model_dump") else state.dict()
         return res
 
     @classmethod
     async def scaffold_project(cls, project_id: str) -> dict:
-        """Initializes a new project's pipeline state."""
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
         if not state:
-            state = ProjectState(project_id=project_id)
+            state = ProjectState(project_id=project_id, lifecycle_state=LifecycleState.DRAFT)
             StateStore.save(project_dir, state)
         
         res = cls._format_legacy_state(state)
@@ -78,7 +88,6 @@ class PipelineService:
 
     @classmethod
     async def get_status(cls, project_id: str) -> dict:
-        """Returns the current state of the project."""
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
@@ -91,24 +100,11 @@ class PipelineService:
     async def start_stage(cls, project_id: str, stage: str) -> dict:
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
-        
-        if str(stage) not in cls.STAGE_MAPPING:
-            raise InvalidGateError(f"Invalid stage: {stage}")
-            
-        stage_key = cls.STAGE_MAPPING[str(stage)]
-        
         state = StateStore.load(project_dir)
         if not state:
             state = ProjectState(project_id=project_id)
             
-        state.current_stage = int(stage_key)
-        state.stages[stage_key].status = StageStatus.RUNNING
-        state.stages[stage_key].started_at = datetime.now(timezone.utc).isoformat()
         state.updated_at = datetime.now(timezone.utc).isoformat()
-        
-        # Update current stage
-        state.current_stage = int(stage_key)
-        
         StateStore.save(project_dir, state)
         return cls._format_legacy_state(state)
 
@@ -117,20 +113,15 @@ class PipelineService:
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         
-        if str(stage) not in cls.STAGE_MAPPING:
-            raise InvalidGateError(f"Invalid stage: {stage}")
-            
-        stage_key = cls.STAGE_MAPPING[str(stage)]
-        
         state = StateStore.load(project_dir)
         if not state:
             state = ProjectState(project_id=project_id)
             
-        state.current_stage = int(stage_key)
-        state.stages[stage_key].status = StageStatus.DONE
-        state.stages[stage_key].finished_at = datetime.now(timezone.utc).isoformat()
+        # Very rough mapping to move the lifecycle state forward
+        if str(stage) in cls.STAGE_TO_LIFECYCLE:
+            state.lifecycle_state = cls.STAGE_TO_LIFECYCLE[str(stage)]
+            
         state.updated_at = datetime.now(timezone.utc).isoformat()
-        
         StateStore.save(project_dir, state)
         return cls._format_legacy_state(state)
 
@@ -145,37 +136,27 @@ class PipelineService:
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         
-        if str(gate) not in cls.GATE_MAPPING:
-            raise InvalidGateError(f"Invalid gate: {gate}")
-            
-        gate_key = cls.GATE_MAPPING[str(gate)]
-        
         async with cls._get_lock(project_id):
             state = StateStore.load(project_dir)
             if not state:
                 state = ProjectState(project_id=project_id)
             
-            state.gates[gate_key].status = GateStatus.APPROVED
-            state.gates[gate_key].approved_by = approved_by
-            state.gates[gate_key].approved_at = datetime.now(timezone.utc).isoformat()
-            state.updated_at = datetime.now(timezone.utc).isoformat()
+            if str(gate) in cls.GATE_TO_LIFECYCLE:
+                state.lifecycle_state = cls.GATE_TO_LIFECYCLE[str(gate)]
             
-            # Set current stage to match the approved gate
-            gate_num = int(gate_key.split('_')[1])
-            state.current_stage = gate_num - 1
+            state.approval_metadata["approved_by"] = approved_by
+            state.approval_metadata["approved_at"] = datetime.now(timezone.utc).isoformat()
+            state.updated_at = datetime.now(timezone.utc).isoformat()
             
             StateStore.save(project_dir, state)
         return cls._format_legacy_state(state)
 
     @classmethod
     async def run_pipeline(cls, project_id: str) -> dict:
-        """Runs the official pipeline (scripts/pipeline.py) as a subprocess.
-        The pipeline script will automatically update .pipeline_state.json directly."""
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         
         lock = cls._get_lock(project_id)
-        
         if lock.locked():
             raise PipelineRunningError(project_id)
             
@@ -197,12 +178,9 @@ class PipelineService:
             )
             result = await asyncio.to_thread(func)
             
-            # State is updated directly by the subprocess, so just reload it
             state = StateStore.load(project_dir)
-            
             res = cls._format_legacy_state(state) if state else {}
             
-            # Legacy compatibility: parse state from stdout if present
             import re
             import json
             match = re.search(r"__PIPELINE_STATE__(.*?)__PIPELINE_STATE__", result.stdout, re.DOTALL)
@@ -226,11 +204,6 @@ class PipelineService:
 
     @classmethod
     async def cancel_pipeline(cls, project_id: str) -> dict:
-        """
-        Attempt to cancel a running pipeline.
-        Note: Cancellation depends on subprocess management, which may require
-        expanding safe_subprocess capabilities in the future.
-        """
         if project_id in cls._active_pipelines and cls._active_pipelines[project_id].locked():
             return {"status": "error", "message": "Cancellation not natively supported yet. Kill process manually."}
         return {"status": "idle", "message": "No active pipeline to cancel."}

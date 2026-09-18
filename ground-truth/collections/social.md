@@ -5,12 +5,13 @@
 ## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Creatorreelwrapper` | C | `templates/scenes/CreatorReelWrapper.tsx` | ui_element, windows |
+| `RuiCreatorReel` | A | `templates/scenes/CreatorReelWrapper` | general_element |
+| `RuiPodcastClip` | A | `templates/elements/PodcastClipWrapper` | general_element |
 
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Podcastclipwrapper` | C | `templates/elements/PodcastClipWrapper.tsx` | ui_element, windows |
+| (None) | - | - | - |
 
 ## Effects
 | Name | Quality | Path | Intents |

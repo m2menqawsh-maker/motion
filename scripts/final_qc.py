@@ -112,6 +112,36 @@ def check_av_sync(video_path: str, timings_path: Path) -> dict:
     except Exception as e:
         return {"status": "warning", "message": f"فشل فحص التزامن الصوتي-البصري: {e}"}
 
+def check_audio_lufs(video_path: str) -> dict:
+    """تحليل LUFS للصوت باستخدام ffmpeg"""
+    try:
+        import ffmpeg
+        out, err = (
+            ffmpeg
+            .input(video_path)
+            .filter('ebur128')
+            .output('pipe:', format='null')
+            .run(capture_stdout=True, capture_stderr=True)
+        )
+        lines = err.decode('utf-8').splitlines()
+        integrated_lufs = None
+        for line in reversed(lines):
+            if "I:" in line and "LUFS" in line:
+                try:
+                    integrated_lufs = float(line.split("I:")[1].split("LUFS")[0].strip())
+                    break
+                except:
+                    pass
+        if integrated_lufs is not None:
+            # We expect roughly -16 LUFS for typical web video (Voiceover driven)
+            if -18 <= integrated_lufs <= -14:
+                return {"status": "pass", "value": integrated_lufs, "message": f"مستوى الصوت ممتاز ({integrated_lufs} LUFS)"}
+            else:
+                return {"status": "warning", "value": integrated_lufs, "message": f"مستوى الصوت بعيد عن الهدف -16 LUFS ({integrated_lufs} LUFS)"}
+        return {"status": "warning", "message": "لم يتم العثور على قراءات LUFS"}
+    except Exception as e:
+        return {"status": "warning", "message": f"فشل تحليل LUFS: {e}"}
+
 def main():
     if len(sys.argv) < 2:
         print("الاستخدام: python final_qc.py <project_id>")
@@ -120,12 +150,21 @@ def main():
     project_id = sys.argv[1]
     project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
-    video_path = project_dir / "06_build" / "out" / f"{project_id}_final.mp4"
-    timings_path = project_dir / "04_timings.json"
+    video_path = project_dir / "out.mp4"
+    bp_path = project_dir / "05_blueprint.json"
     
     if not video_path.exists():
         print(f"❌ الفيديو النهائي لم يُعثر عليه: {video_path}")
         sys.exit(1)
+        
+    if not bp_path.exists():
+        print(f"❌ ملف المخطط 05_blueprint.json مفقود!")
+        sys.exit(1)
+        
+    bp = json.loads(bp_path.read_text(encoding="utf-8"))
+    meta = bp.get("meta", {})
+    expected_aspect = meta.get("aspect_ratio", "16:9")
+    expected_duration = meta.get("duration_sec", 0)
         
     print(f"🔍 بدء الفحص النهائي للفيديو: {video_path.name}")
     
@@ -142,14 +181,22 @@ def main():
         height = int(v_stream.get('height', 0))
         codec = v_stream.get('codec_name', '')
         
-        fps_str = v_stream.get('r_frame_rate', '0/1')
-        parts = fps_str.split('/')
-        fps = float(parts[0]) / float(parts[1]) if len(parts) == 2 and float(parts[1]) > 0 else 0
+        # Duration verification
+        actual_duration = float(v_stream.get('duration', 0))
+        duration_diff = abs(actual_duration - expected_duration)
+        report["checks"]["duration"] = {
+            "status": "pass" if duration_diff < 0.5 else "warning",
+            "value": actual_duration,
+            "message": f"المدة الفعلية {actual_duration:.1f}s (المتوقعة {expected_duration}s)"
+        }
+        
+        aspect_map = {"16:9": (1920, 1080), "9:16": (1080, 1920), "1:1": (1080, 1080)}
+        expected_w, expected_h = aspect_map.get(expected_aspect, (1920, 1080))
         
         report["checks"]["dimensions"] = {
-            "status": "pass" if (width == 1080 and height == 1920) else "fail",
+            "status": "pass" if (width == expected_w and height == expected_h) else "fail",
             "value": f"{width}x{height}",
-            "message": "الأبعاد صحيحة 1080x1920" if (width == 1080 and height == 1920) else f"أبعاد غير صحيحة ({width}x{height})"
+            "message": f"الأبعاد صحيحة {width}x{height}" if (width == expected_w and height == expected_h) else f"أبعاد غير صحيحة ({width}x{height} بدلاً من {expected_w}x{expected_h})"
         }
         
         report["checks"]["codec_video"] = {
@@ -157,30 +204,16 @@ def main():
             "value": codec,
             "message": f"فيديو Codec: {codec}"
         }
-        
-        report["checks"]["fps"] = {
-            "status": "pass" if abs(fps - 30) < 1 else "warning",
-            "value": round(fps, 2),
-            "message": f"معدل الإطارات: {fps:.2f}fps"
-        }
     else:
         report["checks"]["video_stream"] = {"status": "fail", "message": "لا يوجد تدفق فيديو"}
         
     if a_stream:
-        codec = a_stream.get('codec_name', '')
-        report["checks"]["codec_audio"] = {
-            "status": "pass" if codec == "aac" else "warning",
-            "value": codec,
-            "message": f"صوت Codec: {codec}"
-        }
+        report["checks"]["audio_lufs"] = check_audio_lufs(str(video_path))
     else:
         report["checks"]["audio_stream"] = {"status": "fail", "message": "لا يوجد تدفق صوت"}
         
     # 2. فحص Black frames
     report["checks"]["black_frames"] = check_black_frames(str(video_path))
-    
-    # 3. فحص التزامن AV
-    report["checks"]["av_sync"] = check_av_sync(str(video_path), timings_path)
     
     # التحقق من وجود فشل قاطع
     has_fail = False

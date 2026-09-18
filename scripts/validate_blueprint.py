@@ -65,8 +65,20 @@ def fail(m): fails.append(m)
 def warn(m): warns.append(m)
 
 def check(bp, bp_path=None):
+    # 1. JSON Schema validation first
+    import jsonschema
+    schema_path = DST / "schemas" / "blueprint.schema.json"
+    if schema_path.exists():
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        try:
+            jsonschema.validate(instance=bp, schema=schema)
+        except jsonschema.exceptions.ValidationError as e:
+            fail(f"JSON Schema Validation Failed: {e.message} at path {list(e.path)}")
+            return
+            
     meta = bp.get("meta", {}); persona = meta.get("motion_personality", "Cinematic")
-    approved = (meta.get("approval") or {}).get("blueprint_approved") is True
+    approved = False # Approvals are now managed strictly in .pipeline_state.json
+    
     for k in ["meta", "assets", "scenes"]:
         if k not in bp: fail(f"قسم ناقص: {k}")
     words, tp = [], (meta or {}).get("timings_path")
@@ -139,7 +151,8 @@ def check(bp, bp_path=None):
             if sfx:
                 cues.append({"asset": sfx})
                 
-        dur = meta.get("duration_sec") or max([s.get("startFrame", 0)/30 + s.get("durationFrames", 0)/30 for s in bp.get("scenes", [])] or [30])
+        fps = bp.get("fps", 30)
+        dur = meta.get("duration_sec") or max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [fps])
         last = {}
         cnt = Counter(Path(c.get("asset") or "").name for c in cues if c.get("asset"))
         

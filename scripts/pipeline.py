@@ -16,27 +16,16 @@ import json
 import hashlib
 import subprocess
 from scripts.security import safe_subprocess
-from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
-def get_file_hash(filepath: Path) -> str:
-    if not filepath.exists():
-        return None
-    hasher = hashlib.sha256()
-    hasher.update(filepath.read_bytes())
-    return hasher.hexdigest()
-
-
-
 import uuid
 import time
 from scripts.runtime_logger import RuntimeLogger, RunContext
 from scripts.retry_policy import RetryPolicyEngine, IdempotencyClass
-
 from scripts.failure_injection import FailureInjector, InjectionPoint
 
 def run_script(logger, stage: str, component: str, script_name: str, idempotency: IdempotencyClass, *args, expected_artifacts=None) -> bool:
@@ -84,7 +73,7 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
             result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8", env=env)
             duration_ms = int((time.time() - start_time) * 1000)
             
-            # Postcondition Check (Process success != Operation success)
+            # Postcondition Check
             silent_failure_msg = None
             if result.returncode == 0 and expected_artifacts:
                 for artifact_path in expected_artifacts:
@@ -120,7 +109,7 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
                 if result.stderr:
                     print(result.stderr.strip())
             except NameError:
-                pass # result might not be defined if exception happened before it
+                pass # result might not be defined
             print("="*94 + "\n")
             
             decision = RetryPolicyEngine.evaluate(failure, idempotency, current_attempt_ctx.attempt)
@@ -178,8 +167,6 @@ def main():
         print(f"❌ المشروع {project_id} غير موجود في المجلد projects/")
         sys.exit(1)
         
-    state = None
-    
     run_id = os.environ.get("AGY_RUN_ID")
     if not run_id:
         run_id = str(uuid.uuid4())
@@ -194,37 +181,22 @@ def main():
     # Initialization & Recovery
     # ==========================================
     from scripts.state_store import StateStore
-    from scripts.state_model import CheckpointStage, ValidationLevel, ProjectState
+    from scripts.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
     from scripts.recovery_engine import RecoveryEngine
     import time
     
     decision = RecoveryEngine.evaluate(proj_dir)
     
     if decision.can_resume:
-        logger.event("recovery.resumed", status="resumed") # Using same run_id for now as it's passed or generated
-        next_stage = decision.next_stage
-        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة التالية: {next_stage}")
+        logger.event("recovery.resumed", status="resumed")
+        next_state = decision.next_state
+        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة الحالية: {next_state}")
     else:
-        if decision.recommended_action and decision.recommended_action.startswith("restart_from_stage"):
-            logger.event("recovery.rejected", status="rejected")
-            print(f"\n⚠️ الاستئناف مرفوض: {decision.reason}. سيتم إعادة تشغيل بعض المراحل...")
-            if "PLAN" in decision.recommended_action:
-                next_stage = CheckpointStage.ASSETS_READY
-            elif "BLUEPRINT" in decision.recommended_action:
-                next_stage = CheckpointStage.PLAN_READY
-            elif "RENDER" in decision.recommended_action:
-                next_stage = CheckpointStage.BLUEPRINT_READY
-            elif "QC" in decision.recommended_action:
-                next_stage = CheckpointStage.RENDERED
-            else:
-                next_stage = CheckpointStage.INITIALIZED
-        else:
-            logger.event("recovery.detected", status="detected")
-            next_stage = CheckpointStage.INITIALIZED
-            print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
+        logger.event("recovery.detected", status="detected")
+        next_state = LifecycleState.DRAFT
+        print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
 
-    # Helper for saving checkpoints
-    def save_checkpoint(stage: CheckpointStage, artifacts: list):
+    def save_state(target_state: LifecycleState, artifacts: list):
         refs = []
         for path, val_level in artifacts:
             refs.append(StateStore.create_artifact_record(proj_dir, path, val_level))
@@ -233,185 +205,148 @@ def main():
         if not state:
             state = ProjectState(project_id=project_id)
             
-        state.run_id = ctx.run_id
-        state.checkpoint = stage
-        state.artifact_references = refs
-        
-        from scripts.state_model import StageStatus
-        from datetime import datetime, timezone
-        now = datetime.now(timezone.utc).isoformat()
-        
-        if stage == CheckpointStage.ASSETS_READY:
-            state.current_stage = 0
-            state.stages["0"].status = StageStatus.DONE
-            state.stages["0"].finished_at = now
-        elif stage == CheckpointStage.PLAN_READY:
-            state.current_stage = 1
-            state.stages["1"].status = StageStatus.DONE
-            state.stages["1"].finished_at = now
-        elif stage == CheckpointStage.BLUEPRINT_READY:
-            state.current_stage = 2
-            state.stages["2"].status = StageStatus.DONE
-            state.stages["2"].finished_at = now
-        elif stage in (CheckpointStage.PROBE_READY, CheckpointStage.APPROVED, CheckpointStage.RENDERED, CheckpointStage.QC_PASSED):
-            state.current_stage = 3
-            if stage == CheckpointStage.QC_PASSED:
-                state.stages["3"].status = StageStatus.DONE
-                state.stages["3"].finished_at = now
-                
-        state.updated_at = now
+        state.artifact_records = refs
+        StateMachine.transition(state, target_state)
         StateStore.save(proj_dir, state)
 
-    # ==========================================
-    # Phase 1: Asset Gate
-    # ==========================================
-    if next_stage == CheckpointStage.INITIALIZED:
-        print(f"\n➔ المرحلة الأولى (Assets):")
-        if not run_script(logger, "assets", "asset_gate", "asset_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
-            print("🛑 توقف التنفيذ بسبب أخطاء في المرحلة الأولى. أصلح المشاكل وأعد التشغيل.")
-            sys.exit(1)
-        save_checkpoint(CheckpointStage.ASSETS_READY, [])
-        next_stage = CheckpointStage.ASSETS_READY
-    else:
-        print(f"\n➔ المرحلة الأولى (Assets): تخطي (منجز ✅)")
+    def mark_failed():
+        state = StateStore.load(proj_dir)
+        if state:
+            state.lifecycle_state = LifecycleState.FAILED
+            StateStore.save(proj_dir, state)
 
-    # ==========================================
-    # Phase 2: Plan & Taste
-    # ==========================================
-    if next_stage == CheckpointStage.ASSETS_READY:
-        print(f"\n➔ المرحلة الثانية (Plan):")
-        # plan_gate.py expects <project_id>
-        if not run_script(logger, "plan", "plan_gate", "plan_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
-            print("🛑 فشل الفحص! يرجى تصحيح الأخطاء في الخطة ثم إعادة تشغيل المنسق.")
+    # State Machine Loop
+    while next_state != LifecycleState.COMPLETE:
+        
+        if next_state == LifecycleState.FAILED:
+            print("🛑 حالة المشروع FAILED. يجب حل المشكلة يدوياً أو عبر الاسترجاع.")
             sys.exit(1)
             
-        plan_file = proj_dir / "master_plan.md"
-        # taste_gate.py expects <scene_plan.md> path
-        if not run_script(logger, "plan", "taste_gate", "taste_gate.py", IdempotencyClass.SAFE_TO_RETRY, str(plan_file)):
-            print("🛑 فشل الفحص! يرجى تصحيح الأخطاء الفنية (Taste) ثم إعادة تشغيل المنسق.")
+        if next_state == LifecycleState.CANCELLED:
+            print("🛑 حالة المشروع CANCELLED.")
             sys.exit(1)
-            
-        save_checkpoint(CheckpointStage.PLAN_READY, [("master_plan.md", ValidationLevel.SHA256)])
-        FailureInjector.maybe_inject(InjectionPoint.AFTER_PLAN)
-        next_stage = CheckpointStage.PLAN_READY
-    else:
-        print(f"\n➔ المرحلة الثانية (Plan): تخطي (منجز ✅)")
 
-    # ==========================================
-    # Phase 3: Blueprint
-    # ==========================================
-    if next_stage == CheckpointStage.PLAN_READY:
-        print(f"\n➔ المرحلة الثالثة (Blueprint):")
-        blueprint_file = proj_dir / "05_blueprint.json"
-        
-        if not run_script(logger, "blueprint", "validate_blueprint", "validate_blueprint.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
-            print("🛑 توقف التنفيذ. أصلح المشاكل الهيكلية في Blueprint وأعد التشغيل.")
-            sys.exit(1)
-            
-        if not run_script(logger, "blueprint", "motion_validator", "motion_validator.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
-            print("🛑 توقف التنفيذ. شخصية الحركة غير مطابقة للشروط.")
-            sys.exit(1)
-            
-        if not run_script(logger, "blueprint", "code_template_gate", "code_template_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
-            print("🛑 توقف التنفيذ. قوالب الكود بها مشاكل.")
-            sys.exit(1)
-            
-        if not run_script(logger, "blueprint", "materialize_project", "materialize_project.py", IdempotencyClass.SAFE_TO_RETRY, str(proj_dir)):
-            print("🛑 توقف التنفيذ. فشل تهيئة أصول المشروع (materialize_project).")
-            sys.exit(1)
-            
-        save_checkpoint(CheckpointStage.BLUEPRINT_READY, [
-            ("master_plan.md", ValidationLevel.SHA256),
-            ("05_blueprint.json", ValidationLevel.SHA256),
-            ("media_map.json", ValidationLevel.SHA256)
-        ])
-        next_stage = CheckpointStage.BLUEPRINT_READY
-    else:
-        print(f"\n➔ المرحلة الثالثة (Blueprint): تخطي (منجز ✅)")
+        # 1. DRAFT -> ASSETS_READY
+        if next_state == LifecycleState.DRAFT:
+            print(f"\n➔ الانتقال من DRAFT إلى ASSETS_READY:")
+            if not run_script(logger, "assets", "asset_gate", "asset_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.ASSETS_READY, [("02_asset_manifest.json", ValidationLevel.EXISTS)])
+            next_state = LifecycleState.ASSETS_READY
 
-    # ==========================================
-    # Phase 4: Probe QC (Screenshots)
-    # ==========================================
-    if next_stage == CheckpointStage.BLUEPRINT_READY:
-        print(f"\n➔ المرحلة الرابعة (Probe QC):")
-        # probe_qc.py generates screenshots and .studio_unlocked
-        if not run_script(logger, "qc", "probe_qc", "probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
-            print("🛑 توقف التنفيذ. الفحص الأولي (Probe QC) فشل.")
-            sys.exit(1)
-            
-        save_checkpoint(CheckpointStage.PROBE_READY, [
-            ("master_plan.md", ValidationLevel.SHA256),
-            ("05_blueprint.json", ValidationLevel.SHA256),
-            ("probe_qc_report.json", ValidationLevel.EXISTS)
-        ])
-        next_stage = CheckpointStage.PROBE_READY
-    else:
-        print(f"\n➔ المرحلة الرابعة (Probe QC): تخطي (منجز ✅)")
-        
-    # ==========================================
-    # Phase 5: Studio Review (Approval Gate)
-    # ==========================================
-    if next_stage == CheckpointStage.PROBE_READY:
-        print(f"\n➔ المرحلة الخامسة (Studio Review - Approval Gate):")
-        
-        from scripts.state_store import StateStore
-        from scripts.state_model import GateStatus
-        current_state = StateStore.load(proj_dir)
-        
-        # Checking gate_3 for Studio Approval
-        if current_state and current_state.gates["gate_3"].status == GateStatus.APPROVED:
-            print("✅ تم الحصول على موافقة الاستوديو! جاري المتابعة...")
-            save_checkpoint(CheckpointStage.APPROVED, [])
-            next_stage = CheckpointStage.APPROVED
-        else:
-            print(f"\n⏸️ المنسق متوقف مؤقتاً.")
-            print(f"المشروع جاهز للمعاينة في الاستوديو. يرجى مراجعة الفيديو والموافقة عليه (Approval) قبل الرندر النهائي.")
-            sys.exit(0) # Exit gracefully, waiting for user action
-    else:
-        print(f"\n➔ المرحلة الخامسة (Studio Review): تخطي (منجز ✅)")
+        # 2. ASSETS_READY -> PLAN_READY
+        elif next_state == LifecycleState.ASSETS_READY:
+            print(f"\n➔ الانتقال من ASSETS_READY إلى PLAN_READY:")
+            if not run_script(logger, "plan", "plan_gate", "plan_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+                mark_failed()
+                sys.exit(1)
+            plan_file = proj_dir / "master_plan.md"
+            if not run_script(logger, "plan", "taste_gate", "taste_gate.py", IdempotencyClass.SAFE_TO_RETRY, str(plan_file)):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.PLAN_READY, [("master_plan.md", ValidationLevel.SHA256)])
+            next_state = LifecycleState.PLAN_READY
 
-    # ==========================================
-    # Phase 6: Final Render
-    # ==========================================
-    if next_stage == CheckpointStage.APPROVED:
-        print(f"\n➔ المرحلة السادسة (Final Render):")
-        # render_project.py generates out.mp4
-        FailureInjector.maybe_inject(InjectionPoint.BEFORE_RENDER)
-        if not run_script(logger, "render", "remotion", "render_project.py", IdempotencyClass.CONDITIONALLY_RETRYABLE, project_id, expected_artifacts=[str(proj_dir / "out.mp4")]):
-            print("🛑 توقف التنفيذ. عملية الرندر فشلت.")
-            sys.exit(1)
-            
-        FailureInjector.maybe_inject(InjectionPoint.AFTER_RENDER)
-        save_checkpoint(CheckpointStage.RENDERED, [
-            ("master_plan.md", ValidationLevel.SHA256),
-            ("05_blueprint.json", ValidationLevel.SHA256),
-            ("out.mp4", ValidationLevel.SIZE)
-        ])
-        next_stage = CheckpointStage.RENDERED
-    else:
-        print(f"\n➔ المرحلة السادسة (Final Render): تخطي (منجز ✅)")
-        
-    # ==========================================
-    # Phase 7: Final QC
-    # ==========================================
-    if next_stage == CheckpointStage.RENDERED:
-        print(f"\n➔ المرحلة السابعة (Final QC):")
-        out_mp4 = proj_dir / "out.mp4"
-        if not out_mp4.exists():
-            print("🛑 توقف التنفيذ. ملف الفيديو النهائي غير موجود.")
-            sys.exit(1)
-            
-        save_checkpoint(CheckpointStage.QC_PASSED, [
-            ("master_plan.md", ValidationLevel.SHA256),
-            ("05_blueprint.json", ValidationLevel.SHA256),
-            ("out.mp4", ValidationLevel.SIZE)
-        ])
-        next_stage = CheckpointStage.COMPLETE
-    else:
-        print(f"\n➔ المرحلة السابعة (Final QC): تخطي (منجز ✅)")
+        # 3. PLAN_READY -> BLUEPRINT_READY
+        elif next_state == LifecycleState.PLAN_READY:
+            print(f"\n➔ الانتقال من PLAN_READY إلى BLUEPRINT_READY:")
+            blueprint_file = proj_dir / "05_blueprint.json"
+            if not run_script(logger, "blueprint", "validate_blueprint", "validate_blueprint.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
+                mark_failed()
+                sys.exit(1)
+            if not run_script(logger, "blueprint", "motion_validator", "motion_validator.py", IdempotencyClass.SAFE_TO_RETRY, str(blueprint_file)):
+                mark_failed()
+                sys.exit(1)
+            if not run_script(logger, "blueprint", "code_template_gate", "code_template_gate.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.BLUEPRINT_READY, [
+                ("master_plan.md", ValidationLevel.SHA256),
+                ("05_blueprint.json", ValidationLevel.SHA256)
+            ])
+            next_state = LifecycleState.BLUEPRINT_READY
+
+        # 4. BLUEPRINT_READY -> MATERIALIZED
+        elif next_state == LifecycleState.BLUEPRINT_READY:
+            print(f"\n➔ الانتقال من BLUEPRINT_READY إلى MATERIALIZED:")
+            if not run_script(logger, "blueprint", "materialize_project", "materialize_project.py", IdempotencyClass.SAFE_TO_RETRY, str(proj_dir)):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.MATERIALIZED, [
+                ("master_plan.md", ValidationLevel.SHA256),
+                ("05_blueprint.json", ValidationLevel.SHA256),
+                ("media_map.json", ValidationLevel.SHA256)
+            ])
+            next_state = LifecycleState.MATERIALIZED
+
+        # 5. MATERIALIZED -> PROBE_PASSED
+        elif next_state == LifecycleState.MATERIALIZED:
+            print(f"\n➔ الانتقال من MATERIALIZED إلى PROBE_PASSED:")
+            if not run_script(logger, "qc", "probe_qc", "probe_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.PROBE_PASSED, [
+                ("master_plan.md", ValidationLevel.SHA256),
+                ("05_blueprint.json", ValidationLevel.SHA256),
+                ("probe_qc_report.json", ValidationLevel.EXISTS)
+            ])
+            next_state = LifecycleState.PROBE_PASSED
+
+        # 6. PROBE_PASSED -> AWAITING_REVIEW
+        elif next_state == LifecycleState.PROBE_PASSED:
+            print(f"\n➔ الانتقال التلقائي لانتظار المراجعة (AWAITING_REVIEW)...")
+            save_state(LifecycleState.AWAITING_REVIEW, [])
+            next_state = LifecycleState.AWAITING_REVIEW
+
+        # 7. AWAITING_REVIEW -> REVIEW_APPROVED
+        elif next_state == LifecycleState.AWAITING_REVIEW:
+            approved_marker = proj_dir / ".studio_approved"
+            if approved_marker.exists():
+                print(f"\n✅ تم العثور على الموافقة البشرية (.studio_approved). ننتقل لـ REVIEW_APPROVED.")
+                save_state(LifecycleState.REVIEW_APPROVED, [])
+                next_state = LifecycleState.REVIEW_APPROVED
+            else:
+                print(f"\n⏸️ المنسق متوقف مؤقتاً.")
+                print(f"المشروع جاهز للمعاينة في الاستوديو (AWAITING_REVIEW). يرجى مراجعة الفيديو وإنشاء ملف .studio_approved قبل الرندر النهائي.")
+                sys.exit(0)
+
+        # 8. REVIEW_APPROVED -> RENDERED
+        elif next_state == LifecycleState.REVIEW_APPROVED:
+            print(f"\n➔ الانتقال من REVIEW_APPROVED إلى RENDERED (الرندر النهائي):")
+            FailureInjector.maybe_inject(InjectionPoint.BEFORE_RENDER)
+            if not run_script(logger, "render", "remotion", "render_project.py", IdempotencyClass.CONDITIONALLY_RETRYABLE, project_id, expected_artifacts=[str(proj_dir / "out.mp4")]):
+                mark_failed()
+                sys.exit(1)
+            FailureInjector.maybe_inject(InjectionPoint.AFTER_RENDER)
+            save_state(LifecycleState.RENDERED, [
+                ("master_plan.md", ValidationLevel.SHA256),
+                ("05_blueprint.json", ValidationLevel.SHA256),
+                ("out.mp4", ValidationLevel.SIZE)
+            ])
+            next_state = LifecycleState.RENDERED
+
+        # 9. RENDERED -> FINAL_QC_PASSED
+        elif next_state == LifecycleState.RENDERED:
+            print(f"\n➔ الانتقال من RENDERED إلى FINAL_QC_PASSED:")
+            if not run_script(logger, "qc", "final_qc", "final_qc.py", IdempotencyClass.SAFE_TO_RETRY, project_id):
+                mark_failed()
+                sys.exit(1)
+            save_state(LifecycleState.FINAL_QC_PASSED, [
+                ("master_plan.md", ValidationLevel.SHA256),
+                ("05_blueprint.json", ValidationLevel.SHA256),
+                ("out.mp4", ValidationLevel.SIZE)
+            ])
+            next_state = LifecycleState.FINAL_QC_PASSED
+
+        # 10. FINAL_QC_PASSED -> COMPLETE
+        elif next_state == LifecycleState.FINAL_QC_PASSED:
+            print(f"\n➔ إنهاء المشروع...")
+            save_state(LifecycleState.COMPLETE, [])
+            next_state = LifecycleState.COMPLETE
 
     logger.event("pipeline.execution", status="success", stage="pipeline", component="pipeline")
-    print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%.")
+    print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%. (الحالة: COMPLETE)")
 
 if __name__ == "__main__":
     main()

@@ -18,8 +18,8 @@ export interface CalculatedProps {
 
 // Dummy project data for studio preview if no inputProps are passed
 const DUMMY_PROJECT_DATA: ProjectData = {
-  project: { fps: 30, title: "Preview" },
-  blueprint: { scenes: [] },
+  project: { title: "Preview" },
+  blueprint: { fps: 30, aspect_ratio: "16:9", scenes: [] },
   brand: {
     brandName: "Studio",
     logoSrc: null,
@@ -46,9 +46,23 @@ export const RemotionRoot: React.FC = () => {
           // Merge defaults, overrides, brand tokens
           const projectData = mergeProject(rawData, (template) => TEMPLATE_REGISTRY[template]);
           
+          // Determine dimensions from aspect ratio
+          let width = 1080;
+          let height = 1920;
+          const ratio = rawData.blueprint?.aspect_ratio;
+          if (ratio === "16:9") {
+            width = 1920;
+            height = 1080;
+          } else if (ratio === "1:1") {
+            width = 1080;
+            height = 1080;
+          }
+          
           return {
             fps: projectData.fps || 30,
             durationInFrames: projectData.totalDurationFrames > 0 ? projectData.totalDurationFrames : 30,
+            width,
+            height,
             props: {
               projectData,
               brand: rawData.brand

@@ -182,9 +182,6 @@ export type Asset = z.infer<typeof AssetSchema>;
 
 export const MetaSchema = z.object({
   motion_personality: z.enum(["Cinematic", "Energetic", "Playful", "Technical"]).optional(),
-  approval: z.object({
-    blueprint_approved: z.boolean().optional()
-  }).optional(),
   timings_path: z.string().optional(),
 });
 

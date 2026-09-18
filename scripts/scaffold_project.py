@@ -43,7 +43,7 @@ def main():
         }
         (project_dir / "project.json").write_text(json.dumps(project_data, ensure_ascii=False, indent=2), encoding="utf-8")
         # .pipeline_state.json
-        PipelineService.scaffold_project(project_id)
+        asyncio.run(PipelineService.scaffold_project(project_id))
 
         # brand.json
         brand_data = {
@@ -68,13 +68,13 @@ def main():
         }
         (project_dir / "overrides.json").write_text(json.dumps(overrides_data, ensure_ascii=False, indent=2), encoding="utf-8")
         
-        # manifest.json
+        # 02_asset_manifest.json
         manifest_data = {
             "project_id": project_id,
             "generated_at": timestamp,
             "assets": []
         }
-        (project_dir / "manifest.json").write_text(json.dumps(manifest_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        (project_dir / "02_asset_manifest.json").write_text(json.dumps(manifest_data, ensure_ascii=False, indent=2), encoding="utf-8")
         
         # .studio_approved MUST NOT be created automatically. The user creates it after Probe QC.
         

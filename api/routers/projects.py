@@ -12,7 +12,7 @@ router = APIRouter()
 
 @router.post("/", response_model=ProjectCreateResponse)
 async def create(req: ProjectCreateRequest):
-    project_id = create_project(req.name, req.aspect, req.fps, req.language)
+    project_id = create_project(req.name, req.language)
     return ProjectCreateResponse(project_id=project_id)
 
 @router.get("/", response_model=ProjectListResponse)
@@ -32,7 +32,7 @@ async def get_project(project_id: str):
         raise ProjectNotFoundError(project_id)
     
     data = {}
-    for filename in ["project.json", "manifest.json"]:
+    for filename in ["project.json", "02_asset_manifest.json"]:
         filepath = project_dir / filename
         if filepath.exists():
             data[filename.replace(".json", "")] = json.loads(filepath.read_text(encoding="utf-8"))
@@ -43,7 +43,7 @@ async def get_project(project_id: str):
             
     return ProjectResponse(
         project=data.get("project", {}),
-        manifest=data.get("manifest", {}),
+        manifest=data.get("02_asset_manifest", {}),
         state=state_dict
     )
 

@@ -37,7 +37,7 @@ FILE_SCHEMA_MAP = {
     "05_blueprint.json": "blueprint.schema.json",
     "brand.json": "brand.schema.json",
     "overrides.json": "overrides.schema.json",
-    "manifest.json": "manifest.schema.json",
+    "02_asset_manifest.json": "manifest.schema.json",
 }
 
 
