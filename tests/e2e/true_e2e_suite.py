@@ -127,19 +127,22 @@ def run_scenario(name: str, aspect: str):
     # 3. Run Pipeline (Pass 1) -> Should stop at Studio Review (Phase 5)
     proc1 = run_pipeline(project_id)
     if proc1.returncode != 0:
-        print(f"Pipeline Pass 1 Failed for {project_id}!")
-        print(proc1.stdout)
-        print(proc1.stderr)
+        print(f"\n❌ [E2E FAIL] Pipeline Pass 1 Failed for {project_id} (exit code: {proc1.returncode})")
+        print(f"--- Pipeline STDOUT ---\n{proc1.stdout}")
+        print(f"--- Pipeline STDERR ---\n{proc1.stderr}")
+        sys.stdout.flush()
         return False
         
     if "المشروع جاهز للمعاينة في الاستوديو" not in proc1.stdout:
-        print(f"Pipeline didn't stop at Studio Review for {project_id}!")
-        print(proc1.stdout)
+        print(f"\n❌ [E2E FAIL] Pipeline didn't stop at Studio Review for {project_id}!")
+        print(f"--- Pipeline STDOUT ---\n{proc1.stdout}")
+        sys.stdout.flush()
         return False
         
     print("Pipeline Pass 1 correctly stopped at Studio Review.")
     print("Pass 1 Output:")
     print(proc1.stdout)
+    sys.stdout.flush()
     
     # 4. Approve project
     print("Simulating Studio Approval...")
@@ -148,18 +151,21 @@ def run_scenario(name: str, aspect: str):
     # 5. Run Pipeline (Pass 2) -> Should run Render and Final QC
     proc2 = run_pipeline(project_id)
     if proc2.returncode != 0:
-        print(f"Pipeline Pass 2 Failed for {project_id}!")
-        print(proc2.stdout)
-        print(proc2.stderr)
+        print(f"\n❌ [E2E FAIL] Pipeline Pass 2 Failed for {project_id} (exit code: {proc2.returncode})")
+        print(f"--- Pipeline STDOUT ---\n{proc2.stdout}")
+        print(f"--- Pipeline STDERR ---\n{proc2.stderr}")
+        sys.stdout.flush()
         return False
         
     # 6. Verify output
     out_mp4 = project_dir / "out.mp4"
     if not out_mp4.exists():
-        print(f"out.mp4 was not generated for {project_id}!")
+        print(f"\n❌ [E2E FAIL] out.mp4 was not generated for {project_id}!")
+        sys.stdout.flush()
         return False
         
     print(f"Scenario {name} ({aspect}) PASSED! Video saved at: {out_mp4}")
+    sys.stdout.flush()
     return True
 
 if __name__ == "__main__":

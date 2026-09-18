@@ -42,7 +42,8 @@ jobs:
       - name: TypeScript Lint & Dependency Check
         working-directory: ./remotion-app
         run: |
-          npm run lint || echo "Linting failed, ignoring for now"
+          npm ls react react-dom @types/react @types/react-dom typescript
+          npm run lint
           npx tsc --noEmit
 
       - name: Schema Drift Check
@@ -74,7 +75,9 @@ jobs:
           
       - name: Install NPM Dependencies for E2E
         working-directory: ./remotion-app
-        run: npm ci
+        run: |
+          npm ci
+          npx remotion browser ensure
 
       - name: Setup Python 3.11
         uses: actions/setup-python@v5

@@ -14,7 +14,11 @@
     ],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "noEmit": true,
+    "types": [
+      "node",
+      "react",
+      "react-dom"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -25,9 +29,6 @@
       ],
       "@contracts/*": [
         "../contracts/*"
-      ],
-      "*": [
-        "./node_modules/*"
       ]
     }
   },
