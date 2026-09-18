@@ -1,4 +1,4 @@
-> [!NOTE]
+﻿> [!NOTE]
 > **Source of Truth Hierarchy:**
 > This is a Reference Document (Level 5).
 > Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
@@ -48,23 +48,23 @@ plan_gate.py (للتحقق من الخطة) • code_template_gate.py (لفحص 
 ## §4 راوتر نوع الفيديو (الـ17 وصفة كاملة)
 | الهدف | الوصفة | المرجع |
 |---|---|---|
-| شرح SaaS / إطلاق منتج مستمر | living-canvas-explainer | references/LIVING_CANVAS_PLAYBOOK.md + references/deep/cinematic/ENGINE.md |
-| مفهوم متعدد المستويات هرمي | tabletop-levels-explainer | references/TABLETOP_EXPLAINER_PLAYBOOK.md |
-| وثائقي فكري / فكرة واحدة | motion-collage-explainer | references/MOTION_COLLAGE_STYLE.md |
-| إعلان تحويل بدون متحدث | faceless-broll-ad | references/deep/ad-spine/ad-creative/SKILL.md + references/deep/ad-spine/ad-creative/platform-specs.md |
-| إعلان UGC صانع محتوى خيالي | ugc-ai-ad | references/HYPERREALISTIC_IMAGE_SOP.md |
-| مراجعات منافس واقتناص عملاء | review-conquest-compilation | references/REVIEW_VIDEO_PLAYBOOK.md |
+| شرح SaaS / إطلاق منتج مستمر | living-canvas-explainer | references/1_playbooks/living_canvas.md |
+| مفهوم متعدد المستويات هرمي | tabletop-levels-explainer | references/1_playbooks/tabletop_explainer.md |
+| وثائقي فكري / فكرة واحدة | motion-collage-explainer | references/1_playbooks/motion_collage.md |
+| إعلان تحويل بدون متحدث | faceless-broll-ad | references/2_sops/hyperrealistic_image.md |
+| إعلان UGC صانع محتوى خيالي | ugc-ai-ad | references/2_sops/hyperrealistic_image.md |
+| مراجعات منافس واقتناص عملاء | review-conquest-compilation | references/1_playbooks/review_video.md |
 | إثبات متصفح وتصفح آلي | agent-browser-proof | scripts/agent_browser_recorder.py |
-| شورت مقال + رأس عائم سريع | misotts-article-sprint | references/HOOK_PLAYBOOK_ARTICLE_SPRINT.md |
+| شورت مقال + رأس عائم سريع | misotts-article-sprint | references/1_playbooks/hook_playbook_article_sprint.md |
 | شورت إنستغرام مقسوم شاشة | avatar-insta-split | .agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md |
-| هوك أفاتار سيلفي + B-roll | avatar-hook-broll | references/SEEDANCE_AVATAR_ROI.md + .agents/plugins/super-video-maker-plugin/commands/avatar-vo-reel.md |
+| هوك أفاتار سيلفي + B-roll | avatar-hook-broll | references/2_sops/seedance_avatar.md + .agents/plugins/super-video-maker-plugin/commands/avatar-vo-reel.md |
 | استعراض منتج مع مؤسس/أفاتار | avatar-product-walkthrough | references/WORKFLOW_EXAMPLES.md #1 |
-| أفاتار إخباري متكامل + إثباتات | avatar-explainer | references/WORKFLOW_EXAMPLES.md #10 + references/SEEDANCE_AVATAR_ROI.md |
+| أفاتار إخباري متكامل + إثباتات | avatar-explainer | references/WORKFLOW_EXAMPLES.md #10 + references/2_sops/seedance_avatar.md |
 | أفاتار VO فوق B-Roll بالكامل | avatar-vo-broll | .agents/plugins/super-video-maker-plugin/commands/avatar-vo-reel.md |
-| متحدث موجود + كابشن كاريوكي | captioned-talking-head | references/deep/remotion/captions/SKILL.md + references/WORKFLOW_EXAMPLES.md #3 |
+| متحدث موجود + كابشن كاريوكي | captioned-talking-head | references/3_engineering/remotion_guide.md |
 | استعراض شاشة تفاعلي SaaS | screencast-demo | scripts/demo_video_composer.py |
-| موشن جرافيك برمجياً Remotion/HTML | motion-graphics | references/WORKFLOW_EXAMPLES.md #4 + references/REMOTION_VIDEO_GUIDE.md |
-| تقطيع طويل لـ Shorts اجتماعية | longform-repurpose | references/SPOKEN_VO_HUMANIZER.md + references/WORKFLOW_EXAMPLES.md #5 |
+| موشن جرافيك برمجياً Remotion/HTML | motion-graphics | references/3_engineering/remotion_guide.md |
+| تقطيع طويل لـ Shorts اجتماعية | longform-repurpose | references/2_sops/spoken_vo_humanizer.md |
 
 ## §5 راوتر الذوق (Mood → Personality)
 > **تحذير: لا تربط مجال المنتج بشخصية الحركة.** منتج طبي يمكن أن يكون Cinematic أو Energetic. يجب أخذ مجال المنتج للصياغة، وأخذ الـ Personality للحركة حصراً.
@@ -75,7 +75,7 @@ plan_gate.py (للتحقق من الخطة) • code_template_gate.py (لفحص 
 | شبابي/ترويجي سريع | Energetic | 100-250ms، ease-out-expo، 15-30% |
 | أطفال/مرح | Playful | 150-300ms، ease-out-back، 10-20% |
 | تقني/SaaS دقيق | Technical | 200-400ms، cubic-bezier(0.2,0,0,1)، 0-3% |
-اقرأ قبل البناء: references/deep/motion-taste/director/motion-personality.md + references/deep/motion-taste/director/emotion-mapping.md
+اقرأ قبل البناء: references/4_taste_engine/motion-personality.md + references/4_taste_engine/emotion-mapping.md
 
 ## §6 راوتر القوالب الموحد (Recipe-Driven Template Router)
 
@@ -133,7 +133,7 @@ python scripts/template_router.py --intent hook --use-case ad --mood energetic -
 > إذا لم تجد نتيجة مناسبة، توقف واسأل المستخدم (§8).
 
 ## §7 راوتر المعرفة الخاصة
-3D → references/deep/patterns/3d.md • شات → references/deep/patterns/messaging.md • رسوم بيانات → references/deep/patterns/charts.md • إعدادات spring → references/deep/patterns/spring-physics.md + references/REMOTION_VIDEO_GUIDE.md • كابشن → references/deep/remotion/captions/SKILL.md • كاميرا وعمق → references/deep/cinematic/ENGINE.md + references/deep/cinematic/layer-stack.md • أبعاد منصات → references/deep/patterns/social-media.md + references/deep/ad-spine/ad-creative/platform-specs.md • كود جاهز → references/deep/patterns/examples/
+3D → references/4_taste_engine/choreography.md • شات → references/deep/patterns/messaging.md • رسوم بيانات → references/deep/patterns/charts.md • إعدادات spring → references/deep/patterns/spring-physics.md + references/3_engineering/remotion_guide.md • كابشن → references/deep/remotion/captions/SKILL.md • كاميرا وعمق → references/deep/cinematic/ENGINE.md + references/deep/cinematic/layer-stack.md • أبعاد منصات → references/deep/patterns/social-media.md + references/deep/ad-spine/ad-creative/platform-specs.md • كود جاهز → references/deep/patterns/examples/
 فهرس المكونات السينمائية وpropsها → ground-truth/CINEMATIC_INDEX.md
 
 ## §8 بروتوكول التوقف والسؤال
@@ -143,17 +143,17 @@ python scripts/template_router.py --intent hook --use-case ad --mood energetic -
 ## §9 ربط الدفاتر التشغيلية (Playbooks)
 | الدفتر | متى يُقرأ |
 |---|---|
-| references/VIDEO_COPY_PLAYBOOK.md | قبل كتابة أي نص/سيناريو |
-| references/SPOKEN_VO_HUMANIZER.md | تحويل نص مكتوب إلى VO منطوق |
-| references/HOOK_PLAYBOOK_ARTICLE_SPRINT.md | صياغة الخطاف (أول 3 ثوانٍ) |
-| references/FFMPEG_PLAYBOOK.md | أي عملية FFmpeg يدوية |
-| references/REMOTION_VIDEO_GUIDE.md | الأرقام الرسمية لفيزياء النوابض والتوقيت |
+| references/1_playbooks/video_copy.md | قبل كتابة أي نص/سيناريو |
+| references/2_sops/spoken_vo_humanizer.md | تحويل نص مكتوب إلى VO منطوق |
+| references/1_playbooks/hook_playbook_article_sprint.md | صياغة الخطاف (أول 3 ثوانٍ) |
+| references/1_playbooks/ffmpeg_recipes.md | أي عملية FFmpeg يدوية |
+| references/3_engineering/remotion_guide.md | الأرقام الرسمية لفيزياء النوابض والتوقيت |
 | references/LIVING_CANVAS_PLAYBOOK.md | وصفة living-canvas-explainer |
-| references/TABLETOP_EXPLAINER_PLAYBOOK.md | وصفة tabletop-levels-explainer |
-| references/MOTION_COLLAGE_STYLE.md | وصفة motion-collage-explainer |
-| references/HYPERREALISTIC_IMAGE_SOP.md | توليد شخصيات UGC واقعية |
-| references/REVIEW_VIDEO_PLAYBOOK.md | وصفة review-conquest-compilation |
-| references/SEEDANCE_AVATAR_ROI.md | قرارات أفاتار Seedance/HeyGen |
+| references/1_playbooks/tabletop_explainer.md | وصفة tabletop-levels-explainer |
+| references/1_playbooks/motion_collage.md | وصفة motion-collage-explainer |
+| references/2_sops/hyperrealistic_image.md | توليد شخصيات UGC واقعية |
+| references/1_playbooks/review_video.md | وصفة review-conquest-compilation |
+| references/2_sops/seedance_avatar.md | قرارات أفاتار Seedance/HeyGen |
 | references/WORKFLOW_EXAMPLES.md | أمثلة تنفيذية كاملة لخطوط الإنتاج |
 
 ## §10 Media Pipeline Law — أولوية المستخدم + بوابة واحدة + معالجة نوعية

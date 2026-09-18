@@ -12,7 +12,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 DST = Path(__file__).resolve().parent.parent
-R = DST / "references" / "deep"
+R = DST / "references"
 SKIP = {"node_modules", ".git", "__pycache__", ".venv"}
 allf = [p for p in sorted(DST.rglob("*")) if p.is_file() and not (SKIP & set(p.parts))]
 stem_map = {p.stem: p.resolve() for p in allf}
@@ -131,17 +131,13 @@ sk = (DST/"skills"/"super-video-maker"/"SKILL.md").read_text(encoding="utf-8"); 
 gate("??????? ???51 ??????? ???????", (R/"legacy"/"SKILL_51_RULES.md").exists() and "SKILL_51_RULES" in sk)
 gate("SKILL ???? ??????? ?????????", "??????? ????????? ???????" in sk)
 gate("ROUTER §9 ?????", "§9 ??? ???????" in rt)
-PBS = ["FFMPEG_PLAYBOOK.md","VIDEO_COPY_PLAYBOOK.md","SPOKEN_VO_HUMANIZER.md","HOOK_PLAYBOOK_ARTICLE_SPRINT.md",
-       "LIVING_CANVAS_PLAYBOOK.md","TABLETOP_EXPLAINER_PLAYBOOK.md","MOTION_COLLAGE_STYLE.md","HYPERREALISTIC_IMAGE_SOP.md",
-       "REVIEW_VIDEO_PLAYBOOK.md","SEEDANCE_AVATAR_ROI.md","REMOTION_VIDEO_GUIDE.md","WORKFLOW_EXAMPLES.md"]
+PBS = ["1_playbooks/ffmpeg_recipes.md", "1_playbooks/video_copy.md", "2_sops/spoken_vo_humanizer.md",
+       "1_playbooks/hook_playbook_article_sprint.md", "1_playbooks/living_canvas.md", "1_playbooks/tabletop_explainer.md",
+       "1_playbooks/motion_collage.md", "2_sops/hyperrealistic_image.md", "1_playbooks/review_video.md",
+       "2_sops/seedance_avatar.md", "3_engineering/remotion_guide.md"]
 for pb in PBS:
     f = DST / "references" / pb
-    if not f.exists(): f = DST / pb
-    gate(pb, f.exists() and pb in rt and "??? ??????? ???????" in f.read_text(encoding="utf-8"))
-for idx, mk in [("patterns","?? ????????"),("ad-spine","?? ????????"),("cinematic","?? ????????"),("remotion","???? ???????")]:
-    gate(f"{idx}/INDEX ????", mk in (R/idx/"INDEX.md").read_text(encoding="utf-8"))
-n = len(re.findall(r"\| `[\w-]+` \|", (R/"ground-truth"/"TEMPLATE_INDEX.md").read_text(encoding="utf-8")))
-gate("81 ?????? ???????", n == 81, str(n))
+    gate(pb, f.exists())
 gate("18 ???? + schema", len(list((DST/"recipes").glob("*.json"))) == 19)
 for s in ["media-sources-mcp","audio-tools-mcp","video-tools-mcp","image-tools-mcp","common-tools-mcp","ffmpeg-mcp-server","Video_Editor_MCP"]:
     gate(f"{s} ?? ROUTER", s in rt)

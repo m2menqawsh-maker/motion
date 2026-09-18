@@ -60,7 +60,7 @@ Match to brand. See [motion-personality.md](motion-personality.md).
 | Center-fleeing | Distribution, release |
 
 ### Level 4: Implementation Properties
-Choose animated properties. See [property-selection.md](../reference/property-selection.md).
+Choose animated properties. See property-selection.
 
 ## Decision Quick-Path
 

@@ -41,7 +41,7 @@
 | `RuiCodeReveal` | A | `templates/elements/CodeRevealWrapper` | code_demo |
 | `RuiCommentCallout` | A | `templates/elements/CommentCalloutWrapper` | general_element |
 | `RuiCommitGraph` | A | `templates/elements/CommitGraphWrapper` | stat |
-| `RuiComparisonTable` | A | `templates/elements/ComparisonTableWrapper` | navigation, data_display |
+| `RuiComparisonTable` | A | `templates/elements/ComparisonTableWrapper` | data_display, navigation |
 | `RuiCountdownTimer` | A | `templates/elements/CountdownTimerWrapper` | stat |
 | `RuiDataFlowPipes` | A | `templates/scenes/DataFlowPipesWrapper` | data_display |
 | `RuiDeviceMockupZoom` | A | `templates/elements/DeviceMockupZoomWrapper` | image_motion |

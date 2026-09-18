@@ -23,7 +23,7 @@ SKILL_SEC = """
 ## المصادر التشغيلية الكاملة
 - القواعد التشغيلية الـ 51: `reference/legacy/SKILL_51_RULES.md` • المرجع القديم: `reference/legacy/REFERENCE_legacy.md`
 - الدفاتر: `FFMPEG_PLAYBOOK.md` • `VIDEO_COPY_PLAYBOOK.md` • `SPOKEN_VO_HUMANIZER.md` • `HOOK_PLAYBOOK_ARTICLE_SPRINT.md` • `LIVING_CANVAS_PLAYBOOK.md` • `TABLETOP_EXPLAINER_PLAYBOOK.md` • `MOTION_COLLAGE_STYLE.md` • `HYPERREALISTIC_IMAGE_SOP.md` • `REVIEW_VIDEO_PLAYBOOK.md` • `SEEDANCE_AVATAR_ROI.md` • `REMOTION_VIDEO_GUIDE.md` • `WORKFLOW_EXAMPLES.md`
-- التنفيذ والاختبار: `commands/` • `recipes/` • `tools/` • `workflows/` • `templates/` • `tests/` • `remotion-app/` • `references/deep/legacy/hyperframes-template/`
+- التنفيذ والاختبار: `commands/` • `recipes/` • `tools/` • `workflows/` • `templates/` • `tests/` • `remotion-app/` • `references/`
 """
 
 ROUTER_SEC = """

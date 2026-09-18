@@ -135,9 +135,9 @@ def check(bp, bp_path=None):
         q, s, sl, tones = PERSONA[pers]
         # استخدام المدقق الديناميكي الجديد
         import motion_validator
-        motion_taste_file = DST / "references" / "deep" / "motion-taste" / "director" / "motion-personality.md"
+        motion_taste_file = DST / "references" / "4_taste_engine" / "motion-personality.md"
         if not motion_taste_file.exists():
-            motion_taste_file = DST / "references" / "motion-taste" / "director" / "motion-personality.md"
+            motion_taste_file = DST / "references" / "4_taste_engine" / "motion-personality.md"
             
         mv_fails = motion_validator.validate(bp, motion_taste_file)
         if mv_fails:

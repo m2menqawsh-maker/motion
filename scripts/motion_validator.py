@@ -360,9 +360,9 @@ if __name__ == "__main__":
         target_path = Path(sys.argv[1])
         if target_path.suffix == ".json":
             bp = json.loads(target_path.read_text(encoding="utf-8"))
-            motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "deep" / "motion-taste" / "director" / "motion-personality.md"
+            motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "4_taste_engine" / "motion-personality.md"
             if not motion_taste_file.exists():
-                motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "motion-taste" / "director" / "motion-personality.md"
+                motion_taste_file = Path(__file__).resolve().parent.parent / "references" / "4_taste_engine" / "motion-personality.md"
             fails = validate(bp, motion_taste_file)
             if fails:
                 print("❌ MOTION VALIDATION FAIL:")
