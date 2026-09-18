@@ -92,6 +92,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov pytest-asyncio pydantic jsonschema
 
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Run Pytest with Coverage
         env:
           PYTHONPATH: .
@@ -121,6 +124,10 @@ jobs:
           node-version: '20'
 
       - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Install Remotion App Dependencies
+        working-directory: ./remotion-app
         run: npm ci
 
       - name: Run Vitest

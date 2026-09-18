@@ -196,11 +196,14 @@ if rendered_files:
     for f in sampled:
         ff_cmd.extend(["-i", f])
     ff_cmd.extend(["-filter_complex", f"hstack=inputs={len(sampled)}", "-loglevel", "error", str(out_sheet)])
-    res_cs = safe_subprocess(ff_cmd)
-    if res_cs.returncode == 0 and out_sheet.exists():
-        import shutil
-        shutil.copy2(str(out_sheet), str(proj_dir / "contact_sheet.png"))
-        print(f"  ✓ contact sheet ({len(sampled)} frame(s)) → {out_sheet}")
+    try:
+        res_cs = safe_subprocess(ff_cmd)
+        if res_cs.returncode == 0 and out_sheet.exists():
+            import shutil
+            shutil.copy2(str(out_sheet), str(proj_dir / "contact_sheet.png"))
+            print(f"  ✓ contact sheet ({len(sampled)} frame(s)) → {out_sheet}")
+    except Exception as e:
+        print(f"⚠️ تحذير: تعذر إنشاء Contact Sheet بواسطة ffmpeg: {e}")
 
 # تقييم حالة الفحص بناءً على اكتمال وسلامة جميع اللقطات
 is_passed = (len(rendered_files) == len(critical_frames)) and (len(critical_frames) > 0)

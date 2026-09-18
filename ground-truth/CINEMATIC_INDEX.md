@@ -17,9 +17,9 @@
 | `choreography/filterCursorPath.ts` | filterCursorPath | — | Core |
 | `choreography/mapCursorPath.ts` | mapCursorPath | — | Core |
 | `choreography/resolveWindowPose.ts` | WindowPose, resolveWindowPose | — | Core |
-| `cursor/arc.ts` | ArcConfig, computeClickPulse, computeCursorRotation, interpolateArc, interpolateCurve, interpolateEase, interpolateLinear | — | Core |
 | `cursor/Cursor.tsx` | Cursor | — | Core |
 | `cursor/CursorSprite.tsx` | CursorShape, CursorSprite, getCursorShape | — | Core |
+| `cursor/arc.ts` | ArcConfig, computeClickPulse, computeCursorRotation, interpolateArc, interpolateCurve, interpolateEase, interpolateLinear | — | Core |
 | `cursor/resolveAnchor.ts` | resolveAnchorFromRect | — | Core |
 | `cursor/types.ts` | AnchorPoint, CanvasBounds, CursorAction, CursorActionClick, CursorActionDrag, CursorActionIdle, CursorActionMoveTo, CursorSFXMap, CurveType, ResolvedPosition | — | Core |
 | `fonts.ts` | FONTS_LOADED | — | Core |
@@ -28,6 +28,19 @@
 | `layout/types.ts` | ComputedRect, ReservedZone, SlotDef, WindowPlacement, ZoneConfig, ZoneSystem | — | Core |
 | `layout/useWindowRect.ts` | useWindowRect | — | Core |
 | `layout/zones.ts` | defineZones | — | Core |
+| `primitives/CountUp.tsx` | CountUp, CountUpPose, getCountUpPose | — | Primitives |
+| `primitives/EndCard.tsx` | EndCard | — | Primitives |
+| `primitives/Enter.tsx` | Enter, EnterPose, getEnterPose | — | Primitives |
+| `primitives/Exit.tsx` | Exit, ExitPose, getExitPose | — | Primitives |
+| `primitives/Headline.tsx` | Headline, HeadlineProps, LinePose, getHeadlinePose, getLineStartFrame | — | Primitives |
+| `primitives/Highlight.tsx` | Highlight, HighlightPose, HighlightVariant, getHighlightPose | — | Primitives |
+| `primitives/Pulse.tsx` | Pulse, PulsePose, getPulsePose | — | Primitives |
+| `primitives/ScenePush.tsx` | PushDirection, ScenePush, ScenePushProps | — | Primitives |
+| `primitives/Stagger.tsx` | Stagger, StaggerItemPose, getStaggerItemPose | — | Primitives |
+| `primitives/TrafficLights.tsx` | TrafficLights | — | Primitives |
+| `primitives/TypeWriter.tsx` | TypeWriter, TypeWriterPose, getTypeWriterPose | — | Primitives |
+| `primitives/Wallpaper.tsx` | Wallpaper | — | Primitives |
+| `primitives/Window.tsx` | Window | — | Primitives |
 | `primitives/app-ui/AppFromDescriptor.tsx` | AppFromDescriptor, AppFromDescriptorProps | — | App UI Mocks |
 | `primitives/app-ui/AppShell.tsx` | AppShell, AppShellProps | — | App UI Mocks |
 | `primitives/app-ui/Avatar.tsx` | Avatar, AvatarProps | — | App UI Mocks |
@@ -45,19 +58,6 @@
 | `primitives/app-ui/StatCard.tsx` | StatCard, StatCardProps | — | App UI Mocks |
 | `primitives/app-ui/TabBar.tsx` | Tab, TabBar, TabBarProps | — | App UI Mocks |
 | `primitives/app-ui/TopNav.tsx` | TopNav, TopNavProps | — | App UI Mocks |
-| `primitives/CountUp.tsx` | CountUp, CountUpPose, getCountUpPose | — | Primitives |
-| `primitives/EndCard.tsx` | EndCard | — | Primitives |
-| `primitives/Enter.tsx` | Enter, EnterPose, getEnterPose | — | Primitives |
-| `primitives/Exit.tsx` | Exit, ExitPose, getExitPose | — | Primitives |
-| `primitives/Headline.tsx` | Headline, HeadlineProps, LinePose, getHeadlinePose, getLineStartFrame | — | Primitives |
-| `primitives/Highlight.tsx` | Highlight, HighlightPose, HighlightVariant, getHighlightPose | — | Primitives |
-| `primitives/Pulse.tsx` | Pulse, PulsePose, getPulsePose | — | Primitives |
-| `primitives/ScenePush.tsx` | PushDirection, ScenePush, ScenePushProps | — | Primitives |
-| `primitives/Stagger.tsx` | Stagger, StaggerItemPose, getStaggerItemPose | — | Primitives |
-| `primitives/TrafficLights.tsx` | TrafficLights | — | Primitives |
-| `primitives/TypeWriter.tsx` | TypeWriter, TypeWriterPose, getTypeWriterPose | — | Primitives |
-| `primitives/Wallpaper.tsx` | Wallpaper | — | Primitives |
-| `primitives/Window.tsx` | Window | — | Primitives |
 | `scenes/ChaosDesktop.tsx` | ChaosDesktop | — | Scenes |
 | `scenes/Closer.tsx` | Closer | — | Scenes |
 | `scenes/DynamicWindows.tsx` | DynamicWindows | — | Scenes |
@@ -67,6 +67,6 @@
 | `schema.ts` | AnchorPresetType, BrandColors, BrandConfig, CinematicProps, CinematicSchema, ContentPanel, CursorPathEntry, CurveTypeValue, EasingPresetType, HeadlineKey, HeadlinesConfig, LayoutDescriptor, MusicConfig, ProductFeature, SceneConfig, SceneDirectionType, SidebarItem, WallpaperVariantType, WindowEntranceStyleType, WindowLayout | — | Core |
 | `tokens.ts` | C, CANVAS, EASE, EasingPresetKey, F, FPS | — | Core |
 | `types.ts` | CanvasSize, Rect, SFXEntry, SceneRange, SceneTiming, SceneTimingMap, getSceneAtFrame, getSceneStartFrame, getTotalFrames | — | Core |
+| `ui-state/UIStateProvider.tsx` | UIStateProvider, useUIState | — | Core |
 | `ui-state/generatePressKeyframes.ts` | generatePressKeyframes | — | Core |
 | `ui-state/types.ts` | UIKeyframe, resolveUIState | — | Core |
-| `ui-state/UIStateProvider.tsx` | UIStateProvider, useUIState | — | Core |

@@ -269,7 +269,8 @@ def cin_family(rel):
 lines, n = ["| File | Exports | Props (First 12) | Family |", "|---|---|---|---|"], 0
 ce = DST / "remotion-app/src/engine"
 if ce.exists():
-    for f in sorted(list(ce.rglob("*.tsx")) + list(ce.rglob("*.ts"))):
+    all_engine_files = list(ce.rglob("*.tsx")) + list(ce.rglob("*.ts"))
+    for f in sorted(all_engine_files, key=lambda p: p.relative_to(ce).as_posix()):
         if f.name == "index.ts": continue
         src = f.read_text(encoding="utf-8")
         exp = re.findall(r"export\s+(?:const|function|class)\s+([A-Za-z_$][\w$]*)", src)
