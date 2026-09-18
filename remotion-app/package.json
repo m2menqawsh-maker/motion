@@ -29,7 +29,7 @@
         "remotion": "4.0.525",
         "remotion-bits": "^0.2.0",
         "remotion-ui": "^0.9.0",
-        "zod": "3.25.76"
+        "zod": "4.5.4"
     },
     "devDependencies": {
         "@types/culori": "^4.0.1",

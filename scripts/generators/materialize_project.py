@@ -54,8 +54,14 @@ for sec in bp.get("scenes", []):
     name = sec.get("template")
     if name:
         used.add(name)
-        # Checking template existence
-        if not list((DST / "remotion-app" / "src" / "templates").rglob(f"{name}.tsx")) and not list((DST / "remotion-app" / "src" / "engine").rglob(f"{name}.tsx")):
+        # Checking template existence (case-insensitive for Linux CI)
+        found = False
+        for search_dir in [DST / "remotion-app" / "src" / "templates", DST / "remotion-app" / "src" / "engine"]:
+            if any(f.name.lower() == f"{name.lower()}.tsx" for f in search_dir.rglob("*.tsx")):
+                found = True
+                break
+        
+        if not found:
             fails.append(f"template {name} غير موجود على القرص (في أي طبقة)")
     
     # Check media_refs, sfx_ref, captions_ref
