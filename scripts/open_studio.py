@@ -1,12 +1,12 @@
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 open_studio.py — سكريبت وسيط لفتح الاستوديو بأمان وفي المسار الصحيح
 """
 import sys
-from scripts.path_security import validate_project_id, safe_resolve, os, subprocess, json
+from scripts.security.path_security import validate_project_id, safe_resolve, os, subprocess, json
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):

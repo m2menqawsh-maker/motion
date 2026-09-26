@@ -182,9 +182,6 @@ export type Asset = z.infer<typeof AssetSchema>;
 
 export const MetaSchema = z.object({
   motion_personality: z.enum(["Cinematic", "Energetic", "Playful", "Technical"]).optional(),
-  approval: z.object({
-    blueprint_approved: z.boolean().optional()
-  }).optional(),
   timings_path: z.string().optional(),
 });
 
@@ -192,6 +189,7 @@ export const BlueprintSchema = z.object({
   project_id: z.string(),
   version: z.string(),
   fps: z.number().min(1).max(120),
+  aspect_ratio: z.enum(["9:16", "16:9", "1:1"]),
   meta: MetaSchema.optional(),
   assets: z.array(AssetSchema).optional(),
   scenes: z.array(BlueprintSceneSchema),

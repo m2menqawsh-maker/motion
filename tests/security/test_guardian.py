@@ -4,7 +4,7 @@ import json
 import subprocess
 from pathlib import Path
 import pytest
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 
 GUARDIAN_DIR = Path(__file__).resolve().parent.parent.parent / ".agents" / "guardian"
 
@@ -50,7 +50,7 @@ class TestGuardianAndSecurity:
     def test_mcp_direct_bypass_attempt(self):
         if GUARDIAN_DIR.exists():
             assert check_command("python scripts/render_project.py") is False
-            assert check_command("python scripts/asset_gate.py") is False
+            assert check_command("python scripts/gates/asset_gate.py") is False
 
     # 2. Python safe_subprocess Checks (The actual Runtime Guard)
     def test_safe_subprocess_rejects_arbitrary_commands(self):
@@ -70,7 +70,7 @@ class TestGuardianAndSecurity:
     def test_safe_subprocess_allows_authorized_scripts(self):
         # We use a mock so we don't actually run it during testing
         from unittest.mock import patch
-        with patch('scripts.security.subprocess.run') as mock_run:
+        with patch('scripts.security.security.subprocess.run') as mock_run:
             safe_subprocess(["python", "scripts/pipeline.py", "proj_1"])
             mock_run.assert_called_once()
             

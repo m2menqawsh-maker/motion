@@ -1,16 +1,16 @@
 # Social Collection
 > Auto-Generated from template_catalog.json
-> Last Updated: 2026-09-17
+> Last Updated: N/A
 
 ## Scenes
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Creatorreelwrapper` | C | `templates/scenes/CreatorReelWrapper.tsx` | ui_element, windows |
+| (None) | - | - | - |
 
 ## Elements
 | Name | Quality | Path | Intents |
 |---|---|---|---|
-| `Podcastclipwrapper` | C | `templates/elements/PodcastClipWrapper.tsx` | ui_element, windows |
+| (None) | - | - | - |
 
 ## Effects
 | Name | Quality | Path | Intents |

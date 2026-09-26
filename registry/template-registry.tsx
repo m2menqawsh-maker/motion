@@ -114,8 +114,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: FadeTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "slide-transition": {
     id: "slide-transition",
@@ -124,8 +130,16 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: SlideTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "animation": "none",
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "wipe-transition": {
     id: "wipe-transition",
@@ -134,8 +148,16 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: WipeTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "animation": "none",
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "clock-wipe-transition": {
     id: "clock-wipe-transition",
@@ -144,8 +166,18 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: ClockWipeTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "width": { type: "number", label: { ar: "رقم", en: "width" }, default: 100 },
+              "height": { type: "number", label: { ar: "رقم", en: "height" }, default: 100 },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "width": 100,
+              "height": 100,
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "flip-transition": {
     id: "flip-transition",
@@ -154,8 +186,16 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: FlipTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "animation": "none",
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "cross-zoom-transition": {
     id: "cross-zoom-transition",
@@ -164,8 +204,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: CrossZoomTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "crosswarp-transition": {
     id: "crosswarp-transition",
@@ -174,8 +220,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: CrosswarpTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "dissolve-transition": {
     id: "dissolve-transition",
@@ -184,8 +236,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: DissolveTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "dreamy-zoom-transition": {
     id: "dreamy-zoom-transition",
@@ -194,8 +252,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: DreamyZoomTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "film-burn-transition": {
     id: "film-burn-transition",
@@ -204,8 +268,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: FilmBurnTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "iris-transition": {
     id: "iris-transition",
@@ -214,8 +284,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: IrisTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "linear-blur-transition": {
     id: "linear-blur-transition",
@@ -224,8 +300,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: LinearBlurTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "push-cut-transition": {
     id: "push-cut-transition",
@@ -234,8 +316,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: PushCutTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "ripple-transition": {
     id: "ripple-transition",
@@ -244,8 +332,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: RippleTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "swap-transition": {
     id: "swap-transition",
@@ -254,8 +348,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: SwapTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "zoom-blur-transition": {
     id: "zoom-blur-transition",
@@ -264,8 +364,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: ZoomBlurTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "zoom-in-out-transition": {
     id: "zoom-in-out-transition",
@@ -274,8 +380,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: ZoomInOutTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "book-flip-transition": {
     id: "book-flip-transition",
@@ -284,18 +396,36 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "effect",
     component: BookFlipTransition,
     defaultDurationFrames: 90,
-    schema: {},
-    defaults: {}
+    schema: {
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
-  "animated-text-element": {
-    id: "animated-text-element",
+  "Animatedtextwrapper": {
+    id: "Animatedtextwrapper",
     label: { ar: "نصوص تفاعلية الشامل", en: "Animated Text" },
     description: { ar: "كبسولة التحكم الذكي بتأثيرات النصوص (التشويش، الظهور المتدرج، إلخ)", en: "Smart wrapper for all AnimatedText bits (glitch, fade, etc.)" },
     category: "text",
     component: AnimatedTextWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "animation": "none",
+              "color": "#ffffff",
+              "fontSize": 40,
+              "fontFamily": "Inter",
+            }
   },
   "typewriter-element": {
     id: "typewriter-element",
@@ -304,8 +434,20 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "text",
     component: TypeWriterWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "animation": "none",
+              "color": "#ffffff",
+              "fontSize": 40,
+              "fontFamily": "Inter",
+            }
   },
   "codeblock-element": {
     id: "codeblock-element",
@@ -314,8 +456,20 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "ui-block",
     component: CodeBlockWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "language": { type: "text", label: { ar: "language", en: "language" }, default: "" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "animation": "none",
+              "language": "",
+              "fontSize": 40,
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "matrixrain-element": {
     id: "matrixrain-element",
@@ -324,8 +478,26 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "overlay",
     component: MatrixRainWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "animation": "none",
+              "background": "#ffffff",
+              "color": "#ffffff",
+              "fontFamily": "Inter",
+              "fontSize": 40,
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "lines": "",
+            }
   },
   "animatedcounter-element": {
     id: "animatedcounter-element",
@@ -334,8 +506,28 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "ui-block",
     component: AnimatedCounterWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "value": { type: "text", label: { ar: "value", en: "value" }, default: "" },
+              "startValue": { type: "text", label: { ar: "startValue", en: "startValue" }, default: "" },
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "prefix": { type: "text", label: { ar: "prefix", en: "prefix" }, default: "" },
+              "suffix": { type: "text", label: { ar: "suffix", en: "suffix" }, default: "" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+              "number": { type: "text", label: { ar: "number", en: "number" }, default: "" },
+            },
+    defaults: {
+              "value": "",
+              "startValue": "",
+              "animation": "none",
+              "prefix": "",
+              "suffix": "",
+              "color": "#ffffff",
+              "fontSize": 40,
+              "fontFamily": "Inter",
+              "number": "",
+            }
   },
   "scrollingimages-element": {
     id: "scrollingimages-element",
@@ -344,8 +536,16 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ScrollingImagesWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "images": { type: "text", label: { ar: "images", en: "images" }, default: "" },
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "imageWidth": { type: "number", label: { ar: "رقم", en: "imageWidth" }, default: 100 },
+            },
+    defaults: {
+              "images": "",
+              "animation": "none",
+              "imageWidth": 100,
+            }
   },
   "particlesystem-element": {
     id: "particlesystem-element",
@@ -354,8 +554,26 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "overlay",
     component: ParticleSystemWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "animation": "none",
+              "background": "#ffffff",
+              "color": "#ffffff",
+              "fontFamily": "Inter",
+              "fontSize": 40,
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "lines": "",
+            }
   },
   "scene3d-element": {
     id: "scene3d-element",
@@ -364,8 +582,18 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: Scene3DWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "background": "#ffffff",
+              "color": "#ffffff",
+            }
   },
   "staggeredmotion-element": {
     id: "staggeredmotion-element",
@@ -374,8 +602,22 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: StaggeredMotionWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "fontSize": { type: "number", label: { ar: "رقم", en: "fontSize" }, default: 40 },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+              "images": { type: "text", label: { ar: "images", en: "images" }, default: "" },
+            },
+    defaults: {
+              "animation": "none",
+              "fontSize": 40,
+              "color": "#ffffff",
+              "background": "#ffffff",
+              "lines": "",
+              "images": "",
+            }
   },
   "gradient-element": {
     id: "gradient-element",
@@ -384,8 +626,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "overlay",
     component: GradientWrapper,
     defaultDurationFrames: 120,
-    schema: {},
-    defaults: {}
+    schema: {
+              "animation": { type: "animation", label: { ar: "حركة", en: "Animation" }, default: "none" },
+              "colors": { type: "color", label: { ar: "لون", en: "colors" }, default: "#ffffff" },
+            },
+    defaults: {
+              "animation": "none",
+              "colors": "#ffffff",
+            }
   }
 ,
   "rui-ai-composer-showcase": {
@@ -425,8 +673,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: BrowserFlowWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "lines": "",
+              "text": "Sample Text",
+            }
   },
   "rui-creator-reel": {
     id: "rui-creator-reel",
@@ -445,8 +699,20 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: DashboardPopulateWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+              "numbers": { type: "text", label: { ar: "numbers", en: "numbers" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "background": "#ffffff",
+              "lines": "",
+              "numbers": "",
+            }
   },
   "rui-data-story": {
     id: "rui-data-story",
@@ -455,8 +721,22 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: DataStoryWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+              "label": { type: "text", label: { ar: "label", en: "label" }, default: "" },
+              "value": { type: "text", label: { ar: "value", en: "value" }, default: "" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "delta": { type: "text", label: { ar: "delta", en: "delta" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+              "label": "",
+              "value": "",
+              "color": "#ffffff",
+              "delta": "",
+            }
   },
   "rui-deploy-reveal": {
     id: "rui-deploy-reveal",
@@ -485,8 +765,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: HeroDeviceAssembleWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-hero-loop": {
     id: "rui-hero-loop",
@@ -505,8 +791,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ImageExpandWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-intro": {
     id: "rui-intro",
@@ -515,8 +807,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: IntroWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-landing-code-showcase": {
     id: "rui-landing-code-showcase",
@@ -545,8 +843,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: PodcastClipWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-pricing-focus": {
     id: "rui-pricing-focus",
@@ -565,8 +869,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ShowcaseWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-social-clip": {
     id: "rui-social-clip",
@@ -595,8 +905,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TutorialClipWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-animated-bar-chart": {
     id: "rui-animated-bar-chart",
@@ -605,8 +921,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: AnimatedBarChartWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-audiogram-scene": {
     id: "rui-audiogram-scene",
@@ -615,8 +937,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: AudiogramSceneWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-auto-fit-title": {
     id: "rui-auto-fit-title",
@@ -625,8 +953,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: AutoFitTitleWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-b-roll-stack": {
     id: "rui-b-roll-stack",
@@ -635,8 +969,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: BRollStackWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "items": { type: "text", label: { ar: "items", en: "items" }, default: "" },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "items": "",
+              "text": "Sample Text",
+            }
   },
   "rui-calendar-month-fill": {
     id: "rui-calendar-month-fill",
@@ -655,8 +995,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CalloutSpotlightWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-caption-bumper": {
     id: "rui-caption-bumper",
@@ -665,8 +1011,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CaptionBumperWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-caption-scene": {
     id: "rui-caption-scene",
@@ -675,8 +1025,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CaptionSceneWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-changelog-entry": {
     id: "rui-changelog-entry",
@@ -705,8 +1059,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ChatToPreviewWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "items": { type: "text", label: { ar: "items", en: "items" }, default: "" },
+            },
+    defaults: {
+              "items": "",
+            }
   },
   "rui-code-accordion": {
     id: "rui-code-accordion",
@@ -715,8 +1073,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CodeAccordionWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-code-diff-wipe": {
     id: "rui-code-diff-wipe",
@@ -725,8 +1087,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CodeDiffWipeWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-code-reveal": {
     id: "rui-code-reveal",
@@ -735,8 +1101,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CodeRevealWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-comment-callout": {
     id: "rui-comment-callout",
@@ -765,8 +1135,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ComparisonTableWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-countdown-timer": {
     id: "rui-countdown-timer",
@@ -775,8 +1149,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: CountdownTimerWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-data-flow-pipes": {
     id: "rui-data-flow-pipes",
@@ -795,8 +1173,24 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: DeviceMockupZoomWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "fontFamily": { type: "fontKey", label: { ar: "الخط", en: "Font" }, default: "Inter" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "icons": { type: "text", label: { ar: "icons", en: "icons" }, default: "" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "fontFamily": "Inter",
+              "color": "#ffffff",
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "background": "#ffffff",
+              "icons": "",
+              "lines": "",
+            }
   },
   "rui-drag-drop-flow": {
     id: "rui-drag-drop-flow",
@@ -805,8 +1199,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: DragDropFlowWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-end-card": {
     id: "rui-end-card",
@@ -815,8 +1213,16 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: EndCardWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-faq-accordion": {
     id: "rui-faq-accordion",
@@ -825,8 +1231,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: FaqAccordionWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "items": { type: "text", label: { ar: "items", en: "items" }, default: "" },
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "items": "",
+              "text": "Sample Text",
+            }
   },
   "rui-feature-list": {
     id: "rui-feature-list",
@@ -835,8 +1247,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: FeatureListWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-file-tree-reveal": {
     id: "rui-file-tree-reveal",
@@ -845,8 +1261,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: FileTreeRevealWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-form-fill-sequence": {
     id: "rui-form-fill-sequence",
@@ -855,8 +1275,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: FormFillSequenceWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-hook-card": {
     id: "rui-hook-card",
@@ -865,8 +1291,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: HookCardWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "lines": "",
+            }
   },
   "rui-kanban-move": {
     id: "rui-kanban-move",
@@ -895,8 +1325,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: LogoWallWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-lower-third": {
     id: "rui-lower-third",
@@ -905,8 +1339,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: LowerThirdWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-map-flight": {
     id: "rui-map-flight",
@@ -925,8 +1365,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: MediaFrameWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-media-sequence": {
     id: "rui-media-sequence",
@@ -935,8 +1379,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: MediaSequenceWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "items": { type: "text", label: { ar: "items", en: "items" }, default: "" },
+            },
+    defaults: {
+              "items": "",
+            }
   },
   "rui-metric-ticker": {
     id: "rui-metric-ticker",
@@ -945,8 +1393,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: MetricTickerWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-news-ticker-bar": {
     id: "rui-news-ticker-bar",
@@ -975,8 +1427,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: OrgChartBuildWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-poll-overlay": {
     id: "rui-poll-overlay",
@@ -1035,8 +1491,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: RoadmapLanesWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-search-results-populate": {
     id: "rui-search-results-populate",
@@ -1055,8 +1515,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: SplitScreenWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-sports-scorebug": {
     id: "rui-sports-scorebug",
@@ -1075,8 +1539,22 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: StatCardWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "subtext": { type: "text", label: { ar: "نص", en: "subtext" }, default: "Sample Text" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+              "numbers": { type: "text", label: { ar: "numbers", en: "numbers" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "subtext": "Sample Text",
+              "background": "#ffffff",
+              "color": "#ffffff",
+              "lines": "",
+              "numbers": "",
+            }
   },
   "rui-tab-switch-panel": {
     id: "rui-tab-switch-panel",
@@ -1095,8 +1573,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TalkingHeadLayoutWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-team-grid": {
     id: "rui-team-grid",
@@ -1105,8 +1589,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TeamGridWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-terminal-simulator": {
     id: "rui-terminal-simulator",
@@ -1115,8 +1605,18 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TerminalSimulatorWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "background": { type: "color", label: { ar: "لون", en: "background" }, default: "#ffffff" },
+              "color": { type: "color", label: { ar: "لون", en: "color" }, default: "#ffffff" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "background": "#ffffff",
+              "color": "#ffffff",
+              "lines": "",
+            }
   },
   "rui-timeline-steps": {
     id: "rui-timeline-steps",
@@ -1125,8 +1625,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TimelineStepsWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   },
   "rui-title-card": {
     id: "rui-title-card",
@@ -1135,8 +1639,14 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: TitleCardWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+              "lines": { type: "text", label: { ar: "lines", en: "lines" }, default: "" },
+            },
+    defaults: {
+              "text": "Sample Text",
+              "lines": "",
+            }
   },
   "rui-weather-card": {
     id: "rui-weather-card",
@@ -1155,8 +1665,12 @@ const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {
     category: "composition",
     component: ZoomPanFrameWrapper,
     defaultDurationFrames: 150,
-    schema: {},
-    defaults: {}
+    schema: {
+              "text": { type: "text", label: { ar: "نص", en: "text" }, default: "Sample Text" },
+            },
+    defaults: {
+              "text": "Sample Text",
+            }
   }
 };
 

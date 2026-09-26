@@ -90,7 +90,7 @@
   - **Level 2 (Video Composition):** Your primary job is to output flawless JSON data (`05_blueprint.json`).
   - **Level 1 (Template Composition):** You may write custom templates (`.tsx`) in `templates/custom/` ONLY if you compose them from local Lego blocks found in `templates/elements` and `templates/scenes`.
   - **Level 0 (From Scratch):** If necessary, write modular React/Remotion code from scratch that adheres to Taste Gates, so it can be extracted as a future Lego block.
-  - **Validation:** Any custom template must pass `python scripts/validate_template.py` before use.
+  - **Validation:** Any custom template must pass `python scripts/validators/validate_template.py` before use.
 - **Exhaustive Property Completion:** When writing `05_blueprint.json`, you MUST provide ALL logically required properties for the selected template. DO NOT omit any property that the template depends on (e.g. if the template is `terminal-simulator` or `code-diff`, you MUST provide exhaustive `content.lines`. If it is an image reveal, you MUST provide `content.images`. If it is a text reveal, you MUST provide `surface.text`). NEVER assume a field is optional if the template's core visual depends on it.
 - Building any scene without a matching scene plan is forbidden.
 - You must use approved templates from `ground-truth/TEMPLATE_INDEX.md` (Zero Improvisation).

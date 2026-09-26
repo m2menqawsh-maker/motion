@@ -9,10 +9,12 @@ async def test_pipeline_start_does_not_block_event_loop(tmp_path, monkeypatch):
     """
     اختبار أن بدء الـ Pipeline لا يجمد الـ Event Loop.
     """
-    def mock_get_state_path(project_id):
-        return tmp_path / f".pipeline_state_{project_id}.json"
+    def mock_get_project_dir(project_id):
+        path = tmp_path / f"projects_{project_id}"
+        path.mkdir(exist_ok=True)
+        return path
     
-    monkeypatch.setattr("api.services.pipeline_service.PipelineService._get_state_path", mock_get_state_path)
+    monkeypatch.setattr("api.services.pipeline_service.PipelineService._get_project_dir", mock_get_project_dir)
     
     # Mock subprocess to simulate a slow running process
     def mock_safe_subprocess(cmd, *args, **kwargs):

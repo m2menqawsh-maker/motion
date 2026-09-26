@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.security import safe_subprocess
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.security import safe_subprocess
+from scripts.security.path_security import validate_project_id, safe_resolve
 import uuid
 import json
 import datetime
@@ -19,8 +19,6 @@ def generate_timestamp():
 def main():
     parser = argparse.ArgumentParser(description="Scaffold a new Clean Video Workspace project")
     parser.add_argument("--name", required=True)
-    parser.add_argument("--aspect", required=True)
-    parser.add_argument("--fps", type=int, required=True)
     parser.add_argument("--language", required=True)
     
     args = parser.parse_args()
@@ -39,8 +37,6 @@ def main():
         project_data = {
             "project_id": project_id,
             "name": args.name,
-            "aspect": args.aspect,
-            "fps": args.fps,
             "language": args.language,
             "voiceover": {"mode": "none"},
             "created_at": timestamp
@@ -72,16 +68,15 @@ def main():
         }
         (project_dir / "overrides.json").write_text(json.dumps(overrides_data, ensure_ascii=False, indent=2), encoding="utf-8")
         
-        # manifest.json
+        # 02_asset_manifest.json
         manifest_data = {
             "project_id": project_id,
             "generated_at": timestamp,
             "assets": []
         }
-        (project_dir / "manifest.json").write_text(json.dumps(manifest_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        (project_dir / "02_asset_manifest.json").write_text(json.dumps(manifest_data, ensure_ascii=False, indent=2), encoding="utf-8")
         
-        # .studio_approved
-        (project_dir / ".studio_approved").write_text("", encoding="utf-8")
+        # .studio_approved MUST NOT be created automatically. The user creates it after Probe QC.
         
         print(project_id)
         sys.exit(0)

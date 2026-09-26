@@ -1,14 +1,12 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 from pathlib import Path
 
-def create_project(name: str, aspect: str, fps: int, language: str) -> str:
+def create_project(name: str, language: str) -> str:
     cmd = [
         "python", "scripts/scaffold_project.py",
         "--name", name,
-        "--aspect", aspect,
-        "--fps", str(fps),
         "--language", language
     ]
     result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8")

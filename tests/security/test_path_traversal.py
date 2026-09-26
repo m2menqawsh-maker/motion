@@ -1,5 +1,5 @@
 import pytest
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 class TestPathTraversal:

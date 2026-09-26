@@ -36,7 +36,7 @@
       "pattern": "\\b(Copy-Item|cp)\\b\\s+.*06_build",
       "severity": "CRITICAL",
       "message": "النسخ اليدوي للملفات إلى مجلد 06_build محظور تماماً.",
-      "fix": "مرر الوسائط عبر 02_asset_manifest.json واسمح لـ scripts/materialize_project.py بنقلها."
+      "fix": "مرر الوسائط عبر 02_asset_manifest.json واسمح لـ scripts/generators/materialize_project.py بنقلها."
     },
     {
       "pattern": "\\bcircuit_breaker\\.json\\b",
@@ -68,7 +68,7 @@
       "pattern": "(write_to_file|replace_file_content|multi_replace_file_content).*?\\bprobe_qc_report\\.json\\b",
       "severity": "CRITICAL",
       "message": "محظور محاولة تزوير أو تعديل تقرير الفحص probe_qc_report.json.",
-      "fix": "الفحص يجرى آلياً عبر scripts/probe_qc.py. أصلح الأخطاء لكي ينجح بدلاً من تزويره."
+      "fix": "الفحص يجرى آلياً عبر scripts/gates/probe_qc.py. أصلح الأخطاء لكي ينجح بدلاً من تزويره."
     },
     {
       "pattern": "(write_to_file|replace_file_content|multi_replace_file_content).*?\\b04_timings\\.json\\b",

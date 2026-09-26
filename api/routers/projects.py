@@ -1,52 +1,49 @@
-from scripts.path_security import validate_project_id
-import subprocess
-from scripts.security import safe_subprocess
-from fastapi import APIRouter, HTTPException
+from scripts.security.path_security import validate_project_id
+from fastapi import APIRouter
 from pydantic import BaseModel
 from api.services.scaffold_service import create_project
 import json
 from pathlib import Path
 from api.services.pipeline_service import PipelineService
+from api.schemas import ProjectCreateRequest, ProjectCreateResponse, ProjectListResponse, ProjectResponse
+from api.core.errors import ProjectNotFoundError
 
 router = APIRouter()
 
-class ProjectCreate(BaseModel):
-    name: str
-    aspect: str
-    fps: int = 30
-    language: str = "ar"
+@router.post("/", response_model=ProjectCreateResponse)
+async def create(req: ProjectCreateRequest):
+    project_id = create_project(req.name, req.language)
+    return ProjectCreateResponse(project_id=project_id)
 
-@router.post("/")
-async def create(req: ProjectCreate):
-    try:
-        project_id = create_project(req.name, req.aspect, req.fps, req.language)
-        return {"project_id": project_id}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.get("/")
+@router.get("/", response_model=ProjectListResponse)
 async def list_projects():
     projects_dir = Path("projects")
     if not projects_dir.exists():
-        return {"projects": []}
+        return ProjectListResponse(projects=[])
     dirs = [d.name for d in projects_dir.iterdir() if d.is_dir() and d.name.startswith("prj_")]
-    return {"projects": dirs}
+    return ProjectListResponse(projects=dirs)
 
-@router.get("/{project_id}")
+@router.get("/{project_id}", response_model=ProjectResponse)
 async def get_project(project_id: str):
     project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
+    
     if not project_dir.exists():
-        raise HTTPException(status_code=404, detail="Project not found")
+        raise ProjectNotFoundError(project_id)
     
     data = {}
-    for filename in ["project.json", "manifest.json"]:
+    for filename in ["project.json", "02_asset_manifest.json"]:
         filepath = project_dir / filename
         if filepath.exists():
             data[filename.replace(".json", "")] = json.loads(filepath.read_text(encoding="utf-8"))
         else:
             data[filename.replace(".json", "")] = {}
             
-    data["state"] = await PipelineService.get_status(project_id)
+    state_dict = await PipelineService.get_status(project_id)
             
-    return data
+    return ProjectResponse(
+        project=data.get("project", {}),
+        manifest=data.get("02_asset_manifest", {}),
+        state=state_dict
+    )
+

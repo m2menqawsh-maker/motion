@@ -1,7 +1,7 @@
 import pytest
 import json
 from pathlib import Path
-from scripts.migrate_state import migrate_project
+from scripts.archive.migrate_state import migrate_project
 from api.services.pipeline_service import PipelineService
 
 class TestMigrationFromLegacy:
@@ -12,7 +12,7 @@ class TestMigrationFromLegacy:
         """state.json القديم يجب أن يرحل إلى .pipeline_state.json"""
         
         # We need to mock Path in migrate_state so it uses tmp_path
-        import scripts.migrate_state as ms
+        import scripts.archive.migrate_state as ms
         original_path = ms.Path
         
         class MockPath:
@@ -40,7 +40,8 @@ class TestMigrationFromLegacy:
         migrate_project(test_project)
         
         # التحقق من الترحيل
-        new_state = PipelineService._load_state(test_project)
+        new_state_path = PipelineService._get_project_dir(test_project) / ".pipeline_state.json"
+        new_state = json.loads(new_state_path.read_text(encoding="utf-8"))
         assert "legacy_gui_state" in new_state
         assert new_state["legacy_gui_state"]["approved_by"] == "legacy_user"
         assert new_state["legacy_gui_state"]["current_stage"] == "plan_gate"

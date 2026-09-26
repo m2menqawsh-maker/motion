@@ -12,8 +12,8 @@
 6. انتظر حتى ينتهي المنسق. لا تشغل أي بوابة يدوياً.
 
 ## الأوامر المحظورة
-- ❌ `python scripts/probe_qc.py` (لا تشغل البوابات يدوياً)
-- ❌ `python scripts/asset_gate.py`
-- ❌ `python scripts/plan_gate.py`
-- ❌ `python scripts/taste_gate.py`
+- ❌ `python scripts/gates/probe_qc.py` (لا تشغل البوابات يدوياً)
+- ❌ `python scripts/gates/asset_gate.py`
+- ❌ `python scripts/gates/plan_gate.py`
+- ❌ `python scripts/gates/taste_gate.py`
 - ❌ أي أمر يتجاوز الـ `pipeline.py`

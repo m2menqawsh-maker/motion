@@ -4,7 +4,7 @@
 render_project.py — سكريبت وسيط لرندر المشروع بأمان وفي المسار الصحيح
 """
 import sys
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, safe_resolve
 from pathlib import Path
 
 # Fix python path
@@ -19,7 +19,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 import shutil
 
 def is_docker_running():
@@ -48,8 +48,8 @@ def main():
     import uuid
     import time
     import os
-    from scripts.runtime_logger import RuntimeLogger, RunContext
-    from scripts.failure_model import FailureInfo, FailureCode
+    from scripts.core.runtime_logger import RuntimeLogger, RunContext
+    from scripts.core.failure_model import FailureInfo, FailureCode
     
     run_id = os.environ.get("AGY_RUN_ID")
     is_managed = os.environ.get("AGY_IS_MANAGED") == "1"
@@ -71,12 +71,18 @@ def main():
     logger.event("render.execution", status="started", stage="render", component="remotion")
     
     try:
-        status = asyncio.run(PipelineService.get_status(project_id))
-        if status.get("status") != "locked" and not is_managed:
+        from scripts.core.state_store import StateStore
+        workspace_root = Path.cwd().resolve()
+        project_dir = workspace_root / "projects" / project_id
+        
+        state = StateStore.load(project_dir)
+        is_approved = (project_dir / ".studio_approved").exists()
+        
+        if not is_approved and not is_managed:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
                 code=FailureCode.PROJECT_NOT_LOCKED,
-                message="Project is not locked for rendering",
+                message="Project is not approved (gate_3) for rendering",
                 cause_type="Validation",
                 stage="render",
                 component="remotion"
@@ -85,7 +91,7 @@ def main():
             print(f"\n{'='*60}")
             print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
             print(f"{'='*60}")
-            print("لم يتم إصدار موافقة بشرية على المشروع (status != locked)")
+            print("لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED)")
             sys.exit(1)
             
         workspace_root = Path.cwd().resolve()

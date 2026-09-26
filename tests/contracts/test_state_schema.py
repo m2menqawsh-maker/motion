@@ -12,7 +12,7 @@ def project_id():
 @pytest.fixture(autouse=True)
 def setup_teardown(project_id):
     # Setup
-    state_file = PipelineService._get_state_path(project_id)
+    state_file = PipelineService._get_project_dir(project_id) / ".pipeline_state.json"
     if state_file.exists():
         state_file.unlink()
     
@@ -30,7 +30,7 @@ async def test_pipeline_state_has_required_fields(project_id):
     await PipelineService.scaffold_project(project_id)
     
     # We can write fake data to simulate pipeline run
-    state_file = PipelineService._get_state_path(project_id)
+    state_file = PipelineService._get_project_dir(project_id) / ".pipeline_state.json"
     state = json.loads(state_file.read_text(encoding="utf-8"))
     
     state["master_plan_hash"] = "abc"
@@ -41,10 +41,10 @@ async def test_pipeline_state_has_required_fields(project_id):
     # Reload
     loaded_state = json.loads(state_file.read_text(encoding="utf-8"))
     
-    required_fields = {"master_plan_hash", "blueprint_hash", "legacy_gui_state"}
+    required_fields = {"master_plan_hash", "blueprint_hash"}
     assert required_fields.issubset(loaded_state.keys())
     
-    # legacy_gui_state schema check
-    legacy = loaded_state["legacy_gui_state"]
-    legacy_fields = {"current_stage", "status", "approved_by", "timestamp"}
+    # legacy_gui_state schema check via API
+    legacy = await PipelineService.get_status(project_id)
+    legacy_fields = {"current_stage", "status"}
     assert legacy_fields.issubset(legacy.keys())

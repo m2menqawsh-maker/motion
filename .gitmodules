@@ -1,0 +1,3 @@
+[submodule ".agents/skills/prompt-engineering-expert"]
+	path = .agents/skills/prompt-engineering-expert
+	url = https://github.com/hanzoskill/prompt-engineering-expert.git

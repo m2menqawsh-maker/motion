@@ -1,17 +1,14 @@
 import asyncio
-import json
 import os
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Optional, Any
-from scripts.security import safe_subprocess
-from scripts.path_security import validate_project_id
+from scripts.security.security import safe_subprocess
+from scripts.security.path_security import validate_project_id
+from scripts.core.state_store import StateStore
+from scripts.core.state_model import ProjectState, LifecycleState
 
-class PipelineAlreadyRunningException(Exception):
-    pass
-
-class InvalidGateException(Exception):
-    pass
+from api.core.errors import InvalidGateError, PipelineRunningError
 
 class PipelineService:
     # Tracking running pipelines
@@ -19,131 +16,149 @@ class PipelineService:
     
     VALID_GATES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
     
+    STAGE_TO_LIFECYCLE = {
+        "0": LifecycleState.ASSETS_READY,
+        "1": LifecycleState.PLAN_READY,
+        "2": LifecycleState.BLUEPRINT_READY,
+        "3": LifecycleState.RENDERED
+    }
+    
+    GATE_TO_LIFECYCLE = {
+        "gate_1": LifecycleState.ASSETS_READY,
+        "gate_2": LifecycleState.PLAN_READY,
+        "gate_3": LifecycleState.BLUEPRINT_READY,
+        "gate_4": LifecycleState.REVIEW_APPROVED
+    }
+
     @classmethod
-    def _get_state_path(cls, project_id: str) -> Path:
-        validate_project_id(project_id)
-        return Path(f"projects/{project_id}/.pipeline_state.json")
+    def _get_project_dir(cls, project_id: str) -> Path:
+        return Path(f"projects/{project_id}")
+    
+    @classmethod
+    def _format_legacy_state(cls, state: ProjectState) -> dict:
+        # Simulate legacy format for the frontend
+        # LifecycleState -> current_stage string
         
-    @classmethod
-    def _load_state(cls, project_id: str) -> dict:
-        path = cls._get_state_path(project_id)
-        if path.exists():
-            try:
-                return json.loads(path.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-        return {}
+        lifecycle_to_stage_name = {
+            LifecycleState.DRAFT: "asset_gate",
+            LifecycleState.ASSETS_READY: "plan_gate",
+            LifecycleState.PLAN_READY: "taste_gate",
+            LifecycleState.BLUEPRINT_READY: "qc_gate",
+            LifecycleState.MATERIALIZED: "qc_gate",
+            LifecycleState.PROBE_PASSED: "qc_gate",
+            LifecycleState.AWAITING_REVIEW: "qc_gate",
+            LifecycleState.REVIEW_APPROVED: "qc_gate",
+            LifecycleState.RENDERED: "qc_gate",
+            LifecycleState.FINAL_QC_PASSED: "qc_gate",
+            LifecycleState.COMPLETE: "qc_gate",
+            LifecycleState.FAILED: "asset_gate",
+            LifecycleState.CANCELLED: "asset_gate"
+        }
         
-    @classmethod
-    def _save_state(cls, project_id: str, state: dict):
-        path = cls._get_state_path(project_id)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+        current_stage_name = lifecycle_to_stage_name.get(state.lifecycle_state, "asset_gate")
+        
+        status = "started"
+        if state.lifecycle_state in [LifecycleState.FAILED]:
+            status = "failed"
+        elif state.lifecycle_state in [LifecycleState.REVIEW_APPROVED, LifecycleState.COMPLETE]:
+            status = "locked"
+
+        res = {
+            "status": status,
+            "current_stage": current_stage_name
+        }
+        
+        if state.approval_metadata.get("approved_by"):
+            res["approved_by"] = state.approval_metadata["approved_by"]
+            
+        res["state"] = state.model_dump(mode='json') if hasattr(state, "model_dump") else state.dict()
+        return res
 
     @classmethod
     async def scaffold_project(cls, project_id: str) -> dict:
-        """Initializes a new project's pipeline state."""
-        state = cls._load_state(project_id)
-        if "legacy_gui_state" not in state:
-            state["legacy_gui_state"] = {
-                "current_stage": "asset_gate",
-                "status": "started",
-                "approved_by": None,
-                "timestamp": datetime.utcnow().isoformat()
-            }
-            cls._save_state(project_id, state)
-        return {"status": "success", "message": f"Project {project_id} pipeline initialized"}
+        validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
+        state = StateStore.load(project_dir)
+        if not state:
+            state = ProjectState(project_id=project_id, lifecycle_state=LifecycleState.DRAFT)
+            StateStore.save(project_dir, state)
+        
+        res = cls._format_legacy_state(state)
+        return {"status": "success", "message": f"Project {project_id} pipeline initialized", "state": res}
 
     @classmethod
     async def get_status(cls, project_id: str) -> dict:
-        """Returns the status from the legacy_gui_state adapter for GUI clients."""
-        state = cls._load_state(project_id)
-        legacy = state.get("legacy_gui_state", {})
-        if not legacy:
-            # Fallback for uninitialized projects
-            legacy = {
-                "current_stage": "asset_gate",
-                "status": "pending",
-                "approved_by": None,
-                "timestamp": None
-            }
-        return legacy
+        validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
+        state = StateStore.load(project_dir)
+        if not state:
+            return {"status": "pending", "current_stage": "asset_gate"}
+            
+        return cls._format_legacy_state(state)
 
     @classmethod
     async def start_stage(cls, project_id: str, stage: str) -> dict:
-        """Updates legacy adapter state to 'started'."""
-        if stage not in cls.VALID_GATES:
-            # Fallback adapter if GUI sends "1", "2", "3"
-            gate_mapping = {"0": "asset_gate", "1": "plan_gate", "2": "taste_gate", "3": "qc_gate"}
-            if str(stage) in gate_mapping:
-                stage = gate_mapping[str(stage)]
-            else:
-                raise InvalidGateException(f"Invalid gate: {stage}")
-                
-        state = cls._load_state(project_id)
-        legacy = state.get("legacy_gui_state", {})
-        legacy["current_stage"] = stage
-        legacy["status"] = "started"
-        legacy["timestamp"] = datetime.utcnow().isoformat()
-        state["legacy_gui_state"] = legacy
-        
-        cls._save_state(project_id, state)
-        return legacy
+        validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
+        state = StateStore.load(project_dir)
+        if not state:
+            state = ProjectState(project_id=project_id)
+            
+        state.updated_at = datetime.now(timezone.utc).isoformat()
+        StateStore.save(project_dir, state)
+        return cls._format_legacy_state(state)
 
     @classmethod
     async def finish_stage(cls, project_id: str, stage: str) -> dict:
-        """Updates legacy adapter state to 'finished'."""
-        if stage not in cls.VALID_GATES:
-            gate_mapping = {"0": "asset_gate", "1": "plan_gate", "2": "taste_gate", "3": "qc_gate"}
-            if str(stage) in gate_mapping:
-                stage = gate_mapping[str(stage)]
-            else:
-                raise InvalidGateException(f"Invalid gate: {stage}")
-                
-        state = cls._load_state(project_id)
-        legacy = state.get("legacy_gui_state", {})
-        legacy["current_stage"] = stage
-        legacy["status"] = "finished"
-        legacy["timestamp"] = datetime.utcnow().isoformat()
-        state["legacy_gui_state"] = legacy
+        validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
         
-        cls._save_state(project_id, state)
-        return legacy
+        state = StateStore.load(project_dir)
+        if not state:
+            state = ProjectState(project_id=project_id)
+            
+        # Very rough mapping to move the lifecycle state forward
+        if str(stage) in cls.STAGE_TO_LIFECYCLE:
+            state.lifecycle_state = cls.STAGE_TO_LIFECYCLE[str(stage)]
+            
+        state.updated_at = datetime.now(timezone.utc).isoformat()
+        StateStore.save(project_dir, state)
+        return cls._format_legacy_state(state)
+
+    @classmethod
+    def _get_lock(cls, project_id: str) -> asyncio.Lock:
+        if project_id not in cls._active_pipelines:
+            cls._active_pipelines[project_id] = asyncio.Lock()
+        return cls._active_pipelines[project_id]
 
     @classmethod
     async def approve_gate(cls, project_id: str, gate: str, approved_by: str = None) -> dict:
-        """Updates legacy adapter state to record human approval."""
-        if gate not in cls.VALID_GATES:
-            gate_mapping = {"0": "asset_gate", "1": "plan_gate", "2": "taste_gate", "3": "qc_gate"}
-            if str(gate) in gate_mapping:
-                gate = gate_mapping[str(gate)]
-            else:
-                raise InvalidGateException(f"Invalid gate: {gate}")
-                
-        state = cls._load_state(project_id)
-        legacy = state.get("legacy_gui_state", {})
-        legacy["current_stage"] = gate
-        legacy["status"] = "locked"  # Legacy convention used 'locked' when approved
-        legacy["approved_by"] = approved_by
-        legacy["timestamp"] = datetime.utcnow().isoformat()
-        state["legacy_gui_state"] = legacy
+        validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
         
-        cls._save_state(project_id, state)
-        return legacy
+        async with cls._get_lock(project_id):
+            state = StateStore.load(project_dir)
+            if not state:
+                state = ProjectState(project_id=project_id)
+            
+            if str(gate) in cls.GATE_TO_LIFECYCLE:
+                state.lifecycle_state = cls.GATE_TO_LIFECYCLE[str(gate)]
+            
+            state.approval_metadata["approved_by"] = approved_by
+            state.approval_metadata["approved_at"] = datetime.now(timezone.utc).isoformat()
+            state.updated_at = datetime.now(timezone.utc).isoformat()
+            
+            StateStore.save(project_dir, state)
+        return cls._format_legacy_state(state)
 
     @classmethod
     async def run_pipeline(cls, project_id: str) -> dict:
-        """Runs the official pipeline (scripts/pipeline.py) as a subprocess.
-        Updates .pipeline_state.json hashes ONLY."""
         validate_project_id(project_id)
+        project_dir = cls._get_project_dir(project_id)
         
-        if project_id not in cls._active_pipelines:
-            cls._active_pipelines[project_id] = asyncio.Lock()
-            
-        lock = cls._active_pipelines[project_id]
-        
+        lock = cls._get_lock(project_id)
         if lock.locked():
-            raise PipelineAlreadyRunningException(f"Pipeline is already running for {project_id}")
+            raise PipelineRunningError(project_id)
             
         async with lock:
             import functools
@@ -154,7 +169,6 @@ class PipelineService:
             env["AGY_RUN_ID"] = run_id
             env["AGY_IS_MANAGED"] = "1"
             
-            # Execute pipeline in a thread to avoid blocking the event loop
             func = functools.partial(
                 safe_subprocess, 
                 ["python", "scripts/pipeline.py", project_id], 
@@ -164,37 +178,32 @@ class PipelineService:
             )
             result = await asyncio.to_thread(func)
             
-            new_hashes = {}
-            if result.stdout:
-                for line in result.stdout.splitlines():
-                    if line.startswith("__PIPELINE_STATE__") and line.endswith("__PIPELINE_STATE__"):
-                        json_str = line.replace("__PIPELINE_STATE__", "")
-                        try:
-                            new_hashes = json.loads(json_str)
-                        except json.JSONDecodeError:
-                            pass
-                            
-            # Merge hashes back into state, preserving legacy_gui_state
-            state = cls._load_state(project_id)
-            state.update(new_hashes)
-            cls._save_state(project_id, state)
+            state = StateStore.load(project_dir)
+            res = cls._format_legacy_state(state) if state else {}
             
-            return {
+            import re
+            import json
+            match = re.search(r"__PIPELINE_STATE__(.*?)__PIPELINE_STATE__", result.stdout, re.DOTALL)
+            if match:
+                try:
+                    stdout_state = json.loads(match.group(1))
+                    if isinstance(stdout_state, dict):
+                        if "state" not in res:
+                            res["state"] = {}
+                        res["state"].update(stdout_state)
+                except Exception:
+                    pass
+            
+            res.update({
                 "status": "success" if result.returncode == 0 else "failed",
                 "return_code": result.returncode,
                 "stdout": result.stdout,
                 "stderr": result.stderr,
-                "state": state
-            }
+            })
+            return res
 
     @classmethod
     async def cancel_pipeline(cls, project_id: str) -> dict:
-        """
-        Attempt to cancel a running pipeline.
-        Note: Cancellation depends on subprocess management, which may require
-        expanding safe_subprocess capabilities in the future.
-        """
-        # For now, it just checks lock status
         if project_id in cls._active_pipelines and cls._active_pipelines[project_id].locked():
             return {"status": "error", "message": "Cancellation not natively supported yet. Kill process manually."}
         return {"status": "idle", "message": "No active pipeline to cancel."}

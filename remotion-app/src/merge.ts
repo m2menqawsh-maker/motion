@@ -15,11 +15,11 @@ export interface SceneOverride {
 }
 
 export interface ProjectData {
-  project: { fps: number; title: string };
-  blueprint: { scenes: BlueprintScene[] };
+  project: { title: string };
+  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[] };
   brand: BrandKit;
   overrides?: { scenes: Record<string, SceneOverride> };
-  manifest?: any;
+  asset_manifest?: any;
   media_map?: Record<string, string>;
 }
 
@@ -85,7 +85,14 @@ export function mergeScene(
   const resolvedProps = resolveTokensDeep(mergedProps, brand);
 
   // 4. Validate resolved props strictly against StyleSurfaceSchema (Runtime Validation - Fixes Flaw 8)
-  const finalValidatedSurface = StyleSurfaceSchema.parse(resolvedProps);
+  let finalValidatedSurface;
+  try {
+    finalValidatedSurface = StyleSurfaceSchema.parse(resolvedProps);
+  } catch (e) {
+    console.error("Zod Validation Failed!");
+    console.error("Input Object:", JSON.stringify(resolvedProps, null, 2));
+    throw e;
+  }
 
   // 5. يدمج override.props (مع الفحص)
   let surfaceWithOverrides = { ...finalValidatedSurface };
@@ -170,7 +177,7 @@ export function mergeProject(
   }, 0);
 
   return {
-    fps: data.project.fps,
+    fps: data.blueprint.fps ?? 30,
     title: data.project.title,
     totalDurationFrames,
     scenes,

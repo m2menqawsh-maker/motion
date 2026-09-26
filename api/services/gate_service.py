@@ -1,5 +1,5 @@
 from api.services.pipeline_service import PipelineService
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 
 async def get_status(project_id: str) -> dict:
     """Thin wrapper around PipelineService for backward compatibility"""

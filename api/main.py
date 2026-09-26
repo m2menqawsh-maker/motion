@@ -1,6 +1,6 @@
-from scripts.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers import projects, gates, render, brand, blueprint
@@ -20,6 +20,10 @@ app.include_router(gates.router, prefix="/gates", tags=["gates"])
 app.include_router(render.router, prefix="/render", tags=["render"])
 app.include_router(brand.router, prefix="/brand", tags=["brand"])
 app.include_router(blueprint.router, prefix="/blueprint", tags=["blueprint"])
+
+from api.core.errors import APIError, api_error_handler, global_exception_handler
+app.add_exception_handler(APIError, api_error_handler)
+app.add_exception_handler(Exception, global_exception_handler)
 
 @app.get("/health")
 async def health():

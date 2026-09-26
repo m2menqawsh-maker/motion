@@ -1,2632 +1,6070 @@
 [
   {
-    "id": "brand-resolver",
-    "name": "BrandResolver",
+    "id": "fade-transition",
+    "name": "FadeTransition",
+    "type": "effect",
+    "family": "FadeTransition",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "templates/effects/FadeTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
     "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/brand-resolver.ts",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "custom/LevelOneScene",
-    "name": "Levelonescene",
-    "type": "custom",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/custom/LevelOneScene.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "custom/LevelZeroBox",
-    "name": "Levelzerobox",
-    "type": "custom",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/custom/LevelZeroBox.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "effects/BookFlipTransition",
-    "name": "Bookfliptransition",
+    "id": "slide-transition",
+    "name": "SlideTransition",
     "type": "effect",
-    "family": "core",
+    "family": "SlideTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/BookFlipTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/SlideTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/ClockWipeTransition",
-    "name": "Clockwipetransition",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "wipe-transition",
+    "name": "WipeTransition",
     "type": "effect",
-    "family": "core",
+    "family": "WipeTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/ClockWipeTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/WipeTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/CrosswarpTransition",
-    "name": "Crosswarptransition",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "clock-wipe-transition",
+    "name": "ClockWipeTransition",
     "type": "effect",
-    "family": "core",
+    "family": "ClockWipeTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/CrosswarpTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/ClockWipeTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/CrossZoomTransition",
-    "name": "Crosszoomtransition",
+    "id": "width",
+    "name": "Width",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "height",
+    "name": "Height",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "flip-transition",
+    "name": "FlipTransition",
     "type": "effect",
-    "family": "core",
+    "family": "FlipTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/CrossZoomTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion",
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/FlipTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/DissolveTransition",
-    "name": "Dissolvetransition",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "cross-zoom-transition",
+    "name": "CrossZoomTransition",
     "type": "effect",
-    "family": "core",
+    "family": "CrossZoomTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/DissolveTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/CrossZoomTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/DreamyZoomTransition",
-    "name": "Dreamyzoomtransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "crosswarp-transition",
+    "name": "CrosswarpTransition",
     "type": "effect",
-    "family": "core",
+    "family": "CrosswarpTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/DreamyZoomTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion",
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/CrosswarpTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/engine-bridge",
-    "name": "EngineBridge",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "dissolve-transition",
+    "name": "DissolveTransition",
     "type": "effect",
-    "family": "core",
+    "family": "DissolveTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/engine-bridge.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "general_element"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/DissolveTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/FadeTransition",
-    "name": "Fadetransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "dreamy-zoom-transition",
+    "name": "DreamyZoomTransition",
     "type": "effect",
-    "family": "core",
+    "family": "DreamyZoomTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/FadeTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "path": "templates/effects/DreamyZoomTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/FilmBurnTransition",
-    "name": "Filmburntransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "film-burn-transition",
+    "name": "FilmBurnTransition",
     "type": "effect",
-    "family": "core",
+    "family": "FilmBurnTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/FilmBurnTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "path": "templates/effects/FilmBurnTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/FlipTransition",
-    "name": "Fliptransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "iris-transition",
+    "name": "IrisTransition",
     "type": "effect",
-    "family": "core",
+    "family": "IrisTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/FlipTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/IrisTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/IrisTransition",
-    "name": "Iristransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "linear-blur-transition",
+    "name": "LinearBlurTransition",
     "type": "effect",
-    "family": "core",
+    "family": "LinearBlurTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/IrisTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/LinearBlurTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/LinearBlurTransition",
-    "name": "Linearblurtransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "push-cut-transition",
+    "name": "PushCutTransition",
     "type": "effect",
-    "family": "core",
+    "family": "PushCutTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/LinearBlurTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "path": "templates/effects/PushCutTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/PushCutTransition",
-    "name": "Pushcuttransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "ripple-transition",
+    "name": "RippleTransition",
     "type": "effect",
-    "family": "core",
+    "family": "RippleTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/PushCutTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/RippleTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/RippleTransition",
-    "name": "Rippletransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "swap-transition",
+    "name": "SwapTransition",
     "type": "effect",
-    "family": "core",
+    "family": "SwapTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/RippleTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/SwapTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/SlideTransition",
-    "name": "Slidetransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "zoom-blur-transition",
+    "name": "ZoomBlurTransition",
     "type": "effect",
-    "family": "core",
+    "family": "ZoomBlurTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/SlideTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/ZoomBlurTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/SwapTransition",
-    "name": "Swaptransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "zoom-in-out-transition",
+    "name": "ZoomInOutTransition",
     "type": "effect",
-    "family": "core",
+    "family": "ZoomInOutTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/SwapTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/ZoomInOutTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/WipeTransition",
-    "name": "Wipetransition",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "book-flip-transition",
+    "name": "BookFlipTransition",
     "type": "effect",
-    "family": "core",
+    "family": "BookFlipTransition",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/WipeTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "templates/effects/BookFlipTransition",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/ZoomBlurTransition",
-    "name": "Zoomblurtransition",
-    "type": "effect",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/ZoomBlurTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion",
-      "transition"
-    ],
-    "moods": [
-      "cinematic"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "effects/ZoomInOutTransition",
-    "name": "Zoominouttransition",
-    "type": "effect",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/effects/ZoomInOutTransition.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "image_motion",
-      "transition"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/AnimatedBarChartWrapper",
-    "name": "Animatedbarchartwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/AnimatedBarChartWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/AnimatedCounterWrapper",
-    "name": "Animatedcounterwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/AnimatedCounterWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/AnimatedTextWrapper",
+    "id": "Animatedtextwrapper",
     "name": "Animatedtextwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "type": "text",
+    "family": "AnimatedTextWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/AnimatedTextWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/AnimatedTextWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/AutoFitTitleWrapper",
-    "name": "Autofittitlewrapper",
-    "type": "element",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/AutoFitTitleWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "title_reveal"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/BentoPanWrapper",
-    "name": "Bentopanwrapper",
-    "type": "element",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/BentoPanWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/BRollStackWrapper",
-    "name": "Brollstackwrapper",
-    "type": "element",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/BRollStackWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CalendarMonthFillWrapper",
-    "name": "Calendarmonthfillwrapper",
-    "type": "element",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CalendarMonthFillWrapper.tsx",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "cta"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CalloutSpotlightWrapper",
-    "name": "Calloutspotlightwrapper",
-    "type": "element",
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CalloutSpotlightWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CaptionBumperWrapper",
-    "name": "Captionbumperwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "id": "typewriter-element",
+    "name": "TypewriterElement",
+    "type": "text",
+    "family": "TypeWriterWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/CaptionBumperWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "caption"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/TypeWriterWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/ChangelogEntryWrapper",
-    "name": "Changelogentrywrapper",
-    "type": "element",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/ChangelogEntryWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/ChatToPreviewWrapper",
-    "name": "Chattopreviewwrapper",
-    "type": "element",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/ChatToPreviewWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "messaging"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CodeAccordionWrapper",
-    "name": "Codeaccordionwrapper",
-    "type": "element",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CodeAccordionWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CodeBlockWrapper",
-    "name": "Codeblockwrapper",
-    "type": "element",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CodeBlockWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CodeDiffWipeWrapper",
-    "name": "Codediffwipewrapper",
-    "type": "element",
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CodeDiffWipeWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "transition",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CodeRevealWrapper",
-    "name": "Coderevealwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "id": "codeblock-element",
+    "name": "CodeblockElement",
+    "type": "ui-block",
+    "family": "CodeBlockWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/CodeRevealWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/CodeBlockWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CommentCalloutWrapper",
-    "name": "Commentcalloutwrapper",
-    "type": "element",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CommentCalloutWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CommitGraphWrapper",
-    "name": "Commitgraphwrapper",
-    "type": "element",
+    "id": "language",
+    "name": "Language",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CommitGraphWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/ComparisonTableWrapper",
-    "name": "Comparisontablewrapper",
-    "type": "element",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/ComparisonTableWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "navigation",
-      "data_display"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/CountdownTimerWrapper",
-    "name": "Countdowntimerwrapper",
-    "type": "element",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/CountdownTimerWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/DashboardPopulateWrapper",
-    "name": "Dashboardpopulatewrapper",
-    "type": "element",
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/DashboardPopulateWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "playful"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/DeployRevealWrapper",
-    "name": "Deployrevealwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "id": "matrixrain-element",
+    "name": "MatrixrainElement",
+    "type": "overlay",
+    "family": "MatrixRainWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/DeployRevealWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/MatrixRainWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/DeviceMockupZoomWrapper",
-    "name": "Devicemockupzoomwrapper",
-    "type": "element",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/DeviceMockupZoomWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/EndCardWrapper",
-    "name": "Endcardwrapper",
-    "type": "element",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/EndCardWrapper.tsx",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "cta"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/FaqAccordionWrapper",
-    "name": "Faqaccordionwrapper",
-    "type": "element",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/FaqAccordionWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/FeatureListWrapper",
-    "name": "Featurelistwrapper",
-    "type": "element",
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/FeatureListWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "data_display"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/FileTreeRevealWrapper",
-    "name": "Filetreerevealwrapper",
-    "type": "element",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/FileTreeRevealWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/GradientWrapper",
-    "name": "Gradientwrapper",
-    "type": "element",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/GradientWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/HookCardWrapper",
-    "name": "Hookcardwrapper",
-    "type": "element",
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/HookCardWrapper.tsx",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "ui_element",
-      "hook",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/ImageExpandWrapper",
-    "name": "Imageexpandwrapper",
-    "type": "element",
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/ImageExpandWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/KanbanMoveWrapper",
-    "name": "Kanbanmovewrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "id": "animatedcounter-element",
+    "name": "AnimatedcounterElement",
+    "type": "ui-block",
+    "family": "AnimatedCounterWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/KanbanMoveWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/AnimatedCounterWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/LogoRevealWrapper",
-    "name": "Logorevealwrapper",
-    "type": "element",
+    "id": "value",
+    "name": "Value",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/LogoRevealWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "logo"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/LogoWallWrapper",
-    "name": "Logowallwrapper",
-    "type": "element",
+    "id": "startValue",
+    "name": "Startvalue",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/LogoWallWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "logo"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/LowerThirdWrapper",
-    "name": "Lowerthirdwrapper",
-    "type": "element",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/LowerThirdWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/MapFlightWrapper",
-    "name": "Mapflightwrapper",
-    "type": "element",
+    "id": "prefix",
+    "name": "Prefix",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/MapFlightWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/MatrixRainWrapper",
-    "name": "Matrixrainwrapper",
-    "type": "element",
+    "id": "suffix",
+    "name": "Suffix",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/MatrixRainWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/MediaFrameWrapper",
-    "name": "Mediaframewrapper",
-    "type": "element",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/MediaFrameWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/MetricTickerWrapper",
-    "name": "Metrictickerwrapper",
-    "type": "element",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/MetricTickerWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/NewsTickerBarWrapper",
-    "name": "Newstickerbarwrapper",
-    "type": "element",
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/NewsTickerBarWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/NotificationStackWrapper",
-    "name": "Notificationstackwrapper",
-    "type": "element",
+    "id": "number",
+    "name": "Number",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/elements/NotificationStackWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "notification"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "elements/OrgChartBuildWrapper",
-    "name": "Orgchartbuildwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/OrgChartBuildWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/ParticleSystemWrapper",
-    "name": "Particlesystemwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/ParticleSystemWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/PodcastClipWrapper",
-    "name": "Podcastclipwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/PodcastClipWrapper.tsx",
-    "use_cases": [
-      "social"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/PollOverlayWrapper",
-    "name": "Polloverlaywrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/PollOverlayWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/PricingCardWrapper",
-    "name": "Pricingcardwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/PricingCardWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/PricingFocusWrapper",
-    "name": "Pricingfocuswrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/PricingFocusWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/QuizQuestionWrapper",
-    "name": "Quizquestionwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/QuizQuestionWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/QuoteCardWrapper",
-    "name": "Quotecardwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/QuoteCardWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/ReactionBurstWrapper",
-    "name": "Reactionburstwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/ReactionBurstWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/RoadmapLanesWrapper",
-    "name": "Roadmaplaneswrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/RoadmapLanesWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/Scene3DWrapper",
-    "name": "Scene3Dwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/Scene3DWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/ScrollingImagesWrapper",
-    "name": "Scrollingimageswrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/ScrollingImagesWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/SearchResultsPopulateWrapper",
-    "name": "Searchresultspopulatewrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/SearchResultsPopulateWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "search_ui"
-    ],
-    "moods": [
-      "playful"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/SocialClipWrapper",
-    "name": "Socialclipwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/SocialClipWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/SportsScorebugWrapper",
-    "name": "Sportsscorebugwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/SportsScorebugWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/StaggeredMotionWrapper",
-    "name": "Staggeredmotionwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/StaggeredMotionWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "element_animation",
-      "badge"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/StatCardWrapper",
-    "name": "Statcardwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/StatCardWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "stat"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TabSwitchPanelWrapper",
-    "name": "Tabswitchpanelwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TabSwitchPanelWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "navigation"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TerminalSimulatorWrapper",
-    "name": "Terminalsimulatorwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TerminalSimulatorWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/THEMESWrapper",
-    "name": "Themeswrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/THEMESWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TimelineStepsWrapper",
-    "name": "Timelinestepswrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TimelineStepsWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TitleCardWrapper",
-    "name": "Titlecardwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TitleCardWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "title_reveal"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TutorialClipWrapper",
-    "name": "Tutorialclipwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TutorialClipWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/TypeWriterWrapper",
-    "name": "Typewriterwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/TypeWriterWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "typing"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/WeatherCardWrapper",
-    "name": "Weathercardwrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/WeatherCardWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "elements/ZoomPanFrameWrapper",
-    "name": "Zoompanframewrapper",
-    "type": "element",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
-    "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/elements/ZoomPanFrameWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "image_motion"
-    ],
-    "moods": [
-      "technical"
-    ],
-    "capabilities": [],
-    "notes": ""
-  },
-  {
-    "id": "scenes/AiComposerShowcaseWrapper",
-    "name": "Aicomposershowcasewrapper",
+    "id": "scrollingimages-element",
+    "name": "ScrollingimagesElement",
     "type": "scene",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "family": "ScrollingImagesWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/scenes/AiComposerShowcaseWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/ScrollingImagesWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/AiGenerationCanvasWrapper",
-    "name": "Aigenerationcanvaswrapper",
-    "type": "scene",
+    "id": "images",
+    "name": "Images",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/AiGenerationCanvasWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/AudiogramSceneWrapper",
-    "name": "Audiogramscenewrapper",
-    "type": "scene",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/AudiogramSceneWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/BrowserFlowWrapper",
-    "name": "Browserflowwrapper",
-    "type": "scene",
+    "id": "imageWidth",
+    "name": "Imagewidth",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/BrowserFlowWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/CaptionSceneWrapper",
-    "name": "Captionscenewrapper",
-    "type": "scene",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "id": "particlesystem-element",
+    "name": "ParticlesystemElement",
+    "type": "overlay",
+    "family": "ParticleSystemWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/scenes/CaptionSceneWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "caption"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/ParticleSystemWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/CreatorReelWrapper",
-    "name": "Creatorreelwrapper",
-    "type": "scene",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/CreatorReelWrapper.tsx",
-    "use_cases": [
-      "social"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/DataFlowPipesWrapper",
-    "name": "Dataflowpipeswrapper",
-    "type": "scene",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/DataFlowPipesWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "data_display"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/DataStoryWrapper",
-    "name": "Datastorywrapper",
-    "type": "scene",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/DataStoryWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "data_display"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/DragDropFlowWrapper",
-    "name": "Dragdropflowwrapper",
-    "type": "scene",
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/DragDropFlowWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/EcosystemOrbitWrapper",
-    "name": "Ecosystemorbitwrapper",
-    "type": "scene",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/EcosystemOrbitWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/FormFillSequenceWrapper",
-    "name": "Formfillsequencewrapper",
-    "type": "scene",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/FormFillSequenceWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows",
-      "form_ui"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/HeroDeviceAssembleWrapper",
-    "name": "Herodeviceassemblewrapper",
-    "type": "scene",
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/HeroLoopWrapper",
-    "name": "Heroloopwrapper",
-    "type": "scene",
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/HeroLoopWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/IntroWrapper",
-    "name": "Introwrapper",
+    "id": "scene3d-element",
+    "name": "Scene3DElement",
     "type": "scene",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "family": "Scene3DWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/scenes/IntroWrapper.tsx",
-    "use_cases": [
-      "ad"
-    ],
-    "intents": [
-      "ui_element",
-      "hook",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/Scene3DWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/LandingCodeShowcaseWrapper",
-    "name": "Landingcodeshowcasewrapper",
-    "type": "scene",
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/LiveCodeSplitWrapper",
-    "name": "Livecodesplitwrapper",
-    "type": "scene",
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/LiveCodeSplitWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "code_demo",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/MediaSequenceWrapper",
-    "name": "Mediasequencewrapper",
-    "type": "scene",
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/MediaSequenceWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/ShowcaseWrapper",
-    "name": "Showcasewrapper",
-    "type": "scene",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/ShowcaseWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/SplitScreenWrapper",
-    "name": "Splitscreenwrapper",
+    "id": "staggeredmotion-element",
+    "name": "StaggeredmotionElement",
     "type": "scene",
-    "family": "core",
-    "quality": "C",
-    "status": "production-ready",
+    "family": "StaggeredMotionWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
-    "source": "legacy",
-    "path": "templates/scenes/SplitScreenWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "source": "premium",
+    "path": "templates/elements/StaggeredMotionWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/TalkingHeadLayoutWrapper",
-    "name": "Talkingheadlayoutwrapper",
-    "type": "scene",
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/TalkingHeadLayoutWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/TeamGridWrapper",
-    "name": "Teamgridwrapper",
-    "type": "scene",
+    "id": "fontSize",
+    "name": "Fontsize",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/TeamGridWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
-    ],
-    "intents": [
-      "ui_element",
-      "windows"
-    ],
-    "moods": [
-      "technical"
-    ],
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   },
   {
-    "id": "scenes/ToolMenuSlideWrapper",
-    "name": "Toolmenuslidewrapper",
-    "type": "scene",
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
     "family": "core",
     "quality": "C",
-    "status": "production-ready",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
     "rtl_ready": false,
     "source": "legacy",
-    "path": "templates/scenes/ToolMenuSlideWrapper.tsx",
-    "use_cases": [
-      "ad",
-      "explainer"
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
     ],
-    "intents": [
-      "ui_element",
-      "windows"
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
     ],
-    "moods": [
-      "technical"
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "images",
+    "name": "Images",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
     ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "gradient-element",
+    "name": "GradientElement",
+    "type": "overlay",
+    "family": "GradientWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/GradientWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "animation",
+    "name": "Animation",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "colors",
+    "name": "Colors",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-ai-composer-showcase",
+    "name": "RuiAiComposerShowcase",
+    "type": "scene",
+    "family": "AiComposerShowcaseWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/AiComposerShowcaseWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-ai-generation-canvas",
+    "name": "RuiAiGenerationCanvas",
+    "type": "scene",
+    "family": "AiGenerationCanvasWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/AiGenerationCanvasWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-bento-pan",
+    "name": "RuiBentoPan",
+    "type": "scene",
+    "family": "BentoPanWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/BentoPanWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-browser-flow",
+    "name": "RuiBrowserFlow",
+    "type": "scene",
+    "family": "BrowserFlowWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/BrowserFlowWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-creator-reel",
+    "name": "RuiCreatorReel",
+    "type": "scene",
+    "family": "CreatorReelWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/CreatorReelWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-dashboard-populate",
+    "name": "RuiDashboardPopulate",
+    "type": "scene",
+    "family": "DashboardPopulateWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/DashboardPopulateWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "numbers",
+    "name": "Numbers",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-data-story",
+    "name": "RuiDataStory",
+    "type": "scene",
+    "family": "DataStoryWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/DataStoryWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "label",
+    "name": "Label",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "value",
+    "name": "Value",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "delta",
+    "name": "Delta",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-deploy-reveal",
+    "name": "RuiDeployReveal",
+    "type": "scene",
+    "family": "DeployRevealWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/DeployRevealWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-ecosystem-orbit",
+    "name": "RuiEcosystemOrbit",
+    "type": "scene",
+    "family": "EcosystemOrbitWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/EcosystemOrbitWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-hero-device-assemble",
+    "name": "RuiHeroDeviceAssemble",
+    "type": "scene",
+    "family": "HeroDeviceAssembleWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/HeroDeviceAssembleWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-hero-loop",
+    "name": "RuiHeroLoop",
+    "type": "scene",
+    "family": "HeroLoopWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/HeroLoopWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-image-expand",
+    "name": "RuiImageExpand",
+    "type": "scene",
+    "family": "ImageExpandWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ImageExpandWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-intro",
+    "name": "RuiIntro",
+    "type": "scene",
+    "family": "IntroWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/IntroWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-landing-code-showcase",
+    "name": "RuiLandingCodeShowcase",
+    "type": "scene",
+    "family": "LandingCodeShowcaseWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/LandingCodeShowcaseWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-live-code-split",
+    "name": "RuiLiveCodeSplit",
+    "type": "scene",
+    "family": "LiveCodeSplitWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/LiveCodeSplitWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-podcast-clip",
+    "name": "RuiPodcastClip",
+    "type": "scene",
+    "family": "PodcastClipWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/PodcastClipWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-pricing-focus",
+    "name": "RuiPricingFocus",
+    "type": "scene",
+    "family": "PricingFocusWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/PricingFocusWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-showcase",
+    "name": "RuiShowcase",
+    "type": "scene",
+    "family": "ShowcaseWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/ShowcaseWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-social-clip",
+    "name": "RuiSocialClip",
+    "type": "scene",
+    "family": "SocialClipWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/SocialClipWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-tool-menu-slide",
+    "name": "RuiToolMenuSlide",
+    "type": "scene",
+    "family": "ToolMenuSlideWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/ToolMenuSlideWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-tutorial-clip",
+    "name": "RuiTutorialClip",
+    "type": "scene",
+    "family": "TutorialClipWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/TutorialClipWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-animated-bar-chart",
+    "name": "RuiAnimatedBarChart",
+    "type": "scene",
+    "family": "AnimatedBarChartWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/AnimatedBarChartWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-audiogram-scene",
+    "name": "RuiAudiogramScene",
+    "type": "scene",
+    "family": "AudiogramSceneWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/AudiogramSceneWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-auto-fit-title",
+    "name": "RuiAutoFitTitle",
+    "type": "scene",
+    "family": "AutoFitTitleWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/AutoFitTitleWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-b-roll-stack",
+    "name": "RuiBRollStack",
+    "type": "scene",
+    "family": "BRollStackWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/BRollStackWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "items",
+    "name": "Items",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-calendar-month-fill",
+    "name": "RuiCalendarMonthFill",
+    "type": "scene",
+    "family": "CalendarMonthFillWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CalendarMonthFillWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-callout-spotlight",
+    "name": "RuiCalloutSpotlight",
+    "type": "scene",
+    "family": "CalloutSpotlightWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CalloutSpotlightWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-caption-bumper",
+    "name": "RuiCaptionBumper",
+    "type": "scene",
+    "family": "CaptionBumperWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CaptionBumperWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-caption-scene",
+    "name": "RuiCaptionScene",
+    "type": "scene",
+    "family": "CaptionSceneWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/CaptionSceneWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-changelog-entry",
+    "name": "RuiChangelogEntry",
+    "type": "scene",
+    "family": "ChangelogEntryWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ChangelogEntryWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-t-h-e-m-e-s",
+    "name": "RuiTHEMES",
+    "type": "scene",
+    "family": "THEMESWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/THEMESWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-chat-to-preview",
+    "name": "RuiChatToPreview",
+    "type": "scene",
+    "family": "ChatToPreviewWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ChatToPreviewWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "items",
+    "name": "Items",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-code-accordion",
+    "name": "RuiCodeAccordion",
+    "type": "scene",
+    "family": "CodeAccordionWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CodeAccordionWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-code-diff-wipe",
+    "name": "RuiCodeDiffWipe",
+    "type": "scene",
+    "family": "CodeDiffWipeWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CodeDiffWipeWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-code-reveal",
+    "name": "RuiCodeReveal",
+    "type": "scene",
+    "family": "CodeRevealWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CodeRevealWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-comment-callout",
+    "name": "RuiCommentCallout",
+    "type": "scene",
+    "family": "CommentCalloutWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CommentCalloutWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-commit-graph",
+    "name": "RuiCommitGraph",
+    "type": "scene",
+    "family": "CommitGraphWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CommitGraphWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-comparison-table",
+    "name": "RuiComparisonTable",
+    "type": "scene",
+    "family": "ComparisonTableWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ComparisonTableWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-countdown-timer",
+    "name": "RuiCountdownTimer",
+    "type": "scene",
+    "family": "CountdownTimerWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/CountdownTimerWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-data-flow-pipes",
+    "name": "RuiDataFlowPipes",
+    "type": "scene",
+    "family": "DataFlowPipesWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/DataFlowPipesWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-device-mockup-zoom",
+    "name": "RuiDeviceMockupZoom",
+    "type": "scene",
+    "family": "DeviceMockupZoomWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/DeviceMockupZoomWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "fontFamily",
+    "name": "Fontfamily",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "icons",
+    "name": "Icons",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-drag-drop-flow",
+    "name": "RuiDragDropFlow",
+    "type": "scene",
+    "family": "DragDropFlowWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/DragDropFlowWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-end-card",
+    "name": "RuiEndCard",
+    "type": "scene",
+    "family": "EndCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/EndCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-faq-accordion",
+    "name": "RuiFaqAccordion",
+    "type": "scene",
+    "family": "FaqAccordionWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/FaqAccordionWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "items",
+    "name": "Items",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-feature-list",
+    "name": "RuiFeatureList",
+    "type": "scene",
+    "family": "FeatureListWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/FeatureListWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-file-tree-reveal",
+    "name": "RuiFileTreeReveal",
+    "type": "scene",
+    "family": "FileTreeRevealWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/FileTreeRevealWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-form-fill-sequence",
+    "name": "RuiFormFillSequence",
+    "type": "scene",
+    "family": "FormFillSequenceWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/FormFillSequenceWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-hook-card",
+    "name": "RuiHookCard",
+    "type": "scene",
+    "family": "HookCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/HookCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-kanban-move",
+    "name": "RuiKanbanMove",
+    "type": "scene",
+    "family": "KanbanMoveWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/KanbanMoveWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-logo-reveal",
+    "name": "RuiLogoReveal",
+    "type": "scene",
+    "family": "LogoRevealWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/LogoRevealWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-logo-wall",
+    "name": "RuiLogoWall",
+    "type": "scene",
+    "family": "LogoWallWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/LogoWallWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-lower-third",
+    "name": "RuiLowerThird",
+    "type": "scene",
+    "family": "LowerThirdWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/LowerThirdWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-map-flight",
+    "name": "RuiMapFlight",
+    "type": "scene",
+    "family": "MapFlightWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/MapFlightWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-media-frame",
+    "name": "RuiMediaFrame",
+    "type": "scene",
+    "family": "MediaFrameWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/MediaFrameWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-media-sequence",
+    "name": "RuiMediaSequence",
+    "type": "scene",
+    "family": "MediaSequenceWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/MediaSequenceWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "items",
+    "name": "Items",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-metric-ticker",
+    "name": "RuiMetricTicker",
+    "type": "scene",
+    "family": "MetricTickerWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/MetricTickerWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-news-ticker-bar",
+    "name": "RuiNewsTickerBar",
+    "type": "scene",
+    "family": "NewsTickerBarWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/NewsTickerBarWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-notification-stack",
+    "name": "RuiNotificationStack",
+    "type": "scene",
+    "family": "NotificationStackWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/NotificationStackWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-org-chart-build",
+    "name": "RuiOrgChartBuild",
+    "type": "scene",
+    "family": "OrgChartBuildWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/OrgChartBuildWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-poll-overlay",
+    "name": "RuiPollOverlay",
+    "type": "scene",
+    "family": "PollOverlayWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/PollOverlayWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-pricing-card",
+    "name": "RuiPricingCard",
+    "type": "scene",
+    "family": "PricingCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/PricingCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-quiz-question",
+    "name": "RuiQuizQuestion",
+    "type": "scene",
+    "family": "QuizQuestionWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/QuizQuestionWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-quote-card",
+    "name": "RuiQuoteCard",
+    "type": "scene",
+    "family": "QuoteCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/QuoteCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-reaction-burst",
+    "name": "RuiReactionBurst",
+    "type": "scene",
+    "family": "ReactionBurstWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ReactionBurstWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-roadmap-lanes",
+    "name": "RuiRoadmapLanes",
+    "type": "scene",
+    "family": "RoadmapLanesWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/RoadmapLanesWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-search-results-populate",
+    "name": "RuiSearchResultsPopulate",
+    "type": "scene",
+    "family": "SearchResultsPopulateWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/SearchResultsPopulateWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-split-screen",
+    "name": "RuiSplitScreen",
+    "type": "scene",
+    "family": "SplitScreenWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/SplitScreenWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-sports-scorebug",
+    "name": "RuiSportsScorebug",
+    "type": "scene",
+    "family": "SportsScorebugWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/SportsScorebugWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-stat-card",
+    "name": "RuiStatCard",
+    "type": "scene",
+    "family": "StatCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/StatCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "subtext",
+    "name": "Subtext",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "numbers",
+    "name": "Numbers",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-tab-switch-panel",
+    "name": "RuiTabSwitchPanel",
+    "type": "scene",
+    "family": "TabSwitchPanelWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/TabSwitchPanelWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-talking-head-layout",
+    "name": "RuiTalkingHeadLayout",
+    "type": "scene",
+    "family": "TalkingHeadLayoutWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/TalkingHeadLayoutWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-team-grid",
+    "name": "RuiTeamGrid",
+    "type": "scene",
+    "family": "TeamGridWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/scenes/TeamGridWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-terminal-simulator",
+    "name": "RuiTerminalSimulator",
+    "type": "scene",
+    "family": "TerminalSimulatorWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/TerminalSimulatorWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "color",
+    "name": "Color",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-timeline-steps",
+    "name": "RuiTimelineSteps",
+    "type": "scene",
+    "family": "TimelineStepsWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/TimelineStepsWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-title-card",
+    "name": "RuiTitleCard",
+    "type": "scene",
+    "family": "TitleCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/TitleCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "lines",
+    "name": "Lines",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-weather-card",
+    "name": "RuiWeatherCard",
+    "type": "scene",
+    "family": "WeatherCardWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/WeatherCardWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "rui-zoom-pan-frame",
+    "name": "RuiZoomPanFrame",
+    "type": "scene",
+    "family": "ZoomPanFrameWrapper",
+    "quality": "A",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "premium",
+    "path": "templates/elements/ZoomPanFrameWrapper",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
+    "capabilities": [],
+    "notes": ""
+  },
+  {
+    "id": "text",
+    "name": "Text",
+    "type": "misc",
+    "family": "core",
+    "quality": "C",
+    "status": "experimental",
+    "supported_aspects": [
+      "16:9",
+      "9:16",
+      "1:1"
+    ],
+    "rtl_ready": false,
+    "source": "legacy",
+    "path": "",
+    "use_cases": [],
+    "intents": [],
+    "moods": [],
     "capabilities": [],
     "notes": ""
   }

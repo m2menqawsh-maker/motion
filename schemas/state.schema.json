@@ -1,105 +1,132 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "state.schema.json",
-  "title": "حالة المشروع — Project State",
-  "description": "عقد حالة المشروع: يتتبع المراحل والبوابات والحالة الحالية لخط الإنتاج",
-  "type": "object",
-  "required": ["project_id", "current_stage", "stages", "gates", "updated_at"],
-  "additionalProperties": false,
-  "definitions": {
-    "stageEntry": {
-      "type": "object",
-      "required": ["status"],
-      "additionalProperties": false,
+  "$defs": {
+    "ArtifactRecord": {
       "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["pending", "running", "done", "failed"],
-          "description": "حالة المرحلة"
+        "path": {
+          "title": "Path",
+          "type": "string"
         },
-        "started_at": {
-          "type": ["string", "null"],
-          "format": "date-time",
-          "description": "وقت البدء"
+        "validation": {
+          "$ref": "#/$defs/ValidationLevel"
         },
-        "finished_at": {
-          "type": ["string", "null"],
-          "format": "date-time",
-          "description": "وقت الانتهاء"
+        "size_bytes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size Bytes"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
         }
       },
-      "description": "سجل مرحلة واحدة"
+      "required": [
+        "path",
+        "validation"
+      ],
+      "title": "ArtifactRecord",
+      "type": "object"
     },
-    "gateEntry": {
-      "type": "object",
-      "required": ["status"],
-      "additionalProperties": false,
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["locked", "awaiting", "approved", "rejected"],
-          "description": "حالة البوابة"
-        },
-        "approved_by": {
-          "type": ["string", "null"],
-          "description": "من وافق على البوابة"
-        },
-        "approved_at": {
-          "type": ["string", "null"],
-          "format": "date-time",
-          "description": "وقت الموافقة"
-        },
-        "note": {
-          "type": ["string", "null"],
-          "description": "ملاحظة إضافية"
-        }
-      },
-      "description": "سجل بوابة واحدة"
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ASSETS_READY",
+        "PLAN_READY",
+        "BLUEPRINT_READY",
+        "MATERIALIZED",
+        "PROBE_PASSED",
+        "AWAITING_REVIEW",
+        "REVIEW_APPROVED",
+        "RENDERED",
+        "FINAL_QC_PASSED",
+        "COMPLETE",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ValidationLevel": {
+      "enum": [
+        "EXISTS",
+        "SIZE",
+        "SHA256"
+      ],
+      "title": "ValidationLevel",
+      "type": "string"
     }
   },
+  "additionalProperties": false,
   "properties": {
     "project_id": {
-      "type": "string",
-      "pattern": "^prj_[a-z0-9_-]+$",
-      "description": "معرّف المشروع"
+      "title": "Project Id",
+      "type": "string"
     },
-    "current_stage": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 3,
-      "description": "المرحلة الحالية (0 إلى 3)"
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
     },
-    "last_error": {
-      "type": ["string", "null"],
-      "description": "آخر خطأ مسجل (أو null)"
+    "revision": {
+      "default": 1,
+      "title": "Revision",
+      "type": "integer"
     },
-    "stages": {
-      "type": "object",
-      "required": ["0", "1", "2", "3"],
-      "additionalProperties": false,
-      "properties": {
-        "0": { "$ref": "#/definitions/stageEntry" },
-        "1": { "$ref": "#/definitions/stageEntry" },
-        "2": { "$ref": "#/definitions/stageEntry" },
-        "3": { "$ref": "#/definitions/stageEntry" }
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "DRAFT"
+    },
+    "run_metadata": {
+      "additionalProperties": true,
+      "title": "Run Metadata",
+      "type": "object"
+    },
+    "approval_metadata": {
+      "additionalProperties": true,
+      "title": "Approval Metadata",
+      "type": "object"
+    },
+    "structured_errors": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
       },
-      "description": "سجل المراحل الأربعة"
+      "title": "Structured Errors",
+      "type": "array"
     },
-    "gates": {
-      "type": "object",
-      "required": ["gate_1", "gate_2", "gate_3"],
-      "additionalProperties": false,
-      "properties": {
-        "gate_1": { "$ref": "#/definitions/gateEntry" },
-        "gate_2": { "$ref": "#/definitions/gateEntry" },
-        "gate_3": { "$ref": "#/definitions/gateEntry" }
+    "artifact_records": {
+      "items": {
+        "$ref": "#/$defs/ArtifactRecord"
       },
-      "description": "سجل بوابات الجودة الثلاث"
+      "title": "Artifact Records",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
     },
     "updated_at": {
-      "type": "string",
-      "format": "date-time",
-      "description": "تاريخ ووقت آخر تحديث"
+      "title": "Updated At",
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "project_id"
+  ],
+  "title": "ProjectState",
+  "type": "object"
 }

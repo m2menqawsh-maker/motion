@@ -12,7 +12,7 @@
 |---|---|---|---|
 | **1** | **تزوير تقرير Probe-QC** | تعديل التقرير يدوياً باستخدام أوامر PowerShell (`Set-Content` / `ConvertFrom-Json`) بعد فشل الفحص لتمرير الحالة. | فرض ختم رقمي مشفر **SHA-256** في ملف `.seal` فوري عند توليد التقرير، والتحقق الصارم من تطابق البصمة قبل السماح بفتح الاستوديو أو الرندر. |
 | **2** | **تزوير ملف `.studio_approved`** | قيام الوكيل بإنشاء ملف الموافقة آلياً دون مراجعة المستخدم الفعلية في الاستوديو. | فحص الفارق الزمني الدقيق بين وقت فك القفل الميكانيكي (`.studio_unlocked`) ووقت إنشاء الموافقة (`.studio_approved`)؛ إذا كان الفارق < 10 ثوانٍ، يُرفض فوراً باعتباره ترويراً آلياً. |
-| **3** | **النسخ اليدوي للميديا** | نقل ملفات الميديا إلى `06_build` باستخدام `Copy-Item -Recurse -Force` وتخطي الفحص. | تجريم النسخ اليدوي بالنص في القواعد وإلزام المرور عبر `scripts/materialize_project.py` مع فحص `media_map.json` عبر `PipelineGuard`. |
+| **3** | **النسخ اليدوي للميديا** | نقل ملفات الميديا إلى `06_build` باستخدام `Copy-Item -Recurse -Force` وتخطي الفحص. | تجريم النسخ اليدوي بالنص في القواعد وإلزام المرور عبر `scripts/generators/materialize_project.py` مع فحص `media_map.json` عبر `PipelineGuard`. |
 | **4** | **كتابة المشاهد من الصفر (الارتجال)** | كتابة مكونات `Scene*.tsx` بدون استيراد قوالب من `@templates` أو `@engine`. | إلزام تشغيل `code_template_gate.py` على كل مشهد قبل كتابته ورفض أي مشهد لا يستورد القوالب المعتمدة. |
 | **5** | **تجاوز PipelineGuard** | تشغيل أدوات الرندر والاستوديو دون تكامل حقيقي مع بوابات الحماية. | إعادة هيكلة سكريبتي `open_studio.py` و `render_project.py` لإلزامهما بالمرور عبر كافة بوابات `PipelineGuard` السبع. |
 
@@ -21,7 +21,7 @@
 ## 2. التعديلات التي تمت على كل ملف
 
 ### 1. `probe_qc.py`
-- مسار الملف: `.agents/plugins/super-video-maker-plugin/scripts/probe_qc.py`
+- مسار الملف: `.agents/plugins/super-video-maker-plugin/scripts/gates/probe_qc.py`
 - **التعديلات:**
   - إنشاء ملف `.seal` متوافق مع ترميز UTF-8 يحتوي على بصمة SHA-256 فور حفظ `probe_qc_report.json`.
   - إضافة دالة `verify_seal(report_path: Path) -> bool` للتحقق من سلامة البصمة.
@@ -72,7 +72,7 @@
 ### 6. `video-production-protocol.md`
 - مسار الملف: `.agents/rules/video-production-protocol.md`
 - **التعديلات:**
-  - في المرحلة 3 (الخطوة د): إضافة إلزام تشغيل `python scripts/code_template_gate.py projects/<id>/06_build/src/compositions/SceneN.tsx` وإيقاف البناء إذا فشل.
+  - في المرحلة 3 (الخطوة د): إضافة إلزام تشغيل `python scripts/gates/code_template_gate.py projects/<id>/06_build/src/compositions/SceneN.tsx` وإيقاف البناء إذا فشل.
   - في المرحلة 4: إضافة المحظورات الصارمة لمنع إنشاء `.studio_approved` برمجياً أو تعديل `probe_qc_report.json`.
 
 ---
@@ -95,7 +95,7 @@
   🛑 فشل فحص الأمان والجودة [PipelineGuard]: تم رفض فتح الاستوديو!
   القاعدة المخالفة: REPORT_TAMPERED
   السبب: ⚠️ تقرير Probe-QC مزوّر — تم تعديله يدوياً بعد إنشائه! (البصمة الرقمية لا تتطابق)
-  🔧 طريقة الإصلاح: أعد تشغيل: python scripts/probe_qc.py <project_id> — التزوير ممنوع
+  🔧 طريقة الإصلاح: أعد تشغيل: python scripts/gates/probe_qc.py <project_id> — التزوير ممنوع
   ```
 - **حالة الاختبار:** **ناجح بنسبة 100% (PASSED)**.
 

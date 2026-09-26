@@ -20,13 +20,13 @@ class TestHappyPath:
         await PipelineService.scaffold_project(test_project)
         
         # الموافقة على البوابات بالترتيب
-        await PipelineService.approve_gate(test_project, "asset_gate", "user")
-        await PipelineService.approve_gate(test_project, "plan_gate", "user")
-        await PipelineService.approve_gate(test_project, "taste_gate", "user")
+        await PipelineService.approve_gate(test_project, "gate_1", "user")
+        await PipelineService.approve_gate(test_project, "gate_2", "user")
+        await PipelineService.approve_gate(test_project, "gate_4", "user")
         
         # التحقق من الحالة
         status = await PipelineService.get_status(test_project)
-        assert status["current_stage"] == "taste_gate"
+        assert status["current_stage"] == "qc_gate"
         assert status["status"] == "locked"
         assert status["approved_by"] == "user"
     
@@ -37,7 +37,7 @@ class TestHappyPath:
         await PipelineService.scaffold_project(test_project)
         
         # 2. الموافقة على البوابات
-        for gate in ["asset_gate", "plan_gate", "taste_gate", "qc_gate"]:
+        for gate in ["gate_1", "gate_2", "gate_3", "gate_4"]:
             await PipelineService.approve_gate(test_project, gate, "user")
         
         # 3. تشغيل Pipeline (مع mock)

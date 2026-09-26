@@ -1,6 +1,7 @@
 import pytest
 import asyncio
-from api.services.pipeline_service import PipelineService, PipelineAlreadyRunningException
+from api.services.pipeline_service import PipelineService
+from api.core.errors import PipelineRunningError
 
 class TestConcurrentRequests:
     """الطلبات المتزامنة"""
@@ -55,7 +56,7 @@ class TestConcurrentRequests:
         await lock.acquire()
         try:
             # Attempt to run while locked
-            with pytest.raises(PipelineAlreadyRunningException):
+            with pytest.raises(PipelineRunningError):
                 await PipelineService.run_pipeline(test_project)
         finally:
             lock.release()

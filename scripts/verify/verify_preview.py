@@ -15,9 +15,9 @@ Exit code: 0 = PASS, 1 = FAIL
 import json
 import os
 import subprocess
-from scripts.security import safe_subprocess
+from scripts.security.security import safe_subprocess
 import sys
-from scripts.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, safe_resolve
 from datetime import datetime
 from pathlib import Path
 

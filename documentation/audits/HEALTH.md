@@ -20,6 +20,6 @@
 - **الاختبارات الفاشلة**: `conformance.test.ts`, `contracts.test.ts`, `merge.test.ts`, `registry.test.ts`.
 - **السبب**: رسالة الخطأ المشتركة هي `TypeError: Cannot read properties of undefined (reading 'config')`. يبدو أن هناك مشكلة في إعدادات البيئة لـ Vite.
 
-## 5. `python scripts/validate_schemas.py projects/demo_brand`
+## 5. `python scripts/validators/validate_schemas.py projects/demo_brand`
 - **حالة التشغيل**: يعمل بنجاح تام.
 - **النتيجة**: تم فحص 6 ملفات (project.json, 05_blueprint.json, brand.json, overrides.json, manifest.json, state.json)، والنتيجة هي **نجاح كامل للستة ملفات (سليمة)**.
