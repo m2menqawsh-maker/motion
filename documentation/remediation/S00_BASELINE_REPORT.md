@@ -36,17 +36,17 @@
 - **`TRUE NEW_DISCOVERY`:** **3 بنود فقط** (لم ترد في التدقيق التاريخي):
   1. `DISC-001`: بايتات صفرية تالفة (Null Bytes `\x00`) عند الإزاحة 985 في `.gitignore` تجعل الأدوات تعامله كملف Binary.
   2. `DISC-002`: غياب حارس `if __name__ == '__main__':` في `scripts/generators/materialize_project.py` مما يطلق آثاره الجانبية عند الـ import.
-  3. `DISC-003`: تشغيل مفسر بايثون العام `"python"` بدلاً من `sys.executable` في `api/services/scaffold_service.py:8`.
-- **`REDISCOVERED / DUPLICATE`:** **3 بنود** تم استبعادها من قائمة الاكتشافات الجديدة وربطها بالبنود الأصلية منعاً لتضخيم السجل:
-  - استدعاء `get_status` دون `await` -> مكرر من **`LED-036`**.
-  - تثبيت حزم وقت التشغيل عبر `pip` في Final QC -> مكرر من **`LED-056`**.
-  - دالة `check_av_sync` كود ميت في Final QC -> مكرر من **`LED-052`**.
+  3. `DISC-004`: تشغيل مفسر بايثون العام `"python"` بدلاً من `sys.executable` في `api/services/scaffold_service.py:8`.
+- **`REDISCOVERED / DUPLICATE`:** **3 بنود** تم استبعادها من قائمة الاكتشافات الجديدة وربطها بالبنود الأصلية منعاً لتضخيم السجل وتضارب المعرفات:
+  - `DISC-003` (السابق) -> مكرر من **`LED-036`** (استدعاء `get_status` دون `await` في `materialize_project.py`).
+  - `DISC-005` (السابق) -> مكرر من **`LED-056`** (تثبيت حزم وقت التشغيل عبر `pip` في Final QC).
+  - `DISC-006` (السابق) -> مكرر من **`LED-052`** (دالة `check_av_sync` كود ميت في Final QC).
 
 ---
 
 ## 2. حماية الفروع وقواعد المستودع (Branch Protection Status)
 
-تم تفعيل حماية الفرع الأولية المطلوبة لـ `main` بنجاح عبر GitHub API باستخدام الصلاحيات الإدارية للحساب `m2menqawsh-maker`:
+تم تفعيل حماية الفرع لـ `main` بنجاح عبر GitHub API باستخدام الصلاحيات الإدارية وتطبيقها بصرامة على الجميع بما يشمل Admin / Owner لمنع أي Direct Push، مع تفادي مشكلة Self-Review Deadlock عبر ضبط `required_approving_review_count = 0`:
 
 ```bash
 gh api -X PUT repos/m2menqawsh-maker/motion/branches/main/protection \
@@ -56,11 +56,11 @@ gh api -X PUT repos/m2menqawsh-maker/motion/branches/main/protection \
     "strict": true,
     "contexts": ["vitest", "static-analysis", "python-tests"]
   },
-  "enforce_admins": false,
+  "enforce_admins": true,
   "required_pull_request_reviews": {
     "dismiss_stale_reviews": true,
     "require_code_owner_reviews": false,
-    "required_approving_review_count": 1
+    "required_approving_review_count": 0
   },
   "restrictions": null
 }
@@ -68,11 +68,28 @@ EOF
 ```
 
 ### حالة الحماية المحققة على GitHub (API Verification Result):
-- **`allow_force_pushes`:** `false` (تم حظر الـ Force Push بالكامل).
-- **`allow_deletions`:** `false` (تم حظر حذف فرع `main`).
-- **`pr_reviews`:** `1` (إلزام وجود Pull Request قبل الدمج).
-- **`required_status_checks`:** `["vitest", "static-analysis", "python-tests"]` مفعلة بصرامة (`strict: true`).
-- **`enforce_admins`:** `false` (لتمكين مالك المستودع الفردي من دمج الـ PRs بعد نجاح الفحوص دون إغلاق المستودع).
+```json
+{
+  "allow_deletions": false,
+  "allow_force_pushes": false,
+  "enforce_admins": true,
+  "pr_rule_exists": true,
+  "required_approving_review_count": 0,
+  "required_status_checks": [
+    "vitest",
+    "static-analysis",
+    "python-tests"
+  ],
+  "strict_checks": true
+}
+```
+- **الحالة:** `ACTIVE / STRICTLY ENFORCED`
+- **تطبيق الحماية على المسؤولين والمالك (`enforce_admins: true`):** لا يمكن لأي مستخدم، حتى مالك المستودع، الدفع المباشر (Direct Push) إلى `main`.
+- **حظر الـ Force Push:** مفعل (`allow_force_pushes: false`).
+- **حظر الحذف المباشر:** مفعل (`allow_deletions: false`).
+- **إلزام الـ Pull Request:** مفعل (`pr_rule_exists: true`).
+- **تفادي الـ Self-Review Deadlock (`required_approving_review_count: 0`):** يتيح لمالك المستودع الفردي فتح PR ودمجه بنفسه فقط بعد نجاح الفحوص الإلزامية دون اشتراط مراجع ثانٍ غير موجود.
+- **الفحوص الإلزامية الصارمة (`strict: true`):** `vitest` و `static-analysis` و `python-tests`.
 
 ---
 
@@ -193,7 +210,7 @@ EOF
 | 80 | LED-079 | P1 | Docker render غير داخل CI الحقيقي | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE / RUNTIME_ENVIRONMENT_BLOCKED` | .github/workflows/remediation-ci.yml has no Docker build or run steps |
 | 81 | LED-080 | P2 | Coverage بلا حد أدنى | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE` | .github/workflows/remediation-ci.yml does not enforce --cov-fail-under |
 | 82 | LED-081 | P2 | Pre-commit hooks غائبة | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE` | .pre-commit-config.yaml missing from repository |
-| 83 | LED-082 | P0 | main غير محمية بإلزام فحوص | 8 — CI والحوكمة | S23 | **CHANGED** | `CONFIGURATION_EVIDENCE` | CHANGED — MINIMAL_PROTECTION_ENABLED_IN_S00: تم تفعيل حماية main بنجاح في S00 عبر GitHub API (PR review + checks + block force push) |
+| 83 | LED-082 | P0 | main غير محمية بإلزام فحوص | 8 — CI والحوكمة | S23 | **CHANGED** | `CONFIGURATION_EVIDENCE` | CHANGED — ENFORCE_ADMINS_PROTECTION_ENABLED_IN_S00: تم تفعيل حماية main بنجاح وتطبيقها على المالك (enforce_admins=true, PR required, 0 reviews, strict checks, no direct push, no force push) |
 | 84 | LED-083 | P2 | PR template غائب | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE` | .github/pull_request_template.md missing from repository |
 | 85 | LED-084 | P2 | Dependabot/Security scanning غير مفعل | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE` | .github/dependabot.yml missing from repository |
 | 86 | LED-085 | P1 | Python dependencies غير pinned | 8 — CI والحوكمة | S23 | **CONFIRMED_ON_MAIN** | `CONFIGURATION_EVIDENCE` | requirements.txt uses loose version specifiers without uv.lock |
@@ -282,7 +299,7 @@ EOF
 - [x] 1. تم توثيق الـ `main SHA` الحالي بدقة: `4b96960b6ddb3b14ddcc316e4839a2df1d4350f8`.
 - [x] 2. تم إنشاء فرع العمل المعزول: `remediation/s00-baseline`.
 - [x] 3. تم حفظ مرجع التدقيق التاريخي دون المساس به (`remediation/master-plan @ 1db091b`).
-- [x] 4. تم تفعيل وفحص حماية الفرع `main` بنجاح على GitHub (PR required + checks + block force push).
+- [x] 4. تم تفعيل وفحص حماية الفرع `main` بنجاح وتطبيقها على المالك (enforce_admins=true, PR required, 0 reviews, strict checks, no direct push, no force push).
 - [x] 5. تم توثيق جميع نتائج اختبارات خط الأساس (Vitest, TSC, Drift, Pytest).
 - [x] 6. كل بند من الـ 92 بنداً يملك حالة تحقق صريحة ومدعومة بالأدلة ومصنفة حسب نوع الدليل.
 - [x] 7. تم إثبات عيوب الـ P0 الحرجة باختبارات إعادة إنتاج فعلية حمراء (RED) معزولة.
