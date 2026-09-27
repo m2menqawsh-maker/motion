@@ -71,30 +71,17 @@ def main():
     logger.event("render.execution", status="started", stage="render", component="remotion")
     
     try:
-        from scripts.core.state_store import StateStore
-        from scripts.core.state_model import LifecycleState
+        from scripts.core.review_service import assert_render_authorized, RenderNotAuthorizedError
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
         
-        state = StateStore.load(project_dir)
-        is_approved = (
-            state is not None
-            and state.lifecycle_state in (
-                LifecycleState.REVIEW_APPROVED,
-                LifecycleState.RENDERED,
-                LifecycleState.FINAL_QC_PASSED,
-                LifecycleState.COMPLETE,
-            )
-            and bool(state.approval_metadata.get("approved_by"))
-            and state.approval_metadata.get("status") != "INVALIDATED"
-            and (project_dir / ".studio_approved").exists()
-        )
-        
-        if not is_approved:
+        try:
+            auth_result = assert_render_authorized(project_dir)
+        except RenderNotAuthorizedError as e:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
-                code=FailureCode.PROJECT_NOT_LOCKED,
-                message="Project is not approved (gate_3) for rendering",
+                code=e.code,
+                message=f"Project is not approved (gate_3) for rendering: {e.message}",
                 cause_type="Validation",
                 stage="render",
                 component="remotion"
@@ -103,7 +90,7 @@ def main():
             print(f"\n{'='*60}")
             print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
             print(f"{'='*60}")
-            print("لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED)")
+            print(f"لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED) - السبب: {e.message}")
             sys.exit(1)
             
         workspace_root = Path.cwd().resolve()

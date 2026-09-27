@@ -20,6 +20,7 @@ from scripts.core.state_model import (
     StateTransitionError,
     ArtifactRecord,
     ValidationLevel,
+    ReviewDecisionType,
 )
 from scripts.core.state_store import StateStore
 
@@ -167,11 +168,24 @@ class LifecycleService:
                 )
 
         elif target_state == LifecycleState.REVIEW_APPROVED:
-            studio_approved = project_dir / ".studio_approved"
-            if not studio_approved.exists():
+            # S09: .studio_approved alone is non-authoritative.
+            # Transition requires an active APPROVED ReviewDecision and ReviewBundle.
+            state = StateStore.load(project_dir)
+            active_dec = state.get_active_review_decision() if state else None
+            active_bundle = state.get_active_review_bundle() if state else None
+            is_valid_review = (
+                active_dec is not None
+                and active_dec.decision == ReviewDecisionType.APPROVED
+                and active_bundle is not None
+                and active_bundle.status == "ACTIVE"
+            )
+            if not is_valid_review and evidence and getattr(evidence, "decision", None) == ReviewDecisionType.APPROVED:
+                is_valid_review = True
+
+            if not is_valid_review:
                 raise LifecyclePreconditionFailedError(
                     target_state.value,
-                    "Human review marker (.studio_approved) is missing on disk."
+                    "Human review approval requires an authoritative APPROVED ReviewDecision."
                 )
 
         elif target_state == LifecycleState.RENDERED:

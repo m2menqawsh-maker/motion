@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from scripts.security.path_security import validate_project_id
 from api.services.gate_service import (
-    get_status, start_stage, finish_stage, approve_gate, reject_gate
+    get_status, start_stage, finish_stage, approve_gate, reject_gate, get_review_status
 )
 from api.schemas import GateResponse, StageStatusResponse, GateName, StageName
 from api.core.errors import ProjectNotFoundError
@@ -53,7 +53,7 @@ async def approve(
 ):
     project_id = validate_project_id(project_id)
     # Actor identity is derived strictly from server-verified principal, NEVER from user request
-    result = await approve_gate(project_id, gate.value, by=principal.principal_id)
+    result = await approve_gate(project_id, gate.value, by=principal.principal_id, principal=principal)
     return GateResponse(status="success", output=result)
 
 
@@ -66,5 +66,14 @@ async def reject(
 ):
     project_id = validate_project_id(project_id)
     # Actor identity is derived strictly from server-verified principal, NEVER from user request
-    result = await reject_gate(project_id, gate.value, by=principal.principal_id, note=note)
+    result = await reject_gate(project_id, gate.value, by=principal.principal_id, note=note, principal=principal)
     return GateResponse(status="success", output=result)
+
+
+@router.get("/{project_id}/review/status")
+async def review_status(
+    project_id: str,
+    principal: Principal = Depends(require_permission(Action.PROJECT_READ))
+):
+    project_id = validate_project_id(project_id)
+    return await get_review_status(project_id)

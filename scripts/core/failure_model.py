@@ -44,6 +44,13 @@ class FailureCode(str, Enum):
     QC_GATE_FAILED = "QC_GATE_FAILED"
     PROJECT_NOT_LOCKED = "PROJECT_NOT_LOCKED"
 
+    # S09 Review & Render Authorization
+    REVIEW_BUNDLE_MISSING = "REVIEW_BUNDLE_MISSING"
+    REVIEW_BUNDLE_STALE = "REVIEW_BUNDLE_STALE"
+    REVIEW_NOT_APPROVED = "REVIEW_NOT_APPROVED"
+    REVIEW_IDENTITY_INVALID = "REVIEW_IDENTITY_INVALID"
+    RENDER_NOT_AUTHORIZED = "RENDER_NOT_AUTHORIZED"
+
     # Execution / Subprocess Failures
     GATE_EXECUTION_FAILED = "GATE_EXECUTION_FAILED"
 
@@ -108,6 +115,21 @@ _FAILURE_METADATA_REGISTRY: Dict[FailureCode, FailureMetadata] = {
     ),
     FailureCode.PROJECT_NOT_LOCKED: FailureMetadata(
         FailureCategory.VALIDATION_ERROR, Severity.WARNING, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.REVIEW_BUNDLE_MISSING: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.REVIEW_BUNDLE_STALE: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.REVIEW_NOT_APPROVED: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.REVIEW_IDENTITY_INVALID: FailureMetadata(
+        FailureCategory.SECURITY_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.RENDER_NOT_AUTHORIZED: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
     ),
 
     # Timeouts & Transient: RETRYABLE

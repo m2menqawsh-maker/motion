@@ -1,3 +1,5 @@
+import hashlib
+import json
 from enum import Enum
 from pydantic import BaseModel, Field, ConfigDict, PrivateAttr
 from typing import Dict, List, Optional, Any
@@ -56,6 +58,75 @@ class ArtifactRecord(BaseModel):
         self.invalidated_reason = reason
         self.invalidated_by_recovery_plan = plan_id
 
+
+class ReviewDecisionType(str, Enum):
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    INVALIDATED = "INVALIDATED"
+
+
+class ReviewBundle(BaseModel):
+    model_config = ConfigDict(extra='ignore', use_enum_values=True)
+
+    review_bundle_id: str
+    project_id: str
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    state_revision: int
+    blueprint_sha256: str
+    manifest_sha256: Optional[str] = None
+    media_map_sha256: str
+    probe_report_sha256: str
+    contact_sheet_sha256: Optional[str] = None
+    bundle_digest: str = ""
+    status: str = "ACTIVE"  # "ACTIVE", "SUPERSEDED", "INVALIDATED"
+    invalidated_at: Optional[str] = None
+    invalidated_reason: Optional[str] = None
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+    @classmethod
+    def compute_bundle_digest(cls, data: Dict[str, Any]) -> str:
+        """Deterministic digest of canonical review bundle content."""
+        canonical_dict = {
+            "review_bundle_id": data.get("review_bundle_id"),
+            "project_id": data.get("project_id"),
+            "state_revision": data.get("state_revision"),
+            "blueprint_sha256": data.get("blueprint_sha256"),
+            "manifest_sha256": data.get("manifest_sha256"),
+            "media_map_sha256": data.get("media_map_sha256"),
+            "probe_report_sha256": data.get("probe_report_sha256"),
+            "contact_sheet_sha256": data.get("contact_sheet_sha256"),
+        }
+        canonical_json = json.dumps(canonical_dict, sort_keys=True, separators=(',', ':'))
+        return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
+
+    def invalidate(self, reason: str) -> None:
+        self.status = "INVALIDATED"
+        self.invalidated_at = datetime.now(timezone.utc).isoformat()
+        self.invalidated_reason = reason
+
+
+class ReviewDecision(BaseModel):
+    model_config = ConfigDict(extra='ignore', use_enum_values=True)
+
+    decision_id: str
+    review_bundle_id: str
+    project_id: str
+    decision: ReviewDecisionType
+    actor_id: str
+    actor_type: str = "HUMAN"
+    decided_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    reason: Optional[str] = None
+    state_revision: int
+    bundle_digest: str
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+    def invalidate(self, reason: str) -> None:
+        self.decision = ReviewDecisionType.INVALIDATED
+        self.metadata["invalidated_at"] = datetime.now(timezone.utc).isoformat()
+        self.metadata["invalidated_reason"] = reason
+
+
 class ProjectState(BaseModel):
     model_config = ConfigDict(extra='ignore', use_enum_values=True)
     _loaded_revision: Optional[int] = PrivateAttr(default=None)
@@ -69,6 +140,12 @@ class ProjectState(BaseModel):
     approval_metadata: Dict[str, Any] = Field(default_factory=dict)
     structured_errors: List[Dict[str, Any]] = Field(default_factory=list)
     artifact_records: List[ArtifactRecord] = Field(default_factory=list)
+
+    # S09 Review Authority additions
+    review_bundles: List[ReviewBundle] = Field(default_factory=list)
+    review_decisions: List[ReviewDecision] = Field(default_factory=list)
+    active_review_bundle_id: Optional[str] = None
+    active_review_decision_id: Optional[str] = None
     
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -108,6 +185,43 @@ class ProjectState(BaseModel):
     def get_invalidated_artifact_records(self) -> List[ArtifactRecord]:
         """Returns only records with status INVALIDATED."""
         return [r for r in self.artifact_records if getattr(r, "status", EvidenceStatus.VALID) == EvidenceStatus.INVALIDATED]
+
+    def get_active_review_bundle(self) -> Optional[ReviewBundle]:
+        """Returns the active review bundle referenced by active_review_bundle_id or the latest active bundle."""
+        if self.active_review_bundle_id:
+            for b in reversed(self.review_bundles):
+                if b.review_bundle_id == self.active_review_bundle_id:
+                    return b
+        for b in reversed(self.review_bundles):
+            if b.status == "ACTIVE":
+                return b
+        return self.review_bundles[-1] if self.review_bundles else None
+
+    def get_active_review_decision(self) -> Optional[ReviewDecision]:
+        """Returns the active review decision referenced by active_review_decision_id or the latest decision."""
+        if self.active_review_decision_id:
+            for d in reversed(self.review_decisions):
+                if d.decision_id == self.active_review_decision_id:
+                    return d
+        return self.review_decisions[-1] if self.review_decisions else None
+
+    def sync_approval_metadata(self) -> None:
+        """Derive approval_metadata from authoritative ReviewDecision (S09)."""
+        decision = self.get_active_review_decision()
+        if decision:
+            self.approval_metadata = {
+                "status": decision.decision.value if hasattr(decision.decision, "value") else str(decision.decision),
+                "approved_by": decision.actor_id if decision.decision == ReviewDecisionType.APPROVED else None,
+                "review_bundle_id": decision.review_bundle_id,
+                "decision_id": decision.decision_id,
+                "decided_at": decision.decided_at,
+                "actor_type": decision.actor_type,
+                "reason": decision.reason,
+                "bundle_digest": decision.bundle_digest,
+                "approved_revision": decision.state_revision,
+            }
+        else:
+            self.approval_metadata = {}
 
 class StateTransitionError(Exception):
     """Raised when an invalid state transition is attempted."""

@@ -55,14 +55,19 @@ def main():
         print("الإجراء: يجب تشغيل probe_qc.py ونجاحه أولاً لإنشاء ملف الفتح.")
         sys.exit(1)
 
-    # 1.5. التأكد من عدم تعديل ملف 05_blueprint.json بعد الفحص
-    unlock_mtime = unlock_file.stat().st_mtime
+    # 1.5. التأكد من عدم تعديل ملف 05_blueprint.json بعد الفحص عبر SHA-256
     blueprint_file = proj_dir / "05_blueprint.json"
     if blueprint_file.exists():
-        if blueprint_file.stat().st_mtime > unlock_mtime:
-            print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {blueprint_file.name} بعد الفحص.")
-            print("السبب: أي تعديل على ملفات JSON يتطلب إعادة تشغيل أداة probe_qc.py.")
-            sys.exit(1)
+        from scripts.core.state_store import StateStore
+        state = StateStore.load(proj_dir)
+        if state:
+            bp_rec = state.get_artifact_record("05_blueprint.json")
+            if bp_rec and bp_rec.sha256:
+                current_sha = StateStore._compute_sha256(blueprint_file)
+                if current_sha != bp_rec.sha256:
+                    print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {blueprint_file.name} بعد الفحص (بصمة SHA-256 غير متطابقة).")
+                    print("السبب: أي تعديل على ملفات JSON يتطلب إعادة تشغيل أداة probe_qc.py.")
+                    sys.exit(1)
 
     # 2. التحقق من وجود المحرك المركزي
     if not engine_dir.exists():

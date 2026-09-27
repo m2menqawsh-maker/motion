@@ -399,19 +399,56 @@ def main():
 
         # 7. AWAITING_REVIEW -> REVIEW_APPROVED
         elif next_state == LifecycleState.AWAITING_REVIEW:
-            approved_marker = proj_dir / ".studio_approved"
-            if approved_marker.exists():
-                print(f"\n✅ تم العثور على الموافقة البشرية (.studio_approved). ننتقل لـ REVIEW_APPROVED.")
-                save_state(LifecycleState.REVIEW_APPROVED, [])
+            from scripts.core.review_service import ReviewService, ReviewDecisionType, create_local_trusted_principal
+            state = StateStore.load(proj_dir)
+            active_bundle = state.get_active_review_bundle() if state else None
+            active_decision = state.get_active_review_decision() if state else None
+
+            # Auto-create bundle if not yet created so reviewer has snapshot ready
+            if not active_bundle or active_bundle.status != "ACTIVE":
+                try:
+                    active_bundle = ReviewService.create_review_bundle(proj_dir)
+                    print(f"📦 تم إنشاء حزمة المراجعة: {active_bundle.review_bundle_id}")
+                except Exception as e:
+                    print(f"⚠️ تعذر إنشاء حزمة المراجعة: {e}")
+
+            if active_decision and active_decision.decision == ReviewDecisionType.APPROVED:
+                print(f"\n✅ تم التحقق من اعتماد المراجعة الرسمي ({active_decision.decision_id}). ننتقل لـ REVIEW_APPROVED.")
                 next_state = LifecycleState.REVIEW_APPROVED
             else:
-                print(f"\n⏸️ المنسق متوقف مؤقتاً.")
-                print(f"المشروع جاهز للمعاينة في الاستوديو (AWAITING_REVIEW). يرجى مراجعة الفيديو وإنشاء ملف .studio_approved قبل الرندر النهائي.")
-                sys.exit(0)
+                approved_marker = proj_dir / ".studio_approved"
+                if approved_marker.exists() and active_bundle and active_bundle.status == "ACTIVE":
+                    try:
+                        principal = create_local_trusted_principal("local_studio_reviewer")
+                        active_decision = ReviewService.approve(
+                            proj_dir,
+                            active_bundle.review_bundle_id,
+                            principal=principal,
+                            reason="Approved via local studio session"
+                        )
+                        current_revision = active_decision.state_revision
+                        print(f"\n✅ تم توثيق الاعتماد البشري عبر ReviewService ({active_decision.decision_id}). ننتقل لـ REVIEW_APPROVED.")
+                        next_state = LifecycleState.REVIEW_APPROVED
+                    except Exception as e:
+                        print(f"\n❌ فشل توثيق الاعتماد البشري: {e}")
+                        sys.exit(1)
+                else:
+                    print(f"\n⏸️ المنسق متوقف مؤقتاً.")
+                    print(f"المشروع جاهز للمعاينة في الاستوديو (AWAITING_REVIEW).")
+                    print(f"حزمة المراجعة: {active_bundle.review_bundle_id if active_bundle else 'N/A'}")
+                    print(f"يرجى مراجعة الفيديو وإنشاء ملف .studio_approved أو اعتماد حزمة المراجعة عبر ReviewService قبل الرندر النهائي.")
+                    sys.exit(0)
 
         # 8. REVIEW_APPROVED -> RENDERED
         elif next_state == LifecycleState.REVIEW_APPROVED:
             print(f"\n➔ الانتقال من REVIEW_APPROVED إلى RENDERED (الرندر النهائي):")
+            from scripts.core.review_service import assert_render_authorized, RenderNotAuthorizedError
+            try:
+                assert_render_authorized(proj_dir)
+            except RenderNotAuthorizedError as e:
+                print(f"\n🛑 [GUARDIAN BLOCK] ممنوع الرندر: {e}")
+                mark_failed()
+                sys.exit(1)
             FailureInjector.maybe_inject(InjectionPoint.BEFORE_RENDER)
             if not run_script(logger, "render", "remotion", "render_project.py", IdempotencyClass.CONDITIONALLY_RETRYABLE, project_id, expected_artifacts=[str(proj_dir / "out.mp4")]):
                 mark_failed()

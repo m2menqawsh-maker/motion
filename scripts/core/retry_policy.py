@@ -111,6 +111,17 @@ class RetryPolicyEngine:
         )
 
     @classmethod
+    def verify_preconditions(
+        cls,
+        arg1: Any,
+        arg2: Any,
+    ) -> Tuple[bool, str]:
+        if isinstance(arg1, RetryContext):
+            return cls.validate_retry_preconditions(arg1, arg2)
+        else:
+            return cls.validate_retry_preconditions(arg2, arg1)
+
+    @classmethod
     def validate_retry_preconditions(
         cls,
         context: RetryContext,
@@ -173,14 +184,14 @@ class RetryPolicyEngine:
                         f"Required evidence '{ev_path}' was SUPERSEDED by newer revision",
                     )
 
-        # Precondition D: Render authorization requires canonical structured approval (S07.5 Obs A)
+        # Precondition D: Render authorization requires canonical structured approval (S07.5 Obs A, S09 ReviewService)
         if context.stage == "render" or "render" in context.operation.lower():
-            approved_by = state.approval_metadata.get("approved_by") if state.approval_metadata else None
-            approval_status = state.approval_metadata.get("status") if state.approval_metadata else None
-            if not approved_by or approval_status == "INVALIDATED":
+            from scripts.core.review_service import ReviewService
+            is_auth, auth_msg = ReviewService.is_render_authorized(project_dir)
+            if not is_auth:
                 return (
                     False,
-                    "Render operation requires canonical approval_metadata (approved_by); .studio_approved marker alone is unauthorized",
+                    f"Render operation requires canonical review authorization: {auth_msg}",
                 )
 
         return True, "Preconditions valid for retry"
@@ -273,3 +284,7 @@ class RetryPolicyEngine:
         """Abstraction for delaying. Can be mocked in tests."""
         if decision.should_retry and decision.delay_seconds > 0:
             time.sleep(decision.delay_seconds)
+
+
+# Alias for backward and cross-module compatibility
+RetryPolicy = RetryPolicyEngine

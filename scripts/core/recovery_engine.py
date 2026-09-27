@@ -23,6 +23,7 @@ from scripts.core.state_model import (
     ProjectState,
     ArtifactRecord,
     StateMachine,
+    ReviewDecisionType,
 )
 from scripts.core.state_store import (
     StateStore,
@@ -116,9 +117,12 @@ class RecoveryPlanner:
         cls,
         project_dir: Path | str,
         state: Optional[ProjectState] = None,
+        target_state: Optional[LifecycleState] = None,
+        reason: Optional[str] = None,
     ) -> RecoveryPlan:
         """
         Analyzes the project state and evidence on disk, then generates a structured RecoveryPlan.
+        If target_state is explicitly specified, generates a plan to roll back to that state.
         """
         pdir = Path(project_dir)
         if state is None:
@@ -128,8 +132,16 @@ class RecoveryPlanner:
 
         current_state = LifecycleState(state.lifecycle_state)
 
+        if target_state is not None:
+            target_state_enum = LifecycleState(target_state)
+            target_state = target_state_enum
+            target_idx = LIFECYCLE_ORDER.index(target_state)
+            curr_idx = LIFECYCLE_ORDER.index(current_state) if current_state in LIFECYCLE_ORDER else len(LIFECYCLE_ORDER) - 1
+            stages_to_replay = LIFECYCLE_ORDER[target_idx + 1 : curr_idx + 1] if curr_idx > target_idx else []
+            requires_manual = False
+            reason = reason or f"Targeted rollback to {target_state.value}"
         # 1. Handle terminal error/cancelled states
-        if current_state in (LifecycleState.FAILED, LifecycleState.CANCELLED):
+        elif current_state in (LifecycleState.FAILED, LifecycleState.CANCELLED):
             last_valid = LifecycleState.DRAFT
             candidates = StateMachine.valid_rollback_candidates(current_state)
             for cand in candidates:
@@ -223,6 +235,8 @@ class RecoveryService:
     and explicit invalidation of downstream evidence records.
     """
 
+    create_plan = RecoveryPlanner.create_plan
+
     @classmethod
     def apply_plan(
         cls,
@@ -247,17 +261,26 @@ class RecoveryService:
                         plan_id=plan.plan_id,
                     )
 
-            # Canonical approval invalidation (S07.5 Obs D)
-            # If rolling back to a state prior to REVIEW_APPROVED, invalidate canonical approval_metadata
+            # Canonical approval invalidation (S07.5 Obs D, S09 Review Authority)
+            # If rolling back to a state prior to REVIEW_APPROVED, invalidate canonical review decisions & approval_metadata
             target_idx = LIFECYCLE_ORDER.index(plan.target_state) if plan.target_state in LIFECYCLE_ORDER else -1
             review_approved_idx = LIFECYCLE_ORDER.index(LifecycleState.REVIEW_APPROVED)
             if target_idx < review_approved_idx:
-                working_copy.approval_metadata = {
-                    "status": "INVALIDATED",
-                    "invalidated_reason": f"Rollback to {plan.target_state.value}: {plan.reason}",
-                    "invalidated_at": datetime.now(timezone.utc).isoformat(),
-                    "approved_by": None,
-                }
+                inv_reason = f"Rollback to {plan.target_state.value}: {plan.reason}"
+                for b in working_copy.review_bundles:
+                    if b.status == "ACTIVE":
+                        b.invalidate(inv_reason)
+                for d in working_copy.review_decisions:
+                    if d.decision == ReviewDecisionType.APPROVED:
+                        d.invalidate(inv_reason)
+                working_copy.sync_approval_metadata()
+                if not working_copy.approval_metadata or working_copy.approval_metadata.get("status") != "INVALIDATED":
+                    working_copy.approval_metadata = {
+                        "status": "INVALIDATED",
+                        "invalidated_reason": inv_reason,
+                        "invalidated_at": datetime.now(timezone.utc).isoformat(),
+                        "approved_by": None,
+                    }
 
             # Record recovery event in metadata
             rec_history = working_copy.run_metadata.setdefault("recovery_history", [])

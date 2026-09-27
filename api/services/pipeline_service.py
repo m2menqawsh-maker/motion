@@ -150,7 +150,7 @@ class PipelineService:
         return cls._active_pipelines[project_id]
 
     @classmethod
-    async def approve_gate(cls, project_id: str, gate: str, approved_by: str = None) -> dict:
+    async def approve_gate(cls, project_id: str, gate: str, approved_by: str = None, principal: Any = None) -> dict:
         validate_project_id(project_id)
         if gate not in cls.VALID_GATES:
             raise InvalidGateError(gate)
@@ -160,11 +160,58 @@ class PipelineService:
         if not state:
             raise ProjectNotFoundError(project_id)
 
+        if gate == "qc_gate":
+            from scripts.core.review_service import ReviewService, create_local_trusted_principal
+            from scripts.core.security.principal import Principal
+            eff_principal = principal if isinstance(principal, Principal) else create_local_trusted_principal(approved_by or "api_reviewer")
+            active_bundle = state.get_active_review_bundle()
+            if not active_bundle or active_bundle.status != "ACTIVE":
+                active_bundle = ReviewService.create_review_bundle(project_dir)
+            decision = ReviewService.approve(project_dir, active_bundle.review_bundle_id, principal=eff_principal)
+            return {
+                "decision_id": decision.decision_id,
+                "review_bundle_id": decision.review_bundle_id,
+                "decision": decision.decision.value,
+                "actor_id": decision.actor_id,
+                "decided_at": decision.decided_at,
+            }
+
         # Legacy fake approval eliminated (S04 Final Closure).
-        # Durable review decisions require ReviewService (S09).
         raise UnsupportedGateOperationError(
             operation="approve_gate",
             reason="Gate approval is unsupported via legacy Gate API. Durable review decisions require ReviewService (S09)."
+        )
+
+    @classmethod
+    async def reject_gate(cls, project_id: str, gate: str, by: str = None, note: str = "", principal: Any = None) -> dict:
+        validate_project_id(project_id)
+        if gate not in cls.VALID_GATES:
+            raise InvalidGateError(gate)
+
+        project_dir = cls._get_project_dir(project_id)
+        state = StateStore.load(project_dir)
+        if not state:
+            raise ProjectNotFoundError(project_id)
+
+        if gate == "qc_gate":
+            from scripts.core.review_service import ReviewService, create_local_trusted_principal
+            from scripts.core.security.principal import Principal
+            eff_principal = principal if isinstance(principal, Principal) else create_local_trusted_principal(by or "api_reviewer")
+            active_bundle = state.get_active_review_bundle()
+            if not active_bundle or active_bundle.status != "ACTIVE":
+                active_bundle = ReviewService.create_review_bundle(project_dir)
+            decision = ReviewService.reject(project_dir, active_bundle.review_bundle_id, principal=eff_principal, reason=note or "Rejected via API")
+            return {
+                "decision_id": decision.decision_id,
+                "review_bundle_id": decision.review_bundle_id,
+                "decision": decision.decision.value,
+                "actor_id": decision.actor_id,
+                "reason": decision.reason,
+            }
+
+        raise UnsupportedGateOperationError(
+            operation="reject_gate",
+            reason="Gate rejection is not supported. Durable review decisions require ReviewService (S09)."
         )
 
     @classmethod
