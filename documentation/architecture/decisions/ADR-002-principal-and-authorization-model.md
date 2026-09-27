@@ -26,16 +26,17 @@ We approve a **Server-Verified Principal Model and Role-Based Project Authorizat
 ```
 +-------------------------------------------------------------------------+
 |                               HTTP REQUEST                              |
-|   Headers: Authorization: Bearer <token> (or Session Cookie)            |
+|   Headers: Authorization: Bearer <signed_token>                         |
 |   Body / Query: { ... } (NO identity fields allowed)                    |
 +------------------------------------+------------------------------------+
                                      |
                                      v
 +-------------------------------------------------------------------------+
 |                      AUTHENTICATION MIDDLEWARE                          |
-|   1. Extracts credentials (JWT / Signed Session / Service Token)        |
-|   2. Cryptographically verifies signature and validity                  |
-|   3. Instantiates immutable server-verified Principal                   |
+|   1. Extracts credentials (HMAC-SHA256 Signed Bearer Token)             |
+|   2. Cryptographically verifies HMAC signature BEFORE trusting claims   |
+|   3. Verifies expiration, non-empty identity, roles, and project scopes|
+|   4. Instantiates immutable server-verified Principal                   |
 +------------------------------------+------------------------------------+
                                      |
                                      v
@@ -45,7 +46,7 @@ We approve a **Server-Verified Principal Model and Role-Based Project Authorizat
 |   - principal_type: HUMAN | SERVICE | SYSTEM_WORKER                     |
 |   - roles: [VIEWER, REVIEWER]                                           |
 |   - project_scopes: {"proj_abc123": [VIEWER, REVIEWER]}                 |
-|   - auth_method: "BEARER_JWT"                                           |
+|   - auth_method: "SIGNED_BEARER_TOKEN"                                  |
 +------------------------------------+------------------------------------+
                                      |
                                      v
@@ -61,29 +62,34 @@ We approve a **Server-Verified Principal Model and Role-Based Project Authorizat
 |                           DOMAIN SERVICE                                |
 |   Receives Principal as trusted context.                                |
 |   Identity for records/approvals extracted solely from Principal.       |
-+-------------------------------------------------------------------------+
++------------------------------------+------------------------------------+
 ```
 
 ### Key Principles:
 1. **Total Ban on User-Supplied Identity Parameters:**
    - Parameter names such as `approved_by`, `by`, `actor`, `user`, or `reviewer` in request bodies, query strings, or untrusted headers are strictly **rejected** and forbidden as sources of identity.
    - The verified actor ID is derived solely from the server-authenticated `Principal`.
-2. **Dual Principal Types:**
-   - **Human Principal:** Represents a human user (designer, reviewer, admin). Authenticated via signed session cookies, OAuth2/OIDC tokens, or asymmetric JWTs.
-   - **Service Principal:** Represents an automated component, daemon, or external service. Authenticated via dedicated service tokens or mTLS.
+2. **Authentic Credential Architecture (HMAC-SHA256 Signed Tokens):**
+   - In S02, production authentication enforces a server-signed bearer token format: `<base64url_payload>.<base64url_hmac_sha256>`.
+   - The server verifies HMAC-SHA256 using `AUTH_SECRET_KEY` (configured via `SecuritySettings`, min 32 chars in production) BEFORE parsing or trusting any claim ("Client-provided claims are not trusted claims").
+   - Decoupled from transport: domain services receive the abstract `Principal`.
+   - Future Provider Replacement: Can be cleanly swapped with an OIDC / OAuth2 identity provider without touching domain services.
+3. **Dual Principal Types:**
+   - **Human Principal:** Represents a human user (designer, reviewer, admin). Authenticated via server-verified signed bearer tokens.
+   - **Service Principal:** Represents an automated component, daemon, or external service. Authenticated via dedicated service credentials.
    - A single shared static API key must NEVER be used to masquerade as an individual human user.
-3. **Mandatory Role Hierarchy & Permissions:**
+4. **Mandatory Role Hierarchy & Permissions:**
    The authorization model defines at least five canonical roles:
    - `viewer`: Read-only access to project artifacts, status, and render previews.
    - `editor`: Can create projects, edit brand settings, upload assets, and modify blueprints. Cannot approve review gates.
    - `reviewer`: Specifically empowered to approve or reject stage reviews and quality gates. Requires explicit assignment.
    - `operator`: Can trigger pipeline executions, render jobs, and cancellations.
    - `admin`: Full administrative control, system settings, user management, and security audit access.
-4. **Project Isolation & Scoping:**
+5. **Project Isolation & Scoping:**
    - Possessing a role (e.g. `editor` or `reviewer`) does not automatically grant that role on all projects.
    - The authorization system must evaluate the tuple: `(Principal, Action, Target Project)`.
    - Access is denied unless the Principal possesses the required permission within the target project's scope (or possesses global `admin` privileges).
-5. **Decoupling Domain Services from Transport & Auth Implementation:**
+6. **Decoupling Domain Services from Transport & Auth Implementation:**
    - Domain services must accept an abstract `Principal` object.
    - Domain logic must have zero dependencies on FastAPI request objects, HTTP headers, cookies, or specific JWT parsing libraries.
 

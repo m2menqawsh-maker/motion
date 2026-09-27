@@ -101,8 +101,13 @@ Data and control signals cross multiple trust boundaries. Every transition from 
   - Complete strip / rejection of user-supplied identity parameters (`approved_by`, `by`, `actor`, `user`).
 
 ### 3.2 Trust Boundary B: Principal & Identity
-- **Transition:** Cryptographic credentials (JWT signature or Session token) -> Server-verified `Principal`.
-- **Rule:** A `Principal` instance can only be minted by the Authentication subsystem. Domain logic never reads credentials directly.
+- **Transition:** Cryptographic credentials (HMAC-SHA256 Signed Bearer Token) -> Server-verified `Principal`.
+- **Rule:** A `Principal` instance can only be minted by the Authentication subsystem after cryptographic verification. Client-provided claims are not trusted claims. Domain logic never reads credentials directly.
+- **Enforcement (S02):**
+  - Production tokens follow `<base64url_payload>.<base64url_hmac_sha256>`.
+  - Signature verification using `AUTH_SECRET_KEY` (minimum 32 chars) is strictly executed BEFORE parsing or trusting any claim.
+  - Expiration (`exp`), non-empty identity (`sub`), recognized roles, and safe project scopes are strictly validated.
+  - Unsigned development headers (`X-Principal-*`) are strictly rejected in production.
 
 ### 3.3 Trust Boundary C: Authorization
 - **Transition:** `(Principal, Action, Target Project)` -> Allowed / Denied.
@@ -173,7 +178,7 @@ class Principal(BaseModel):
 1. **Human Principal:**
    - Must have an identifiable user ID, name/email in metadata, and a bounded session lifetime.
    - Used for UI workflows, manual approvals, and interactive reviews.
-   - Authenticated via session cookie or OIDC/JWT.
+   - Authenticated via server-verified HMAC-SHA256 signed bearer tokens in S02, with clean replacement path for future OIDC/OAuth2 providers.
 2. **Service Principal:**
    - Represents an automated system, cron daemon, or webhook bridge.
    - Identified by a machine ID (`svc_...`).

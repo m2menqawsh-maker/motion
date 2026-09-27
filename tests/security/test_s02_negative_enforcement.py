@@ -19,16 +19,26 @@ Comprehensive negative validation covering:
 import os
 import sys
 import shutil
+import base64
+import json
+import logging
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 import pytest
 from fastapi.testclient import TestClient
 
 from api.main import app
+from api.core.auth import create_signed_token, verify_signed_token
 from scripts.core.security.principal import Principal, PrincipalType, Role
 from scripts.core.security.permissions import Action, AuthorizationPolicy
 from scripts.core.security.command_policy import CommandPolicy
 from scripts.core.security.env_policy import EnvironmentPolicyAuditor
+from scripts.core.security.settings import (
+    get_security_settings,
+    set_security_settings,
+    SecuritySettings,
+    EnvironmentType,
+)
 from scripts.core.security.path_policy import (
     validate_project_id,
     validate_asset_id,
@@ -294,66 +304,192 @@ def test_sanitized_environment_strips_forbidden_vars_in_production():
     assert "PATH" in clean
 
 
-# ─── 6. PRODUCTION AUTHENTICATION FAIL-CLOSED SUITE (TASK 3) ───
+# ─── 6. PRODUCTION AUTHENTICATION & CRYPTOGRAPHIC TOKEN VERIFICATION ───
 
-def test_production_auth_missing_credential_returns_401(client, monkeypatch):
-    """In production, missing Authorization header must yield 401."""
+TEST_AUTH_SECRET = "production-test-secret-must-be-at-least-32-chars-long!"
+
+
+def _tamper_token_payload(token: str, mutate_fn) -> str:
+    """Helper to deserialize token payload, mutate claims, and re-serialize without updating HMAC."""
+    payload_b64, sig = token.split(".", 1)
+    pad = len(payload_b64) % 4
+    padded = payload_b64 + ("=" * (4 - pad) if pad else "")
+    data = json.loads(base64.urlsafe_b64decode(padded.encode("ascii")).decode("utf-8"))
+    mutate_fn(data)
+    new_json = json.dumps(data, separators=(',', ':'), sort_keys=True).encode("utf-8")
+    new_payload_b64 = base64.urlsafe_b64encode(new_json).decode("ascii").rstrip("=")
+    return f"{new_payload_b64}.{sig}"
+
+
+# 1. Valid Authentic Credential -> Accepted
+def test_production_auth_valid_authentic_credential_accepted(client, monkeypatch):
+    """In production, a valid cryptographically signed bearer token must be accepted."""
     monkeypatch.setenv("MOTION_ENV", "production")
-    resp = client.post("/projects/", json={"name": "Project FailClosed", "language": "en"})
-    assert resp.status_code == 401
-    assert resp.json()["error"] == "AuthenticationRequired"
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
 
+    principal = Principal(
+        principal_id="usr_editor101",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+    )
+    token = create_signed_token(principal, secret=TEST_AUTH_SECRET, expires_in_seconds=3600)
 
-def test_production_auth_malformed_bearer_returns_401(client, monkeypatch):
-    """In production, malformed bearer tokens must yield 401."""
-    monkeypatch.setenv("MOTION_ENV", "production")
-
-    # Malformed prefix
-    resp1 = client.post("/projects/", json={"name": "P", "language": "en"}, headers={"Authorization": "Token 12345"})
-    assert resp1.status_code == 401
-
-    # Empty token after Bearer
-    resp2 = client.post("/projects/", json={"name": "P", "language": "en"}, headers={"Authorization": "Bearer   "})
-    assert resp2.status_code == 401
-
-
-def test_production_auth_invalid_token_returns_401(client, monkeypatch):
-    """In production, arbitrary unrecognized or invalid tokens must yield 401."""
-    monkeypatch.setenv("MOTION_ENV", "production")
+    proj_name = "AuthenticCredentialProject"
     resp = client.post(
         "/projects/",
-        json={"name": "P", "language": "en"},
-        headers={"Authorization": "Bearer invalid_signature_or_random_garbage"}
+        json={"name": proj_name, "language": "en"},
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    proj_id = data.get("project_id")
+    if proj_id:
+        proj_dir = Path("projects") / proj_id
+        if proj_dir.exists():
+            shutil.rmtree(proj_dir)
+
+
+# 2. Modified Principal ID -> 401
+def test_production_auth_modified_principal_id_rejected(client, monkeypatch):
+    """Tampering with principal_id (sub) without valid signature MUST yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_alice",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+    )
+    valid_token = create_signed_token(principal, secret=TEST_AUTH_SECRET)
+    tampered_token = _tamper_token_payload(valid_token, lambda d: d.update({"sub": "usr_attacker"}))
+
+    resp = client.post(
+        "/projects/",
+        json={"name": "TamperedSubProject", "language": "en"},
+        headers={"Authorization": f"Bearer {tampered_token}"}
     )
     assert resp.status_code == 401
 
 
-def test_production_auth_expired_token_returns_401(client, monkeypatch):
-    """In production, tokens with expired timestamp must yield 401."""
+# 3. Modified Role -> 401
+def test_production_auth_modified_role_rejected(client, monkeypatch):
+    """Tampering with roles (e.g. elevating viewer to admin) MUST yield 401."""
     monkeypatch.setenv("MOTION_ENV", "production")
-    past_timestamp = 1000000000.0  # Year 2001
-    expired_token = f"usr_expired:editor:prj_test:{past_timestamp}"
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_viewer",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.VIEWER},
+    )
+    valid_token = create_signed_token(principal, secret=TEST_AUTH_SECRET)
+    tampered_token = _tamper_token_payload(valid_token, lambda d: d.update({"roles": ["admin"]}))
+
     resp = client.post(
         "/projects/",
-        json={"name": "P", "language": "en"},
+        json={"name": "ElevatedRoleProject", "language": "en"},
+        headers={"Authorization": f"Bearer {tampered_token}"}
+    )
+    assert resp.status_code == 401
+
+
+# 4. Modified Project Scope -> 401
+def test_production_auth_modified_project_scope_rejected(client, monkeypatch):
+    """Tampering with project_scopes to gain access to unauthorized projects MUST yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_scoped",
+        principal_type=PrincipalType.HUMAN,
+        roles=set(),
+        project_scopes={"prj_allowed": {Role.EDITOR}},
+    )
+    valid_token = create_signed_token(principal, secret=TEST_AUTH_SECRET)
+    tampered_token = _tamper_token_payload(valid_token, lambda d: d.update({"scopes": {"prj_target": ["editor"]}}))
+
+    resp = client.post(
+        "/gates/prj_target/approve/gate_1",
+        headers={"Authorization": f"Bearer {tampered_token}"}
+    )
+    assert resp.status_code == 401
+
+
+# 5. Modified Expiry -> 401
+def test_production_auth_modified_expiry_rejected(client, monkeypatch):
+    """Tampering with expiry timestamp to extend validity MUST yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_expiring",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+    )
+    valid_token = create_signed_token(principal, secret=TEST_AUTH_SECRET, expires_in_seconds=-60)
+    tampered_token = _tamper_token_payload(valid_token, lambda d: d.update({"exp": 2051222400}))
+
+    resp = client.post(
+        "/projects/",
+        json={"name": "ExtendedExpiryProject", "language": "en"},
+        headers={"Authorization": f"Bearer {tampered_token}"}
+    )
+    assert resp.status_code == 401
+
+
+# 6. Invalid Signature & Unknown Opaque Token -> 401
+def test_production_auth_invalid_signature_and_unknown_opaque_token(client, monkeypatch):
+    """Tokens with corrupted signatures, forged keys, or random strings MUST yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_legit",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+    )
+    wrong_key_token = create_signed_token(
+        principal,
+        secret="another-completely-different-secret-key-32-chars!",
+        expires_in_seconds=3600
+    )
+    resp_wrong_key = client.post(
+        "/projects/",
+        json={"name": "WrongKeyProject", "language": "en"},
+        headers={"Authorization": f"Bearer {wrong_key_token}"}
+    )
+    assert resp_wrong_key.status_code == 401
+
+    resp_opaque = client.post(
+        "/projects/",
+        json={"name": "OpaqueGarbageProject", "language": "en"},
+        headers={"Authorization": "Bearer random_unregistered_opaque_token_string"}
+    )
+    assert resp_opaque.status_code == 401
+
+
+# 7. Expired Credential -> 401
+def test_production_auth_expired_credential_rejected(client, monkeypatch):
+    """An authentic credential whose expiration timestamp is in the past MUST yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id="usr_expired",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+    )
+    expired_token = create_signed_token(principal, secret=TEST_AUTH_SECRET, expires_in_seconds=-3600)
+
+    resp = client.post(
+        "/projects/",
+        json={"name": "ExpiredProject", "language": "en"},
         headers={"Authorization": f"Bearer {expired_token}"}
     )
     assert resp.status_code == 401
 
 
-def test_production_auth_unknown_principal_returns_401(client, monkeypatch):
-    """In production, structured tokens with invalid principal ID prefix must yield 401."""
-    monkeypatch.setenv("MOTION_ENV", "production")
-    # Missing 'usr_' prefix
-    invalid_token = "unknown_attacker:editor:prj_test"
-    resp = client.post(
-        "/projects/",
-        json={"name": "P", "language": "en"},
-        headers={"Authorization": f"Bearer {invalid_token}"}
-    )
-    assert resp.status_code == 401
-
-
+# 8. Development Headers Rejected in Production -> 401
 def test_production_auth_dev_headers_rejected_in_production(client, monkeypatch):
     """In production, custom development identity headers (X-Principal-*) are strictly ignored and yield 401."""
     monkeypatch.setenv("MOTION_ENV", "production")
@@ -369,24 +505,62 @@ def test_production_auth_dev_headers_rejected_in_production(client, monkeypatch)
     assert resp.status_code == 401
 
 
+# 9. Forged approved_by / by Does Not Affect Principal
 def test_production_auth_forged_approved_by_does_not_affect_principal(client, monkeypatch):
-    """Query parameter ?by= or body approved_by cannot forge identity without valid credentials."""
+    """Query parameter ?by= or body approved_by cannot forge identity or bypass permissions."""
     monkeypatch.setenv("MOTION_ENV", "production")
-    resp = client.post(
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    # Without token: query or body spoofing yields 401
+    resp_unauth = client.post(
         "/gates/prj_sample/approve/gate_1?by=chief_editor",
         json={"approved_by": "chief_editor"}
     )
-    assert resp.status_code == 401
+    assert resp_unauth.status_code == 401
+
+    # With authentic Editor token: attempting to approve by claiming to be reviewer in query yields 403
+    editor_principal = Principal(
+        principal_id="usr_editor_only",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.EDITOR},
+        project_scopes={"prj_sample": {Role.EDITOR}}
+    )
+    editor_token = create_signed_token(editor_principal, secret=TEST_AUTH_SECRET)
+    resp_forbidden = client.post(
+        "/gates/prj_sample/approve/gate_1?by=trusted_reviewer",
+        json={"approved_by": "trusted_reviewer"},
+        headers={"Authorization": f"Bearer {editor_token}"}
+    )
+    assert resp_forbidden.status_code == 403
 
 
+# 10. Authentication Failure Produces Zero Side Effects
 def test_production_auth_failure_produces_zero_side_effects(client, monkeypatch):
-    """Authentication rejection must occur BEFORE any business logic; zero filesystem side-effects."""
+    """Authentication rejection must occur BEFORE any domain/filesystem logic; zero side-effects."""
     monkeypatch.setenv("MOTION_ENV", "production")
     target_project_name = "SideEffectProbeProject"
     resp = client.post("/projects/", json={"name": target_project_name, "language": "en"})
     assert resp.status_code == 401
 
-    # Verify no project folder or state file was created anywhere in projects directory
     projects_dir = Path("projects")
     matching_dirs = [p for p in projects_dir.glob("*") if target_project_name.lower() in p.name.lower()]
     assert len(matching_dirs) == 0, f"Side-effect detected! Project directory was created: {matching_dirs}"
+
+
+# 11. Secrets and Token Signatures Never Appear in Logs
+def test_production_auth_secrets_and_tokens_never_leaked_in_logs(client, monkeypatch, caplog):
+    """Neither secret keys nor full token signatures are ever printed in logs or responses."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    with caplog.at_level(logging.DEBUG):
+        resp = client.post(
+            "/projects/",
+            json={"name": "LeakProbe", "language": "en"},
+            headers={"Authorization": f"Bearer malformed_token_string_with_secret_{TEST_AUTH_SECRET}"}
+        )
+        assert resp.status_code == 401
+        assert TEST_AUTH_SECRET not in resp.text
+        for record in caplog.records:
+            assert TEST_AUTH_SECRET not in record.message
+

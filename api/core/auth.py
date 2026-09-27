@@ -1,7 +1,9 @@
 """FastAPI Authentication and Authorization Boundary.
 
 In accordance with TRUST_MODEL.md, DEC-04, and S02 Security Enforcement:
-- Sensitive operations require a verified Principal constructed by the server.
+- Sensitive operations require an authentic, server-verified Principal.
+- Bearer tokens are cryptographically verified using HMAC-SHA256 signatures (Option B).
+- "Client-provided claims are not trusted claims." Signatures are verified BEFORE trusting any claim.
 - Identity is NEVER derived from request body, query params (?by=, approved_by, actor),
   or untrusted custom headers in production.
 - Authentication failure returns HTTP 401 Unauthorized.
@@ -9,9 +11,14 @@ In accordance with TRUST_MODEL.md, DEC-04, and S02 Security Enforcement:
 """
 
 import os
-from datetime import datetime, timezone
-from typing import Optional, Set
+import base64
+import hmac
+import hashlib
+import json
+from datetime import datetime, timezone, timedelta
+from typing import Optional, Set, Dict, Any
 from fastapi import Request, Depends, HTTPException, status
+
 from scripts.core.security.principal import (
     Principal,
     PrincipalType,
@@ -32,6 +39,178 @@ from scripts.core.security.settings import (
 from scripts.security.path_security import validate_project_id
 
 
+def get_auth_secret(is_production: bool = False) -> str:
+    """Retrieve canonical secret key for HMAC token signing."""
+    settings = get_security_settings()
+    secret = (
+        settings.auth_secret_key
+        or os.environ.get("AUTH_SECRET_KEY")
+        or settings.jwt_secret_key
+        or os.environ.get("JWT_SECRET_KEY")
+    )
+    if is_production:
+        if not secret or len(secret) < 32:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        return secret
+    return secret or "dev-insecure-secret-key-minimum-32-chars-long!"
+
+
+def create_signed_token(
+    principal: Principal,
+    secret: Optional[str] = None,
+    expires_in_seconds: Optional[int] = 3600,
+) -> str:
+    """Generate an authentic HMAC-SHA256 signed bearer token."""
+    if secret is None:
+        secret = get_auth_secret(is_production=False)
+
+    now = datetime.now(timezone.utc)
+    roles_payload = [r.value if isinstance(r, Role) else str(r) for r in principal.roles]
+    scopes_payload = {
+        p_id: [r.value if isinstance(r, Role) else str(r) for r in roles_set]
+        for p_id, roles_set in principal.project_scopes.items()
+    }
+
+    payload: Dict[str, Any] = {
+        "sub": principal.principal_id,
+        "type": principal.principal_type.value if hasattr(principal.principal_type, "value") else str(principal.principal_type),
+        "roles": roles_payload,
+        "scopes": scopes_payload,
+        "iat": int(now.timestamp()),
+        "iss": "clean-video-engine",
+    }
+
+    if expires_in_seconds is not None:
+        exp = now + timedelta(seconds=expires_in_seconds)
+        payload["exp"] = int(exp.timestamp())
+    elif principal.expires_at is not None:
+        payload["exp"] = int(principal.expires_at.timestamp())
+
+    payload_json = json.dumps(payload, separators=(',', ':'), sort_keys=True).encode("utf-8")
+    payload_b64 = base64.urlsafe_b64encode(payload_json).decode("ascii").rstrip("=")
+
+    sig = hmac.new(secret.encode("utf-8"), payload_b64.encode("ascii"), hashlib.sha256).digest()
+    sig_b64 = base64.urlsafe_b64encode(sig).decode("ascii").rstrip("=")
+
+    return f"{payload_b64}.{sig_b64}"
+
+
+def verify_signed_token(
+    token: str,
+    secret: Optional[str] = None,
+    is_production: bool = False,
+) -> Principal:
+    """Verify an authentic HMAC-SHA256 signed bearer token and return the verified Principal.
+    
+    In accordance with TRUST_MODEL:
+    1. Signature is cryptographically verified before any claim is parsed or trusted.
+    2. Expiration, sub format, roles, and project scopes are validated.
+    """
+    if not token or not isinstance(token, str) or token.count(".") != 1:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    payload_b64, sig_b64 = token.split(".", 1)
+    if not payload_b64 or not sig_b64:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    if secret is None:
+        secret = get_auth_secret(is_production=is_production)
+
+    # 1. Cryptographic HMAC-SHA256 Verification (executed BEFORE reading or trusting any claims)
+    try:
+        expected_sig = base64.urlsafe_b64encode(
+            hmac.new(secret.encode("utf-8"), payload_b64.encode("ascii"), hashlib.sha256).digest()
+        ).decode("ascii").rstrip("=")
+    except Exception:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    if not hmac.compare_digest(sig_b64, expected_sig):
+        # Tampered or invalid signature -> reject immediately
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 2. Decode and parse claims payload
+    try:
+        pad_len = len(payload_b64) % 4
+        padded = payload_b64 + ("=" * (4 - pad_len) if pad_len else "")
+        raw_json = base64.urlsafe_b64decode(padded.encode("ascii")).decode("utf-8")
+        claims = json.loads(raw_json)
+        if not isinstance(claims, dict):
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+    except Exception:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 3. Expiration validation
+    exp_dt = None
+    if "exp" in claims:
+        try:
+            exp_ts = float(claims["exp"])
+            exp_dt = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
+            if datetime.now(timezone.utc) > exp_dt:
+                raise AuthenticationRequiredError(Action.PROJECT_READ)
+        except Exception:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 4. Identity validation (sub)
+    sub = claims.get("sub")
+    if not isinstance(sub, str) or not sub.strip():
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    sub = sub.strip()
+    if is_production and not (sub.startswith("usr_") or sub.startswith("sys_")):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 5. Roles validation
+    roles_raw = claims.get("roles", [])
+    if not isinstance(roles_raw, list):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    roles: Set[Role] = set()
+    for r in roles_raw:
+        if not isinstance(r, str):
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        try:
+            roles.add(Role(r.lower().strip()))
+        except ValueError:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 6. Scopes validation
+    scopes_raw = claims.get("scopes", {})
+    if not isinstance(scopes_raw, dict):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    project_scopes: Dict[str, Set[Role]] = {}
+    for p_id, p_roles in scopes_raw.items():
+        if not isinstance(p_id, str) or not isinstance(p_roles, list):
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        try:
+            validate_project_id(p_id)
+        except ValueError:
+            if p_id != "*":
+                raise AuthenticationRequiredError(Action.PROJECT_READ)
+        parsed_scope_roles = set()
+        for pr in p_roles:
+            if not isinstance(pr, str):
+                raise AuthenticationRequiredError(Action.PROJECT_READ)
+            try:
+                parsed_scope_roles.add(Role(pr.lower().strip()))
+            except ValueError:
+                raise AuthenticationRequiredError(Action.PROJECT_READ)
+        project_scopes[p_id] = parsed_scope_roles
+
+    # 7. Principal Type validation
+    p_type_raw = claims.get("type", "HUMAN")
+    try:
+        p_type = PrincipalType(p_type_raw)
+    except ValueError:
+        p_type = PrincipalType.HUMAN
+
+    return Principal(
+        principal_id=sub,
+        principal_type=p_type,
+        roles=roles,
+        project_scopes=project_scopes,
+        auth_method="SIGNED_BEARER_TOKEN",
+        expires_at=exp_dt,
+    )
+
+
 def extract_principal_from_request(request: Request) -> Principal:
     """Extract and authenticate Principal from incoming request."""
     motion_env = os.environ.get("MOTION_ENV", "development").lower()
@@ -46,6 +225,17 @@ def extract_principal_from_request(request: Request) -> Principal:
         if not token:
             raise AuthenticationRequiredError(Action.PROJECT_READ)
 
+        # In production: ALL Bearer tokens MUST be cryptographically verified signed tokens.
+        # Absolutely NO client-asserted claim strings or hardcoded token values are accepted.
+        if is_production:
+            return verify_signed_token(token, is_production=True)
+
+        # Non-production (dev/test):
+        # First attempt signed token verification if token contains '.'
+        if "." in token:
+            return verify_signed_token(token, is_production=False)
+
+        # Development/Test convenience fallbacks (non-production only)
         if token in ("system", "system-token", "sys_worker"):
             return create_system_principal("api-worker")
 
@@ -58,44 +248,6 @@ def extract_principal_from_request(request: Request) -> Principal:
                 auth_method="BEARER_TOKEN"
             )
 
-        # Token schema: usr_id:roles:scopes[:expires_at]
-        if ":" in token:
-            parts = token.split(":")
-            pid = parts[0].strip()
-            if is_production and (not pid or not pid.startswith("usr_")):
-                raise AuthenticationRequiredError(Action.PROJECT_READ)
-            role_strs = parts[1].split(",") if len(parts) > 1 and parts[1] else ["editor"]
-            proj_scope = parts[2].strip() if len(parts) > 2 and parts[2] else None
-            expires_at = None
-            if len(parts) > 3 and parts[3].strip():
-                try:
-                    exp_ts = float(parts[3].strip())
-                    expires_at = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
-                    if expires_at < datetime.now(timezone.utc):
-                        raise AuthenticationRequiredError(Action.PROJECT_READ)
-                except ValueError:
-                    if is_production:
-                        raise AuthenticationRequiredError(Action.PROJECT_READ)
-            roles = set()
-            for r in role_strs:
-                try:
-                    roles.add(Role(r.lower().strip()))
-                except ValueError:
-                    pass
-            project_scopes = {}
-            if proj_scope:
-                project_scopes[proj_scope] = set(roles)
-                if Role.ADMIN not in roles:
-                    roles = set()
-            return Principal(
-                principal_id=pid or "usr_anonymous",
-                principal_type=PrincipalType.HUMAN,
-                roles=roles,
-                project_scopes=project_scopes,
-                auth_method="BEARER_TOKEN",
-                expires_at=expires_at
-            )
-
         if token.startswith("usr_"):
             return Principal(
                 principal_id=token[:32],
@@ -105,17 +257,7 @@ def extract_principal_from_request(request: Request) -> Principal:
                 auth_method="BEARER_TOKEN"
             )
 
-        if is_production:
-            # Unrecognized / invalid token rejected in production
-            raise AuthenticationRequiredError(Action.PROJECT_READ)
-
-        return Principal(
-            principal_id=f"usr_{token[:16]}",
-            principal_type=PrincipalType.HUMAN,
-            roles={Role.EDITOR, Role.VIEWER},
-            project_scopes={},
-            auth_method="BEARER_TOKEN"
-        )
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
 
     # 2. Test / Development Header Support
     # In production, custom unsigned headers are strictly rejected
@@ -136,7 +278,7 @@ def extract_principal_from_request(request: Request) -> Principal:
                         except ValueError:
                             pass
 
-            project_scopes = {}
+            project_scopes: Dict[str, Set[Role]] = {}
             if scope_header:
                 scoped_roles = set(roles) if roles else {Role.EDITOR}
                 for s in scope_header.split(","):
