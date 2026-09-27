@@ -5,8 +5,10 @@ from fastapi.websockets import WebSocketDisconnect
 
 client = TestClient(app)
 
+AUTH_HEADERS = {"Authorization": "Bearer admin"}
+
 def test_render_endpoint():
-    res = client.post("/render/prj_123")
+    res = client.post("/render/prj_123", headers=AUTH_HEADERS)
     assert res.status_code == 200
     assert res.json()["status"] == "rendering"
 
@@ -28,7 +30,7 @@ def test_render_service_mock(mock_exec):
     mock_process.stderr.readline.side_effect = [b""]
     mock_exec.return_value = mock_process
     
-    res = client.post("/render/prj_mock")
+    res = client.post("/render/prj_mock", headers=AUTH_HEADERS)
     assert res.status_code == 200
 
 def test_websocket_disconnect():

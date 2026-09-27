@@ -3,7 +3,7 @@ from api.main import app
 import pytest
 from pathlib import Path
 
-client = TestClient(app)
+client = TestClient(app, headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin"})
 
 def test_project_creation_endpoint():
     response = client.post("/projects/", json={

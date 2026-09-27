@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Optional, Any
@@ -171,7 +172,7 @@ class PipelineService:
             
             func = functools.partial(
                 safe_subprocess, 
-                ["python", "scripts/pipeline.py", project_id], 
+                [sys.executable, "scripts/pipeline.py", project_id], 
                 capture_output=True, 
                 text=True,
                 env=env

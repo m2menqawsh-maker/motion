@@ -1,11 +1,13 @@
+import sys
 from scripts.security.path_security import validate_project_id
-import subprocess
 from scripts.security.security import safe_subprocess
 from pathlib import Path
 
+
 def create_project(name: str, language: str) -> str:
+    # Use sys.executable to prevent Python interpreter drift (DISC-004)
     cmd = [
-        "python", "scripts/scaffold_project.py",
+        sys.executable, "scripts/scaffold_project.py",
         "--name", name,
         "--language", language
     ]

@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 import json
 import re
@@ -8,7 +9,7 @@ from pathlib import Path
 @pytest.fixture
 def run_scaffold():
     cmd = [
-        "python", "scripts/scaffold_project.py",
+        sys.executable, "scripts/scaffold_project.py",
         "--name", "Test Project",
         "--language", "ar"
     ]
@@ -17,9 +18,7 @@ def run_scaffold():
     project_id = result.stdout.strip()
     project_dir = Path(f"projects/{project_id}")
     yield project_id, project_dir
-    # Cleanup (optional but good practice)
-    # import shutil
-    # shutil.rmtree(project_dir)
+
 
 def test_directories_created(run_scaffold):
     project_id, project_dir = run_scaffold
@@ -34,14 +33,12 @@ def test_project_id_matches_pattern(run_scaffold):
 
 def test_project_json_schema(run_scaffold):
     project_id, project_dir = run_scaffold
-    cmd = ["python", "scripts/validators/validate_schemas.py", str(project_dir)]
+    cmd = [sys.executable, "scripts/validators/validate_schemas.py", str(project_dir)]
     result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
     assert "✅ project.json         — سليم" in result.stdout
 
-
-
 def test_brand_json_schema(run_scaffold):
     project_id, project_dir = run_scaffold
-    cmd = ["python", "scripts/validators/validate_schemas.py", str(project_dir)]
+    cmd = [sys.executable, "scripts/validators/validate_schemas.py", str(project_dir)]
     result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
     assert "✅ brand.json           — سليم" in result.stdout

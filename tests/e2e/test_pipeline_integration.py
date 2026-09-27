@@ -1,3 +1,4 @@
+import sys
 import subprocess, json, shutil, pytest, asyncio
 from pathlib import Path
 from api.services.pipeline_service import PipelineService
@@ -14,7 +15,7 @@ def run(cmd):
 
 @pytest.fixture(scope="module")
 def project_setup():
-    code, stdout, stderr = run(["python", "scripts/scaffold_project.py", "--name", "Test", "--language", "ar"])
+    code, stdout, stderr = run([sys.executable, "scripts/scaffold_project.py", "--name", "Test", "--language", "ar"])
     assert code == 0
     project_id = stdout.strip()
     project_dir = Path("projects") / project_id
@@ -51,7 +52,7 @@ def test_scaffold_creates_project(project_setup):
 
 def test_blueprint_passes_schema(project_setup):
     project_id, project_dir = project_setup
-    code, _, _ = run(["python", "scripts/validators/validate_schemas.py", str(project_dir)])
+    code, _, _ = run([sys.executable, "scripts/validators/validate_schemas.py", str(project_dir)])
     assert code == 0
 
 def test_stage_gate_allows_transitions(project_setup):

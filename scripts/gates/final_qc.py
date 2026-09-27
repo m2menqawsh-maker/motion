@@ -10,13 +10,19 @@ from scripts.security.security import safe_subprocess
 from pathlib import Path
 
 def ensure_dependencies():
-    """تثبيت المكتبات المطلوبة تلقائياً"""
-    required = ['librosa', 'soundfile', 'ffmpeg-python']
-    for pkg in required:
+    """تثبيت المكتبات المطلوبة تلقائياً في بيئة التطوير فقط"""
+    pkg_map = {
+        'librosa': 'librosa',
+        'soundfile': 'soundfile',
+        'ffmpeg-python': 'ffmpeg',
+    }
+    for pkg, import_name in pkg_map.items():
         try:
-            import_name = pkg.replace('-', '_')
             __import__(import_name)
         except ImportError:
+            if os.environ.get("MOTION_ENV", "").lower() in ("production", "prod"):
+                print(f"❌ Missing required dependency in production: {pkg}")
+                sys.exit(1)
             print(f"📦 تثبيت {pkg}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", pkg, "--quiet"])
 
@@ -232,13 +238,15 @@ def main():
     report_file = project_dir / "final_qc_report.json"
     report_file.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     
-    import os
-    if has_fail and not os.environ.get("SKIP_STRICT_QC"):
+    motion_env = os.environ.get("MOTION_ENV", "development").lower()
+    is_production = motion_env in ("production", "prod")
+
+    if has_fail:
+        if not is_production and os.environ.get("SKIP_STRICT_QC") and motion_env == "test":
+            print("⚠️ Final QC فشل ولكن تم تخطيه بسبب SKIP_STRICT_QC (TEST ENVIRONMENT ONLY).")
+            sys.exit(0)
         print("❌ Final QC فشل. يرجى مراجعة التقرير.")
         sys.exit(1)
-    elif has_fail:
-        print("⚠️ Final QC فشل ولكن تم تخطيه بسبب SKIP_STRICT_QC.")
-        sys.exit(0)
     else:
         print("🎉 Final QC نجح. الفيديو جاهز للتسليم.")
         sys.exit(0)

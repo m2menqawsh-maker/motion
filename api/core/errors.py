@@ -1,6 +1,7 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 import logging
+from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
 
 logger = logging.getLogger("api.errors")
 
@@ -35,6 +36,33 @@ class PipelineRunningError(APIError):
             status_code=409,
             details={"project_id": project_id}
         )
+
+async def authentication_required_handler(request: Request, exc: AuthenticationRequiredError):
+    return JSONResponse(
+        status_code=401,
+        content={
+            "status": "error",
+            "error": "AuthenticationRequired",
+            "message": str(exc),
+            "details": {}
+        }
+    )
+
+async def access_denied_handler(request: Request, exc: AccessDeniedError):
+    return JSONResponse(
+        status_code=403,
+        content={
+            "status": "error",
+            "error": "AccessDenied",
+            "message": str(exc),
+            "details": {
+                "principal_id": exc.principal_id,
+                "action": exc.action.value,
+                "project_id": exc.project_id,
+                "reason": exc.reason
+            }
+        }
+    )
 
 async def api_error_handler(request: Request, exc: APIError):
     return JSONResponse(

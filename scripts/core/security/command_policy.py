@@ -125,10 +125,13 @@ class CommandPolicy:
         # Allowlist of safe runtime environment keys
         safe_keys = {
             "PATH", "SYSTEMROOT", "HOME", "USER", "LANG", "LC_ALL",
-            "PYTHONPATH", "TMPDIR", "TEMP", "TMP", "NODE_ENV",
-            "AGY_RUN_ID", "AGY_SPAN_ID", "AGY_ATTEMPT", "AGY_PROJECT_ID",
+            "PYTHONPATH", "TMPDIR", "TEMP", "TMP", "NODE_ENV", "VIRTUAL_ENV",
+            "AGY_RUN_ID", "AGY_SPAN_ID", "AGY_ATTEMPT", "AGY_PROJECT_ID", "AGY_IS_MANAGED",
             "DISPLAY", "SVM_DATA_DIR", "SVM_PLUGIN_ROOT", "WHISPER_DEVICE",
         }
+
+        if not is_production:
+            safe_keys.update({"SKIP_STRICT_QC", "DEBUG_SECURITY"})
 
         for k, v in raw.items():
             if k in safe_keys or k.endswith("_API_KEY") or k.endswith("_TOKEN") or k.startswith("MOTION_"):
@@ -137,9 +140,21 @@ class CommandPolicy:
                     continue
                 clean[k] = v
 
-        # Enforce canonical PYTHONPATH to workspace
+        # Enforce canonical PYTHONPATH to workspace and active virtual environment packages
+        pythonpath_parts = []
         if workspace_root:
-            clean["PYTHONPATH"] = str(workspace_root.resolve())
+            pythonpath_parts.append(str(Path(workspace_root).resolve()))
+        else:
+            pythonpath_parts.append(str(Path.cwd().resolve()))
+        existing_pp = raw.get("PYTHONPATH", "")
+        if existing_pp:
+            for p in existing_pp.split(os.pathsep):
+                if p and p not in pythonpath_parts:
+                    pythonpath_parts.append(p)
+        for p in sys.path:
+            if "site-packages" in p and p not in pythonpath_parts:
+                pythonpath_parts.append(p)
+        clean["PYTHONPATH"] = os.pathsep.join(pythonpath_parts)
 
         return clean
 
@@ -165,8 +180,8 @@ class CommandPolicy:
             exe_name = exe_name[:-4]
 
         # Determine target working directory
-        root = workspace_root or Path.cwd()
-        effective_cwd = (cwd or root).resolve()
+        root = Path(workspace_root or Path.cwd()).resolve()
+        effective_cwd = Path(cwd).resolve() if cwd else root
 
         # Check CWD confinement
         try:
@@ -247,7 +262,7 @@ class CommandPolicy:
             # Check for node eval flags
             for arg in cmd_list[1:]:
                 if arg in NODE_DANGEROUS_FLAGS:
-                    violations.append(f"Node flag '{arg}' (arbitrary evaluation) is strictly prohibited.")
+                    violations.append(f"Dangerous flag / Node flag '{arg}' (arbitrary evaluation) is strictly prohibited.")
 
             if exe_name in ("npm", "npm.cmd"):
                 if len(cmd_list) < 3 or cmd_list[1] != "run" or cmd_list[2] != "build":

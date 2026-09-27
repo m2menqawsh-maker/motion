@@ -73,3 +73,11 @@ class StateStore:
             return ProjectState(**data)
         except Exception:
             return None
+
+    @staticmethod
+    def create(project_dir: Path, project_id: str) -> ProjectState:
+        """Initialize and save a new ProjectState record in project_dir."""
+        state = ProjectState(project_id=project_id)
+        StateStore.save(project_dir, state)
+        return state
+

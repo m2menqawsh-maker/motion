@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 from api.main import app
-
-client = TestClient(app)
+client = TestClient(app, headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin,reviewer,editor"})
 
 def create_proj():
     return client.post("/projects/", json={"name": "T", "language": "ar"}).json()["project_id"]

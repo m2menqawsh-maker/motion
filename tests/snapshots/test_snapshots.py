@@ -41,9 +41,11 @@ def setup_module():
         with open(SNAPSHOTS_DIR / name, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
+import sys
+
 def run_guard(guard_script, payload):
     proc = subprocess.Popen(
-        ["python", guard_script],
+        [sys.executable, guard_script],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -110,7 +112,7 @@ def test_circuit_breaker_across_all_guards():
     
     # Simulate failures using post_executor
     for _ in range(3):
-        subprocess.run(["python", ".agents/guardian/post_executor.py"], input=json.dumps({
+        subprocess.run([sys.executable, ".agents/guardian/post_executor.py"], input=json.dumps({
             "tool_name": "run_command",
             "tool_input": {"command": "bad_cmd"},
             "tool_output": "exited with code 1"

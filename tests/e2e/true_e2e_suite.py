@@ -23,7 +23,7 @@ def create_dummy_media(project_dir: Path):
 
 def run_pipeline(project_id: str):
     print(f"Running pipeline for {project_id}...")
-    env = {**os.environ, "SKIP_STRICT_QC": "1"}
+    env = {**os.environ, "SKIP_STRICT_QC": "1", "MOTION_ENV": "test"}
     proc = subprocess.run([sys.executable, "scripts/pipeline.py", project_id], cwd=str(workspace_root), capture_output=True, text=True, encoding="utf-8", env=env)
     return proc
 

@@ -1,11 +1,12 @@
 from scripts.security.path_security import validate_project_id
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, BackgroundTasks
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, BackgroundTasks, Depends
 from api.services.render_service import render_project_async
 from api.websocket import manager
 from api.schemas import StandardResponse
-import asyncio
+from api.core.auth import require_permission, Principal, Action
 
 router = APIRouter()
+
 
 @router.websocket("/{project_id}/ws")
 async def websocket_endpoint(websocket: WebSocket, project_id: str):
@@ -17,8 +18,13 @@ async def websocket_endpoint(websocket: WebSocket, project_id: str):
     except WebSocketDisconnect:
         manager.disconnect(websocket, project_id)
 
+
 @router.post("/{project_id}", response_model=StandardResponse)
-async def render(project_id: str, background_tasks: BackgroundTasks):
+async def render(
+    project_id: str,
+    background_tasks: BackgroundTasks,
+    principal: Principal = Depends(require_permission(Action.RENDER_TRIGGER))
+):
     project_id = validate_project_id(project_id)
     background_tasks.add_task(render_project_async, project_id, manager)
     return StandardResponse(status="rendering", message="Render job queued")

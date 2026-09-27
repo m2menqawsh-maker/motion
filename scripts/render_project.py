@@ -78,7 +78,7 @@ def main():
         state = StateStore.load(project_dir)
         is_approved = (project_dir / ".studio_approved").exists()
         
-        if not is_approved and not is_managed:
+        if not is_approved:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
                 code=FailureCode.PROJECT_NOT_LOCKED,

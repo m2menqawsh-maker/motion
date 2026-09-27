@@ -4,6 +4,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 import subprocess
 from scripts.security.security import safe_subprocess
+from scripts.security.path_security import (
+    validate_project_id,
+    validate_asset_id,
+    resolve_safe_path,
+    validate_source_asset,
+    PathSecurityViolation,
+)
 import asyncio
 from api.services.pipeline_service import PipelineService
 
@@ -18,7 +25,7 @@ PLUGIN_DIR = WS / ".agents" / "plugins" / "super-video-maker-plugin"
 proj = Path(sys.argv[1]).resolve()
 man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))
 
-project_id = proj.name
+project_id = validate_project_id(proj.name)
 
 # ─── الفحص الإجباري قبل أي بناء ───
 try:
@@ -35,21 +42,54 @@ except Exception as e:
     sys.exit(1)
 
 pub_media = WS / "remotion-app" / "public" / "projects" / project_id / "media"
-pub_media.mkdir(parents=True, exist_ok=True)
 
-fails, media_map, used = [], {}, set()
+fails, planned_copies, media_map, used = [], [], {}, set()
+
 def canon(p):
-    p = Path(p); return p if p.is_absolute() else (WS / p)
+    p = Path(p)
+    return p if p.is_absolute() else (WS / p)
 
+# ─── PHASE 1: PRE-VALIDATION (Zero Side Effects) ───
+# Any security violation, path traversal, or symlink escape MUST fail before copying/writing.
 for a in man.get("assets", []):
-    aid = a["asset_id"]
-    src = canon(a.get("processed_path") or a.get("path", ""))
-    if not src.exists(): fails.append(f"asset {aid}: missing {src}"); continue
-    if PLUGIN_DIR in src.parents: fails.append(f"asset {aid}: مصدر داخل مجلد المهارة (ممنوع): {src}"); continue
-    out = pub_media / f"{aid}{src.suffix}"
-    shutil.copy2(src, out)
-    media_map[aid] = f"projects/{project_id}/media/{out.name}"
+    aid = a.get("asset_id", "")
+    
+    # 1. Asset ID Confinement Validation
+    try:
+        validate_asset_id(aid)
+    except ValueError as e:
+        fails.append(f"asset '{aid}': {e}")
+        continue
 
+    raw_path = a.get("processed_path") or a.get("path", "")
+    if not raw_path:
+        fails.append(f"asset {aid}: missing path")
+        continue
+
+    src = canon(raw_path)
+
+    # 2. Source Asset & Symlink Confinement Validation
+    try:
+        real_src = validate_source_asset(src, allowed_roots=[WS], forbidden_roots=[PLUGIN_DIR])
+    except (PathSecurityViolation, FileNotFoundError, OSError) as e:
+        fails.append(f"asset {aid}: {e}")
+        continue
+
+    # 3. Destination Confinement Validation
+    candidate_out = pub_media / f"{aid}{src.suffix}"
+    try:
+        # Candidate out must resolve inside pub_media
+        cand_resolved = candidate_out.resolve()
+        pub_resolved = pub_media.resolve()
+        cand_resolved.relative_to(pub_resolved)
+    except (ValueError, Exception) as e:
+        fails.append(f"asset {aid}: destination escape detected: {candidate_out}")
+        continue
+
+    planned_copies.append((src, candidate_out, aid))
+    media_map[aid] = f"projects/{project_id}/media/{candidate_out.name}"
+
+# Validate blueprint scenes and template references
 for sec in bp.get("scenes", []):
     name = sec.get("template")
     if name:
@@ -66,17 +106,25 @@ for sec in bp.get("scenes", []):
     
     # Check media_refs, sfx_ref, captions_ref
     for ref in sec.get("media_refs", []):
-        if ref not in media_map: fails.append(f"عنصر يشير لأصل غير مهيأ: {ref}")
+        if ref not in media_map:
+            fails.append(f"عنصر يشير لأصل غير مهيأ: {ref}")
     if sec.get("sfx_ref") and sec.get("sfx_ref") not in media_map:
         fails.append(f"عنصر يشير لمؤثر صوتي غير مهيأ: {sec.get('sfx_ref')}")
-    
-    props = sec.get("props", {})
-    # No arbitrary deep path checks are needed anymore because paths are resolved at runtime via media_map.json.
+
+# If ANY validation fails, reject immediately with zero filesystem mutations
+if fails:
+    print("❌ MATERIALIZE FAIL:")
+    for x in fails:
+        print(" -", x)
+    sys.exit(1)
+
+# ─── PHASE 2: EXECUTION PASS (Safe Materialization) ───
+pub_media.mkdir(parents=True, exist_ok=True)
+
+for src, out, aid in planned_copies:
+    shutil.copy2(src, out)
 
 (proj / "media_map.json").write_text(
     json.dumps(media_map, indent=2, ensure_ascii=False), encoding="utf-8")
-if fails:
-    print("❌ MATERIALIZE FAIL:"); [print(" -", x) for x in fails]; sys.exit(1)
 
-# ─── تم النقل: الـ Hashing أصبح من مسؤولية pipeline.py ───
 print(f"✅ MATERIALIZED: {len(media_map)} assets, {len(used)} templates")
