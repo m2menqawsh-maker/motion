@@ -1,4 +1,5 @@
 import os
+import json
 import signal
 import time
 import pytest
@@ -471,3 +472,152 @@ class TestStateStoreConcurrencyAndCAS:
         assert body["details"]["code"] == "STATE_CONFLICT"
         assert body["details"]["expected_revision"] == 5
         assert body["details"]["actual_revision"] == 6
+
+    def test_a1_manual_state_cannot_overwrite_existing_state(self, tmp_path):
+        """
+        Test A1: Manual state construction without trusted _loaded_revision
+        must fail closed with StateConflictError when attempting to save over existing state.
+        """
+        pdir = tmp_path / "prj_a1"
+        StateStore.create(pdir, "prj_a1")
+        initial_disk = StateStore.load(pdir)
+        assert initial_disk.revision == 1
+
+        manual_state = ProjectState(
+            project_id="prj_a1",
+            revision=1,
+            lifecycle_state=LifecycleState.DRAFT,
+            run_metadata={"hacked": True},
+        )
+        assert getattr(manual_state, "_loaded_revision", None) is None
+
+        with pytest.raises(StateConflictError) as exc_info:
+            StateStore.save(pdir, manual_state)
+
+        assert exc_info.value.actual_revision == 1
+        assert exc_info.value.expected_revision is None
+
+        current = StateStore.load(pdir)
+        assert current.revision == 1
+        assert "hacked" not in current.run_metadata
+
+    def test_a2_mutating_public_revision_cannot_defeat_cas(self, tmp_path):
+        """
+        Test A2: Caller mutating public revision on a stale object cannot bypass CAS.
+        Expected revision is derived from the trusted _loaded_revision, not state.revision.
+        """
+        pdir = tmp_path / "prj_a2"
+        StateStore.create(pdir, "prj_a2")
+
+        stale_state = StateStore.load(pdir)
+        assert stale_state.revision == 1
+        assert stale_state._loaded_revision == 1
+
+        StateStore.atomic_update(
+            pdir,
+            expected_revision=1,
+            mutator=lambda s: s.run_metadata.update({"legit": "update"}),
+        )
+        assert StateStore.load(pdir).revision == 2
+
+        stale_state.revision = 2
+        stale_state.run_metadata["malicious"] = "overwrite"
+
+        with pytest.raises(StateConflictError) as exc_info:
+            StateStore.save(pdir, stale_state)
+
+        assert exc_info.value.expected_revision == 1
+        assert exc_info.value.actual_revision == 2
+
+        current = StateStore.load(pdir)
+        assert current.revision == 2
+        assert current.run_metadata.get("legit") == "update"
+        assert "malicious" not in current.run_metadata
+
+    def test_a3_two_loaded_objects_via_save(self, tmp_path):
+        """
+        Test A3: Two loaded objects at revision N. First save succeeds and advances to N+1;
+        second save using stale loaded object raises StateConflictError.
+        """
+        pdir = tmp_path / "prj_a3"
+        StateStore.create(pdir, "prj_a3")
+
+        state_a = StateStore.load(pdir)
+        state_b = StateStore.load(pdir)
+        assert state_a._loaded_revision == 1
+        assert state_b._loaded_revision == 1
+
+        state_a.run_metadata["writer"] = "A"
+        StateStore.save(pdir, state_a)
+
+        assert state_a.revision == 2
+        assert state_a._loaded_revision == 2
+        disk_after_a = StateStore.load(pdir)
+        assert disk_after_a.revision == 2
+        assert disk_after_a.run_metadata.get("writer") == "A"
+
+        state_b.run_metadata["writer"] = "B"
+        with pytest.raises(StateConflictError) as exc_info:
+            StateStore.save(pdir, state_b)
+
+        assert exc_info.value.expected_revision == 1
+        assert exc_info.value.actual_revision == 2
+
+        final_disk = StateStore.load(pdir)
+        assert final_disk.revision == 2
+        assert final_disk.run_metadata.get("writer") == "A"
+
+    def test_a4_freshly_parsed_json_fails_closed(self, tmp_path):
+        """
+        Test A4: JSON deserialized into ProjectState without trusted _loaded_revision
+        cannot overwrite existing state unless explicit expected_revision is passed.
+        """
+        pdir = tmp_path / "prj_a4"
+        StateStore.create(pdir, "prj_a4")
+
+        with open(pdir / ".pipeline_state.json", "r", encoding="utf-8") as f:
+            raw_data = json.load(f)
+
+        untrusted_state = ProjectState(**raw_data)
+        assert getattr(untrusted_state, "_loaded_revision", None) is None
+
+        with pytest.raises(StateConflictError) as exc_info:
+            StateStore.save(pdir, untrusted_state)
+
+        assert exc_info.value.actual_revision == 1
+        assert exc_info.value.expected_revision is None
+
+        untrusted_state.run_metadata["explicit_cas"] = True
+        StateStore.save(pdir, untrusted_state, expected_revision=1)
+        assert StateStore.load(pdir).revision == 2
+
+    def test_a5_session_manager_cas_semantics(self, tmp_path, monkeypatch):
+        """
+        Test A5: session_manager.save_state respects CAS and detects conflicts.
+        """
+        from scripts.core import session_manager
+        monkeypatch.setattr("scripts.core.session_manager.Path", lambda p: tmp_path / p)
+
+        project_id = "test_sm_proj"
+        pdir = tmp_path / "projects" / project_id
+        StateStore.create(pdir, project_id)
+
+        restored_data = session_manager.restore_state(project_id)
+        assert restored_data["revision"] == 1
+
+        StateStore.atomic_update(
+            pdir,
+            expected_revision=1,
+            mutator=lambda s: s.run_metadata.update({"other": "advance"}),
+        )
+        assert StateStore.load(pdir).revision == 2
+
+        with pytest.raises(StateConflictError) as exc_info:
+            session_manager.save_state(project_id, restored_data)
+
+        assert exc_info.value.actual_revision == 2
+        assert exc_info.value.expected_revision == 1
+
+        with pytest.raises(StateConflictError):
+            session_manager.save_state(project_id, restored_data, expected_revision=1)
+

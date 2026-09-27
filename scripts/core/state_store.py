@@ -205,10 +205,18 @@ class StateStore:
                 exp = expected_revision
             elif getattr(state, "_loaded_revision", None) is not None:
                 exp = state._loaded_revision
-            elif state.revision > current_disk.revision:
-                exp = state.revision - 1
             else:
-                exp = state.revision
+                # Fail closed: updating an existing state requires explicit expected_revision
+                # or a trusted _loaded_revision from StateStore.load().
+                # Never silently derive overwrite authority from an untracked state.revision value.
+                raise StateConflictError(
+                    expected_revision=None,
+                    actual_revision=current_disk.revision,
+                    message=(
+                        f"Cannot update existing state in '{pdir}': state object was not loaded from "
+                        f"StateStore and no explicit expected_revision was provided (actual revision: {current_disk.revision})."
+                    ),
+                )
 
             if exp != current_disk.revision:
                 raise StateConflictError(
@@ -216,8 +224,8 @@ class StateStore:
                     actual_revision=current_disk.revision
                 )
 
-            if state.revision == current_disk.revision:
-                state.revision = current_disk.revision + 1
+            # Enforce monotonic revision increment (actual_revision + 1)
+            state.revision = current_disk.revision + 1
 
             state.updated_at = datetime.now(timezone.utc).isoformat()
             cls._persist_atomic(pdir, state)
