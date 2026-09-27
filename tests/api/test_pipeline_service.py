@@ -49,15 +49,13 @@ def test_legacy_gate_mapping(project_id):
         assert result["current_stage"] == "asset_gate"
         assert result["status"] == "started"
 
-        # finish_stage("1") -> PLAN_READY -> "taste_gate"
-        result = await PipelineService.finish_stage(project_id, "1")
-        assert result["current_stage"] == "taste_gate"
-        assert result["status"] == "started"
+        # S03: finish_stage without verified evidence raises LifecyclePreconditionFailedError
+        from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
+        with pytest.raises(LifecyclePreconditionFailedError):
+            await PipelineService.finish_stage(project_id, "1")
 
-        # approve_gate("gate_4") -> REVIEW_APPROVED -> "qc_gate" and "locked"
+        # approve_gate records approved_by without direct lifecycle jump
         result = await PipelineService.approve_gate(project_id, "gate_4", "test_user")
-        assert result["current_stage"] == "qc_gate"
-        assert result["status"] == "locked"
         assert result["approved_by"] == "test_user"
     asyncio.run(run())
 

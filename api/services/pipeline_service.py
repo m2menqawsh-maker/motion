@@ -10,26 +10,13 @@ from scripts.core.state_store import StateStore
 from scripts.core.state_model import ProjectState, LifecycleState
 
 from api.core.errors import InvalidGateError, PipelineRunningError
+from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
 
 class PipelineService:
     # Tracking running pipelines
     _active_pipelines: Dict[str, asyncio.Lock] = {}
     
     VALID_GATES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
-    
-    STAGE_TO_LIFECYCLE = {
-        "0": LifecycleState.ASSETS_READY,
-        "1": LifecycleState.PLAN_READY,
-        "2": LifecycleState.BLUEPRINT_READY,
-        "3": LifecycleState.RENDERED
-    }
-    
-    GATE_TO_LIFECYCLE = {
-        "gate_1": LifecycleState.ASSETS_READY,
-        "gate_2": LifecycleState.PLAN_READY,
-        "gate_3": LifecycleState.BLUEPRINT_READY,
-        "gate_4": LifecycleState.REVIEW_APPROVED
-    }
 
     @classmethod
     def _get_project_dir(cls, project_id: str) -> Path:
@@ -112,19 +99,12 @@ class PipelineService:
     @classmethod
     async def finish_stage(cls, project_id: str, stage: str) -> dict:
         validate_project_id(project_id)
-        project_dir = cls._get_project_dir(project_id)
-        
-        state = StateStore.load(project_dir)
-        if not state:
-            state = ProjectState(project_id=project_id)
-            
-        # Very rough mapping to move the lifecycle state forward
-        if str(stage) in cls.STAGE_TO_LIFECYCLE:
-            state.lifecycle_state = cls.STAGE_TO_LIFECYCLE[str(stage)]
-            
-        state.updated_at = datetime.now(timezone.utc).isoformat()
-        StateStore.save(project_dir, state)
-        return cls._format_legacy_state(state)
+        # Direct stage completion via API without gate execution evidence is forbidden.
+        # S03 Rule: No proof -> no lifecycle advancement.
+        raise LifecyclePreconditionFailedError(
+            target_state=f"stage_{stage}",
+            reason=f"Direct completion of stage '{stage}' via API is forbidden. Lifecycle advancement requires verified gate execution evidence."
+        )
 
     @classmethod
     def _get_lock(cls, project_id: str) -> asyncio.Lock:
@@ -142,9 +122,8 @@ class PipelineService:
             if not state:
                 state = ProjectState(project_id=project_id)
             
-            if str(gate) in cls.GATE_TO_LIFECYCLE:
-                state.lifecycle_state = cls.GATE_TO_LIFECYCLE[str(gate)]
-            
+            # Record verified reviewer approval metadata without directly mutating lifecycle_state.
+            # S03 Rule: Lifecycle advancement is governed solely by LifecycleService.
             state.approval_metadata["approved_by"] = approved_by
             state.approval_metadata["approved_at"] = datetime.now(timezone.utc).isoformat()
             state.updated_at = datetime.now(timezone.utc).isoformat()

@@ -2,6 +2,11 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 import logging
 from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
+from scripts.core.lifecycle_service import (
+    LifecycleError,
+    InvalidLifecycleTransitionError,
+    LifecyclePreconditionFailedError,
+)
 
 logger = logging.getLogger("api.errors")
 
@@ -72,6 +77,24 @@ async def api_error_handler(request: Request, exc: APIError):
             "error": exc.__class__.__name__,
             "message": exc.message,
             "details": exc.details
+        }
+    )
+
+async def lifecycle_error_handler(request: Request, exc: LifecycleError):
+    if isinstance(exc, InvalidLifecycleTransitionError):
+        status_code = 409
+    elif isinstance(exc, LifecyclePreconditionFailedError):
+        status_code = 422
+    else:
+        status_code = 400
+
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "status": "error",
+            "error": exc.__class__.__name__,
+            "message": str(exc),
+            "details": getattr(exc, "__dict__", {}),
         }
     )
 

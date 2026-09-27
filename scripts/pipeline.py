@@ -182,6 +182,7 @@ def main():
     # ==========================================
     from scripts.core.state_store import StateStore
     from scripts.core.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
+    from scripts.core.lifecycle_service import LifecycleService
     from scripts.core.recovery_engine import RecoveryEngine
     import time
     
@@ -197,23 +198,18 @@ def main():
         print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
 
     def save_state(target_state: LifecycleState, artifacts: list):
-        refs = []
-        for path, val_level in artifacts:
-            refs.append(StateStore.create_artifact_record(proj_dir, path, val_level))
-        
-        state = StateStore.load(proj_dir)
-        if not state:
-            state = ProjectState(project_id=project_id)
-            
-        state.artifact_records = refs
-        StateMachine.transition(state, target_state)
-        StateStore.save(proj_dir, state)
+        LifecycleService.transition(
+            project_dir=proj_dir,
+            target_state=target_state,
+            artifacts=artifacts,
+        )
 
-    def mark_failed():
-        state = StateStore.load(proj_dir)
-        if state:
-            state.lifecycle_state = LifecycleState.FAILED
-            StateStore.save(proj_dir, state)
+    def mark_failed(reason: str = "Pipeline execution failed"):
+        LifecycleService.transition(
+            project_dir=proj_dir,
+            target_state=LifecycleState.FAILED,
+            reason=reason,
+        )
 
     # State Machine Loop
     while next_state != LifecycleState.COMPLETE:

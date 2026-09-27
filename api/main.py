@@ -12,7 +12,9 @@ from api.core.errors import (
     global_exception_handler,
     authentication_required_handler,
     access_denied_handler,
+    lifecycle_error_handler,
 )
+from scripts.core.lifecycle_service import LifecycleError
 from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
 from scripts.core.security.env_policy import EnvironmentPolicyAuditor
 
@@ -51,6 +53,7 @@ app.include_router(brand.router, prefix="/brand", tags=["brand"])
 app.include_router(blueprint.router, prefix="/blueprint", tags=["blueprint"])
 
 # Security & Exception Handlers
+app.add_exception_handler(LifecycleError, lifecycle_error_handler)
 app.add_exception_handler(AuthenticationRequiredError, authentication_required_handler)
 app.add_exception_handler(AccessDeniedError, access_denied_handler)
 app.add_exception_handler(APIError, api_error_handler)

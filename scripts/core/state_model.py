@@ -86,14 +86,7 @@ class StateMachine:
 
     @staticmethod
     def transition(state: ProjectState, target_state: LifecycleState) -> None:
-        """Mutates the state to the target if valid, otherwise raises StateTransitionError."""
-        current_state = LifecycleState(state.lifecycle_state)
-        target_state_enum = LifecycleState(target_state)
-        
-        if not StateMachine.validate_transition(current_state, target_state_enum):
-            raise StateTransitionError(f"Invalid transition from {current_state.value} to {target_state_enum.value}")
-            
-        state.lifecycle_state = target_state_enum
-        state.revision += 1
-        state.updated_at = datetime.now(timezone.utc).isoformat()
+        """Deprecated: Use LifecycleService.transition() instead. Delegates to LifecycleService."""
+        from scripts.core.lifecycle_service import LifecycleService
+        LifecycleService.apply_transition_mutation(state, target_state)
 

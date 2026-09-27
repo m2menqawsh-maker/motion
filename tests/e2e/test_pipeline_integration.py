@@ -57,22 +57,45 @@ def test_blueprint_passes_schema(project_setup):
 
 def test_stage_gate_allows_transitions(project_setup):
     project_id, project_dir = project_setup
+    from scripts.core.lifecycle_service import LifecycleService, LifecyclePreconditionFailedError
+    from scripts.core.state_model import LifecycleState, ValidationLevel
+    from scripts.core.state_store import StateStore
     
     async def run_transitions():
-        await PipelineService.start_stage(project_id, "0")
-        await PipelineService.finish_stage(project_id, "0")
-        await PipelineService.approve_gate(project_id, "gate_1", approved_by="test_user")
+        # 1. Direct unverified finish_stage MUST be rejected (LED-077 fix)
+        with pytest.raises(LifecyclePreconditionFailedError):
+            await PipelineService.finish_stage(project_id, "0")
         
-        await PipelineService.start_stage(project_id, "1")
-        await PipelineService.finish_stage(project_id, "1")
-        await PipelineService.approve_gate(project_id, "gate_2", approved_by="test_user")
+        # 2. Legitimate transitions require evidence through LifecycleService
+        target_dir = PipelineService._get_project_dir(project_id)
+        if target_dir != project_dir:
+            for f in ["05_blueprint.json", "04_timings.json"]:
+                if (project_dir / f).exists():
+                    (target_dir / f).write_text((project_dir / f).read_text(encoding="utf-8"), encoding="utf-8")
+            StateStore.create(target_dir, project_id)
+
+        (target_dir / "02_asset_manifest.json").write_text("{}", encoding="utf-8")
+        LifecycleService.transition(
+            target_dir,
+            LifecycleState.ASSETS_READY,
+            artifacts=[("02_asset_manifest.json", ValidationLevel.EXISTS)]
+        )
         
-        await PipelineService.start_stage(project_id, "3")
-        await PipelineService.finish_stage(project_id, "3")
-        await PipelineService.approve_gate(project_id, "gate_4", approved_by="test_user")
+        (target_dir / "master_plan.md").write_text("# Plan", encoding="utf-8")
+        LifecycleService.transition(
+            target_dir,
+            LifecycleState.PLAN_READY,
+            artifacts=[("master_plan.md", ValidationLevel.SHA256)]
+        )
+        
+        LifecycleService.transition(
+            target_dir,
+            LifecycleState.BLUEPRINT_READY,
+            artifacts=[("05_blueprint.json", ValidationLevel.SHA256)]
+        )
         
         status = await PipelineService.get_status(project_id)
-        assert status["status"] == "locked"
         assert status["current_stage"] == "qc_gate"
+        assert status["status"] == "started"
         
     asyncio.run(run_transitions())

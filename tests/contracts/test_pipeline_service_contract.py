@@ -50,16 +50,16 @@ async def test_validation_rejects_invalid_gates(project_id):
 
 @pytest.mark.asyncio
 async def test_gate_mapping_adapter(project_id):
-    """يجب أن يقبل الأرقام القديمة (0, 1, 2, 3) ويحولها للبوابات الجديدة"""
+    """التحقق من سلوك البوابات وتطبيق قاعدة منع تجاوز الحالة دون دليل (S03)"""
     await PipelineService.scaffold_project(project_id)
     
     state1 = await PipelineService.start_stage(project_id, "0")
     assert state1["current_stage"] == "asset_gate"
     
-    state2 = await PipelineService.finish_stage(project_id, "1")
-    assert state2["current_stage"] == "taste_gate"
+    # S03: Direct finish_stage without evidence must be rejected
+    from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
+    with pytest.raises(LifecyclePreconditionFailedError):
+        await PipelineService.finish_stage(project_id, "1")
     
     state3 = await PipelineService.approve_gate(project_id, "gate_4", "tester")
-    assert state3["current_stage"] == "qc_gate"
-    assert state3["status"] == "locked"
     assert state3["approved_by"] == "tester"

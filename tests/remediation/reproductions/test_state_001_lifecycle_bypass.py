@@ -29,7 +29,8 @@ async def test_state_001_api_bypasses_gates_and_validation(tmp_path, monkeypatch
     # Calling finish_stage for stage 2 (blueprint stage) WITHOUT any valid blueprint on disk
     assert not (project_dir / "05_blueprint.json").exists()
     
-    result = await PipelineService.finish_stage(project_id, "2")
+    with pytest.raises(Exception):
+        await PipelineService.finish_stage(project_id, "2")
     
     loaded_state = StateStore.load(project_dir)
     assert loaded_state is not None

@@ -37,5 +37,5 @@ class TestFailureRecovery:
         # State must remain intact
         state_after = StateStore.load(PipelineService._get_project_dir(test_project))
         legacy_state = PipelineService._format_legacy_state(state_after)
-        assert legacy_state["current_stage"] == "qc_gate"
-        assert legacy_state["status"] == "locked"
+        assert legacy_state["current_stage"] == "asset_gate"
+        assert legacy_state["status"] == "started"

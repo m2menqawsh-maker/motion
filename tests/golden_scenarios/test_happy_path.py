@@ -24,11 +24,11 @@ class TestHappyPath:
         await PipelineService.approve_gate(test_project, "gate_2", "user")
         await PipelineService.approve_gate(test_project, "gate_4", "user")
         
-        # التحقق من الحالة
+        # التحقق من الحالة: تسجيل الموافقة دون تعديل غير مصرح به لدورة الحياة (S03)
         status = await PipelineService.get_status(test_project)
-        assert status["current_stage"] == "qc_gate"
-        assert status["status"] == "locked"
         assert status["approved_by"] == "user"
+        assert status["current_stage"] == "asset_gate"
+        assert status["status"] == "started"
     
     @pytest.mark.asyncio
     async def test_full_lifecycle(self, test_project, mock_subprocess):

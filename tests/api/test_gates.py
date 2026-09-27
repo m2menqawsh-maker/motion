@@ -24,28 +24,24 @@ def test_start_stage_0_already_started():
 def test_approve_gate_1_locked():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
     res = client.post(f"/gates/{pid}/approve/1?by=test")
     assert res.status_code == 200
 
 def test_reject_gate_1():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
     res = client.post(f"/gates/{pid}/reject/1?by=test&note=bad")
     assert res.status_code == 200
 
 def test_start_stage_1_without_approve():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
     res = client.post(f"/gates/{pid}/start/1")
     assert res.status_code == 200
 
 def test_start_stage_1_after_approve():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
     client.post(f"/gates/{pid}/approve/1?by=test")
     res = client.post(f"/gates/{pid}/start/1")
     assert res.status_code == 200
@@ -53,11 +49,10 @@ def test_start_stage_1_after_approve():
 def test_finish_stage_1():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
-    client.post(f"/gates/{pid}/approve/1?by=test")
-    client.post(f"/gates/{pid}/start/1")
+    # In S03: Direct finish_stage without verified evidence is rejected with 422
     res = client.post(f"/gates/{pid}/finish/1")
-    assert res.status_code == 200
+    assert res.status_code == 422
+    assert res.json()["error"] == "LifecyclePreconditionFailedError"
 
 def test_approve_gate_invalid():
     pid = create_proj()
@@ -72,9 +67,7 @@ def test_approve_gate_invalid():
 def test_status_updates():
     pid = create_proj()
     client.post(f"/gates/{pid}/start/0")
-    client.post(f"/gates/{pid}/finish/0")
     client.post(f"/gates/{pid}/approve/1?by=test")
-    client.post(f"/gates/{pid}/start/1")
     res = client.get(f"/gates/{pid}/status")
-    assert res.json()["state"]["current_stage"] == "plan_gate"
+    assert res.json()["state"]["current_stage"] == "asset_gate"
     assert res.json()["state"]["status"] == "started"
