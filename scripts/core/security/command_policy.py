@@ -64,13 +64,15 @@ ALLOWED_PYTHON_SCRIPTS: Set[str] = {
     "scripts/open_studio.py",
 }
 
-# Explicit allowlist of approved Python modules that can be invoked via '-m'
-ALLOWED_PYTHON_MODULES: Set[str] = {
+# In Development/Test, only approved test runners are permitted via '-m'
+ALLOWED_DEV_TEST_PYTHON_MODULES: Set[str] = {
     "pytest",
     "unittest",
-    "pip",
-    "venv",
 }
+
+# In Production, by default NO '-m' module invocations are permitted.
+# Runtime package or environment manipulation tools (like pip/venv) are strictly prohibited.
+ALLOWED_PRODUCTION_PYTHON_MODULES: Set[str] = set()
 
 # Universal dangerous flags prohibited across all executables
 UNIVERSAL_DANGEROUS_FLAGS: Set[str] = {
@@ -210,13 +212,25 @@ class CommandPolicy:
                         violations.append("Python '-m' requires a target module name.")
                     else:
                         module_name = cmd_list[2]
-                        if module_name not in ALLOWED_PYTHON_MODULES:
-                            violations.append(
-                                f"Python module '-m {module_name}' is not in the allowed modules registry. "
-                                f"Allowed: {sorted(list(ALLOWED_PYTHON_MODULES))}"
-                            )
+                        if is_production:
+                            # In Production, all python -m invocations are denied by default
+                            if module_name not in ALLOWED_PRODUCTION_PYTHON_MODULES:
+                                violations.append(
+                                    f"Python module '-m {module_name}' is DENIED in production. "
+                                    "Runtime module execution via -m is prohibited in production to preserve hermetic execution."
+                                )
+                            else:
+                                subcommand = f"-m {module_name}"
                         else:
-                            subcommand = f"-m {module_name}"
+                            # In Development / Test, only explicitly approved test modules are allowed
+                            if module_name not in ALLOWED_DEV_TEST_PYTHON_MODULES:
+                                violations.append(
+                                    f"Python module '-m {module_name}' is not in the allowed development modules registry. "
+                                    f"Allowed: {sorted(list(ALLOWED_DEV_TEST_PYTHON_MODULES))}. "
+                                    "Runtime package or environment manipulation tools (like pip/venv) are prohibited from runtime execution."
+                                )
+                            else:
+                                subcommand = f"-m {module_name}"
                 else:
                     script_arg = first_arg.replace("\\", "/")
                     if script_arg.startswith("./"):

@@ -136,17 +136,60 @@ class TestCommandPolicy:
         assert not res.is_allowed
         assert any("Dangerous flag '-c'" in v for v in res.violations)
 
-    def test_python_m_allowed_module(self):
-        cmd = ["python", "-m", "pytest", "tests/"]
-        res = CommandPolicy.validate_command(cmd)
-        assert res.is_allowed
-        assert res.subcommand == "-m pytest"
+    def test_python_c_remains_rejected_across_all_environments(self):
+        cmd = ["python", "-c", "import sys; print(sys.version)"]
+        res_prod = CommandPolicy.validate_command(cmd, is_production=True)
+        assert not res_prod.is_allowed
+        assert any("Dangerous flag '-c'" in v for v in res_prod.violations)
 
-    def test_python_m_unregistered_module_rejected(self):
-        cmd = ["python", "-m", "http.server", "8080"]
-        res = CommandPolicy.validate_command(cmd)
+        res_dev = CommandPolicy.validate_command(cmd, is_production=False)
+        assert not res_dev.is_allowed
+        assert any("Dangerous flag '-c'" in v for v in res_dev.violations)
+
+    def test_production_rejects_python_m_pip(self):
+        cmd = ["python", "-m", "pip", "install", "malicious-pkg"]
+        res = CommandPolicy.validate_command(cmd, is_production=True)
         assert not res.is_allowed
-        assert any("Python module '-m http.server' is not in the allowed modules registry" in v for v in res.violations)
+        assert any("DENIED in production" in v for v in res.violations)
+
+    def test_production_rejects_python_m_venv(self):
+        cmd = ["python", "-m", "venv", "my_env"]
+        res = CommandPolicy.validate_command(cmd, is_production=True)
+        assert not res.is_allowed
+        assert any("DENIED in production" in v for v in res.violations)
+
+    def test_production_rejects_python_m_pytest(self):
+        cmd = ["python", "-m", "pytest", "tests/"]
+        res = CommandPolicy.validate_command(cmd, is_production=True)
+        assert not res.is_allowed
+        assert any("DENIED in production" in v for v in res.violations)
+
+    def test_test_environment_allows_approved_test_modules(self):
+        # pytest is allowed in test/dev
+        res_pytest = CommandPolicy.validate_command(["python", "-m", "pytest", "tests/"], is_production=False)
+        assert res_pytest.is_allowed
+        assert res_pytest.subcommand == "-m pytest"
+
+        # unittest is allowed in test/dev
+        res_unittest = CommandPolicy.validate_command(["python", "-m", "unittest", "discover"], is_production=False)
+        assert res_unittest.is_allowed
+        assert res_unittest.subcommand == "-m unittest"
+
+    def test_test_environment_rejects_pip_and_venv_runtime_tools(self):
+        # pip and venv are forbidden from runtime execution even in dev/test
+        res_pip = CommandPolicy.validate_command(["python", "-m", "pip", "install", "requests"], is_production=False)
+        assert not res_pip.is_allowed
+        assert any("not in the allowed development modules registry" in v for v in res_pip.violations)
+
+        res_venv = CommandPolicy.validate_command(["python", "-m", "venv", ".venv"], is_production=False)
+        assert not res_venv.is_allowed
+        assert any("not in the allowed development modules registry" in v for v in res_venv.violations)
+
+    def test_unregistered_module_remains_rejected(self):
+        cmd = ["python", "-m", "http.server", "8080"]
+        res = CommandPolicy.validate_command(cmd, is_production=False)
+        assert not res.is_allowed
+        assert any("not in the allowed development modules registry" in v for v in res.violations)
 
     def test_node_eval_rejected(self):
         cmd = ["npm", "run", "build", "--eval", "console.log(process.env)"]

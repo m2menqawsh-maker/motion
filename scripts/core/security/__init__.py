@@ -27,7 +27,8 @@ from scripts.core.security.command_policy import (
     CommandValidationResult,
     CommandSecurityViolation,
     ALLOWED_PYTHON_SCRIPTS,
-    ALLOWED_PYTHON_MODULES,
+    ALLOWED_DEV_TEST_PYTHON_MODULES,
+    ALLOWED_PRODUCTION_PYTHON_MODULES,
 )
 from scripts.core.security.env_policy import (
     EnvCategory,
@@ -57,7 +58,8 @@ __all__ = [
     "CommandValidationResult",
     "CommandSecurityViolation",
     "ALLOWED_PYTHON_SCRIPTS",
-    "ALLOWED_PYTHON_MODULES",
+    "ALLOWED_DEV_TEST_PYTHON_MODULES",
+    "ALLOWED_PRODUCTION_PYTHON_MODULES",
     "EnvCategory",
     "EnvVarDefinition",
     "ENV_INVENTORY",

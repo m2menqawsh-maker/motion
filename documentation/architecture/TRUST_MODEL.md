@@ -276,14 +276,19 @@ In S09, the approval contract will mandate cryptographic verification of the Rev
 - ❌ **TOTAL BAN on unconstrained docker commands:** Commands such as `docker exec`, `docker volume rm`, or arbitrary containers are prohibited.
 
 ### 8.2 Executable Allowlist and Parameter Validation
-Every subprocess call must pass through the canonical `CommandPolicy`:
+Every subprocess call must pass through the canonical `CommandPolicy` (`scripts/core/security/command_policy.py`), which is the **Single Canonical Authority** for execution confinement.
 
 | Executable | Allowed Subcommands / Scripts | Prohibited Flags / Arguments | Timeout | Max Output |
 | :--- | :--- | :--- | :--- | :--- |
-| **Python** (`sys.executable`) | Approved scripts in `scripts/`, `scripts/gates/`, `scripts/generators/` | `-c`, `-m`, `--eval`, interactive mode, untracked scripts | 900s | 50 MB |
+| **Python** (`sys.executable`) | Approved scripts in `scripts/`, `scripts/gates/`, `scripts/generators/`. In Dev/Test: `-m pytest`, `-m unittest`. | `-c` (always), `-m` in production, `-m pip`, `-m venv`, interactive mode, untracked scripts | 900s | 50 MB |
 | **Node / npm / npx** | `remotion render`, `remotion preview`, `npm run build` | `-e`, `--eval`, `install`, interactive shell | 900s | 100 MB |
 | **FFmpeg / FFprobe** | Transcode, probe, audio extract, filter graph | Network inputs (unless allowlisted), shell pipes | 600s | 50 MB |
 | **Docker** | `run` (image: `clean-video-builder`), `info` | `exec`, `--privileged`, `-v /:/...` (root mounts), `system prune` | 1200s | 50 MB |
+
+#### Python Module Policy by Environment:
+- **Production:** By default, all `python -m <anything>` invocations are **DENIED**. Runtime package installation (`python -m pip`) and virtualenv manipulation (`python -m venv`) are strictly forbidden to ensure a hermetic production runtime.
+- **Development / Test:** May explicitly permit approved test runners (`pytest`, `unittest`). Runtime tools (`pip`, `venv`) remain rejected from the runtime execution path.
+- **Inline Execution:** `python -c` is strictly **PROHIBITED** across all environments.
 
 ### 8.3 Environment Inheritance Policy
 - Subprocesses must NEVER inherit `os.environ` unfiltered.

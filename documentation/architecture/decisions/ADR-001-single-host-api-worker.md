@@ -89,7 +89,7 @@ We approve a **Single-host deployment topology with decoupled API and Worker pro
 - Clear trust boundary between synchronous client interactions and asynchronous execution.
 
 ### Negative / Trade-Off Consequences
-- Requires an explicit inter-process job queue / lease mechanism (handled in S05/S06).
+- Requires an explicit inter-process job queue / lease mechanism (handled in S05 and S21).
 - Requires cross-process state consistency via durable storage rather than Python in-memory variables.
 - File system path confinement must be enforced across both processes.
 
@@ -99,6 +99,16 @@ We approve a **Single-host deployment topology with decoupled API and Worker pro
 - **S01:** Document architecture decisions, trust model, and define process boundary contracts.
 - **S02:** Implement security enforcement, path confinement, and command execution policies.
 - **S03:** Lifecycle Authority: Establish single authoritative state transition engine and eliminate dual authorities.
-- **S04:** Legacy Gate Mutation APIs: Deprecate/transform direct state manipulation endpoints.
-- **S05:** State Transactions & CAS: Implement durable SQLite CAS state store, revision control, and inter-process locking/leasing.
-- **S06:** Persistent Job Queue and decoupled worker execution loop.
+- **S04:** Gate Mutation API Removal/Transformation: Deprecate/transform direct state manipulation endpoints.
+- **S05:** State Transactions + Revision/CAS + Inter-Process Lock/Lease: Implement durable SQLite CAS state store and cross-process consistency.
+- **S06:** Required Evidence per Lifecycle State: Strict evidence enforcement and artifact records integrity.
+- **S07:** Recovery / Rollback / Reconciliation: Consistent recovery engine without blind state jumps.
+- **S08:** Failure Taxonomy / Retry / Resume: Structured error codes and retry semantics.
+- **S09:** ReviewService + Review Bundle / Approval Binding: Server-verified cryptographic review bundle.
+- **S10–S12:** Canonical Contracts: Schema alignment and data validation.
+- **S13–S14:** Materialization / Asset Resolution: Strict asset containment and hash indexing.
+- **S15–S16:** Templates / Runtime: Registry isolation and engine contract verification.
+- **S17–S20:** Render / Probe / Final QC / Docker: Video synthesis pipeline and QC hardening.
+- **S21:** Durable Jobs + Worker + Run API: Persistent job queue and decoupled worker execution loop.
+- **S22:** Assets / Artifacts / Reviews / Outputs / Events API: Unified frontend API surface.
+- **S23–S26:** Ops / CI / Fault Injection / Governance: System-wide hardening and audit automation.
