@@ -32,7 +32,7 @@ We approve a **Single-host deployment topology with decoupled API and Worker pro
 |                                                                         |
 |  +--------------------+                     +------------------------+  |
 |  |   Client / UI      |                     | Durable State / Queue  |  |
-|  | (Browser / Agent)  |                     | (SQLite WAL / CAS)     |  |
+|  | (Browser / Agent)  |                     | (Durable State / CAS)  |  |
 |  +---------+----------+                     +----+--------------+----+  |
 |            | HTTPS                               ^              ^       |
 |            v                                     |              |       |
@@ -61,7 +61,7 @@ We approve a **Single-host deployment topology with decoupled API and Worker pro
 ### Key Principles:
 1. **Single-Host Boundary:** Both the API process and the Worker process run on the same physical or virtual host. Distributed multi-host clusters (e.g., Kubernetes, Celery with remote brokers, distributed S3/NFS, distributed Consul/Redis locks) are explicitly **out of scope** for this phase.
 2. **Process Decoupling:** The API process (FastAPI/Uvicorn) and the Worker process (background pipeline/render executor) run as **separate operating system processes**.
-3. **No In-Memory Process-Local Locks for State Coordination:** Because API and Worker are separate processes, in-memory locking (`threading.Lock`, in-memory semaphores) cannot be the source of truth for cross-process state consistency. State coordination must be achieved through durable, cross-process mechanisms (e.g. SQLite in WAL mode with atomic Compare-And-Swap (CAS) or filesystem-level kernel locks `flock`/`fcntl` where applicable).
+3. **No In-Memory Process-Local Locks for State Coordination:** Because API and Worker are separate processes, in-memory locking (`threading.Lock`, in-memory semaphores) cannot be the source of truth for cross-process state consistency. State coordination must be achieved through a durable, cross-process transaction and locking mechanism supporting atomic Compare-And-Swap (CAS). The concrete storage and state backend remains an open architectural decision (OPEN_DECISION DEC-02).
 4. **Shared Local Storage:** Both processes access the same local filesystem storage hierarchy (`projects/`, `templates/`, `assets/`, `scratch/`).
 5. **Future-Proof Interfaces:** Core domain interfaces (Job Queue interface, Storage repository interface, State CAS interface) must be designed without process-local assumptions, ensuring future horizontal scaling (multiple workers, remote storage) can be introduced without redesigning domain services.
 
@@ -100,7 +100,7 @@ We approve a **Single-host deployment topology with decoupled API and Worker pro
 - **S02:** Implement security enforcement, path confinement, and command execution policies.
 - **S03:** Lifecycle Authority: Establish single authoritative state transition engine and eliminate dual authorities.
 - **S04:** Gate Mutation API Removal/Transformation: Deprecate/transform direct state manipulation endpoints.
-- **S05:** State Transactions + Revision/CAS + Inter-Process Lock/Lease: Implement durable SQLite CAS state store and cross-process consistency.
+- **S05:** State Transactions + Revision/CAS + Inter-Process Lock/Lease: Implement durable state transaction management, revision control (CAS), and inter-process locking/leasing. *(Note: The concrete state backend remains governed by OPEN_DECISION DEC-02 and will be resolved before S05 implementation.)*
 - **S06:** Required Evidence per Lifecycle State: Strict evidence enforcement and artifact records integrity.
 - **S07:** Recovery / Rollback / Reconciliation: Consistent recovery engine without blind state jumps.
 - **S08:** Failure Taxonomy / Retry / Resume: Structured error codes and retry semantics.
