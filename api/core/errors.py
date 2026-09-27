@@ -1,4 +1,5 @@
 from fastapi import Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 import logging
 from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
@@ -29,9 +30,28 @@ class ProjectNotFoundError(APIError):
 class InvalidGateError(APIError):
     def __init__(self, gate: str):
         super().__init__(
-            message=f"Invalid stage or gate: {gate}",
-            status_code=400,
-            details={"gate": gate}
+            message=f"Invalid gate identifier: '{gate}'",
+            status_code=422,
+            details={"code": "INVALID_GATE", "gate": gate}
+        )
+
+class InvalidStageError(APIError):
+    def __init__(self, stage: str):
+        super().__init__(
+            message=f"Invalid stage identifier: '{stage}'",
+            status_code=422,
+            details={"code": "INVALID_STAGE", "stage": stage}
+        )
+
+class UnsupportedGateOperationError(APIError):
+    def __init__(self, operation: str, reason: str = None):
+        msg = f"Gate operation '{operation}' is unsupported."
+        if reason:
+            msg += f" {reason}"
+        super().__init__(
+            message=msg,
+            status_code=422,
+            details={"code": "UNSUPPORTED_GATE_OPERATION", "operation": operation, "reason": reason}
         )
 
 class PipelineRunningError(APIError):
@@ -66,6 +86,17 @@ async def access_denied_handler(request: Request, exc: AccessDeniedError):
                 "project_id": exc.project_id,
                 "reason": exc.reason
             }
+        }
+    )
+
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={
+            "status": "error",
+            "error": "ValidationError",
+            "message": "Validation failed for request parameters.",
+            "details": {"errors": exc.errors()}
         }
     )
 

@@ -38,15 +38,15 @@ async def test_pipeline_service_finish_stage_rejected(api_project):
     project_id, proj_dir = api_project
 
     with pytest.raises(LifecyclePreconditionFailedError):
-        await PipelineService.finish_stage(project_id, "2")
+        await PipelineService.finish_stage(project_id, "asset_gate")
 
     state = StateStore.load(proj_dir)
     assert state.lifecycle_state == LifecycleState.DRAFT
-    assert state.lifecycle_state != LifecycleState.BLUEPRINT_READY
+    assert state.lifecycle_state != LifecycleState.ASSETS_READY
 
 
 def test_api_finish_stage_returns_422_and_does_not_mutate_state(api_project):
-    """Calling POST /gates/{project_id}/finish/2 must return 422 and leave state unchanged."""
+    """Calling POST /gates/{project_id}/finish/asset_gate must return 422 and leave state unchanged."""
     project_id, proj_dir = api_project
 
     client = TestClient(
@@ -54,7 +54,7 @@ def test_api_finish_stage_returns_422_and_does_not_mutate_state(api_project):
         headers={"X-Principal-ID": "editor_user", "X-Principal-Roles": "editor"},
     )
 
-    response = client.post(f"/gates/{project_id}/finish/2")
+    response = client.post(f"/gates/{project_id}/finish/asset_gate")
     assert response.status_code == 422
     data = response.json()
     assert data["status"] == "error"
@@ -66,7 +66,7 @@ def test_api_finish_stage_returns_422_and_does_not_mutate_state(api_project):
 
 
 def test_api_approve_gate_does_not_advance_lifecycle(api_project):
-    """Calling POST /gates/{project_id}/approve/gate_3 records approval but does NOT advance lifecycle."""
+    """Calling POST /gates/{project_id}/approve/asset_gate records approval but does NOT advance lifecycle."""
     project_id, proj_dir = api_project
 
     client = TestClient(
@@ -74,11 +74,12 @@ def test_api_approve_gate_does_not_advance_lifecycle(api_project):
         headers={"X-Principal-ID": "rev_user", "X-Principal-Roles": "reviewer"},
     )
 
-    response = client.post(f"/gates/{project_id}/approve/gate_3")
+    response = client.post(f"/gates/{project_id}/approve/asset_gate")
     assert response.status_code == 200
 
     state = StateStore.load(proj_dir)
     # Metadata is recorded
     assert state.approval_metadata.get("approved_by") == "rev_user"
-    # Lifecycle must NOT have advanced to BLUEPRINT_READY or REVIEW_APPROVED
+    # Lifecycle must NOT have advanced
     assert state.lifecycle_state == LifecycleState.DRAFT
+

@@ -131,12 +131,12 @@ def test_trusted_reviewer_vs_editor_separation(client):
 
         # Editor attempt -> 403
         editor_headers = {"X-Principal-ID": "usr_editor", "X-Principal-Roles": "editor", "X-Principal-Scope": proj_id}
-        resp = client.post(f"/gates/{proj_id}/approve/gate_3", headers=editor_headers)
+        resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=editor_headers)
         assert resp.status_code == 403
 
         # Reviewer attempt -> 200
         reviewer_headers = {"X-Principal-ID": "usr_reviewer", "X-Principal-Roles": "reviewer", "X-Principal-Scope": proj_id}
-        resp = client.post(f"/gates/{proj_id}/approve/gate_3", headers=reviewer_headers)
+        resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=reviewer_headers)
         assert resp.status_code == 200
 
         # State must record the reviewer's principal_id, not arbitrary spoofed identities

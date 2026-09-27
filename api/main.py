@@ -6,9 +6,11 @@ from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers import projects, gates, render, brand, blueprint
+from fastapi.exceptions import RequestValidationError
 from api.core.errors import (
     APIError,
     api_error_handler,
+    validation_error_handler,
     global_exception_handler,
     authentication_required_handler,
     access_denied_handler,
@@ -53,6 +55,7 @@ app.include_router(brand.router, prefix="/brand", tags=["brand"])
 app.include_router(blueprint.router, prefix="/blueprint", tags=["blueprint"])
 
 # Security & Exception Handlers
+app.add_exception_handler(RequestValidationError, validation_error_handler)
 app.add_exception_handler(LifecycleError, lifecycle_error_handler)
 app.add_exception_handler(AuthenticationRequiredError, authentication_required_handler)
 app.add_exception_handler(AccessDeniedError, access_denied_handler)

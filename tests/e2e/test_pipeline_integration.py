@@ -62,17 +62,19 @@ def test_stage_gate_allows_transitions(project_setup):
     from scripts.core.state_store import StateStore
     
     async def run_transitions():
-        # 1. Direct unverified finish_stage MUST be rejected (LED-077 fix)
-        with pytest.raises(LifecyclePreconditionFailedError):
-            await PipelineService.finish_stage(project_id, "0")
-        
-        # 2. Legitimate transitions require evidence through LifecycleService
+        # Prepare target project directory for service
         target_dir = PipelineService._get_project_dir(project_id)
         if target_dir != project_dir:
             for f in ["05_blueprint.json", "04_timings.json"]:
                 if (project_dir / f).exists():
                     (target_dir / f).write_text((project_dir / f).read_text(encoding="utf-8"), encoding="utf-8")
             StateStore.create(target_dir, project_id)
+
+        # 1. Direct unverified finish_stage MUST be rejected (LED-077 fix)
+        with pytest.raises(LifecyclePreconditionFailedError):
+            await PipelineService.finish_stage(project_id, "asset_gate")
+        
+        # 2. Legitimate transitions require evidence through LifecycleService
 
         (target_dir / "02_asset_manifest.json").write_text("{}", encoding="utf-8")
         LifecycleService.transition(

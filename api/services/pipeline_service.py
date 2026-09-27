@@ -9,7 +9,13 @@ from scripts.security.path_security import validate_project_id
 from scripts.core.state_store import StateStore
 from scripts.core.state_model import ProjectState, LifecycleState
 
-from api.core.errors import InvalidGateError, PipelineRunningError
+from api.core.errors import (
+    InvalidGateError,
+    InvalidStageError,
+    UnsupportedGateOperationError,
+    PipelineRunningError,
+    ProjectNotFoundError,
+)
 from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
 
 class PipelineService:
@@ -17,6 +23,7 @@ class PipelineService:
     _active_pipelines: Dict[str, asyncio.Lock] = {}
     
     VALID_GATES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
+    VALID_STAGES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
 
     @classmethod
     def _get_project_dir(cls, project_id: str) -> Path:
@@ -87,18 +94,33 @@ class PipelineService:
     @classmethod
     async def start_stage(cls, project_id: str, stage: str) -> dict:
         validate_project_id(project_id)
+        if stage not in cls.VALID_STAGES:
+            raise InvalidStageError(stage)
+
         project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
         if not state:
-            state = ProjectState(project_id=project_id)
-            
-        state.updated_at = datetime.now(timezone.utc).isoformat()
-        StateStore.save(project_dir, state)
-        return cls._format_legacy_state(state)
+            raise ProjectNotFoundError(project_id)
+
+        raise UnsupportedGateOperationError(
+            operation="start_stage",
+            reason=(
+                f"Direct stage triggering for '{stage}' via legacy start endpoint is not supported. "
+                "Stages are executed automatically via pipeline runs."
+            )
+        )
 
     @classmethod
     async def finish_stage(cls, project_id: str, stage: str) -> dict:
         validate_project_id(project_id)
+        if stage not in cls.VALID_STAGES:
+            raise InvalidStageError(stage)
+
+        project_dir = cls._get_project_dir(project_id)
+        state = StateStore.load(project_dir)
+        if not state:
+            raise ProjectNotFoundError(project_id)
+
         # Direct stage completion via API without gate execution evidence is forbidden.
         # S03 Rule: No proof -> no lifecycle advancement.
         raise LifecyclePreconditionFailedError(
@@ -115,19 +137,25 @@ class PipelineService:
     @classmethod
     async def approve_gate(cls, project_id: str, gate: str, approved_by: str = None) -> dict:
         validate_project_id(project_id)
+        if gate not in cls.VALID_GATES:
+            raise InvalidGateError(gate)
+
         project_dir = cls._get_project_dir(project_id)
-        
+        state = StateStore.load(project_dir)
+        if not state:
+            raise ProjectNotFoundError(project_id)
+
         async with cls._get_lock(project_id):
             state = StateStore.load(project_dir)
             if not state:
-                state = ProjectState(project_id=project_id)
-            
+                raise ProjectNotFoundError(project_id)
+
             # Record verified reviewer approval metadata without directly mutating lifecycle_state.
             # S03 Rule: Lifecycle advancement is governed solely by LifecycleService.
             state.approval_metadata["approved_by"] = approved_by
             state.approval_metadata["approved_at"] = datetime.now(timezone.utc).isoformat()
             state.updated_at = datetime.now(timezone.utc).isoformat()
-            
+
             StateStore.save(project_dir, state)
         return cls._format_legacy_state(state)
 

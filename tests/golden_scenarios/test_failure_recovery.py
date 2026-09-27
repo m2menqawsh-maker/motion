@@ -11,7 +11,7 @@ class TestFailureRecovery:
         """فشل الـ pipeline يجب أن يحفظ الحالة ولن يتسبب في تدميرها"""
         # Scaffold and approve
         await PipelineService.scaffold_project(test_project)
-        await PipelineService.approve_gate(test_project, "gate_4", "user")
+        await PipelineService.approve_gate(test_project, "asset_gate", "user")
         
         # Read the state before failure
         from scripts.core.state_store import StateStore
