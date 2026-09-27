@@ -75,8 +75,7 @@ class PipelineService:
         project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
         if not state:
-            state = ProjectState(project_id=project_id, lifecycle_state=LifecycleState.DRAFT)
-            StateStore.save(project_dir, state)
+            state = StateStore.create(project_dir, project_id)
         
         res = cls._format_legacy_state(state)
         return {"status": "success", "message": f"Project {project_id} pipeline initialized", "state": res}

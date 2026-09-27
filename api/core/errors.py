@@ -8,6 +8,7 @@ from scripts.core.lifecycle_service import (
     InvalidLifecycleTransitionError,
     LifecyclePreconditionFailedError,
 )
+from scripts.core.state_store import StateConflictError, StateLockTimeoutError
 
 logger = logging.getLogger("api.errors")
 
@@ -126,6 +127,34 @@ async def lifecycle_error_handler(request: Request, exc: LifecycleError):
             "error": exc.__class__.__name__,
             "message": str(exc),
             "details": getattr(exc, "__dict__", {}),
+        }
+    )
+
+async def state_conflict_handler(request: Request, exc: StateConflictError):
+    return JSONResponse(
+        status_code=409,
+        content={
+            "status": "error",
+            "error": "StateConflict",
+            "message": str(exc),
+            "details": {
+                "code": "STATE_CONFLICT",
+                "expected_revision": exc.expected_revision,
+                "actual_revision": exc.actual_revision,
+            }
+        }
+    )
+
+async def state_lock_timeout_handler(request: Request, exc: StateLockTimeoutError):
+    return JSONResponse(
+        status_code=503,
+        content={
+            "status": "error",
+            "error": "StateLockTimeout",
+            "message": str(exc),
+            "details": {
+                "code": "STATE_LOCK_TIMEOUT"
+            }
         }
     )
 

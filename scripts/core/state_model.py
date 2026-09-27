@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, PrivateAttr
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 
@@ -31,6 +31,7 @@ class ArtifactRecord(BaseModel):
 
 class ProjectState(BaseModel):
     model_config = ConfigDict(extra='forbid', use_enum_values=True)
+    _loaded_revision: Optional[int] = PrivateAttr(default=None)
     
     project_id: str
     schema_version: int = 1

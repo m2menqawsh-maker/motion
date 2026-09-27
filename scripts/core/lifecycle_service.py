@@ -73,8 +73,6 @@ class LifecycleService:
 
         # Sole authorized production mutation of lifecycle_state
         state.lifecycle_state = target_state_enum
-        state.revision += 1
-        state.updated_at = datetime.now(timezone.utc).isoformat()
 
     @classmethod
     def _verify_preconditions(
@@ -208,68 +206,78 @@ class LifecycleService:
         evidence: Optional[Any] = None,
         actor: Optional[str] = None,
         reason: Optional[str] = None,
+        expected_revision: Optional[int] = None,
+        timeout: Optional[float] = 10.0,
     ) -> ProjectState:
         """
         The single canonical entry point to transition a project lifecycle state.
 
-        1. Loads current state from StateStore.
-        2. Validates legality against StateMachine.
-        3. Enforces gate evidence and artifact presence.
-        4. Applies state mutation and increments revision.
-        5. Persists state via StateStore.
+        1. Handles initial state creation for DRAFT if missing.
+        2. Binds expected revision (explicit or snapshot).
+        3. Executes transactional atomic update via StateStore.atomic_update.
+        4. Mutator enforces StateMachine legality, precondition checks, artifact records,
+           metadata updates, and lifecycle mutation.
+        5. Storage authority commits atomically with CAS check, revision+1, updated_at.
         6. Returns updated ProjectState.
         """
         proj_dir = Path(project_dir)
-        state = StateStore.load(proj_dir)
-
         target_state_enum = LifecycleState(target_state)
+        state_file = proj_dir / StateStore.STATE_FILE
 
-        if not state:
+        if not state_file.exists():
             if target_state_enum == LifecycleState.DRAFT:
                 project_id = proj_dir.name
-                state = StateStore.create(proj_dir, project_id)
-                return state
+                return StateStore.create(proj_dir, project_id, timeout=timeout)
             else:
                 raise LifecycleError(
                     f"Cannot transition project at '{proj_dir}': No state file exists."
                 )
 
-        current_state = LifecycleState(state.lifecycle_state)
+        if expected_revision is None:
+            current_snap = StateStore.load(proj_dir)
+            if not current_snap:
+                raise LifecycleError(f"Cannot transition project at '{proj_dir}': State file cannot be read.")
+            expected_revision = current_snap.revision
 
-        # 1. State machine legality check
-        if not StateMachine.validate_transition(current_state, target_state_enum):
-            raise InvalidLifecycleTransitionError(
-                current_state=current_state,
-                target_state=target_state_enum,
-                reason=f"Transition from {current_state.value} to {target_state_enum.value} is not permitted by StateMachine"
-            )
+        def mutator(working_copy: ProjectState) -> None:
+            current_state = LifecycleState(working_copy.lifecycle_state)
 
-        # 2. Gate evidence & precondition verification
-        cls._verify_preconditions(proj_dir, current_state, target_state_enum, artifacts, evidence)
+            # 1. State machine legality check
+            if not StateMachine.validate_transition(current_state, target_state_enum):
+                raise InvalidLifecycleTransitionError(
+                    current_state=current_state,
+                    target_state=target_state_enum,
+                    reason=f"Transition from {current_state.value} to {target_state_enum.value} is not permitted by StateMachine"
+                )
 
-        # 3. Create artifact records if artifacts are specified
-        if artifacts:
-            new_records = []
-            for path, val_level in artifacts:
-                new_records.append(StateStore.create_artifact_record(proj_dir, path, val_level))
-            state.artifact_records = new_records
+            # 2. Gate evidence & precondition verification
+            cls._verify_preconditions(proj_dir, current_state, target_state_enum, artifacts, evidence)
 
-        # 4. Record metadata (actor / reason / failure context)
-        if actor:
-            state.run_metadata["last_actor"] = actor
-        if reason:
-            state.run_metadata["transition_reason"] = reason
-            if target_state_enum == LifecycleState.FAILED:
-                state.structured_errors.append({
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "error": reason,
-                    "previous_state": current_state.value,
-                })
+            # 3. Create artifact records if artifacts are specified
+            if artifacts:
+                new_records = []
+                for path, val_level in artifacts:
+                    new_records.append(StateStore.create_artifact_record(proj_dir, path, val_level))
+                working_copy.artifact_records = new_records
 
-        # 5. Mutate state
-        cls.apply_transition_mutation(state, target_state_enum)
+            # 4. Record metadata (actor / reason / failure context)
+            if actor:
+                working_copy.run_metadata["last_actor"] = actor
+            if reason:
+                working_copy.run_metadata["transition_reason"] = reason
+                if target_state_enum == LifecycleState.FAILED:
+                    working_copy.structured_errors.append({
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "error": reason,
+                        "previous_state": current_state.value,
+                    })
 
-        # 6. Persist state
-        StateStore.save(proj_dir, state)
+            # 5. Mutate lifecycle state (S03 Sole Authority)
+            cls.apply_transition_mutation(working_copy, target_state_enum)
 
-        return state
+        return StateStore.atomic_update(
+            project_dir=proj_dir,
+            expected_revision=expected_revision,
+            mutator=mutator,
+            timeout=timeout,
+        )

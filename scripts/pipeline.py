@@ -197,19 +197,29 @@ def main():
         next_state = LifecycleState.DRAFT
         print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
 
+    # Track authoritative revision for CAS state transitions
+    current_state_record = StateStore.load(proj_dir)
+    current_revision = current_state_record.revision if current_state_record else 1
+
     def save_state(target_state: LifecycleState, artifacts: list):
-        LifecycleService.transition(
+        nonlocal current_revision
+        st = LifecycleService.transition(
             project_dir=proj_dir,
             target_state=target_state,
             artifacts=artifacts,
+            expected_revision=current_revision,
         )
+        current_revision = st.revision
 
     def mark_failed(reason: str = "Pipeline execution failed"):
-        LifecycleService.transition(
+        nonlocal current_revision
+        st = LifecycleService.transition(
             project_dir=proj_dir,
             target_state=LifecycleState.FAILED,
             reason=reason,
+            expected_revision=current_revision,
         )
+        current_revision = st.revision
 
     # State Machine Loop
     while next_state != LifecycleState.COMPLETE:
