@@ -306,6 +306,8 @@ class StateStore:
         try:
             with open(state_file, "r", encoding="utf-8") as f:
                 content = f.read()
+        except FileNotFoundError:
+            return None
         except PermissionError as e:
             raise StateIOError(pdir, f"Permission denied reading state file '{state_file}': {e}")
         except OSError as e:
