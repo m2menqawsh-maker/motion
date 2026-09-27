@@ -3,16 +3,12 @@ from pathlib import Path
 
 def test_led_022_skip_strict_qc_bypass():
     """
-    Finding: LED-022 / LED-074
+    Finding: LED-022 (CLOSED in S02)
+    Evolution: Evolved from S00 Expected-RED reproduction to S02 GREEN regression proof.
     Expected correct behavior: In production gates, QC failures must be definitive (non-zero exit).
     Ambient environment variables like SKIP_STRICT_QC must not turn hard validation failures
     into success (exit code 0).
-    Actual behavior on current main: scripts/gates/final_qc.py checks:
-        if has_fail and not os.environ.get("SKIP_STRICT_QC"):
-            sys.exit(1)
-        elif has_fail:
-            print("⚠️ Final QC فشل ولكن تم تخطيه بسبب SKIP_STRICT_QC.")
-            sys.exit(0)
+    Post-S02 behavior: Hard QC failure exits with code 1 in production regardless of SKIP_STRICT_QC.
     """
     qc_script = Path.cwd() / "scripts" / "gates" / "final_qc.py"
     content = qc_script.read_text(encoding="utf-8")

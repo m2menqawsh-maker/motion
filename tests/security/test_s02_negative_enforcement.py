@@ -292,3 +292,101 @@ def test_sanitized_environment_strips_forbidden_vars_in_production():
     assert "SKIP_STRICT_QC" not in clean
     assert "AGY_IS_MANAGED" not in clean
     assert "PATH" in clean
+
+
+# ─── 6. PRODUCTION AUTHENTICATION FAIL-CLOSED SUITE (TASK 3) ───
+
+def test_production_auth_missing_credential_returns_401(client, monkeypatch):
+    """In production, missing Authorization header must yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    resp = client.post("/projects/", json={"name": "Project FailClosed", "language": "en"})
+    assert resp.status_code == 401
+    assert resp.json()["error"] == "AuthenticationRequired"
+
+
+def test_production_auth_malformed_bearer_returns_401(client, monkeypatch):
+    """In production, malformed bearer tokens must yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+
+    # Malformed prefix
+    resp1 = client.post("/projects/", json={"name": "P", "language": "en"}, headers={"Authorization": "Token 12345"})
+    assert resp1.status_code == 401
+
+    # Empty token after Bearer
+    resp2 = client.post("/projects/", json={"name": "P", "language": "en"}, headers={"Authorization": "Bearer   "})
+    assert resp2.status_code == 401
+
+
+def test_production_auth_invalid_token_returns_401(client, monkeypatch):
+    """In production, arbitrary unrecognized or invalid tokens must yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    resp = client.post(
+        "/projects/",
+        json={"name": "P", "language": "en"},
+        headers={"Authorization": "Bearer invalid_signature_or_random_garbage"}
+    )
+    assert resp.status_code == 401
+
+
+def test_production_auth_expired_token_returns_401(client, monkeypatch):
+    """In production, tokens with expired timestamp must yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    past_timestamp = 1000000000.0  # Year 2001
+    expired_token = f"usr_expired:editor:prj_test:{past_timestamp}"
+    resp = client.post(
+        "/projects/",
+        json={"name": "P", "language": "en"},
+        headers={"Authorization": f"Bearer {expired_token}"}
+    )
+    assert resp.status_code == 401
+
+
+def test_production_auth_unknown_principal_returns_401(client, monkeypatch):
+    """In production, structured tokens with invalid principal ID prefix must yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    # Missing 'usr_' prefix
+    invalid_token = "unknown_attacker:editor:prj_test"
+    resp = client.post(
+        "/projects/",
+        json={"name": "P", "language": "en"},
+        headers={"Authorization": f"Bearer {invalid_token}"}
+    )
+    assert resp.status_code == 401
+
+
+def test_production_auth_dev_headers_rejected_in_production(client, monkeypatch):
+    """In production, custom development identity headers (X-Principal-*) are strictly ignored and yield 401."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    resp = client.post(
+        "/projects/",
+        json={"name": "P", "language": "en"},
+        headers={
+            "X-Principal-ID": "admin_attacker",
+            "X-Principal-Roles": "admin",
+            "X-Principal-Scope": "*"
+        }
+    )
+    assert resp.status_code == 401
+
+
+def test_production_auth_forged_approved_by_does_not_affect_principal(client, monkeypatch):
+    """Query parameter ?by= or body approved_by cannot forge identity without valid credentials."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    resp = client.post(
+        "/gates/prj_sample/approve/gate_1?by=chief_editor",
+        json={"approved_by": "chief_editor"}
+    )
+    assert resp.status_code == 401
+
+
+def test_production_auth_failure_produces_zero_side_effects(client, monkeypatch):
+    """Authentication rejection must occur BEFORE any business logic; zero filesystem side-effects."""
+    monkeypatch.setenv("MOTION_ENV", "production")
+    target_project_name = "SideEffectProbeProject"
+    resp = client.post("/projects/", json={"name": target_project_name, "language": "en"})
+    assert resp.status_code == 401
+
+    # Verify no project folder or state file was created anywhere in projects directory
+    projects_dir = Path("projects")
+    matching_dirs = [p for p in projects_dir.glob("*") if target_project_name.lower() in p.name.lower()]
+    assert len(matching_dirs) == 0, f"Side-effect detected! Project directory was created: {matching_dirs}"

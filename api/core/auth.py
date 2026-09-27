@@ -9,6 +9,7 @@ In accordance with TRUST_MODEL.md, DEC-04, and S02 Security Enforcement:
 """
 
 import os
+from datetime import datetime, timezone
 from typing import Optional, Set
 from fastapi import Request, Depends, HTTPException, status
 from scripts.core.security.principal import (
@@ -57,16 +58,28 @@ def extract_principal_from_request(request: Request) -> Principal:
                 auth_method="BEARER_TOKEN"
             )
 
-        # Token schema: usr_id:roles:scopes
+        # Token schema: usr_id:roles:scopes[:expires_at]
         if ":" in token:
             parts = token.split(":")
-            pid = parts[0]
+            pid = parts[0].strip()
+            if is_production and (not pid or not pid.startswith("usr_")):
+                raise AuthenticationRequiredError(Action.PROJECT_READ)
             role_strs = parts[1].split(",") if len(parts) > 1 and parts[1] else ["editor"]
-            proj_scope = parts[2] if len(parts) > 2 and parts[2] else None
+            proj_scope = parts[2].strip() if len(parts) > 2 and parts[2] else None
+            expires_at = None
+            if len(parts) > 3 and parts[3].strip():
+                try:
+                    exp_ts = float(parts[3].strip())
+                    expires_at = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
+                    if expires_at < datetime.now(timezone.utc):
+                        raise AuthenticationRequiredError(Action.PROJECT_READ)
+                except ValueError:
+                    if is_production:
+                        raise AuthenticationRequiredError(Action.PROJECT_READ)
             roles = set()
             for r in role_strs:
                 try:
-                    roles.add(Role(r.lower()))
+                    roles.add(Role(r.lower().strip()))
                 except ValueError:
                     pass
             project_scopes = {}
@@ -75,12 +88,26 @@ def extract_principal_from_request(request: Request) -> Principal:
                 if Role.ADMIN not in roles:
                     roles = set()
             return Principal(
-                principal_id=pid,
+                principal_id=pid or "usr_anonymous",
                 principal_type=PrincipalType.HUMAN,
                 roles=roles,
                 project_scopes=project_scopes,
+                auth_method="BEARER_TOKEN",
+                expires_at=expires_at
+            )
+
+        if token.startswith("usr_"):
+            return Principal(
+                principal_id=token[:32],
+                principal_type=PrincipalType.HUMAN,
+                roles={Role.EDITOR, Role.VIEWER},
+                project_scopes={},
                 auth_method="BEARER_TOKEN"
             )
+
+        if is_production:
+            # Unrecognized / invalid token rejected in production
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
 
         return Principal(
             principal_id=f"usr_{token[:16]}",
