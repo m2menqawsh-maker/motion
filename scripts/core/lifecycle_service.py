@@ -186,6 +186,12 @@ class LifecycleService:
                     target_state.value,
                     f"Project completion requires prior FINAL_QC_PASSED, current is {current_state.value}."
                 )
+            out_file = project_dir / "out.mp4"
+            if not out_file.exists() or out_file.stat().st_size == 0:
+                raise LifecyclePreconditionFailedError(
+                    target_state.value,
+                    "Project completion requires non-empty rendered video output (out.mp4) on disk."
+                )
 
         # Check declared artifact existence
         if artifacts:
@@ -253,12 +259,33 @@ class LifecycleService:
             # 2. Gate evidence & precondition verification
             cls._verify_preconditions(proj_dir, current_state, target_state_enum, artifacts, evidence)
 
-            # 3. Create artifact records if artifacts are specified
+            # 3. Cumulative artifact records recording (S06: no destructive overwrite)
             if artifacts:
                 new_records = []
-                for path, val_level in artifacts:
-                    new_records.append(StateStore.create_artifact_record(proj_dir, path, val_level))
-                working_copy.artifact_records = new_records
+                for item in artifacts:
+                    if isinstance(item, tuple):
+                        path, val_level = item
+                        new_records.append(StateStore.create_artifact_record(
+                            proj_dir,
+                            path,
+                            val_level,
+                            stage=target_state_enum.value,
+                            produced_at_revision=expected_revision + 1,
+                        ))
+                    elif isinstance(item, ArtifactRecord):
+                        new_records.append(item)
+                working_copy.record_multiple_evidences(new_records)
+            elif artifacts is None:
+                # Auto-record required evidence files produced for this stage that exist on disk
+                from scripts.core.evidence_matrix import RequiredEvidencePolicy
+                auto_records = RequiredEvidencePolicy.auto_record_stage_evidence(
+                    working_copy,
+                    proj_dir,
+                    target_state_enum,
+                    revision=expected_revision + 1,
+                )
+                if auto_records:
+                    working_copy.record_multiple_evidences(auto_records)
 
             # 4. Record metadata (actor / reason / failure context)
             if actor:

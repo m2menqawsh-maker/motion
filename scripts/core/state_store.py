@@ -63,7 +63,16 @@ class StateStore:
         return sha256_hash.hexdigest()
 
     @staticmethod
-    def create_artifact_record(project_dir: Path, rel_path: str, validation: ValidationLevel) -> ArtifactRecord:
+    def create_artifact_record(
+        project_dir: Path,
+        rel_path: str,
+        validation: ValidationLevel,
+        logical_name: Optional[str] = None,
+        stage: Optional[str] = None,
+        produced_at_revision: Optional[int] = None,
+        generation_id: Optional[str] = None,
+        metadata: Optional[dict] = None,
+    ) -> ArtifactRecord:
         """
         Creates an ArtifactRecord for the given file relative to project_dir.
         Calculates size and sha256 according to validation level.
@@ -72,7 +81,15 @@ class StateStore:
         if not full_path.exists():
             raise FileNotFoundError(f"Cannot create artifact record, file missing: {rel_path}")
 
-        record = ArtifactRecord(path=rel_path, validation=validation)
+        record = ArtifactRecord(
+            path=rel_path,
+            validation=validation,
+            logical_name=logical_name,
+            stage=stage,
+            produced_at_revision=produced_at_revision,
+            generation_id=generation_id,
+            metadata=metadata or {},
+        )
 
         if validation in (ValidationLevel.SIZE, ValidationLevel.SHA256):
             record.size_bytes = full_path.stat().st_size
@@ -171,6 +188,13 @@ class StateStore:
             # Apply domain mutator
             mutator(working_copy)
 
+            # Invariant (S06): Cumulative evidence retention across updates
+            from scripts.core.evidence_matrix import merge_artifact_records
+            working_copy.artifact_records = merge_artifact_records(
+                current_state.artifact_records,
+                working_copy.artifact_records
+            )
+
             # Storage authority increments revision and updates timestamp
             working_copy.revision = current_state.revision + 1
             working_copy.updated_at = datetime.now(timezone.utc).isoformat()
@@ -223,6 +247,13 @@ class StateStore:
                     expected_revision=exp,
                     actual_revision=current_disk.revision
                 )
+
+            # Invariant (S06): Cumulative evidence retention across state saves
+            from scripts.core.evidence_matrix import merge_artifact_records
+            state.artifact_records = merge_artifact_records(
+                current_disk.artifact_records,
+                state.artifact_records
+            )
 
             # Enforce monotonic revision increment (actual_revision + 1)
             state.revision = current_disk.revision + 1

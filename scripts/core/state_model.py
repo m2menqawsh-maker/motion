@@ -24,10 +24,19 @@ class ValidationLevel(str, Enum):
     SHA256 = "SHA256"       # Level 3 — SHA256 (logic files like master_plan.md)
 
 class ArtifactRecord(BaseModel):
+    model_config = ConfigDict(extra='ignore')
+
     path: str
     validation: ValidationLevel
     size_bytes: Optional[int] = None
     sha256: Optional[str] = None
+
+    # S06 additions (backward-compatible with defaults)
+    logical_name: Optional[str] = None
+    stage: Optional[str] = None
+    produced_at_revision: Optional[int] = None
+    generation_id: Optional[str] = None
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
 class ProjectState(BaseModel):
     model_config = ConfigDict(extra='forbid', use_enum_values=True)
@@ -45,6 +54,34 @@ class ProjectState(BaseModel):
     
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
+    def record_evidence(self, record: ArtifactRecord) -> None:
+        """
+        Deterministically records an artifact evidence record.
+        If a record with the same logical path already exists, it is updated in-place.
+        Otherwise, it is appended to artifact_records.
+        """
+        for i, existing in enumerate(self.artifact_records):
+            if existing.path == record.path:
+                self.artifact_records[i] = record
+                return
+        self.artifact_records.append(record)
+
+    def record_multiple_evidences(self, records: List[ArtifactRecord]) -> None:
+        """Deterministically records multiple artifact evidence records."""
+        for rec in records:
+            self.record_evidence(rec)
+
+    def get_artifact_record(self, path: str) -> Optional[ArtifactRecord]:
+        """Retrieves the artifact record for the given path if present."""
+        for rec in self.artifact_records:
+            if rec.path == path:
+                return rec
+        return None
+
+    def has_artifact(self, path: str) -> bool:
+        """Returns True if an artifact record exists for the given path."""
+        return self.get_artifact_record(path) is not None
 
 class StateTransitionError(Exception):
     """Raised when an invalid state transition is attempted."""

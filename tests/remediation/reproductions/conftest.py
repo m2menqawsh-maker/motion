@@ -18,8 +18,8 @@ REPRODUCTION_METADATA = {
     "test_state_001_lifecycle_bypass.py": {"finding": "STATE-001 / LED-018", "owner": "S03", "closed": True},
     "test_gate_001_facade_reproductions.py": {"finding": "GATE-001 (A/B/C)", "owner": "S04", "closed": True},
     "test_conc_001_lost_update.py": {"finding": "CONC-001", "owner": "S05", "closed": True},
-    "test_led_005_artifact_records_erasure.py": {"finding": "LED-005", "owner": "S06", "closed": False},
-    "test_rec_001_recovery_empty_evidence.py": {"finding": "REC-001", "owner": "S06", "closed": False},
+    "test_led_005_artifact_records_erasure.py": {"finding": "LED-005", "owner": "S06", "closed": True},
+    "test_rec_001_recovery_empty_evidence.py": {"finding": "REC-001", "owner": "S06", "closed": True},
     "test_led_008_corrupt_state.py": {"finding": "LED-008", "owner": "S07", "closed": False},
     "test_led_054_props_divergence.py": {"finding": "LED-054", "owner": "S17", "closed": False},
 }
