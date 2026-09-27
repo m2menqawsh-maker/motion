@@ -154,3 +154,71 @@ class StateMachine:
         from scripts.core.lifecycle_service import LifecycleService
         LifecycleService.apply_transition_mutation(state, target_state)
 
+    @classmethod
+    def get_topological_order(cls) -> List[LifecycleState]:
+        """Returns the canonical topological progression of happy-path lifecycle states."""
+        return [
+            LifecycleState.DRAFT,
+            LifecycleState.ASSETS_READY,
+            LifecycleState.PLAN_READY,
+            LifecycleState.BLUEPRINT_READY,
+            LifecycleState.MATERIALIZED,
+            LifecycleState.PROBE_PASSED,
+            LifecycleState.AWAITING_REVIEW,
+            LifecycleState.REVIEW_APPROVED,
+            LifecycleState.RENDERED,
+            LifecycleState.FINAL_QC_PASSED,
+            LifecycleState.COMPLETE,
+        ]
+
+    @classmethod
+    def get_predecessors(cls, state: LifecycleState) -> List[LifecycleState]:
+        """Returns the immediate valid predecessor states for the given state in forward progression."""
+        state_enum = LifecycleState(state)
+        return [prev for prev, nxt in cls.VALID_FORWARD_TRANSITIONS.items() if nxt == state_enum]
+
+    @classmethod
+    def get_ancestors(cls, state: LifecycleState) -> List[LifecycleState]:
+        """
+        Returns all topological ancestors of the given state, ordered from closest predecessor
+        down to DRAFT.
+        """
+        state_enum = LifecycleState(state)
+        ancestors: List[LifecycleState] = []
+        curr = state_enum
+        while True:
+            preds = cls.get_predecessors(curr)
+            if not preds:
+                break
+            prev = preds[0]
+            ancestors.append(prev)
+            curr = prev
+        return ancestors
+
+    @classmethod
+    def valid_rollback_candidates(cls, state: LifecycleState) -> List[LifecycleState]:
+        """
+        Returns ordered candidate states for rollback/recovery, starting from closest predecessor down to DRAFT.
+        If state is FAILED or CANCELLED, returns all topological states in reverse order.
+        """
+        state_enum = LifecycleState(state)
+        if state_enum in (LifecycleState.FAILED, LifecycleState.CANCELLED):
+            return list(reversed(cls.get_topological_order()))
+        return cls.get_ancestors(state_enum)
+
+    @classmethod
+    def path_between(cls, start_state: LifecycleState, end_state: LifecycleState) -> List[LifecycleState]:
+        """
+        Returns the linear forward path between start_state (exclusive) and end_state (inclusive).
+        """
+        start_enum = LifecycleState(start_state)
+        end_enum = LifecycleState(end_state)
+        topo = cls.get_topological_order()
+        if start_enum not in topo or end_enum not in topo:
+            return []
+        start_idx = topo.index(start_enum)
+        end_idx = topo.index(end_enum)
+        if start_idx >= end_idx:
+            return []
+        return topo[start_idx + 1 : end_idx + 1]
+

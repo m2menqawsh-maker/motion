@@ -296,7 +296,7 @@ class LifecycleService:
                 if auto_records:
                     working_copy.record_multiple_evidences(auto_records)
 
-            # 4. Record metadata (actor / reason / failure context)
+            # 4. Record metadata (actor / reason / failure context / approval)
             if actor:
                 working_copy.run_metadata["last_actor"] = actor
             if reason:
@@ -307,6 +307,14 @@ class LifecycleService:
                         "error": reason,
                         "previous_state": current_state.value,
                     })
+
+            if target_state_enum == LifecycleState.REVIEW_APPROVED:
+                working_copy.approval_metadata = {
+                    "status": "APPROVED",
+                    "approved_by": actor or "human_reviewer",
+                    "approved_at": datetime.now(timezone.utc).isoformat(),
+                    "approved_revision": expected_revision + 1,
+                }
 
             # 5. Mutate lifecycle state (S03 Sole Authority)
             cls.apply_transition_mutation(working_copy, target_state_enum)

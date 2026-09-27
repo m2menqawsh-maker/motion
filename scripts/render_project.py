@@ -72,11 +72,23 @@ def main():
     
     try:
         from scripts.core.state_store import StateStore
+        from scripts.core.state_model import LifecycleState
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
         
         state = StateStore.load(project_dir)
-        is_approved = (project_dir / ".studio_approved").exists()
+        is_approved = (
+            state is not None
+            and state.lifecycle_state in (
+                LifecycleState.REVIEW_APPROVED,
+                LifecycleState.RENDERED,
+                LifecycleState.FINAL_QC_PASSED,
+                LifecycleState.COMPLETE,
+            )
+            and bool(state.approval_metadata.get("approved_by"))
+            and state.approval_metadata.get("status") != "INVALIDATED"
+            and (project_dir / ".studio_approved").exists()
+        )
         
         if not is_approved:
             duration_ms = int((time.time() - start_time) * 1000)

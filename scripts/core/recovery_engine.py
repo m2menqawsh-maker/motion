@@ -22,6 +22,7 @@ from scripts.core.state_model import (
     EvidenceStatus,
     ProjectState,
     ArtifactRecord,
+    StateMachine,
 )
 from scripts.core.state_store import (
     StateStore,
@@ -36,19 +37,7 @@ from scripts.core.evidence_matrix import (
 )
 
 
-LIFECYCLE_ORDER: List[LifecycleState] = [
-    LifecycleState.DRAFT,
-    LifecycleState.ASSETS_READY,
-    LifecycleState.PLAN_READY,
-    LifecycleState.BLUEPRINT_READY,
-    LifecycleState.MATERIALIZED,
-    LifecycleState.PROBE_PASSED,
-    LifecycleState.AWAITING_REVIEW,
-    LifecycleState.REVIEW_APPROVED,
-    LifecycleState.RENDERED,
-    LifecycleState.FINAL_QC_PASSED,
-    LifecycleState.COMPLETE,
-]
+LIFECYCLE_ORDER: List[LifecycleState] = StateMachine.get_topological_order()
 
 
 class RecoveryPlan(BaseModel):
@@ -91,6 +80,12 @@ class RecoveryPlanner:
         """
         if cand == LifecycleState.DRAFT:
             return True
+
+        if cand == LifecycleState.REVIEW_APPROVED:
+            approved_by = state.approval_metadata.get("approved_by") if state.approval_metadata else None
+            approval_status = state.approval_metadata.get("status") if state.approval_metadata else None
+            if not approved_by or approval_status == "INVALIDATED":
+                return False
 
         required_items = RequiredEvidencePolicy.get_required_evidence(cand)
         valid_records = {
@@ -136,7 +131,8 @@ class RecoveryPlanner:
         # 1. Handle terminal error/cancelled states
         if current_state in (LifecycleState.FAILED, LifecycleState.CANCELLED):
             last_valid = LifecycleState.DRAFT
-            for cand in reversed(LIFECYCLE_ORDER):
+            candidates = StateMachine.valid_rollback_candidates(current_state)
+            for cand in candidates:
                 if cls.is_state_valid(cand, state, pdir):
                     last_valid = cand
                     break
@@ -164,10 +160,10 @@ class RecoveryPlanner:
                     requires_manual_action=False,
                 )
 
-            # Evidence failure: walk backwards to find highest valid predecessor
+            # Evidence failure: walk backwards to find highest valid predecessor via StateMachine graph
             last_valid = LifecycleState.DRAFT
-            for idx in range(curr_idx - 1, -1, -1):
-                cand = LIFECYCLE_ORDER[idx]
+            candidates = StateMachine.valid_rollback_candidates(current_state)
+            for cand in candidates:
                 if cls.is_state_valid(cand, state, pdir):
                     last_valid = cand
                     break
@@ -250,6 +246,18 @@ class RecoveryService:
                         reason=f"Recovery rollback to {plan.target_state.value}: {plan.reason}",
                         plan_id=plan.plan_id,
                     )
+
+            # Canonical approval invalidation (S07.5 Obs D)
+            # If rolling back to a state prior to REVIEW_APPROVED, invalidate canonical approval_metadata
+            target_idx = LIFECYCLE_ORDER.index(plan.target_state) if plan.target_state in LIFECYCLE_ORDER else -1
+            review_approved_idx = LIFECYCLE_ORDER.index(LifecycleState.REVIEW_APPROVED)
+            if target_idx < review_approved_idx:
+                working_copy.approval_metadata = {
+                    "status": "INVALIDATED",
+                    "invalidated_reason": f"Rollback to {plan.target_state.value}: {plan.reason}",
+                    "invalidated_at": datetime.now(timezone.utc).isoformat(),
+                    "approved_by": None,
+                }
 
             # Record recovery event in metadata
             rec_history = working_copy.run_metadata.setdefault("recovery_history", [])
