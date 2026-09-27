@@ -66,7 +66,7 @@ def test_api_finish_stage_returns_422_and_does_not_mutate_state(api_project):
 
 
 def test_api_approve_gate_does_not_advance_lifecycle(api_project):
-    """Calling POST /gates/{project_id}/approve/asset_gate records approval but does NOT advance lifecycle."""
+    """Calling POST /gates/{project_id}/approve/asset_gate fails closed with 422 and does NOT advance lifecycle or mutate metadata."""
     project_id, proj_dir = api_project
 
     client = TestClient(
@@ -75,11 +75,12 @@ def test_api_approve_gate_does_not_advance_lifecycle(api_project):
     )
 
     response = client.post(f"/gates/{project_id}/approve/asset_gate")
-    assert response.status_code == 200
+    assert response.status_code == 422
+    assert response.json()["error"] == "UnsupportedGateOperationError"
 
     state = StateStore.load(proj_dir)
-    # Metadata is recorded
-    assert state.approval_metadata.get("approved_by") == "rev_user"
+    # Metadata is NOT recorded (S04 Final Closure: zero side effects)
+    assert "approved_by" not in state.approval_metadata
     # Lifecycle must NOT have advanced
     assert state.lifecycle_state == LifecycleState.DRAFT
 

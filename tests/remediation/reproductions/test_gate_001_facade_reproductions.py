@@ -164,3 +164,35 @@ class TestS04Reproductions:
             await reject_gate(pid, "asset_gate", by="reviewer", note="bad quality")
 
         assert_snapshot_unchanged(snapshot_before, take_state_snapshot(pdir))
+
+    def test_red_4_valid_gate_approval_fails_closed_with_zero_side_effects(self, test_project, auth_client):
+        """
+        RED 4: Valid gate approval by authorized reviewer must NOT manufacture approval metadata.
+        Until ReviewService (S09), it must fail closed (HTTP 422 UnsupportedGateOperationError)
+        with ZERO persistence side effects.
+        """
+        pid, pdir = test_project
+        snapshot_before = take_state_snapshot(pdir)
+
+        res = auth_client.post(f"/gates/{pid}/approve/asset_gate")
+        assert res.status_code == 422, f"Expected 422 for unsupported legacy approval, got {res.status_code}: {res.text}"
+        assert res.json()["error"] == "UnsupportedGateOperationError"
+
+        snapshot_after = take_state_snapshot(pdir)
+        assert_snapshot_unchanged(snapshot_before, snapshot_after)
+
+    @pytest.mark.asyncio
+    async def test_red_4_service_valid_gate_approval_raises_without_mutation(self, test_project):
+        """
+        RED 4 (Service Level): PipelineService.approve_gate with valid gate
+        must raise UnsupportedGateOperationError without calling StateStore.save or mutating metadata.
+        """
+        pid, pdir = test_project
+        snapshot_before = take_state_snapshot(pdir)
+
+        with pytest.raises(UnsupportedGateOperationError):
+            await PipelineService.approve_gate(pid, "asset_gate", approved_by="lead_reviewer")
+
+        snapshot_after = take_state_snapshot(pdir)
+        assert_snapshot_unchanged(snapshot_before, snapshot_after)
+

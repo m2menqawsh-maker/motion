@@ -95,3 +95,62 @@ def test_unknown_gate_operation_zero_side_effect_contract(tmp_path, monkeypatch)
     assert state_file.read_bytes() == snapshot_bytes, (
         "Architecture Violation (Finding A): approve_gate mutated disk state for unknown gate!"
     )
+
+
+def test_approve_gate_has_no_approval_metadata_mutations():
+    """
+    AST Guard:
+    PipelineService.approve_gate must NOT assign to approval_metadata or call StateStore.save.
+    (S04 Final Closure: No Review Authority -> No Approval Mutation).
+    """
+    service_path = WORKSPACE_ROOT / "api" / "services" / "pipeline_service.py"
+    assert service_path.exists(), "api/services/pipeline_service.py missing"
+
+    tree = ast.parse(service_path.read_text(encoding="utf-8"))
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.AsyncFunctionDef) and node.name == "approve_gate":
+            for sub_node in ast.walk(node):
+                if isinstance(sub_node, ast.Subscript):
+                    # Check if slicing into approval_metadata
+                    target = getattr(sub_node.value, "attr", None)
+                    if target == "approval_metadata":
+                        pytest.fail(
+                            "Architecture Violation (S04 Final Closure): PipelineService.approve_gate "
+                            "mutates 'approval_metadata' without review authority."
+                        )
+                if isinstance(sub_node, ast.Call):
+                    func = sub_node.func
+                    call_name = getattr(func, "attr", None)
+                    if call_name == "save" and getattr(getattr(func, "value", None), "id", None) == "StateStore":
+                        pytest.fail(
+                            "Architecture Violation (S04 Final Closure): PipelineService.approve_gate "
+                            "calls StateStore.save() for unverified legacy approval."
+                        )
+
+
+def test_valid_gate_approval_zero_side_effect_contract(tmp_path, monkeypatch):
+    """
+    Contract Guard:
+    Submitting a VALID gate to approve_gate must fail closed (UnsupportedGateOperationError)
+    and produce ZERO persistence side effects on disk.
+    """
+    pid = "arch_guard_valid_gate_proj"
+    pdir = tmp_path / "projects" / pid
+    pdir.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(PipelineService, "_get_project_dir", classmethod(lambda cls, p: pdir))
+
+    state = ProjectState(project_id=pid, lifecycle_state=LifecycleState.DRAFT)
+    StateStore.save(pdir, state)
+
+    state_file = pdir / ".pipeline_state.json"
+    snapshot_bytes = state_file.read_bytes()
+
+    import asyncio
+
+    with pytest.raises(UnsupportedGateOperationError):
+        asyncio.run(PipelineService.approve_gate(pid, "asset_gate", "reviewer_1"))
+
+    assert state_file.read_bytes() == snapshot_bytes, (
+        "Architecture Violation (S04 Final Closure): approve_gate mutated disk state for valid gate!"
+    )

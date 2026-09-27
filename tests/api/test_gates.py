@@ -37,12 +37,12 @@ def test_start_stage_valid_stage_is_unsupported():
     assert res.status_code == 422
     assert res.json()["error"] == "UnsupportedGateOperationError"
 
-def test_approve_gate_valid():
-    """Valid gate approval with authorized principal succeeds and records approved_by."""
+def test_approve_gate_is_unsupported():
+    """Valid gate approval via legacy API is unsupported pending ReviewService (S09). Fails closed with 422."""
     pid = create_proj()
     res = client.post(f"/gates/{pid}/approve/asset_gate")
-    assert res.status_code == 200
-    assert res.json()["output"]["approved_by"] == "test_admin"
+    assert res.status_code == 422
+    assert res.json()["error"] == "UnsupportedGateOperationError"
 
 def test_approve_gate_invalid_rejected():
     """Finding A & B: Invalid or unknown gates must be rejected with 422."""
@@ -79,8 +79,14 @@ def test_finish_stage_requires_verified_evidence():
 
 def test_status_updates():
     pid = create_proj()
-    client.post(f"/gates/{pid}/approve/asset_gate")
+    # Direct state metadata can be read by status endpoint
+    pdir = PipelineService._get_project_dir(pid)
+    state = StateStore.load(pdir)
+    state.approval_metadata["approved_by"] = "test_admin"
+    StateStore.save(pdir, state)
+
     res = client.get(f"/gates/{pid}/status")
+    assert res.status_code == 200
     assert res.json()["state"]["current_stage"] == "asset_gate"
     assert res.json()["state"]["status"] == "started"
     assert res.json()["state"]["approved_by"] == "test_admin"

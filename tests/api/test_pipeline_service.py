@@ -67,9 +67,9 @@ def test_legacy_gate_mapping(project_id):
         with pytest.raises(InvalidGateError):
             await PipelineService.approve_gate(project_id, "gate_4", "test_user")
 
-        # S04: approve_gate with valid gate records approved_by
-        result = await PipelineService.approve_gate(project_id, "asset_gate", "test_user")
-        assert result["approved_by"] == "test_user"
+        # S04 Final Closure: approve_gate with valid gate is unsupported pending ReviewService (S09)
+        with pytest.raises(UnsupportedGateOperationError):
+            await PipelineService.approve_gate(project_id, "asset_gate", "test_user")
     asyncio.run(run())
 
 def test_get_status(project_id):

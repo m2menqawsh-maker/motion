@@ -134,14 +134,15 @@ def test_trusted_reviewer_vs_editor_separation(client):
         resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=editor_headers)
         assert resp.status_code == 403
 
-        # Reviewer attempt -> 200
+        # Reviewer attempt -> authorized (bypasses 403), but legacy gate approval fails closed (422) pending ReviewService (S09)
         reviewer_headers = {"X-Principal-ID": "usr_reviewer", "X-Principal-Roles": "reviewer", "X-Principal-Scope": proj_id}
         resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=reviewer_headers)
-        assert resp.status_code == 200
+        assert resp.status_code == 422
+        assert resp.json()["error"] == "UnsupportedGateOperationError"
 
-        # State must record the reviewer's principal_id, not arbitrary spoofed identities
+        # S04 Final Closure: Zero side effects, no metadata manufactured
         state = StateStore.load(proj_dir)
-        assert state.approval_metadata.get("approved_by") == "usr_reviewer"
+        assert "approved_by" not in state.approval_metadata
     finally:
         if proj_dir.exists():
             shutil.rmtree(proj_dir)

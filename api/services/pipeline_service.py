@@ -145,19 +145,12 @@ class PipelineService:
         if not state:
             raise ProjectNotFoundError(project_id)
 
-        async with cls._get_lock(project_id):
-            state = StateStore.load(project_dir)
-            if not state:
-                raise ProjectNotFoundError(project_id)
-
-            # Record verified reviewer approval metadata without directly mutating lifecycle_state.
-            # S03 Rule: Lifecycle advancement is governed solely by LifecycleService.
-            state.approval_metadata["approved_by"] = approved_by
-            state.approval_metadata["approved_at"] = datetime.now(timezone.utc).isoformat()
-            state.updated_at = datetime.now(timezone.utc).isoformat()
-
-            StateStore.save(project_dir, state)
-        return cls._format_legacy_state(state)
+        # Legacy fake approval eliminated (S04 Final Closure).
+        # Durable review decisions require ReviewService (S09).
+        raise UnsupportedGateOperationError(
+            operation="approve_gate",
+            reason="Gate approval is unsupported via legacy Gate API. Durable review decisions require ReviewService (S09)."
+        )
 
     @classmethod
     async def run_pipeline(cls, project_id: str) -> dict:

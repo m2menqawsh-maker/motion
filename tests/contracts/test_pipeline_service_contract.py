@@ -62,7 +62,7 @@ async def test_gate_mapping_adapter(project_id):
     """التحقق من سلوك البوابات وتطبيق قاعدة منع تجاوز الحالة دون دليل (S03) والتحقق النمطي للبوابات (S04)"""
     await PipelineService.scaffold_project(project_id)
     
-    from api.core.errors import InvalidStageError, InvalidGateError
+    from api.core.errors import InvalidStageError, InvalidGateError, UnsupportedGateOperationError
     from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
 
     # Invalid stage identifier is rejected
@@ -77,6 +77,6 @@ async def test_gate_mapping_adapter(project_id):
     with pytest.raises(InvalidGateError):
         await PipelineService.approve_gate(project_id, "gate_4", "tester")
 
-    # Valid gate records approved_by
-    state3 = await PipelineService.approve_gate(project_id, "asset_gate", "tester")
-    assert state3["approved_by"] == "tester"
+    # S04 Final Closure: Valid gate approval is unsupported pending ReviewService (S09)
+    with pytest.raises(UnsupportedGateOperationError):
+        await PipelineService.approve_gate(project_id, "asset_gate", "tester")
