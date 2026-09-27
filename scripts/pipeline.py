@@ -180,26 +180,54 @@ def main():
     # ==========================================
     # Initialization & Recovery
     # ==========================================
-    from scripts.core.state_store import StateStore
+    from scripts.core.state_store import StateStore, StateCorruptedError, StateIOError
     from scripts.core.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
     from scripts.core.lifecycle_service import LifecycleService
-    from scripts.core.recovery_engine import RecoveryEngine
+    from scripts.core.recovery_engine import RecoveryEngine, RecoveryPlanner, RecoveryService
     import time
     
-    decision = RecoveryEngine.evaluate(proj_dir)
-    
-    if decision.can_resume:
-        logger.event("recovery.resumed", status="resumed")
-        next_state = decision.next_state
-        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة الحالية: {next_state}")
-    else:
+    try:
+        current_state_record = StateStore.load(proj_dir)
+    except StateCorruptedError as e:
+        print(f"\n🛑 [خطأ أمني فادح] ملف حالة المشروع تالف وغير قابل للقراءة: {e}")
+        logger.event("state.corrupted", status="failed", error=str(e))
+        sys.exit(1)
+    except StateIOError as e:
+        print(f"\n🛑 [خطأ إدخال/إخراج] تعذر قراءة ملف حالة المشروع: {e}")
+        logger.event("state.io_error", status="failed", error=str(e))
+        sys.exit(1)
+
+    if current_state_record is None:
         logger.event("recovery.detected", status="detected")
         next_state = LifecycleState.DRAFT
+        current_revision = 1
         print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
+    else:
+        decision = RecoveryEngine.evaluate(proj_dir)
+        if decision.can_resume:
+            logger.event("recovery.resumed", status="resumed")
+            next_state = decision.next_state
+            current_revision = current_state_record.revision
+            print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة الحالية: {next_state}")
+        else:
+            logger.event("recovery.plan_required", status="plan_required", reason=decision.reason)
+            print(f"\n⚠️ [الاسترجاع والتسوية] تعذر الاستئناف المباشر: {decision.reason}")
 
-    # Track authoritative revision for CAS state transitions
-    current_state_record = StateStore.load(proj_dir)
-    current_revision = current_state_record.revision if current_state_record else 1
+            plan = decision.recovery_plan or RecoveryPlanner.create_plan(proj_dir, state=current_state_record)
+            if plan.requires_manual_action:
+                print(f"🛑 [توقف أمان] يتطلب المشروع تدخلاً يدوياً: {plan.reason}")
+                sys.exit(1)
+
+            print(f"   📋 تطبيق خطة الاسترجاع: {plan.current_state.value} ➔ {plan.target_state.value}")
+            if plan.invalidated_evidence_paths:
+                print(f"   🗑️ أدلة تم إبطالها: {plan.invalidated_evidence_paths}")
+            if plan.stale_disk_paths:
+                print(f"   🧹 إزالة علامات غير صالحة: {plan.stale_disk_paths}")
+
+            reconciled_state = RecoveryService.apply_plan(proj_dir, plan)
+            next_state = plan.target_state
+            current_revision = reconciled_state.revision
+            print(f"   ✅ تمت تسوية حالة القرص بنجاح (المراجعة: {current_revision}) -> استئناف من {next_state.value}\n")
 
     def save_state(target_state: LifecycleState, artifacts: list):
         nonlocal current_revision

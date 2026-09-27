@@ -18,13 +18,18 @@ class LifecycleState(str, Enum):
     FAILED = "FAILED"
     CANCELLED = "CANCELLED"
 
+class EvidenceStatus(str, Enum):
+    VALID = "VALID"
+    INVALIDATED = "INVALIDATED"
+    SUPERSEDED = "SUPERSEDED"
+
 class ValidationLevel(str, Enum):
     EXISTS = "EXISTS"       # Level 1 — Exists only (temporary/derived files)
     SIZE = "SIZE"           # Level 2 — Exists + size (large files like out.mp4)
     SHA256 = "SHA256"       # Level 3 — SHA256 (logic files like master_plan.md)
 
 class ArtifactRecord(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', use_enum_values=True)
 
     path: str
     validation: ValidationLevel
@@ -38,8 +43,21 @@ class ArtifactRecord(BaseModel):
     generation_id: Optional[str] = None
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+    # S07 additions (invalidation & rollback auditability)
+    status: EvidenceStatus = EvidenceStatus.VALID
+    invalidated_at: Optional[str] = None
+    invalidated_reason: Optional[str] = None
+    invalidated_by_recovery_plan: Optional[str] = None
+
+    def invalidate(self, reason: str, plan_id: Optional[str] = None) -> None:
+        """Explicitly invalidates this evidence record while preserving it in history."""
+        self.status = EvidenceStatus.INVALIDATED
+        self.invalidated_at = datetime.now(timezone.utc).isoformat()
+        self.invalidated_reason = reason
+        self.invalidated_by_recovery_plan = plan_id
+
 class ProjectState(BaseModel):
-    model_config = ConfigDict(extra='forbid', use_enum_values=True)
+    model_config = ConfigDict(extra='ignore', use_enum_values=True)
     _loaded_revision: Optional[int] = PrivateAttr(default=None)
     
     project_id: str
@@ -82,6 +100,14 @@ class ProjectState(BaseModel):
     def has_artifact(self, path: str) -> bool:
         """Returns True if an artifact record exists for the given path."""
         return self.get_artifact_record(path) is not None
+
+    def get_valid_artifact_records(self) -> List[ArtifactRecord]:
+        """Returns only records with status VALID."""
+        return [r for r in self.artifact_records if getattr(r, "status", EvidenceStatus.VALID) == EvidenceStatus.VALID]
+
+    def get_invalidated_artifact_records(self) -> List[ArtifactRecord]:
+        """Returns only records with status INVALIDATED."""
+        return [r for r in self.artifact_records if getattr(r, "status", EvidenceStatus.VALID) == EvidenceStatus.INVALIDATED]
 
 class StateTransitionError(Exception):
     """Raised when an invalid state transition is attempted."""

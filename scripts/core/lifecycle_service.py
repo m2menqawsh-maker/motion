@@ -75,6 +75,15 @@ class LifecycleService:
         state.lifecycle_state = target_state_enum
 
     @classmethod
+    def apply_rollback_mutation(cls, state: ProjectState, target_state: LifecycleState, reason: Optional[str] = None) -> None:
+        """
+        Authorized rollback mutation for recovery and reconciliation (S07).
+        Strictly encapsulated within LifecycleService.
+        """
+        target_state_enum = LifecycleState(target_state)
+        state.lifecycle_state = target_state_enum
+
+    @classmethod
     def _verify_preconditions(
         cls,
         project_dir: Path,

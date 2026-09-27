@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 import sys
 from pathlib import Path
@@ -84,7 +85,22 @@ class PipelineService:
     async def get_status(cls, project_id: str) -> dict:
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
-        state = StateStore.load(project_dir)
+        from scripts.core.state_store import StateCorruptedError
+        try:
+            state = StateStore.load(project_dir)
+        except StateCorruptedError as e:
+            # Check for legacy GUI state adapter fallback
+            state_file = Path(project_dir) / StateStore.STATE_FILE
+            if state_file.exists():
+                try:
+                    content = state_file.read_text(encoding="utf-8")
+                    raw = json.loads(content)
+                    if "legacy_gui_state" in raw and isinstance(raw["legacy_gui_state"], dict):
+                        return raw["legacy_gui_state"]
+                except Exception:
+                    pass
+            raise
+
         if not state:
             return {"status": "pending", "current_stage": "asset_gate"}
             

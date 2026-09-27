@@ -247,20 +247,30 @@ class RequiredEvidencePolicy:
         missing_paths: List[str] = []
         mismatched_paths: List[str] = []
 
-        records_by_path = {rec.path: rec for rec in state.artifact_records}
+        valid_records = [
+            rec for rec in state.artifact_records
+            if getattr(rec, "status", "VALID") == "VALID"
+        ]
+        records_by_path = {rec.path: rec for rec in valid_records}
+        all_records_by_path = {rec.path: rec for rec in state.artifact_records}
 
         # 1. Verify all required items for the current lifecycle state
         for item in required_items:
             file_path = pdir / item.path
             rec = records_by_path.get(item.path)
+            raw_rec = all_records_by_path.get(item.path)
 
             # Check presence in records
             if rec is None:
+                if raw_rec is not None and getattr(raw_rec, "status", None) == "INVALIDATED":
+                    msg = f"Required evidence '{item.path}' was invalidated (reason: {raw_rec.invalidated_reason}) and is invalid for state {state_enum.value}"
+                else:
+                    msg = f"Required evidence '{item.path}' is missing from artifact_records for state {state_enum.value}"
                 issues.append(EvidenceIssue(
                     issue_type=EvidenceIssueType.MISSING_RECORD,
                     path=item.path,
                     logical_name=item.logical_name,
-                    message=f"Required evidence '{item.path}' is missing from artifact_records for state {state_enum.value}"
+                    message=msg
                 ))
                 missing_paths.append(item.path)
 
@@ -324,6 +334,8 @@ class RequiredEvidencePolicy:
 
         # 2. Check any additional recorded artifacts not in required_items
         for rec in state.artifact_records:
+            if getattr(rec, "status", "VALID") != "VALID":
+                continue
             if rec.path in (item.path for item in required_items):
                 continue
             file_path = pdir / rec.path

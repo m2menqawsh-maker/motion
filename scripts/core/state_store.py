@@ -45,6 +45,28 @@ class StateNotFoundError(StateStoreError):
         super().__init__(f"No state file found in '{project_dir}'.")
 
 
+class StateCorruptedError(StateStoreError):
+    """
+    Raised when a state file exists on disk but cannot be decoded or parsed
+    (e.g., malformed JSON syntax, invalid schema, truncated payload).
+    """
+    def __init__(self, project_dir: Path | str, reason: str, raw_content: Optional[str] = None):
+        self.project_dir = Path(project_dir)
+        self.reason = reason
+        self.raw_content = raw_content
+        super().__init__(f"State file in '{self.project_dir}' is corrupted: {reason}")
+
+
+class StateIOError(StateStoreError):
+    """
+    Raised when accessing the state file fails due to an OS/permission I/O error.
+    """
+    def __init__(self, project_dir: Path | str, reason: str):
+        self.project_dir = Path(project_dir)
+        self.reason = reason
+        super().__init__(f"I/O failure accessing state file in '{self.project_dir}': {reason}")
+
+
 class StateStore:
     STATE_FILE = ".pipeline_state.json"
     LOCK_FILE = ".pipeline_state.lock"
@@ -267,6 +289,14 @@ class StateStore:
         """
         Loads the state record from the project directory if it exists.
         Records _loaded_revision for CAS tracking.
+
+        Returns:
+            ProjectState if file exists and is valid.
+            None ONLY if the state file does not exist on disk.
+
+        Raises:
+            StateIOError: If reading the file encounters an OS/permission I/O error.
+            StateCorruptedError: If file exists but contains invalid JSON or violates ProjectState schema.
         """
         pdir = Path(project_dir)
         state_file = pdir / cls.STATE_FILE
@@ -275,12 +305,52 @@ class StateStore:
 
         try:
             with open(state_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            state = ProjectState(**data)
-            state._loaded_revision = state.revision
-            return state
-        except Exception:
+                content = f.read()
+        except PermissionError as e:
+            raise StateIOError(pdir, f"Permission denied reading state file '{state_file}': {e}")
+        except OSError as e:
+            raise StateIOError(pdir, f"I/O error reading state file '{state_file}': {e}")
+
+        try:
+            data = json.loads(content)
+        except json.JSONDecodeError as e:
+            raise StateCorruptedError(pdir, f"Invalid JSON syntax in state file: {e}", raw_content=content)
+
+        if not isinstance(data, dict):
+            raise StateCorruptedError(pdir, f"Root element in state file must be an object, got {type(data).__name__}", raw_content=content)
+
+        try:
+            state = ProjectState.model_validate(data)
+        except Exception as e:
+            raise StateCorruptedError(pdir, f"Schema validation failed for state file: {e}", raw_content=content)
+
+        state._loaded_revision = state.revision
+        return state
+
+    @classmethod
+    def quarantine_corrupt_state(
+        cls,
+        project_dir: Path | str,
+        reason: str = "Corrupted state file",
+        quarantine_id: Optional[str] = None,
+    ) -> Optional[Path]:
+        """
+        Safely quarantines a corrupted state file by renaming it to .pipeline_state.corrupt.<id>.json.
+        Preserves original bytes for forensics without leaving the corrupted file in the active path.
+        """
+        pdir = Path(project_dir)
+        state_file = pdir / cls.STATE_FILE
+        if not state_file.exists():
             return None
+
+        qid = quarantine_id or f"{int(datetime.now(timezone.utc).timestamp())}_{uuid.uuid4().hex[:6]}"
+        quarantine_file = pdir / f".pipeline_state.corrupt.{qid}.json"
+
+        try:
+            os.replace(state_file, quarantine_file)
+            return quarantine_file
+        except OSError as e:
+            raise StateIOError(pdir, f"Failed to quarantine corrupted state file: {e}")
 
     @classmethod
     def create(
