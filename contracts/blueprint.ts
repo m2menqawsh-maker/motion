@@ -5,7 +5,7 @@ import {
   type AssetRef,
   collectAssetReferences,
 } from "./asset-resolver";
-import { isKnownEffect } from "../registry/effects-runtime";
+import { isKnownEffect, isExecutableEffect, EFFECTS_RUNTIME } from "../registry/effects-runtime";
 
 export { AssetRefSchema, type AssetRef } from "./asset-resolver";
 
@@ -176,8 +176,10 @@ export const TransitionRefSchema = z.object({
 export type TransitionRef = z.infer<typeof TransitionRefSchema>;
 
 export const EffectRefSchema = z.object({
-  effect: z.string().min(1).refine(isKnownEffect, (val) => ({
-    message: `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME.`,
+  effect: z.string().min(1).refine(isExecutableEffect, (val) => ({
+    message: EFFECTS_RUNTIME[val]
+      ? `Unsupported effect '${val}' (kind: '${EFFECTS_RUNTIME[val].kind}'). Cannot render unbridged effect without runtime component.`
+      : `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME with an executable component.`,
   })),
   apply: z.enum(["scene", "overlay"]).optional().default("scene"),
   params: z.record(z.string(), z.any()).optional().default({}),

@@ -35,7 +35,7 @@ describe("Blueprint Canonical Contract & Validator (S12)", () => {
     expect(res.ok).toBe(true);
     expect(res.blueprint?.scenes).toHaveLength(2);
     expect(res.blueprint?.scenes[0].transition?.type).toBe("fade");
-    expect(res.blueprint?.scenes[1].effects[0].effect).toBe("blur_reveal");
+    expect(res.blueprint?.scenes[1].effects[0].effect).toBe("camera-shake");
   });
 
   // 3. Valid AudioPlan Blueprint with Manifest
@@ -46,10 +46,10 @@ describe("Blueprint Canonical Contract & Validator (S12)", () => {
       project_id: "prj_audio_03",
       created_at: "2026-09-28T12:00:00Z",
       assets: [
-        { asset_id: "ast_vo_lead", kind: "vo", provenance: "user_upload", status: "ready" },
-        { asset_id: "ast_music_ambient", kind: "music", provenance: "cache_reuse", status: "ready" },
-        { asset_id: "ast_sfx_impact", kind: "sfx", provenance: "mcp_fetch", status: "ready" },
-        { asset_id: "ast_sfx_whoosh", kind: "sfx", provenance: "cache_reuse", status: "ready" },
+        { asset_id: "ast_vo_lead", kind: "vo", provenance: "user_upload", status: "ready", metadata: {} },
+        { asset_id: "ast_music_ambient", kind: "music", provenance: "cache_reuse", status: "ready", metadata: {} },
+        { asset_id: "ast_sfx_impact", kind: "sfx", provenance: "mcp_fetch", status: "ready", metadata: {} },
+        { asset_id: "ast_sfx_whoosh", kind: "sfx", provenance: "cache_reuse", status: "ready", metadata: {} },
       ],
     };
 
@@ -124,7 +124,7 @@ describe("Blueprint Canonical Contract & Validator (S12)", () => {
       project_id: "prj_bad_kind",
       created_at: "2026-09-28T12:00:00Z",
       assets: [
-        { asset_id: "ast_image_as_vo", kind: "image", provenance: "user_upload", status: "ready" },
+        { asset_id: "ast_image_as_vo", kind: "image", provenance: "user_upload", status: "ready", metadata: {} },
       ],
     };
 

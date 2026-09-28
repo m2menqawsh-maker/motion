@@ -24,9 +24,9 @@
       "durationFrames": 180,
       "effects": [
         {
-          "effect": "blur_reveal",
+          "effect": "camera-shake",
           "apply": "scene",
-          "params": { "radius": 10 }
+          "params": { "intensity": 1.0 }
         }
       ]
     }

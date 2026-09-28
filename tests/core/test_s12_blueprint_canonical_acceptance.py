@@ -45,7 +45,7 @@ def test_valid_multi_scene_blueprint_with_transitions_and_effects():
     assert bp.scenes[0].transition is not None
     assert bp.scenes[0].transition.type == "fade"
     assert len(bp.scenes[1].effects) == 1
-    assert bp.scenes[1].effects[0].effect == "blur_reveal"
+    assert bp.scenes[1].effects[0].effect == "camera-shake"
     # scene 1: 0 to 120, scene 2: 120 to 300
     assert bp.total_duration_frames == 300
     assert bp.total_duration_seconds == 5.0  # 300 / 60

@@ -19,6 +19,24 @@ import { MergedProject } from "./merge";
 import { validateTemplatePayload } from "../../contracts/template-schemas";
 import { UnknownEffectError, UnknownTransitionError, UnknownTemplateError } from "../../contracts/render-input";
 
+import {
+  SUPPORTED_TRANSITION_TYPES,
+  type TransitionType,
+} from "../../contracts/blueprint";
+
+export const TRANSITION_PRESENTATIONS: Record<TransitionType, (props?: any) => any> = {
+  fade: (props) => fade(props || {}),
+  slide: (props) => slide(props || {}),
+  wipe: (props) => wipe(props || {}),
+  flip: (props) => flip(props || {}),
+  zoom: (props) => zoomInOut(props || {}),
+  "cross-zoom": (props) => crossZoom(props || {}),
+  "film-burn": (props) => filmBurn(props || {}),
+  dissolve: (props) => dissolve(props || {}),
+  iris: (props) => iris(props || {}),
+  none: (props) => none(props || {}),
+};
+
 const EngineBridge: React.FC<{ children: React.ReactNode }> = ({ children }) => <>{children}</>;
 
 export interface BlueprintVideoProps {
@@ -38,15 +56,22 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
 
       if (scene.effects && scene.effects.length > 0) {
         for (const eff of scene.effects) {
-          if (!EFFECTS_RUNTIME[eff.effect]) {
+          const effectEntry = EFFECTS_RUNTIME[eff.effect];
+          if (!effectEntry) {
             throw new UnknownEffectError(eff.effect, scene.scene_id);
+          }
+          if (!effectEntry.component) {
+            throw new UnknownEffectError(
+              `${eff.effect} (unsupported unbridged effect: ${effectEntry.reason || "no component"})`,
+              scene.scene_id
+            );
           }
         }
       }
 
       if (scene.transition) {
-        const validTypes = ["fade", "slide", "wipe", "flip", "zoom", "cross-zoom", "film-burn", "dissolve", "iris", "none"];
-        if (!validTypes.includes(scene.transition.type)) {
+        const type = scene.transition.type as TransitionType;
+        if (!SUPPORTED_TRANSITION_TYPES.includes(type) || !TRANSITION_PRESENTATIONS[type]) {
           throw new UnknownTransitionError(scene.transition.type, scene.scene_id);
         }
       }
@@ -140,16 +165,23 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
           // Validate effects fail-closed before mounting (S16 - LED-046)
           if (scene.effects && scene.effects.length > 0) {
             for (const eff of scene.effects) {
-              if (!EFFECTS_RUNTIME[eff.effect]) {
+              const effectEntry = EFFECTS_RUNTIME[eff.effect];
+              if (!effectEntry) {
                 throw new UnknownEffectError(eff.effect, scene.scene_id);
+              }
+              if (!effectEntry.component) {
+                throw new UnknownEffectError(
+                  `${eff.effect} (unsupported unbridged effect: ${effectEntry.reason || "no component"})`,
+                  scene.scene_id
+                );
               }
             }
           }
 
           // Validate transition fail-closed before mounting (S16 - LED-043)
           if (scene.transition) {
-            const validTypes = ["fade", "slide", "wipe", "flip", "zoom", "cross-zoom", "film-burn", "dissolve", "iris", "none"];
-            if (!validTypes.includes(scene.transition.type)) {
+            const type = scene.transition.type as TransitionType;
+            if (!SUPPORTED_TRANSITION_TYPES.includes(type) || !TRANSITION_PRESENTATIONS[type]) {
               throw new UnknownTransitionError(scene.transition.type, scene.scene_id);
             }
           }
@@ -214,20 +246,11 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
           // Determine presentation based on transition type (S16 - LED-043)
           let presentation: any = fade({} as any);
           if (scene.transition && scene.transition.type) {
-             const type = scene.transition.type;
-             if (type === "slide") presentation = slide({} as any);
-             else if (type === "wipe") presentation = wipe({} as any);
-             else if (type === "flip") presentation = flip({} as any);
-             else if (type === "zoom") presentation = zoomInOut({} as any);
-             else if (type === "cross-zoom") presentation = crossZoom({} as any);
-             else if (type === "film-burn") presentation = filmBurn({} as any);
-             else if (type === "dissolve") presentation = dissolve({} as any);
-             else if (type === "iris") presentation = iris({} as any);
-             else if (type === "none") presentation = none({} as any);
-             else if (type === "fade") presentation = fade({} as any);
-             else {
-               throw new UnknownTransitionError(type, scene.scene_id);
+             const presenter = TRANSITION_PRESENTATIONS[scene.transition.type as TransitionType];
+             if (!presenter) {
+               throw new UnknownTransitionError(scene.transition.type, scene.scene_id);
              }
+             presentation = presenter();
           }
 
           return (

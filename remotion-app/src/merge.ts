@@ -14,7 +14,7 @@ import {
 } from "../../contracts/asset-resolver";
 import { validateTemplatePayload } from "../../contracts/template-schemas";
 import { UnknownEffectError, UnknownTransitionError, UnknownTemplateError, InvalidRenderInputError } from "../../contracts/render-input";
-import { isKnownEffect } from "../../registry/effects-runtime";
+import { isKnownEffect, isExecutableEffect, EFFECTS_RUNTIME } from "../../registry/effects-runtime";
 
 export interface SceneOverride {
   props?: Record<string, any>;
@@ -222,6 +222,13 @@ export function mergeScene(
       const eff = scene.effects[eIdx];
       if (!isKnownEffect(eff.effect)) {
         throw new UnknownEffectError(eff.effect, scene.scene_id, `scenes[${scene.scene_id}].effects[${eIdx}].effect`);
+      }
+      if (!isExecutableEffect(eff.effect)) {
+        throw new UnknownEffectError(
+          `${eff.effect} (unsupported unbridged effect: ${EFFECTS_RUNTIME[eff.effect]?.reason || "no component"})`,
+          scene.scene_id,
+          `scenes[${scene.scene_id}].effects[${eIdx}].effect`
+        );
       }
     }
   }

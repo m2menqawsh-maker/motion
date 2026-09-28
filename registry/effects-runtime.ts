@@ -53,18 +53,6 @@ export const EFFECTS_RUNTIME: Record<string, EffectRuntimeEntry> = {
     sourcePath: ".agents/plugins/super-video-maker-plugin/engine/primitives/app-ui/Badge.tsx",
     reason: "Transitive dependency error"
   },
-  "blur_reveal": {
-    id: "blur_reveal",
-    kind: "unbridged",
-    paramsSchema: {},
-    reason: "Blueprint fixture effect"
-  },
-  "blur-reveal": {
-    id: "blur-reveal",
-    kind: "unbridged",
-    paramsSchema: {},
-    reason: "Blueprint fixture effect"
-  },
   "Button": {
     id: "Button",
     kind: "unbridged",
@@ -335,4 +323,14 @@ export const EFFECT_IDS = Object.keys(EFFECTS_RUNTIME) as string[];
 export function isKnownEffect(effectId: string): boolean {
   if (typeof effectId !== "string" || !effectId) return false;
   return Boolean(EFFECTS_RUNTIME[effectId]);
+}
+
+export function isExecutableEffect(effectId: string): boolean {
+  if (typeof effectId !== "string" || !effectId) return false;
+  const entry = EFFECTS_RUNTIME[effectId];
+  return Boolean(entry && entry.component);
+}
+
+export function getExecutableEffectIds(): string[] {
+  return EFFECT_IDS.filter((id) => Boolean(EFFECTS_RUNTIME[id]?.component));
 }

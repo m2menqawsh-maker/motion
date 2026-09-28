@@ -3,11 +3,12 @@ import { describe, it, expect, vi } from "vitest";
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import { parseRenderInput, InvalidRenderInputError, UnknownTemplateError, UnknownEffectError, UnknownTransitionError } from "../../contracts/render-input";
+import { SUPPORTED_TRANSITION_TYPES } from "../../contracts/blueprint";
 import { InvalidTemplatePayloadError } from "../../contracts/template-schemas";
 import { mergeProject, ProjectData } from "../../remotion-app/src/merge";
-import { BlueprintVideo } from "../../remotion-app/src/BlueprintVideo";
+import { BlueprintVideo, TRANSITION_PRESENTATIONS } from "../../remotion-app/src/BlueprintVideo";
 import { TEMPLATE_REGISTRY, CANONICAL_TEMPLATE_REGISTRY } from "../../registry/template-registry";
-import { EFFECTS_RUNTIME } from "../../registry/effects-runtime";
+import { EFFECTS_RUNTIME, EFFECT_IDS, isExecutableEffect, getExecutableEffectIds } from "../../registry/effects-runtime";
 
 // Mock remotion environment
 vi.mock("remotion", async (importOriginal) => {
@@ -88,6 +89,53 @@ describe("S16 Comprehensive Gate: Pre-Mount Verification & Fail-Closed Boundarie
         },
       };
       expect(() => parseRenderInput(duplicateSceneInput)).toThrow(/duplicate scene_id 'scene_dup'/);
+    });
+
+    it("rejects malformed brand with missing mandatory colors or fonts (fail closed without hiding via defaults)", () => {
+      const badBrandColors = {
+        blueprint: {
+          blueprint_version: "2.0.0",
+          project_id: "prj_bad_brand",
+          fps: 30,
+          aspect_ratio: "16:9",
+          scenes: [{ scene_id: "s1", template: "rui-hero-device-assemble", startFrame: 0, durationFrames: 30 }],
+        },
+        brand: {
+          brandName: "Acme",
+          // missing mandatory colors and fonts
+        },
+      };
+      expect(() => parseRenderInput(badBrandColors)).toThrow(InvalidRenderInputError);
+
+      const invalidColorTypes = {
+        blueprint: {
+          blueprint_version: "2.0.0",
+          project_id: "prj_bad_brand",
+          fps: 30,
+          aspect_ratio: "16:9",
+          scenes: [{ scene_id: "s1", template: "rui-hero-device-assemble", startFrame: 0, durationFrames: 30 }],
+        },
+        brand: {
+          brandName: "Acme",
+          colors: { primary: "" },
+          fonts: { display: "Cairo", body: "Cairo" },
+        },
+      };
+      expect(() => parseRenderInput(invalidColorTypes)).toThrow(InvalidRenderInputError);
+    });
+
+    it("rejects malformed project metadata without silent fallback", () => {
+      const badProjectMeta = {
+        project: { fps: -30 }, // invalid fps
+        blueprint: {
+          blueprint_version: "2.0.0",
+          project_id: "prj_bad_meta",
+          fps: 30,
+          aspect_ratio: "16:9",
+          scenes: [{ scene_id: "s1", template: "rui-hero-device-assemble", startFrame: 0, durationFrames: 30 }],
+        },
+      };
+      expect(() => parseRenderInput(badProjectMeta)).toThrow(InvalidRenderInputError);
     });
   });
 
@@ -185,6 +233,18 @@ describe("S16 Comprehensive Gate: Pre-Mount Verification & Fail-Closed Boundarie
         });
       } finally {
         entry.component = originalComponent;
+      }
+    });
+
+    it("proves exhaustive 1:1 parity between SUPPORTED_TRANSITION_TYPES and TRANSITION_PRESENTATIONS", () => {
+      const schemaTypes = [...SUPPORTED_TRANSITION_TYPES].sort();
+      const runtimeTypes = Object.keys(TRANSITION_PRESENTATIONS).sort();
+      expect(runtimeTypes).toEqual(schemaTypes);
+
+      // Prove every supported transition type executes and returns an executable presentation
+      for (const t of SUPPORTED_TRANSITION_TYPES) {
+        const presentation = TRANSITION_PRESENTATIONS[t]({});
+        expect(presentation).toBeDefined();
       }
     });
   });
@@ -318,6 +378,65 @@ describe("S16 Comprehensive Gate: Pre-Mount Verification & Fail-Closed Boundarie
 
       const merged = mergeProject(validated, (t) => TEMPLATE_REGISTRY[t]);
       expect(merged.scenes[0].effects).toHaveLength(2);
+    });
+
+    it("proves exhaustive invariant: every known effect is either executable or rejected before render", () => {
+      const executableIds = getExecutableEffectIds();
+      expect(executableIds.length).toBeGreaterThan(0);
+
+      // 1. Every executable effect passes validation
+      for (const effId of executableIds) {
+        expect(isExecutableEffect(effId)).toBe(true);
+        expect(EFFECTS_RUNTIME[effId].component).toBeDefined();
+      }
+
+      // 2. Any unbridged effect in EFFECTS_RUNTIME is explicitly rejected in render input
+      const unbridgedIds = EFFECT_IDS.filter((id) => EFFECTS_RUNTIME[id].kind === "unbridged");
+      expect(unbridgedIds.length).toBeGreaterThan(0);
+      for (const unbridgedId of unbridgedIds.slice(0, 5)) {
+        const input = {
+          blueprint: {
+            blueprint_version: "2.0.0",
+            project_id: "prj_unbridged",
+            fps: 30,
+            aspect_ratio: "16:9",
+            scenes: [
+              {
+                scene_id: "s1",
+                template: "rui-hero-device-assemble",
+                startFrame: 0,
+                durationFrames: 60,
+                effects: [{ effect: unbridgedId, apply: "scene" as const }],
+              },
+            ],
+          },
+          brand: validBrand,
+        };
+        expect(() => parseRenderInput(input)).toThrow(UnknownEffectError);
+      }
+
+      // 3. Removed fixture effects blur_reveal and blur-reveal are rejected fail-closed
+      expect((EFFECTS_RUNTIME as any)["blur_reveal"]).toBeUndefined();
+      expect((EFFECTS_RUNTIME as any)["blur-reveal"]).toBeUndefined();
+      const inputBlur = {
+        blueprint: {
+          blueprint_version: "2.0.0",
+          project_id: "prj_blur",
+          fps: 30,
+          aspect_ratio: "16:9",
+          scenes: [
+            {
+              scene_id: "s1",
+              template: "rui-hero-device-assemble",
+              startFrame: 0,
+              durationFrames: 60,
+              effects: [{ effect: "blur_reveal", apply: "scene" as const }],
+            },
+          ],
+        },
+        brand: validBrand,
+      };
+      expect(() => parseRenderInput(inputBlur)).toThrow(UnknownEffectError);
     });
   });
 

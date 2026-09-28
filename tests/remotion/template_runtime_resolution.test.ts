@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { getRegistryEntry, TEMPLATE_REGISTRY } from "../../registry/template-registry";
 import { mergeProject, ProjectData } from "../../remotion-app/src/merge";
+import { DEFAULT_BRAND_KIT } from "../../contracts/render-input";
 
 const ROOT = path.resolve(__dirname, "../..");
 const CATALOG_PATH = path.join(ROOT, "ground-truth/template_catalog.json");
@@ -100,7 +101,7 @@ describe("CRD-019: Runtime Template Resolution Tests", () => {
             } as any
           ]
         },
-        brand: {}
+        brand: DEFAULT_BRAND_KIT
       };
 
       expect(() => {
@@ -128,7 +129,7 @@ describe("CRD-019: Runtime Template Resolution Tests", () => {
             surface: { text: "Hello" }
           }))
         },
-        brand: {}
+        brand: DEFAULT_BRAND_KIT
       };
 
       const merged = mergeProject(validProject, (tmpl) => getRegistryEntry(tmpl));

@@ -16,7 +16,7 @@ import {
 } from "./blueprint";
 import { BrandKit } from "./brand";
 import { getRegistryEntry } from "../registry/template-registry";
-import { EFFECTS_RUNTIME, isKnownEffect } from "../registry/effects-runtime";
+import { EFFECTS_RUNTIME, isKnownEffect, isExecutableEffect } from "../registry/effects-runtime";
 import {
   validateTemplatePayload,
   InvalidTemplatePayloadError,
@@ -116,31 +116,23 @@ export const ProjectMetaSchema = z.object({
 }).passthrough();
 
 export const BrandColorsSchema = z.object({
-  primary: z.string(),
-  accent: z.string(),
-  background: z.string(),
-  text: z.string(),
+  primary: z.string().min(1, "colors.primary is required"),
+  accent: z.string().min(1, "colors.accent is required"),
+  background: z.string().min(1, "colors.background is required"),
+  text: z.string().min(1, "colors.text is required"),
   surface: z.string().optional(),
 });
 
 export const BrandFontsSchema = z.object({
-  display: z.string(),
-  body: z.string(),
+  display: z.string().min(1, "fonts.display is required"),
+  body: z.string().min(1, "fonts.body is required"),
 });
 
 export const BrandKitSchema = z.object({
-  brandName: z.string().default("Default"),
+  brandName: z.string().min(1, "brandName is required").default("Default"),
   logoSrc: z.string().nullable().optional().default(null),
-  colors: BrandColorsSchema.default({
-    primary: "#00F5FF",
-    accent: "#FFD700",
-    background: "#0A0E27",
-    text: "#FFFFFF"
-  }),
-  fonts: BrandFontsSchema.default({
-    display: "Cairo",
-    body: "IBMPlexSansArabic"
-  }),
+  colors: BrandColorsSchema,
+  fonts: BrandFontsSchema,
   tone: z.string().optional(),
 });
 
@@ -283,6 +275,14 @@ export function parseRenderInput(rawInput: unknown): ValidatedRenderInput {
         if (!isKnownEffect(eff.effect)) {
           throw new UnknownEffectError(eff.effect, scene.scene_id, `scenes[${idx}].effects[${eIdx}].effect`);
         }
+        if (!isExecutableEffect(eff.effect)) {
+          const reason = EFFECTS_RUNTIME[eff.effect]?.reason || "unbridged";
+          throw new UnknownEffectError(
+            `${eff.effect} (unsupported: ${reason})`,
+            scene.scene_id,
+            `scenes[${idx}].effects[${eIdx}].effect`
+          );
+        }
       }
     }
 
@@ -297,34 +297,51 @@ export function parseRenderInput(rawInput: unknown): ValidatedRenderInput {
     validateTemplatePayload(entry, scene, `scenes[${idx}]`);
   }
 
-  // 5. Project Metadata Validation
-  const projectParse = ProjectMetaSchema.safeParse(rawProject);
-  const validatedProject = projectParse.success
-    ? { ...projectParse.data, fps: projectParse.data.fps ?? validatedBlueprint.fps }
-    : { title: "Untitled", fps: validatedBlueprint.fps };
-
-  // 6. Brand Kit Validation with Defaults
-  let validatedBrand: BrandKit;
-  if (input.brand && typeof input.brand === "object" && Object.keys(input.brand).length > 0) {
-    const brandParse = BrandKitSchema.safeParse(input.brand);
-    if (brandParse.success) {
-      validatedBrand = brandParse.data;
-    } else {
-      validatedBrand = {
-        brandName: input.brand.brandName || DEFAULT_BRAND_KIT.brandName,
-        logoSrc: input.brand.logoSrc ?? DEFAULT_BRAND_KIT.logoSrc,
-        colors: { ...DEFAULT_BRAND_KIT.colors, ...(input.brand.colors || {}) },
-        fonts: { ...DEFAULT_BRAND_KIT.fonts, ...(input.brand.fonts || {}) },
-        tone: input.brand.tone,
-      };
+  // 5. Project Metadata Validation (fail closed on malformed project input)
+  let validatedProject: { title: string; fps?: number; project_id?: string; [key: string]: any };
+  if (input.project !== undefined && input.project !== null) {
+    if (typeof input.project !== "object") {
+      throw new InvalidRenderInputError("Project metadata must be an object");
     }
+    const projectParse = ProjectMetaSchema.safeParse(input.project);
+    if (!projectParse.success) {
+      const errs = projectParse.error.issues.map((i) => `[project.${i.path.join(".")}] ${i.message}`).join("; ");
+      throw new InvalidRenderInputError(`Invalid project metadata: ${errs}`, { issues: projectParse.error.issues });
+    }
+    validatedProject = { ...projectParse.data, fps: projectParse.data.fps ?? validatedBlueprint.fps };
+  } else {
+    validatedProject = { title: "Untitled", fps: validatedBlueprint.fps };
+  }
+
+  // 6. Brand Kit Validation with Defaults (fail closed on malformed brand input)
+  let validatedBrand: BrandKit;
+  if (input.brand !== undefined && input.brand !== null) {
+    if (typeof input.brand !== "object") {
+      throw new InvalidRenderInputError("Brand kit must be an object");
+    }
+    const brandParse = BrandKitSchema.safeParse(input.brand);
+    if (!brandParse.success) {
+      const errs = brandParse.error.issues.map((i) => `[brand.${i.path.join(".")}] ${i.message}`).join("; ");
+      throw new InvalidRenderInputError(`Invalid brand kit: ${errs}`, { issues: brandParse.error.issues });
+    }
+    validatedBrand = brandParse.data;
   } else {
     validatedBrand = { ...DEFAULT_BRAND_KIT };
   }
 
-  // 7. Overrides Validation
-  const overridesParse = OverridesSchema.safeParse(input.overrides || {});
-  const validatedOverrides = overridesParse.success ? overridesParse.data : { scenes: {} };
+  // 7. Overrides Validation (fail closed on malformed overrides)
+  let validatedOverrides: { scenes: Record<string, SceneOverride> } = { scenes: {} };
+  if (input.overrides !== undefined && input.overrides !== null) {
+    if (typeof input.overrides !== "object") {
+      throw new InvalidRenderInputError("Overrides must be an object");
+    }
+    const overridesParse = OverridesSchema.safeParse(input.overrides);
+    if (!overridesParse.success) {
+      const errs = overridesParse.error.issues.map((i) => `[overrides.${i.path.join(".")}] ${i.message}`).join("; ");
+      throw new InvalidRenderInputError(`Invalid overrides: ${errs}`, { issues: overridesParse.error.issues });
+    }
+    validatedOverrides = overridesParse.data;
+  }
 
   // 8. Media Map
   const media_map = (input.media_map && typeof input.media_map === "object")
