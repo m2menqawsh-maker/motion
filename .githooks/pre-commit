@@ -1,26 +1,27 @@
 #!/usr/bin/env bash
-# Pre-commit hook to enforce Ground Truth synchronization
+# Pre-commit hook to enforce Ground Truth synchronization (S23 - LED-083)
+set -euo pipefail
 
 echo "==========================================================="
 echo "🔄 Running auto-sync for ground-truth (Approach 1)..."
 echo "==========================================================="
 
-# Path to the generator script
-GENERATOR_SCRIPT="scripts/build_ground_truth.py"
+GENERATOR_SCRIPT="scripts/generators/build_ground_truth.py"
 GROUND_TRUTH_DIR="ground-truth/"
 
 if [ ! -f "$GENERATOR_SCRIPT" ]; then
-    echo "⚠️ Warning: $GENERATOR_SCRIPT not found. Skipping auto-sync."
-    exit 0
-fi
-
-# Run the generator
-python "$GENERATOR_SCRIPT"
-if [ $? -ne 0 ]; then
-    echo "❌ ERROR: build_ground_truth.py failed."
-    echo "Commit aborted. Please fix the template errors first."
+    echo "❌ FATAL: $GENERATOR_SCRIPT not found. Cannot synchronize ground truth."
     exit 1
 fi
+
+PYTHON_BIN="$(which python3 || which python || true)"
+if [ -z "$PYTHON_BIN" ]; then
+    echo "❌ FATAL: python executable not found in PATH."
+    exit 1
+fi
+
+# Run the generator fail-closed
+"$PYTHON_BIN" "$GENERATOR_SCRIPT"
 
 # Add the generated files to the commit
 git add "$GROUND_TRUTH_DIR"

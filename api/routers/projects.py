@@ -63,7 +63,6 @@ async def get_project(
     state_dict = await PipelineService.get_status(project_id)
 
     # Fetch project.json metadata safely
-    from scripts.core.state_store import StateStore
     proj_dir = ProjectService._get_project_dir(project_id)
     project_json_path = proj_dir / "project.json"
     project_dict = {}

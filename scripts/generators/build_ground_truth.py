@@ -36,12 +36,19 @@ engine_dir = DST / "remotion-app/src/engine"
 (OUT / "collections").mkdir(parents=True, exist_ok=True)
 
 catalog = []
+existing_catalog_file = OUT / "template_catalog.json"
+if existing_catalog_file.exists():
+    try:
+        catalog = json.loads(existing_catalog_file.read_text(encoding="utf-8"))
+    except Exception:
+        catalog = []
 
 registry_path = DST / "registry" / "template-registry.tsx"
 if registry_path.exists():
     content = registry_path.read_text(encoding="utf-8")
     m = re.search(r"CANONICAL_TEMPLATE_REGISTRY(?:[\s\S]*?)=\s*\{([\s\S]*?)\n\};", content)
-    if m:
+    if m and m.group(1).strip():
+        catalog = []
         entries_str = m.group(1)
         parts = re.split(r'\n\s+"([a-zA-Z0-9_-]+)":\s*\{', "\n  " + entries_str)
         
@@ -174,9 +181,8 @@ for c in catalog:
     lines.append(f"| `{c['name']}` | {c['type']} | {c['family']} | {c['source']} | `{c['path']}` |")
 
 count = len(catalog)
-import hashlib
 (OUT / "TEMPLATE_INDEX.md").write_text(
-    hdr("TEMPLATE_INDEX — Real templates on disk", "template_catalog.json", f" | SHA256: {hashlib.sha256(json.dumps(catalog).encode()).hexdigest()[:16]}")
+    hdr("TEMPLATE_INDEX — Real templates on disk (NOT RUNTIME AUTHORITY)\n> **NOTICE: NOT RUNTIME AUTHORITY.** This document is informational documentation only.\n> The single authority for template identity is the Runtime Template Registry via contracts/template-runtime-contract.json.\n> Changes to this file do NOT affect runtime or validation behavior.", "template_catalog.json", f" | SHA256: {hashlib.sha256(json.dumps(catalog).encode()).hexdigest()[:16]}")
     + f"**Count: {count} templates**\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 print(f"TEMPLATE_INDEX: {count}")
 

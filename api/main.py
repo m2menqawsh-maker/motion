@@ -4,8 +4,7 @@ from contextlib import asynccontextmanager
 from scripts.security.path_security import validate_project_id
 from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from api.routers import projects, gates, render, brand, blueprint, runs, assets, artifacts, outputs
+from api.routers import projects, gates, render, brand, blueprint, runs, assets, artifacts, outputs, health
 from fastapi.exceptions import RequestValidationError
 from api.core.errors import (
     APIError,
@@ -64,6 +63,7 @@ app.include_router(gates.router, prefix="/gates", tags=["gates"])
 app.include_router(render.router, prefix="/render", tags=["render"])
 app.include_router(brand.router, prefix="/brand", tags=["brand"])
 app.include_router(blueprint.router, prefix="/blueprint", tags=["blueprint"])
+app.include_router(health.router)
 
 # Security & Exception Handlers
 app.add_exception_handler(RequestValidationError, validation_error_handler)
@@ -74,8 +74,3 @@ app.add_exception_handler(AuthenticationRequiredError, authentication_required_h
 app.add_exception_handler(AccessDeniedError, access_denied_handler)
 app.add_exception_handler(APIError, api_error_handler)
 app.add_exception_handler(Exception, global_exception_handler)
-
-
-@app.get("/health")
-async def health():
-    return {"status": "ok", "version": "1.0.0"}

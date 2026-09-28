@@ -25,10 +25,53 @@ DEFAULT_DEV_ORIGINS = [
 class APISettings(BaseModel):
     """Canonical API Settings model."""
     env: str = Field(default_factory=lambda: os.environ.get("MOTION_ENV", "development").lower())
+    role: str = Field(default_factory=lambda: os.environ.get("MOTION_ROLE", "api").lower())
+    readiness_timeout_seconds: float = Field(
+        default_factory=lambda: float(os.environ.get("MOTION_READINESS_TIMEOUT", "3.0"))
+    )
+    worker_stale_threshold_seconds: float = Field(
+        default_factory=lambda: float(os.environ.get("MOTION_WORKER_STALE_THRESHOLD", "60.0"))
+    )
+    require_active_worker: bool = Field(
+        default_factory=lambda: os.environ.get("MOTION_REQUIRE_WORKER", "false").lower() in ("1", "true", "yes")
+    )
+    log_dir: str = Field(default_factory=lambda: os.environ.get("MOTION_LOG_DIR", "logs"))
+    log_level: str = Field(default_factory=lambda: os.environ.get("MOTION_LOG_LEVEL", "INFO").upper())
+    log_max_bytes: int = Field(default_factory=lambda: int(os.environ.get("MOTION_LOG_MAX_BYTES", "10485760")))
+    log_backup_count: int = Field(default_factory=lambda: int(os.environ.get("MOTION_LOG_BACKUP_COUNT", "5")))
+
     cors_allowed_origins: List[str] = Field(default_factory=list)
     cors_allow_credentials: bool = Field(default=True)
     cors_allow_methods: List[str] = Field(default_factory=lambda: ["*"])
     cors_allow_headers: List[str] = Field(default_factory=lambda: ["*"])
+
+    @field_validator("readiness_timeout_seconds")
+    @classmethod
+    def validate_readiness_timeout(cls, v: float) -> float:
+        if v <= 0:
+            raise ValueError("readiness_timeout_seconds must be positive")
+        return v
+
+    @field_validator("worker_stale_threshold_seconds")
+    @classmethod
+    def validate_worker_stale_threshold(cls, v: float) -> float:
+        if v <= 0:
+            raise ValueError("worker_stale_threshold_seconds must be positive")
+        return v
+
+    @field_validator("log_max_bytes")
+    @classmethod
+    def validate_log_max_bytes(cls, v: int) -> int:
+        if v <= 0:
+            raise ValueError("log_max_bytes must be positive")
+        return v
+
+    @field_validator("log_backup_count")
+    @classmethod
+    def validate_log_backup_count(cls, v: int) -> int:
+        if v < 0:
+            raise ValueError("log_backup_count cannot be negative")
+        return v
 
     @model_validator(mode="before")
     @classmethod

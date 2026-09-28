@@ -289,7 +289,6 @@ clean-video-workspace/
 │   └── AGENTS.md
 ├── .githooks/
 │   ├── pre-commit
-│   ├── pre-merge-commit
 │   └── pre-push
 ├── .github/
 │   ├── workflows/

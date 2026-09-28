@@ -176,11 +176,16 @@ export const TransitionRefSchema = z.object({
 export type TransitionRef = z.infer<typeof TransitionRefSchema>;
 
 export const EffectRefSchema = z.object({
-  effect: z.string().min(1).refine(isExecutableEffect, (val) => ({
-    message: EFFECTS_RUNTIME[val]
-      ? `Unsupported effect '${val}' (kind: '${EFFECTS_RUNTIME[val].kind}'). Cannot render unbridged effect without runtime component.`
-      : `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME with an executable component.`,
-  })),
+  effect: z.string().min(1).superRefine((val: string, ctx: z.RefinementCtx) => {
+    if (!isExecutableEffect(val)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: EFFECTS_RUNTIME[val]
+          ? `Unsupported effect '${val}' (kind: '${EFFECTS_RUNTIME[val].kind}'). Cannot render unbridged effect without runtime component.`
+          : `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME with an executable component.`,
+      });
+    }
+  }),
   apply: z.enum(["scene", "overlay"]).optional().default("scene"),
   params: z.record(z.string(), z.any()).optional().default({}),
 });
