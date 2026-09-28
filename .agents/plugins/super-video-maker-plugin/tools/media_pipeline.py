@@ -32,6 +32,17 @@ import shutil
 import tempfile
 import sys
 from pathlib import Path
+
+repo_root = Path(__file__).resolve().parent.parent.parent.parent.parent
+if str(repo_root) not in sys.path:
+    sys.path.insert(0, str(repo_root))
+
+from scripts.core.asset_cache import (
+    compute_cache_identity,
+    compute_content_hash,
+    compute_processing_spec_hash,
+    DEFAULT_PROCESSOR_VERSION,
+)
 from datetime import datetime, timezone
 from filelock import FileLock
 from contextlib import contextmanager
@@ -185,27 +196,25 @@ class MediaPipelineOrchestrator:
             lock.release()
     
     def process_asset(self, asset_path: Path, processor_func, output_type: str,
-                     processor_metadata: dict) -> Path:
+                     processor_metadata: dict, processor_version: str = DEFAULT_PROCESSOR_VERSION) -> Path:
         """
-        Idempotent asset processing with hash-based deduplication.
-        Same input + same processor = same output (cached).
+        Idempotent asset processing with content-addressed cache identity:
+        source_content_hash + normalized_processing_spec_hash + processor_version.
         """
         if not asset_path.exists():
             raise FileNotFoundError(f"Asset not found: {asset_path}")
         
         input_hash = self.compute_hash(asset_path)
-        
-        processor_sig = hashlib.sha256(
-            json.dumps(processor_metadata, sort_keys=True).encode()
-        ).hexdigest()[:16]
+        spec_hash = compute_processing_spec_hash(processor_metadata)
+        cache_id = compute_cache_identity(input_hash, spec_hash, processor_version)
         
         output_cache = self.processed / output_type / "cache"
         output_cache.mkdir(exist_ok=True)
-        cached_output = output_cache / f"{input_hash}_{processor_sig}.cached"
+        cached_output = output_cache / f"{cache_id}.cached"
         
         if cached_output.exists():
             self.log_transaction(
-                tx_id=f"process_{input_hash[:8]}_{datetime.now(timezone.utc).timestamp()}",
+                tx_id=f"process_{cache_id[:8]}_{datetime.now(timezone.utc).timestamp()}",
                 operation="process_cache_hit",
                 source=str(asset_path),
                 dest=str(cached_output),
@@ -216,11 +225,11 @@ class MediaPipelineOrchestrator:
             )
             return cached_output
         
-        lock = self.acquire_lock(f"process_{input_hash[:8]}")
+        lock = self.acquire_lock(f"process_{cache_id[:16]}")
         try:
             processing_dir = self.processed / output_type / "processing"
             processing_dir.mkdir(exist_ok=True)
-            processing_path = processing_dir / f"temp_{input_hash[:8]}"
+            processing_path = processing_dir / f"temp_{cache_id[:8]}"
             
             processor_func(asset_path, processing_path, processor_metadata)
             
@@ -230,7 +239,7 @@ class MediaPipelineOrchestrator:
             shutil.move(str(processing_path), str(cached_output))
             
             self.log_transaction(
-                tx_id=f"process_{input_hash[:8]}_{datetime.now(timezone.utc).timestamp()}",
+                tx_id=f"process_{cache_id[:8]}_{datetime.now(timezone.utc).timestamp()}",
                 operation="process",
                 source=str(asset_path),
                 dest=str(cached_output),

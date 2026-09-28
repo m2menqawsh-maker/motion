@@ -33,9 +33,24 @@ def move_asset_status(file_path: str, from_status: str, to_status: str, asset_ty
         raise FileNotFoundError(f"Source file not found: {source_path}")
 
     # Ensure the file is actually in the from_status directory logically
-    expected_from_dir = BASE_ASSET_DIR / from_status / asset_type
+    expected_from_dir = (BASE_ASSET_DIR / from_status).resolve()
+    try:
+        source_path.resolve().relative_to(expected_from_dir)
+    except ValueError:
+        # File is not in the expected status directory
+        actual_status = "unknown"
+        for s in valid_statuses:
+            try:
+                source_path.resolve().relative_to((BASE_ASSET_DIR / s).resolve())
+                actual_status = s
+                break
+            except ValueError:
+                continue
+        raise ValueError(
+            f"Asset status mismatch for file '{source_path.name}': "
+            f"expected from_status '{from_status}', but file is located in '{actual_status}'"
+        )
     
-    # We could strictly enforce it, but let's just move it to the target
     target_dir = BASE_ASSET_DIR / to_status / asset_type
     target_dir.mkdir(parents=True, exist_ok=True)
     

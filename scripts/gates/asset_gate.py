@@ -61,15 +61,23 @@ def run_gate(manifest_path_str):
             item_path = item.processed_path or item.source_path or ""
             item_base = get_base_name(item_path) if item_path else ""
             item_hash = item.content_hash
+            item_spec_hash = item.processing_spec_hash
             
             for index_entry in index:
                 if index_entry.get("state") == "ready":
                     match_found = False
                     
                     if index_entry.get("type") == item_type:
-                        if index_entry.get("base") == item_base and item_base != "":
-                            match_found = True
-                        elif item_hash and index_entry.get("hash") == item_hash:
+                        # If processing specs exist, verify they match
+                        index_spec_hash = index_entry.get("processing_spec_hash")
+                        if item_spec_hash and index_spec_hash and item_spec_hash != index_spec_hash:
+                            continue
+
+                        if item_hash and index_entry.get("hash") == item_hash:
+                            # Content hash matches
+                            if not item_spec_hash or not index_spec_hash or item_spec_hash == index_spec_hash:
+                                match_found = True
+                        elif not item_hash and not item_spec_hash and index_entry.get("base") == item_base and item_base != "":
                             match_found = True
                             
                     if match_found:
