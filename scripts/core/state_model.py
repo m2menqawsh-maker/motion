@@ -78,6 +78,9 @@ class ReviewBundle(BaseModel):
     media_map_sha256: str
     probe_report_sha256: str
     contact_sheet_sha256: Optional[str] = None
+    render_input_sha256: Optional[str] = None
+    probe_frame_plan_digest: Optional[str] = None
+    rendered_frames_sha256: Dict[str, str] = Field(default_factory=dict)
     bundle_digest: str = ""
     status: str = "ACTIVE"  # "ACTIVE", "SUPERSEDED", "INVALIDATED"
     invalidated_at: Optional[str] = None
@@ -96,6 +99,8 @@ class ReviewBundle(BaseModel):
             "media_map_sha256": data.get("media_map_sha256"),
             "probe_report_sha256": data.get("probe_report_sha256"),
             "contact_sheet_sha256": data.get("contact_sheet_sha256"),
+            "render_input_sha256": data.get("render_input_sha256"),
+            "probe_frame_plan_digest": data.get("probe_frame_plan_digest"),
         }
         canonical_json = json.dumps(canonical_dict, sort_keys=True, separators=(',', ':'))
         return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()

@@ -97,9 +97,17 @@ REQUIRED_EVIDENCE_ITEMS: Dict[str, RequiredEvidenceItem] = {
     "probe_report": RequiredEvidenceItem(
         logical_name="probe_qc_report",
         path="probe_qc_report.json",
-        validation=ValidationLevel.EXISTS,
+        validation=ValidationLevel.SHA256,
         mandatory=True,
         description="Probe QC verification report",
+    ),
+    "contact_sheet": RequiredEvidenceItem(
+        logical_name="contact_sheet",
+        path="contact_sheet.png",
+        validation=ValidationLevel.SHA256,
+        mandatory=True,
+        min_size_bytes=1,
+        description="Mandatory probe review contact sheet image",
     ),
     "studio_approved": RequiredEvidenceItem(
         logical_name="studio_approved",

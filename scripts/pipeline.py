@@ -387,7 +387,8 @@ def main():
             save_state(LifecycleState.PROBE_PASSED, [
                 ("master_plan.md", ValidationLevel.SHA256),
                 ("05_blueprint.json", ValidationLevel.SHA256),
-                ("probe_qc_report.json", ValidationLevel.EXISTS)
+                ("probe_qc_report.json", ValidationLevel.SHA256),
+                ("contact_sheet.png", ValidationLevel.SHA256),
             ])
             next_state = LifecycleState.PROBE_PASSED
 

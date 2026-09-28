@@ -51,6 +51,13 @@ class FailureCode(str, Enum):
     REVIEW_IDENTITY_INVALID = "REVIEW_IDENTITY_INVALID"
     RENDER_NOT_AUTHORIZED = "RENDER_NOT_AUTHORIZED"
 
+    # S18 Probe & Evidence Bundle Failures
+    PROBE_INVALID_BLUEPRINT = "PROBE_INVALID_BLUEPRINT"
+    PROBE_FRAME_RENDER_FAILED = "PROBE_FRAME_RENDER_FAILED"
+    PROBE_CONTACT_SHEET_FAILED = "PROBE_CONTACT_SHEET_FAILED"
+    PROBE_REPORT_FAILED = "PROBE_REPORT_FAILED"
+    PROBE_EVIDENCE_STALE = "PROBE_EVIDENCE_STALE"
+
     # S10 Contracts & Dependency Graph
     CONTRACT_AUTHORITY_VIOLATION = "CONTRACT_AUTHORITY_VIOLATION"
     CONTRACT_VERSION_UNSUPPORTED = "CONTRACT_VERSION_UNSUPPORTED"
@@ -136,6 +143,23 @@ _FAILURE_METADATA_REGISTRY: Dict[FailureCode, FailureMetadata] = {
     ),
     FailureCode.RENDER_NOT_AUTHORIZED: FailureMetadata(
         FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+
+    # S18 Probe & Evidence Bundle Failures
+    FailureCode.PROBE_INVALID_BLUEPRINT: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.PROBE_FRAME_RENDER_FAILED: FailureMetadata(
+        FailureCategory.RENDER_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+    ),
+    FailureCode.PROBE_CONTACT_SHEET_FAILED: FailureMetadata(
+        FailureCategory.RENDER_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+    ),
+    FailureCode.PROBE_REPORT_FAILED: FailureMetadata(
+        FailureCategory.INTERNAL_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+    ),
+    FailureCode.PROBE_EVIDENCE_STALE: FailureMetadata(
+        FailureCategory.STATE_CONFLICT, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
     ),
 
     # S10 Contracts & Dependency Graph

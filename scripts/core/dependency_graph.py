@@ -49,7 +49,7 @@ class ArtifactKind(str, Enum):
         # Legacy/housekeeping file aliases: map to canonical semantic node for invalidation resolution
         if val_clean in (".studio_approved", "approval_metadata", "studio_approved"):
             return cls.REVIEW_DECISION
-        if val_clean in (".studio_unlocked", "probe_qc"):
+        if val_clean in (".studio_unlocked", "probe_qc", "contact_sheet.png", "contact_sheet"):
             return cls.PROBE_REPORT
         return None
 

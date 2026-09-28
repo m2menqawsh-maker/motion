@@ -128,6 +128,10 @@ class ReviewService:
         project_dir: Path | str,
         actor: Optional[Principal] = None,
         timeout: float = 10.0,
+        require_contact_sheet: bool = False,
+        render_input_sha256: Optional[str] = None,
+        probe_frame_plan_digest: Optional[str] = None,
+        rendered_frames_sha256: Optional[Dict[str, str]] = None,
     ) -> ReviewBundle:
         """
         Creates an immutable ReviewBundle snapshot of all artifacts subject to review.
@@ -142,6 +146,7 @@ class ReviewService:
         curr_state = LifecycleState(state.lifecycle_state)
         # Bundle creation is allowed once scenes are probed and ready for human review
         allowed_states = (
+            LifecycleState.MATERIALIZED,
             LifecycleState.PROBE_PASSED,
             LifecycleState.AWAITING_REVIEW,
             LifecycleState.REVIEW_APPROVED,
@@ -168,12 +173,32 @@ class ReviewService:
             raise ReviewError(f"Mandatory probe report file '{probe_path.name}' is missing on disk.")
         probe_report_sha = StateStore._compute_sha256(probe_path)
 
-        # 2. Collect optional review artifacts if present
+        # 2. Collect contact sheet (mandatory when require_contact_sheet=True or when present)
+        contact_sheet_path = pdir / "contact_sheet.png"
+        if require_contact_sheet:
+            if not contact_sheet_path.exists():
+                raise ReviewError(f"Mandatory contact sheet file '{contact_sheet_path.name}' is missing on disk.")
+            if contact_sheet_path.stat().st_size == 0:
+                raise ReviewError(f"Mandatory contact sheet file '{contact_sheet_path.name}' is empty (0 bytes).")
+            contact_sheet_sha = StateStore._compute_sha256(contact_sheet_path)
+        else:
+            if contact_sheet_path.exists():
+                if contact_sheet_path.stat().st_size == 0:
+                    raise ReviewError(f"Contact sheet file '{contact_sheet_path.name}' is empty (0 bytes).")
+                contact_sheet_sha = StateStore._compute_sha256(contact_sheet_path)
+            else:
+                contact_sheet_sha = None
+
+        # 3. Collect optional review artifacts if present
         manifest_path = pdir / "02_asset_manifest.json"
         manifest_sha = StateStore._compute_sha256(manifest_path) if manifest_path.exists() else None
 
-        contact_sheet_path = pdir / "contact_sheet.png"
-        contact_sheet_sha = StateStore._compute_sha256(contact_sheet_path) if contact_sheet_path.exists() else None
+        # 4. Canonical render input (render_props.json)
+        computed_rp_sha = None
+        rp_path = pdir / "render_props.json"
+        if rp_path.exists():
+            computed_rp_sha = StateStore._compute_sha256(rp_path)
+        final_render_input_sha = render_input_sha256 or computed_rp_sha
 
         bundle_id = f"bundle_{uuid.uuid4().hex[:12]}"
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -188,6 +213,8 @@ class ReviewService:
             "media_map_sha256": media_map_sha,
             "probe_report_sha256": probe_report_sha,
             "contact_sheet_sha256": contact_sheet_sha,
+            "render_input_sha256": final_render_input_sha,
+            "probe_frame_plan_digest": probe_frame_plan_digest,
         }
         bundle_digest = ReviewBundle.compute_bundle_digest(bundle_dict)
 
@@ -201,6 +228,9 @@ class ReviewService:
             media_map_sha256=media_map_sha,
             probe_report_sha256=probe_report_sha,
             contact_sheet_sha256=contact_sheet_sha,
+            render_input_sha256=final_render_input_sha,
+            probe_frame_plan_digest=probe_frame_plan_digest,
+            rendered_frames_sha256=rendered_frames_sha256 or {},
             bundle_digest=bundle_digest,
             status="ACTIVE",
         )
@@ -300,6 +330,20 @@ class ReviewService:
             raise ReviewBundleStaleError(
                 "Probe QC report on disk has changed since review bundle creation. Approval rejected."
             )
+
+        if target_bundle.contact_sheet_sha256:
+            cs_path = pdir / "contact_sheet.png"
+            if not cs_path.exists() or StateStore._compute_sha256(cs_path) != target_bundle.contact_sheet_sha256:
+                raise ReviewBundleStaleError(
+                    "Contact sheet on disk has changed since review bundle creation. Approval rejected."
+                )
+
+        if target_bundle.render_input_sha256:
+            rp_path = pdir / "render_props.json"
+            if not rp_path.exists() or StateStore._compute_sha256(rp_path) != target_bundle.render_input_sha256:
+                raise ReviewBundleStaleError(
+                    "Render input (render_props.json) on disk has changed since review bundle creation. Approval rejected."
+                )
 
         # 5. Atomic CAS execution
         exp_rev = expected_revision if expected_revision is not None else state.revision
@@ -630,6 +674,35 @@ class ReviewService:
                     raise RenderNotAuthorizedError(
                         code=FailureCode.REVIEW_BUNDLE_STALE,
                         message="02_asset_manifest.json has changed since review approval was granted."
+                    )
+
+        if active_bundle.contact_sheet_sha256:
+            cs_path = pdir / "contact_sheet.png"
+            if not cs_path.exists():
+                cls._invalidate_bundle_and_decision(pdir, active_bundle.review_bundle_id, "CONTACT_SHEET_MISSING_ON_DISK")
+                raise RenderNotAuthorizedError(
+                    code=FailureCode.RENDER_NOT_AUTHORIZED,
+                    message="Mandatory contact_sheet.png is missing on disk."
+                )
+            cur_cs_sha = StateStore._compute_sha256(cs_path)
+            checked["contact_sheet"] = cur_cs_sha
+            if cur_cs_sha != active_bundle.contact_sheet_sha256:
+                cls._invalidate_bundle_and_decision(pdir, active_bundle.review_bundle_id, "CONTACT_SHEET_CHANGED_AFTER_REVIEW")
+                raise RenderNotAuthorizedError(
+                    code=FailureCode.REVIEW_BUNDLE_STALE,
+                    message="contact_sheet.png has changed since review approval was granted. Re-review required."
+                )
+
+        if active_bundle.render_input_sha256:
+            rp_path = pdir / "render_props.json"
+            if rp_path.exists():
+                cur_rp_sha = StateStore._compute_sha256(rp_path)
+                checked["render_input"] = cur_rp_sha
+                if cur_rp_sha != active_bundle.render_input_sha256:
+                    cls._invalidate_bundle_and_decision(pdir, active_bundle.review_bundle_id, "RENDER_INPUT_CHANGED_AFTER_REVIEW")
+                    raise RenderNotAuthorizedError(
+                        code=FailureCode.REVIEW_BUNDLE_STALE,
+                        message="render_props.json has changed since review approval was granted. Re-review required."
                     )
 
         return RenderAuthorizationResult(

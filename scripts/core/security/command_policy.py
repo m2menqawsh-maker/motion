@@ -192,6 +192,9 @@ class CommandPolicy:
         # Universal dangerous flags check
         for arg in cmd_list[1:]:
             if arg in UNIVERSAL_DANGEROUS_FLAGS:
+                # In ffmpeg/ffprobe, '-i' specifies input file, not interactive mode
+                if arg == "-i" and exe_name in ("ffmpeg", "ffprobe"):
+                    continue
                 violations.append(f"Dangerous flag '{arg}' is strictly prohibited.")
 
         # Timeout validation
