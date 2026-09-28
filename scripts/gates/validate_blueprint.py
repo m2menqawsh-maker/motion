@@ -65,22 +65,36 @@ def fail(m): fails.append(m)
 def warn(m): warns.append(m)
 
 def check(bp, bp_path=None):
-    # 1. JSON Schema validation first
-    import jsonschema
-    schema_path = DST / "schemas" / "blueprint.schema.json"
-    if schema_path.exists():
-        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    # 1. Canonical Blueprint v2 validation
+    from scripts.core.blueprint_validator import validate_blueprint_v2
+    from scripts.core.blueprint_migration import is_legacy_blueprint_v1, migrate_blueprint_to_v2
+    from scripts.core.manifest_loader import load_manifest
+
+    proj_dir = Path(bp_path).parent if bp_path else None
+    project_id = bp.get("project_id") or (proj_dir.name if proj_dir and proj_dir.name.startswith("prj_") else None)
+
+    man = None
+    if proj_dir and (proj_dir / "02_asset_manifest.json").exists():
         try:
-            jsonschema.validate(instance=bp, schema=schema)
-        except jsonschema.exceptions.ValidationError as e:
-            fail(f"JSON Schema Validation Failed: {e.message} at path {list(e.path)}")
-            return
-            
+            man = load_manifest(proj_dir / "02_asset_manifest.json", expected_project_id=project_id, allow_migrate=True)
+        except Exception as e:
+            fail(f"02_asset_manifest.json غير صالح: {e}")
+
+    raw_bp = bp
+    if is_legacy_blueprint_v1(raw_bp):
+        raw_bp = migrate_blueprint_to_v2(raw_bp, project_id=project_id)
+
+    v_res = validate_blueprint_v2(raw_bp, expected_project_id=project_id, manifest=man)
+    if not v_res.ok:
+        for err in v_res.errors:
+            fail(f"خرق عقد المخطط: {err}")
+        return
+    bp_v2 = v_res.blueprint
+    bp = bp_v2.to_dict()
+
     meta = bp.get("meta", {}); persona = meta.get("motion_personality", "Cinematic")
     approved = False # Approvals are now managed strictly in .pipeline_state.json
     
-    for k in ["meta", "assets", "scenes"]:
-        if k not in bp: fail(f"قسم ناقص: {k}")
     words, tp = [], (meta or {}).get("timings_path")
     if tp:
         p = Path(tp)
@@ -88,18 +102,6 @@ def check(bp, bp_path=None):
         else:
             t = json.loads(p.read_text(encoding="utf-8"))
             words = t.get("words") or (t.get("timings") or {}).get("words") or []
-    # الأصول: مصدر مصرّح + fallback + قفل المدفوع
-    manifest = {}
-    if bp_path:
-        proj_dir = Path(bp_path).parent
-        if (proj_dir / "02_asset_manifest.json").exists():
-            try:
-                from scripts.core.manifest_loader import load_manifest
-                man = load_manifest(proj_dir / "02_asset_manifest.json", allow_migrate=True)
-                for a in man.assets:
-                    manifest[a.asset_id] = a.kind.value
-            except Exception as e:
-                fail(f"02_asset_manifest.json غير صالح: {e}")
 
     for a in bp.get("assets", []):
         aid = a.get("asset_id", "?"); src = a.get("source")
@@ -155,8 +157,8 @@ def check(bp, bp_path=None):
             if sfx:
                 cues.append({"asset": sfx})
                 
-        fps = bp.get("fps", 30)
-        dur = meta.get("duration_sec") or max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [fps])
+        fps = bp_v2.fps
+        dur = bp_v2.total_duration_seconds
         last = {}
         cnt = Counter(Path(c.get("asset") or "").name for c in cues if c.get("asset"))
         
@@ -170,8 +172,10 @@ def check(bp, bp_path=None):
 
 def render_md(bp, out):
     srcs = {a.get("asset_id"): a.get("source", "?") for a in bp.get("assets", [])}
+    fps = bp.get("fps", 30)
+    dur = round(max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [0]), 1)
     L = ["# Blueprint — النسخة البشرية", "",
-         f"**مشروع:** {bp.get('meta',{}).get('project_id')} | **شخصية:** {bp.get('meta',{}).get('motion_personality')} | **مدة:** {bp.get('meta',{}).get('duration_sec')}s", "",
+         f"**مشروع:** {bp.get('project_id')} | **شخصية:** {bp.get('meta',{}).get('motion_personality')} | **مدة:** {dur}s", "",
          "| الثانية | السرد | العناصر (نوع:قالب/أصل) | المصادر |", "|---|---|---|---|"]
     for scene in bp.get("scenes", []):
         tmpl = scene.get("template", "")

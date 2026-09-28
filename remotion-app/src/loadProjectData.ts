@@ -1,5 +1,5 @@
 import { ProjectData } from "./merge";
-import { BlueprintSchema } from "../../contracts/blueprint";
+import { BlueprintSchema, isLegacyBlueprintV1, migrateBlueprintToV2 } from "../../contracts/blueprint";
 
 const DEFAULT_BRAND = {
   brandName: "Default",
@@ -44,8 +44,12 @@ export function loadProjectData(projectDir: string): ProjectData {
 
   const rawBlueprint = JSON.parse(fs.readFileSync(blueprintPath, "utf-8"));
   
+  const dataToParse = isLegacyBlueprintV1(rawBlueprint)
+    ? migrateBlueprintToV2(rawBlueprint, project?.project_id)
+    : rawBlueprint;
+
   // Zod parsing will strictly throw an error if the blueprint is invalid
-  const blueprint = BlueprintSchema.parse(rawBlueprint);
+  const blueprint = BlueprintSchema.parse(dataToParse);
   
   const brand = fs.existsSync(brandPath)
     ? JSON.parse(fs.readFileSync(brandPath, "utf-8"))

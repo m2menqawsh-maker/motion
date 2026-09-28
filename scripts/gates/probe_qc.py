@@ -76,6 +76,15 @@ if not bp_path.exists():
 
 probe_dir.mkdir(parents=True, exist_ok=True)
 
+from scripts.core.blueprint_loader import load_blueprint
+
+try:
+    bp_v2 = load_blueprint(bp_path, expected_project_id=proj_dir.name if proj_dir.name.startswith("prj_") else None, allow_migrate=True)
+    bp = bp_v2.to_dict()
+except Exception as e:
+    print(f"❌ ملف المخطط 05_blueprint.json غير صالح: {e}")
+    sys.exit(1)
+
 # تحضير render_props.json للمحرك المركزي
 def safe_load(name, default):
     p = proj_dir / name
@@ -84,7 +93,7 @@ def safe_load(name, default):
 combined_props = {
     "projectData": {
         "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-        "blueprint": json.loads(bp_path.read_text(encoding="utf-8")),
+        "blueprint": bp,
         "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
         "overrides": safe_load("overrides.json", {"scenes": {}}),
         "media_map": safe_load("media_map.json", {})
@@ -107,8 +116,7 @@ else:
         sys.exit(1)
     exec_cwd = str(build_dir)
 
-bp = json.loads(bp_path.read_text(encoding="utf-8"))
-fps = bp.get("meta", {}).get("fps", 30)
+fps = bp_v2.fps
 
 # Extract critical moments (in seconds)
 critical_secs = {0.0} # Always first frame
@@ -136,9 +144,7 @@ if max_sec > 0:
     critical_secs.add(float(max_sec) - 0.1)
 
 # Convert to frames and clamp within valid composition range
-total_duration_frames = sum(s.get("durationFrames", 0) for s in bp.get("scenes", []))
-if not total_duration_frames:
-    total_duration_frames = int(round(fps * bp.get("meta", {}).get("duration_sec", 18)))
+total_duration_frames = bp_v2.total_duration_frames
 max_allowed_frame = max(0, total_duration_frames - 1)
 
 critical_frames = sorted(list({min(max_allowed_frame, max(0, int(round(s * fps)))) for s in critical_secs}))

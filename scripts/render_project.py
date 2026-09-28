@@ -109,14 +109,28 @@ def main():
             props_file = project_dir / "render_props.json"
             props_file_abs = workspace_root / props_file
             
+            from scripts.core.blueprint_loader import load_blueprint
+            from scripts.core.blueprint_errors import BlueprintError
+
+            bp_file = project_dir / "05_blueprint.json"
+            if not bp_file.exists():
+                print(f"🛑 خطأ فادح: ملف المخطط 05_blueprint.json مفقود في {project_dir}")
+                sys.exit(1)
+            try:
+                bp_v2 = load_blueprint(bp_file, expected_project_id=project_id, allow_migrate=True)
+                bp_dict = bp_v2.to_dict()
+            except BlueprintError as e:
+                print(f"🛑 خطأ فادح: فشل تحميل المخطط 05_blueprint.json: {e}")
+                sys.exit(1)
+
             def safe_load(name, default):
                 p = project_dir / name
                 return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
                 
             combined_props = {
                 "projectData": {
-                    "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-                    "blueprint": safe_load("05_blueprint.json", {}),
+                    "project": safe_load("project.json", {"fps": bp_v2.fps, "title": "Video"}),
+                    "blueprint": bp_dict,
                     "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
                     "overrides": safe_load("overrides.json", {"scenes": {}}),
                     "media_map": safe_load("media_map.json", {})

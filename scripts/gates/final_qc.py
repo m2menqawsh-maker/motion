@@ -167,10 +167,14 @@ def main():
         print(f"❌ ملف المخطط 05_blueprint.json مفقود!")
         sys.exit(1)
         
-    bp = json.loads(bp_path.read_text(encoding="utf-8"))
-    meta = bp.get("meta", {})
-    expected_aspect = meta.get("aspect_ratio", "16:9")
-    expected_duration = meta.get("duration_sec", 0)
+    from scripts.core.blueprint_loader import load_blueprint
+    try:
+        bp_v2 = load_blueprint(bp_path, expected_project_id=project_id, allow_migrate=True)
+        expected_aspect = bp_v2.aspect_ratio
+        expected_duration = bp_v2.total_duration_seconds
+    except Exception as e:
+        print(f"❌ ملف المخطط 05_blueprint.json غير صالح: {e}")
+        sys.exit(1)
         
     print(f"🔍 بدء الفحص النهائي للفيديو: {video_path.name}")
     

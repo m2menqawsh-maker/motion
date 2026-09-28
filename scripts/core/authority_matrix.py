@@ -259,18 +259,26 @@ class ContractAuthorityMatrix:
 
         GovernedDomain.BLUEPRINT: ContractAuthorityEntry(
             domain=GovernedDomain.BLUEPRINT,
-            canonical_authority="contracts.blueprint.BlueprintSchema",
+            canonical_authority="contracts.blueprint.BlueprintV2Schema",
             canonical_path="05_blueprint.json",
-            contract_version="1.0.0",
-            schema_version="1.0",
+            contract_version="2.0.0",
+            schema_version="2.0",
             representations=[
                 ContractRepresentation(
-                    name="BlueprintSchema",
+                    name="BlueprintV2Schema",
                     path="contracts/blueprint.ts",
                     format="typescript_zod",
                     role=RepresentationRole.CANONICAL,
                     is_generated=False,
-                    description="Authoritative Zod schema defining scene layouts, typography, and styling tokens",
+                    description="Authoritative Zod schema defining scenes, timings, AudioPlan, transitions, and style tokens",
+                ),
+                ContractRepresentation(
+                    name="BlueprintV2",
+                    path="scripts/core/blueprint_model.py",
+                    format="python_pydantic",
+                    role=RepresentationRole.CANONICAL,
+                    is_generated=False,
+                    description="Authoritative Python Pydantic model for Blueprint contract",
                 ),
                 ContractRepresentation(
                     name="blueprint.schema.json",
@@ -281,12 +289,12 @@ class ContractAuthorityMatrix:
                     description="Generated JSON Schema produced by scripts/generators/generate_schema.ts",
                 ),
                 ContractRepresentation(
-                    name="ValidateBlueprintGate",
-                    path="scripts/gates/validate_blueprint.py",
+                    name="load_blueprint",
+                    path="scripts/core/blueprint_loader.py",
                     format="python_validator",
-                    role=RepresentationRole.ADAPTER,
+                    role=RepresentationRole.CANONICAL,
                     is_generated=False,
-                    description="Python gate verifying timing, persona, and template contracts",
+                    description="Canonical loader and validator enforcing identity, timings, and AudioPlan semantics",
                 ),
                 ContractRepresentation(
                     name="BlueprintResponse",
@@ -298,12 +306,12 @@ class ContractAuthorityMatrix:
                 ),
             ],
             generated_outputs=["schemas/blueprint.schema.json"],
-            consumers=["scripts/gates/validate_blueprint.py", "scripts/open_studio.py", "scripts/render_project.py"],
-            migration_policy="Blueprint v2 and audio plan redesign governed in S12. Schema generator produces downstream schema.",
+            consumers=["scripts/gates/validate_blueprint.py", "scripts/generators/materialize_project.py", "scripts/gates/probe_qc.py", "scripts/gates/final_qc.py", "scripts/render_project.py"],
+            migration_policy="Blueprint v2 and AudioPlan governed in S12. Legacy v1 blueprints migrated centrally via scripts/core/blueprint_migration.py.",
             unknown_field_policy=UnknownFieldPolicy.REJECT,
-            compatibility_adapters=["scripts/generators/generate_schema.ts"],
-            owner_package=OwnerPackage(current="contracts/blueprint.ts", target="Unified Blueprint", migration_owner="S12"),
-            validation_entrypoint="scripts.gates.validate_blueprint.py",
+            compatibility_adapters=["scripts/core/blueprint_migration.py", "contracts/blueprint.ts"],
+            owner_package=OwnerPackage(current="S12", target="Blueprint v2", migration_owner="S12"),
+            validation_entrypoint="scripts.core.blueprint_loader.load_blueprint",
         ),
 
         GovernedDomain.MEDIA_REFERENCE: ContractAuthorityEntry(

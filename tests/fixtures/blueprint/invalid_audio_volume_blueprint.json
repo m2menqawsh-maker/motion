@@ -1,0 +1,20 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_bad_volume",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 60
+    }
+  ],
+  "audio": {
+    "voiceover": {
+      "asset_ref": "ast_vo_test",
+      "volume": 2.5
+    }
+  }
+}

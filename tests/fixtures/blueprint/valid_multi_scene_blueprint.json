@@ -1,0 +1,37 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_multi_02",
+  "fps": 60,
+  "aspect_ratio": "9:16",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "HeroDeviceAssembleWrapper",
+      "startFrame": 0,
+      "durationFrames": 120,
+      "content": {
+        "lines": ["مرحباً بكم", "في تجربة جديدة"]
+      },
+      "transition": {
+        "type": "fade",
+        "durationFrames": 15
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "template": "SplitScreenWrapper",
+      "startFrame": 120,
+      "durationFrames": 180,
+      "effects": [
+        {
+          "effect": "blur_reveal",
+          "apply": "scene",
+          "params": { "radius": 10 }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "motion_personality": "Cinematic"
+  }
+}

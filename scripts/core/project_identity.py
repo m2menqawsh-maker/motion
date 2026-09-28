@@ -92,17 +92,24 @@ def validate_project_identity(
         except Exception:
             pass
 
-    # 5. Check 05_blueprint.json (when available, bounded for S11 -> S12)
+    # 5. Check 05_blueprint.json (authoritative in S12)
     bp_file = pdir / "05_blueprint.json"
     if bp_file.exists():
         try:
-            bp_data = json.loads(bp_file.read_text(encoding="utf-8"))
-            bp_id = bp_data.get("project_id")
-            identities["blueprint"] = bp_id
-            if bp_id and bp_id != target_id:
-                mismatches.append(f"05_blueprint.json project_id '{bp_id}' != expected '{target_id}'")
+            from scripts.core.blueprint_loader import load_blueprint
+            bp = load_blueprint(bp_file, expected_project_id=target_id, allow_migrate=True)
+            identities["blueprint"] = bp.project_id
         except Exception:
-            pass
+            try:
+                raw_bp = json.loads(bp_file.read_text(encoding="utf-8"))
+                bp_id = raw_bp.get("project_id")
+                identities["blueprint"] = bp_id
+                if not bp_id:
+                    mismatches.append(f"05_blueprint.json is missing mandatory project_id")
+                elif bp_id != target_id:
+                    mismatches.append(f"05_blueprint.json project_id '{bp_id}' != expected '{target_id}'")
+            except Exception as e:
+                mismatches.append(f"05_blueprint.json could not be parsed: {e}")
 
     if mismatches:
         raise ProjectIdentityMismatchError(

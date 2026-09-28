@@ -86,6 +86,7 @@ The Agent is a master planner and pipeline orchestrator. It does not manually bu
 - **INVARIANT-08**: Every governed domain MUST possess exactly one canonical authority declared in `ContractAuthorityMatrix`. Generated schemas or types are strictly classified as GENERATED.
 - **INVARIANT-09**: All upstream artifact modifications must traverse `ArtifactService` to compute and apply structured invalidations via `ArtifactDependencyGraph`, preventing silent downstream desynchronization.
 - **INVARIANT-10**: Manifest v2 is the single authoritative contract for declared assets. Provenance and status must remain strictly separated, asset IDs must be globally unique per project, and project identity must be strictly consistent across directory name, state, project.json, manifest, and blueprint.
+- **INVARIANT-11**: Blueprint v2 is the single authoritative contract for video scene composition, visual timing, aspect ratio, frame rate, asset binding, and audio orchestration. FPS and aspect ratio must have a single canonical location (top-level), timing must be derived from `scenes[].startFrame` and `scenes[].durationFrames`, media references must strictly resolve to Manifest v2 asset IDs with kind compatibility, and audio tracks must be governed by a canonical `AudioPlan`. All blueprint loads must be fail-closed via `load_blueprint`.
 
 ## 15. Plugin Architectural Boundary & Ownership
 

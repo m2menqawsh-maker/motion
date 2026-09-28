@@ -176,11 +176,36 @@ export function mergeProject(
     return end > max ? end : max;
   }, 0);
 
+  const fps = data.blueprint.fps ?? (data.project as any)?.fps;
+  if (fps === undefined || fps === null) {
+    throw new Error("Missing mandatory blueprint.fps in project data");
+  }
+
+  const rawAudio = (data as any).audio || (data.blueprint as any).audio;
+  let normalizedAudio: { voiceover?: string; bgm?: string; bgmVolume?: number } | undefined = undefined;
+
+  if (rawAudio) {
+    const voRef = rawAudio.voiceover?.asset_ref || rawAudio.voiceover || rawAudio.voiceover_ref;
+    const musicRef = rawAudio.music?.asset_ref || rawAudio.bgm || rawAudio.music_ref;
+    const musicVolume = rawAudio.music?.volume ?? rawAudio.bgmVolume ?? rawAudio.volume ?? 0.15;
+
+    const resolveAsset = (ref?: string): string | undefined => {
+      if (!ref) return undefined;
+      return (data.media_map && data.media_map[ref]) ? data.media_map[ref] : ref;
+    };
+
+    normalizedAudio = {
+      voiceover: resolveAsset(voRef),
+      bgm: resolveAsset(musicRef),
+      bgmVolume: typeof musicVolume === "number" ? musicVolume : 0.15,
+    };
+  }
+
   return {
-    fps: data.blueprint.fps ?? 30,
+    fps,
     title: data.project.title,
     totalDurationFrames,
     scenes,
-    audio: (data as any).audio || (data.blueprint as any).audio,
+    audio: normalizedAudio,
   };
 }

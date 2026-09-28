@@ -25,6 +25,8 @@ PLUGIN_DIR = WS / ".agents" / "plugins" / "super-video-maker-plugin"
 from scripts.core.project_identity import validate_project_identity
 from scripts.core.manifest_loader import load_manifest
 from scripts.core.manifest_errors import ManifestError, ProjectIdentityMismatchError
+from scripts.core.blueprint_loader import load_blueprint
+from scripts.core.blueprint_errors import BlueprintError, BlueprintValidationError
 
 proj = Path(sys.argv[1]).resolve()
 project_id = validate_project_id(proj.name)
@@ -54,11 +56,20 @@ try:
     has_plan = (proj / "master_plan.md").exists() or (proj / "01_plan.md").exists()
     if not (proj / "05_blueprint.json").exists() or not has_plan:
         raise Exception("Missing plan or blueprint")
-    bp = json.loads((proj / "05_blueprint.json").read_text(encoding="utf-8"))
+    bp_v2 = load_blueprint(proj / "05_blueprint.json", expected_project_id=project_id, manifest=man, allow_migrate=True)
+    bp = bp_v2.to_dict()
 except Exception as e:
     print(f"\n{'='*60}")
     print(f"🛑 تم إيقاف materialize_project.py")
     print(f"{'='*60}")
+    if isinstance(e, BlueprintValidationError):
+        for err in e.errors:
+            if "referenced media_ref" in err and "not found in manifest" in err:
+                ref = err.split("referenced media_ref '")[1].split("' not found")[0]
+                print(f"عنصر يشير لأصل غير مهيأ: {ref}")
+            elif "referenced sfx_ref" in err and "not found in manifest" in err:
+                ref = err.split("referenced sfx_ref '")[1].split("' not found")[0]
+                print(f"عنصر يشير لمؤثر صوتي غير مهيأ: {ref}")
     print(e)
     sys.exit(1)
 
