@@ -25,11 +25,18 @@ def project_setup():
     
     bp = {
         "project_id": project_id,
-        "version": "1.0",
+        "blueprint_version": "2.0.0",
         "fps": 30,
         "aspect_ratio": "16:9",
         "meta": {"motion_personality": "Cinematic"},
-        "scenes": []
+        "scenes": [
+            {
+                "scene_id": "scene_01",
+                "template": "Animatedtextwrapper",
+                "startFrame": 0,
+                "durationFrames": 30
+            }
+        ]
     }
     (project_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
     

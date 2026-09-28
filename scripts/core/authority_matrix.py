@@ -276,9 +276,9 @@ class ContractAuthorityMatrix:
                     name="BlueprintV2",
                     path="scripts/core/blueprint_model.py",
                     format="python_pydantic",
-                    role=RepresentationRole.CANONICAL,
+                    role=RepresentationRole.ADAPTER,
                     is_generated=False,
-                    description="Authoritative Python Pydantic model for Blueprint contract",
+                    description="Python Pydantic model for Blueprint v2 contract",
                 ),
                 ContractRepresentation(
                     name="blueprint.schema.json",
@@ -292,9 +292,9 @@ class ContractAuthorityMatrix:
                     name="load_blueprint",
                     path="scripts/core/blueprint_loader.py",
                     format="python_validator",
-                    role=RepresentationRole.CANONICAL,
+                    role=RepresentationRole.ADAPTER,
                     is_generated=False,
-                    description="Canonical loader and validator enforcing identity, timings, and AudioPlan semantics",
+                    description="Loader and validator enforcing identity, timings, and AudioPlan semantics",
                 ),
                 ContractRepresentation(
                     name="BlueprintResponse",

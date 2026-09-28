@@ -143,8 +143,7 @@
           },
           "template_props": {
             "type": "object",
-            "additionalProperties": {},
-            "default": {}
+            "additionalProperties": {}
           },
           "props": {
             "type": "object",
@@ -174,8 +173,7 @@
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "default": []
+            }
           },
           "sfx_ref": {
             "type": [
@@ -243,8 +241,7 @@
                 "effect"
               ],
               "additionalProperties": false
-            },
-            "default": []
+            }
           }
         },
         "required": [

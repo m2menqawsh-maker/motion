@@ -69,8 +69,8 @@ export function validateManifestV2(data: unknown, expectedProjectId?: string): M
   if (!parseResult.success) {
     return {
       ok: false,
-      errors: parseResult.error.errors.map(
-        (e) => `[${e.path.join(".")}] ${e.message}`
+      errors: parseResult.error.issues.map(
+        (e: z.ZodIssue) => `[${e.path.join(".")}] ${e.message}`
       ),
     };
   }

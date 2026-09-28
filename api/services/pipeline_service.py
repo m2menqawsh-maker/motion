@@ -307,3 +307,33 @@ class PipelineService:
         mf = load_manifest(manifest_path, expected_project_id=project_id, allow_migrate=True)
         return mf.to_dict()
 
+    @classmethod
+    def get_blueprint(cls, project_id: str) -> Optional[Dict[str, Any]]:
+        project_dir = cls._get_project_dir(project_id)
+        if not project_dir.exists():
+            raise ProjectNotFoundError(project_id)
+        blueprint_path = project_dir / "05_blueprint.json"
+        if not blueprint_path.exists():
+            return None
+        from scripts.core.blueprint_loader import load_blueprint
+        bp = load_blueprint(blueprint_path, expected_project_id=project_id, allow_migrate=True)
+        return bp.to_dict()
+
+    @classmethod
+    def validate_blueprint_payload(cls, project_id: str, payload: dict) -> tuple[bool, list[str]]:
+        project_dir = cls._get_project_dir(project_id)
+        if not project_dir.exists():
+            raise ProjectNotFoundError(project_id)
+        from scripts.core.blueprint_validator import validate_blueprint_v2
+        from scripts.core.manifest_loader import load_manifest
+        man = None
+        manifest_path = project_dir / "02_asset_manifest.json"
+        if manifest_path.exists():
+            try:
+                man = load_manifest(manifest_path, expected_project_id=project_id, allow_migrate=True)
+            except Exception:
+                pass
+        v_res = validate_blueprint_v2(payload, expected_project_id=project_id, manifest=man)
+        return v_res.ok, v_res.errors
+
+

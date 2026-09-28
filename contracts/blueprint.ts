@@ -233,15 +233,15 @@ export const BlueprintSceneSchema = z.object({
   startFrame: z.number().int().min(0),
   durationFrames: z.number().int().min(1),
   content: SceneContentSchema.optional(),
-  template_props: z.record(z.string(), z.any()).optional().default({}),
+  template_props: z.record(z.string(), z.any()).optional(),
   props: z.record(z.string(), z.any()).optional(),
   surface: z.record(z.string(), z.any()).optional(),
   layout: LayoutSchema.optional(),
-  media_refs: z.array(z.string()).default([]),
+  media_refs: z.array(z.string()).optional(),
   sfx_ref: z.string().nullable().optional(),
   captions_ref: z.string().nullable().optional(),
   transition: TransitionRefSchema.optional(),
-  effects: z.array(EffectRefSchema).default([]),
+  effects: z.array(EffectRefSchema).optional(),
 });
 export type BlueprintScene = z.infer<typeof BlueprintSceneSchema>;
 export type BlueprintSceneV2 = BlueprintScene;
@@ -308,8 +308,8 @@ export function validateBlueprintV2(
   if (!parseResult.success) {
     return {
       ok: false,
-      errors: parseResult.error.errors.map(
-        (e) => `[${e.path.join(".")}] ${e.message}`
+      errors: parseResult.error.issues.map(
+        (e: z.ZodIssue) => `[${e.path.join(".")}] ${e.message}`
       ),
     };
   }
@@ -371,7 +371,7 @@ export function validateBlueprintV2(
         }
       }
 
-      for (const mRef of s.media_refs) {
+      for (const mRef of s.media_refs || []) {
         if (!manifestAssets.has(mRef)) {
           errors.push(`scenes[${idx}] ('${s.scene_id}'): referenced media_ref '${mRef}' not found in manifest`);
         }

@@ -48,8 +48,17 @@ def setup_test_files(project_dir: Path, aspect: str):
     
     # 02_asset_manifest.json
     manifest = {
+        "manifest_version": "2.0.0",
+        "project_id": project_dir.name,
+        "created_at": "2026-09-28T00:00:00Z",
         "assets": [
-            {"asset_id": "swoosh_sfx", "type": "audio", "path": f"projects/{project_dir.name}/assets/sfx/swoosh.wav"}
+            {
+                "asset_id": "swoosh_sfx",
+                "kind": "sfx",
+                "provenance": "user_upload",
+                "status": "ready",
+                "source_path": f"projects/{project_dir.name}/assets/sfx/swoosh.wav"
+            }
         ]
     }
     (project_dir / "02_asset_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -76,7 +85,7 @@ sentence_index: 1
     # 05_blueprint.json
     blueprint = {
         "project_id": project_dir.name,
-        "version": "1.0",
+        "blueprint_version": "2.0.0",
         "fps": 30,
         "aspect_ratio": aspect,
         "meta": {
@@ -84,7 +93,7 @@ sentence_index: 1
             "timings_path": f"projects/{project_dir.name}/04_timings.json",
         },
         "assets": [
-            {"asset_id": "swoosh_sfx", "type": "audio", "source": "user_upload", "path": "assets/sfx/swoosh.wav", "paid": False}
+            {"asset_id": "swoosh_sfx", "kind": "sfx", "source": "user_upload", "path": "assets/sfx/swoosh.wav", "paid": False}
         ],
         "scenes": [
             {
@@ -93,8 +102,7 @@ sentence_index: 1
                 "durationFrames": 90,
                 "template": "Animatedtextwrapper",
                 "content": {
-                    "lines": ["مرحباً بالعالم!"],
-                    "audioRef": "voice_1"
+                    "lines": ["مرحباً بالعالم!"]
                 },
                 "sfx_ref": "swoosh_sfx",
                 "template_props": {}
