@@ -5,7 +5,7 @@ from scripts.security.path_security import validate_project_id
 from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers import projects, gates, render, brand, blueprint
+from api.routers import projects, gates, render, brand, blueprint, runs
 from fastapi.exceptions import RequestValidationError
 from api.core.errors import (
     APIError,
@@ -52,6 +52,7 @@ app.add_middleware(
 )
 
 app.include_router(projects.router, prefix="/projects", tags=["projects"])
+app.include_router(runs.router, prefix="/projects", tags=["runs"])
 app.include_router(gates.router, prefix="/gates", tags=["gates"])
 app.include_router(render.router, prefix="/render", tags=["render"])
 app.include_router(brand.router, prefix="/brand", tags=["brand"])

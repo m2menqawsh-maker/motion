@@ -63,6 +63,22 @@ class PipelineRunningError(APIError):
             details={"project_id": project_id}
         )
 
+class RunNotFoundError(APIError):
+    def __init__(self, run_id: str, project_id: str = None):
+        super().__init__(
+            message=f"Run '{run_id}' not found",
+            status_code=404,
+            details={"code": "RUN_NOT_FOUND", "run_id": run_id, "project_id": project_id}
+        )
+
+class IdempotencyConflictError(APIError):
+    def __init__(self, idempotency_key: str, message: str = "Idempotency conflict: request payload does not match existing run"):
+        super().__init__(
+            message=message,
+            status_code=409,
+            details={"code": "IDEMPOTENCY_CONFLICT", "idempotency_key": idempotency_key}
+        )
+
 async def authentication_required_handler(request: Request, exc: AuthenticationRequiredError):
     return JSONResponse(
         status_code=401,

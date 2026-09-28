@@ -240,6 +240,24 @@ def main():
     ctx = RunContext(run_id=run_id, project_id=project_id, span_id=span_id, parent_span_id=parent_span_id)
     logger = RuntimeLogger(ctx)
     logger.event("pipeline.execution", status="started", component="pipeline", stage="pipeline")
+
+    # ==========================================
+    # Cross-Process Execution Lock (LED-061)
+    # ==========================================
+    import atexit
+    from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
+    execution_lock = ProjectExecutionLock(
+        project_dir=proj_dir,
+        owner_id=os.environ.get("AGY_WORKER_ID", "cli"),
+        run_id=run_id,
+    )
+    try:
+        execution_lock.acquire()
+        atexit.register(execution_lock.release)
+    except ProjectExecutionConflictError as e:
+        print(f"\n🛑 [CONCURRENCY CONFLICT] {e}")
+        logger.event("pipeline.conflict", status="failed", error=str(e))
+        sys.exit(1)
     
     # ==========================================
     # Initialization & Recovery
@@ -483,6 +501,7 @@ def main():
 
     logger.event("pipeline.execution", status="success", stage="pipeline", component="pipeline")
     print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%. (الحالة: COMPLETE)")
+    execution_lock.release()
 
 if __name__ == "__main__":
     main()

@@ -17,7 +17,7 @@ def test_led_054_docker_local_props_divergence():
     assert local_props_match is not None, "Local render must pass props_file (render_props.json)"
     
     # Docker must pass render_props.json
-    docker_props_match = re.search(r'--props \.\./projects/\{project_id\}/render_props\.json', content)
+    docker_props_match = re.search(r'--props["\',\s]+(?:\.\./projects/\{project_id\}/render_props\.json|f"\.\./projects/\{project_id\}/render_props\.json)', content)
     assert docker_props_match is not None, "Docker render must pass render_props.json"
     
     # Raw 05_blueprint.json must NOT be passed as props to Remotion

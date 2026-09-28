@@ -226,44 +226,54 @@ class PipelineService:
         async with lock:
             import functools
             import uuid
+            from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
             
             run_id = str(uuid.uuid4())
-            env = os.environ.copy()
-            env["AGY_RUN_ID"] = run_id
-            env["AGY_IS_MANAGED"] = "1"
-            
-            func = functools.partial(
-                safe_subprocess, 
-                [sys.executable, "scripts/pipeline.py", project_id], 
-                capture_output=True, 
-                text=True,
-                env=env
-            )
-            result = await asyncio.to_thread(func)
-            
-            state = StateStore.load(project_dir)
-            res = cls._format_legacy_state(state) if state else {}
-            
-            import re
-            import json
-            match = re.search(r"__PIPELINE_STATE__(.*?)__PIPELINE_STATE__", result.stdout, re.DOTALL)
-            if match:
-                try:
-                    stdout_state = json.loads(match.group(1))
-                    if isinstance(stdout_state, dict):
-                        if "state" not in res:
-                            res["state"] = {}
-                        res["state"].update(stdout_state)
-                except Exception:
-                    pass
-            
-            res.update({
-                "status": "success" if result.returncode == 0 else "failed",
-                "return_code": result.returncode,
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            })
-            return res
+            execution_lock = ProjectExecutionLock(project_dir, owner_id="api", run_id=run_id)
+            try:
+                execution_lock.acquire()
+            except ProjectExecutionConflictError:
+                raise PipelineRunningError(project_id)
+
+            try:
+                env = os.environ.copy()
+                env["AGY_RUN_ID"] = run_id
+                env["AGY_IS_MANAGED"] = "1"
+
+                func = functools.partial(
+                    safe_subprocess,
+                    [sys.executable, "scripts/pipeline.py", project_id],
+                    capture_output=True,
+                    text=True,
+                    env=env
+                )
+                result = await asyncio.to_thread(func)
+
+                state = StateStore.load(project_dir)
+                res = cls._format_legacy_state(state) if state else {}
+
+                import re
+                import json
+                match = re.search(r"__PIPELINE_STATE__(.*?)__PIPELINE_STATE__", result.stdout, re.DOTALL)
+                if match:
+                    try:
+                        stdout_state = json.loads(match.group(1))
+                        if isinstance(stdout_state, dict):
+                            if "state" not in res:
+                                res["state"] = {}
+                            res["state"].update(stdout_state)
+                    except Exception:
+                        pass
+
+                res.update({
+                    "status": "success" if result.returncode == 0 else "failed",
+                    "return_code": result.returncode,
+                    "stdout": result.stdout,
+                    "stderr": result.stderr,
+                })
+                return res
+            finally:
+                execution_lock.release()
 
     @classmethod
     async def cancel_pipeline(cls, project_id: str) -> dict:

@@ -40,7 +40,7 @@ def test_green_led_054_docker_local_props_parity():
     content = render_script.read_text(encoding="utf-8")
 
     assert re.search(r'remotion.*render.*--props.*props_file', content) is not None
-    assert re.search(r'--props \.\./projects/\{project_id\}/render_props\.json', content) is not None
+    assert re.search(r'--props["\',\s]+(?:\.\./projects/\{project_id\}/render_props\.json|f"\.\./projects/\{project_id\}/render_props\.json)', content) is not None
     assert not re.search(r'--props \.\./projects/\{project_id\}/05_blueprint\.json', content)
 
 
