@@ -725,6 +725,13 @@ class ReviewService:
             return False, e.message
 
     @classmethod
+    def get_active_bundle(cls, project_dir_or_id: Path | str) -> Optional[ReviewBundle]:
+        """Returns the current active review bundle if one exists."""
+        pdir = cls._resolve_project_dir(project_dir_or_id)
+        state = StateStore.load(pdir)
+        return state.get_active_review_bundle() if state else None
+
+    @classmethod
     def get_review_status(cls, project_dir_or_id: Path | str) -> ReviewStatusDTO:
         """Reads current review status safely for external consumers."""
         pdir = cls._resolve_project_dir(project_dir_or_id)

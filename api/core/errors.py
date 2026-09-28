@@ -1,3 +1,4 @@
+from typing import Optional, List, Any, Dict
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -78,6 +79,63 @@ class IdempotencyConflictError(APIError):
             status_code=409,
             details={"code": "IDEMPOTENCY_CONFLICT", "idempotency_key": idempotency_key}
         )
+
+class RunNotCancellableError(APIError):
+    def __init__(self, run_id: str, status: str, message: str = "Run cannot be cancelled in its current state"):
+        super().__init__(
+            message=message,
+            status_code=409,
+            details={"code": "RUN_NOT_CANCELLABLE", "run_id": run_id, "status": status}
+        )
+
+class RevisionConflictError(APIError):
+    def __init__(self, expected_revision: Any, actual_revision: Any, message: str = "Revision conflict detected"):
+        super().__init__(
+            message=message,
+            status_code=409,
+            details={"code": "REVISION_CONFLICT", "expected_revision": expected_revision, "actual_revision": actual_revision}
+        )
+
+class AssetNotFoundError(APIError):
+    def __init__(self, asset_id: str, project_id: Optional[str] = None):
+        super().__init__(
+            message=f"Asset '{asset_id}' not found",
+            status_code=404,
+            details={"code": "ASSET_NOT_FOUND", "asset_id": asset_id, "project_id": project_id}
+        )
+
+class ArtifactNotFoundError(APIError):
+    def __init__(self, artifact_kind: str, project_id: Optional[str] = None):
+        super().__init__(
+            message=f"Artifact '{artifact_kind}' not found",
+            status_code=404,
+            details={"code": "ARTIFACT_NOT_FOUND", "artifact_kind": artifact_kind, "project_id": project_id}
+        )
+
+class InvalidRangeError(APIError):
+    def __init__(self, range_header: str, total_size: int):
+        super().__init__(
+            message=f"Invalid Range '{range_header}' for content length {total_size}",
+            status_code=416,
+            details={"code": "INVALID_RANGE", "range": range_header, "total_size": total_size}
+        )
+
+class MediaKindNotAllowedError(APIError):
+    def __init__(self, media_kind: str, allowed_kinds: List[str]):
+        super().__init__(
+            message=f"Media kind '{media_kind}' is not allowed. Allowed kinds: {allowed_kinds}",
+            status_code=422,
+            details={"code": "MEDIA_KIND_NOT_ALLOWED", "media_kind": media_kind, "allowed_kinds": allowed_kinds}
+        )
+
+class PayloadTooLargeError(APIError):
+    def __init__(self, max_bytes: int, actual_bytes: int):
+        super().__init__(
+            message=f"Upload payload size ({actual_bytes} bytes) exceeds limit ({max_bytes} bytes)",
+            status_code=413,
+            details={"code": "PAYLOAD_TOO_LARGE", "max_bytes": max_bytes, "actual_bytes": actual_bytes}
+        )
+
 
 async def authentication_required_handler(request: Request, exc: AuthenticationRequiredError):
     return JSONResponse(

@@ -34,6 +34,8 @@ class ArtifactKind(str, Enum):
     RENDER_OUTPUT = "out.mp4"
     FINAL_QC = "08_qc_report.json"
     COMPLETE = "complete"
+    BRAND = "brand.json"
+    OVERRIDES = "overrides.json"
 
     @classmethod
     def from_string(cls, val: str) -> Optional[ArtifactKind]:
@@ -46,6 +48,10 @@ class ArtifactKind(str, Enum):
         # Aliases
         if val_clean in ("master_plan.md", "00_answers.md"):
             return cls.PLAN
+        if val_clean.lower() in ("brand", "brand.json"):
+            return cls.BRAND
+        if val_clean.lower() in ("overrides", "overrides.json"):
+            return cls.OVERRIDES
         # Legacy/housekeeping file aliases: map to canonical semantic node for invalidation resolution
         if val_clean in (".studio_approved", "approval_metadata", "studio_approved"):
             return cls.REVIEW_DECISION
@@ -215,6 +221,34 @@ class ArtifactDependencyGraph:
                 downstream=ArtifactKind.COMPLETE,
                 edge_type=DependencyEdgeType.AUTHORIZATION_DEPENDENCY,
                 description="Final QC pass authorizes project completion marker",
+            ),
+
+            # 11. Brand dependencies
+            DependencyEdge(
+                upstream=ArtifactKind.BRAND,
+                downstream=ArtifactKind.REVIEW_BUNDLE,
+                edge_type=DependencyEdgeType.CONTENT_DEPENDENCY,
+                description="Brand configuration feeds into ReviewBundle snapshot",
+            ),
+            DependencyEdge(
+                upstream=ArtifactKind.BRAND,
+                downstream=ArtifactKind.RENDER_OUTPUT,
+                edge_type=DependencyEdgeType.CONTENT_DEPENDENCY,
+                description="Brand colors and fonts feed into video rendering",
+            ),
+
+            # 12. Overrides dependencies
+            DependencyEdge(
+                upstream=ArtifactKind.OVERRIDES,
+                downstream=ArtifactKind.REVIEW_BUNDLE,
+                edge_type=DependencyEdgeType.CONTENT_DEPENDENCY,
+                description="Scene overrides feed into ReviewBundle snapshot",
+            ),
+            DependencyEdge(
+                upstream=ArtifactKind.OVERRIDES,
+                downstream=ArtifactKind.RENDER_OUTPUT,
+                edge_type=DependencyEdgeType.CONTENT_DEPENDENCY,
+                description="Scene overrides modify rendered output",
             ),
         ]
 

@@ -11,8 +11,8 @@ import uuid
 from pathlib import Path
 from typing import Optional, Tuple, List, Dict, Any
 
-from api.core.errors import ProjectNotFoundError, RunNotFoundError, IdempotencyConflictError
-from scripts.core.run_model import RunRecord, RunStatus
+from api.core.errors import ProjectNotFoundError, RunNotFoundError, IdempotencyConflictError, RunNotCancellableError
+from scripts.core.run_model import RunRecord, RunStatus, RunEvent, InvalidRunTransitionError
 from scripts.core.run_repository import RunRepository
 from scripts.core.state_store import StateStore
 from scripts.security.path_security import validate_project_id
@@ -83,7 +83,54 @@ class RunService:
         )
 
         persisted = repo.create_run(record)
+
+        # 4. Emit durable RUN_QUEUED event
+        repo.record_event(
+            run_id=persisted.run_id,
+            project_id=project_id,
+            event_type="RUN_QUEUED",
+            payload={"attempt": persisted.attempt, "input_revision": persisted.input_revision},
+        )
+
         return persisted, True
+
+    @classmethod
+    def cancel_run(
+        cls,
+        project_id: str,
+        run_id: str,
+        db_path: Optional[Path | str] = None,
+    ) -> RunRecord:
+        """Requests cancellation of a run in QUEUED or RUNNING state."""
+        validate_project_id(project_id)
+        repo = RunRepository(db_path=db_path)
+        existing = repo.get_run(run_id)
+        if not existing or existing.project_id != project_id:
+            raise RunNotFoundError(run_id=run_id, project_id=project_id)
+
+        try:
+            record, _ = repo.request_cancel_run(run_id=run_id, project_id=project_id)
+            return record
+        except InvalidRunTransitionError as e:
+            raise RunNotCancellableError(run_id=run_id, status=existing.status.value, message=str(e))
+
+    @classmethod
+    def get_events(
+        cls,
+        project_id: str,
+        run_id: str,
+        after_sequence: int = 0,
+        limit: int = 500,
+        db_path: Optional[Path | str] = None,
+    ) -> List[RunEvent]:
+        """Retrieves persistent events for a specific run."""
+        validate_project_id(project_id)
+        repo = RunRepository(db_path=db_path)
+        existing = repo.get_run(run_id)
+        if not existing or existing.project_id != project_id:
+            raise RunNotFoundError(run_id=run_id, project_id=project_id)
+
+        return repo.get_events(run_id=run_id, project_id=project_id, after_sequence=after_sequence, limit=limit)
 
     @classmethod
     def get_run(

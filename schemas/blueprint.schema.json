@@ -4,6 +4,172 @@
   "title": "المخطط التنفيذي — Blueprint (مصدر الحقيقة الوحيد المولد آلياً من Zod)",
   "description": "عقد المخطط التنفيذي: يصف المشاهد والأنماط والحركات والأصوات — المصدر الوحيد للحقيقة لبناء الفيديو",
   "type": "object",
+  "definitions": {
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+      "description": "لون HEX — 6 أو 8 خانات"
+    },
+    "anchor": {
+      "type": "string",
+      "enum": [
+        "top-left", "top-center", "top-right",
+        "center-left", "center", "center-right",
+        "bottom-left", "bottom-center", "bottom-right"
+      ],
+      "description": "نقطة الارتكاز المكانية (9 قيم)"
+    },
+    "fontKey": {
+      "type": "string",
+      "enum": [
+        "Cairo", "Tajawal", "Almarai", "IBMPlexSansArabic", "NotoKufiArabic",
+        "Inter", "Manrope", "Fraunces", "JetBrainsMono"
+      ],
+      "description": "مفتاح الخط من القائمة المعتمدة"
+    },
+    "styleSurface": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "النص المعروض"
+        },
+        "fontSize": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 400,
+          "description": "حجم الخط (8 إلى 400)"
+        },
+        "fontWeight": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string" }
+          ],
+          "description": "وزن الخط — رقم أو نص (مثل bold)"
+        },
+        "fontFamily": {
+          "$ref": "#/definitions/fontKey",
+          "description": "عائلة الخط"
+        },
+        "letterSpacing": {
+          "type": "string",
+          "description": "التباعد بين الحروف (مثل 0.05em)"
+        },
+        "textAlign": {
+          "type": "string",
+          "enum": ["right", "center", "left", "start", "end"],
+          "description": "محاذاة النص"
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 4,
+          "description": "ارتفاع السطر (0.5 إلى 4)"
+        },
+        "color": {
+          "$ref": "#/definitions/hexColor",
+          "description": "لون النص"
+        },
+        "background": {
+          "$ref": "#/definitions/hexColor",
+          "description": "لون الخلفية"
+        },
+        "gradient": {
+          "type": "object",
+          "required": ["from", "to"],
+          "additionalProperties": false,
+          "properties": {
+            "from": { "$ref": "#/definitions/hexColor" },
+            "to": { "$ref": "#/definitions/hexColor" },
+            "angle": {
+              "type": "number",
+              "description": "زاوية التدرج بالدرجات"
+            }
+          },
+          "description": "تدرج لوني"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "الشفافية (0 إلى 1)"
+        },
+        "position": {
+          "type": "object",
+          "required": ["anchor"],
+          "additionalProperties": false,
+          "properties": {
+            "anchor": { "$ref": "#/definitions/anchor" },
+            "x": { "type": "number", "description": "إزاحة أفقية" },
+            "y": { "type": "number", "description": "إزاحة عمودية" }
+          },
+          "description": "الموقع المكاني"
+        },
+        "scale": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 10,
+          "description": "مقياس التكبير (0.1 إلى 10)"
+        },
+        "rotation": {
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360,
+          "description": "زاوية الدوران بالدرجات"
+        },
+        "width": {
+          "type": "number",
+          "minimum": 1,
+          "description": "العرض بالبكسل (≥ 1)"
+        },
+        "height": {
+          "type": "number",
+          "minimum": 1,
+          "description": "الارتفاع بالبكسل (≥ 1)"
+        },
+        "animation": {
+          "type": "string",
+          "enum": [
+            "none", "fade_in", "fade_in_up", "fade_out",
+            "zoom_in", "zoom_in_bounce",
+            "slide_up", "slide_down", "slide_right", "slide_left",
+            "typewriter", "word_flip", "text_swell"
+          ],
+          "description": "نوع الحركة"
+        },
+        "speed": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 5,
+          "description": "سرعة الحركة (0.1 إلى 5)"
+        },
+        "delay": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "تأخير بدء الحركة بالإطارات (≥ 0)"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "وضع العرض"
+        },
+        "logoSrc": {
+          "type": "string",
+          "description": "مسار الشعار"
+        },
+        "brandName": {
+          "type": "string",
+          "description": "اسم العلامة التجارية"
+        },
+        "styleOverride": {
+          "type": "object",
+          "description": "تجاوزات الأنماط البصرية"
+        }
+      },
+      "description": "سطح الأنماط البصرية — يجمع كل خصائص العرض في كائن واحد"
+    }
+  },
   "properties": {
     "blueprint_version": {
       "type": "string",

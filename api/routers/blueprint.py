@@ -1,55 +1,52 @@
-import json
-from pathlib import Path
-from fastapi import APIRouter, Body, Depends
-from jsonschema import validate, ValidationError
-from scripts.security.path_security import validate_project_id
+"""
+Blueprint & Overrides API Router (S22 - LED-067, LED-068, LED-069).
+
+HTTP transport layer for blueprint queries, mutations, and scene overrides:
+- Delegated completely to PipelineService and OverrideService
+- Zero direct filesystem access or serialization in router
+- Optimistic concurrency control via ETag and If-Match headers
+"""
+
+from typing import Optional, Dict, Any
+from fastapi import APIRouter, Body, Depends, Header, Response, status
 from api.schemas import BlueprintResponse, StandardResponse
-from api.core.errors import ProjectNotFoundError, APIError
+from api.core.errors import APIError
 from api.core.auth import require_permission, Principal, Action
+from api.services.pipeline_service import PipelineService
+from api.services.override_service import OverrideService
 
 router = APIRouter()
 
-SCHEMA_PATH = Path("schemas/blueprint.schema.json")
-BLUEPRINT_SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8")) if SCHEMA_PATH.exists() else None
 
-
-@router.get("/{project_id}", response_model=BlueprintResponse)
+@router.get("/{project_id}", response_model=BlueprintResponse, summary="Get project blueprint and overrides")
 async def get_blueprint(
     project_id: str,
-    principal: Principal = Depends(require_permission(Action.BLUEPRINT_READ))
+    response: Response,
+    principal: Principal = Depends(require_permission(Action.BLUEPRINT_READ)),
 ):
-    project_id = validate_project_id(project_id)
-    project_dir = Path(f"projects/{project_id}")
-    if not project_dir.exists():
-        from api.services.pipeline_service import PipelineService
-        project_dir = PipelineService._get_project_dir(project_id)
-    overrides_path = project_dir / "overrides.json"
-
     data = {}
-    from api.services.pipeline_service import PipelineService
     bp_dict = PipelineService.get_blueprint(project_id)
     if bp_dict is not None:
         data["blueprint"] = bp_dict
-    if overrides_path.exists():
-        data["overrides"] = json.loads(overrides_path.read_text(encoding="utf-8"))
+
+    overrides_dict, rev = OverrideService.get_overrides(project_id)
+    if overrides_dict:
+        data["overrides"] = overrides_dict
 
     if not data:
         raise APIError(message="Blueprint/Overrides not found", status_code=404)
+
+    response.headers["ETag"] = f'"{rev}"'
     return BlueprintResponse(**data)
 
 
-@router.post("/{project_id}/blueprint", response_model=StandardResponse)
+@router.post("/{project_id}/blueprint", response_model=StandardResponse, summary="Mutate project blueprint")
 async def update_blueprint(
     project_id: str,
-    payload: dict = Body(...),
-    principal: Principal = Depends(require_permission(Action.BLUEPRINT_EDIT))
+    payload: Dict[str, Any] = Body(...),
+    if_match: Optional[str] = Header(None, alias="If-Match"),
+    principal: Principal = Depends(require_permission(Action.BLUEPRINT_EDIT)),
 ):
-    project_id = validate_project_id(project_id)
-    from api.services.pipeline_service import PipelineService
-    project_dir = PipelineService._get_project_dir(project_id)
-    if not project_dir.exists():
-        raise ProjectNotFoundError(project_id)
-
     ok, errors = PipelineService.validate_blueprint_payload(project_id, payload)
     if not ok:
         raise APIError(message=f"Invalid blueprint: {'; '.join(errors)}", status_code=400)
@@ -57,23 +54,38 @@ async def update_blueprint(
     actor = getattr(principal, "principal_id", "api_user")
     PipelineService.mutate_blueprint(project_id, payload, actor_id=actor)
 
-    return StandardResponse(status="success")
+    return StandardResponse(status="success", message="Blueprint updated successfully")
 
 
-@router.post("/{project_id}/overrides", response_model=StandardResponse)
+@router.post("/{project_id}/overrides", response_model=StandardResponse, summary="Update scene overrides")
+@router.put("/{project_id}/overrides", response_model=StandardResponse, summary="Update scene overrides")
 async def update_overrides(
     project_id: str,
-    payload: dict = Body(...),
-    principal: Principal = Depends(require_permission(Action.BLUEPRINT_EDIT))
+    response: Response,
+    payload: Dict[str, Any] = Body(...),
+    if_match: Optional[str] = Header(None, alias="If-Match"),
+    principal: Principal = Depends(require_permission(Action.BLUEPRINT_EDIT)),
 ):
-    project_id = validate_project_id(project_id)
-    project_dir = Path(f"projects/{project_id}")
-    if not project_dir.exists():
-        from api.services.pipeline_service import PipelineService
-        project_dir = PipelineService._get_project_dir(project_id)
-    if not project_dir.exists():
-        raise ProjectNotFoundError(project_id)
+    expected_rev: Optional[int] = None
+    if if_match is not None:
+        clean_match = if_match.strip().strip('"').strip("'")
+        if clean_match.startswith("rev_"):
+            clean_match = clean_match[4:]
+        if clean_match.isdigit():
+            expected_rev = int(clean_match)
+        else:
+            from api.core.errors import RevisionConflictError
+            raise RevisionConflictError(
+                message=f"If-Match header '{if_match}' does not match current state",
+                current_revision=-1,
+                expected_revision=-1,
+            )
 
-    filepath = project_dir / "overrides.json"
-    filepath.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    return StandardResponse(status="success")
+    _, new_revision = OverrideService.update_overrides(
+        project_id=project_id,
+        payload=payload,
+        expected_revision=expected_rev,
+    )
+
+    response.headers["ETag"] = f'"{new_revision}"'
+    return StandardResponse(status="success", message="Overrides updated successfully")

@@ -5,7 +5,7 @@ from scripts.security.path_security import validate_project_id
 from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers import projects, gates, render, brand, blueprint, runs
+from api.routers import projects, gates, render, brand, blueprint, runs, assets, artifacts, outputs
 from fastapi.exceptions import RequestValidationError
 from api.core.errors import (
     APIError,
@@ -41,18 +41,25 @@ async def lifespan(app: FastAPI):
     yield
 
 
+from api.core.config import get_api_settings, DynamicCORSMiddleware
+
 app = FastAPI(title="Clean Video Workspace API", version="1.0.0", lifespan=lifespan)
 
+api_settings = get_api_settings()
+
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    DynamicCORSMiddleware,
+    allow_origins=api_settings.cors_allowed_origins,
+    allow_credentials=api_settings.cors_allow_credentials,
+    allow_methods=api_settings.cors_allow_methods,
+    allow_headers=api_settings.cors_allow_headers,
 )
 
 app.include_router(projects.router, prefix="/projects", tags=["projects"])
 app.include_router(runs.router, prefix="/projects", tags=["runs"])
+app.include_router(assets.router, prefix="/projects", tags=["assets"])
+app.include_router(artifacts.router, prefix="/projects", tags=["artifacts", "review"])
+app.include_router(outputs.router, prefix="/projects", tags=["outputs"])
 app.include_router(gates.router, prefix="/gates", tags=["gates"])
 app.include_router(render.router, prefix="/render", tags=["render"])
 app.include_router(brand.router, prefix="/brand", tags=["brand"])

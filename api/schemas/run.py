@@ -54,3 +54,34 @@ class RunResponse(BaseModel):
 class RunListResponse(BaseModel):
     runs: List[RunResponse]
     total: int
+
+
+class RunEventResponse(BaseModel):
+    """Canonical DTO representation of a persistent Run Event (S22 - LED-060)."""
+    event_id: str
+    run_id: str
+    project_id: str
+    sequence: int
+    event_type: str
+    stage: Optional[str] = None
+    timestamp: str
+    payload: Dict[str, Any] = Field(default_factory=dict)
+
+    @classmethod
+    def from_record(cls, event: Any) -> "RunEventResponse":
+        return cls(
+            event_id=event.event_id,
+            run_id=event.run_id,
+            project_id=event.project_id,
+            sequence=event.sequence,
+            event_type=event.event_type,
+            stage=event.stage,
+            timestamp=event.timestamp,
+            payload=event.payload,
+        )
+
+
+class RunEventListResponse(BaseModel):
+    events: List[RunEventResponse]
+    total: int
+    latest_sequence: int

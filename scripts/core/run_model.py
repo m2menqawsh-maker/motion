@@ -72,3 +72,15 @@ class RunRecord(BaseModel):
             raise InvalidRunTransitionError(
                 f"Illegal run status transition for {self.run_id}: {self.status.value} -> {new_status.value}."
             )
+
+
+class RunEvent(BaseModel):
+    """Canonical domain model for a persistent Run Event (S22 - LED-060)."""
+    event_id: str
+    run_id: str
+    project_id: str
+    sequence: int
+    event_type: str
+    stage: Optional[str] = None
+    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    payload: Dict[str, Any] = Field(default_factory=dict)

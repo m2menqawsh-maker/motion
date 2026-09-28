@@ -8,12 +8,13 @@ for Pipeline Runs using SQLite with WAL mode.
 import json
 import os
 import sqlite3
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Tuple
 
-from scripts.core.run_model import RunRecord, RunStatus, InvalidRunTransitionError
+from scripts.core.run_model import RunRecord, RunStatus, InvalidRunTransitionError, RunEvent
 
 
 class RunRepositoryError(Exception):
@@ -36,7 +37,7 @@ def get_default_db_path() -> Path:
 class RunRepository:
     """Canonical persistent authority for Pipeline Runs and Execution Leases."""
 
-    CURRENT_SCHEMA_VERSION = 1
+    CURRENT_SCHEMA_VERSION = 2
 
     def __init__(self, db_path: Optional[Path | str] = None):
         self.db_path = Path(db_path) if db_path else get_default_db_path()
@@ -88,6 +89,29 @@ class RunRepository:
                     "INSERT INTO _schema_migrations (version, applied_at) VALUES (1, ?)",
                     (datetime.now(timezone.utc).isoformat(),)
                 )
+            if current_v < 2:
+                self._migrate_v2(conn)
+                conn.execute(
+                    "INSERT INTO _schema_migrations (version, applied_at) VALUES (2, ?)",
+                    (datetime.now(timezone.utc).isoformat(),)
+                )
+
+    def _migrate_v2(self, conn: sqlite3.Connection) -> None:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS run_events (
+                event_id TEXT PRIMARY KEY,
+                run_id TEXT NOT NULL,
+                project_id TEXT NOT NULL,
+                sequence INTEGER NOT NULL,
+                event_type TEXT NOT NULL,
+                stage TEXT,
+                timestamp TEXT NOT NULL,
+                payload_json TEXT NOT NULL,
+                UNIQUE (run_id, sequence)
+            )
+        """)
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_run_events_lookup ON run_events(run_id, sequence)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_run_events_project ON run_events(project_id)")
 
     def _migrate_v1(self, conn: sqlite3.Connection) -> None:
         conn.execute("""
@@ -464,3 +488,168 @@ class RunRepository:
             )
             conn.execute("DELETE FROM project_execution_leases WHERE run_id = ?", (run_id,))
             return cur.rowcount == 1
+
+    def record_event(
+        self,
+        run_id: str,
+        project_id: str,
+        event_type: str,
+        payload: Optional[Dict[str, Any]] = None,
+        stage: Optional[str] = None,
+    ) -> RunEvent:
+        """Atomically appends an event for a run with monotonic sequence number."""
+        now = datetime.now(timezone.utc).isoformat()
+        event_id = f"evt_{uuid.uuid4().hex}"
+        payload_data = payload or {}
+
+        with self._transaction("IMMEDIATE") as conn:
+            cur = conn.execute("SELECT COALESCE(MAX(sequence), 0) + 1 FROM run_events WHERE run_id = ?", (run_id,))
+            seq = cur.fetchone()[0]
+
+            conn.execute(
+                """
+                INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (event_id, run_id, project_id, seq, event_type, stage, now, json.dumps(payload_data))
+            )
+
+        return RunEvent(
+            event_id=event_id,
+            run_id=run_id,
+            project_id=project_id,
+            sequence=seq,
+            event_type=event_type,
+            stage=stage,
+            timestamp=now,
+            payload=payload_data,
+        )
+
+    def get_events(
+        self,
+        run_id: str,
+        project_id: Optional[str] = None,
+        after_sequence: int = 0,
+        limit: int = 500,
+    ) -> List[RunEvent]:
+        """Retrieves persistent events for a run ordered by sequence."""
+        conn = self._get_connection()
+        try:
+            if project_id:
+                cur = conn.execute(
+                    """
+                    SELECT * FROM run_events
+                    WHERE run_id = ? AND project_id = ? AND sequence > ?
+                    ORDER BY sequence ASC LIMIT ?
+                    """,
+                    (run_id, project_id, after_sequence, limit)
+                )
+            else:
+                cur = conn.execute(
+                    """
+                    SELECT * FROM run_events
+                    WHERE run_id = ? AND sequence > ?
+                    ORDER BY sequence ASC LIMIT ?
+                    """,
+                    (run_id, after_sequence, limit)
+                )
+            results = []
+            for row in cur.fetchall():
+                d = dict(row)
+                payload = json.loads(d["payload_json"]) if d.get("payload_json") else {}
+                results.append(RunEvent(
+                    event_id=d["event_id"],
+                    run_id=d["run_id"],
+                    project_id=d["project_id"],
+                    sequence=d["sequence"],
+                    event_type=d["event_type"],
+                    stage=d.get("stage"),
+                    timestamp=d["timestamp"],
+                    payload=payload,
+                ))
+            return results
+        finally:
+            conn.close()
+
+    def request_cancel_run(self, run_id: str, project_id: Optional[str] = None) -> Tuple[RunRecord, bool]:
+        """
+        Atomically cancels a QUEUED run or requests cancellation for a RUNNING run.
+        Returns: (RunRecord, changed: bool)
+        Raises:
+            RunRepositoryError if run not found.
+            InvalidRunTransitionError if run is already in terminal state SUCCEEDED or FAILED.
+        """
+        now = datetime.now(timezone.utc).isoformat()
+        with self._transaction("IMMEDIATE") as conn:
+            cur = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
+            row = cur.fetchone()
+            if not row:
+                raise RunRepositoryError(f"Run '{run_id}' not found")
+            rec = self._row_to_record(row)
+            if project_id and rec.project_id != project_id:
+                raise RunRepositoryError(f"Run '{run_id}' does not belong to project '{project_id}'")
+
+            if rec.status == RunStatus.CANCELLED:
+                return rec, False
+            if rec.status == RunStatus.CANCEL_REQUESTED:
+                return rec, False
+            if rec.status in (RunStatus.SUCCEEDED, RunStatus.FAILED):
+                raise InvalidRunTransitionError(
+                    f"Cannot cancel run '{run_id}' because it is already in terminal state {rec.status.value}."
+                )
+
+            if rec.status == RunStatus.QUEUED:
+                # Cancel immediately
+                conn.execute(
+                    """
+                    UPDATE runs
+                    SET status = 'CANCELLED',
+                        finished_at = ?,
+                        updated_at = ?,
+                        failure_code = 'RUN_CANCELLED',
+                        failure_detail = ?
+                    WHERE run_id = ?
+                    """,
+                    (now, now, json.dumps({"reason": "Cancelled while queued"}), run_id)
+                )
+                conn.execute("DELETE FROM project_execution_leases WHERE run_id = ?", (run_id,))
+
+                # Append RUN_CANCELLED event
+                cur_seq = conn.execute("SELECT COALESCE(MAX(sequence), 0) + 1 FROM run_events WHERE run_id = ?", (run_id,))
+                seq = cur_seq.fetchone()[0]
+                conn.execute(
+                    """
+                    INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                    VALUES (?, ?, ?, ?, 'RUN_CANCELLED', NULL, ?, ?)
+                    """,
+                    (f"evt_{uuid.uuid4().hex}", run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancelled while queued"}))
+                )
+
+                cur_updated = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
+                return self._row_to_record(cur_updated.fetchone()), True
+
+            elif rec.status == RunStatus.RUNNING:
+                # Request cancellation
+                conn.execute(
+                    """
+                    UPDATE runs
+                    SET status = 'CANCEL_REQUESTED',
+                        updated_at = ?
+                    WHERE run_id = ? AND status = 'RUNNING'
+                    """,
+                    (now, run_id)
+                )
+
+                # Append CANCEL_REQUESTED event
+                cur_seq = conn.execute("SELECT COALESCE(MAX(sequence), 0) + 1 FROM run_events WHERE run_id = ?", (run_id,))
+                seq = cur_seq.fetchone()[0]
+                conn.execute(
+                    """
+                    INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                    VALUES (?, ?, ?, ?, 'CANCEL_REQUESTED', NULL, ?, ?)
+                    """,
+                    (f"evt_{uuid.uuid4().hex}", run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancellation requested"}))
+                )
+
+                cur_updated = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
+                return self._row_to_record(cur_updated.fetchone()), True
