@@ -137,16 +137,8 @@ def migrate_blueprint_to_v2(raw: Dict[str, Any], project_id: Optional[str] = Non
         migrated_scenes.append(sc)
     data["scenes"] = migrated_scenes
 
-    # 5. Assets normalization
-    assets = data.get("assets") or []
-    migrated_assets = []
-    for a in assets:
-        if isinstance(a, dict):
-            ac = copy.deepcopy(a)
-            if "type" in ac and "kind" not in ac:
-                ac["kind"] = ac.pop("type")
-            migrated_assets.append(ac)
-    data["assets"] = migrated_assets
+    # 5. Manifest v2 is the sole authority for asset catalog; drop duplicate assets from Blueprint
+    data.pop("assets", None)
 
     # 6. Set version to 2.0.0 and remove legacy version
     data["blueprint_version"] = "2.0.0"

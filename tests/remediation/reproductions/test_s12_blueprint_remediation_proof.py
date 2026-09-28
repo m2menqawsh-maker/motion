@@ -94,22 +94,20 @@ def test_proof_blueprint_contract_accepts_canonical_audio_plan():
     jsonschema.validate(instance=blueprint_with_audio, schema=schema)
 
 
-def test_proof_asset_kind_alignment_zero_drift():
+def test_proof_manifest_sole_asset_authority_zero_drift():
     """
-    PROOF: schemas/blueprint.schema.json assets[].kind and manifest.v2.schema.json assets[].kind
-    share the identical enum definitions.
+    PROOF: Manifest v2 is the SOLE authority for asset catalog, metadata, and kinds.
+    Blueprint v2 does not duplicate the asset catalog, and references assets logically
+    via AssetRef validated against Manifest v2 AssetKind vocabulary.
     """
+    blueprint_schema = json.loads(Path("schemas/blueprint.schema.json").read_text(encoding="utf-8"))
+    assert "assets" not in blueprint_schema.get("properties", {})
+
     manifest_schema = json.loads(Path("schemas/manifest.v2.schema.json").read_text(encoding="utf-8"))
     manifest_kinds = set(manifest_schema["properties"]["assets"]["items"]["properties"]["kind"]["enum"])
-
-    blueprint_schema = json.loads(Path("schemas/blueprint.schema.json").read_text(encoding="utf-8"))
-    blueprint_kinds = set(blueprint_schema["properties"]["assets"]["items"]["properties"]["kind"]["enum"])
-
-    # Zero drift between Manifest and Blueprint asset kinds!
-    assert manifest_kinds == blueprint_kinds
-    assert "vo" in blueprint_kinds
-    assert "music" in blueprint_kinds
-    assert "sfx" in blueprint_kinds
+    assert "vo" in manifest_kinds
+    assert "music" in manifest_kinds
+    assert "sfx" in manifest_kinds
 
 
 def test_proof_render_project_fails_closed_on_missing_blueprint(tmp_path):

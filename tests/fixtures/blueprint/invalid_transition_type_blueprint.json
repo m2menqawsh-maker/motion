@@ -10,7 +10,7 @@
       "startFrame": 0,
       "durationFrames": 60,
       "transition": {
-        "type": "unsupported_magic_spin",
+        "type": "bad transition with spaces!",
         "durationFrames": 15
       }
     }

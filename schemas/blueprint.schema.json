@@ -192,24 +192,21 @@
             "properties": {
               "type": {
                 "type": "string",
-                "enum": [
-                  "none",
-                  "fade",
-                  "slide",
-                  "wipe",
-                  "flip",
-                  "zoom",
-                  "cross-zoom",
-                  "film-burn",
-                  "dissolve",
-                  "iris"
-                ],
+                "minLength": 1,
+                "pattern": "^[a-zA-Z0-9_\\-]+$",
                 "default": "fade"
               },
               "durationFrames": {
                 "type": "integer",
                 "minimum": 1,
                 "default": 15
+              },
+              "timing": {
+                "type": "string",
+                "enum": [
+                  "linear",
+                  "ease-in-out"
+                ]
               }
             },
             "additionalProperties": false
@@ -383,54 +380,6 @@
         }
       },
       "additionalProperties": false
-    },
-    "assets": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "asset_id": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          "kind": {
-            "type": "string",
-            "enum": [
-              "image",
-              "video",
-              "audio",
-              "sfx",
-              "music",
-              "vo",
-              "logo",
-              "icon",
-              "font",
-              "json",
-              "other"
-            ]
-          },
-          "source": {
-            "type": "string",
-            "default": "user_upload"
-          },
-          "path": {
-            "type": "string"
-          },
-          "fallback": {
-            "type": "string"
-          },
-          "paid": {
-            "type": "boolean",
-            "default": false
-          }
-        },
-        "required": [
-          "asset_id",
-          "kind"
-        ],
-        "additionalProperties": false
-      },
-      "default": []
     },
     "meta": {
       "type": "object",

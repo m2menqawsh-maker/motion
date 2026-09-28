@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AssetKindSchema, AssetKind, ManifestV2 } from "./manifest";
+import { AssetKind, ManifestV2 } from "./manifest";
 
 // ==========================================
 // 1. Primitive Tokens & Enumerations
@@ -141,26 +141,10 @@ export const SceneContentSchema = z.object({
 export type SceneContent = z.infer<typeof SceneContentSchema>;
 
 // ==========================================
-// 4. Transitions & Effects Envelopes (S12)
-// ==========================================
-
-export const TransitionTypeSchema = z.enum([
-  "none",
-  "fade",
-  "slide",
-  "wipe",
-  "flip",
-  "zoom",
-  "cross-zoom",
-  "film-burn",
-  "dissolve",
-  "iris",
-]);
-export type TransitionType = z.infer<typeof TransitionTypeSchema>;
-
 export const TransitionRefSchema = z.object({
-  type: TransitionTypeSchema.default("fade"),
+  type: z.string().min(1).regex(/^[a-zA-Z0-9_\-]+$/, "Invalid transition identifier format").default("fade"),
   durationFrames: z.number().int().min(1).default(15),
+  timing: z.enum(["linear", "ease-in-out"]).optional(),
 });
 export type TransitionRef = z.infer<typeof TransitionRefSchema>;
 
@@ -247,23 +231,7 @@ export type BlueprintScene = z.infer<typeof BlueprintSceneSchema>;
 export type BlueprintSceneV2 = BlueprintScene;
 
 // ==========================================
-// 7. Assets Aligned with Manifest v2 AssetKind
-// ==========================================
-
-export const BlueprintAssetDefinitionSchema = z.object({
-  asset_id: z.string().regex(/^[a-zA-Z0-9_\-\.]+$/, "Invalid asset_id format"),
-  kind: AssetKindSchema,
-  source: z.string().default("user_upload"),
-  path: z.string().optional(),
-  fallback: z.string().optional(),
-  paid: z.boolean().optional().default(false),
-});
-export type BlueprintAssetDefinition = z.infer<typeof BlueprintAssetDefinitionSchema>;
-export const AssetSchema = BlueprintAssetDefinitionSchema;
-export type Asset = BlueprintAssetDefinition;
-
-// ==========================================
-// 8. Canonical Blueprint V2 Schema
+// 7. Canonical Blueprint V2 Schema
 // ==========================================
 
 export const MetaSchema = z.object({
@@ -279,7 +247,6 @@ export const BlueprintV2Schema = z.object({
   aspect_ratio: z.enum(["9:16", "16:9", "1:1", "4:5", "21:9"]),
   scenes: z.array(BlueprintSceneSchema),
   audio: AudioPlanSchema.optional(),
-  assets: z.array(BlueprintAssetDefinitionSchema).default([]),
   meta: MetaSchema.optional().default({}),
 });
 export type BlueprintV2 = z.infer<typeof BlueprintV2Schema>;
@@ -555,18 +522,8 @@ export function migrateBlueprintToV2(raw: unknown, expectedProjectId?: string): 
     });
   }
 
-  // Assets migration
-  if (Array.isArray(data.assets)) {
-    data.assets = data.assets.map((a: any) => {
-      if (!a || typeof a !== "object") return a;
-      const ac = { ...a };
-      if (ac.type && !ac.kind) {
-        ac.kind = ac.type;
-        delete ac.type;
-      }
-      return ac;
-    });
-  }
+  // Manifest v2 is the sole authority for asset catalog; drop duplicate assets from Blueprint
+  delete data.assets;
 
   data.blueprint_version = "2.0.0";
   delete data.version;

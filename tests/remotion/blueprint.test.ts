@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {
   BlueprintV2Schema,
+  TransitionRefSchema,
   validateBlueprintV2,
   isLegacyBlueprintV1,
   migrateBlueprintToV2,
@@ -173,5 +174,23 @@ describe("Blueprint Canonical Contract & Validator (S12)", () => {
     const res = validateBlueprintV2(data, { expectedProjectId: "prj_other_id" });
     expect(res.ok).toBe(false);
     expect(res.errors.some((e) => e.includes("Project ID mismatch"))).toBe(true);
+  });
+
+  // 16. Manifest v2 is sole authority — Blueprint has no assets property
+  it("ensures BlueprintV2 has no assets catalog, keeping Manifest v2 as sole authority", () => {
+    expect("assets" in BlueprintV2Schema.shape).toBe(false);
+  });
+
+  // 17. TransitionRef is an open structural envelope
+  it("accepts arbitrary valid transition identifiers as structural envelopes without drift", () => {
+    for (const validId of ["fade", "slide", "wipe", "custom_glitch_01", "directional-wipe", "cube_spin_3d"]) {
+      const parsed = TransitionRefSchema.safeParse({ type: validId, durationFrames: 20 });
+      expect(parsed.success).toBe(true);
+    }
+
+    for (const invalidId of ["bad identifier with spaces", "invalid/slash", ""]) {
+      const parsed = TransitionRefSchema.safeParse({ type: invalidId, durationFrames: 20 });
+      expect(parsed.success).toBe(false);
+    }
   });
 });

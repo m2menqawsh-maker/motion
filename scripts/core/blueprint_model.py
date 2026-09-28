@@ -9,37 +9,13 @@ from enum import Enum
 from typing import Dict, Any, List, Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from scripts.core.manifest_model import AssetKind
-
-
-class TransitionType(str, Enum):
-    """Allowed scene transition types."""
-    NONE = "none"
-    FADE = "fade"
-    SLIDE = "slide"
-    WIPE = "wipe"
-    FLIP = "flip"
-    ZOOM = "zoom"
-    CROSS_ZOOM = "cross-zoom"
-    FILM_BURN = "film-burn"
-    DISSOLVE = "dissolve"
-    IRIS = "iris"
 
 
 class TransitionRef(BaseModel):
-    """Transition envelope defining the transition out of a scene."""
-    type: TransitionType = TransitionType.FADE
+    """Structural envelope defining the transition out of a scene."""
+    type: str = Field(default="fade", min_length=1, pattern=r"^[a-zA-Z0-9_\-]+$", description="Transition identifier")
     durationFrames: int = Field(default=15, ge=1, description="Duration of transition in frames")
-
-    @field_validator("type", mode="before")
-    @classmethod
-    def coerce_type(cls, v: Any) -> TransitionType:
-        if isinstance(v, str):
-            v_lower = v.lower()
-            for member in TransitionType:
-                if member.value == v_lower:
-                    return member
-        return v
+    timing: Optional[str] = Field(default=None, pattern=r"^(linear|ease-in-out)$", description="Optional timing curve")
 
 
 class EffectRef(BaseModel):
@@ -135,26 +111,6 @@ class AudioPlan(BaseModel):
     global_sfx: List[GlobalSfxTrack] = Field(default_factory=list)
 
 
-class BlueprintAssetDefinition(BaseModel):
-    """Asset definition within Blueprint, aligned with Manifest v2 AssetKind."""
-    asset_id: str = Field(..., min_length=1, pattern=r"^[a-zA-Z0-9_\-\.]+$")
-    kind: AssetKind
-    source: str = Field(default="user_upload")
-    path: Optional[str] = None
-    fallback: Optional[str] = None
-    paid: Optional[bool] = False
-
-    @field_validator("kind", mode="before")
-    @classmethod
-    def coerce_kind(cls, v: Any) -> AssetKind:
-        if isinstance(v, str):
-            try:
-                return AssetKind.from_string(v)
-            except ValueError:
-                pass
-        return v
-
-
 class BlueprintV2(BaseModel):
     """
     Canonical Blueprint Version 2 Model.
@@ -166,7 +122,6 @@ class BlueprintV2(BaseModel):
     aspect_ratio: str = Field(..., pattern=r"^(9:16|16:9|1:1|4:5|21:9)$")
     scenes: List[BlueprintSceneV2] = Field(..., min_length=0)
     audio: Optional[AudioPlan] = None
-    assets: List[BlueprintAssetDefinition] = Field(default_factory=list)
     meta: Dict[str, Any] = Field(default_factory=dict)
 
     @field_validator("fps")

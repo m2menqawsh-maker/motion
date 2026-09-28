@@ -103,14 +103,6 @@ def check(bp, bp_path=None):
             t = json.loads(p.read_text(encoding="utf-8"))
             words = t.get("words") or (t.get("timings") or {}).get("words") or []
 
-    for a in bp.get("assets", []):
-        aid = a.get("asset_id", "?"); src = a.get("source")
-        if src not in {"user_upload", "cache", "mcp_fetch", "generated"}:
-            fail(f"asset {aid}: مصدر غير مصرّح ({src})")
-        if src == "mcp_fetch" and not a.get("fallback"): fail(f"asset {aid}: mcp_fetch بدون fallback")
-        if src == "user_upload" and not a.get("path"): fail(f"asset {aid}: user_upload بدون path")
-        if a.get("paid") and not approved: fail(f"asset {aid}: paid=true قبل الموافقة")
-    
     # Validation per scene
     total_sfx = 0
     for scene in bp.get("scenes", []):
@@ -171,7 +163,6 @@ def check(bp, bp_path=None):
             if n > max(1, round(dur / 15)): fail(f"المؤثر {nm} مستخدم {n} مرة — تجاوز حد التنويع")
 
 def render_md(bp, out):
-    srcs = {a.get("asset_id"): a.get("source", "?") for a in bp.get("assets", [])}
     fps = bp.get("fps", 30)
     dur = round(max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [0]), 1)
     L = ["# Blueprint — النسخة البشرية", "",

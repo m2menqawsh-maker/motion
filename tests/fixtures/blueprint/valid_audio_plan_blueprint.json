@@ -35,27 +35,5 @@
         "volume": 0.8
       }
     ]
-  },
-  "assets": [
-    {
-      "asset_id": "ast_vo_lead",
-      "kind": "vo",
-      "source": "user_upload"
-    },
-    {
-      "asset_id": "ast_music_ambient",
-      "kind": "music",
-      "source": "cache"
-    },
-    {
-      "asset_id": "ast_sfx_impact",
-      "kind": "sfx",
-      "source": "mcp_fetch"
-    },
-    {
-      "asset_id": "ast_sfx_whoosh",
-      "kind": "sfx",
-      "source": "cache"
-    }
-  ]
+  }
 }
