@@ -36,6 +36,7 @@ from scripts.core.evidence_matrix import (
     RequiredEvidencePolicy,
     EvidenceValidationResult,
 )
+from scripts.core.dependency_graph import ArtifactDependencyGraph, ArtifactKind
 
 
 LIFECYCLE_ORDER: List[LifecycleState] = StateMachine.get_topological_order()
@@ -189,19 +190,26 @@ class RecoveryPlanner:
             reason = f"Evidence validation failed at {current_state.value}: {issue_msg}. Rolled back to {target_state.value}."
 
         # Compute invalidated evidence paths:
-        # All evidence required exclusively downstream of target_state, or missing/mismatched on disk
+        # Relies on canonical ArtifactDependencyGraph to resolve downstream impacts
         target_idx = LIFECYCLE_ORDER.index(target_state)
         valid_retained_paths: Set[str] = set()
         for s in LIFECYCLE_ORDER[: target_idx + 1]:
             for itm in RequiredEvidencePolicy.get_required_evidence(s):
                 valid_retained_paths.add(itm.path)
 
+        graph = ArtifactDependencyGraph()
         invalidated_paths: Set[str] = set()
         for rec in state.artifact_records:
             if rec.path in valid_retained_paths:
                 file_p = pdir / rec.path
                 if not file_p.exists():
                     invalidated_paths.add(rec.path)
+                    # Downstream transitive invalidation from missing file
+                    kind = ArtifactKind.from_string(rec.path)
+                    if kind:
+                        for dep in graph.get_transitive_dependents(kind):
+                            if dep not in (ArtifactKind.REVIEW_BUNDLE, ArtifactKind.REVIEW_DECISION, ArtifactKind.COMPLETE):
+                                invalidated_paths.add(dep.value)
             else:
                 invalidated_paths.add(rec.path)
 

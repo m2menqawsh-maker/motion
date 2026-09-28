@@ -30,6 +30,7 @@ from scripts.core.state_model import (
 )
 from scripts.core.state_store import StateStore, StateConflictError
 from scripts.core.lifecycle_service import LifecycleService, LifecycleError
+from scripts.core.dependency_graph import ArtifactDependencyGraph, ArtifactKind
 
 
 class ReviewError(Exception):
@@ -434,6 +435,52 @@ class ReviewService:
         return decision
 
     @classmethod
+    def invalidate_review(cls, project_dir_or_id: Path | str, reason: str, bundle_id: Optional[str] = None) -> None:
+        """
+        Canonical Review Authority invalidation API.
+        Invalidates active review bundle and approved decisions when upstream dependencies change.
+        """
+        pdir = cls._resolve_project_dir(project_dir_or_id)
+        state = StateStore.load(pdir)
+        if not state:
+            return
+
+        target_bundle_id = bundle_id
+        if not target_bundle_id:
+            active_bundle = state.get_active_review_bundle()
+            if active_bundle:
+                target_bundle_id = active_bundle.review_bundle_id
+
+        if target_bundle_id:
+            cls._invalidate_bundle_and_decision(pdir, target_bundle_id, reason)
+        else:
+            def mutator(working_copy: ProjectState) -> None:
+                for b in working_copy.review_bundles:
+                    if b.status == "ACTIVE":
+                        b.invalidate(reason)
+                for d in working_copy.review_decisions:
+                    if d.decision == ReviewDecisionType.APPROVED:
+                        d.invalidate(reason)
+                working_copy.sync_approval_metadata()
+
+            try:
+                StateStore.atomic_update(
+                    project_dir=pdir,
+                    expected_revision=state.revision,
+                    mutator=mutator,
+                )
+            except Exception:
+                pass
+
+        # Clean marker file
+        marker = pdir / ".studio_approved"
+        if marker.exists():
+            try:
+                marker.unlink()
+            except Exception:
+                pass
+
+    @classmethod
     def _invalidate_bundle_and_decision(cls, project_dir: Path, bundle_id: str, reason: str) -> None:
         """Internal helper to atomically invalidate active bundle and decision when upstream changed."""
         try:
@@ -455,6 +502,13 @@ class ReviewService:
                 expected_revision=state.revision,
                 mutator=mutator,
             )
+
+            marker = project_dir / ".studio_approved"
+            if marker.exists():
+                try:
+                    marker.unlink()
+                except Exception:
+                    pass
         except Exception:
             pass
 

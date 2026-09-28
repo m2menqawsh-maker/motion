@@ -51,8 +51,11 @@ Templates are strictly registered structural components.
 - **Evidence:** `scripts/maintenance/template_router.py` strictly accesses registered components.
 
 ## 9. Contracts & Schemas
-- **Data Contracts:** Located in `schemas/` (Python) and `contracts/` (TypeScript).
-- **Rule:** Any cross-boundary communication must adhere to these schemas.
+- **Machine-Readable Authority Matrix:** `scripts/core/authority_matrix.py` (`ContractAuthorityMatrix`) is the canonical single source of truth for contract governance across Python, TypeScript, JSON Schema, and Registry domains.
+- **Data Contracts:** Located in `schemas/` (Python/JSON Schema) and `contracts/` (TypeScript/Zod).
+- **Executable Dependency Graph:** `scripts/core/dependency_graph.py` (`ArtifactDependencyGraph`) centrally computes downstream invalidation paths and prevents silent artifact desynchronization.
+- **Mutation Authority:** All governed artifact edits MUST pass through `scripts/core/artifact_service.py` (`ArtifactService`) to enforce atomic CAS revisioning and dependency invalidation.
+- **Rule:** Any cross-boundary communication must adhere to these contracts. No domain may possess multiple canonical authorities.
 
 ## 10. MCP Layer
 MCP Servers (`media-sources-mcp`, `audio-tools-mcp`, `ffmpeg-mcp-server`, etc.) provide local tool augmentation.
@@ -80,6 +83,8 @@ The Agent is a master planner and pipeline orchestrator. It does not manually bu
 - **INVARIANT-05**: Engine features MUST enter rendering through approved integration boundaries (`EngineBridge`).
 - **INVARIANT-06**: No unrestricted shell execution may be exposed to the Agent.
 - **INVARIANT-07**: The plugin MUST NOT mirror root canonical scripts, templates, recipes, references, security configuration, or system ground truth without an explicit generated contract. All tools and MCP servers must resolve canonical resources through the repository root.
+- **INVARIANT-08**: Every governed domain MUST possess exactly one canonical authority declared in `ContractAuthorityMatrix`. Generated schemas or types are strictly classified as GENERATED.
+- **INVARIANT-09**: All upstream artifact modifications must traverse `ArtifactService` to compute and apply structured invalidations via `ArtifactDependencyGraph`, preventing silent downstream desynchronization.
 
 ## 15. Plugin Architectural Boundary & Ownership
 

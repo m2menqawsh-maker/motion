@@ -19,8 +19,12 @@ async def get_blueprint(
     principal: Principal = Depends(require_permission(Action.BLUEPRINT_READ))
 ):
     project_id = validate_project_id(project_id)
-    blueprint_path = Path(f"projects/{project_id}/05_blueprint.json")
-    overrides_path = Path(f"projects/{project_id}/overrides.json")
+    project_dir = Path(f"projects/{project_id}")
+    if not project_dir.exists():
+        from api.services.pipeline_service import PipelineService
+        project_dir = PipelineService._get_project_dir(project_id)
+    blueprint_path = project_dir / "05_blueprint.json"
+    overrides_path = project_dir / "overrides.json"
 
     data = {}
     if blueprint_path.exists():
@@ -50,8 +54,10 @@ async def update_blueprint(
     if not project_dir.exists():
         raise ProjectNotFoundError(project_id)
 
-    filepath = project_dir / "05_blueprint.json"
-    filepath.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    from api.services.pipeline_service import PipelineService
+    actor = getattr(principal, "principal_id", "api_user")
+    PipelineService.mutate_blueprint(project_id, payload, actor_id=actor)
+
     return StandardResponse(status="success")
 
 
@@ -63,6 +69,9 @@ async def update_overrides(
 ):
     project_id = validate_project_id(project_id)
     project_dir = Path(f"projects/{project_id}")
+    if not project_dir.exists():
+        from api.services.pipeline_service import PipelineService
+        project_dir = PipelineService._get_project_dir(project_id)
     if not project_dir.exists():
         raise ProjectNotFoundError(project_id)
 

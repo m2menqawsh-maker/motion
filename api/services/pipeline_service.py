@@ -270,3 +270,27 @@ class PipelineService:
         if project_id in cls._active_pipelines and cls._active_pipelines[project_id].locked():
             return {"status": "error", "message": "Cancellation not natively supported yet. Kill process manually."}
         return {"status": "idle", "message": "No active pipeline to cancel."}
+
+    @classmethod
+    def mutate_blueprint(cls, project_id: str, payload: dict, actor_id: str = "api_user") -> None:
+        project_dir = Path(f"projects/{project_id}")
+        if not project_dir.exists():
+            project_dir = cls._get_project_dir(project_id)
+        if not project_dir.exists():
+            raise ProjectNotFoundError(project_id)
+
+        from scripts.core.artifact_service import ArtifactService
+        from scripts.core.dependency_graph import ArtifactKind
+
+        state_file = project_dir / ".pipeline_state.json"
+        content_str = json.dumps(payload, ensure_ascii=False, indent=2)
+        if state_file.exists():
+            ArtifactService.mutate_artifact(
+                project_dir=project_dir,
+                artifact_kind=ArtifactKind.BLUEPRINT,
+                new_content=content_str,
+                reason=f"Blueprint updated via API by {actor_id}",
+            )
+        else:
+            filepath = project_dir / "05_blueprint.json"
+            filepath.write_text(content_str, encoding="utf-8")
