@@ -19,13 +19,16 @@ async def get_blueprint(
     principal: Principal = Depends(require_permission(Action.BLUEPRINT_READ))
 ):
     project_id = validate_project_id(project_id)
-    from api.services.pipeline_service import PipelineService
-    project_dir = PipelineService._get_project_dir(project_id)
+    project_dir = Path(f"projects/{project_id}")
+    if not project_dir.exists():
+        from api.services.pipeline_service import PipelineService
+        project_dir = PipelineService._get_project_dir(project_id)
     overrides_path = project_dir / "overrides.json"
 
     data = {}
+    from api.services.pipeline_service import PipelineService
     bp_dict = PipelineService.get_blueprint(project_id)
-    if bp_dict:
+    if bp_dict is not None:
         data["blueprint"] = bp_dict
     if overrides_path.exists():
         data["overrides"] = json.loads(overrides_path.read_text(encoding="utf-8"))

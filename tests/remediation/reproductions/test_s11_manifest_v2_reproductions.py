@@ -25,10 +25,9 @@ def test_repro_asset_gate_fails_open_on_missing_manifest(tmp_path):
     non_existent = tmp_path / "projects" / "prj_missing" / "02_asset_manifest.json"
     success, msg = run_gate(str(non_existent))
     
-    # Current behavior on main: True, 'No manifest found, passing.'
     # Target behavior after S11: Must fail closed!
-    assert success is True
-    assert "No manifest found" in msg
+    assert success is False
+    assert "Manifest file not found" in msg or "not found" in msg.lower()
 
 
 def test_repro_materializer_duplicate_asset_id_last_one_wins(tmp_path):
@@ -87,11 +86,8 @@ def test_repro_materializer_duplicate_asset_id_last_one_wins(tmp_path):
 
         cmd = [sys.executable, str(workspace / "scripts" / "generators" / "materialize_project.py"), str(project_dir)]
         res = subprocess.run(cmd, capture_output=True, text=True)
-
-        # On current main, materialize_project succeeds (exit code 0) and last one overwrote first one
-        assert res.returncode == 0, f"Expected repro to succeed on main, got: {res.stderr}"
-        media_map = json.loads((project_dir / "media_map.json").read_text(encoding="utf-8"))
-        assert "ast_duplicate" in media_map
+        # Target behavior after S11: materialize_project must fail closed (exit code 1)
+        assert res.returncode == 1, f"Expected fail closed on duplicate asset IDs, got: {res.stdout}"
     finally:
         if video1.exists():
             video1.unlink()
@@ -151,8 +147,8 @@ def test_repro_materializer_project_id_mismatch_ignored(tmp_path):
         cmd = [sys.executable, str(workspace / "scripts" / "generators" / "materialize_project.py"), str(project_dir)]
         res = subprocess.run(cmd, capture_output=True, text=True)
 
-        # On current main, this succeeds and ignores the mismatch!
-        assert res.returncode == 0, f"Expected repro to succeed on main, got: {res.stderr}"
+        # Target behavior after S11: materialize_project must fail closed (exit code 1)
+        assert res.returncode == 1, f"Expected fail closed on project mismatch, got: {res.stdout}"
     finally:
         if video.exists():
             video.unlink()

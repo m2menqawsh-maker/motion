@@ -309,7 +309,9 @@ class PipelineService:
 
     @classmethod
     def get_blueprint(cls, project_id: str) -> Optional[Dict[str, Any]]:
-        project_dir = cls._get_project_dir(project_id)
+        project_dir = Path(f"projects/{project_id}")
+        if not project_dir.exists():
+            project_dir = cls._get_project_dir(project_id)
         if not project_dir.exists():
             raise ProjectNotFoundError(project_id)
         blueprint_path = project_dir / "05_blueprint.json"
@@ -321,10 +323,13 @@ class PipelineService:
 
     @classmethod
     def validate_blueprint_payload(cls, project_id: str, payload: dict) -> tuple[bool, list[str]]:
-        project_dir = cls._get_project_dir(project_id)
+        project_dir = Path(f"projects/{project_id}")
+        if not project_dir.exists():
+            project_dir = cls._get_project_dir(project_id)
         if not project_dir.exists():
             raise ProjectNotFoundError(project_id)
         from scripts.core.blueprint_validator import validate_blueprint_v2
+        from scripts.core.blueprint_migration import is_legacy_blueprint_v1, migrate_blueprint_to_v2
         from scripts.core.manifest_loader import load_manifest
         man = None
         manifest_path = project_dir / "02_asset_manifest.json"
@@ -333,7 +338,10 @@ class PipelineService:
                 man = load_manifest(manifest_path, expected_project_id=project_id, allow_migrate=True)
             except Exception:
                 pass
-        v_res = validate_blueprint_v2(payload, expected_project_id=project_id, manifest=man)
+        migrated = payload
+        if is_legacy_blueprint_v1(payload):
+            migrated = migrate_blueprint_to_v2(payload, project_id=project_id)
+        v_res = validate_blueprint_v2(migrated, expected_project_id=project_id, manifest=man)
         return v_res.ok, v_res.errors
 
 
