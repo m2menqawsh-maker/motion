@@ -127,13 +127,29 @@ def main():
                 p = project_dir / name
                 return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
                 
+            from scripts.core.asset_resolution import load_required_media_map, validate_asset_refs_against_media_map, AssetResolutionError
+            try:
+                media_map = load_required_media_map(
+                    project_dir,
+                    verify_files_on_disk=True,
+                    workspace_root=workspace_root,
+                )
+            except AssetResolutionError as e:
+                print(f"🛑 خطأ فادح: فشل تحميل خريطة الوسائط الإلزامية: {e}")
+                sys.exit(1)
+
+            media_ref_errors = validate_asset_refs_against_media_map(bp_v2, media_map, project_id=project_id)
+            if media_ref_errors:
+                print(f"🛑 خطأ فادح: مراجع وسائط غير محلولة في المخطط: {'; '.join(media_ref_errors)}")
+                sys.exit(1)
+
             combined_props = {
                 "projectData": {
                     "project": safe_load("project.json", {"fps": bp_v2.fps, "title": "Video"}),
                     "blueprint": bp_dict,
                     "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
                     "overrides": safe_load("overrides.json", {"scenes": {}}),
-                    "media_map": safe_load("media_map.json", {})
+                    "media_map": media_map,
                 }
             }
             props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")

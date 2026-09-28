@@ -81,13 +81,24 @@ def main():
         p = proj_dir / name
         return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
         
+    from scripts.core.asset_resolution import load_required_media_map, AssetResolutionError
+    try:
+        media_map = load_required_media_map(
+            proj_dir,
+            verify_files_on_disk=True,
+            workspace_root=workspace_root,
+        )
+    except AssetResolutionError as e:
+        print(f"❌ خطأ في تحميل خريطة الوسائط: {e}")
+        sys.exit(1)
+
     combined_props = {
         "projectData": {
             "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
             "blueprint": json.loads((proj_dir / "05_blueprint.json").read_text(encoding="utf-8")),
             "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
             "overrides": safe_load("overrides.json", {"scenes": {}}),
-            "media_map": safe_load("media_map.json", {})
+            "media_map": media_map,
         }
     }
     

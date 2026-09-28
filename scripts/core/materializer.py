@@ -417,11 +417,22 @@ def materialize_project_atomic(
             if not found:
                 fails.append(f"template '{name}' not found on disk")
 
-        for ref in sec.get("media_refs", []):
-            if ref not in media_map:
-                fails.append(f"Scene references unmaterialized asset: '{ref}'")
-        if sec.get("sfx_ref") and sec.get("sfx_ref") not in media_map:
-            fails.append(f"Scene references unmaterialized SFX: '{sec.get('sfx_ref')}'")
+    # Authoritative preflight reference verification via collect_asset_references (ASSET-005)
+    from scripts.core.asset_resolution import collect_asset_references, MalformedAssetRefError
+    try:
+        blueprint_occurrences = collect_asset_references(bp)
+    except MalformedAssetRefError as e:
+        fails.append(str(e))
+        blueprint_occurrences = []
+
+    for occ in blueprint_occurrences:
+        if occ.is_logical and occ.asset_id:
+            aid = occ.asset_id
+            if aid not in media_map:
+                if "sfx" in occ.slot:
+                    fails.append(f"Scene references unmaterialized SFX: '{aid}'")
+                else:
+                    fails.append(f"Scene references unmaterialized asset: '{aid}'")
 
     if fails:
         raise MaterializationPreflightError(fails)

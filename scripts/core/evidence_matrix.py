@@ -166,18 +166,21 @@ REQUIRED_EVIDENCE_BY_STATE: Dict[LifecycleState, List[RequiredEvidenceItem]] = {
         REQUIRED_EVIDENCE_ITEMS["manifest"],
         REQUIRED_EVIDENCE_ITEMS["plan"],
         REQUIRED_EVIDENCE_ITEMS["blueprint"],
+        REQUIRED_EVIDENCE_ITEMS["media_map"],
         REQUIRED_EVIDENCE_ITEMS["rendered_video"],
     ],
     LifecycleState.FINAL_QC_PASSED: [
         REQUIRED_EVIDENCE_ITEMS["manifest"],
         REQUIRED_EVIDENCE_ITEMS["plan"],
         REQUIRED_EVIDENCE_ITEMS["blueprint"],
+        REQUIRED_EVIDENCE_ITEMS["media_map"],
         REQUIRED_EVIDENCE_ITEMS["rendered_video"],
     ],
     LifecycleState.COMPLETE: [
         REQUIRED_EVIDENCE_ITEMS["manifest"],
         REQUIRED_EVIDENCE_ITEMS["plan"],
         REQUIRED_EVIDENCE_ITEMS["blueprint"],
+        REQUIRED_EVIDENCE_ITEMS["media_map"],
         REQUIRED_EVIDENCE_ITEMS["rendered_video"],
     ],
     LifecycleState.FAILED: [],
@@ -328,6 +331,23 @@ class RequiredEvidencePolicy:
         """Returns the list of required evidence items for a given lifecycle state."""
         state_enum = LifecycleState(state)
         return list(REQUIRED_EVIDENCE_BY_STATE.get(state_enum, []))
+
+    @classmethod
+    def is_artifact_required(
+        cls,
+        state: Union[LifecycleState, str],
+        logical_name_or_path: str = "media_map",
+    ) -> bool:
+        """
+        Authoritative query to determine if an artifact is required for a lifecycle state (S06).
+        Checks both logical_name and path against required evidence items for the state.
+        """
+        state_enum = LifecycleState(state) if isinstance(state, str) else state
+        items = cls.get_required_evidence(state_enum)
+        for itm in items:
+            if itm.logical_name == logical_name_or_path or itm.path == logical_name_or_path:
+                return True
+        return False
 
     @classmethod
     def validate_required_evidence(

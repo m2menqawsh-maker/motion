@@ -32,17 +32,21 @@ class CaptionWord(BaseModel):
     endMs: float = Field(ge=0)
 
 
+# Type alias for canonical Asset Reference (string or tagged dict)
+AssetRefType = Union[str, Dict[str, Any]]
+
+
 class SceneContent(BaseModel):
     """Structured scene content envelope."""
     lines: Optional[List[str]] = None
     words: Optional[List[CaptionWord]] = None
-    images: Optional[List[str]] = None
-    screen: Optional[str] = None
+    images: Optional[List[AssetRefType]] = None
+    screen: Optional[AssetRefType] = None
     numbers: Optional[List[Union[int, float]]] = None
     range: Optional[Dict[str, Union[int, float]]] = None
     path: Optional[str] = None
-    icons: Optional[List[str]] = None
-    audioRef: Optional[str] = None
+    icons: Optional[List[AssetRefType]] = None
+    audioRef: Optional[AssetRefType] = None
     spectrum: Optional[List[List[float]]] = None
 
 
@@ -57,9 +61,9 @@ class BlueprintSceneV2(BaseModel):
     props: Optional[Dict[str, Any]] = None
     surface: Optional[Dict[str, Any]] = None
     layout: Optional[Dict[str, Any]] = None
-    media_refs: List[str] = Field(default_factory=list)
-    sfx_ref: Optional[str] = None
-    captions_ref: Optional[str] = None
+    media_refs: List[AssetRefType] = Field(default_factory=list)
+    sfx_ref: Optional[AssetRefType] = None
+    captions_ref: Optional[AssetRefType] = None
     transition: Optional[TransitionRef] = None
     effects: List[EffectRef] = Field(default_factory=list)
 
@@ -71,7 +75,7 @@ class BlueprintSceneV2(BaseModel):
 
 class VoiceoverTrack(BaseModel):
     """Canonical Voiceover track configuration."""
-    asset_ref: str = Field(..., min_length=1, pattern=r"^[a-zA-Z0-9_\-\.]+$")
+    asset_ref: AssetRefType
     volume: float = Field(default=1.0, ge=0.0, le=1.0)
     startFrame: int = Field(default=0, ge=0)
     durationFrames: Optional[int] = Field(default=None, ge=1)
@@ -87,7 +91,7 @@ class AudioDucking(BaseModel):
 
 class MusicTrack(BaseModel):
     """Canonical Background Music track configuration."""
-    asset_ref: str = Field(..., min_length=1, pattern=r"^[a-zA-Z0-9_\-\.]+$")
+    asset_ref: AssetRefType
     volume: float = Field(default=0.15, ge=0.0, le=1.0)
     startFrame: int = Field(default=0, ge=0)
     durationFrames: Optional[int] = Field(default=None, ge=1)
@@ -98,7 +102,7 @@ class MusicTrack(BaseModel):
 
 class GlobalSfxTrack(BaseModel):
     """Timeline-level SFX cue."""
-    asset_ref: str = Field(..., min_length=1, pattern=r"^[a-zA-Z0-9_\-\.]+$")
+    asset_ref: AssetRefType
     startFrame: int = Field(default=0, ge=0)
     durationFrames: Optional[int] = Field(default=None, ge=1)
     volume: float = Field(default=1.0, ge=0.0, le=1.0)

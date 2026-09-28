@@ -1,5 +1,12 @@
 import { z } from "zod";
 import { AssetKind, ManifestV2 } from "./manifest";
+import {
+  AssetRefSchema,
+  AssetRef,
+  collectAssetReferences,
+} from "./asset-resolver";
+
+export { AssetRefSchema, AssetRef } from "./asset-resolver";
 
 // ==========================================
 // 1. Primitive Tokens & Enumerations
@@ -129,13 +136,13 @@ export type CaptionWord = z.infer<typeof CaptionWordSchema>;
 export const SceneContentSchema = z.object({
   lines: z.array(z.string()).optional(),
   words: z.array(CaptionWordSchema).optional(),
-  images: z.array(z.string()).optional(),
-  screen: z.string().optional(),
+  images: z.array(AssetRefSchema).optional(),
+  screen: AssetRefSchema.optional(),
   numbers: z.array(z.number()).optional(),
   range: z.object({ from: z.number(), to: z.number() }).optional(),
   path: z.string().optional(),
-  icons: z.array(z.string()).optional(),
-  audioRef: z.string().optional(),
+  icons: z.array(AssetRefSchema).optional(),
+  audioRef: AssetRefSchema.optional(),
   spectrum: z.array(z.array(z.number())).optional(),
 });
 export type SceneContent = z.infer<typeof SceneContentSchema>;
@@ -160,7 +167,7 @@ export type EffectRef = z.infer<typeof EffectRefSchema>;
 // ==========================================
 
 export const VoiceoverTrackSchema = z.object({
-  asset_ref: z.string().regex(/^[a-zA-Z0-9_\-\.]+$/, "Invalid voiceover asset_ref format"),
+  asset_ref: AssetRefSchema,
   volume: z.number().min(0.0).max(1.0).default(1.0),
   startFrame: z.number().int().min(0).default(0),
   durationFrames: z.number().int().min(1).optional(),
@@ -176,7 +183,7 @@ export const AudioDuckingSchema = z.object({
 export type AudioDucking = z.infer<typeof AudioDuckingSchema>;
 
 export const MusicTrackSchema = z.object({
-  asset_ref: z.string().regex(/^[a-zA-Z0-9_\-\.]+$/, "Invalid music asset_ref format"),
+  asset_ref: AssetRefSchema,
   volume: z.number().min(0.0).max(1.0).default(0.15),
   startFrame: z.number().int().min(0).default(0),
   durationFrames: z.number().int().min(1).optional(),
@@ -187,7 +194,7 @@ export const MusicTrackSchema = z.object({
 export type MusicTrack = z.infer<typeof MusicTrackSchema>;
 
 export const GlobalSfxTrackSchema = z.object({
-  asset_ref: z.string().regex(/^[a-zA-Z0-9_\-\.]+$/, "Invalid sfx asset_ref format"),
+  asset_ref: AssetRefSchema,
   startFrame: z.number().int().min(0).default(0),
   durationFrames: z.number().int().min(1).optional(),
   volume: z.number().min(0.0).max(1.0).default(1.0),
@@ -221,9 +228,9 @@ export const BlueprintSceneSchema = z.object({
   props: z.record(z.string(), z.any()).optional(),
   surface: z.record(z.string(), z.any()).optional(),
   layout: LayoutSchema.optional(),
-  media_refs: z.array(z.string()).optional(),
-  sfx_ref: z.string().nullable().optional(),
-  captions_ref: z.string().nullable().optional(),
+  media_refs: z.array(AssetRefSchema).optional(),
+  sfx_ref: AssetRefSchema.nullable().optional(),
+  captions_ref: AssetRefSchema.nullable().optional(),
   transition: TransitionRefSchema.optional(),
   effects: z.array(EffectRefSchema).optional(),
 });
@@ -327,43 +334,14 @@ export function validateBlueprintV2(
       );
     }
 
-    // Manifest reference checks
-    if (options?.manifest) {
-      if (s.sfx_ref) {
-        const kind = manifestAssets.get(s.sfx_ref);
-        if (!kind) {
-          errors.push(`scenes[${idx}] ('${s.scene_id}'): referenced sfx_ref '${s.sfx_ref}' not found in manifest`);
-        } else if (kind !== "sfx" && kind !== "audio") {
-          errors.push(`scenes[${idx}] ('${s.scene_id}'): sfx_ref '${s.sfx_ref}' has kind '${kind}', expected 'sfx' or 'audio'`);
-        }
-      }
-
-      for (const mRef of s.media_refs || []) {
-        if (!manifestAssets.has(mRef)) {
-          errors.push(`scenes[${idx}] ('${s.scene_id}'): referenced media_ref '${mRef}' not found in manifest`);
-        }
-      }
-
-      if (s.content?.audioRef && !manifestAssets.has(s.content.audioRef)) {
-        errors.push(`scenes[${idx}] ('${s.scene_id}'): referenced content.audioRef '${s.content.audioRef}' not found in manifest`);
-      }
-    }
   }
 
-  // 3. Audio Plan Semantic Checks
+  // 3. Audio Plan Volume Checks
   if (bp.audio) {
     if (bp.audio.voiceover) {
       const vo = bp.audio.voiceover;
       if (vo.volume < 0.0 || vo.volume > 1.0) {
         errors.push(`audio.voiceover: volume must be between 0.0 and 1.0`);
-      }
-      if (options?.manifest) {
-        const kind = manifestAssets.get(vo.asset_ref);
-        if (!kind) {
-          errors.push(`audio.voiceover: referenced asset '${vo.asset_ref}' not found in manifest`);
-        } else if (kind !== "vo" && kind !== "audio") {
-          errors.push(`audio.voiceover: asset '${vo.asset_ref}' has kind '${kind}', expected 'vo' or 'audio'`);
-        }
       }
     }
 
@@ -375,14 +353,6 @@ export function validateBlueprintV2(
       if (bgm.ducking && (bgm.ducking.ducking_volume < 0.0 || bgm.ducking.ducking_volume > 1.0)) {
         errors.push(`audio.music.ducking: ducking_volume must be between 0.0 and 1.0`);
       }
-      if (options?.manifest) {
-        const kind = manifestAssets.get(bgm.asset_ref);
-        if (!kind) {
-          errors.push(`audio.music: referenced asset '${bgm.asset_ref}' not found in manifest`);
-        } else if (kind !== "music" && kind !== "audio") {
-          errors.push(`audio.music: asset '${bgm.asset_ref}' has kind '${kind}', expected 'music' or 'audio'`);
-        }
-      }
     }
 
     for (let sIdx = 0; sIdx < bp.audio.global_sfx.length; sIdx++) {
@@ -390,12 +360,38 @@ export function validateBlueprintV2(
       if (sfx.volume < 0.0 || sfx.volume > 1.0) {
         errors.push(`audio.global_sfx[${sIdx}]: volume must be between 0.0 and 1.0`);
       }
-      if (options?.manifest) {
-        const kind = manifestAssets.get(sfx.asset_ref);
+    }
+  }
+
+  // 4. Authoritative Declarative Manifest Reference Checks (ASSET-005)
+  if (options?.manifest) {
+    const occurrences = collectAssetReferences(bp);
+    for (const occ of occurrences) {
+      if (occ.parsed.isLogical && occ.parsed.assetId) {
+        const aid = occ.parsed.assetId;
+        const kind = manifestAssets.get(aid);
         if (!kind) {
-          errors.push(`audio.global_sfx[${sIdx}]: referenced asset '${sfx.asset_ref}' not found in manifest`);
-        } else if (kind !== "sfx" && kind !== "audio") {
-          errors.push(`audio.global_sfx[${sIdx}]: asset '${sfx.asset_ref}' has kind '${kind}', expected 'sfx' or 'audio'`);
+          if (occ.sceneId) {
+            const sIdx = bp.scenes.findIndex(s => s.scene_id === occ.sceneId);
+            const slotName = occ.slot.includes(".") ? occ.slot.split(".").slice(1).join(".") : occ.slot;
+            errors.push(`scenes[${sIdx}] ('${occ.sceneId}'): referenced ${slotName} '${aid}' not found in manifest`);
+          } else {
+            const trackName = occ.fieldPath.split(".")[1] || occ.slot;
+            errors.push(`audio.${trackName}: referenced asset '${aid}' not found in manifest`);
+          }
+        } else if (occ.expectedKinds && occ.expectedKinds.length > 0) {
+          const isMatch = occ.expectedKinds.includes(kind) || occ.expectedKinds.includes(String(kind).toLowerCase());
+          if (!isMatch) {
+            const expectedStr = occ.expectedKinds.map(k => `'${k}'`).join(" or ");
+            if (occ.sceneId) {
+              const sIdx = bp.scenes.findIndex(s => s.scene_id === occ.sceneId);
+              const slotName = occ.slot.includes(".") ? occ.slot.split(".").slice(1).join(".") : occ.slot;
+              errors.push(`scenes[${sIdx}] ('${occ.sceneId}'): ${slotName} '${aid}' has kind '${kind}', expected ${expectedStr}`);
+            } else {
+              const trackName = occ.fieldPath.split(".")[1] || occ.slot;
+              errors.push(`audio.${trackName}: asset '${aid}' has kind '${kind}', expected ${expectedStr}`);
+            }
+          }
         }
       }
     }

@@ -85,6 +85,25 @@ except Exception as e:
     print(f"❌ ملف المخطط 05_blueprint.json غير صالح: {e}")
     sys.exit(1)
 
+workspace_root = Path.cwd().resolve()
+engine_dir = workspace_root / "remotion-app"
+
+from scripts.core.asset_resolution import load_required_media_map, validate_asset_refs_against_media_map, AssetResolutionError
+try:
+    media_map = load_required_media_map(
+        proj_dir,
+        verify_files_on_disk=True,
+        workspace_root=workspace_root,
+    )
+except AssetResolutionError as e:
+    print(f"❌ فشل فحص خريطة الوسائط الإلزامية: {e}")
+    sys.exit(1)
+
+media_ref_errors = validate_asset_refs_against_media_map(bp_v2, media_map, project_id=proj_dir.name)
+if media_ref_errors:
+    print(f"❌ مراجع وسائط غير محلولة في المخطط: {'; '.join(media_ref_errors)}")
+    sys.exit(1)
+
 # تحضير render_props.json للمحرك المركزي
 def safe_load(name, default):
     p = proj_dir / name
@@ -96,15 +115,12 @@ combined_props = {
         "blueprint": bp,
         "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
         "overrides": safe_load("overrides.json", {"scenes": {}}),
-        "media_map": safe_load("media_map.json", {})
+        "media_map": media_map,
     }
 }
 props_file = proj_dir / "render_props.json"
 props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
 props_file_abs = props_file.resolve()
-
-workspace_root = Path.cwd().resolve()
-engine_dir = workspace_root / "remotion-app"
 
 use_engine = False
 if not (build_dir / "src" / "index.ts").exists() and (engine_dir / "src" / "index.ts").exists():

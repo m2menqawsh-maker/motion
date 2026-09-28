@@ -60,6 +60,9 @@ except BlueprintValidationError as e:
         if "referenced media_ref" in err and "not found in manifest" in err:
             ref = err.split("referenced media_ref '")[1].split("' not found")[0]
             print(f"عنصر يشير لأصل غير مهيأ: {ref}")
+        elif "Malformed asset reference" in err:
+            ref = err.split("Malformed asset reference '")[1].split("'")[0]
+            print(f"عنصر يشير لأصل غير مهيأ: {ref}")
         elif "referenced sfx_ref" in err and "not found in manifest" in err:
             ref = err.split("referenced sfx_ref '")[1].split("' not found")[0]
             print(f"عنصر يشير لمؤثر صوتي غير مهيأ: {ref}")

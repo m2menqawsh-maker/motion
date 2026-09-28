@@ -90,83 +90,70 @@ def validate_blueprint_v2(
                     f"must be strictly less than scene durationFrames ({scene.durationFrames})"
                 )
 
-        # Scene-level asset checks against manifest
-        if manifest:
-            if scene.sfx_ref:
-                if scene.sfx_ref not in manifest_assets_by_id:
-                    errors.append(
-                        f"scenes[{idx}] ('{scene.scene_id}'): referenced sfx_ref '{scene.sfx_ref}' not found in manifest"
-                    )
-                else:
-                    kind = manifest_assets_by_id[scene.sfx_ref]
-                    kind_str = getattr(kind, "value", str(kind))
-                    if kind not in (AssetKind.SFX, AssetKind.AUDIO, "sfx", "audio"):
-                        errors.append(
-                            f"scenes[{idx}] ('{scene.scene_id}'): sfx_ref '{scene.sfx_ref}' has kind '{kind_str}', expected 'sfx' or 'audio'"
-                        )
-
-            for ref in scene.media_refs:
-                if ref not in manifest_assets_by_id:
-                    errors.append(
-                        f"scenes[{idx}] ('{scene.scene_id}'): referenced media_ref '{ref}' not found in manifest"
-                    )
-
-            if scene.content and scene.content.audioRef:
-                if scene.content.audioRef not in manifest_assets_by_id:
-                    errors.append(
-                        f"scenes[{idx}] ('{scene.scene_id}'): referenced content.audioRef '{scene.content.audioRef}' not found in manifest"
-                    )
-
-    # 4. AudioPlan Semantic Validation
+    # 4. AudioPlan Volume Validation
     if bp.audio:
-        # Voiceover validation
         if bp.audio.voiceover:
             vo = bp.audio.voiceover
             if not (0.0 <= vo.volume <= 1.0):
                 errors.append(f"audio.voiceover: volume {vo.volume} must be between 0.0 and 1.0")
-            if manifest:
-                if vo.asset_ref not in manifest_assets_by_id:
-                    errors.append(f"audio.voiceover: referenced asset '{vo.asset_ref}' not found in manifest")
-                else:
-                    kind = manifest_assets_by_id[vo.asset_ref]
-                    kind_str = getattr(kind, "value", str(kind))
-                    if kind not in (AssetKind.VO, AssetKind.AUDIO, "vo", "audio"):
-                        errors.append(
-                            f"audio.voiceover: asset '{vo.asset_ref}' has kind '{kind_str}', expected 'vo' or 'audio'"
-                        )
 
-        # Music validation
         if bp.audio.music:
             bgm = bp.audio.music
             if not (0.0 <= bgm.volume <= 1.0):
                 errors.append(f"audio.music: volume {bgm.volume} must be between 0.0 and 1.0")
             if bgm.ducking and not (0.0 <= bgm.ducking.ducking_volume <= 1.0):
                 errors.append(f"audio.music.ducking: ducking_volume {bgm.ducking.ducking_volume} must be between 0.0 and 1.0")
-            if manifest:
-                if bgm.asset_ref not in manifest_assets_by_id:
-                    errors.append(f"audio.music: referenced asset '{bgm.asset_ref}' not found in manifest")
-                else:
-                    kind = manifest_assets_by_id[bgm.asset_ref]
-                    kind_str = getattr(kind, "value", str(kind))
-                    if kind not in (AssetKind.MUSIC, AssetKind.AUDIO, "music", "audio"):
-                        errors.append(
-                            f"audio.music: asset '{bgm.asset_ref}' has kind '{kind_str}', expected 'music' or 'audio'"
-                        )
 
-        # Global SFX validation
         for sfx_idx, sfx in enumerate(bp.audio.global_sfx):
             if not (0.0 <= sfx.volume <= 1.0):
                 errors.append(f"audio.global_sfx[{sfx_idx}]: volume {sfx.volume} must be between 0.0 and 1.0")
-            if manifest:
-                if sfx.asset_ref not in manifest_assets_by_id:
-                    errors.append(f"audio.global_sfx[{sfx_idx}]: referenced asset '{sfx.asset_ref}' not found in manifest")
-                else:
-                    kind = manifest_assets_by_id[sfx.asset_ref]
-                    kind_str = getattr(kind, "value", str(kind))
-                    if kind not in (AssetKind.SFX, AssetKind.AUDIO, "sfx", "audio"):
+
+    # 5. Authoritative Manifest Reference Validation (ASSET-005)
+    if manifest:
+        from scripts.core.asset_resolution import collect_asset_references, MalformedAssetRefError
+        try:
+            occurrences = collect_asset_references(bp)
+        except MalformedAssetRefError as e:
+            errors.append(str(e))
+            return BlueprintValidationResult(ok=False, errors=errors, blueprint=bp)
+
+        scene_indices = {s.scene_id: idx for idx, s in enumerate(bp.scenes)}
+
+        for occ in occurrences:
+            if occ.is_logical and occ.asset_id:
+                aid = occ.asset_id
+                if aid not in manifest_assets_by_id:
+                    if occ.scene_id:
+                        idx = scene_indices.get(occ.scene_id, 0)
+                        slot_name = occ.slot.split(".")[-1] if "." in occ.slot else occ.slot
+                        slot_desc = "media_ref" if "media_refs" in occ.slot else slot_name
                         errors.append(
-                            f"audio.global_sfx[{sfx_idx}]: asset '{sfx.asset_ref}' has kind '{kind_str}', expected 'sfx' or 'audio'"
+                            f"scenes[{idx}] ('{occ.scene_id}'): referenced {slot_desc} '{aid}' not found in manifest"
                         )
+                    else:
+                        track = occ.field_path.split(".")[1]
+                        errors.append(f"audio.{track}: referenced asset '{aid}' not found in manifest")
+                elif occ.expected_kinds:
+                    found_kind = manifest_assets_by_id[aid]
+                    found_kind_str = getattr(found_kind, "value", str(found_kind))
+                    is_compat = any(
+                        found_kind_str == ek or getattr(found_kind, "name", "").lower() == ek.lower()
+                        for ek in occ.expected_kinds
+                    )
+                    if not is_compat:
+                        expected_desc = " or ".join(f"'{k}'" for k in occ.expected_kinds)
+                        if occ.scene_id:
+                            idx = scene_indices.get(occ.scene_id, 0)
+                            slot_name = occ.slot.split(".")[-1] if "." in occ.slot else occ.slot
+                            slot_desc = "media_ref" if "media_refs" in occ.slot else slot_name
+                            errors.append(
+                                f"scenes[{idx}] ('{occ.scene_id}'): {slot_desc} '{aid}' has kind '{found_kind_str}', expected {expected_desc}"
+                            )
+                        else:
+                            track = occ.field_path.split(".")[1]
+                            errors.append(
+                                f"audio.{track}: asset '{aid}' has kind '{found_kind_str}', expected {expected_desc}"
+                            )
 
     if errors:
         return BlueprintValidationResult(ok=False, errors=errors, blueprint=bp)

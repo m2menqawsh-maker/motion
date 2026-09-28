@@ -228,12 +228,14 @@ def test_valid_complete_state_with_all_evidence_passes(tmp_path):
     (project_dir / "02_asset_manifest.json").write_text('{"assets": []}', encoding="utf-8")
     (project_dir / "master_plan.md").write_text("# Valid Plan", encoding="utf-8")
     (project_dir / "05_blueprint.json").write_text('{"scenes": []}', encoding="utf-8")
+    (project_dir / "media_map.json").write_text("{}", encoding="utf-8")
     (project_dir / "out.mp4").write_bytes(b"\x00" * 1024)  # 1 KB valid mock mp4
 
     records = [
         StateStore.create_artifact_record(project_dir, "02_asset_manifest.json", ValidationLevel.EXISTS),
         StateStore.create_artifact_record(project_dir, "master_plan.md", ValidationLevel.SHA256),
         StateStore.create_artifact_record(project_dir, "05_blueprint.json", ValidationLevel.SHA256),
+        StateStore.create_artifact_record(project_dir, "media_map.json", ValidationLevel.EXISTS),
         StateStore.create_artifact_record(project_dir, "out.mp4", ValidationLevel.SIZE),
     ]
 
@@ -249,7 +251,7 @@ def test_valid_complete_state_with_all_evidence_passes(tmp_path):
     assert decision.next_state == LifecycleState.COMPLETE
     assert decision.validation_result is not None
     assert decision.validation_result.is_valid is True
-    assert decision.validation_result.verified_count == 4
+    assert decision.validation_result.verified_count == 5
 
 
 def test_size_mismatch_detected(tmp_path):

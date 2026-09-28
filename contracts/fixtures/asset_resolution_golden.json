@@ -1,0 +1,83 @@
+{
+  "test_cases": [
+    {
+      "id": "case_1_valid_logical_asset_ref",
+      "description": "Valid logical asset ID string resolved via media_map",
+      "ref": "ast_video_hero",
+      "media_map": {
+        "ast_video_hero": "projects/prj_golden/generations/gen_001/ast_video_hero.mp4"
+      },
+      "expected_resolution": "projects/prj_golden/generations/gen_001/ast_video_hero.mp4",
+      "should_succeed": true
+    },
+    {
+      "id": "case_2_valid_tagged_logical_asset_ref",
+      "description": "Valid tagged logical asset reference object resolved via media_map",
+      "ref": {
+        "kind": "asset",
+        "asset_id": "ast_audio_vo"
+      },
+      "media_map": {
+        "ast_audio_vo": "projects/prj_golden/generations/gen_001/ast_audio_vo.mp3"
+      },
+      "expected_resolution": "projects/prj_golden/generations/gen_001/ast_audio_vo.mp3",
+      "should_succeed": true
+    },
+    {
+      "id": "case_3_unknown_logical_asset_ref",
+      "description": "Logical asset ID not present in media_map must fail closed",
+      "ref": "ast_nonexistent",
+      "media_map": {
+        "ast_known": "projects/prj_golden/generations/gen_001/ast_known.png"
+      },
+      "expected_error": "UNKNOWN_ASSET_REFERENCE",
+      "should_succeed": false
+    },
+    {
+      "id": "case_4_explicit_literal_external_url",
+      "description": "Explicit tagged external URL ref passes through without requiring media_map",
+      "ref": {
+        "kind": "url",
+        "url": "https://assets.example.com/branding/logo.png"
+      },
+      "media_map": {},
+      "expected_resolution": "https://assets.example.com/branding/logo.png",
+      "should_succeed": true
+    },
+    {
+      "id": "case_5_raw_url_string_disallowed",
+      "description": "Raw URL as plain string is rejected and cannot guess URL semantics",
+      "ref": "https://assets.example.com/branding/logo.png",
+      "media_map": {},
+      "expected_error": "MALFORMED_ASSET_REF",
+      "should_succeed": false
+    },
+    {
+      "id": "case_6_raw_filesystem_path_disallowed",
+      "description": "Raw local path as plain string is rejected and cannot guess path semantics",
+      "ref": "/etc/passwd",
+      "media_map": {},
+      "expected_error": "MALFORMED_ASSET_REF",
+      "should_succeed": false
+    },
+    {
+      "id": "case_7_empty_asset_ref_disallowed",
+      "description": "Empty string asset reference is rejected",
+      "ref": "",
+      "media_map": {},
+      "expected_error": "MALFORMED_ASSET_REF",
+      "should_succeed": false
+    },
+    {
+      "id": "case_8_malformed_tagged_ref_unknown_kind",
+      "description": "Tagged ref with unsupported kind is rejected",
+      "ref": {
+        "kind": "unknown_kind",
+        "val": "foo"
+      },
+      "media_map": {},
+      "expected_error": "MALFORMED_ASSET_REF",
+      "should_succeed": false
+    }
+  ]
+}
