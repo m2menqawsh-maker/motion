@@ -70,4 +70,35 @@ describe("Manifest v2 Cross-Language Contract (TypeScript)", () => {
     expect(result.ok).toBe(false);
     expect(result.errors.some((e) => e.includes("Project ID mismatch"))).toBe(true);
   });
+
+  // Explicit Version Matrix Checks
+  it("accepts version '2.0.0'", () => {
+    const fixture = readFixture("valid_manifest_v2.json");
+    fixture.manifest_version = "2.0.0";
+    const result = validateManifestV2(fixture);
+    expect(result.ok).toBe(true);
+  });
+
+  it("accepts version '2.0'", () => {
+    const fixture = readFixture("valid_manifest_v2.json");
+    fixture.manifest_version = "2.0";
+    const result = validateManifestV2(fixture);
+    expect(result.ok).toBe(true);
+  });
+
+  it("rejects version '3.0.0'", () => {
+    const fixture = readFixture("valid_manifest_v2.json");
+    fixture.manifest_version = "3.0.0";
+    const result = validateManifestV2(fixture);
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes("manifest_version"))).toBe(true);
+  });
+
+  it("rejects unversioned manifest in strict TypeScript validation", () => {
+    const fixture = readFixture("legacy_v1_valid_manifest.json");
+    // legacy manifest lacks manifest_version
+    const result = validateManifestV2(fixture);
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.includes("manifest_version"))).toBe(true);
+  });
 });
