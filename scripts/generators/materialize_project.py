@@ -22,10 +22,31 @@ if hasattr(sys.stderr, "reconfigure"):
 DST = Path(__file__).resolve().parent.parent.parent
 WS = DST
 PLUGIN_DIR = WS / ".agents" / "plugins" / "super-video-maker-plugin"
-proj = Path(sys.argv[1]).resolve()
-man = json.loads((proj / "02_asset_manifest.json").read_text(encoding="utf-8"))
+from scripts.core.project_identity import validate_project_identity
+from scripts.core.manifest_loader import load_manifest
+from scripts.core.manifest_errors import ManifestError, ProjectIdentityMismatchError
 
+proj = Path(sys.argv[1]).resolve()
 project_id = validate_project_id(proj.name)
+
+# ─── فحص الهوية والمانيفست القانوني ───
+try:
+    validate_project_identity(proj, expected_project_id=project_id)
+except ProjectIdentityMismatchError as e:
+    print(f"\n{'='*60}")
+    print(f"🛑 تم إيقاف materialize_project.py: خطأ في هوية المشروع")
+    print(f"{'='*60}")
+    print(e)
+    sys.exit(1)
+
+try:
+    man = load_manifest(proj / "02_asset_manifest.json", expected_project_id=project_id, allow_migrate=True)
+except ManifestError as e:
+    print(f"\n{'='*60}")
+    print(f"🛑 تم إيقاف materialize_project.py: بيان الأصول غير صالح")
+    print(f"{'='*60}")
+    print(e)
+    sys.exit(1)
 
 # ─── الفحص الإجباري قبل أي بناء ───
 try:
@@ -51,8 +72,8 @@ def canon(p):
 
 # ─── PHASE 1: PRE-VALIDATION (Zero Side Effects) ───
 # Any security violation, path traversal, or symlink escape MUST fail before copying/writing.
-for a in man.get("assets", []):
-    aid = a.get("asset_id", "")
+for a in man.assets:
+    aid = a.asset_id
     
     # 1. Asset ID Confinement Validation
     try:
@@ -61,7 +82,11 @@ for a in man.get("assets", []):
         fails.append(f"asset '{aid}': {e}")
         continue
 
-    raw_path = a.get("processed_path") or a.get("path", "")
+    if aid in media_map:
+        fails.append(f"duplicate asset_id '{aid}'")
+        continue
+
+    raw_path = a.processed_path or a.source_path or ""
     if not raw_path:
         fails.append(f"asset {aid}: missing path")
         continue

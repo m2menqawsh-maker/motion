@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "manifest.v2.schema.json",
+  "title": "سجل الأصول الإصدار الثاني — Asset Manifest v2",
+  "description": "العقد القانوني الموحد لسجل أصول المشروع مع الفصل الكامل بين المصدر (provenance) والحالة (status) ونوع الأصل (kind)",
+  "type": "object",
+  "required": ["manifest_version", "project_id", "created_at", "assets"],
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "enum": ["2.0.0", "2.0"],
+      "description": "إصدار عقد البيان"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "description": "معرّف المشروع المطابق للهوية القانونية"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "تاريخ ووقت إنشاء البيان بصيغة ISO-8601"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "description": "تاريخ ووقت آخر تحديث للبيان"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "بيانات وصفية عامة للمشروع وبيان الأصول"
+    },
+    "assets": {
+      "type": "array",
+      "description": "قائمة الأصول المعرّفة في المشروع",
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "kind", "provenance", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$",
+            "description": "معرّف الأصل الفريد والمنعزل"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video",
+              "audio",
+              "sfx",
+              "music",
+              "vo",
+              "logo",
+              "icon",
+              "font",
+              "json",
+              "other"
+            ],
+            "description": "نوع الأصل الموحد"
+          },
+          "provenance": {
+            "type": "string",
+            "enum": [
+              "user_upload",
+              "mcp_fetch",
+              "generated",
+              "cache_reuse"
+            ],
+            "description": "مصدر الأصل القانوني (أصل المنشأ)"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "incoming",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "description": "الحالة التشغيلية والتخزينية للأصل"
+          },
+          "source_path": {
+            "type": ["string", "null"],
+            "description": "مسار الملف الأولي الخام أو المرجعي"
+          },
+          "processed_path": {
+            "type": ["string", "null"],
+            "description": "مسار الملف الجاهز بعد المعالجة والمعايرة"
+          },
+          "content_hash": {
+            "type": ["string", "null"],
+            "description": "بصمة التجزئة للمحتوى (SHA-256)"
+          },
+          "processing_spec_hash": {
+            "type": ["string", "null"],
+            "description": "بصمة تجزئة مواصفات المعالجة والمعايرة الصوتية/البصرية"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "بيانات تفصيلية للأصل مثل الأبعاد، المدة، وموافقات التدقيق"
+          }
+        }
+      }
+    }
+  }
+}

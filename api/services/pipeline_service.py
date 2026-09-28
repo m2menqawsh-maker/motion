@@ -294,3 +294,16 @@ class PipelineService:
         else:
             filepath = project_dir / "05_blueprint.json"
             filepath.write_text(content_str, encoding="utf-8")
+
+    @classmethod
+    def get_manifest(cls, project_id: str) -> Optional[Dict[str, Any]]:
+        project_dir = cls._get_project_dir(project_id)
+        if not project_dir.exists():
+            raise ProjectNotFoundError(project_id)
+        manifest_path = project_dir / "02_asset_manifest.json"
+        if not manifest_path.exists():
+            return None
+        from scripts.core.manifest_loader import load_manifest
+        mf = load_manifest(manifest_path, expected_project_id=project_id, allow_migrate=True)
+        return mf.to_dict()
+

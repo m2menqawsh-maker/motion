@@ -85,6 +85,7 @@ The Agent is a master planner and pipeline orchestrator. It does not manually bu
 - **INVARIANT-07**: The plugin MUST NOT mirror root canonical scripts, templates, recipes, references, security configuration, or system ground truth without an explicit generated contract. All tools and MCP servers must resolve canonical resources through the repository root.
 - **INVARIANT-08**: Every governed domain MUST possess exactly one canonical authority declared in `ContractAuthorityMatrix`. Generated schemas or types are strictly classified as GENERATED.
 - **INVARIANT-09**: All upstream artifact modifications must traverse `ArtifactService` to compute and apply structured invalidations via `ArtifactDependencyGraph`, preventing silent downstream desynchronization.
+- **INVARIANT-10**: Manifest v2 is the single authoritative contract for declared assets. Provenance and status must remain strictly separated, asset IDs must be globally unique per project, and project identity must be strictly consistent across directory name, state, project.json, manifest, and blueprint.
 
 ## 15. Plugin Architectural Boundary & Ownership
 

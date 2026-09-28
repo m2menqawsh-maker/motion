@@ -1,0 +1,15 @@
+{
+  "manifest_version": "2.0.0",
+  "project_id": "prj_canonical_01",
+  "created_at": "2026-09-28T12:00:00Z",
+  "assets": [
+    {
+      "asset_id": "ast_video_hero",
+      "kind": "unsupported_executable_format",
+      "provenance": "user_upload",
+      "status": "ready",
+      "source_path": "assets/ready/hero.exe",
+      "processed_path": "assets/ready/hero.exe"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from scripts.security.path_security import validate_project_id
 from api.services.scaffold_service import create_project
 from api.services.pipeline_service import PipelineService
@@ -45,18 +45,20 @@ async def get_project(
     if not project_dir.exists():
         raise ProjectNotFoundError(project_id)
 
-    data = {}
-    for filename in ["project.json", "02_asset_manifest.json"]:
-        filepath = project_dir / filename
-        if filepath.exists():
-            data[filename.replace(".json", "")] = json.loads(filepath.read_text(encoding="utf-8"))
-        else:
-            data[filename.replace(".json", "")] = {}
+    try:
+        manifest_dict = PipelineService.get_manifest(project_id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Invalid asset manifest: {e}")
+
+    project_json_path = project_dir / "project.json"
+    project_dict = {}
+    if project_json_path.exists():
+        project_dict = json.loads(project_json_path.read_text(encoding="utf-8"))
 
     state_dict = await PipelineService.get_status(project_id)
 
     return ProjectResponse(
-        project=data.get("project", {}),
-        manifest=data.get("02_asset_manifest", {}),
+        project=project_dict,
+        manifest=manifest_dict,
         state=state_dict
     )

@@ -93,9 +93,13 @@ def check(bp, bp_path=None):
     if bp_path:
         proj_dir = Path(bp_path).parent
         if (proj_dir / "02_asset_manifest.json").exists():
-            man = json.loads((proj_dir / "02_asset_manifest.json").read_text(encoding="utf-8"))
-            for a in man.get("assets", []):
-                manifest[a.get("asset_id")] = a.get("type")
+            try:
+                from scripts.core.manifest_loader import load_manifest
+                man = load_manifest(proj_dir / "02_asset_manifest.json", allow_migrate=True)
+                for a in man.assets:
+                    manifest[a.asset_id] = a.kind.value
+            except Exception as e:
+                fail(f"02_asset_manifest.json غير صالح: {e}")
 
     for a in bp.get("assets", []):
         aid = a.get("asset_id", "?"); src = a.get("source")
