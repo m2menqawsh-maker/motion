@@ -21,7 +21,7 @@ REPRODUCTION_METADATA = {
     "test_led_005_artifact_records_erasure.py": {"finding": "LED-005", "owner": "S06", "closed": True},
     "test_rec_001_recovery_empty_evidence.py": {"finding": "REC-001", "owner": "S06", "closed": True},
     "test_led_008_corrupt_state.py": {"finding": "LED-008", "owner": "S07", "closed": True},
-    "test_led_054_props_divergence.py": {"finding": "LED-054", "owner": "S17", "closed": False},
+    "test_led_054_props_divergence.py": {"finding": "LED-054", "owner": "S17", "closed": True},
 }
 
 def pytest_collection_modifyitems(config, items):

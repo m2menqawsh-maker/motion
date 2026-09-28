@@ -76,50 +76,26 @@ if not bp_path.exists():
 
 probe_dir.mkdir(parents=True, exist_ok=True)
 
-from scripts.core.blueprint_loader import load_blueprint
-
-try:
-    bp_v2 = load_blueprint(bp_path, expected_project_id=proj_dir.name if proj_dir.name.startswith("prj_") else None, allow_migrate=True)
-    bp = bp_v2.to_dict()
-except Exception as e:
-    print(f"❌ ملف المخطط 05_blueprint.json غير صالح: {e}")
-    sys.exit(1)
-
 workspace_root = Path.cwd().resolve()
 engine_dir = workspace_root / "remotion-app"
 
-from scripts.core.asset_resolution import load_required_media_map, validate_asset_refs_against_media_map, AssetResolutionError
+from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
 try:
-    media_map = load_required_media_map(
+    render_input = build_render_input(
         proj_dir,
-        verify_files_on_disk=True,
         workspace_root=workspace_root,
+        verify_files_on_disk=True,
+        write_to_disk=True,
     )
-except AssetResolutionError as e:
-    print(f"❌ فشل فحص خريطة الوسائط الإلزامية: {e}")
+except RenderInputError as e:
+    print(f"❌ خطأ في مدخلات الرندر لـ Probe-QC: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"❌ خطأ غير متوقع في تجهيز مدخلات Probe-QC: {e}")
     sys.exit(1)
 
-media_ref_errors = validate_asset_refs_against_media_map(bp_v2, media_map, project_id=proj_dir.name)
-if media_ref_errors:
-    print(f"❌ مراجع وسائط غير محلولة في المخطط: {'; '.join(media_ref_errors)}")
-    sys.exit(1)
-
-# تحضير render_props.json للمحرك المركزي
-def safe_load(name, default):
-    p = proj_dir / name
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
-
-combined_props = {
-    "projectData": {
-        "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-        "blueprint": bp,
-        "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-        "overrides": safe_load("overrides.json", {"scenes": {}}),
-        "media_map": media_map,
-    }
-}
-props_file = proj_dir / "render_props.json"
-props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
+bp = render_input["projectData"]["blueprint"]
+props_file = get_render_props_path(proj_dir, workspace_root=workspace_root)
 props_file_abs = props_file.resolve()
 
 use_engine = False
@@ -132,7 +108,7 @@ else:
         sys.exit(1)
     exec_cwd = str(build_dir)
 
-fps = bp_v2.fps
+fps = bp.get("fps", 30)
 
 # Extract critical moments (in seconds)
 critical_secs = {0.0} # Always first frame
@@ -160,7 +136,8 @@ if max_sec > 0:
     critical_secs.add(float(max_sec) - 0.1)
 
 # Convert to frames and clamp within valid composition range
-total_duration_frames = bp_v2.total_duration_frames
+scenes = bp.get("scenes", [])
+total_duration_frames = max((s.get("startFrame", 0) + s.get("durationFrames", 0) for s in scenes), default=0)
 max_allowed_frame = max(0, total_duration_frames - 1)
 
 critical_frames = sorted(list({min(max_allowed_frame, max(0, int(round(s * fps)))) for s in critical_secs}))

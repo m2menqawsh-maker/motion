@@ -95,6 +95,24 @@ def main():
             
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
+
+        from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
+        try:
+            build_render_input(
+                project_dir,
+                workspace_root=workspace_root,
+                verify_files_on_disk=True,
+                write_to_disk=True,
+            )
+        except RenderInputError as e:
+            print(f"🛑 خطأ فادح في تجهيز مدخلات الرندر: {e}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"🛑 خطأ فادح: فشل تجهيز مدخلات الرندر: {e}")
+            sys.exit(1)
+
+        props_file = get_render_props_path(project_dir, workspace_root=workspace_root)
+        props_file_abs = props_file.resolve()
             
         if not use_docker:
             env = os.environ.copy()
@@ -105,54 +123,6 @@ def main():
             
             npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
             engine_dir = workspace_root / "remotion-app"
-            
-            props_file = project_dir / "render_props.json"
-            props_file_abs = workspace_root / props_file
-            
-            from scripts.core.blueprint_loader import load_blueprint
-            from scripts.core.blueprint_errors import BlueprintError
-
-            bp_file = project_dir / "05_blueprint.json"
-            if not bp_file.exists():
-                print(f"🛑 خطأ فادح: ملف المخطط 05_blueprint.json مفقود في {project_dir}")
-                sys.exit(1)
-            try:
-                bp_v2 = load_blueprint(bp_file, expected_project_id=project_id, allow_migrate=True)
-                bp_dict = bp_v2.to_dict()
-            except BlueprintError as e:
-                print(f"🛑 خطأ فادح: فشل تحميل المخطط 05_blueprint.json: {e}")
-                sys.exit(1)
-
-            def safe_load(name, default):
-                p = project_dir / name
-                return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
-                
-            from scripts.core.asset_resolution import load_required_media_map, validate_asset_refs_against_media_map, AssetResolutionError
-            try:
-                media_map = load_required_media_map(
-                    project_dir,
-                    verify_files_on_disk=True,
-                    workspace_root=workspace_root,
-                )
-            except AssetResolutionError as e:
-                print(f"🛑 خطأ فادح: فشل تحميل خريطة الوسائط الإلزامية: {e}")
-                sys.exit(1)
-
-            media_ref_errors = validate_asset_refs_against_media_map(bp_v2, media_map, project_id=project_id)
-            if media_ref_errors:
-                print(f"🛑 خطأ فادح: مراجع وسائط غير محلولة في المخطط: {'; '.join(media_ref_errors)}")
-                sys.exit(1)
-
-            combined_props = {
-                "projectData": {
-                    "project": safe_load("project.json", {"fps": bp_v2.fps, "title": "Video"}),
-                    "blueprint": bp_dict,
-                    "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-                    "overrides": safe_load("overrides.json", {"scenes": {}}),
-                    "media_map": media_map,
-                }
-            }
-            props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
             
             print(f"🎥 جاري الرندر (محلي)...")
             result = safe_subprocess(
@@ -191,7 +161,7 @@ def main():
                 "-w", "/workspace/remotion-app",
                 "--memory", "4g",
                 "clean-video-builder",
-                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4 --props ../projects/{project_id}/05_blueprint.json && chmod a+rw ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4"
+                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4 --props ../projects/{project_id}/render_props.json && chmod a+rw ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4"
             ]
             
             proc = safe_subprocess(docker_cmd)

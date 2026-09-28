@@ -77,35 +77,23 @@ def main():
     # 3. تشغيل الاستوديو عبر المحرك وتمرير بيانات المشروع
     print(f"✅ [GUARDIAN PASS] جاري فتح الاستوديو للمشروع {project_id} عبر المحرك المركزي...")
     
-    def safe_load(name, default):
-        p = proj_dir / name
-        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
-        
-    from scripts.core.asset_resolution import load_required_media_map, AssetResolutionError
+    from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
     try:
-        media_map = load_required_media_map(
+        build_render_input(
             proj_dir,
-            verify_files_on_disk=True,
             workspace_root=workspace_root,
+            verify_files_on_disk=True,
+            write_to_disk=True,
         )
-    except AssetResolutionError as e:
-        print(f"❌ خطأ في تحميل خريطة الوسائط: {e}")
+    except RenderInputError as e:
+        print(f"❌ خطأ فادح في تجهيز مدخلات الاستوديو: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ خطأ غير متوقع في تجهيز مدخلات الاستوديو: {e}")
         sys.exit(1)
 
-    combined_props = {
-        "projectData": {
-            "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-            "blueprint": json.loads((proj_dir / "05_blueprint.json").read_text(encoding="utf-8")),
-            "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-            "overrides": safe_load("overrides.json", {"scenes": {}}),
-            "media_map": media_map,
-        }
-    }
-    
-    props_file = proj_dir / "render_props.json"
-    props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
-    
-    props_file_abs = workspace_root.resolve() / props_file
+    props_file = get_render_props_path(proj_dir, workspace_root=workspace_root)
+    props_file_abs = props_file.resolve()
 
     if not use_docker:
         os.chdir(str(engine_dir))
@@ -128,7 +116,7 @@ def main():
             "-v", f"{workspace_root_abs}:/workspace:ro",
             "-w", f"/workspace/remotion-app",
             "clean-video-builder",
-            "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/05_blueprint.json"
+            "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/render_props.json"
         ]
         
         safe_subprocess(docker_cmd)
