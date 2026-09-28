@@ -1,3 +1,5 @@
+import type { AssetRef } from "./asset-resolver";
+
 export interface CaptionWord {
   word: string;
   startMs: number;
@@ -5,14 +7,15 @@ export interface CaptionWord {
 }
 
 export interface SceneContent {
-  lines?: string[];       // surface.text split by "\n"
-  words?: CaptionWord[];  // captions_ref
-  images?: string[];      // media_refs (type=image) resolved via manifest
-  screen?: string;        // first media_ref (image|video)
+  lines?: string[];
+  words?: CaptionWord[];
+  images?: (string | AssetRef)[];
+  screen?: string | AssetRef;
   numbers?: number[];
   range?: { from: number; to: number };
   path?: string;
-  icons?: string[];
-  audioRef?: string;
+  icons?: (string | AssetRef)[];
+  audioRef?: string | AssetRef;
   spectrum?: number[][];
+  text?: string;
 }

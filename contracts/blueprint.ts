@@ -2,11 +2,12 @@ import { z } from "zod";
 import { AssetKind, ManifestV2 } from "./manifest";
 import {
   AssetRefSchema,
-  AssetRef,
+  type AssetRef,
   collectAssetReferences,
 } from "./asset-resolver";
+import { isKnownEffect } from "../registry/effects-runtime";
 
-export { AssetRefSchema, AssetRef } from "./asset-resolver";
+export { AssetRefSchema, type AssetRef } from "./asset-resolver";
 
 // ==========================================
 // 1. Primitive Tokens & Enumerations
@@ -148,15 +149,36 @@ export const SceneContentSchema = z.object({
 export type SceneContent = z.infer<typeof SceneContentSchema>;
 
 // ==========================================
+// 4. Transitions & Effects (S16 - LED-043, LED-046)
+// ==========================================
+
+export const SUPPORTED_TRANSITION_TYPES = [
+  "fade",
+  "slide",
+  "wipe",
+  "flip",
+  "zoom",
+  "cross-zoom",
+  "film-burn",
+  "dissolve",
+  "iris",
+  "none",
+] as const;
+
+export const TransitionTypeSchema = z.enum(SUPPORTED_TRANSITION_TYPES);
+export type TransitionType = z.infer<typeof TransitionTypeSchema>;
+
 export const TransitionRefSchema = z.object({
-  type: z.string().min(1).regex(/^[a-zA-Z0-9_\-]+$/, "Invalid transition identifier format").default("fade"),
+  type: TransitionTypeSchema.default("fade"),
   durationFrames: z.number().int().min(1).default(15),
   timing: z.enum(["linear", "ease-in-out"]).optional(),
 });
 export type TransitionRef = z.infer<typeof TransitionRefSchema>;
 
 export const EffectRefSchema = z.object({
-  effect: z.string().min(1),
+  effect: z.string().min(1).refine(isKnownEffect, (val) => ({
+    message: `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME.`,
+  })),
   apply: z.enum(["scene", "overlay"]).optional().default("scene"),
   params: z.record(z.string(), z.any()).optional().default({}),
 });

@@ -16,6 +16,8 @@ import { loadFont } from "../../contracts/fonts";
 import { TEMPLATE_REGISTRY } from "../../registry/template-registry";
 import { EFFECTS_RUNTIME } from "../../registry/effects-runtime";
 import { MergedProject } from "./merge";
+import { validateTemplatePayload } from "../../contracts/template-schemas";
+import { UnknownEffectError, UnknownTransitionError, UnknownTemplateError } from "../../contracts/render-input";
 
 const EngineBridge: React.FC<{ children: React.ReactNode }> = ({ children }) => <>{children}</>;
 
@@ -25,6 +27,34 @@ export interface BlueprintVideoProps {
 }
 
 export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, brand }) => {
+  // Pre-mount fail-closed validations (S16 - LED-043, LED-045, LED-046)
+  if (projectData && projectData.scenes) {
+    for (let idx = 0; idx < projectData.scenes.length; idx++) {
+      const scene = projectData.scenes[idx];
+      const entry = TEMPLATE_REGISTRY[scene.template];
+      if (!entry) {
+        throw new UnknownTemplateError(scene.template, scene.scene_id);
+      }
+
+      if (scene.effects && scene.effects.length > 0) {
+        for (const eff of scene.effects) {
+          if (!EFFECTS_RUNTIME[eff.effect]) {
+            throw new UnknownEffectError(eff.effect, scene.scene_id);
+          }
+        }
+      }
+
+      if (scene.transition) {
+        const validTypes = ["fade", "slide", "wipe", "flip", "zoom", "cross-zoom", "film-burn", "dissolve", "iris", "none"];
+        if (!validTypes.includes(scene.transition.type)) {
+          throw new UnknownTransitionError(scene.transition.type, scene.scene_id);
+        }
+      }
+
+      validateTemplatePayload(entry, scene, `scene[${idx}] ('${scene.scene_id}')`);
+    }
+  }
+
   const [handle] = useState(() => delayRender());
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [spectrums, setSpectrums] = useState<Record<string, number[][]>>({});
@@ -49,7 +79,10 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
         const specPromises = projectData.scenes.map(async (scene) => {
             const entry = TEMPLATE_REGISTRY[scene.template];
             if (entry?.consumes?.includes("spectrum") && scene.content?.audioRef) {
-                const specUrl = staticFile(scene.content.audioRef.replace(/\.[^/.]+$/, "") + ".spectrum.json");
+              const audioPath = typeof scene.content.audioRef === "string"
+                ? scene.content.audioRef
+                : (scene.content.audioRef as any)?.url || (scene.content.audioRef as any)?.asset_id || "";
+              const specUrl = staticFile(audioPath.replace(/\.[^/.]+$/, "") + ".spectrum.json");
                 try {
                     const res = await fetch(specUrl);
                     if (res.ok) {
@@ -100,7 +133,29 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
         <TransitionSeries>
         {projectData.scenes.map((scene, idx) => {
           const entry = TEMPLATE_REGISTRY[scene.template];
-          if (!entry) return null;
+          if (!entry) {
+            throw new UnknownTemplateError(scene.template, scene.scene_id);
+          }
+
+          // Validate effects fail-closed before mounting (S16 - LED-046)
+          if (scene.effects && scene.effects.length > 0) {
+            for (const eff of scene.effects) {
+              if (!EFFECTS_RUNTIME[eff.effect]) {
+                throw new UnknownEffectError(eff.effect, scene.scene_id);
+              }
+            }
+          }
+
+          // Validate transition fail-closed before mounting (S16 - LED-043)
+          if (scene.transition) {
+            const validTypes = ["fade", "slide", "wipe", "flip", "zoom", "cross-zoom", "film-burn", "dissolve", "iris", "none"];
+            if (!validTypes.includes(scene.transition.type)) {
+              throw new UnknownTransitionError(scene.transition.type, scene.scene_id);
+            }
+          }
+
+          // Validate template payload fail-closed before mounting (S16 - LED-045)
+          validateTemplatePayload(entry, scene);
 
           const Component = entry.component;
 
@@ -156,10 +211,10 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
              });
           }
 
-          // Determine presentation based on string
+          // Determine presentation based on transition type (S16 - LED-043)
           let presentation: any = fade({} as any);
-          if ((scene as any).transition && (scene as any).transition.type) {
-             const type = (scene as any).transition.type;
+          if (scene.transition && scene.transition.type) {
+             const type = scene.transition.type;
              if (type === "slide") presentation = slide({} as any);
              else if (type === "wipe") presentation = wipe({} as any);
              else if (type === "flip") presentation = flip({} as any);
@@ -169,6 +224,10 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
              else if (type === "dissolve") presentation = dissolve({} as any);
              else if (type === "iris") presentation = iris({} as any);
              else if (type === "none") presentation = none({} as any);
+             else if (type === "fade") presentation = fade({} as any);
+             else {
+               throw new UnknownTransitionError(type, scene.scene_id);
+             }
           }
 
           return (
@@ -183,10 +242,10 @@ export const BlueprintVideo: React.FC<BlueprintVideoProps> = ({ projectData, bra
                 </EngineBridge>
               </TransitionSeries.Sequence>
               
-              {idx < projectData.scenes.length - 1 && (scene as any).transition && (
+              {idx < projectData.scenes.length - 1 && scene.transition && (
                 <TransitionSeries.Transition
                   presentation={presentation}
-                  timing={linearTiming({ durationInFrames: (scene as any).transition.durationFrames || 15 })}
+                  timing={linearTiming({ durationInFrames: scene.transition.durationFrames || 15 })}
                 />
               )}
             </React.Fragment>

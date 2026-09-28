@@ -228,12 +228,15 @@ export const CANONICAL_TEMPLATE_REGISTRY: Record<string, TemplateEntry> = {};
  */
 export const TEMPLATE_ALIASES: Record<string, string> = {};
 
+import { resolveTemplateSchemas } from "../contracts/template-schemas";
+
 for (const [id, tpl] of Object.entries((registryMetadata as any).templates)) {
   const t = tpl as any;
   const comp = COMPONENT_BINDINGS[t.component_name];
   if (!comp) {
     throw new Error(`Template component binding missing for '${t.canonical_id}' (${t.component_name})`);
   }
+  const schemas = resolveTemplateSchemas(t.canonical_id, t.schema || {}, t.defaults || {});
   CANONICAL_TEMPLATE_REGISTRY[id] = {
     id: t.canonical_id,
     label: t.label,
@@ -243,6 +246,9 @@ for (const [id, tpl] of Object.entries((registryMetadata as any).templates)) {
     defaultDurationFrames: t.default_duration_frames,
     schema: t.schema || {},
     defaults: t.defaults || {},
+    contentSchema: schemas.contentSchema,
+    propsSchema: schemas.propsSchema,
+    surfaceSchema: schemas.surfaceSchema,
   };
   if (Array.isArray(t.aliases)) {
     for (const alias of t.aliases) {

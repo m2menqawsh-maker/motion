@@ -312,7 +312,7 @@ export function collectAssetReferences(blueprint: any): AssetReferenceOccurrence
     // Voiceover
     if (audio.voiceover?.asset_ref) {
       const p = parseAssetRef(audio.voiceover.asset_ref, "audio.voiceover.asset_ref");
-      occurrences.append ? null : occurrences.push({
+      occurrences.push({
         rawRef: audio.voiceover.asset_ref,
         parsed: p,
         fieldPath: "audio.voiceover.asset_ref",

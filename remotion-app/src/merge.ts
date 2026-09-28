@@ -1,16 +1,20 @@
 import { BrandKit } from "../../contracts/brand";
-import { StyleSurface, StyleSurfaceSchema } from "../../contracts/blueprint";
+import { StyleSurface, StyleSurfaceSchema, TransitionRef, TransitionRefSchema, SUPPORTED_TRANSITION_TYPES } from "../../contracts/blueprint";
 import { SceneContent } from "../../contracts/SceneContent";
 import { TemplateEntry } from "../../registry/types";
 import { validateStyleOverride } from "../../contracts/override-validator";
 import { resolveBrandToken } from "../../templates/brand-resolver";
 import { BlueprintScene } from "../../contracts/blueprint";
+export type { BlueprintScene } from "../../contracts/blueprint";
 import {
   resolveAssetReference,
   ASSET_ID_REGEX,
   UnknownAssetReferenceError,
   MalformedAssetRefError,
 } from "../../contracts/asset-resolver";
+import { validateTemplatePayload } from "../../contracts/template-schemas";
+import { UnknownEffectError, UnknownTransitionError, UnknownTemplateError, InvalidRenderInputError } from "../../contracts/render-input";
+import { isKnownEffect } from "../../registry/effects-runtime";
 
 export interface SceneOverride {
   props?: Record<string, any>;
@@ -21,8 +25,8 @@ export interface SceneOverride {
 }
 
 export interface ProjectData {
-  project: { title: string };
-  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[] };
+  project: { title: string; fps?: number; [key: string]: any };
+  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[]; [key: string]: any };
   brand: BrandKit;
   overrides?: { scenes: Record<string, SceneOverride> };
   asset_manifest?: any;
@@ -41,6 +45,7 @@ export interface MergedScene {
   content: SceneContent;
   effects?: any[];
   template_props?: Record<string, any>;
+  transition?: TransitionRef;
 }
 
 export interface MergedProject {
@@ -211,7 +216,29 @@ export function mergeScene(
     });
   }
   
-  // 7. يرجع surface نهائية
+  // Validate effects fail-closed (S16 - LED-046)
+  if (scene.effects && scene.effects.length > 0) {
+    for (let eIdx = 0; eIdx < scene.effects.length; eIdx++) {
+      const eff = scene.effects[eIdx];
+      if (!isKnownEffect(eff.effect)) {
+        throw new UnknownEffectError(eff.effect, scene.scene_id, `scenes[${scene.scene_id}].effects[${eIdx}].effect`);
+      }
+    }
+  }
+
+  // Validate transition fail-closed (S16 - LED-043)
+  let validatedTransition: TransitionRef | undefined = undefined;
+  if (scene.transition) {
+    if (!SUPPORTED_TRANSITION_TYPES.includes(scene.transition.type as any)) {
+      throw new UnknownTransitionError(scene.transition.type, scene.scene_id, `scenes[${scene.scene_id}].transition.type`);
+    }
+    validatedTransition = TransitionRefSchema.parse(scene.transition);
+  }
+
+  // Validate template payload fail-closed (S16 - LED-045)
+  validateTemplatePayload(registryEntry, scene);
+
+  // 7. يرجع surface نهائية مع الانتقال المعتمد
   return {
     scene_id: scene.scene_id,
     template: scene.template,
@@ -224,6 +251,7 @@ export function mergeScene(
     content: finalContent,
     effects: (scene as any).effects || [],
     template_props: (scene as any).template_props || {},
+    transition: validatedTransition,
   };
 }
 
@@ -231,13 +259,25 @@ export function mergeProject(
   data: ProjectData,
   getRegistryEntry: (template: string) => TemplateEntry | undefined
 ): MergedProject {
-  const projectId = (data.project as any)?.project_id || (data.blueprint as any)?.project_id || data.project.title;
+  if (!data || typeof data !== "object") {
+    throw new InvalidRenderInputError("Project data must be a non-null object");
+  }
+  if (!data.blueprint || !Array.isArray(data.blueprint.scenes)) {
+    throw new InvalidRenderInputError("Missing or malformed blueprint.scenes in project data");
+  }
+
+  const fps = data.blueprint.fps ?? (data.project as any)?.fps;
+  if (fps === undefined || fps === null) {
+    throw new InvalidRenderInputError("Missing mandatory blueprint.fps in project data");
+  }
+
+  const projectId = (data.project as any)?.project_id || (data.blueprint as any)?.project_id || data.project?.title || "Untitled";
   const scenes = [...data.blueprint.scenes]
     .sort((a, b) => a.startFrame - b.startFrame)
     .map(scene => {
       const entry = getRegistryEntry(scene.template);
       if (!entry) {
-        throw new Error(`Template not found in registry: ${scene.template}`);
+        throw new UnknownTemplateError(scene.template, scene.scene_id);
       }
       const override = data.overrides?.scenes[scene.scene_id];
       return mergeScene(scene, entry, data.brand, override, data.media_map, projectId);
@@ -247,11 +287,6 @@ export function mergeProject(
     const end = s.startFrame + s.durationFrames;
     return end > max ? end : max;
   }, 0);
-
-  const fps = data.blueprint.fps ?? (data.project as any)?.fps;
-  if (fps === undefined || fps === null) {
-    throw new Error("Missing mandatory blueprint.fps in project data");
-  }
 
   const rawAudio = (data as any).audio || (data.blueprint as any).audio;
   let normalizedAudio: { voiceover?: string; bgm?: string; bgmVolume?: number } | undefined = undefined;
