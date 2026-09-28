@@ -21,16 +21,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 DST = Path(__file__).resolve().parent.parent.parent
-GT = DST / "ground-truth"
-TEMPLATES = set(re.findall(r"\| `([\w-]+)` \|", (GT / "TEMPLATE_INDEX.md").read_text(encoding="utf-8")) if (GT / "TEMPLATE_INDEX.md").exists() else set())
-
-CATALOG_TYPES = {}
-CATALOG_FAMILIES = {}
-if (GT / "template_catalog.json").exists():
-    for item in json.loads((GT / "template_catalog.json").read_text(encoding="utf-8")):
-        # We key by just the template name (e.g. BlurReveal) to match what blueprint has
-        CATALOG_TYPES[item["name"]] = item.get("type", "misc")
-        CATALOG_FAMILIES[item["name"]] = item.get("family", "unknown")
+from scripts.core.template_contract import get_template_contract, UnknownTemplateError
 
 PERSONA = {
  "Cinematic": (350, 500, 800, {"soft", "deep", "none"}),
@@ -103,7 +94,8 @@ def check(bp, bp_path=None):
             t = json.loads(p.read_text(encoding="utf-8"))
             words = t.get("words") or (t.get("timings") or {}).get("words") or []
 
-    # Validation per scene
+    # Validation per scene via authoritative template contract (S15)
+    contract = get_template_contract()
     total_sfx = 0
     for scene in bp.get("scenes", []):
         s_id = scene.get("scene_id", "?")
@@ -111,14 +103,12 @@ def check(bp, bp_path=None):
         
         if not tmpl_name:
             fail(f"scene {s_id}: قالب غير محدد")
-        elif tmpl_name not in TEMPLATES:
-            fail(f"scene {s_id}: قالب غير موجود في TEMPLATE_INDEX: {tmpl_name}")
         else:
-            t_type = CATALOG_TYPES.get(tmpl_name)
-            if t_type == "effect":
-                t_family = CATALOG_FAMILIES.get(tmpl_name, "")
-                if t_family != "transitions":
-                    fail(f"scene {s_id}: القالب '{tmpl_name}' مصنف كـ effect من عائلة '{t_family}' ولا يُستخدم كقالب مباشر")
+            entry = contract.resolve(tmpl_name)
+            if entry is None or not entry.runtime_available:
+                fail(f"scene {s_id}: معرف القالب غير معروف في سجل القوالب: '{tmpl_name}' [UNKNOWN_TEMPLATE_ID]")
+            elif entry.category == "effect":
+                fail(f"scene {s_id}: القالب '{tmpl_name}' مصنف كـ effect ولا يُستخدم كقالب مشهد مباشر")
 
         if scene.get("sfx_ref"):
             total_sfx += 1

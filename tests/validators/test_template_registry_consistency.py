@@ -63,17 +63,19 @@ def test_every_active_template_has_disk_implementation(ground_truth_data):
 
 
 def test_every_active_template_accepted_by_validator(ground_truth_data):
-    """Every active template's ground-truth name must be accepted by validate_blueprint.py."""
+    """Every active template's ground-truth name must be resolved by authoritative template contract."""
+    from scripts.core.template_contract import get_template_contract
+    contract = get_template_contract()
     active = ground_truth_data["active_templates"]
-    ti_templates = ground_truth_data["ti_templates"]
 
     unaccepted = []
     for item in active:
         name = item["name"]
-        if name not in ti_templates:
+        entry = contract.resolve(name)
+        if entry is None or not entry.runtime_available:
             unaccepted.append(name)
 
-    assert not unaccepted, f"Active templates not accepted by validate_blueprint TEMPLATES: {unaccepted}"
+    assert not unaccepted, f"Active templates not accepted by template contract: {unaccepted}"
 
 
 
@@ -92,4 +94,4 @@ def test_template_aliases_file_in_sync_with_ground_truth():
         "Run `python scripts/generators/generate_template_aliases.py` to regenerate."
     )
     assert active_count == 105
-    assert alias_count == 191
+    assert alias_count == 192

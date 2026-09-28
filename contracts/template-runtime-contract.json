@@ -1,0 +1,1348 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "contract_version": "1.0.0",
+  "generated_by": "scripts/generators/generate_template_contract.py",
+  "single_authority": "registry/template-registry-data.json",
+  "naming_rule": {
+    "canonical_id_regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+    "description": "Canonical template IDs must be lowercase kebab-case alphanumeric"
+  },
+  "stats": {
+    "canonical_count": 105,
+    "alias_count": 192,
+    "total_identities": 297
+  },
+  "templates": {
+    "animatedcounter-element": {
+      "canonical_id": "animatedcounter-element",
+      "category": "ui-block",
+      "component_name": "AnimatedCounterWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "AnimatedCounterWrapper",
+        "AnimatedcounterElement"
+      ]
+    },
+    "animatedtext-element": {
+      "canonical_id": "animatedtext-element",
+      "category": "text",
+      "component_name": "AnimatedTextWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "AnimatedTextWrapper",
+        "Animatedtextwrapper"
+      ]
+    },
+    "book-flip-transition": {
+      "canonical_id": "book-flip-transition",
+      "category": "effect",
+      "component_name": "BookFlipTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "BookFlipTransition"
+      ]
+    },
+    "clock-wipe-transition": {
+      "canonical_id": "clock-wipe-transition",
+      "category": "effect",
+      "component_name": "ClockWipeTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "ClockWipeTransition"
+      ]
+    },
+    "codeblock-element": {
+      "canonical_id": "codeblock-element",
+      "category": "ui-block",
+      "component_name": "CodeBlockWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "CodeBlockWrapper",
+        "CodeblockElement"
+      ]
+    },
+    "cross-zoom-transition": {
+      "canonical_id": "cross-zoom-transition",
+      "category": "effect",
+      "component_name": "CrossZoomTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "CrossZoomTransition"
+      ]
+    },
+    "crosswarp-transition": {
+      "canonical_id": "crosswarp-transition",
+      "category": "effect",
+      "component_name": "CrosswarpTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "CrosswarpTransition"
+      ]
+    },
+    "dissolve-transition": {
+      "canonical_id": "dissolve-transition",
+      "category": "effect",
+      "component_name": "DissolveTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "DissolveTransition"
+      ]
+    },
+    "dreamy-zoom-transition": {
+      "canonical_id": "dreamy-zoom-transition",
+      "category": "effect",
+      "component_name": "DreamyZoomTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "DreamyZoomTransition"
+      ]
+    },
+    "fade-transition": {
+      "canonical_id": "fade-transition",
+      "category": "effect",
+      "component_name": "FadeTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "FadeTransition"
+      ]
+    },
+    "film-burn-transition": {
+      "canonical_id": "film-burn-transition",
+      "category": "effect",
+      "component_name": "FilmBurnTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "FilmBurnTransition"
+      ]
+    },
+    "flip-transition": {
+      "canonical_id": "flip-transition",
+      "category": "effect",
+      "component_name": "FlipTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "FlipTransition"
+      ]
+    },
+    "gradient-element": {
+      "canonical_id": "gradient-element",
+      "category": "overlay",
+      "component_name": "GradientWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "GradientElement",
+        "GradientWrapper"
+      ]
+    },
+    "iris-transition": {
+      "canonical_id": "iris-transition",
+      "category": "effect",
+      "component_name": "IrisTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "IrisTransition"
+      ]
+    },
+    "linear-blur-transition": {
+      "canonical_id": "linear-blur-transition",
+      "category": "effect",
+      "component_name": "LinearBlurTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "LinearBlurTransition"
+      ]
+    },
+    "matrixrain-element": {
+      "canonical_id": "matrixrain-element",
+      "category": "overlay",
+      "component_name": "MatrixRainWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "MatrixRainWrapper",
+        "MatrixrainElement"
+      ]
+    },
+    "particlesystem-element": {
+      "canonical_id": "particlesystem-element",
+      "category": "overlay",
+      "component_name": "ParticleSystemWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "ParticleSystemWrapper",
+        "ParticlesystemElement"
+      ]
+    },
+    "push-cut-transition": {
+      "canonical_id": "push-cut-transition",
+      "category": "effect",
+      "component_name": "PushCutTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "PushCutTransition"
+      ]
+    },
+    "ripple-transition": {
+      "canonical_id": "ripple-transition",
+      "category": "effect",
+      "component_name": "RippleTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "RippleTransition"
+      ]
+    },
+    "rui-ai-composer-showcase": {
+      "canonical_id": "rui-ai-composer-showcase",
+      "category": "composition",
+      "component_name": "AiComposerShowcaseWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "AiComposerShowcaseWrapper",
+        "RuiAiComposerShowcase"
+      ]
+    },
+    "rui-ai-generation-canvas": {
+      "canonical_id": "rui-ai-generation-canvas",
+      "category": "composition",
+      "component_name": "AiGenerationCanvasWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "AiGenerationCanvasWrapper",
+        "RuiAiGenerationCanvas"
+      ]
+    },
+    "rui-animated-bar-chart": {
+      "canonical_id": "rui-animated-bar-chart",
+      "category": "composition",
+      "component_name": "AnimatedBarChartWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "AnimatedBarChartWrapper",
+        "RuiAnimatedBarChart"
+      ]
+    },
+    "rui-audiogram-scene": {
+      "canonical_id": "rui-audiogram-scene",
+      "category": "composition",
+      "component_name": "AudiogramSceneWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "AudiogramSceneWrapper",
+        "RuiAudiogramScene"
+      ]
+    },
+    "rui-auto-fit-title": {
+      "canonical_id": "rui-auto-fit-title",
+      "category": "composition",
+      "component_name": "AutoFitTitleWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "AutoFitTitleWrapper",
+        "RuiAutoFitTitle"
+      ]
+    },
+    "rui-b-roll-stack": {
+      "canonical_id": "rui-b-roll-stack",
+      "category": "composition",
+      "component_name": "BRollStackWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "BRollStackWrapper",
+        "RuiBRollStack"
+      ]
+    },
+    "rui-bento-pan": {
+      "canonical_id": "rui-bento-pan",
+      "category": "composition",
+      "component_name": "BentoPanWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "BentoPanWrapper",
+        "RuiBentoPan"
+      ]
+    },
+    "rui-browser-flow": {
+      "canonical_id": "rui-browser-flow",
+      "category": "composition",
+      "component_name": "BrowserFlowWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "BrowserFlowWrapper",
+        "RuiBrowserFlow"
+      ]
+    },
+    "rui-calendar-month-fill": {
+      "canonical_id": "rui-calendar-month-fill",
+      "category": "composition",
+      "component_name": "CalendarMonthFillWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CalendarMonthFillWrapper",
+        "RuiCalendarMonthFill"
+      ]
+    },
+    "rui-callout-spotlight": {
+      "canonical_id": "rui-callout-spotlight",
+      "category": "composition",
+      "component_name": "CalloutSpotlightWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CalloutSpotlightWrapper",
+        "RuiCalloutSpotlight"
+      ]
+    },
+    "rui-caption-bumper": {
+      "canonical_id": "rui-caption-bumper",
+      "category": "composition",
+      "component_name": "CaptionBumperWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CaptionBumperWrapper",
+        "RuiCaptionBumper"
+      ]
+    },
+    "rui-caption-scene": {
+      "canonical_id": "rui-caption-scene",
+      "category": "composition",
+      "component_name": "CaptionSceneWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CaptionSceneWrapper",
+        "RuiCaptionScene"
+      ]
+    },
+    "rui-changelog-entry": {
+      "canonical_id": "rui-changelog-entry",
+      "category": "composition",
+      "component_name": "ChangelogEntryWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "ChangelogEntryWrapper",
+        "RuiChangelogEntry"
+      ]
+    },
+    "rui-chat-to-preview": {
+      "canonical_id": "rui-chat-to-preview",
+      "category": "composition",
+      "component_name": "ChatToPreviewWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "ChatToPreviewWrapper",
+        "RuiChatToPreview"
+      ]
+    },
+    "rui-code-accordion": {
+      "canonical_id": "rui-code-accordion",
+      "category": "composition",
+      "component_name": "CodeAccordionWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CodeAccordionWrapper",
+        "RuiCodeAccordion"
+      ]
+    },
+    "rui-code-diff-wipe": {
+      "canonical_id": "rui-code-diff-wipe",
+      "category": "composition",
+      "component_name": "CodeDiffWipeWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CodeDiffWipeWrapper",
+        "RuiCodeDiffWipe"
+      ]
+    },
+    "rui-code-reveal": {
+      "canonical_id": "rui-code-reveal",
+      "category": "composition",
+      "component_name": "CodeRevealWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CodeRevealWrapper",
+        "RuiCodeReveal"
+      ]
+    },
+    "rui-comment-callout": {
+      "canonical_id": "rui-comment-callout",
+      "category": "composition",
+      "component_name": "CommentCalloutWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CommentCalloutWrapper",
+        "RuiCommentCallout"
+      ]
+    },
+    "rui-commit-graph": {
+      "canonical_id": "rui-commit-graph",
+      "category": "composition",
+      "component_name": "CommitGraphWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CommitGraphWrapper",
+        "RuiCommitGraph"
+      ]
+    },
+    "rui-comparison-table": {
+      "canonical_id": "rui-comparison-table",
+      "category": "composition",
+      "component_name": "ComparisonTableWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "ComparisonTableWrapper",
+        "RuiComparisonTable"
+      ]
+    },
+    "rui-countdown-timer": {
+      "canonical_id": "rui-countdown-timer",
+      "category": "composition",
+      "component_name": "CountdownTimerWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CountdownTimerWrapper",
+        "RuiCountdownTimer"
+      ]
+    },
+    "rui-creator-reel": {
+      "canonical_id": "rui-creator-reel",
+      "category": "composition",
+      "component_name": "CreatorReelWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "CreatorReelWrapper",
+        "RuiCreatorReel"
+      ]
+    },
+    "rui-dashboard-populate": {
+      "canonical_id": "rui-dashboard-populate",
+      "category": "composition",
+      "component_name": "DashboardPopulateWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DashboardPopulateWrapper",
+        "RuiDashboardPopulate"
+      ]
+    },
+    "rui-data-flow-pipes": {
+      "canonical_id": "rui-data-flow-pipes",
+      "category": "composition",
+      "component_name": "DataFlowPipesWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DataFlowPipesWrapper",
+        "RuiDataFlowPipes"
+      ]
+    },
+    "rui-data-story": {
+      "canonical_id": "rui-data-story",
+      "category": "composition",
+      "component_name": "DataStoryWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DataStoryWrapper",
+        "RuiDataStory"
+      ]
+    },
+    "rui-deploy-reveal": {
+      "canonical_id": "rui-deploy-reveal",
+      "category": "composition",
+      "component_name": "DeployRevealWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DeployRevealWrapper",
+        "RuiDeployReveal"
+      ]
+    },
+    "rui-device-mockup-zoom": {
+      "canonical_id": "rui-device-mockup-zoom",
+      "category": "composition",
+      "component_name": "DeviceMockupZoomWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DeviceMockupZoomWrapper",
+        "RuiDeviceMockupZoom"
+      ]
+    },
+    "rui-drag-drop-flow": {
+      "canonical_id": "rui-drag-drop-flow",
+      "category": "composition",
+      "component_name": "DragDropFlowWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "DragDropFlowWrapper",
+        "RuiDragDropFlow"
+      ]
+    },
+    "rui-ecosystem-orbit": {
+      "canonical_id": "rui-ecosystem-orbit",
+      "category": "composition",
+      "component_name": "EcosystemOrbitWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "EcosystemOrbitWrapper",
+        "RuiEcosystemOrbit"
+      ]
+    },
+    "rui-end-card": {
+      "canonical_id": "rui-end-card",
+      "category": "composition",
+      "component_name": "EndCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "EndCardWrapper",
+        "RuiEndCard"
+      ]
+    },
+    "rui-faq-accordion": {
+      "canonical_id": "rui-faq-accordion",
+      "category": "composition",
+      "component_name": "FaqAccordionWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "FaqAccordionWrapper",
+        "RuiFaqAccordion"
+      ]
+    },
+    "rui-feature-list": {
+      "canonical_id": "rui-feature-list",
+      "category": "composition",
+      "component_name": "FeatureListWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "FeatureListWrapper",
+        "RuiFeatureList"
+      ]
+    },
+    "rui-file-tree-reveal": {
+      "canonical_id": "rui-file-tree-reveal",
+      "category": "composition",
+      "component_name": "FileTreeRevealWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "FileTreeRevealWrapper",
+        "RuiFileTreeReveal"
+      ]
+    },
+    "rui-form-fill-sequence": {
+      "canonical_id": "rui-form-fill-sequence",
+      "category": "composition",
+      "component_name": "FormFillSequenceWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "FormFillSequenceWrapper",
+        "RuiFormFillSequence"
+      ]
+    },
+    "rui-hero-device-assemble": {
+      "canonical_id": "rui-hero-device-assemble",
+      "category": "composition",
+      "component_name": "HeroDeviceAssembleWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "HeroDeviceAssembleWrapper",
+        "RuiHeroDeviceAssemble"
+      ]
+    },
+    "rui-hero-loop": {
+      "canonical_id": "rui-hero-loop",
+      "category": "composition",
+      "component_name": "HeroLoopWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "HeroLoopWrapper",
+        "RuiHeroLoop"
+      ]
+    },
+    "rui-hook-card": {
+      "canonical_id": "rui-hook-card",
+      "category": "composition",
+      "component_name": "HookCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "HookCardWrapper",
+        "RuiHookCard"
+      ]
+    },
+    "rui-image-expand": {
+      "canonical_id": "rui-image-expand",
+      "category": "composition",
+      "component_name": "ImageExpandWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "ImageExpandWrapper",
+        "RuiImageExpand"
+      ]
+    },
+    "rui-intro": {
+      "canonical_id": "rui-intro",
+      "category": "composition",
+      "component_name": "IntroWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "IntroWrapper",
+        "RuiIntro"
+      ]
+    },
+    "rui-kanban-move": {
+      "canonical_id": "rui-kanban-move",
+      "category": "composition",
+      "component_name": "KanbanMoveWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "KanbanMoveWrapper",
+        "RuiKanbanMove"
+      ]
+    },
+    "rui-landing-code-showcase": {
+      "canonical_id": "rui-landing-code-showcase",
+      "category": "composition",
+      "component_name": "LandingCodeShowcaseWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "LandingCodeShowcaseWrapper",
+        "RuiLandingCodeShowcase"
+      ]
+    },
+    "rui-live-code-split": {
+      "canonical_id": "rui-live-code-split",
+      "category": "composition",
+      "component_name": "LiveCodeSplitWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "LiveCodeSplitWrapper",
+        "RuiLiveCodeSplit"
+      ]
+    },
+    "rui-logo-reveal": {
+      "canonical_id": "rui-logo-reveal",
+      "category": "composition",
+      "component_name": "LogoRevealWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "LogoRevealWrapper",
+        "RuiLogoReveal"
+      ]
+    },
+    "rui-logo-wall": {
+      "canonical_id": "rui-logo-wall",
+      "category": "composition",
+      "component_name": "LogoWallWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "LogoWallWrapper",
+        "RuiLogoWall"
+      ]
+    },
+    "rui-lower-third": {
+      "canonical_id": "rui-lower-third",
+      "category": "composition",
+      "component_name": "LowerThirdWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "LowerThirdWrapper",
+        "RuiLowerThird"
+      ]
+    },
+    "rui-map-flight": {
+      "canonical_id": "rui-map-flight",
+      "category": "composition",
+      "component_name": "MapFlightWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "MapFlightWrapper",
+        "RuiMapFlight"
+      ]
+    },
+    "rui-media-frame": {
+      "canonical_id": "rui-media-frame",
+      "category": "composition",
+      "component_name": "MediaFrameWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "MediaFrameWrapper",
+        "RuiMediaFrame"
+      ]
+    },
+    "rui-media-sequence": {
+      "canonical_id": "rui-media-sequence",
+      "category": "composition",
+      "component_name": "MediaSequenceWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "MediaSequenceWrapper",
+        "RuiMediaSequence"
+      ]
+    },
+    "rui-metric-ticker": {
+      "canonical_id": "rui-metric-ticker",
+      "category": "composition",
+      "component_name": "MetricTickerWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "MetricTickerWrapper",
+        "RuiMetricTicker"
+      ]
+    },
+    "rui-news-ticker-bar": {
+      "canonical_id": "rui-news-ticker-bar",
+      "category": "composition",
+      "component_name": "NewsTickerBarWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "NewsTickerBarWrapper",
+        "RuiNewsTickerBar"
+      ]
+    },
+    "rui-notification-stack": {
+      "canonical_id": "rui-notification-stack",
+      "category": "composition",
+      "component_name": "NotificationStackWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "NotificationStackWrapper",
+        "RuiNotificationStack"
+      ]
+    },
+    "rui-org-chart-build": {
+      "canonical_id": "rui-org-chart-build",
+      "category": "composition",
+      "component_name": "OrgChartBuildWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "OrgChartBuildWrapper",
+        "RuiOrgChartBuild"
+      ]
+    },
+    "rui-podcast-clip": {
+      "canonical_id": "rui-podcast-clip",
+      "category": "composition",
+      "component_name": "PodcastClipWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "PodcastClipWrapper",
+        "RuiPodcastClip"
+      ]
+    },
+    "rui-poll-overlay": {
+      "canonical_id": "rui-poll-overlay",
+      "category": "composition",
+      "component_name": "PollOverlayWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "PollOverlayWrapper",
+        "RuiPollOverlay"
+      ]
+    },
+    "rui-pricing-card": {
+      "canonical_id": "rui-pricing-card",
+      "category": "composition",
+      "component_name": "PricingCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "PricingCardWrapper",
+        "RuiPricingCard"
+      ]
+    },
+    "rui-pricing-focus": {
+      "canonical_id": "rui-pricing-focus",
+      "category": "composition",
+      "component_name": "PricingFocusWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "PricingFocusWrapper",
+        "RuiPricingFocus"
+      ]
+    },
+    "rui-quiz-question": {
+      "canonical_id": "rui-quiz-question",
+      "category": "composition",
+      "component_name": "QuizQuestionWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "QuizQuestionWrapper",
+        "RuiQuizQuestion"
+      ]
+    },
+    "rui-quote-card": {
+      "canonical_id": "rui-quote-card",
+      "category": "composition",
+      "component_name": "QuoteCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "QuoteCardWrapper",
+        "RuiQuoteCard"
+      ]
+    },
+    "rui-reaction-burst": {
+      "canonical_id": "rui-reaction-burst",
+      "category": "composition",
+      "component_name": "ReactionBurstWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "ReactionBurstWrapper",
+        "RuiReactionBurst"
+      ]
+    },
+    "rui-roadmap-lanes": {
+      "canonical_id": "rui-roadmap-lanes",
+      "category": "composition",
+      "component_name": "RoadmapLanesWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RoadmapLanesWrapper",
+        "RuiRoadmapLanes"
+      ]
+    },
+    "rui-search-results-populate": {
+      "canonical_id": "rui-search-results-populate",
+      "category": "composition",
+      "component_name": "SearchResultsPopulateWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiSearchResultsPopulate",
+        "SearchResultsPopulateWrapper"
+      ]
+    },
+    "rui-showcase": {
+      "canonical_id": "rui-showcase",
+      "category": "composition",
+      "component_name": "ShowcaseWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiShowcase",
+        "ShowcaseWrapper"
+      ]
+    },
+    "rui-social-clip": {
+      "canonical_id": "rui-social-clip",
+      "category": "composition",
+      "component_name": "SocialClipWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiSocialClip",
+        "SocialClipWrapper"
+      ]
+    },
+    "rui-split-screen": {
+      "canonical_id": "rui-split-screen",
+      "category": "composition",
+      "component_name": "SplitScreenWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiSplitScreen",
+        "SplitScreenWrapper"
+      ]
+    },
+    "rui-sports-scorebug": {
+      "canonical_id": "rui-sports-scorebug",
+      "category": "composition",
+      "component_name": "SportsScorebugWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiSportsScorebug",
+        "SportsScorebugWrapper"
+      ]
+    },
+    "rui-stat-card": {
+      "canonical_id": "rui-stat-card",
+      "category": "composition",
+      "component_name": "StatCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiStatCard",
+        "StatCardWrapper"
+      ]
+    },
+    "rui-t-h-e-m-e-s": {
+      "canonical_id": "rui-t-h-e-m-e-s",
+      "category": "composition",
+      "component_name": "THEMESWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTHEMES",
+        "THEMESWrapper"
+      ]
+    },
+    "rui-tab-switch-panel": {
+      "canonical_id": "rui-tab-switch-panel",
+      "category": "composition",
+      "component_name": "TabSwitchPanelWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTabSwitchPanel",
+        "TabSwitchPanelWrapper"
+      ]
+    },
+    "rui-talking-head-layout": {
+      "canonical_id": "rui-talking-head-layout",
+      "category": "composition",
+      "component_name": "TalkingHeadLayoutWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTalkingHeadLayout",
+        "TalkingHeadLayoutWrapper"
+      ]
+    },
+    "rui-team-grid": {
+      "canonical_id": "rui-team-grid",
+      "category": "composition",
+      "component_name": "TeamGridWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTeamGrid",
+        "TeamGridWrapper"
+      ]
+    },
+    "rui-terminal-simulator": {
+      "canonical_id": "rui-terminal-simulator",
+      "category": "composition",
+      "component_name": "TerminalSimulatorWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTerminalSimulator",
+        "TerminalSimulatorWrapper"
+      ]
+    },
+    "rui-timeline-steps": {
+      "canonical_id": "rui-timeline-steps",
+      "category": "composition",
+      "component_name": "TimelineStepsWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTimelineSteps",
+        "TimelineStepsWrapper"
+      ]
+    },
+    "rui-title-card": {
+      "canonical_id": "rui-title-card",
+      "category": "composition",
+      "component_name": "TitleCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTitleCard",
+        "TitleCardWrapper"
+      ]
+    },
+    "rui-tool-menu-slide": {
+      "canonical_id": "rui-tool-menu-slide",
+      "category": "composition",
+      "component_name": "ToolMenuSlideWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiToolMenuSlide",
+        "ToolMenuSlideWrapper"
+      ]
+    },
+    "rui-tutorial-clip": {
+      "canonical_id": "rui-tutorial-clip",
+      "category": "composition",
+      "component_name": "TutorialClipWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiTutorialClip",
+        "TutorialClipWrapper"
+      ]
+    },
+    "rui-weather-card": {
+      "canonical_id": "rui-weather-card",
+      "category": "composition",
+      "component_name": "WeatherCardWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiWeatherCard",
+        "WeatherCardWrapper"
+      ]
+    },
+    "rui-zoom-pan-frame": {
+      "canonical_id": "rui-zoom-pan-frame",
+      "category": "composition",
+      "component_name": "ZoomPanFrameWrapper",
+      "default_duration_frames": 150,
+      "runtime_available": true,
+      "aliases": [
+        "RuiZoomPanFrame",
+        "ZoomPanFrameWrapper"
+      ]
+    },
+    "scene3d-element": {
+      "canonical_id": "scene3d-element",
+      "category": "composition",
+      "component_name": "Scene3DWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "Scene3DElement",
+        "Scene3DWrapper"
+      ]
+    },
+    "scrollingimages-element": {
+      "canonical_id": "scrollingimages-element",
+      "category": "composition",
+      "component_name": "ScrollingImagesWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "ScrollingImagesWrapper",
+        "ScrollingimagesElement"
+      ]
+    },
+    "slide-transition": {
+      "canonical_id": "slide-transition",
+      "category": "effect",
+      "component_name": "SlideTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "SlideTransition"
+      ]
+    },
+    "staggeredmotion-element": {
+      "canonical_id": "staggeredmotion-element",
+      "category": "composition",
+      "component_name": "StaggeredMotionWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "StaggeredMotionWrapper",
+        "StaggeredmotionElement"
+      ]
+    },
+    "swap-transition": {
+      "canonical_id": "swap-transition",
+      "category": "effect",
+      "component_name": "SwapTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "SwapTransition"
+      ]
+    },
+    "typewriter-element": {
+      "canonical_id": "typewriter-element",
+      "category": "text",
+      "component_name": "TypeWriterWrapper",
+      "default_duration_frames": 120,
+      "runtime_available": true,
+      "aliases": [
+        "TypeWriterWrapper",
+        "TypewriterElement"
+      ]
+    },
+    "wipe-transition": {
+      "canonical_id": "wipe-transition",
+      "category": "effect",
+      "component_name": "WipeTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "WipeTransition"
+      ]
+    },
+    "zoom-blur-transition": {
+      "canonical_id": "zoom-blur-transition",
+      "category": "effect",
+      "component_name": "ZoomBlurTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "ZoomBlurTransition"
+      ]
+    },
+    "zoom-in-out-transition": {
+      "canonical_id": "zoom-in-out-transition",
+      "category": "effect",
+      "component_name": "ZoomInOutTransition",
+      "default_duration_frames": 90,
+      "runtime_available": true,
+      "aliases": [
+        "ZoomInOutTransition"
+      ]
+    }
+  },
+  "aliases": {
+    "AiComposerShowcaseWrapper": "rui-ai-composer-showcase",
+    "AiGenerationCanvasWrapper": "rui-ai-generation-canvas",
+    "AnimatedBarChartWrapper": "rui-animated-bar-chart",
+    "AnimatedCounterWrapper": "animatedcounter-element",
+    "AnimatedTextWrapper": "animatedtext-element",
+    "AnimatedcounterElement": "animatedcounter-element",
+    "Animatedtextwrapper": "animatedtext-element",
+    "AudiogramSceneWrapper": "rui-audiogram-scene",
+    "AutoFitTitleWrapper": "rui-auto-fit-title",
+    "BRollStackWrapper": "rui-b-roll-stack",
+    "BentoPanWrapper": "rui-bento-pan",
+    "BookFlipTransition": "book-flip-transition",
+    "BrowserFlowWrapper": "rui-browser-flow",
+    "CalendarMonthFillWrapper": "rui-calendar-month-fill",
+    "CalloutSpotlightWrapper": "rui-callout-spotlight",
+    "CaptionBumperWrapper": "rui-caption-bumper",
+    "CaptionSceneWrapper": "rui-caption-scene",
+    "ChangelogEntryWrapper": "rui-changelog-entry",
+    "ChatToPreviewWrapper": "rui-chat-to-preview",
+    "ClockWipeTransition": "clock-wipe-transition",
+    "CodeAccordionWrapper": "rui-code-accordion",
+    "CodeBlockWrapper": "codeblock-element",
+    "CodeDiffWipeWrapper": "rui-code-diff-wipe",
+    "CodeRevealWrapper": "rui-code-reveal",
+    "CodeblockElement": "codeblock-element",
+    "CommentCalloutWrapper": "rui-comment-callout",
+    "CommitGraphWrapper": "rui-commit-graph",
+    "ComparisonTableWrapper": "rui-comparison-table",
+    "CountdownTimerWrapper": "rui-countdown-timer",
+    "CreatorReelWrapper": "rui-creator-reel",
+    "CrossZoomTransition": "cross-zoom-transition",
+    "CrosswarpTransition": "crosswarp-transition",
+    "DashboardPopulateWrapper": "rui-dashboard-populate",
+    "DataFlowPipesWrapper": "rui-data-flow-pipes",
+    "DataStoryWrapper": "rui-data-story",
+    "DeployRevealWrapper": "rui-deploy-reveal",
+    "DeviceMockupZoomWrapper": "rui-device-mockup-zoom",
+    "DissolveTransition": "dissolve-transition",
+    "DragDropFlowWrapper": "rui-drag-drop-flow",
+    "DreamyZoomTransition": "dreamy-zoom-transition",
+    "EcosystemOrbitWrapper": "rui-ecosystem-orbit",
+    "EndCardWrapper": "rui-end-card",
+    "FadeTransition": "fade-transition",
+    "FaqAccordionWrapper": "rui-faq-accordion",
+    "FeatureListWrapper": "rui-feature-list",
+    "FileTreeRevealWrapper": "rui-file-tree-reveal",
+    "FilmBurnTransition": "film-burn-transition",
+    "FlipTransition": "flip-transition",
+    "FormFillSequenceWrapper": "rui-form-fill-sequence",
+    "GradientElement": "gradient-element",
+    "GradientWrapper": "gradient-element",
+    "HeroDeviceAssembleWrapper": "rui-hero-device-assemble",
+    "HeroLoopWrapper": "rui-hero-loop",
+    "HookCardWrapper": "rui-hook-card",
+    "ImageExpandWrapper": "rui-image-expand",
+    "IntroWrapper": "rui-intro",
+    "IrisTransition": "iris-transition",
+    "KanbanMoveWrapper": "rui-kanban-move",
+    "LandingCodeShowcaseWrapper": "rui-landing-code-showcase",
+    "LinearBlurTransition": "linear-blur-transition",
+    "LiveCodeSplitWrapper": "rui-live-code-split",
+    "LogoRevealWrapper": "rui-logo-reveal",
+    "LogoWallWrapper": "rui-logo-wall",
+    "LowerThirdWrapper": "rui-lower-third",
+    "MapFlightWrapper": "rui-map-flight",
+    "MatrixRainWrapper": "matrixrain-element",
+    "MatrixrainElement": "matrixrain-element",
+    "MediaFrameWrapper": "rui-media-frame",
+    "MediaSequenceWrapper": "rui-media-sequence",
+    "MetricTickerWrapper": "rui-metric-ticker",
+    "NewsTickerBarWrapper": "rui-news-ticker-bar",
+    "NotificationStackWrapper": "rui-notification-stack",
+    "OrgChartBuildWrapper": "rui-org-chart-build",
+    "ParticleSystemWrapper": "particlesystem-element",
+    "ParticlesystemElement": "particlesystem-element",
+    "PodcastClipWrapper": "rui-podcast-clip",
+    "PollOverlayWrapper": "rui-poll-overlay",
+    "PricingCardWrapper": "rui-pricing-card",
+    "PricingFocusWrapper": "rui-pricing-focus",
+    "PushCutTransition": "push-cut-transition",
+    "QuizQuestionWrapper": "rui-quiz-question",
+    "QuoteCardWrapper": "rui-quote-card",
+    "ReactionBurstWrapper": "rui-reaction-burst",
+    "RippleTransition": "ripple-transition",
+    "RoadmapLanesWrapper": "rui-roadmap-lanes",
+    "RuiAiComposerShowcase": "rui-ai-composer-showcase",
+    "RuiAiGenerationCanvas": "rui-ai-generation-canvas",
+    "RuiAnimatedBarChart": "rui-animated-bar-chart",
+    "RuiAudiogramScene": "rui-audiogram-scene",
+    "RuiAutoFitTitle": "rui-auto-fit-title",
+    "RuiBRollStack": "rui-b-roll-stack",
+    "RuiBentoPan": "rui-bento-pan",
+    "RuiBrowserFlow": "rui-browser-flow",
+    "RuiCalendarMonthFill": "rui-calendar-month-fill",
+    "RuiCalloutSpotlight": "rui-callout-spotlight",
+    "RuiCaptionBumper": "rui-caption-bumper",
+    "RuiCaptionScene": "rui-caption-scene",
+    "RuiChangelogEntry": "rui-changelog-entry",
+    "RuiChatToPreview": "rui-chat-to-preview",
+    "RuiCodeAccordion": "rui-code-accordion",
+    "RuiCodeDiffWipe": "rui-code-diff-wipe",
+    "RuiCodeReveal": "rui-code-reveal",
+    "RuiCommentCallout": "rui-comment-callout",
+    "RuiCommitGraph": "rui-commit-graph",
+    "RuiComparisonTable": "rui-comparison-table",
+    "RuiCountdownTimer": "rui-countdown-timer",
+    "RuiCreatorReel": "rui-creator-reel",
+    "RuiDashboardPopulate": "rui-dashboard-populate",
+    "RuiDataFlowPipes": "rui-data-flow-pipes",
+    "RuiDataStory": "rui-data-story",
+    "RuiDeployReveal": "rui-deploy-reveal",
+    "RuiDeviceMockupZoom": "rui-device-mockup-zoom",
+    "RuiDragDropFlow": "rui-drag-drop-flow",
+    "RuiEcosystemOrbit": "rui-ecosystem-orbit",
+    "RuiEndCard": "rui-end-card",
+    "RuiFaqAccordion": "rui-faq-accordion",
+    "RuiFeatureList": "rui-feature-list",
+    "RuiFileTreeReveal": "rui-file-tree-reveal",
+    "RuiFormFillSequence": "rui-form-fill-sequence",
+    "RuiHeroDeviceAssemble": "rui-hero-device-assemble",
+    "RuiHeroLoop": "rui-hero-loop",
+    "RuiHookCard": "rui-hook-card",
+    "RuiImageExpand": "rui-image-expand",
+    "RuiIntro": "rui-intro",
+    "RuiKanbanMove": "rui-kanban-move",
+    "RuiLandingCodeShowcase": "rui-landing-code-showcase",
+    "RuiLiveCodeSplit": "rui-live-code-split",
+    "RuiLogoReveal": "rui-logo-reveal",
+    "RuiLogoWall": "rui-logo-wall",
+    "RuiLowerThird": "rui-lower-third",
+    "RuiMapFlight": "rui-map-flight",
+    "RuiMediaFrame": "rui-media-frame",
+    "RuiMediaSequence": "rui-media-sequence",
+    "RuiMetricTicker": "rui-metric-ticker",
+    "RuiNewsTickerBar": "rui-news-ticker-bar",
+    "RuiNotificationStack": "rui-notification-stack",
+    "RuiOrgChartBuild": "rui-org-chart-build",
+    "RuiPodcastClip": "rui-podcast-clip",
+    "RuiPollOverlay": "rui-poll-overlay",
+    "RuiPricingCard": "rui-pricing-card",
+    "RuiPricingFocus": "rui-pricing-focus",
+    "RuiQuizQuestion": "rui-quiz-question",
+    "RuiQuoteCard": "rui-quote-card",
+    "RuiReactionBurst": "rui-reaction-burst",
+    "RuiRoadmapLanes": "rui-roadmap-lanes",
+    "RuiSearchResultsPopulate": "rui-search-results-populate",
+    "RuiShowcase": "rui-showcase",
+    "RuiSocialClip": "rui-social-clip",
+    "RuiSplitScreen": "rui-split-screen",
+    "RuiSportsScorebug": "rui-sports-scorebug",
+    "RuiStatCard": "rui-stat-card",
+    "RuiTHEMES": "rui-t-h-e-m-e-s",
+    "RuiTabSwitchPanel": "rui-tab-switch-panel",
+    "RuiTalkingHeadLayout": "rui-talking-head-layout",
+    "RuiTeamGrid": "rui-team-grid",
+    "RuiTerminalSimulator": "rui-terminal-simulator",
+    "RuiTimelineSteps": "rui-timeline-steps",
+    "RuiTitleCard": "rui-title-card",
+    "RuiToolMenuSlide": "rui-tool-menu-slide",
+    "RuiTutorialClip": "rui-tutorial-clip",
+    "RuiWeatherCard": "rui-weather-card",
+    "RuiZoomPanFrame": "rui-zoom-pan-frame",
+    "Scene3DElement": "scene3d-element",
+    "Scene3DWrapper": "scene3d-element",
+    "ScrollingImagesWrapper": "scrollingimages-element",
+    "ScrollingimagesElement": "scrollingimages-element",
+    "SearchResultsPopulateWrapper": "rui-search-results-populate",
+    "ShowcaseWrapper": "rui-showcase",
+    "SlideTransition": "slide-transition",
+    "SocialClipWrapper": "rui-social-clip",
+    "SplitScreenWrapper": "rui-split-screen",
+    "SportsScorebugWrapper": "rui-sports-scorebug",
+    "StaggeredMotionWrapper": "staggeredmotion-element",
+    "StaggeredmotionElement": "staggeredmotion-element",
+    "StatCardWrapper": "rui-stat-card",
+    "SwapTransition": "swap-transition",
+    "THEMESWrapper": "rui-t-h-e-m-e-s",
+    "TabSwitchPanelWrapper": "rui-tab-switch-panel",
+    "TalkingHeadLayoutWrapper": "rui-talking-head-layout",
+    "TeamGridWrapper": "rui-team-grid",
+    "TerminalSimulatorWrapper": "rui-terminal-simulator",
+    "TimelineStepsWrapper": "rui-timeline-steps",
+    "TitleCardWrapper": "rui-title-card",
+    "ToolMenuSlideWrapper": "rui-tool-menu-slide",
+    "TutorialClipWrapper": "rui-tutorial-clip",
+    "TypeWriterWrapper": "typewriter-element",
+    "TypewriterElement": "typewriter-element",
+    "WeatherCardWrapper": "rui-weather-card",
+    "WipeTransition": "wipe-transition",
+    "ZoomBlurTransition": "zoom-blur-transition",
+    "ZoomInOutTransition": "zoom-in-out-transition",
+    "ZoomPanFrameWrapper": "rui-zoom-pan-frame"
+  }
+}

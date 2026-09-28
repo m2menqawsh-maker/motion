@@ -404,18 +404,18 @@ def materialize_project_atomic(
             )
         )
 
-    # Validate blueprint scenes and template existence
+    # Validate blueprint scenes and template identity via authoritative contract (S15)
+    from scripts.core.template_contract import get_template_contract
+    template_contract = get_template_contract()
+
     for sec in bp.get("scenes", []):
         name = sec.get("template")
         if name:
-            used_templates.add(name)
-            found = False
-            for search_dir in [ws / "remotion-app" / "src" / "templates", ws / "remotion-app" / "src" / "engine"]:
-                if search_dir.exists() and any(f.name.lower() == f"{name.lower()}.tsx" for f in search_dir.rglob("*.tsx")):
-                    found = True
-                    break
-            if not found:
-                fails.append(f"template '{name}' not found on disk")
+            entry = template_contract.resolve(name)
+            if entry is None or not entry.runtime_available:
+                fails.append(f"template '{name}' is not registered or unavailable [UNKNOWN_TEMPLATE_ID]")
+            else:
+                used_templates.add(entry.canonical_id)
 
     # Authoritative preflight reference verification via collect_asset_references (ASSET-005)
     from scripts.core.asset_resolution import collect_asset_references, MalformedAssetRefError
@@ -519,4 +519,5 @@ def materialize_project_atomic(
         "media_map": media_map,
         "assets_count": len(media_map),
         "templates_count": len(used_templates),
+        "used_templates": sorted(list(used_templates)),
     }
