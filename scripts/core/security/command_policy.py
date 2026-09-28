@@ -288,8 +288,8 @@ class CommandPolicy:
                 violations.append("Docker command missing subcommand.")
             else:
                 subcommand = cmd_list[1]
-                if subcommand not in ("run", "info"):
-                    violations.append(f"Docker subcommand '{subcommand}' is forbidden. Allowed: ['run', 'info']")
+                if subcommand not in ("run", "info", "build"):
+                    violations.append(f"Docker subcommand '{subcommand}' is forbidden. Allowed: ['run', 'info', 'build']")
 
                 if subcommand == "run":
                     full_str = " ".join(cmd_list)
@@ -297,6 +297,10 @@ class CommandPolicy:
                         violations.append("Docker --privileged is forbidden.")
                     if "-v /:" in full_str or "--volume /:" in full_str:
                         violations.append("Docker root filesystem mount is forbidden.")
+
+                if subcommand == "build":
+                    if "--privileged" in cmd_list:
+                        violations.append("Docker --privileged is forbidden.")
 
         else:
             violations.append(f"Executable '{raw_exe}' is not in the allowed executables registry.")

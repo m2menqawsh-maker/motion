@@ -16,7 +16,7 @@ from scripts.core.security.command_policy import CommandPolicy, CommandSecurityV
 ALLOWED_COMMANDS = {"ffmpeg", "ffprobe"}
 ALLOWED_SCRIPTS = {
     "npm": ["run", "build"],
-    "docker": ["info", "run"],
+    "docker": ["info", "run", "build"],
     "npx": ["remotion"],
     "npx.cmd": ["remotion"],
 }

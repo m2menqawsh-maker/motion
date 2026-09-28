@@ -1,0 +1,50 @@
+# .dockerignore — Clean Video Workspace Hermetic Docker Build Context
+# Prevents host dependencies, project data, secrets, and caches from entering the build context
+
+# Dependencies (MUST be installed cleanly inside image via npm ci)
+node_modules
+remotion-app/node_modules
+.venv
+venv
+
+# Version control
+.git
+.gitignore
+.gitmodules
+.githooks
+
+# Runtime project data and outputs (mounted explicitly at runtime)
+projects
+remotion-app/public/projects
+out
+remotion-app/out
+assets
+scratch
+tmp
+temp
+.backup
+
+# Testing, logs, and coverage artifacts
+.pytest_cache
+.coverage
+htmlcov
+__pycache__
+*.pyc
+*.pyo
+logs
+.agents/logs
+.agents/mcp_state
+*.seal
+*.analysis.json
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+.qc_salt
+
+# IDE and OS
+.DS_Store
+Thumbs.db
+.idea
+.vscode

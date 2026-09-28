@@ -149,21 +149,39 @@ def main():
                 sys.exit(1)
                 
             print(f"🐳 جاري الرندر عبر حاوية Docker (clean-video-builder)...")
-            
+
             final_out_file = project_dir / "out.mp4"
             tmp_out_file = project_dir / f"out.attempt-{attempt}.tmp.mp4"
-            
+
+            project_dir_abs = project_dir.resolve()
+            public_proj_dir = workspace_root / "remotion-app" / "public" / "projects" / project_id
+
+            mount_flag = ":rw,z" if os.name != "nt" else ":rw"
+            ro_mount_flag = ":ro,z" if os.name != "nt" else ":ro"
+
             docker_cmd = [
                 "docker", "run", "--rm",
+            ]
+            if shutil.which("podman"):
+                docker_cmd.extend(["--userns=keep-id"])
+
+            docker_cmd.extend([
                 "-e", f"AGY_RUN_ID={ctx.run_id}",
-                "-v", f"{workspace_root}:/workspace:ro",
-                "-v", f"{project_dir}:/workspace/projects/{project_id}:rw",
-                "-w", "/workspace/remotion-app",
+                "-e", f"PROJECT_ID={project_id}",
+                "-v", f"{project_dir_abs}:/app/projects/{project_id}{mount_flag}",
+            ])
+            if public_proj_dir.exists():
+                docker_cmd.extend(["-v", f"{public_proj_dir.resolve()}:/app/remotion-app/public/projects/{project_id}{ro_mount_flag}"])
+
+            docker_cmd.extend([
+                "-w", "/app/remotion-app",
                 "--memory", "4g",
                 "clean-video-builder",
-                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4 --props ../projects/{project_id}/render_props.json && chmod a+rw ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4"
-            ]
-            
+                "npx", "remotion", "render", "src/index.ts", "BlueprintVideo",
+                f"../projects/{project_id}/out.attempt-{attempt}.tmp.mp4",
+                "--props", f"../projects/{project_id}/render_props.json"
+            ])
+
             proc = safe_subprocess(docker_cmd)
             duration_ms = int((time.time() - start_time) * 1000)
             if proc.returncode == 0:

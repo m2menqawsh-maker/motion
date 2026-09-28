@@ -108,17 +108,32 @@ def main():
         print(f"🐳 جاري فتح الاستوديو عبر حاوية Docker (clean-video-builder)...")
         print(f"🌐 يرجى التوجه إلى http://localhost:3000 في المتصفح بعد بدء الخادم")
         
-        workspace_root_abs = workspace_root.resolve()
-        
+        proj_dir_abs = proj_dir.resolve()
+        public_proj_dir = workspace_root / "remotion-app" / "public" / "projects" / project_id
+
+        mount_flag = ":rw,z" if os.name != "nt" else ":rw"
+        ro_mount_flag = ":ro,z" if os.name != "nt" else ":ro"
+
         docker_cmd = [
             "docker", "run", "--rm", "-it",
             "-p", "3000:3000",
-            "-v", f"{workspace_root_abs}:/workspace:ro",
-            "-w", f"/workspace/remotion-app",
+        ]
+        if shutil.which("podman"):
+            docker_cmd.extend(["--userns=keep-id"])
+
+        docker_cmd.extend([
+            "-e", f"PROJECT_ID={project_id}",
+            "-v", f"{proj_dir_abs}:/app/projects/{project_id}{mount_flag}",
+        ])
+        if public_proj_dir.exists():
+            docker_cmd.extend(["-v", f"{public_proj_dir.resolve()}:/app/remotion-app/public/projects/{project_id}{ro_mount_flag}"])
+
+        docker_cmd.extend([
+            "-w", "/app/remotion-app",
             "clean-video-builder",
             "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/render_props.json"
-        ]
-        
+        ])
+
         safe_subprocess(docker_cmd)
 
 if __name__ == "__main__":

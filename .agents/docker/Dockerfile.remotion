@@ -1,13 +1,66 @@
+# ─── Clean Video Workspace — Hermetic Remotion Docker Runtime (S20) ───────────
 FROM node:20-bookworm
 
-# Install required shared libraries for headless Chromium and FFmpeg, plus Arabic fonts
-RUN apt-get update && apt-get install -y \
-    chromium libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 \
+# 1. System dependencies: headless Chromium, FFmpeg, fonts, ca-certificates
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    chromium \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
     ffmpeg \
-    fonts-noto-core fonts-arab \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+    fonts-noto-core \
+    fonts-arabeyes \
+    fonts-hosny-amiri \
+    fonts-liberation \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set env vars for puppeteer to use the installed chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+# 2. Environment variables for headless Chromium & Node
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
+    NODE_ENV=production
+
+# 3. Configure dedicated non-root user 'renderer' (UID 1000, GID 1000)
+RUN if id "node" >/dev/null 2>&1; then \
+        groupmod -n renderer node && usermod -l renderer -d /home/renderer -m node ; \
+    else \
+        groupadd -g 1000 renderer && useradd -u 1000 -g renderer -m -s /bin/bash renderer ; \
+    fi
+
+# 4. Set up application workspace
+WORKDIR /app
+RUN chown -R renderer:renderer /app && ln -s /app /workspace
+
+# 5. Copy package manifests & lockfiles first for deterministic layer caching
+COPY --chown=renderer:renderer package.json package-lock.json ./
+COPY --chown=renderer:renderer remotion-app/package.json remotion-app/package-lock.json ./remotion-app/
+
+# Switch to non-root renderer user for builds and execution
+USER renderer
+
+# 6. Deterministic install of locked dependencies inside the image
+RUN cd /app/remotion-app && npm ci && ln -s /app/remotion-app/node_modules /app/node_modules
+
+# 7. Ensure Remotion headless browser is pre-installed in image (no runtime downloads)
+RUN cd /app/remotion-app && npx remotion browser ensure
+
+# 7. Copy application source trees (excluding node_modules, projects, logs via .dockerignore)
+COPY --chown=renderer:renderer contracts/ ./contracts/
+COPY --chown=renderer:renderer registry/ ./registry/
+COPY --chown=renderer:renderer templates/ ./templates/
+COPY --chown=renderer:renderer remotion-app/src/ ./remotion-app/src/
+COPY --chown=renderer:renderer remotion-app/public/ ./remotion-app/public/
+COPY --chown=renderer:renderer remotion-app/remotion.config.ts ./remotion-app/
+COPY --chown=renderer:renderer remotion-app/tsconfig.json ./remotion-app/
+COPY --chown=renderer:renderer tsconfig.json ./
+
+# 8. Create mount points for project data and materialized assets
+RUN mkdir -p /app/projects && mkdir -p /app/remotion-app/public/projects
+
+# 9. Set working directory to remotion engine
+WORKDIR /app/remotion-app
+
+# 10. Default command
+CMD ["npx", "remotion", "--help"]
