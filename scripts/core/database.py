@@ -52,6 +52,12 @@ class TenantSecurityError(DatabaseError):
 
 
 SCHEMA_SQL = """
+CREATE TABLE IF NOT EXISTS _schema_migrations (
+    version INTEGER PRIMARY KEY,
+    applied_at TEXT NOT NULL
+);
+INSERT OR IGNORE INTO _schema_migrations (version, applied_at) VALUES (1, '2026-09-30T00:00:00Z');
+
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,

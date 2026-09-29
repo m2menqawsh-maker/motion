@@ -76,25 +76,37 @@ class HealthService:
         if not storage_pass:
             all_passed = False
 
-        # 3. Worker Probe
+        # 3. SaaS Database Engine & Migrations Probe (S24.5)
+        saas_db_pass, saas_db_info = cls._probe_database(timeout)
+        checks["database"] = saas_db_info
+        if not saas_db_pass:
+            all_passed = False
+
+        # 4. SaaS StorageService Backend Probe (S24.5)
+        saas_storage_pass, saas_storage_info = cls._probe_storage_service()
+        checks["storage_backend"] = saas_storage_info
+        if not saas_storage_pass:
+            all_passed = False
+
+        # 5. Worker Probe
         worker_pass, worker_info = cls._probe_worker(root, db_path, settings)
         checks["worker"] = worker_info
         if not worker_pass and settings.require_active_worker:
             all_passed = False
 
-        # 4. FFmpeg Tool Probe
+        # 6. FFmpeg Tool Probe
         ffmpeg_pass, ffmpeg_info = cls._probe_ffmpeg(timeout)
         checks["ffmpeg"] = ffmpeg_info
         if not ffmpeg_pass:
             all_passed = False
 
-        # 5. Node Runtime Probe
+        # 7. Node Runtime Probe
         node_pass, node_info = cls._probe_node(timeout)
         checks["node"] = node_info
         if not node_pass:
             all_passed = False
 
-        # 6. Remotion Engine Probe
+        # 8. Remotion Engine Probe
         remotion_pass, remotion_info = cls._probe_remotion(root)
         checks["remotion"] = remotion_info
         if not remotion_pass:
@@ -172,6 +184,61 @@ class HealthService:
             return False, {
                 "status": "fail",
                 "reason": "Storage access failure",
+                "latency_ms": round((time.perf_counter() - start) * 1000, 2),
+            }
+
+    @classmethod
+    def _probe_database(cls, timeout: float = 2.0) -> Tuple[bool, Dict[str, Any]]:
+        start = time.perf_counter()
+        try:
+            from scripts.core.database import get_database_engine
+            engine = get_database_engine()
+            conn = engine.get_connection()
+            try:
+                cur = conn.execute("SELECT 1")
+                cur.fetchone()
+                cur = conn.execute("SELECT MAX(version) FROM _schema_migrations")
+                v_row = cur.fetchone()
+                schema_v = v_row[0] if v_row else 1
+                latency = round((time.perf_counter() - start) * 1000, 2)
+                return True, {
+                    "status": "pass",
+                    "driver": "sqlite" if engine.is_sqlite else "postgresql",
+                    "schema_version": schema_v,
+                    "migrations_applied": True,
+                    "latency_ms": latency,
+                }
+            finally:
+                conn.close()
+        except Exception as e:
+            return False, {
+                "status": "fail",
+                "reason": f"Database unavailable: {str(e)}",
+                "code": "DATABASE_UNAVAILABLE",
+                "latency_ms": round((time.perf_counter() - start) * 1000, 2),
+            }
+
+    @classmethod
+    def _probe_storage_service(cls) -> Tuple[bool, Dict[str, Any]]:
+        start = time.perf_counter()
+        try:
+            from scripts.core.storage import get_storage_service
+            storage = get_storage_service()
+            probe_key = "system/health_probe.tmp"
+            storage.put(probe_key, b"READINESS_PROBE", content_type="text/plain")
+            storage.delete(probe_key)
+            latency = round((time.perf_counter() - start) * 1000, 2)
+            return True, {
+                "status": "pass",
+                "backend": storage.__class__.__name__,
+                "writable": True,
+                "latency_ms": latency,
+            }
+        except Exception as e:
+            return False, {
+                "status": "fail",
+                "reason": f"Storage backend error: {str(e)}",
+                "code": "STORAGE_UNAVAILABLE",
                 "latency_ms": round((time.perf_counter() - start) * 1000, 2),
             }
 
