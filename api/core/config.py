@@ -45,6 +45,26 @@ class APISettings(BaseModel):
     cors_allow_methods: List[str] = Field(default_factory=lambda: ["*"])
     cors_allow_headers: List[str] = Field(default_factory=lambda: ["*"])
 
+    # Multi-Tenant SaaS & Storage Settings (S24.5)
+    database_url: str = Field(
+        default_factory=lambda: os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL", "sqlite:///data/motion.db")
+    )
+    storage_backend: str = Field(
+        default_factory=lambda: os.environ.get("STORAGE_BACKEND", "local").lower()
+    )
+    storage_local_root: str = Field(
+        default_factory=lambda: os.environ.get("STORAGE_LOCAL_ROOT", "data/storage")
+    )
+    s3_endpoint: Optional[str] = Field(default_factory=lambda: os.environ.get("S3_ENDPOINT"))
+    s3_bucket: str = Field(default_factory=lambda: os.environ.get("S3_BUCKET", "clean-video-assets"))
+    s3_region: str = Field(default_factory=lambda: os.environ.get("S3_REGION", "us-east-1"))
+    s3_access_key_id: Optional[str] = Field(
+        default_factory=lambda: os.environ.get("S3_ACCESS_KEY_ID") or os.environ.get("AWS_ACCESS_KEY_ID")
+    )
+    s3_secret_access_key: Optional[str] = Field(
+        default_factory=lambda: os.environ.get("S3_SECRET_ACCESS_KEY") or os.environ.get("AWS_SECRET_ACCESS_KEY")
+    )
+
     @field_validator("readiness_timeout_seconds")
     @classmethod
     def validate_readiness_timeout(cls, v: float) -> float:
