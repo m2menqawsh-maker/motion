@@ -37,6 +37,7 @@ class RunService:
         idempotency_key: Optional[str] = None,
         payload: Optional[Dict[str, Any]] = None,
         db_path: Optional[Path | str] = None,
+        workspace_id: Optional[str] = None,
     ) -> Tuple[RunRecord, bool]:
         """
         Creates a durable RunRecord with status QUEUED.
@@ -71,10 +72,26 @@ class RunService:
         state = StateStore.load(proj_dir)
         input_revision = state.revision if state else 1
 
+        # Determine workspace_id
+        actual_ws_id = workspace_id
+        if not actual_ws_id and state and getattr(state, "workspace_id", None):
+            actual_ws_id = state.workspace_id
+        if not actual_ws_id:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                repo_tenant = TenantRepository(get_database_engine())
+                prj_rec = repo_tenant.get_project(project_id)
+                if prj_rec:
+                    actual_ws_id = prj_rec.workspace_id
+            except Exception:
+                pass
+        actual_ws_id = actual_ws_id or "ws_default"
+
         # 3. Create durable Run record
         run_id = f"run_{uuid.uuid4().hex}"
         record = RunRecord(
             run_id=run_id,
+            workspace_id=actual_ws_id,
             project_id=project_id,
             status=RunStatus.QUEUED,
             input_revision=input_revision,
@@ -90,6 +107,7 @@ class RunService:
             project_id=project_id,
             event_type="RUN_QUEUED",
             payload={"attempt": persisted.attempt, "input_revision": persisted.input_revision},
+            workspace_id=actual_ws_id,
         )
 
         return persisted, True
@@ -100,6 +118,7 @@ class RunService:
         project_id: str,
         run_id: str,
         db_path: Optional[Path | str] = None,
+        workspace_id: Optional[str] = None,
     ) -> RunRecord:
         """Requests cancellation of a run in QUEUED or RUNNING state."""
         validate_project_id(project_id)
@@ -107,9 +126,11 @@ class RunService:
         existing = repo.get_run(run_id)
         if not existing or existing.project_id != project_id:
             raise RunNotFoundError(run_id=run_id, project_id=project_id)
+        if workspace_id and existing.workspace_id != workspace_id:
+            raise RunNotFoundError(run_id=run_id, project_id=project_id)
 
         try:
-            record, _ = repo.request_cancel_run(run_id=run_id, project_id=project_id)
+            record, _ = repo.request_cancel_run(run_id=run_id, project_id=project_id, workspace_id=workspace_id)
             return record
         except InvalidRunTransitionError as e:
             raise RunNotCancellableError(run_id=run_id, status=existing.status.value, message=str(e))
@@ -122,6 +143,7 @@ class RunService:
         after_sequence: int = 0,
         limit: int = 500,
         db_path: Optional[Path | str] = None,
+        workspace_id: Optional[str] = None,
     ) -> List[RunEvent]:
         """Retrieves persistent events for a specific run."""
         validate_project_id(project_id)
@@ -129,8 +151,10 @@ class RunService:
         existing = repo.get_run(run_id)
         if not existing or existing.project_id != project_id:
             raise RunNotFoundError(run_id=run_id, project_id=project_id)
+        if workspace_id and existing.workspace_id != workspace_id:
+            raise RunNotFoundError(run_id=run_id, project_id=project_id)
 
-        return repo.get_events(run_id=run_id, project_id=project_id, after_sequence=after_sequence, limit=limit)
+        return repo.get_events(run_id=run_id, project_id=project_id, after_sequence=after_sequence, limit=limit, workspace_id=workspace_id)
 
     @classmethod
     def get_run(
@@ -138,12 +162,15 @@ class RunService:
         project_id: str,
         run_id: str,
         db_path: Optional[Path | str] = None,
+        workspace_id: Optional[str] = None,
     ) -> RunRecord:
         """Retrieves an existing RunRecord, scoped to project_id."""
         validate_project_id(project_id)
         repo = RunRepository(db_path=db_path)
         record = repo.get_run(run_id)
         if not record or record.project_id != project_id:
+            raise RunNotFoundError(run_id=run_id, project_id=project_id)
+        if workspace_id and record.workspace_id != workspace_id:
             raise RunNotFoundError(run_id=run_id, project_id=project_id)
         return record
 
@@ -153,6 +180,7 @@ class RunService:
         project_id: str,
         limit: int = 50,
         db_path: Optional[Path | str] = None,
+        workspace_id: Optional[str] = None,
     ) -> List[RunRecord]:
         """Lists runs for a specific project."""
         validate_project_id(project_id)
@@ -160,4 +188,4 @@ class RunService:
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
         repo = RunRepository(db_path=db_path)
-        return repo.list_runs(project_id=project_id, limit=limit)
+        return repo.list_runs(project_id=project_id, limit=limit, workspace_id=workspace_id)

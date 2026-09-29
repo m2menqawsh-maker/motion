@@ -11,7 +11,7 @@ Endpoints:
 import asyncio
 import json
 from typing import Optional
-from fastapi import APIRouter, Depends, Header, Response, status
+from fastapi import APIRouter, Depends, Header, Response, Request, status
 from fastapi.responses import StreamingResponse
 from api.core.auth import require_permission, Principal, Action
 from api.schemas.run import RunCreateRequest, RunResponse, RunListResponse, RunEventResponse, RunEventListResponse
@@ -29,6 +29,7 @@ router = APIRouter()
 async def create_run(
     project_id: str,
     response: Response,
+    request: Request,
     req: Optional[RunCreateRequest] = None,
     idempotency_key_header: Optional[str] = Header(None, alias="Idempotency-Key"),
     principal: Principal = Depends(require_permission(Action.RUN_EXECUTE)),
@@ -39,11 +40,14 @@ async def create_run(
     """
     effective_idempotency_key = idempotency_key_header or (req.idempotency_key if req else None)
     payload_dict = req.model_dump() if req else {}
+    tenant_ctx = getattr(request.state, "tenant_context", None)
+    ws_id = tenant_ctx.workspace_id if tenant_ctx else None
 
     record, is_created = RunService.create_run(
         project_id=project_id,
         idempotency_key=effective_idempotency_key,
         payload=payload_dict,
+        workspace_id=ws_id,
     )
 
     # 202 Accepted for new or existing asynchronous queued runs
@@ -60,10 +64,13 @@ async def create_run(
 async def get_run(
     project_id: str,
     run_id: str,
+    request: Request,
     principal: Principal = Depends(require_permission(Action.PROJECT_READ)),
 ):
     """Retrieves current state and metadata for a specific run."""
-    record = RunService.get_run(project_id=project_id, run_id=run_id)
+    tenant_ctx = getattr(request.state, "tenant_context", None)
+    ws_id = tenant_ctx.workspace_id if tenant_ctx else None
+    record = RunService.get_run(project_id=project_id, run_id=run_id, workspace_id=ws_id)
     return RunResponse.from_record(record)
 
 
@@ -75,11 +82,14 @@ async def get_run(
 )
 async def list_runs(
     project_id: str,
+    request: Request,
     limit: int = 50,
     principal: Principal = Depends(require_permission(Action.PROJECT_READ)),
 ):
     """Lists recent runs for the specified project."""
-    records = RunService.list_runs(project_id=project_id, limit=limit)
+    tenant_ctx = getattr(request.state, "tenant_context", None)
+    ws_id = tenant_ctx.workspace_id if tenant_ctx else None
+    records = RunService.list_runs(project_id=project_id, limit=limit, workspace_id=ws_id)
     dto_list = [RunResponse.from_record(r) for r in records]
     return RunListResponse(runs=dto_list, total=len(dto_list))
 
@@ -93,6 +103,7 @@ async def list_runs(
 async def cancel_run(
     project_id: str,
     run_id: str,
+    request: Request,
     principal: Principal = Depends(require_permission(Action.RUN_CANCEL)),
 ):
     """
@@ -100,7 +111,9 @@ async def cancel_run(
     Idempotent for already cancelled runs.
     Rejects terminal runs (SUCCEEDED, FAILED) with HTTP 409 Conflict.
     """
-    record = RunService.cancel_run(project_id=project_id, run_id=run_id)
+    tenant_ctx = getattr(request.state, "tenant_context", None)
+    ws_id = tenant_ctx.workspace_id if tenant_ctx else None
+    record = RunService.cancel_run(project_id=project_id, run_id=run_id, workspace_id=ws_id)
     return RunResponse.from_record(record)
 
 
@@ -111,6 +124,7 @@ async def cancel_run(
 async def get_run_events(
     project_id: str,
     run_id: str,
+    request: Request,
     after: int = 0,
     limit: int = 500,
     stream: bool = False,
@@ -123,6 +137,9 @@ async def get_run_events(
     Supports reconnection and cursor pagination via 'after' query parameter or 'Last-Event-ID' header.
     When stream=true or Accept: text/event-stream, streams events via Server-Sent Events (SSE).
     """
+    tenant_ctx = getattr(request.state, "tenant_context", None)
+    ws_id = tenant_ctx.workspace_id if tenant_ctx else None
+
     effective_after = after
     if last_event_id and last_event_id.isdigit():
         effective_after = max(effective_after, int(last_event_id))
@@ -131,7 +148,7 @@ async def get_run_events(
 
     if not is_sse:
         events = RunService.get_events(
-            project_id=project_id, run_id=run_id, after_sequence=effective_after, limit=limit
+            project_id=project_id, run_id=run_id, after_sequence=effective_after, limit=limit, workspace_id=ws_id
         )
         dto_list = [RunEventResponse.from_record(e) for e in events]
         latest_seq = max([e.sequence for e in dto_list], default=effective_after)
@@ -145,7 +162,7 @@ async def get_run_events(
 
         while True:
             events = RunService.get_events(
-                project_id=project_id, run_id=run_id, after_sequence=current_seq, limit=100
+                project_id=project_id, run_id=run_id, after_sequence=current_seq, limit=100, workspace_id=ws_id
             )
             if events:
                 empty_polls = 0

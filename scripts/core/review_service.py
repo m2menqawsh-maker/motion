@@ -288,6 +288,26 @@ class ReviewService:
                 f"Principal '{principal.principal_id}' lacks REVIEWER or ADMIN role for project '{state.project_id}'."
             )
 
+        # Check tenant database ownership and workspace membership (Section 4 & 15)
+        try:
+            from scripts.core.database import get_database_engine, TenantRepository
+            db_repo = TenantRepository(get_database_engine())
+            db_prj = db_repo.get_project(state.project_id)
+            if db_prj:
+                membership = db_repo.get_membership(db_prj.workspace_id, principal.principal_id)
+                if not membership and not principal.is_admin:
+                    raise ReviewIdentityInvalidError(
+                        f"Principal '{principal.principal_id}' is not a member of workspace '{db_prj.workspace_id}' owning project '{state.project_id}'."
+                    )
+                if membership and membership.role not in (Role.REVIEWER, Role.ADMIN) and not principal.is_admin:
+                    raise ReviewIdentityInvalidError(
+                        f"Principal '{principal.principal_id}' lacks REVIEWER or ADMIN role in workspace '{db_prj.workspace_id}'."
+                    )
+        except ReviewIdentityInvalidError:
+            raise
+        except Exception:
+            pass
+
         # 2. Lifecycle state validation
         curr_state = LifecycleState(state.lifecycle_state)
         if curr_state != LifecycleState.AWAITING_REVIEW:
@@ -438,6 +458,26 @@ class ReviewService:
             raise ReviewIdentityInvalidError(
                 f"Principal '{principal.principal_id}' lacks REVIEWER or ADMIN role for project '{state.project_id}'."
             )
+
+        # Check tenant database ownership and workspace membership (Section 4 & 15)
+        try:
+            from scripts.core.database import get_database_engine, TenantRepository
+            db_repo = TenantRepository(get_database_engine())
+            db_prj = db_repo.get_project(state.project_id)
+            if db_prj:
+                membership = db_repo.get_membership(db_prj.workspace_id, principal.principal_id)
+                if not membership and not principal.is_admin:
+                    raise ReviewIdentityInvalidError(
+                        f"Principal '{principal.principal_id}' is not a member of workspace '{db_prj.workspace_id}' owning project '{state.project_id}'."
+                    )
+                if membership and membership.role not in (Role.REVIEWER, Role.ADMIN) and not principal.is_admin:
+                    raise ReviewIdentityInvalidError(
+                        f"Principal '{principal.principal_id}' lacks REVIEWER or ADMIN role in workspace '{db_prj.workspace_id}'."
+                    )
+        except ReviewIdentityInvalidError:
+            raise
+        except Exception:
+            pass
 
         target_bundle = None
         for b in state.review_bundles:

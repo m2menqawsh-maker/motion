@@ -42,6 +42,38 @@ class OutputService:
             if outputs_sub.exists() and outputs_sub.is_file():
                 out_path = outputs_sub
             else:
+                # Check StorageService (S24.5 - Heavy object persistence)
+                try:
+                    from scripts.core.database import get_database_engine, TenantRepository
+                    from scripts.core.storage import get_storage_service
+                    storage = get_storage_service()
+                    repo = TenantRepository(get_database_engine())
+                    prj_rec = repo.get_project(project_id)
+                    ws_id = prj_rec.workspace_id if prj_rec else "ws_default"
+
+                    candidate_keys = [
+                        f"workspaces/{ws_id}/projects/{project_id}/outputs/{output_id}",
+                    ]
+                    from scripts.core.run_repository import RunRepository
+                    runs = RunRepository().list_runs(project_id, limit=10)
+                    for r in runs:
+                        if r.result_reference and isinstance(r.result_reference, dict):
+                            out_key = r.result_reference.get("output_storage_key")
+                            if out_key and out_key.endswith(clean_id):
+                                candidate_keys.append(out_key)
+
+                    for key in candidate_keys:
+                        if storage.exists(key):
+                            if hasattr(storage, "_resolve_path"):
+                                return storage._resolve_path(key)
+                            else:
+                                cached_dest = outputs_sub
+                                cached_dest.parent.mkdir(parents=True, exist_ok=True)
+                                cached_dest.write_bytes(storage.get(key))
+                                return cached_dest
+                except Exception:
+                    pass
+
                 raise APIError("Output media not found", status_code=404)
 
         return out_path
