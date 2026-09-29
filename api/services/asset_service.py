@@ -147,6 +147,29 @@ class AssetService:
         # 6. Compute checksum
         sha256_hash = hashlib.sha256(content).hexdigest()
 
+        # 6b. Determine workspace ownership & persist to StorageService (S24.5)
+        ws_id = "ws_default"
+        try:
+            from scripts.core.database import get_database_engine, TenantRepository
+            engine = get_database_engine()
+            repo = TenantRepository(engine)
+            proj_rec = repo.get_project(project_id)
+            if proj_rec:
+                ws_id = proj_rec.workspace_id
+        except Exception:
+            pass
+
+        storage_key = None
+        location_type = "LOCAL"
+        try:
+            from scripts.core.storage import get_storage_service, build_storage_key, LocalStorageBackend
+            storage = get_storage_service()
+            storage_key = build_storage_key(ws_id, project_id, "assets", final_asset_id, dest_filename)
+            storage.put(storage_key, content)
+            location_type = "LOCAL" if isinstance(storage, LocalStorageBackend) else "CLOUD"
+        except Exception:
+            pass
+
         # 7. Update Manifest v2
         manifest = cls._get_or_create_manifest(proj_dir, project_id)
         rel_path = f"assets/ready/{dest_filename}"
@@ -158,7 +181,13 @@ class AssetService:
             source_path=rel_path,
             processed_path=rel_path,
             content_hash=sha256_hash,
-            metadata={"original_filename": safe_filename, "size_bytes": actual_size},
+            metadata={
+                "original_filename": safe_filename,
+                "size_bytes": actual_size,
+                "workspace_id": ws_id,
+                "storage_key": storage_key,
+                "location_type": location_type,
+            },
         )
 
         existing_idx = next((i for i, a in enumerate(manifest.assets) if a.asset_id == final_asset_id), None)

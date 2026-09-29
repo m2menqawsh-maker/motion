@@ -218,6 +218,32 @@ def validate_manifest_semantic(data: Dict[str, Any], expected_project_id: Option
                     manifest_version=version
                 )
 
+        item_meta = item.get("metadata") or {}
+        proj_meta = data.get("metadata") or {}
+        ws_id = proj_meta.get("workspace_id") or item_meta.get("workspace_id")
+
+        storage_key = item_meta.get("storage_key")
+        if storage_key:
+            from scripts.core.storage import validate_storage_key, StorageSecurityError
+            try:
+                validate_storage_key(storage_key)
+            except StorageSecurityError as e:
+                raise ManifestValidationError(
+                    code="MALFORMED_STORAGE_KEY",
+                    message=f"Asset '{aid}' has invalid storage_key: {e}",
+                    field=f"assets[{idx}].metadata.storage_key",
+                    asset_id=aid,
+                    manifest_version=version
+                )
+            if ws_id and not storage_key.startswith(f"workspaces/{ws_id}/projects/{project_id}/"):
+                raise ManifestValidationError(
+                    code="CROSS_TENANT_ASSET_REFERENCE",
+                    message=f"Cross-tenant asset reference rejected: storage_key '{storage_key}' does not belong to workspace '{ws_id}' and project '{project_id}'",
+                    field=f"assets[{idx}].metadata.storage_key",
+                    asset_id=aid,
+                    manifest_version=version
+                )
+
         validated_asset = AssetV2(
             asset_id=aid,
             kind=kind_enum,
@@ -227,7 +253,7 @@ def validate_manifest_semantic(data: Dict[str, Any], expected_project_id: Option
             processed_path=proc_path,
             content_hash=item.get("content_hash"),
             processing_spec_hash=item.get("processing_spec_hash"),
-            metadata=item.get("metadata") or {}
+            metadata=item_meta
         )
         validated_assets.append(validated_asset)
 
