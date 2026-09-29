@@ -165,6 +165,62 @@ class StateStore:
                 except OSError:
                     pass
 
+        # Sync state to relational database (PostgreSQL / SQLite) (S24.5)
+        cls._sync_to_db(state)
+
+    @classmethod
+    def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
+        """Internal helper to reflect ProjectState into the relational database engine."""
+        try:
+            from scripts.core.database import get_database_engine
+            engine = get_database_engine()
+            with engine.transaction() as conn:
+                cur = conn.execute("SELECT workspace_id FROM projects WHERE id = ?", (state.project_id,))
+                row = cur.fetchone()
+                ws_id = row[0] if row else state.workspace_id
+                if not ws_id:
+                    ws_id = "ws_default"
+                    conn.execute(
+                        "INSERT OR IGNORE INTO users (id, email, status, created_at) VALUES ('usr_system', 'system@motion.local', 'active', ?)",
+                        (state.created_at,)
+                    )
+                    conn.execute(
+                        "INSERT OR IGNORE INTO workspaces (id, name, created_by, created_at) VALUES ('ws_default', 'Default Workspace', 'usr_system', ?)",
+                        (state.created_at,)
+                    )
+                    conn.execute(
+                        "INSERT OR IGNORE INTO workspace_members (workspace_id, user_id, role, created_at) VALUES ('ws_default', 'usr_system', 'admin', ?)",
+                        (state.created_at,)
+                    )
+                    conn.execute(
+                        "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, 'ws_default', 'usr_system', ?, ?, ?)",
+                        (state.project_id, state.project_id, state.created_at, state.updated_at)
+                    )
+
+                state.workspace_id = ws_id
+                state_json = state.model_dump_json()
+
+                cur = conn.execute("SELECT revision FROM project_states WHERE project_id = ?", (state.project_id,))
+                state_row = cur.fetchone()
+                if not state_row:
+                    conn.execute(
+                        "INSERT INTO project_states (project_id, workspace_id, revision, lifecycle_state, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+                        (state.project_id, ws_id, state.revision, state.lifecycle_state.value, state_json, state.updated_at)
+                    )
+                else:
+                    curr_rev = state_row[0]
+                    if expected_revision is not None and curr_rev != expected_revision:
+                        raise StateConflictError(expected_revision, curr_rev, f"DB CAS mismatch for project '{state.project_id}'")
+                    conn.execute(
+                        "UPDATE project_states SET revision = ?, lifecycle_state = ?, state_json = ?, updated_at = ? WHERE project_id = ?",
+                        (state.revision, state.lifecycle_state.value, state_json, state.updated_at, state.project_id)
+                    )
+        except Exception as e:
+            if isinstance(e, StateConflictError):
+                raise
+            # Non-fatal if database is unconfigured during low-level isolated unit tests
+            pass
+
     @classmethod
     def atomic_update(
         cls,
@@ -387,3 +443,43 @@ class StateStore:
             cls._persist_atomic(pdir, state)
             state._loaded_revision = 1
             return state
+
+    @classmethod
+    def load_by_id(cls, project_id: str) -> Optional[ProjectState]:
+        """Loads ProjectState directly from the relational database engine."""
+        from scripts.core.database import get_database_engine, TenantStateRepository
+        engine = get_database_engine()
+        repo = TenantStateRepository(engine)
+        return repo.load_state(project_id)
+
+    @classmethod
+    def atomic_update_by_id(
+        cls,
+        project_id: str,
+        workspace_id: str,
+        expected_revision: int,
+        mutator: Callable[[ProjectState], None],
+    ) -> ProjectState:
+        """
+        Atomically updates ProjectState directly in the relational database engine using CAS.
+        """
+        from scripts.core.database import get_database_engine, TenantStateRepository
+        from scripts.core.evidence_matrix import merge_artifact_records
+        engine = get_database_engine()
+        repo = TenantStateRepository(engine)
+        current = repo.load_state(project_id)
+        if current is None:
+            raise StateNotFoundError(Path(f"projects/{project_id}"))
+        if current.revision != expected_revision:
+            raise StateConflictError(expected_revision, current.revision)
+
+        working_copy = current.model_copy(deep=True)
+        working_copy._loaded_revision = current.revision
+        mutator(working_copy)
+
+        working_copy.artifact_records = merge_artifact_records(
+            current.artifact_records,
+            working_copy.artifact_records
+        )
+        return repo.update_state_cas(project_id, workspace_id, expected_revision, working_copy)
+

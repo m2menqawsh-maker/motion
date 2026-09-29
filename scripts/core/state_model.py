@@ -137,6 +137,7 @@ class ProjectState(BaseModel):
     _loaded_revision: Optional[int] = PrivateAttr(default=None)
     
     project_id: str
+    workspace_id: Optional[str] = None
     schema_version: int = 1
     revision: int = 1
     lifecycle_state: LifecycleState = LifecycleState.DRAFT
