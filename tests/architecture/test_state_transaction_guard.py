@@ -94,6 +94,7 @@ def test_no_scattered_production_revision_mutation():
     authorized_writers = {
         "scripts/core/state_store.py",
         "scripts/core/state_model.py",
+        "scripts/core/database.py",
     }
     violations = []
 

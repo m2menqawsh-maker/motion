@@ -265,3 +265,53 @@ def validate_manifest_semantic(data: Dict[str, Any], expected_project_id: Option
         assets=validated_assets,
         metadata=data.get("metadata") or {}
     )
+
+
+def validate_tenant_assets(data: Dict[str, Any], workspace_id: str) -> None:
+    """
+    Validates that all assets and storage keys in a manifest belong exclusively
+    to the given workspace_id. Fails closed with ManifestValidationError on any
+    cross-tenant reference or traversal.
+    """
+    if not isinstance(data, dict):
+        return
+
+    assets = data.get("assets", [])
+    if isinstance(assets, dict):
+        assets = list(assets.values())
+    elif not isinstance(assets, list):
+        return
+
+    for idx, item in enumerate(assets):
+        if not isinstance(item, dict):
+            continue
+        aid = item.get("asset_id", f"asset_{idx}")
+        meta = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+        storage_key = item.get("storage_key") or meta.get("storage_key")
+        item_ws = meta.get("workspace_id") or item.get("workspace_id")
+
+        if item_ws and item_ws != workspace_id:
+            raise ManifestValidationError(
+                code="CROSS_TENANT_ASSET_REFERENCE",
+                message=f"Cross-tenant asset violation: asset '{aid}' specifies workspace_id '{item_ws}' but job belongs to '{workspace_id}'",
+                asset_id=aid,
+            )
+
+        if storage_key:
+            from scripts.core.storage import validate_storage_key
+            validate_storage_key(storage_key)
+            expected_prefix = f"workspaces/{workspace_id}/"
+            if not storage_key.startswith(expected_prefix):
+                raise ManifestValidationError(
+                    code="CROSS_TENANT_ASSET_REFERENCE",
+                    message=f"Cross-tenant asset violation: asset '{aid}' storage_key '{storage_key}' does not start with expected workspace prefix '{expected_prefix}'",
+                    asset_id=aid,
+                )
+
+
+class ManifestValidator:
+    """Static wrapper for manifest validation."""
+    validate_schema = staticmethod(validate_manifest_schema)
+    validate_semantic = staticmethod(validate_manifest_semantic)
+    validate_tenant_assets = staticmethod(validate_tenant_assets)
+

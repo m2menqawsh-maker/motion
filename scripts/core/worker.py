@@ -5,15 +5,18 @@ Polls the persistent RunRepository, performs atomic CAS claims,
 maintains heartbeats, invokes the canonical pipeline, and reconciles results.
 """
 
+import json
 import logging
 import os
+import shutil
 import signal
 import sys
+import tempfile
 import threading
 import time
 import uuid
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from scripts.core.run_model import RunRecord, RunStatus
 from scripts.core.run_repository import RunRepository
@@ -78,6 +81,44 @@ class PipelineWorker:
             self._heartbeat_thread.join(timeout=2.0)
         self._heartbeat_thread = None
 
+    def _upload_outputs_and_meter(self, run: RunRecord, ref: dict, start_time: float) -> None:
+        """Uploads completed outputs to StorageService and logs metered usage."""
+        proj_dir = Path("projects") / run.project_id
+        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
+
+        try:
+            from scripts.core.storage import get_storage_service
+            storage = get_storage_service()
+            out_file = proj_dir / "out.mp4"
+            if out_file.exists():
+                out_key = f"workspaces/{ws_id}/projects/{run.project_id}/outputs/{run.run_id}/out.mp4"
+                with open(out_file, "rb") as f_out:
+                    meta_out = storage.put(out_key, f_out, content_type="video/mp4")
+                    ref["output_storage_key"] = out_key
+                    ref["output_size_bytes"] = meta_out.size_bytes
+            qc_file = proj_dir / "final_qc_report.json"
+            if qc_file.exists():
+                qc_key = f"workspaces/{ws_id}/projects/{run.project_id}/outputs/{run.run_id}/final_qc_report.json"
+                with open(qc_file, "rb") as f_qc:
+                    storage.put(qc_key, f_qc, content_type="application/json")
+                    ref["qc_storage_key"] = qc_key
+        except Exception as upload_err:
+            logger.warning(f"Failed to upload output to storage service: {upload_err}")
+
+        try:
+            duration_sec = time.time() - start_time
+            from scripts.core.database import get_database_engine, UsageRepository
+            from scripts.core.tenant_model import UsageEventType
+            usage_repo = UsageRepository(get_database_engine())
+            usage_repo.record_usage(
+                workspace_id=ws_id,
+                event_type=UsageEventType.RENDER_SECONDS,
+                quantity=round(duration_sec, 2),
+                project_id=run.project_id,
+            )
+        except Exception as usage_err:
+            logger.debug(f"Failed to record usage event: {usage_err}")
+
     def recover_orphans(self) -> None:
         """Finds orphaned runs and reconciles them with project state."""
         orphans = self.repo.recover_orphaned_runs(grace_seconds=0.0)
@@ -134,8 +175,9 @@ class PipelineWorker:
             return False
 
         self._active_run = run
+        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
         logger.info(
-            f"Worker {self.worker_id} successfully claimed run {run.run_id} for project {run.project_id} "
+            f"Worker {self.worker_id} successfully claimed run {run.run_id} for project {run.project_id} (workspace {ws_id}) "
             f"(attempt {run.attempt})"
         )
 
@@ -145,6 +187,7 @@ class PipelineWorker:
             project_id=run.project_id,
             event_type="RUN_STARTED",
             payload={"worker_id": self.worker_id, "attempt": run.attempt},
+            workspace_id=ws_id,
         )
 
         # 4. Check if already cancelled
@@ -162,19 +205,60 @@ class PipelineWorker:
                 project_id=run.project_id,
                 event_type="RUN_CANCELLED",
                 payload={"reason": "Cancelled before execution started"},
+                workspace_id=ws_id,
             )
             self._active_run = None
             self._runs_processed += 1
             return True
 
+        # Check tenant asset isolation (Section 12)
+        proj_dir = Path("projects") / run.project_id
+        manifest_path = proj_dir / "01_manifest.json"
+        if not manifest_path.exists():
+            manifest_path = proj_dir / "manifest.json"
+        if manifest_path.exists():
+            try:
+                with open(manifest_path, "r", encoding="utf-8") as f:
+                    manifest_data = json.load(f)
+                from scripts.core.manifest_validator import ManifestValidator, ManifestValidationError
+                ManifestValidator.validate_tenant_assets(manifest_data, ws_id)
+            except Exception as mve:
+                from scripts.core.manifest_validator import ManifestValidationError
+                if isinstance(mve, ManifestValidationError):
+                    logger.error(f"Tenant isolation violation for run {run.run_id}: {mve}")
+                    failure_detail = {"error": f"Cross-tenant asset violation: {str(mve)}"}
+                    self.repo.finish_run(
+                        run_id=run.run_id,
+                        worker_id=self.worker_id,
+                        status=RunStatus.FAILED,
+                        failure_code="CROSS_TENANT_VIOLATION",
+                        failure_detail=failure_detail,
+                    )
+                    self.repo.record_event(
+                        run_id=run.run_id,
+                        project_id=run.project_id,
+                        event_type="RUN_FAILED",
+                        payload=failure_detail,
+                        workspace_id=ws_id,
+                    )
+                    self._active_run = None
+                    self._runs_processed += 1
+                    return True
+
         # 5. Start Heartbeat
         self._start_heartbeat(run)
+
+        # Ephemeral execution workspace setup (Section 11)
+        ephemeral_dir = Path(tempfile.mkdtemp(prefix=f"ephemeral_{run.project_id}_{run.run_id[:8]}_"))
+        start_exec_time = time.time()
 
         # 6. Invoke canonical pipeline in its own process group
         env = os.environ.copy()
         env["AGY_RUN_ID"] = run.run_id
         env["AGY_WORKER_ID"] = self.worker_id
         env["AGY_IS_MANAGED"] = "1"
+        env["AGY_WORKSPACE_ID"] = ws_id
+        env["AGY_EPHEMERAL_WORKSPACE"] = str(ephemeral_dir)
         workspace_dir = str(Path(__file__).resolve().parent.parent.parent)
         existing_pythonpath = env.get("PYTHONPATH", "")
         env["PYTHONPATH"] = f"{workspace_dir}{os.pathsep}{existing_pythonpath}" if existing_pythonpath else workspace_dir
@@ -195,13 +279,14 @@ class PipelineWorker:
                         "return_code": 0,
                         "stdout_tail": result.stdout[-2000:] if getattr(result, "stdout", None) else "",
                     }
+                    self._upload_outputs_and_meter(run, ref, start_exec_time)
                     self.repo.finish_run(
                         run_id=run.run_id,
                         worker_id=self.worker_id,
                         status=RunStatus.SUCCEEDED,
                         result_reference=ref,
                     )
-                    self.repo.record_event(run.run_id, run.project_id, "RUN_SUCCEEDED", payload=ref)
+                    self.repo.record_event(run.run_id, run.project_id, "RUN_SUCCEEDED", payload=ref, workspace_id=ws_id)
                 else:
                     failure_detail = {
                         "return_code": result.returncode,
@@ -215,7 +300,7 @@ class PipelineWorker:
                         failure_code="PIPELINE_EXECUTION_FAILED",
                         failure_detail=failure_detail,
                     )
-                    self.repo.record_event(run.run_id, run.project_id, "RUN_FAILED", payload=failure_detail)
+                    self.repo.record_event(run.run_id, run.project_id, "RUN_FAILED", payload=failure_detail, workspace_id=ws_id)
                 return True
 
             import subprocess
@@ -237,10 +322,10 @@ class PipelineWorker:
                             stdout_lines.append(cleaned)
                             if "[STAGE_START]" in cleaned:
                                 stg = cleaned.split("[STAGE_START]")[-1].strip()
-                                self.repo.record_event(run.run_id, run.project_id, "STAGE_STARTED", stage=stg)
+                                self.repo.record_event(run.run_id, run.project_id, "STAGE_STARTED", stage=stg, workspace_id=ws_id)
                             elif "[STAGE_FINISH]" in cleaned:
                                 stg = cleaned.split("[STAGE_FINISH]")[-1].strip()
-                                self.repo.record_event(run.run_id, run.project_id, "STAGE_COMPLETED", stage=stg)
+                                self.repo.record_event(run.run_id, run.project_id, "STAGE_COMPLETED", stage=stg, workspace_id=ws_id)
                 except Exception:
                     pass
 
@@ -309,6 +394,7 @@ class PipelineWorker:
                     project_id=run.project_id,
                     event_type="RUN_CANCELLED",
                     payload={"reason": "Cancelled by user request during execution"},
+                    workspace_id=ws_id,
                 )
                 logger.info(f"Run {run.run_id} finished CANCELLED.")
             elif proc.returncode == 0:
@@ -316,6 +402,7 @@ class PipelineWorker:
                     "return_code": 0,
                     "stdout_tail": "\n".join(stdout_lines[-50:]),
                 }
+                self._upload_outputs_and_meter(run, ref, start_exec_time)
                 self.repo.finish_run(
                     run_id=run.run_id,
                     worker_id=self.worker_id,
@@ -327,6 +414,7 @@ class PipelineWorker:
                     project_id=run.project_id,
                     event_type="RUN_SUCCEEDED",
                     payload=ref,
+                    workspace_id=ws_id,
                 )
                 logger.info(f"Run {run.run_id} finished SUCCEEDED.")
             else:
@@ -347,6 +435,7 @@ class PipelineWorker:
                     project_id=run.project_id,
                     event_type="RUN_FAILED",
                     payload=failure_detail,
+                    workspace_id=ws_id,
                 )
                 logger.warning(f"Run {run.run_id} finished FAILED with code {proc.returncode}.")
 
@@ -365,11 +454,14 @@ class PipelineWorker:
                 project_id=run.project_id,
                 event_type="RUN_FAILED",
                 payload={"error": str(e)},
+                workspace_id=ws_id,
             )
         finally:
             self._stop_heartbeat_loop()
             self._active_run = None
             self._runs_processed += 1
+            if 'ephemeral_dir' in locals() and ephemeral_dir.exists():
+                shutil.rmtree(ephemeral_dir, ignore_errors=True)
 
         return True
 

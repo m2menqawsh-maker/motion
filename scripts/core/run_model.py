@@ -31,6 +31,7 @@ class InvalidRunTransitionError(ValueError):
 class RunRecord(BaseModel):
     """Canonical domain model for a pipeline execution run."""
     run_id: str
+    workspace_id: str = "ws_default"
     project_id: str
     status: RunStatus = RunStatus.QUEUED
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -77,6 +78,7 @@ class RunRecord(BaseModel):
 class RunEvent(BaseModel):
     """Canonical domain model for a persistent Run Event (S22 - LED-060)."""
     event_id: str
+    workspace_id: str = "ws_default"
     run_id: str
     project_id: str
     sequence: int

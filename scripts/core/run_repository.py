@@ -37,7 +37,7 @@ def get_default_db_path() -> Path:
 class RunRepository:
     """Canonical persistent authority for Pipeline Runs and Execution Leases."""
 
-    CURRENT_SCHEMA_VERSION = 2
+    CURRENT_SCHEMA_VERSION = 3
 
     def __init__(self, db_path: Optional[Path | str] = None):
         self.db_path = Path(db_path) if db_path else get_default_db_path()
@@ -95,6 +95,31 @@ class RunRepository:
                     "INSERT INTO _schema_migrations (version, applied_at) VALUES (2, ?)",
                     (datetime.now(timezone.utc).isoformat(),)
                 )
+            if current_v < 3:
+                self._migrate_v3(conn)
+                conn.execute(
+                    "INSERT INTO _schema_migrations (version, applied_at) VALUES (3, ?)",
+                    (datetime.now(timezone.utc).isoformat(),)
+                )
+
+    def _migrate_v3(self, conn: sqlite3.Connection) -> None:
+        try:
+            conn.execute("ALTER TABLE runs ADD COLUMN workspace_id TEXT NOT NULL DEFAULT 'ws_default'")
+        except sqlite3.OperationalError:
+            pass
+
+        try:
+            conn.execute("ALTER TABLE project_execution_leases ADD COLUMN workspace_id TEXT NOT NULL DEFAULT 'ws_default'")
+        except sqlite3.OperationalError:
+            pass
+
+        try:
+            conn.execute("ALTER TABLE run_events ADD COLUMN workspace_id TEXT NOT NULL DEFAULT 'ws_default'")
+        except sqlite3.OperationalError:
+            pass
+
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_tenant_project ON runs(workspace_id, project_id)")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_run_events_tenant ON run_events(workspace_id, project_id, run_id)")
 
     def _migrate_v2(self, conn: sqlite3.Connection) -> None:
         conn.execute("""
@@ -166,18 +191,20 @@ class RunRepository:
 
     def create_run(self, run: RunRecord) -> RunRecord:
         """Atomically persists a new RunRecord with status QUEUED."""
+        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
         with self._transaction("IMMEDIATE") as conn:
             conn.execute(
                 """
                 INSERT INTO runs (
-                    run_id, project_id, status, created_at, updated_at,
+                    run_id, workspace_id, project_id, status, created_at, updated_at,
                     started_at, finished_at, attempt, worker_id, lease_expires_at,
                     input_revision, idempotency_key, request_payload_hash,
                     failure_code, failure_detail, result_reference
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     run.run_id,
+                    ws_id,
                     run.project_id,
                     run.status.value,
                     run.created_at,
@@ -209,14 +236,20 @@ class RunRepository:
         finally:
             conn.close()
 
-    def list_runs(self, project_id: str, limit: int = 50) -> List[RunRecord]:
+    def list_runs(self, project_id: str, limit: int = 50, workspace_id: Optional[str] = None) -> List[RunRecord]:
         """Lists runs for a specific project, ordered by creation time descending."""
         conn = self._get_connection()
         try:
-            cur = conn.execute(
-                "SELECT * FROM runs WHERE project_id = ? ORDER BY created_at DESC LIMIT ?",
-                (project_id, limit)
-            )
+            if workspace_id:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? AND workspace_id = ? ORDER BY created_at DESC LIMIT ?",
+                    (project_id, workspace_id, limit)
+                )
+            else:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? ORDER BY created_at DESC LIMIT ?",
+                    (project_id, limit)
+                )
             return [self._row_to_record(r) for r in cur.fetchall()]
         finally:
             conn.close()
@@ -286,10 +319,10 @@ class RunRepository:
             conn.execute(
                 """
                 INSERT INTO project_execution_leases (
-                    project_id, run_id, worker_id, acquired_at, expires_at, heartbeat_at
-                ) VALUES (?, ?, ?, ?, ?, ?)
+                    project_id, workspace_id, run_id, worker_id, acquired_at, expires_at, heartbeat_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
-                (candidate.project_id, candidate.run_id, worker_id, now_iso, lease_expires, now_iso)
+                (candidate.project_id, getattr(candidate, "workspace_id", "ws_default") or "ws_default", candidate.run_id, worker_id, now_iso, lease_expires, now_iso)
             )
 
             # Return updated record
@@ -404,7 +437,8 @@ class RunRepository:
         project_id: str,
         owner_id: str,
         run_id: str,
-        lease_duration_seconds: float = 60.0
+        lease_duration_seconds: float = 60.0,
+        workspace_id: str = "ws_default",
     ) -> bool:
         """Directly acquires a project lease (e.g. for CLI invocation)."""
         now = datetime.now(timezone.utc)
@@ -419,10 +453,10 @@ class RunRepository:
                 conn.execute(
                     """
                     INSERT INTO project_execution_leases (
-                        project_id, run_id, worker_id, acquired_at, expires_at, heartbeat_at
-                    ) VALUES (?, ?, ?, ?, ?, ?)
+                        project_id, workspace_id, run_id, worker_id, acquired_at, expires_at, heartbeat_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (project_id, run_id, owner_id, now_iso, expires_iso, now_iso)
+                    (project_id, workspace_id, run_id, owner_id, now_iso, expires_iso, now_iso)
                 )
                 return True
             except sqlite3.IntegrityError:
@@ -496,6 +530,7 @@ class RunRepository:
         event_type: str,
         payload: Optional[Dict[str, Any]] = None,
         stage: Optional[str] = None,
+        workspace_id: Optional[str] = None,
     ) -> RunEvent:
         """Atomically appends an event for a run with monotonic sequence number."""
         now = datetime.now(timezone.utc).isoformat()
@@ -503,19 +538,29 @@ class RunRepository:
         payload_data = payload or {}
 
         with self._transaction("IMMEDIATE") as conn:
+            actual_ws_id = workspace_id
+            if not actual_ws_id:
+                cur_ws = conn.execute("SELECT workspace_id FROM runs WHERE run_id = ?", (run_id,))
+                row_ws = cur_ws.fetchone()
+                if row_ws and row_ws[0]:
+                    actual_ws_id = row_ws[0]
+                else:
+                    actual_ws_id = "ws_default"
+
             cur = conn.execute("SELECT COALESCE(MAX(sequence), 0) + 1 FROM run_events WHERE run_id = ?", (run_id,))
             seq = cur.fetchone()[0]
 
             conn.execute(
                 """
-                INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO run_events (event_id, workspace_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (event_id, run_id, project_id, seq, event_type, stage, now, json.dumps(payload_data))
+                (event_id, actual_ws_id, run_id, project_id, seq, event_type, stage, now, json.dumps(payload_data))
             )
 
         return RunEvent(
             event_id=event_id,
+            workspace_id=actual_ws_id,
             run_id=run_id,
             project_id=project_id,
             sequence=seq,
@@ -531,34 +576,29 @@ class RunRepository:
         project_id: Optional[str] = None,
         after_sequence: int = 0,
         limit: int = 500,
+        workspace_id: Optional[str] = None,
     ) -> List[RunEvent]:
         """Retrieves persistent events for a run ordered by sequence."""
         conn = self._get_connection()
         try:
+            params: List[Any] = [run_id]
+            sql = "SELECT * FROM run_events WHERE run_id = ?"
+            if workspace_id:
+                sql += " AND workspace_id = ?"
+                params.append(workspace_id)
             if project_id:
-                cur = conn.execute(
-                    """
-                    SELECT * FROM run_events
-                    WHERE run_id = ? AND project_id = ? AND sequence > ?
-                    ORDER BY sequence ASC LIMIT ?
-                    """,
-                    (run_id, project_id, after_sequence, limit)
-                )
-            else:
-                cur = conn.execute(
-                    """
-                    SELECT * FROM run_events
-                    WHERE run_id = ? AND sequence > ?
-                    ORDER BY sequence ASC LIMIT ?
-                    """,
-                    (run_id, after_sequence, limit)
-                )
+                sql += " AND project_id = ?"
+                params.append(project_id)
+            sql += " AND sequence > ? ORDER BY sequence ASC LIMIT ?"
+            params.extend([after_sequence, limit])
+            cur = conn.execute(sql, tuple(params))
             results = []
             for row in cur.fetchall():
                 d = dict(row)
                 payload = json.loads(d["payload_json"]) if d.get("payload_json") else {}
                 results.append(RunEvent(
                     event_id=d["event_id"],
+                    workspace_id=d.get("workspace_id", "ws_default"),
                     run_id=d["run_id"],
                     project_id=d["project_id"],
                     sequence=d["sequence"],
@@ -571,7 +611,12 @@ class RunRepository:
         finally:
             conn.close()
 
-    def request_cancel_run(self, run_id: str, project_id: Optional[str] = None) -> Tuple[RunRecord, bool]:
+    def request_cancel_run(
+        self,
+        run_id: str,
+        project_id: Optional[str] = None,
+        workspace_id: Optional[str] = None,
+    ) -> Tuple[RunRecord, bool]:
         """
         Atomically cancels a QUEUED run or requests cancellation for a RUNNING run.
         Returns: (RunRecord, changed: bool)
@@ -586,6 +631,8 @@ class RunRepository:
             if not row:
                 raise RunRepositoryError(f"Run '{run_id}' not found")
             rec = self._row_to_record(row)
+            if workspace_id and rec.workspace_id != workspace_id:
+                raise RunRepositoryError(f"Run '{run_id}' does not belong to workspace '{workspace_id}'")
             if project_id and rec.project_id != project_id:
                 raise RunRepositoryError(f"Run '{run_id}' does not belong to project '{project_id}'")
 
@@ -619,10 +666,10 @@ class RunRepository:
                 seq = cur_seq.fetchone()[0]
                 conn.execute(
                     """
-                    INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
-                    VALUES (?, ?, ?, ?, 'RUN_CANCELLED', NULL, ?, ?)
+                    INSERT INTO run_events (event_id, workspace_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                    VALUES (?, ?, ?, ?, ?, 'RUN_CANCELLED', NULL, ?, ?)
                     """,
-                    (f"evt_{uuid.uuid4().hex}", run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancelled while queued"}))
+                    (f"evt_{uuid.uuid4().hex}", rec.workspace_id, run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancelled while queued"}))
                 )
 
                 cur_updated = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
@@ -645,10 +692,10 @@ class RunRepository:
                 seq = cur_seq.fetchone()[0]
                 conn.execute(
                     """
-                    INSERT INTO run_events (event_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
-                    VALUES (?, ?, ?, ?, 'CANCEL_REQUESTED', NULL, ?, ?)
+                    INSERT INTO run_events (event_id, workspace_id, run_id, project_id, sequence, event_type, stage, timestamp, payload_json)
+                    VALUES (?, ?, ?, ?, ?, 'CANCEL_REQUESTED', NULL, ?, ?)
                     """,
-                    (f"evt_{uuid.uuid4().hex}", run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancellation requested"}))
+                    (f"evt_{uuid.uuid4().hex}", rec.workspace_id, run_id, rec.project_id, seq, now, json.dumps({"reason": "Cancellation requested"}))
                 )
 
                 cur_updated = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
