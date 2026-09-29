@@ -156,7 +156,7 @@ _FAILURE_METADATA_REGISTRY: Dict[FailureCode, FailureMetadata] = {
         FailureCategory.RENDER_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
     ),
     FailureCode.PROBE_REPORT_FAILED: FailureMetadata(
-        FailureCategory.INTERNAL_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+        FailureCategory.GATE_FAILURE, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
     ),
     FailureCode.PROBE_EVIDENCE_STALE: FailureMetadata(
         FailureCategory.STATE_CONFLICT, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1

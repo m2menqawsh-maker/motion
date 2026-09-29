@@ -27,6 +27,7 @@ from scripts.core.state_model import (
     ReviewBundle,
     ReviewDecision,
     ReviewDecisionType,
+    ValidationLevel,
 )
 from scripts.core.state_store import StateStore, StateConflictError
 from scripts.core.lifecycle_service import LifecycleService, LifecycleError
@@ -367,20 +368,6 @@ class ReviewService:
             }
         )
 
-        def mutator(working_copy: ProjectState) -> None:
-            working_copy.review_decisions.append(decision)
-            working_copy.active_review_decision_id = decision_id
-            working_copy.sync_approval_metadata()
-            # Advance lifecycle to REVIEW_APPROVED
-            LifecycleService.apply_transition_mutation(working_copy, LifecycleState.REVIEW_APPROVED)
-
-        StateStore.atomic_update(
-            project_dir=pdir,
-            expected_revision=exp_rev,
-            mutator=mutator,
-            timeout=timeout,
-        )
-
         # Write legacy marker for backward compatibility
         try:
             (pdir / ".studio_approved").write_text(
@@ -394,6 +381,29 @@ class ReviewService:
             )
         except Exception:
             pass
+
+        def mutator(working_copy: ProjectState) -> None:
+            working_copy.review_decisions.append(decision)
+            working_copy.active_review_decision_id = decision_id
+            working_copy.sync_approval_metadata()
+            # Record required .studio_approved artifact evidence (S06 / S09 / S24)
+            rec = StateStore.create_artifact_record(
+                pdir,
+                ".studio_approved",
+                ValidationLevel.EXISTS,
+                stage=LifecycleState.REVIEW_APPROVED.value,
+                produced_at_revision=exp_rev + 1,
+            )
+            working_copy.record_evidence(rec)
+            # Advance lifecycle to REVIEW_APPROVED
+            LifecycleService.apply_transition_mutation(working_copy, LifecycleState.REVIEW_APPROVED)
+
+        StateStore.atomic_update(
+            project_dir=pdir,
+            expected_revision=exp_rev,
+            mutator=mutator,
+            timeout=timeout,
+        )
 
         return decision
 

@@ -142,7 +142,7 @@ export const DEFAULT_BRAND_KIT: BrandKit = {
   colors: {
     primary: "#00F5FF",
     accent: "#FFD700",
-    background: "#0A0E27",
+    background: "#1a2238",
     text: "#FFFFFF"
   },
   fonts: {

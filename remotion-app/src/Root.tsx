@@ -23,7 +23,7 @@ const DUMMY_PROJECT_DATA: ProjectData = {
   brand: {
     brandName: "Studio",
     logoSrc: null,
-    colors: { primary: "#00F5FF", accent: "#FFD700", background: "#0A0E27", text: "#FFFFFF" },
+    colors: { primary: "#00F5FF", accent: "#FFD700", background: "#1a2238", text: "#FFFFFF" },
     fonts: { display: "Cairo", body: "Cairo" }
   }
 };

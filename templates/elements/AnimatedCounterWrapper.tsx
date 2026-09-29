@@ -11,11 +11,15 @@ export const AnimatedCounterWrapper = ({ surface, content, ...rest }: any) => {
     <div style={{ direction: "rtl", width: "100%", height: "100%" }}>
     <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <AnimatedCounter
- {...template_props}         from={startValue}
+        {...template_props}
+        from={startValue}
         to={targetValue}
+        transition={{
+          values: [startValue, targetValue],
+          ...animProps,
+        }}
         prefix={surface?.prefix || ""}
         suffix={surface?.suffix || ""}
-        {...animProps}
         style={{
           color: surface?.color || "#fff",
           fontSize: surface?.fontSize || 120,

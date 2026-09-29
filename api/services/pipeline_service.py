@@ -171,7 +171,7 @@ class PipelineService:
             return {
                 "decision_id": decision.decision_id,
                 "review_bundle_id": decision.review_bundle_id,
-                "decision": decision.decision.value,
+                "decision": decision.decision.value if hasattr(decision.decision, "value") else str(decision.decision),
                 "actor_id": decision.actor_id,
                 "decided_at": decision.decided_at,
             }
@@ -204,7 +204,7 @@ class PipelineService:
             return {
                 "decision_id": decision.decision_id,
                 "review_bundle_id": decision.review_bundle_id,
-                "decision": decision.decision.value,
+                "decision": decision.decision.value if hasattr(decision.decision, "value") else str(decision.decision),
                 "actor_id": decision.actor_id,
                 "reason": decision.reason,
             }

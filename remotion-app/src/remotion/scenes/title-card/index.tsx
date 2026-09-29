@@ -122,9 +122,10 @@ export const TitleCard: React.FC<TitleCardProps> = ({
     ? Math.min(stage.w / 620, stage.h / 1120)
     : Math.min(stage.w / 1120, stage.h / 620);
 
-  const lines = title.includes("\n")
-    ? title.split("\n")
-    : balanceLines(title, charsPerLine);
+  const safeTitle = title || "";
+  const lines = safeTitle.includes("\n")
+    ? safeTitle.split("\n")
+    : balanceLines(safeTitle, charsPerLine);
   const titleSize = 80 * u;
 
   const eyebrowIn = eyebrow ? ease(T.eyebrow, T.eyebrow + 0.45) : 0;

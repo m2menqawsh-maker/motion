@@ -48,6 +48,7 @@ class SceneContent(BaseModel):
     icons: Optional[List[AssetRefType]] = None
     audioRef: Optional[AssetRefType] = None
     spectrum: Optional[List[List[float]]] = None
+    text: Optional[str] = None
 
 
 class BlueprintSceneV2(BaseModel):

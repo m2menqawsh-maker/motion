@@ -170,6 +170,7 @@ class RuntimeLogger:
         duration_ms: int = None,
         failure_info: FailureInfo = None,
         payload_extra: Optional[Dict[str, Any]] = None,
+        **kwargs,
     ):
         """
         Log a structured event safely to global and project-local jsonl files with secret redaction.
@@ -201,6 +202,8 @@ class RuntimeLogger:
 
         if payload_extra:
             payload.update(payload_extra)
+        if kwargs:
+            payload.update(kwargs)
 
         # Redact secrets from entire payload
         sanitized_payload = self.redact(payload)

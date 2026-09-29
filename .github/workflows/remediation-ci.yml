@@ -2,117 +2,38 @@ name: Remediation Fortress CI
 
 on:
   push:
-    branches: [main, remediation/master-plan]
+    branches: [main, remediation/*]
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  static-analysis:
+  python-quality:
+    name: python-quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      
-      - name: Setup Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          
-      - name: Install Python Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install jsonschema pydantic
-          
-      - name: Install Root Dependencies (npm ci)
-        run: npm ci
-
-      - name: Install Remotion App Dependencies (npm ci)
-        working-directory: ./remotion-app
-        run: npm ci
-
-      - name: Report Remotion Version
-        working-directory: ./remotion-app
-        run: npx remotion versions
-
-      - name: TypeScript Lint & Dependency Check
-        working-directory: ./remotion-app
-        run: |
-          npm ls react react-dom @types/react @types/react-dom typescript
-          npm run lint
-          npx tsc --noEmit
-
-      - name: Schema Drift Check
-        run: |
-          python scripts/core/state_model.py
-          npx tsx scripts/remotion_interop/infer_schemas_ast.ts
-          python scripts/generators/build_ground_truth.py
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "❌ Schema Drift Detected! The generated JSON Schemas or ground truth files do not match the committed versions."
-            git status
-            git diff
-            exit 1
-          else
-            echo "✅ Schemas and Ground Truth are up to date."
-          fi
-
-  python-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Root Dependencies (npm ci)
-        run: npm ci
-          
-      - name: Install NPM Dependencies for E2E
-        working-directory: ./remotion-app
-        run: |
-          npm ci
-          npx remotion browser ensure
 
       - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
-      - name: Install Dependencies
+
+      - name: Install Lint Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-cov pytest-asyncio pydantic jsonschema
+          pip install ruff
 
-      - name: Install FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
-      - name: Run Pytest with Coverage
-        env:
-          PYTHONPATH: .
+      - name: Run Python Lint
         run: |
-          pytest tests/ \
-            --cov=api \
-            --cov=scripts \
-            --cov-report=xml \
-            --asyncio-mode=auto \
-            -v
+          ruff check api/ scripts/
 
-      - name: Upload Python Coverage
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-coverage
-          path: coverage.xml
-
-  vitest:
+  contracts-ts:
+    name: contracts-ts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -130,5 +51,202 @@ jobs:
         working-directory: ./remotion-app
         run: npm ci
 
-      - name: Run Vitest
+      - name: TypeScript Compile & Lint
+        working-directory: ./remotion-app
+        run: |
+          npm run lint
+          npx tsc --noEmit
+
+      - name: Run Vitest Suite
         run: npm run test
+
+  ground-truth:
+    name: ground-truth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check Ground Truth Sync
+        run: |
+          python scripts/validators/check_ground_truth_sync.py --check
+
+      - name: Check Dependency Lock
+        run: |
+          python scripts/validators/check_dependencies_lock.py --check
+
+  python-tests:
+    name: python-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-asyncio
+
+      - name: Run Pytest with Coverage Threshold
+        env:
+          PYTHONPATH: .
+          TESTING: '1'
+        run: |
+          pytest --cov=api --cov=scripts/core --cov-report=xml --cov-report=term --cov-fail-under=48 \
+            tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/e2e/test_pipeline_integration.py
+
+      - name: Upload Python Coverage Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-coverage
+          path: coverage.xml
+
+  strict-e2e:
+    name: strict-e2e
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-asyncio
+
+      - name: Install Node Dependencies
+        run: |
+          npm ci
+          cd remotion-app && npm ci
+          npx remotion browser ensure
+
+      - name: Run True E2E Matrix Suite
+        env:
+          PYTHONPATH: .
+          TESTING: '1'
+        run: |
+          python tests/e2e/true_e2e_suite.py
+
+      - name: Upload E2E Test Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strict-e2e-artifacts
+          path: projects/
+
+  docker-render:
+    name: docker-render
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Hermetic Docker Image
+        run: |
+          docker build -t clean-video-builder -f .agents/docker/Dockerfile.remotion .
+
+      - name: Verify Container Execution
+        run: |
+          docker run --rm clean-video-builder npx remotion versions
+
+      - name: Test Docker Container Subcommand Validation
+        env:
+          PYTHONPATH: .
+          TESTING: '1'
+        run: |
+          pytest tests/remediation/s02_acceptance/test_acc_007_docker_subcommand_validation.py -v
+
+  security-audit:
+    name: security-audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Audit Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit bandit
+
+      - name: Run Python Dependency Audit (pip-audit)
+        run: |
+          pip-audit --desc -r requirements.txt
+
+      - name: Run Node Dependency Audit (Root & App)
+        run: |
+          npm audit --audit-level=high
+          cd remotion-app && npm audit --audit-level=high
+
+      - name: Run Bandit Static Security Scan
+        run: |
+          bandit -r api/ scripts/ -lll
+
+      - name: Run Static Secret Scanner
+        run: |
+          python scripts/validators/check_secrets.py
+
+      - name: Run Trivy Container Security Scan
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'

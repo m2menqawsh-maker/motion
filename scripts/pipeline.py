@@ -246,18 +246,21 @@ def main():
     # ==========================================
     import atexit
     from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
-    execution_lock = ProjectExecutionLock(
-        project_dir=proj_dir,
-        owner_id=os.environ.get("AGY_WORKER_ID", "cli"),
-        run_id=run_id,
-    )
-    try:
-        execution_lock.acquire()
-        atexit.register(execution_lock.release)
-    except ProjectExecutionConflictError as e:
-        print(f"\n🛑 [CONCURRENCY CONFLICT] {e}")
-        logger.event("pipeline.conflict", status="failed", error=str(e))
-        sys.exit(1)
+    is_managed = os.environ.get("AGY_IS_MANAGED") == "1"
+    execution_lock = None
+    if not is_managed:
+        execution_lock = ProjectExecutionLock(
+            project_dir=proj_dir,
+            owner_id=os.environ.get("AGY_WORKER_ID", "cli"),
+            run_id=run_id,
+        )
+        try:
+            execution_lock.acquire()
+            atexit.register(execution_lock.release)
+        except ProjectExecutionConflictError as e:
+            print(f"\n🛑 [CONCURRENCY CONFLICT] {e}")
+            logger.event("pipeline.conflict", status="failed", error=str(e))
+            sys.exit(1)
     
     # ==========================================
     # Initialization & Recovery
@@ -313,6 +316,10 @@ def main():
 
     def save_state(target_state: LifecycleState, artifacts: list):
         nonlocal current_revision
+        disk_state = StateStore.load(proj_dir)
+        if disk_state and disk_state.revision > current_revision:
+            current_revision = disk_state.revision
+
         st = LifecycleService.transition(
             project_dir=proj_dir,
             target_state=target_state,
@@ -323,6 +330,10 @@ def main():
 
     def mark_failed(reason: str = "Pipeline execution failed"):
         nonlocal current_revision
+        disk_state = StateStore.load(proj_dir)
+        if disk_state and disk_state.revision > current_revision:
+            current_revision = disk_state.revision
+
         st = LifecycleService.transition(
             project_dir=proj_dir,
             target_state=LifecycleState.FAILED,
@@ -501,7 +512,8 @@ def main():
 
     logger.event("pipeline.execution", status="success", stage="pipeline", component="pipeline")
     print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%. (الحالة: COMPLETE)")
-    execution_lock.release()
+    if execution_lock is not None:
+        execution_lock.release()
 
 if __name__ == "__main__":
     main()
