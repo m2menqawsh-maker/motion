@@ -136,6 +136,24 @@ class AuthorizationPolicy:
         if action == Action.SYSTEM_ADMIN:
             return principal.is_admin
 
+        # Check database multi-tenant ownership if project_id is provided (S24.5)
+        if project_id:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                engine = get_database_engine()
+                repo = TenantRepository(engine)
+                project_record = repo.get_project(project_id)
+                if project_record is not None:
+                    # Multi-tenant project registered in DB
+                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
+                    if membership is None:
+                        # User is NOT a member of the workspace owning this project -> Hard Reject
+                        return False
+                    granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
+                    return action in granted_actions
+            except Exception:
+                pass
+
         # Compute effective roles for the targeted project
         effective_roles = principal.get_roles_for_project(project_id)
         if not effective_roles:

@@ -319,6 +319,71 @@ def require_permission(action: Action):
                 raise HTTPException(status_code=400, detail=str(e))
 
         AuthorizationPolicy.enforce(principal, action, project_id)
+
+        # Attach TenantContext if project_id is present (S24.5)
+        if project_id:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                from scripts.core.tenant_model import TenantContext
+                engine = get_database_engine()
+                repo = TenantRepository(engine)
+                project_record = repo.get_project(project_id)
+                if project_record:
+                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
+                    effective_role = Role.ADMIN if principal.is_admin else (membership.role if membership else Role.VIEWER)
+                    request.state.tenant_context = TenantContext(
+                        workspace_id=project_record.workspace_id,
+                        user_id=principal.principal_id,
+                        role=effective_role,
+                        principal=principal,
+                    )
+            except Exception:
+                pass
+
         return principal
+
+    return dependency
+
+
+def require_tenant_context(action: Action):
+    """FastAPI dependency returning the server-verified TenantContext (S24.5)."""
+    async def dependency(
+        request: Request,
+        principal: Principal = Depends(require_permission(action)),
+    ) -> Any:
+        ctx = getattr(request.state, "tenant_context", None)
+        if ctx is not None:
+            return ctx
+
+        # Derive tenant context when no project_id is in the path
+        workspace_id = request.headers.get("X-Workspace-ID")
+        from scripts.core.database import get_database_engine, TenantRepository
+        from scripts.core.tenant_model import TenantContext
+        engine = get_database_engine()
+        repo = TenantRepository(engine)
+
+        if not workspace_id:
+            workspaces = repo.list_user_workspaces(principal.principal_id)
+            if workspaces:
+                workspace_id = workspaces[0][0].id
+
+        if not workspace_id:
+            workspace_id = f"ws_{principal.principal_id}"
+            try:
+                repo.create_workspace(workspace_id, "Personal Workspace", created_by=principal.principal_id)
+            except Exception:
+                pass
+
+        membership = repo.get_membership(workspace_id, principal.principal_id)
+        effective_role = Role.ADMIN if principal.is_admin else (membership.role if membership else Role.VIEWER)
+
+        ctx = TenantContext(
+            workspace_id=workspace_id,
+            user_id=principal.principal_id,
+            role=effective_role,
+            principal=principal,
+        )
+        request.state.tenant_context = ctx
+        return ctx
 
     return dependency
