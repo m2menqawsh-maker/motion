@@ -507,6 +507,33 @@ class TenantStateRepository:
         finally:
             conn.close()
 
+    def get_state(self, project_id: str) -> Optional[ProjectState]:
+        """Convenience alias for load_state."""
+        return self.load_state(project_id)
+
+    def atomic_update(
+        self,
+        project_id: str,
+        expected_revision: int,
+        new_state: ProjectState,
+        workspace_id: Optional[str] = None,
+    ) -> ProjectState:
+        """Atomic CAS update resolving workspace_id automatically if omitted."""
+        ws_id = workspace_id or getattr(new_state, "workspace_id", None)
+        if not ws_id:
+            conn = self.engine.get_connection()
+            try:
+                row = conn.execute("SELECT workspace_id FROM project_states WHERE project_id = ?", (project_id,)).fetchone()
+                ws_id = row[0] if row else "ws_default"
+            finally:
+                conn.close()
+        return self.update_state_cas(
+            project_id=project_id,
+            workspace_id=ws_id,
+            expected_revision=expected_revision,
+            new_state=new_state,
+        )
+
     def update_state_cas(
         self,
         project_id: str,
