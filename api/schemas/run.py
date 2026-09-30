@@ -9,6 +9,7 @@ from scripts.core.run_model import RunStatus, RunRecord
 
 class RunCreateRequest(BaseModel):
     """Client request schema for triggering a pipeline run."""
+    model_config = {"extra": "allow"}
     idempotency_key: Optional[str] = Field(default=None, description="Optional client idempotency key")
 
 

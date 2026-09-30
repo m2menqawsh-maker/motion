@@ -131,10 +131,6 @@ class AuthorizationPolicy:
         if not principal.is_authenticated:
             return False
 
-        # Global admin always authorized
-        if principal.is_admin:
-            return True
-
         # System administrative actions require global ADMIN
         if action == Action.SYSTEM_ADMIN:
             return principal.is_admin
@@ -143,19 +139,27 @@ class AuthorizationPolicy:
         if project_id:
             try:
                 from scripts.core.database import get_database_engine, TenantRepository
+                from scripts.core.security.principal import PrincipalType
                 engine = get_database_engine()
                 repo = TenantRepository(engine)
                 project_record = repo.get_project(project_id)
                 if project_record is not None:
-                    # Multi-tenant project registered in DB
+                    # System workers and platform service accounts retain system authority
+                    if principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER):
+                        return True
+                    # Multi-tenant project registered in DB: evaluate workspace membership
                     membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
                     if membership is None:
-                        # User is NOT a member of the workspace owning this project -> Hard Reject
+                        # User is NOT a member of the workspace owning this project -> Fail Closed
                         return False
                     granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
                     return action in granted_actions
             except Exception:
                 pass
+
+        # Global admin authorized for unmanaged/standalone operations
+        if principal.is_admin:
+            return True
 
         # Compute effective roles for the targeted project
         effective_roles = principal.get_roles_for_project(project_id)

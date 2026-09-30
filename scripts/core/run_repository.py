@@ -383,9 +383,16 @@ class RunRepository:
                 raise RunRepositoryError(f"Run {run_id} not found")
 
             record = self._row_to_record(row)
+
+            # Strict worker fencing: worker attempting to finish MUST match current worker_id
+            if worker_id and record.worker_id and record.worker_id != worker_id:
+                raise RunRepositoryError(
+                    f"Stale worker fencing violation: Worker '{worker_id}' is not the current leaseholder of run '{run_id}' (owned by '{record.worker_id}')."
+                )
+
             record.assert_can_transition_to(status)
 
-            conn.execute(
+            cur_update = conn.execute(
                 """
                 UPDATE runs
                 SET status = ?,
@@ -396,7 +403,7 @@ class RunRepository:
                     result_reference = ?,
                     failure_code = ?,
                     failure_detail = ?
-                WHERE run_id = ?
+                WHERE run_id = ? AND (worker_id = ? OR worker_id IS NULL)
                 """,
                 (
                     status.value,
@@ -407,14 +414,37 @@ class RunRepository:
                     failure_code,
                     json.dumps(failure_detail) if failure_detail else None,
                     run_id,
+                    worker_id,
                 )
             )
 
+            if cur_update.rowcount != 1:
+                raise RunRepositoryError(
+                    f"Stale worker fencing violation: Failed to atomically transition run '{run_id}'. Worker '{worker_id}' lost its lease."
+                )
+
             # Release project execution lease
-            conn.execute("DELETE FROM project_execution_leases WHERE run_id = ?", (run_id,))
+            conn.execute("DELETE FROM project_execution_leases WHERE run_id = ? AND worker_id = ?", (run_id, worker_id))
 
             cur_updated = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
             return self._row_to_record(cur_updated.fetchone())
+
+    def is_lease_active(self, run_id: str, worker_id: str) -> bool:
+        """Checks if worker_id currently holds an active, unexpired lease for run_id."""
+        now_iso = datetime.now(timezone.utc).isoformat()
+        conn = self._get_connection()
+        try:
+            cur = conn.execute(
+                """
+                SELECT 1 FROM runs
+                WHERE run_id = ? AND worker_id = ? AND status = 'RUNNING'
+                  AND (lease_expires_at IS NULL OR lease_expires_at > ?)
+                """,
+                (run_id, worker_id, now_iso)
+            )
+            return cur.fetchone() is not None
+        finally:
+            conn.close()
 
     def get_active_project_lease(self, project_id: str) -> Optional[Dict[str, Any]]:
         """Returns active unexpired project lease if present."""

@@ -83,6 +83,10 @@ class PipelineWorker:
 
     def _upload_outputs_and_meter(self, run: RunRecord, ref: dict, start_time: float) -> None:
         """Uploads completed outputs to StorageService and logs metered usage."""
+        if not self.repo.is_lease_active(run.run_id, self.worker_id):
+            logger.warning(f"Worker {self.worker_id} lease expired or lost for run {run.run_id}; skipping upload.")
+            return
+
         proj_dir = Path("projects") / run.project_id
         ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
 

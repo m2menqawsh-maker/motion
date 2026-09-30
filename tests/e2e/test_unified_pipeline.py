@@ -7,7 +7,7 @@ from pathlib import Path
 workspace_root = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(workspace_root))
 
-from tests.e2e.true_e2e_suite import run_scenario
+from tests.e2e.true_e2e_suite import run_positive_scenario as run_scenario
 
 def test_unified_pipeline_e2e():
     """

@@ -55,7 +55,16 @@ def test_get_brand():
 def test_update_brand():
     res = client.post("/projects/", json={"name": "T", "language": "ar"})
     project_id = res.json()["project_id"]
-    payload = {"brandName": "New Brand", "fonts": {"display": "X", "body": "Y"}, "colors": {}}
+    payload = {
+        "brandName": "New Brand",
+        "fonts": {"display": "Cairo", "body": "Inter"},
+        "colors": {
+            "primary": "#FF0000",
+            "accent": "#00FF00",
+            "background": "#000000",
+            "text": "#FFFFFF",
+        },
+    }
     res = client.post(f"/brand/{project_id}", json=payload)
     assert res.status_code == 200
     res = client.get(f"/brand/{project_id}")
@@ -89,10 +98,19 @@ def test_update_blueprint():
 def test_update_overrides():
     res = client.post("/projects/", json={"name": "T", "language": "ar"})
     project_id = res.json()["project_id"]
-    res = client.post(f"/blueprint/{project_id}/overrides", json={"new": "overrides"})
+    payload = {
+        "project_id": project_id,
+        "scenes": [
+            {
+                "scene_id": "scene_1",
+                "timing": {"startFrame": 0, "durationFrames": 90},
+            }
+        ],
+    }
+    res = client.post(f"/blueprint/{project_id}/overrides", json=payload)
     assert res.status_code == 200
     res = client.get(f"/blueprint/{project_id}")
-    assert res.json()["overrides"]["new"] == "overrides"
+    assert len(res.json()["overrides"]["scenes"]) == 1
 
 
 def test_api_blueprint_update_invalidates_downstream_evidence():

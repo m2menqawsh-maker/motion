@@ -375,7 +375,15 @@ def require_tenant_context(action: Action):
                 pass
 
         membership = repo.get_membership(workspace_id, principal.principal_id)
-        effective_role = Role.ADMIN if principal.is_admin else (membership.role if membership else Role.VIEWER)
+        if membership is None and principal.principal_type not in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER):
+            raise AccessDeniedError(
+                principal_id=principal.principal_id,
+                action=action,
+                project_id=None,
+                reason=f"Principal '{principal.principal_id}' is not a member of workspace '{workspace_id}'"
+            )
+
+        effective_role = membership.role if membership else (Role.ADMIN if principal.is_admin else Role.VIEWER)
 
         ctx = TenantContext(
             workspace_id=workspace_id,
