@@ -1,6 +1,7 @@
 import asyncio
 import pytest
 from api.services.pipeline_service import PipelineService
+from scripts.core.state_store import StateStore
 
 class TestRaceConditions:
     """حماية من Race Conditions"""
@@ -63,15 +64,15 @@ class TestRaceConditions:
         """كتابة متزامنة للحالة لا تفقد البيانات"""
         await PipelineService.scaffold_project(test_project)
         
+        proj_dir = PipelineService._get_project_dir(test_project)
         # محاولة كتابة الحالة من 10 tasks في نفس الوقت
         async def write_state(i):
             # We use an async sleep to yield control and increase chance of race condition
             await asyncio.sleep(0.01)
-            await PipelineService.approve_gate(
-                test_project, 
-                "asset_gate", 
-                f"user_{i}"
-            )
+            state = StateStore.load(proj_dir)
+            if state:
+                state.approval_metadata["last_writer"] = f"user_{i}"
+                StateStore.save(proj_dir, state)
         
         tasks = [asyncio.create_task(write_state(i)) for i in range(10)]
         await asyncio.gather(*tasks)
@@ -79,4 +80,6 @@ class TestRaceConditions:
         # التحقق من أن الحالة لا تزال صالحة
         status = await PipelineService.get_status(test_project)
         assert "current_stage" in status
-        assert status["approved_by"].startswith("user_")
+        state = StateStore.load(proj_dir)
+        assert state is not None
+        assert state.approval_metadata.get("last_writer", "").startswith("user_")

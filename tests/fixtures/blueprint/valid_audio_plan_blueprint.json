@@ -1,0 +1,39 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_audio_03",
+  "fps": 30,
+  "aspect_ratio": "1:1",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 150,
+      "sfx_ref": "ast_sfx_whoosh"
+    }
+  ],
+  "audio": {
+    "voiceover": {
+      "asset_ref": "ast_vo_lead",
+      "volume": 0.95,
+      "startFrame": 0
+    },
+    "music": {
+      "asset_ref": "ast_music_ambient",
+      "volume": 0.2,
+      "loop": true,
+      "ducking": {
+        "enabled": true,
+        "ducking_volume": 0.05,
+        "duck_under": ["voiceover"]
+      }
+    },
+    "global_sfx": [
+      {
+        "asset_ref": "ast_sfx_impact",
+        "startFrame": 30,
+        "volume": 0.8
+      }
+    ]
+  }
+}

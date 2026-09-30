@@ -17,21 +17,28 @@ def get_base_name(filename):
         name = name.replace(s, "")
     return name
 
-def run_gate(manifest_path_str):
-    manifest_path = Path(manifest_path_str)
-    if (Path("projects") / manifest_path / "02_asset_manifest.json").exists():
-        manifest_path = Path("projects") / manifest_path / "02_asset_manifest.json"
-    elif manifest_path.is_dir() and (manifest_path / "02_asset_manifest.json").exists():
-        manifest_path = manifest_path / "02_asset_manifest.json"
+from scripts.core.manifest_loader import load_manifest
+from scripts.core.manifest_errors import ManifestError
+from scripts.core.manifest_model import Provenance
 
-    if not manifest_path.exists():
-        return True, "No manifest found, passing."
+def run_gate(manifest_path_str):
+    p = Path(manifest_path_str)
+    if (Path("projects") / p / "02_asset_manifest.json").exists() or (Path("projects") / p).is_dir():
+        manifest_file = Path("projects") / p / "02_asset_manifest.json"
+        project_id = p.name if p.name.startswith("prj_") else None
+    elif p.is_dir():
+        manifest_file = p / "02_asset_manifest.json"
+        project_id = p.name if p.name.startswith("prj_") else None
+    else:
+        manifest_file = p
+        project_id = p.parent.name if p.parent.name.startswith("prj_") else None
 
     try:
-        with open(manifest_path, 'r', encoding='utf-8') as f:
-            manifest = json.load(f)
+        manifest = load_manifest(manifest_file, expected_project_id=project_id, allow_migrate=True)
+    except ManifestError as e:
+        return False, f"FAIL: Manifest validation error: {e}"
     except Exception as e:
-        return False, f"Failed to read manifest: {e}"
+        return False, f"FAIL: Failed to read manifest: {e}"
 
     repo_root = Path(__file__).resolve().parent.parent.parent
     index_path = repo_root / "ground-truth" / "ASSET_INDEX.json"
@@ -40,31 +47,37 @@ def run_gate(manifest_path_str):
         with open(index_path, 'r', encoding='utf-8') as f:
             index = json.load(f)
 
-    items = manifest.get("assets", []) if isinstance(manifest, dict) else manifest
-    for item in items:
-        source = item.get("source")
-        if source == "user_upload":
+    for item in manifest.assets:
+        if item.provenance == Provenance.USER_UPLOAD:
             continue
             
-        if source == "mcp_fetch":
+        if item.provenance == Provenance.MCP_FETCH:
             # 1. Check cache_checked
-            if item.get("cache_checked") is not True:
-                return False, f"FAIL: Asset {item.get('id', 'unknown')} has source 'mcp_fetch' but cache_checked is not true."
+            if item.metadata.get("cache_checked") is not True:
+                return False, f"FAIL: Asset {item.asset_id} has provenance 'mcp_fetch' but cache_checked is not true."
                 
             # 2. Check if ASSET_INDEX has a match
-            item_type = item.get("type")
-            item_path = item.get("path", "")
+            item_type = item.kind.value
+            item_path = item.processed_path or item.source_path or ""
             item_base = get_base_name(item_path) if item_path else ""
-            item_hash = item.get("hash")
+            item_hash = item.content_hash
+            item_spec_hash = item.processing_spec_hash
             
             for index_entry in index:
                 if index_entry.get("state") == "ready":
                     match_found = False
                     
                     if index_entry.get("type") == item_type:
-                        if index_entry.get("base") == item_base and item_base != "":
-                            match_found = True
-                        elif item_hash and index_entry.get("hash") == item_hash:
+                        # If processing specs exist, verify they match
+                        index_spec_hash = index_entry.get("processing_spec_hash")
+                        if item_spec_hash and index_spec_hash and item_spec_hash != index_spec_hash:
+                            continue
+
+                        if item_hash and index_entry.get("hash") == item_hash:
+                            # Content hash matches
+                            if not item_spec_hash or not index_spec_hash or item_spec_hash == index_spec_hash:
+                                match_found = True
+                        elif not item_hash and not item_spec_hash and index_entry.get("base") == item_base and item_base != "":
                             match_found = True
                             
                     if match_found:

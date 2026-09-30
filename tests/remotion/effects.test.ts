@@ -23,7 +23,7 @@ vi.mock("remotion", async (importOriginal) => {
 describe("Effects Bridge & Runtime Tests", () => {
   
   it("1. Deterministic: same frame + params -> same transform", async () => {
-    const { CameraRig } = await import("../../engine/camera/CameraRig");
+    const { CameraRig } = await import("../../remotion-app/src/engine/camera/CameraRig");
     const CameraRigAny = CameraRig as any;
     // Fix: pass timeline and scenes
     const props = { timeline: [], scenes: [], overlap: 0 };
@@ -103,14 +103,14 @@ describe("Effects Bridge & Runtime Tests", () => {
   });
 
   it("7. timeline.tsx renders without crash via bridge", async () => {
-    const timelineModule = await import("../../templates/timeline" as any);
-    const Timeline = timelineModule.Timeline;
+    const timelineModule = await import("../../templates/elements/TimelineStepsWrapper" as any);
+    const Timeline = timelineModule.TimelineStepsWrapper;
     
     const surface: any = { fontFamily: "Cairo", opacity: 1 };
     const content = { lines: ["Line 1", "Line 2"] };
     
     expect(() => {
-      render(React.createElement(Timeline, { surface, content }));
+      render(React.createElement(Timeline, { surface, content, template_props: { steps: [] } }));
     }).not.toThrow();
   });
 

@@ -70,6 +70,12 @@ export interface TemplateEntry {
   tier?: string;
   /** معرفات تأثيرات المحرك (effects-catalog) التي يعتمد عليها القالب جوهرياً */
   usesEffects?: string[];
+  /** مخطط التحقق من المحتوى (S16 - LED-045) */
+  contentSchema?: any;
+  /** مخطط التحقق من الخصائص الخاصة بالقالب (S16 - LED-045) */
+  propsSchema?: any;
+  /** مخطط التحقق من المظهر والأسلوب (S16 - LED-045) */
+  surfaceSchema?: any;
 }
 
 export interface TemplateProps {

@@ -7,11 +7,11 @@ from pathlib import Path
 
 def test_asset_009_materializer_path_traversal(tmp_path):
     """
-    Finding: ASSET-009
+    Finding: ASSET-009 (CLOSED in S02)
+    Evolution: Evolved from S00 Expected-RED reproduction to S02 GREEN regression proof.
     Expected correct behavior: materialize_project.py must reject asset_id containing
     path traversal sequences ('..') and source paths outside the project workspace.
-    Actual behavior on current main: canon() allows absolute paths, and aid is concatenated
-    directly into pub_media / f"{aid}{src.suffix}", copying files outside intended boundary.
+    Post-S02 behavior: Pre-validation phase rejects traversal before copy, exiting 1 with 0 writes.
     """
     project_id = "repro-asset-009"
     proj_dir = Path.cwd() / "projects" / project_id

@@ -1,0 +1,51 @@
+{
+  "manifest_version": "2.0.0",
+  "project_id": "prj_canonical_01",
+  "created_at": "2026-09-28T12:00:00Z",
+  "updated_at": "2026-09-28T12:00:00Z",
+  "assets": [
+    {
+      "asset_id": "ast_video_hero",
+      "kind": "video",
+      "provenance": "user_upload",
+      "status": "ready",
+      "source_path": "assets/ready/hero.mp4",
+      "processed_path": "assets/ready/hero_norm.mp4",
+      "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "metadata": {
+        "width": 1080,
+        "height": 1920,
+        "duration_frames": 180,
+        "approved": true
+      }
+    },
+    {
+      "asset_id": "ast_sfx_whoosh",
+      "kind": "sfx",
+      "provenance": "cache_reuse",
+      "status": "ready",
+      "source_path": "assets/cache/whoosh.mp3",
+      "processed_path": "assets/cache/whoosh_norm.mp3",
+      "metadata": {
+        "duration_frames": 15,
+        "cache_checked": true,
+        "approved": true
+      }
+    },
+    {
+      "asset_id": "ast_bgm_cinematic",
+      "kind": "music",
+      "provenance": "mcp_fetch",
+      "status": "ready",
+      "source_path": "assets/incoming/bgm.mp3",
+      "processed_path": "assets/ready/bgm_norm.mp3",
+      "metadata": {
+        "duration_frames": 900,
+        "cache_checked": true,
+        "origin_detail": "pixabay",
+        "approved": true
+      }
+    }
+  ],
+  "metadata": {}
+}

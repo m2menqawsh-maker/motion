@@ -1,30 +1,24 @@
-import os
-import re
-from pathlib import Path
+"""Backward-compatible adapter for path security.
 
-def validate_project_id(project_id: str) -> str:
-    if not re.match(r'^[a-zA-Z0-9_-]+$', project_id):
-        raise ValueError(f"Invalid project_id: {project_id}")
-    return project_id
+Delegates canonical logic to scripts/core/security/path_policy.py.
+"""
 
-def safe_resolve(base_dir: Path, user_path: str) -> Path:
-    raw = str(user_path)
-    # Reject Windows drive letters (e.g. C:\ or C:/) regardless of host OS
-    if re.match(r'^[a-zA-Z]:', raw):
-        raise ValueError(f"Path traversal detected: {user_path}")
+from scripts.core.security.path_policy import (
+    validate_project_id,
+    validate_asset_id,
+    resolve_safe_path,
+    validate_source_asset,
+    PathSecurityViolation,
+)
 
-    # Normalize backslashes for cross-platform safety
-    normalized_path = raw.replace("\\", "/")
-    if normalized_path.startswith("/"):
-        raise ValueError(f"Path traversal detected: {user_path}")
-    
-    # Resolve against base_dir and resolve symlinks/.. 
-    resolved_path = (base_dir / normalized_path).resolve()
-    
-    # Check if the resolved path is inside the base_dir
-    try:
-        resolved_path.relative_to(base_dir.resolve())
-    except ValueError:
-        raise ValueError(f"Path traversal detected: {user_path}")
-        
-    return resolved_path
+# Legacy alias
+safe_resolve = resolve_safe_path
+
+__all__ = [
+    "validate_project_id",
+    "validate_asset_id",
+    "resolve_safe_path",
+    "safe_resolve",
+    "validate_source_asset",
+    "PathSecurityViolation",
+]

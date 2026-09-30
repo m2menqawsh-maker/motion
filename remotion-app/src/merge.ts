@@ -1,10 +1,20 @@
 import { BrandKit } from "../../contracts/brand";
-import { StyleSurface, StyleSurfaceSchema } from "../../contracts/blueprint";
+import { StyleSurface, StyleSurfaceSchema, TransitionRef, TransitionRefSchema, SUPPORTED_TRANSITION_TYPES } from "../../contracts/blueprint";
 import { SceneContent } from "../../contracts/SceneContent";
 import { TemplateEntry } from "../../registry/types";
 import { validateStyleOverride } from "../../contracts/override-validator";
 import { resolveBrandToken } from "../../templates/brand-resolver";
 import { BlueprintScene } from "../../contracts/blueprint";
+export type { BlueprintScene } from "../../contracts/blueprint";
+import {
+  resolveAssetReference,
+  ASSET_ID_REGEX,
+  UnknownAssetReferenceError,
+  MalformedAssetRefError,
+} from "../../contracts/asset-resolver";
+import { validateTemplatePayload } from "../../contracts/template-schemas";
+import { UnknownEffectError, UnknownTransitionError, UnknownTemplateError, InvalidRenderInputError } from "../../contracts/render-input";
+import { isKnownEffect, isExecutableEffect, EFFECTS_RUNTIME } from "../../registry/effects-runtime";
 
 export interface SceneOverride {
   props?: Record<string, any>;
@@ -15,8 +25,8 @@ export interface SceneOverride {
 }
 
 export interface ProjectData {
-  project: { title: string };
-  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[] };
+  project: { title: string; fps?: number; [key: string]: any };
+  blueprint: { fps?: number; aspect_ratio?: string; scenes: BlueprintScene[]; [key: string]: any };
   brand: BrandKit;
   overrides?: { scenes: Record<string, SceneOverride> };
   asset_manifest?: any;
@@ -35,6 +45,7 @@ export interface MergedScene {
   content: SceneContent;
   effects?: any[];
   template_props?: Record<string, any>;
+  transition?: TransitionRef;
 }
 
 export interface MergedProject {
@@ -72,7 +83,8 @@ export function mergeScene(
   registryEntry: TemplateEntry,
   brand: BrandKit,
   override?: SceneOverride,
-  mediaMap?: Record<string, string>
+  mediaMap?: Record<string, string>,
+  projectId?: string
 ): MergedScene {
   // 1. يبدأ من registryEntry.defaults
   const baseSurface = { ...registryEntry.defaults };
@@ -120,27 +132,120 @@ export function mergeScene(
   const startFrame = override?.timing?.startFrame ?? scene.startFrame;
   const durationFrames = override?.timing?.durationFrames ?? scene.durationFrames;
 
-  // Resolve Asset IDs via media_map.json
-  const resolveAsset = (ref: string | null | undefined): string | null => {
-    if (!ref) return null;
-    return (mediaMap && mediaMap[ref]) ? mediaMap[ref] : ref;
-  };
+  // Resolve Asset IDs via media_map.json (FAIL-CLOSED ASSET-012)
+  const resolvedMediaRefs = (scene.media_refs || []).map((ref, idx) =>
+    resolveAssetReference(ref, mediaMap, {
+      fieldPath: `scenes[${scene.scene_id}].media_refs[${idx}]`,
+      sceneId: scene.scene_id,
+      projectId,
+    })
+  );
 
-  const resolvedMediaRefs = (scene.media_refs || []).map(ref => resolveAsset(ref) as string);
-  const resolvedSfxRef = resolveAsset(scene.sfx_ref);
-  const resolvedCaptionsRef = resolveAsset(scene.captions_ref);
+  const resolvedSfxRef = scene.sfx_ref
+    ? resolveAssetReference(scene.sfx_ref, mediaMap, {
+        fieldPath: `scenes[${scene.scene_id}].sfx_ref`,
+        sceneId: scene.scene_id,
+        projectId,
+      })
+    : null;
 
+  const resolvedCaptionsRef = scene.captions_ref
+    ? resolveAssetReference(scene.captions_ref, mediaMap, {
+        fieldPath: `scenes[${scene.scene_id}].captions_ref`,
+        sceneId: scene.scene_id,
+        projectId,
+      })
+    : null;
+
+  if (surfaceWithOverrides.logoSrc) {
+    surfaceWithOverrides.logoSrc = resolveAssetReference(surfaceWithOverrides.logoSrc, mediaMap, {
+      fieldPath: `scenes[${scene.scene_id}].surface.logoSrc`,
+      sceneId: scene.scene_id,
+      projectId,
+    });
+  }
+
+  // Resolve Content-level media surfaces (ASSET-005)
   const finalContent: SceneContent = { ...scene.content };
   
-  if (!finalContent.images && resolvedMediaRefs.length > 0) {
+  if (finalContent.images && finalContent.images.length > 0) {
+    finalContent.images = finalContent.images.map((imgRef, idx) =>
+      resolveAssetReference(imgRef, mediaMap, {
+        fieldPath: `scenes[${scene.scene_id}].content.images[${idx}]`,
+        sceneId: scene.scene_id,
+        projectId,
+      })
+    );
+  } else if (resolvedMediaRefs.length > 0) {
     finalContent.images = [...resolvedMediaRefs];
   }
   
-  if (!finalContent.screen && resolvedMediaRefs.length > 0) {
+  if (finalContent.screen) {
+    finalContent.screen = resolveAssetReference(finalContent.screen, mediaMap, {
+      fieldPath: `scenes[${scene.scene_id}].content.screen`,
+      sceneId: scene.scene_id,
+      projectId,
+    });
+  } else if (resolvedMediaRefs.length > 0) {
     finalContent.screen = resolvedMediaRefs[0];
   }
+
+  if (finalContent.icons && finalContent.icons.length > 0) {
+    finalContent.icons = finalContent.icons.map((iconRef, idx) =>
+      resolveAssetReference(iconRef, mediaMap, {
+        fieldPath: `scenes[${scene.scene_id}].content.icons[${idx}]`,
+        sceneId: scene.scene_id,
+        projectId,
+      })
+    );
+  }
+
+  if (finalContent.audioRef) {
+    finalContent.audioRef = resolveAssetReference(finalContent.audioRef, mediaMap, {
+      fieldPath: `scenes[${scene.scene_id}].content.audioRef`,
+      sceneId: scene.scene_id,
+      projectId,
+    });
+  }
+
+  if (finalContent.path && typeof finalContent.path === "string" && !finalContent.path.startsWith("M") && !finalContent.path.startsWith("m") && ASSET_ID_REGEX.test(finalContent.path)) {
+    finalContent.path = resolveAssetReference(finalContent.path, mediaMap, {
+      fieldPath: `scenes[${scene.scene_id}].content.path`,
+      sceneId: scene.scene_id,
+      projectId,
+    });
+  }
   
-  // 7. يرجع surface نهائية
+  // Validate effects fail-closed (S16 - LED-046)
+  if (scene.effects && scene.effects.length > 0) {
+    for (let eIdx = 0; eIdx < scene.effects.length; eIdx++) {
+      const eff = scene.effects[eIdx];
+      if (!isKnownEffect(eff.effect)) {
+        throw new UnknownEffectError(eff.effect, scene.scene_id, `scenes[${scene.scene_id}].effects[${eIdx}].effect`);
+      }
+      if (!isExecutableEffect(eff.effect)) {
+        throw new UnknownEffectError(
+          `${eff.effect} (unsupported unbridged effect: ${EFFECTS_RUNTIME[eff.effect]?.reason || "no component"})`,
+          scene.scene_id,
+          `scenes[${scene.scene_id}].effects[${eIdx}].effect`
+        );
+      }
+    }
+  }
+
+  // Validate transition fail-closed (S16 - LED-043)
+  let validatedTransition: TransitionRef | undefined = undefined;
+  if (scene.transition) {
+    if (!SUPPORTED_TRANSITION_TYPES.includes(scene.transition.type as any)) {
+      throw new UnknownTransitionError(scene.transition.type, scene.scene_id, `scenes[${scene.scene_id}].transition.type`);
+    }
+    validatedTransition = TransitionRefSchema.parse(scene.transition);
+  }
+
+  // Validate template payload fail-closed (S16 - LED-045)
+  validateTemplatePayload(registryEntry, scene);
+
+  // 7. يرجع surface نهائية مع الانتقال المعتمد
   return {
     scene_id: scene.scene_id,
     template: scene.template,
@@ -153,6 +258,7 @@ export function mergeScene(
     content: finalContent,
     effects: (scene as any).effects || [],
     template_props: (scene as any).template_props || {},
+    transition: validatedTransition,
   };
 }
 
@@ -160,15 +266,28 @@ export function mergeProject(
   data: ProjectData,
   getRegistryEntry: (template: string) => TemplateEntry | undefined
 ): MergedProject {
+  if (!data || typeof data !== "object") {
+    throw new InvalidRenderInputError("Project data must be a non-null object");
+  }
+  if (!data.blueprint || !Array.isArray(data.blueprint.scenes)) {
+    throw new InvalidRenderInputError("Missing or malformed blueprint.scenes in project data");
+  }
+
+  const fps = data.blueprint.fps ?? (data.project as any)?.fps;
+  if (fps === undefined || fps === null) {
+    throw new InvalidRenderInputError("Missing mandatory blueprint.fps in project data");
+  }
+
+  const projectId = (data.project as any)?.project_id || (data.blueprint as any)?.project_id || data.project?.title || "Untitled";
   const scenes = [...data.blueprint.scenes]
     .sort((a, b) => a.startFrame - b.startFrame)
     .map(scene => {
       const entry = getRegistryEntry(scene.template);
       if (!entry) {
-        throw new Error(`Template not found in registry: ${scene.template}`);
+        throw new UnknownTemplateError(scene.template, scene.scene_id);
       }
       const override = data.overrides?.scenes[scene.scene_id];
-      return mergeScene(scene, entry, data.brand, override, data.media_map);
+      return mergeScene(scene, entry, data.brand, override, data.media_map, projectId);
     });
 
   const totalDurationFrames = scenes.reduce((max, s) => {
@@ -176,11 +295,40 @@ export function mergeProject(
     return end > max ? end : max;
   }, 0);
 
+  const rawAudio = (data as any).audio || (data.blueprint as any).audio;
+  let normalizedAudio: { voiceover?: string; bgm?: string; bgmVolume?: number } | undefined = undefined;
+
+  if (rawAudio) {
+    const voRef = rawAudio.voiceover?.asset_ref || rawAudio.voiceover || rawAudio.voiceover_ref;
+    const musicRef = rawAudio.music?.asset_ref || rawAudio.bgm || rawAudio.music_ref;
+    const musicVolume = rawAudio.music?.volume ?? rawAudio.bgmVolume ?? rawAudio.volume ?? 0.15;
+
+    const resolvedVo = voRef
+      ? resolveAssetReference(voRef, data.media_map, {
+          fieldPath: "audio.voiceover.asset_ref",
+          projectId,
+        })
+      : undefined;
+
+    const resolvedBgm = musicRef
+      ? resolveAssetReference(musicRef, data.media_map, {
+          fieldPath: "audio.music.asset_ref",
+          projectId,
+        })
+      : undefined;
+
+    normalizedAudio = {
+      voiceover: resolvedVo,
+      bgm: resolvedBgm,
+      bgmVolume: typeof musicVolume === "number" ? musicVolume : 0.15,
+    };
+  }
+
   return {
-    fps: data.blueprint.fps ?? 30,
+    fps,
     title: data.project.title,
     totalDurationFrames,
     scenes,
-    audio: (data as any).audio || (data.blueprint as any).audio,
+    audio: normalizedAudio,
   };
 }

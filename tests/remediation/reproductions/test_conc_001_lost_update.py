@@ -6,6 +6,7 @@ from scripts.core.state_model import ProjectState, LifecycleState
 def test_conc_001_lost_update_and_stale_write(tmp_path):
     """
     Finding: CONC-001
+    Owner Package: S05 (State Concurrency & CAS)
     Expected correct behavior: StateStore must support Compare-And-Swap (CAS) or optimistic locking.
     If Writer A and Writer B both read revision 1, Writer A writes revision 2,
     then Writer B attempting to write based on stale revision 1 MUST be rejected with a StateConflict error.

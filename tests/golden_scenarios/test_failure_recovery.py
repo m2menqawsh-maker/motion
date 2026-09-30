@@ -9,9 +9,8 @@ class TestFailureRecovery:
     @pytest.mark.asyncio
     async def test_pipeline_failure_preserves_state(self, test_project, monkeypatch):
         """فشل الـ pipeline يجب أن يحفظ الحالة ولن يتسبب في تدميرها"""
-        # Scaffold and approve
+        # Scaffold
         await PipelineService.scaffold_project(test_project)
-        await PipelineService.approve_gate(test_project, "gate_4", "user")
         
         # Read the state before failure
         from scripts.core.state_store import StateStore
@@ -37,5 +36,5 @@ class TestFailureRecovery:
         # State must remain intact
         state_after = StateStore.load(PipelineService._get_project_dir(test_project))
         legacy_state = PipelineService._format_legacy_state(state_after)
-        assert legacy_state["current_stage"] == "qc_gate"
-        assert legacy_state["status"] == "locked"
+        assert legacy_state["current_stage"] == "asset_gate"
+        assert legacy_state["status"] == "started"

@@ -1,12 +1,15 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import subprocess
 from scripts.security.security import safe_subprocess
-import sys
 from scripts.security.path_security import validate_project_id, safe_resolve
 import os
 import re
 
 def find_template(name):
-    templates_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates')
+    templates_dir = str(Path(__file__).resolve().parent.parent.parent / "templates")
     for root, _, files in os.walk(templates_dir):
         for file in files:
             if file.lower() == f"{name.lower()}.tsx":

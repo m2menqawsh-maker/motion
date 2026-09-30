@@ -1,0 +1,27 @@
+{
+  "project_id": "prj_legacy_01",
+  "version": "1.0",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "meta": {
+    "motion_personality": "Cinematic",
+    "duration_sec": 4.0
+  },
+  "audio": {
+    "voiceover_ref": "ast_vo_01",
+    "music_ref": "ast_music_01",
+    "music_ducking_db": -12
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 120,
+      "props": {
+        "text": "قديم لكن مدعوم"
+      },
+      "transition": "fade"
+    }
+  ]
+}

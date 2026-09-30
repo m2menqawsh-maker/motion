@@ -317,3 +317,20 @@ export const EFFECTS_RUNTIME: Record<string, EffectRuntimeEntry> = {
     component: EFFECT_COMPONENTS["camera-shake"]
   }
 };
+
+export const EFFECT_IDS = Object.keys(EFFECTS_RUNTIME) as string[];
+
+export function isKnownEffect(effectId: string): boolean {
+  if (typeof effectId !== "string" || !effectId) return false;
+  return Boolean(EFFECTS_RUNTIME[effectId]);
+}
+
+export function isExecutableEffect(effectId: string): boolean {
+  if (typeof effectId !== "string" || !effectId) return false;
+  const entry = EFFECTS_RUNTIME[effectId];
+  return Boolean(entry && entry.component);
+}
+
+export function getExecutableEffectIds(): string[] {
+  return EFFECT_IDS.filter((id) => Boolean(EFFECTS_RUNTIME[id]?.component));
+}

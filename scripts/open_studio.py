@@ -55,14 +55,19 @@ def main():
         print("الإجراء: يجب تشغيل probe_qc.py ونجاحه أولاً لإنشاء ملف الفتح.")
         sys.exit(1)
 
-    # 1.5. التأكد من عدم تعديل ملف 05_blueprint.json بعد الفحص
-    unlock_mtime = unlock_file.stat().st_mtime
+    # 1.5. التأكد من عدم تعديل ملف 05_blueprint.json بعد الفحص عبر SHA-256
     blueprint_file = proj_dir / "05_blueprint.json"
     if blueprint_file.exists():
-        if blueprint_file.stat().st_mtime > unlock_mtime:
-            print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {blueprint_file.name} بعد الفحص.")
-            print("السبب: أي تعديل على ملفات JSON يتطلب إعادة تشغيل أداة probe_qc.py.")
-            sys.exit(1)
+        from scripts.core.state_store import StateStore
+        state = StateStore.load(proj_dir)
+        if state:
+            bp_rec = state.get_artifact_record("05_blueprint.json")
+            if bp_rec and bp_rec.sha256:
+                current_sha = StateStore._compute_sha256(blueprint_file)
+                if current_sha != bp_rec.sha256:
+                    print(f"🛑 [GUARDIAN BLOCK] ممنوع فتح الاستوديو! تم تعديل الملف {blueprint_file.name} بعد الفحص (بصمة SHA-256 غير متطابقة).")
+                    print("السبب: أي تعديل على ملفات JSON يتطلب إعادة تشغيل أداة probe_qc.py.")
+                    sys.exit(1)
 
     # 2. التحقق من وجود المحرك المركزي
     if not engine_dir.exists():
@@ -72,24 +77,23 @@ def main():
     # 3. تشغيل الاستوديو عبر المحرك وتمرير بيانات المشروع
     print(f"✅ [GUARDIAN PASS] جاري فتح الاستوديو للمشروع {project_id} عبر المحرك المركزي...")
     
-    def safe_load(name, default):
-        p = proj_dir / name
-        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
-        
-    combined_props = {
-        "projectData": {
-            "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-            "blueprint": json.loads((proj_dir / "05_blueprint.json").read_text(encoding="utf-8")),
-            "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-            "overrides": safe_load("overrides.json", {"scenes": {}}),
-            "media_map": safe_load("media_map.json", {})
-        }
-    }
-    
-    props_file = proj_dir / "render_props.json"
-    props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
-    
-    props_file_abs = workspace_root.resolve() / props_file
+    from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
+    try:
+        build_render_input(
+            proj_dir,
+            workspace_root=workspace_root,
+            verify_files_on_disk=True,
+            write_to_disk=True,
+        )
+    except RenderInputError as e:
+        print(f"❌ خطأ فادح في تجهيز مدخلات الاستوديو: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ خطأ غير متوقع في تجهيز مدخلات الاستوديو: {e}")
+        sys.exit(1)
+
+    props_file = get_render_props_path(proj_dir, workspace_root=workspace_root)
+    props_file_abs = props_file.resolve()
 
     if not use_docker:
         os.chdir(str(engine_dir))
@@ -104,17 +108,32 @@ def main():
         print(f"🐳 جاري فتح الاستوديو عبر حاوية Docker (clean-video-builder)...")
         print(f"🌐 يرجى التوجه إلى http://localhost:3000 في المتصفح بعد بدء الخادم")
         
-        workspace_root_abs = workspace_root.resolve()
-        
+        proj_dir_abs = proj_dir.resolve()
+        public_proj_dir = workspace_root / "remotion-app" / "public" / "projects" / project_id
+
+        mount_flag = ":rw,z" if os.name != "nt" else ":rw"
+        ro_mount_flag = ":ro,z" if os.name != "nt" else ":ro"
+
         docker_cmd = [
             "docker", "run", "--rm", "-it",
             "-p", "3000:3000",
-            "-v", f"{workspace_root_abs}:/workspace:ro",
-            "-w", f"/workspace/remotion-app",
-            "clean-video-builder",
-            "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/05_blueprint.json"
         ]
-        
+        if shutil.which("podman"):
+            docker_cmd.extend(["--userns=keep-id"])
+
+        docker_cmd.extend([
+            "-e", f"PROJECT_ID={project_id}",
+            "-v", f"{proj_dir_abs}:/app/projects/{project_id}{mount_flag}",
+        ])
+        if public_proj_dir.exists():
+            docker_cmd.extend(["-v", f"{public_proj_dir.resolve()}:/app/remotion-app/public/projects/{project_id}{ro_mount_flag}"])
+
+        docker_cmd.extend([
+            "-w", "/app/remotion-app",
+            "clean-video-builder",
+            "npx", "remotion", "studio", "--host", "0.0.0.0", "--props", f"../projects/{project_id}/render_props.json"
+        ])
+
         safe_subprocess(docker_cmd)
 
 if __name__ == "__main__":

@@ -1,0 +1,168 @@
+"""
+API Configuration and Typed Settings (S22 - LED-072).
+
+Provides typed settings for FastAPI application, including:
+- Environment-aware CORS configuration
+- Safe parsing of origins from environment variables (MOTION_CORS_ALLOWED_ORIGINS)
+- Prevention of insecure wildcard ('*') when credentials are enabled
+- Strict separation between development defaults and production requirements
+"""
+
+import json
+import os
+from typing import List, Optional
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+
+DEFAULT_DEV_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+
+class APISettings(BaseModel):
+    """Canonical API Settings model."""
+    env: str = Field(default_factory=lambda: os.environ.get("MOTION_ENV", "development").lower())
+    role: str = Field(default_factory=lambda: os.environ.get("MOTION_ROLE", "api").lower())
+    readiness_timeout_seconds: float = Field(
+        default_factory=lambda: float(os.environ.get("MOTION_READINESS_TIMEOUT", "3.0"))
+    )
+    worker_stale_threshold_seconds: float = Field(
+        default_factory=lambda: float(os.environ.get("MOTION_WORKER_STALE_THRESHOLD", "60.0"))
+    )
+    require_active_worker: bool = Field(
+        default_factory=lambda: os.environ.get("MOTION_REQUIRE_WORKER", "false").lower() in ("1", "true", "yes")
+    )
+    log_dir: str = Field(default_factory=lambda: os.environ.get("MOTION_LOG_DIR", "logs"))
+    log_level: str = Field(default_factory=lambda: os.environ.get("MOTION_LOG_LEVEL", "INFO").upper())
+    log_max_bytes: int = Field(default_factory=lambda: int(os.environ.get("MOTION_LOG_MAX_BYTES", "10485760")))
+    log_backup_count: int = Field(default_factory=lambda: int(os.environ.get("MOTION_LOG_BACKUP_COUNT", "5")))
+
+    cors_allowed_origins: List[str] = Field(default_factory=list)
+    cors_allow_credentials: bool = Field(default=True)
+    cors_allow_methods: List[str] = Field(default_factory=lambda: ["*"])
+    cors_allow_headers: List[str] = Field(default_factory=lambda: ["*"])
+
+    # Multi-Tenant SaaS & Storage Settings (S24.5)
+    database_url: str = Field(
+        default_factory=lambda: os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL", "sqlite:///data/motion.db")
+    )
+    storage_backend: str = Field(
+        default_factory=lambda: os.environ.get("STORAGE_BACKEND", "local").lower()
+    )
+    storage_local_root: str = Field(
+        default_factory=lambda: os.environ.get("STORAGE_LOCAL_ROOT", "data/storage")
+    )
+    s3_endpoint: Optional[str] = Field(default_factory=lambda: os.environ.get("S3_ENDPOINT"))
+    s3_bucket: str = Field(default_factory=lambda: os.environ.get("S3_BUCKET", "clean-video-assets"))
+    s3_region: str = Field(default_factory=lambda: os.environ.get("S3_REGION", "us-east-1"))
+    s3_access_key_id: Optional[str] = Field(
+        default_factory=lambda: os.environ.get("S3_ACCESS_KEY_ID") or os.environ.get("AWS_ACCESS_KEY_ID")
+    )
+    s3_secret_access_key: Optional[str] = Field(
+        default_factory=lambda: os.environ.get("S3_SECRET_ACCESS_KEY") or os.environ.get("AWS_SECRET_ACCESS_KEY")
+    )
+
+    @field_validator("readiness_timeout_seconds")
+    @classmethod
+    def validate_readiness_timeout(cls, v: float) -> float:
+        if v <= 0:
+            raise ValueError("readiness_timeout_seconds must be positive")
+        return v
+
+    @field_validator("worker_stale_threshold_seconds")
+    @classmethod
+    def validate_worker_stale_threshold(cls, v: float) -> float:
+        if v <= 0:
+            raise ValueError("worker_stale_threshold_seconds must be positive")
+        return v
+
+    @field_validator("log_max_bytes")
+    @classmethod
+    def validate_log_max_bytes(cls, v: int) -> int:
+        if v <= 0:
+            raise ValueError("log_max_bytes must be positive")
+        return v
+
+    @field_validator("log_backup_count")
+    @classmethod
+    def validate_log_backup_count(cls, v: int) -> int:
+        if v < 0:
+            raise ValueError("log_backup_count cannot be negative")
+        return v
+
+    @model_validator(mode="before")
+    @classmethod
+    def populate_cors_origins(cls, values: dict) -> dict:
+        """Populate and parse cors_allowed_origins from env if not explicitly provided."""
+        env = values.get("env") or os.environ.get("MOTION_ENV", "development").lower()
+        origins = values.get("cors_allowed_origins")
+
+        if not origins:
+            env_val = os.environ.get("MOTION_CORS_ALLOWED_ORIGINS") or os.environ.get("CORS_ALLOWED_ORIGINS")
+            if env_val:
+                env_val = env_val.strip()
+                if env_val.startswith("[") and env_val.endswith("]"):
+                    try:
+                        parsed = json.loads(env_val)
+                        if isinstance(parsed, list):
+                            origins = [str(item).strip() for item in parsed if str(item).strip()]
+                    except Exception:
+                        origins = [part.strip() for part in env_val.split(",") if part.strip()]
+                else:
+                    origins = [part.strip() for part in env_val.split(",") if part.strip()]
+            else:
+                # Environment-dependent defaults
+                if env in ("production", "prod"):
+                    # Production must never default to implicit localhost
+                    origins = []
+                else:
+                    origins = list(DEFAULT_DEV_ORIGINS)
+
+        values["cors_allowed_origins"] = origins or []
+        values["env"] = env
+        return values
+
+    @model_validator(mode="after")
+    def validate_cors_safety(self) -> "APISettings":
+        """Validate CORS safety invariants."""
+        # Wildcard '*' is strictly forbidden when credentials are true
+        if self.cors_allow_credentials and "*" in self.cors_allowed_origins:
+            if self.env in ("production", "prod"):
+                raise ValueError("Insecure CORS: Wildcard '*' origin cannot be combined with credentials in production.")
+            # In non-production, sanitize by removing wildcard to prevent browser CORS failure
+            self.cors_allowed_origins = [o for o in self.cors_allowed_origins if o != "*"]
+
+        return self
+
+
+_settings: Optional[APISettings] = None
+
+
+def get_api_settings() -> APISettings:
+    """Singleton getter for active APISettings."""
+    global _settings
+    if _settings is None:
+        _settings = APISettings()
+    return _settings
+
+
+def set_api_settings(settings: Optional[APISettings]) -> None:
+    """Override settings (useful for tests)."""
+    global _settings
+    _settings = settings
+
+
+from starlette.middleware.cors import CORSMiddleware
+
+
+class DynamicCORSMiddleware(CORSMiddleware):
+    """CORS middleware that dynamically queries APISettings for allowed origins."""
+
+    def is_allowed_origin(self, origin: str) -> bool:
+        settings = APISettings()
+        if origin in settings.cors_allowed_origins:
+            return True
+        return False

@@ -32,6 +32,106 @@
           ],
           "default": null,
           "title": "Sha256"
+        },
+        "logical_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Logical Name"
+        },
+        "stage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stage"
+        },
+        "produced_at_revision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Produced At Revision"
+        },
+        "generation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generation Id"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Metadata",
+          "type": "object"
+        },
+        "status": {
+          "default": "VALID",
+          "enum": [
+            "VALID",
+            "INVALIDATED",
+            "SUPERSEDED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "invalidated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invalidated At"
+        },
+        "invalidated_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invalidated Reason"
+        },
+        "invalidated_by_recovery_plan": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invalidated By Recovery Plan"
         }
       },
       "required": [
@@ -40,6 +140,15 @@
       ],
       "title": "ArtifactRecord",
       "type": "object"
+    },
+    "EvidenceStatus": {
+      "enum": [
+        "VALID",
+        "INVALIDATED",
+        "SUPERSEDED"
+      ],
+      "title": "EvidenceStatus",
+      "type": "string"
     },
     "LifecycleState": {
       "enum": [

@@ -71,18 +71,17 @@ def main():
     logger.event("render.execution", status="started", stage="render", component="remotion")
     
     try:
-        from scripts.core.state_store import StateStore
+        from scripts.core.review_service import assert_render_authorized, RenderNotAuthorizedError
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
         
-        state = StateStore.load(project_dir)
-        is_approved = (project_dir / ".studio_approved").exists()
-        
-        if not is_approved and not is_managed:
+        try:
+            auth_result = assert_render_authorized(project_dir)
+        except RenderNotAuthorizedError as e:
             duration_ms = int((time.time() - start_time) * 1000)
             failure = FailureInfo(
-                code=FailureCode.PROJECT_NOT_LOCKED,
-                message="Project is not approved (gate_3) for rendering",
+                code=e.code,
+                message=f"Project is not approved (gate_3) for rendering: {e.message}",
                 cause_type="Validation",
                 stage="render",
                 component="remotion"
@@ -91,11 +90,29 @@ def main():
             print(f"\n{'='*60}")
             print(f"🛑 [GUARDIAN BLOCK] ممنوع الرندر!")
             print(f"{'='*60}")
-            print("لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED)")
+            print(f"لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED) - السبب: {e.message}")
             sys.exit(1)
             
         workspace_root = Path.cwd().resolve()
         project_dir = workspace_root / "projects" / project_id
+
+        from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
+        try:
+            build_render_input(
+                project_dir,
+                workspace_root=workspace_root,
+                verify_files_on_disk=True,
+                write_to_disk=True,
+            )
+        except RenderInputError as e:
+            print(f"🛑 خطأ فادح في تجهيز مدخلات الرندر: {e}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"🛑 خطأ فادح: فشل تجهيز مدخلات الرندر: {e}")
+            sys.exit(1)
+
+        props_file = get_render_props_path(project_dir, workspace_root=workspace_root)
+        props_file_abs = props_file.resolve()
             
         if not use_docker:
             env = os.environ.copy()
@@ -106,24 +123,6 @@ def main():
             
             npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
             engine_dir = workspace_root / "remotion-app"
-            
-            props_file = project_dir / "render_props.json"
-            props_file_abs = workspace_root / props_file
-            
-            def safe_load(name, default):
-                p = project_dir / name
-                return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
-                
-            combined_props = {
-                "projectData": {
-                    "project": safe_load("project.json", {"fps": 30, "title": "Video"}),
-                    "blueprint": safe_load("05_blueprint.json", {}),
-                    "brand": safe_load("brand.json", {"colors": {}, "fonts": {}}),
-                    "overrides": safe_load("overrides.json", {"scenes": {}}),
-                    "media_map": safe_load("media_map.json", {})
-                }
-            }
-            props_file.write_text(json.dumps(combined_props, ensure_ascii=False), encoding="utf-8")
             
             print(f"🎥 جاري الرندر (محلي)...")
             result = safe_subprocess(
@@ -150,21 +149,39 @@ def main():
                 sys.exit(1)
                 
             print(f"🐳 جاري الرندر عبر حاوية Docker (clean-video-builder)...")
-            
+
             final_out_file = project_dir / "out.mp4"
             tmp_out_file = project_dir / f"out.attempt-{attempt}.tmp.mp4"
-            
+
+            project_dir_abs = project_dir.resolve()
+            public_proj_dir = workspace_root / "remotion-app" / "public" / "projects" / project_id
+
+            mount_flag = ":rw,z" if os.name != "nt" else ":rw"
+            ro_mount_flag = ":ro,z" if os.name != "nt" else ":ro"
+
             docker_cmd = [
                 "docker", "run", "--rm",
+            ]
+            if shutil.which("podman"):
+                docker_cmd.extend(["--userns=keep-id"])
+
+            docker_cmd.extend([
                 "-e", f"AGY_RUN_ID={ctx.run_id}",
-                "-v", f"{workspace_root}:/workspace:ro",
-                "-v", f"{project_dir}:/workspace/projects/{project_id}:rw",
-                "-w", "/workspace/remotion-app",
+                "-e", f"PROJECT_ID={project_id}",
+                "-v", f"{project_dir_abs}:/app/projects/{project_id}{mount_flag}",
+            ])
+            if public_proj_dir.exists():
+                docker_cmd.extend(["-v", f"{public_proj_dir.resolve()}:/app/remotion-app/public/projects/{project_id}{ro_mount_flag}"])
+
+            docker_cmd.extend([
+                "-w", "/app/remotion-app",
                 "--memory", "4g",
                 "clean-video-builder",
-                "bash", "-c", f"npx remotion render src/index.ts BlueprintVideo ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4 --props ../projects/{project_id}/05_blueprint.json && chmod a+rw ../projects/{project_id}/out.attempt-{attempt}.tmp.mp4"
-            ]
-            
+                "npx", "remotion", "render", "src/index.ts", "BlueprintVideo",
+                f"../projects/{project_id}/out.attempt-{attempt}.tmp.mp4",
+                "--props", f"../projects/{project_id}/render_props.json"
+            ])
+
             proc = safe_subprocess(docker_cmd)
             duration_ms = int((time.time() - start_time) * 1000)
             if proc.returncode == 0:

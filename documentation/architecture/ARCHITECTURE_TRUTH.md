@@ -51,8 +51,11 @@ Templates are strictly registered structural components.
 - **Evidence:** `scripts/maintenance/template_router.py` strictly accesses registered components.
 
 ## 9. Contracts & Schemas
-- **Data Contracts:** Located in `schemas/` (Python) and `contracts/` (TypeScript).
-- **Rule:** Any cross-boundary communication must adhere to these schemas.
+- **Machine-Readable Authority Matrix:** `scripts/core/authority_matrix.py` (`ContractAuthorityMatrix`) is the canonical single source of truth for contract governance across Python, TypeScript, JSON Schema, and Registry domains.
+- **Data Contracts:** Located in `schemas/` (Python/JSON Schema) and `contracts/` (TypeScript/Zod).
+- **Executable Dependency Graph:** `scripts/core/dependency_graph.py` (`ArtifactDependencyGraph`) centrally computes downstream invalidation paths and prevents silent artifact desynchronization.
+- **Mutation Authority:** All governed artifact edits MUST pass through `scripts/core/artifact_service.py` (`ArtifactService`) to enforce atomic CAS revisioning and dependency invalidation.
+- **Rule:** Any cross-boundary communication must adhere to these contracts. No domain may possess multiple canonical authorities.
 
 ## 10. MCP Layer
 MCP Servers (`media-sources-mcp`, `audio-tools-mcp`, `ffmpeg-mcp-server`, etc.) provide local tool augmentation.
@@ -80,6 +83,10 @@ The Agent is a master planner and pipeline orchestrator. It does not manually bu
 - **INVARIANT-05**: Engine features MUST enter rendering through approved integration boundaries (`EngineBridge`).
 - **INVARIANT-06**: No unrestricted shell execution may be exposed to the Agent.
 - **INVARIANT-07**: The plugin MUST NOT mirror root canonical scripts, templates, recipes, references, security configuration, or system ground truth without an explicit generated contract. All tools and MCP servers must resolve canonical resources through the repository root.
+- **INVARIANT-08**: Every governed domain MUST possess exactly one canonical authority declared in `ContractAuthorityMatrix`. Generated schemas or types are strictly classified as GENERATED.
+- **INVARIANT-09**: All upstream artifact modifications must traverse `ArtifactService` to compute and apply structured invalidations via `ArtifactDependencyGraph`, preventing silent downstream desynchronization.
+- **INVARIANT-10**: Manifest v2 is the single authoritative contract for declared assets. Provenance and status must remain strictly separated, asset IDs must be globally unique per project, and project identity must be strictly consistent across directory name, state, project.json, manifest, and blueprint.
+- **INVARIANT-11**: Blueprint v2 is the single authoritative contract for video scene composition, visual timing, aspect ratio, frame rate, asset binding, and audio orchestration. FPS and aspect ratio must have a single canonical location (top-level), timing must be derived from `scenes[].startFrame` and `scenes[].durationFrames`, media references must strictly resolve to Manifest v2 asset IDs with kind compatibility, and audio tracks must be governed by a canonical `AudioPlan`. All blueprint loads must be fail-closed via `load_blueprint`.
 
 ## 15. Plugin Architectural Boundary & Ownership
 

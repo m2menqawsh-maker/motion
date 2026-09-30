@@ -1,5 +1,5 @@
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { BlueprintSchema } from "../contracts/blueprint";
+import { BlueprintSchema } from "../../contracts/blueprint";
 import * as fs from "fs";
 import * as path from "path";
 

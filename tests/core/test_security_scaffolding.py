@@ -212,6 +212,20 @@ class TestCommandPolicy:
         assert not res_priv.is_allowed
         assert any("Docker --privileged is forbidden" in v for v in res_priv.violations)
 
+    def test_ffmpeg_input_flag_allowed(self):
+        res = CommandPolicy.validate_command(["ffmpeg", "-y", "-i", "input.mp4", "output.mp4"])
+        assert res.is_allowed
+        assert "-i" in res.sanitized_cmd
+
+    def test_interactive_flag_rejected_on_python_and_docker(self):
+        res_py = CommandPolicy.validate_command(["python", "-i", "scripts/pipeline.py"])
+        assert not res_py.is_allowed
+        assert any("Dangerous flag '-i'" in v for v in res_py.violations)
+
+        res_docker = CommandPolicy.validate_command(["docker", "run", "-i", "clean-video-builder"])
+        assert not res_docker.is_allowed
+        assert any("Dangerous flag '-i'" in v for v in res_docker.violations)
+
     def test_environment_sanitization_strips_bypass_vars_in_production(self):
         dirty_env = {
             "PATH": "/usr/bin",

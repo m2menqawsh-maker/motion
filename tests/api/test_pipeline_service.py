@@ -44,21 +44,32 @@ def test_legacy_gate_mapping(project_id):
     async def run():
         await PipelineService.scaffold_project(project_id)
         
-        # start_stage doesn't change state, just updates updated_at
-        result = await PipelineService.start_stage(project_id, "0")
-        assert result["current_stage"] == "asset_gate"
-        assert result["status"] == "started"
+        from api.core.errors import InvalidStageError, InvalidGateError, UnsupportedGateOperationError
+        from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
 
-        # finish_stage("1") -> PLAN_READY -> "taste_gate"
-        result = await PipelineService.finish_stage(project_id, "1")
-        assert result["current_stage"] == "taste_gate"
-        assert result["status"] == "started"
+        # S04: start_stage with invalid stage raises InvalidStageError
+        with pytest.raises(InvalidStageError):
+            await PipelineService.start_stage(project_id, "0")
 
-        # approve_gate("gate_4") -> REVIEW_APPROVED -> "qc_gate" and "locked"
-        result = await PipelineService.approve_gate(project_id, "gate_4", "test_user")
-        assert result["current_stage"] == "qc_gate"
-        assert result["status"] == "locked"
-        assert result["approved_by"] == "test_user"
+        # S04: start_stage with valid stage is unsupported (fails closed)
+        with pytest.raises(UnsupportedGateOperationError):
+            await PipelineService.start_stage(project_id, "asset_gate")
+
+        # S04: finish_stage with invalid stage raises InvalidStageError
+        with pytest.raises(InvalidStageError):
+            await PipelineService.finish_stage(project_id, "1")
+
+        # S03 & S04: finish_stage with valid stage without evidence raises LifecyclePreconditionFailedError
+        with pytest.raises(LifecyclePreconditionFailedError):
+            await PipelineService.finish_stage(project_id, "asset_gate")
+
+        # S04: approve_gate with invalid gate raises InvalidGateError
+        with pytest.raises(InvalidGateError):
+            await PipelineService.approve_gate(project_id, "gate_4", "test_user")
+
+        # S04 Final Closure: approve_gate with valid gate is unsupported pending ReviewService (S09)
+        with pytest.raises(UnsupportedGateOperationError):
+            await PipelineService.approve_gate(project_id, "asset_gate", "test_user")
     asyncio.run(run())
 
 def test_get_status(project_id):

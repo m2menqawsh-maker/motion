@@ -23,10 +23,12 @@ const DUMMY_PROJECT_DATA: ProjectData = {
   brand: {
     brandName: "Studio",
     logoSrc: null,
-    colors: { primary: "#00F5FF", accent: "#FFD700", background: "#0A0E27", text: "#FFFFFF" },
+    colors: { primary: "#00F5FF", accent: "#FFD700", background: "#1a2238", text: "#FFFFFF" },
     fonts: { display: "Cairo", body: "Cairo" }
   }
 };
+
+import { parseRenderInput } from "../../contracts/render-input";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -41,15 +43,16 @@ export const RemotionRoot: React.FC = () => {
           brand: DUMMY_PROJECT_DATA.brand
         }}
         calculateMetadata={async ({ props }) => {
-          const { projectData: rawData } = props as unknown as BlueprintVideoInputProps;
+          // Canonical parse gate: validates raw input fail-closed before merge and mount (S16 - LED-044)
+          const validated = parseRenderInput(props);
           
           // Merge defaults, overrides, brand tokens
-          const projectData = mergeProject(rawData, (template) => TEMPLATE_REGISTRY[template]);
+          const projectData = mergeProject(validated, (template) => TEMPLATE_REGISTRY[template]);
           
           // Determine dimensions from aspect ratio
           let width = 1080;
           let height = 1920;
-          const ratio = rawData.blueprint?.aspect_ratio;
+          const ratio = validated.blueprint?.aspect_ratio;
           if (ratio === "16:9") {
             width = 1920;
             height = 1080;
@@ -65,7 +68,7 @@ export const RemotionRoot: React.FC = () => {
             height,
             props: {
               projectData,
-              brand: rawData.brand
+              brand: validated.brand
             }
           };
         }}

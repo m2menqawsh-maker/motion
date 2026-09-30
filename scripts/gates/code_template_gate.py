@@ -55,8 +55,8 @@ def verify_local_templates_integrity(proj_path):
             sys.exit(1)
             
         with open(local_file, "rb") as f1, open(source_file, "rb") as f2:
-            h1 = hashlib.md5(f1.read()).hexdigest()
-            h2 = hashlib.md5(f2.read()).hexdigest()
+            h1 = hashlib.sha256(f1.read()).hexdigest()
+            h2 = hashlib.sha256(f2.read()).hexdigest()
             
         if h1 != h2:
             print("\n" + "="*60)
@@ -194,7 +194,7 @@ def run_gate(proj_path):
                         parts = content.split('\n', 2)
                         if len(parts) >= 3:
                             raw_content = parts[2]
-                            if hashlib.md5(raw_content.encode('utf-8')).hexdigest() != expected_hash:
+                            if hashlib.md5(raw_content.encode('utf-8'), usedforsecurity=False).hexdigest() != expected_hash:
                                 fails.append(f"FAIL: تم تعديل الملف يدوياً (Hash mismatch): {rel_comps}")
                     else:
                         fails.append(f"FAIL: ملف مولّد مفقود الهاش: {rel_comps}")

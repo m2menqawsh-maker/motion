@@ -15,20 +15,19 @@ class TestHappyPath:
         assert status["status"] == "started"
     
     @pytest.mark.asyncio
-    async def test_approve_gates_in_order(self, test_project):
-        """الموافقة على البوابات بالترتيب"""
+    async def test_approve_gates_fail_closed_under_s04(self, test_project):
+        """محاولة الموافقة على البوابات عبر API القديم تُرفض (S04) لحين توفر ReviewService (S09)"""
         await PipelineService.scaffold_project(test_project)
+        from api.core.errors import UnsupportedGateOperationError
         
-        # الموافقة على البوابات بالترتيب
-        await PipelineService.approve_gate(test_project, "gate_1", "user")
-        await PipelineService.approve_gate(test_project, "gate_2", "user")
-        await PipelineService.approve_gate(test_project, "gate_4", "user")
+        with pytest.raises(UnsupportedGateOperationError):
+            await PipelineService.approve_gate(test_project, "asset_gate", "user")
         
-        # التحقق من الحالة
+        # التحقق من الحالة: صفر أعراض جانبية، الحالة لم تتغير
         status = await PipelineService.get_status(test_project)
-        assert status["current_stage"] == "qc_gate"
-        assert status["status"] == "locked"
-        assert status["approved_by"] == "user"
+        assert status["current_stage"] == "asset_gate"
+        assert status["status"] == "started"
+        assert "approved_by" not in status
     
     @pytest.mark.asyncio
     async def test_full_lifecycle(self, test_project, mock_subprocess):
@@ -36,11 +35,7 @@ class TestHappyPath:
         # 1. Scaffold
         await PipelineService.scaffold_project(test_project)
         
-        # 2. الموافقة على البوابات
-        for gate in ["gate_1", "gate_2", "gate_3", "gate_4"]:
-            await PipelineService.approve_gate(test_project, gate, "user")
-        
-        # 3. تشغيل Pipeline (مع mock)
+        # 2. تشغيل Pipeline (مع mock)
         result = await PipelineService.run_pipeline(test_project)
         
         # 4. التحقق من النجاح

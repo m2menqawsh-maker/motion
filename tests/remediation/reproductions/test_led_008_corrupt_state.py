@@ -5,6 +5,7 @@ from scripts.core.state_store import StateStore
 def test_led_008_corrupt_state_treated_as_missing(tmp_path):
     """
     Finding: LED-008
+    Owner Package: S07 (Corrupted State Handling & Quarantine)
     Expected correct behavior: StateStore.load() must distinguish between a truly missing
     state file and a corrupted/truncated state file. A corrupted state file must NOT return None
     (which causes callers to wipe it to DRAFT); it must raise an exception or provide diagnostic failure.

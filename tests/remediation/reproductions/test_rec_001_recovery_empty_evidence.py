@@ -7,6 +7,7 @@ from scripts.core.recovery_engine import RecoveryEngine
 def test_rec_001_recovery_trusts_empty_evidence(tmp_path):
     """
     Finding: REC-001
+    Owner Package: S06 (Recovery Engine & Evidence Verification)
     Expected correct behavior: RecoveryEngine.evaluate() must enforce a required evidence
     matrix per lifecycle state. For instance, COMPLETE state MUST require 'out.mp4' on disk.
     If evidence is missing, it must return can_resume=False.

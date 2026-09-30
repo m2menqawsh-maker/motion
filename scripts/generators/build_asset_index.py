@@ -4,7 +4,7 @@ import hashlib
 from pathlib import Path
 
 def get_file_hash(filepath):
-    hasher = hashlib.md5()
+    hasher = hashlib.md5(usedforsecurity=False)
     try:
         with open(filepath, 'rb') as f:
             buf = f.read(65536)

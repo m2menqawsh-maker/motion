@@ -1,5 +1,5 @@
 import { ProjectData } from "./merge";
-import { BlueprintSchema } from "../../contracts/blueprint";
+import { parseRenderInput } from "../../contracts/render-input";
 
 const DEFAULT_BRAND = {
   brandName: "Default",
@@ -17,7 +17,7 @@ const DEFAULT_BRAND = {
 };
 
 /**
- * يقرأ بيانات المشروع ويفحصها باستخدام بيئة Python المتوفرة في Workspace.
+ * يقرأ بيانات المشروع ويفحصها باستخدام البوابة الموحدة parseRenderInput.
  * يجب استدعاء هذه الدالة فقط في بيئة Node (مثال: calculateMetadata).
  */
 export function loadProjectData(projectDir: string): ProjectData {
@@ -25,7 +25,6 @@ export function loadProjectData(projectDir: string): ProjectData {
   const req = typeof window === "undefined" ? eval("require") : () => null;
   const fs = req("fs") as typeof import("fs");
   const path = req("path") as typeof import("path");
-  const { execSync } = req("child_process") as typeof import("child_process");
 
   const projectPath = path.join(projectDir, "project.json");
   const blueprintPath = path.join(projectDir, "05_blueprint.json");
@@ -43,10 +42,7 @@ export function loadProjectData(projectDir: string): ProjectData {
     : { title: "Untitled" };
 
   const rawBlueprint = JSON.parse(fs.readFileSync(blueprintPath, "utf-8"));
-  
-  // Zod parsing will strictly throw an error if the blueprint is invalid
-  const blueprint = BlueprintSchema.parse(rawBlueprint);
-  
+
   const brand = fs.existsSync(brandPath)
     ? JSON.parse(fs.readFileSync(brandPath, "utf-8"))
     : DEFAULT_BRAND;
@@ -63,5 +59,5 @@ export function loadProjectData(projectDir: string): ProjectData {
     ? JSON.parse(fs.readFileSync(mediaMapPath, "utf-8"))
     : null;
 
-  return { project, blueprint, brand, overrides, asset_manifest, media_map };
+  return parseRenderInput({ project, blueprint: rawBlueprint, brand, overrides, asset_manifest, media_map });
 }

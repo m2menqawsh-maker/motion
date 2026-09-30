@@ -21,16 +21,7 @@ if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
 DST = Path(__file__).resolve().parent.parent.parent
-GT = DST / "ground-truth"
-TEMPLATES = set(re.findall(r"\| `([\w-]+)` \|", (GT / "TEMPLATE_INDEX.md").read_text(encoding="utf-8")) if (GT / "TEMPLATE_INDEX.md").exists() else set())
-
-CATALOG_TYPES = {}
-CATALOG_FAMILIES = {}
-if (GT / "template_catalog.json").exists():
-    for item in json.loads((GT / "template_catalog.json").read_text(encoding="utf-8")):
-        # We key by just the template name (e.g. BlurReveal) to match what blueprint has
-        CATALOG_TYPES[item["name"]] = item.get("type", "misc")
-        CATALOG_FAMILIES[item["name"]] = item.get("family", "unknown")
+from scripts.core.template_contract import get_template_contract, UnknownTemplateError
 
 PERSONA = {
  "Cinematic": (350, 500, 800, {"soft", "deep", "none"}),
@@ -65,22 +56,36 @@ def fail(m): fails.append(m)
 def warn(m): warns.append(m)
 
 def check(bp, bp_path=None):
-    # 1. JSON Schema validation first
-    import jsonschema
-    schema_path = DST / "schemas" / "blueprint.schema.json"
-    if schema_path.exists():
-        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    # 1. Canonical Blueprint v2 validation
+    from scripts.core.blueprint_validator import validate_blueprint_v2
+    from scripts.core.blueprint_migration import is_legacy_blueprint_v1, migrate_blueprint_to_v2
+    from scripts.core.manifest_loader import load_manifest
+
+    proj_dir = Path(bp_path).parent if bp_path else None
+    project_id = bp.get("project_id") or (proj_dir.name if proj_dir and proj_dir.name.startswith("prj_") else None)
+
+    man = None
+    if proj_dir and (proj_dir / "02_asset_manifest.json").exists():
         try:
-            jsonschema.validate(instance=bp, schema=schema)
-        except jsonschema.exceptions.ValidationError as e:
-            fail(f"JSON Schema Validation Failed: {e.message} at path {list(e.path)}")
-            return
-            
+            man = load_manifest(proj_dir / "02_asset_manifest.json", expected_project_id=project_id, allow_migrate=True)
+        except Exception as e:
+            fail(f"02_asset_manifest.json غير صالح: {e}")
+
+    raw_bp = bp
+    if is_legacy_blueprint_v1(raw_bp):
+        raw_bp = migrate_blueprint_to_v2(raw_bp, project_id=project_id)
+
+    v_res = validate_blueprint_v2(raw_bp, expected_project_id=project_id, manifest=man)
+    if not v_res.ok:
+        for err in v_res.errors:
+            fail(f"خرق عقد المخطط: {err}")
+        return
+    bp_v2 = v_res.blueprint
+    bp = bp_v2.to_dict()
+
     meta = bp.get("meta", {}); persona = meta.get("motion_personality", "Cinematic")
     approved = False # Approvals are now managed strictly in .pipeline_state.json
     
-    for k in ["meta", "assets", "scenes"]:
-        if k not in bp: fail(f"قسم ناقص: {k}")
     words, tp = [], (meta or {}).get("timings_path")
     if tp:
         p = Path(tp)
@@ -88,24 +93,9 @@ def check(bp, bp_path=None):
         else:
             t = json.loads(p.read_text(encoding="utf-8"))
             words = t.get("words") or (t.get("timings") or {}).get("words") or []
-    # الأصول: مصدر مصرّح + fallback + قفل المدفوع
-    manifest = {}
-    if bp_path:
-        proj_dir = Path(bp_path).parent
-        if (proj_dir / "02_asset_manifest.json").exists():
-            man = json.loads((proj_dir / "02_asset_manifest.json").read_text(encoding="utf-8"))
-            for a in man.get("assets", []):
-                manifest[a.get("asset_id")] = a.get("type")
 
-    for a in bp.get("assets", []):
-        aid = a.get("asset_id", "?"); src = a.get("source")
-        if src not in {"user_upload", "cache", "mcp_fetch", "generated"}:
-            fail(f"asset {aid}: مصدر غير مصرّح ({src})")
-        if src == "mcp_fetch" and not a.get("fallback"): fail(f"asset {aid}: mcp_fetch بدون fallback")
-        if src == "user_upload" and not a.get("path"): fail(f"asset {aid}: user_upload بدون path")
-        if a.get("paid") and not approved: fail(f"asset {aid}: paid=true قبل الموافقة")
-    
-    # Validation per scene
+    # Validation per scene via authoritative template contract (S15)
+    contract = get_template_contract()
     total_sfx = 0
     for scene in bp.get("scenes", []):
         s_id = scene.get("scene_id", "?")
@@ -113,14 +103,12 @@ def check(bp, bp_path=None):
         
         if not tmpl_name:
             fail(f"scene {s_id}: قالب غير محدد")
-        elif tmpl_name not in TEMPLATES:
-            fail(f"scene {s_id}: قالب غير موجود في TEMPLATE_INDEX: {tmpl_name}")
         else:
-            t_type = CATALOG_TYPES.get(tmpl_name)
-            if t_type == "effect":
-                t_family = CATALOG_FAMILIES.get(tmpl_name, "")
-                if t_family != "transitions":
-                    fail(f"scene {s_id}: القالب '{tmpl_name}' مصنف كـ effect من عائلة '{t_family}' ولا يُستخدم كقالب مباشر")
+            entry = contract.resolve(tmpl_name)
+            if entry is None or not entry.runtime_available:
+                fail(f"scene {s_id}: معرف القالب غير معروف في سجل القوالب: '{tmpl_name}' [UNKNOWN_TEMPLATE_ID]")
+            elif entry.category == "effect":
+                fail(f"scene {s_id}: القالب '{tmpl_name}' مصنف كـ effect ولا يُستخدم كقالب مشهد مباشر")
 
         if scene.get("sfx_ref"):
             total_sfx += 1
@@ -151,8 +139,8 @@ def check(bp, bp_path=None):
             if sfx:
                 cues.append({"asset": sfx})
                 
-        fps = bp.get("fps", 30)
-        dur = meta.get("duration_sec") or max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [fps])
+        fps = bp_v2.fps
+        dur = bp_v2.total_duration_seconds
         last = {}
         cnt = Counter(Path(c.get("asset") or "").name for c in cues if c.get("asset"))
         
@@ -165,9 +153,10 @@ def check(bp, bp_path=None):
             if n > max(1, round(dur / 15)): fail(f"المؤثر {nm} مستخدم {n} مرة — تجاوز حد التنويع")
 
 def render_md(bp, out):
-    srcs = {a.get("asset_id"): a.get("source", "?") for a in bp.get("assets", [])}
+    fps = bp.get("fps", 30)
+    dur = round(max([s.get("startFrame", 0)/fps + s.get("durationFrames", 0)/fps for s in bp.get("scenes", [])] or [0]), 1)
     L = ["# Blueprint — النسخة البشرية", "",
-         f"**مشروع:** {bp.get('meta',{}).get('project_id')} | **شخصية:** {bp.get('meta',{}).get('motion_personality')} | **مدة:** {bp.get('meta',{}).get('duration_sec')}s", "",
+         f"**مشروع:** {bp.get('project_id')} | **شخصية:** {bp.get('meta',{}).get('motion_personality')} | **مدة:** {dur}s", "",
          "| الثانية | السرد | العناصر (نوع:قالب/أصل) | المصادر |", "|---|---|---|---|"]
     for scene in bp.get("scenes", []):
         tmpl = scene.get("template", "")

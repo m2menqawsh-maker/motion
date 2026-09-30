@@ -1,0 +1,14 @@
+{
+  "blueprint_version": "99.0.0",
+  "project_id": "prj_bad_ver",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 60
+    }
+  ]
+}

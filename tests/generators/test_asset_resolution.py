@@ -60,11 +60,12 @@ def test_materialize_asset_resolution(tmp_path):
     media_map = json.loads(media_map_path.read_text(encoding="utf-8"))
     
     assert "logical_video_1" in media_map
-    expected_path = f"projects/{project_id}/media/logical_video_1.mp4"
-    assert media_map["logical_video_1"] == expected_path
+    resolved_path = media_map["logical_video_1"]
+    assert resolved_path.startswith(f"projects/{project_id}/generations/")
+    assert resolved_path.endswith("/logical_video_1.mp4")
 
     # 6. Verify valid materialized asset is readable by runtime
-    pub_media = workspace / "remotion-app" / "public" / "projects" / project_id / "media" / "logical_video_1.mp4"
+    pub_media = workspace / "remotion-app" / "public" / resolved_path
     assert pub_media.exists()
     assert pub_media.read_text(encoding="utf-8") == "fake video data"
     

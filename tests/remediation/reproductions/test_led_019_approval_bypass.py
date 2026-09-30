@@ -4,13 +4,11 @@ from pathlib import Path
 
 def test_led_019_approval_bypass_via_agy_is_managed(tmp_path):
     """
-    Finding: LED-019 / LED-020
+    Finding: LED-019 (PARTIALLY CLOSED in S02 - AGY_IS_MANAGED bypass removed; Hash binding in S09)
+    Evolution: Evolved from S00 Expected-RED reproduction to S02 GREEN regression proof.
     Expected correct behavior: scripts/render_project.py must enforce human approval (gate_3)
     strictly. Environment variables like AGY_IS_MANAGED=1 MUST NOT bypass human approval.
-    Actual behavior on current main: Line 81 in scripts/render_project.py does:
-        if not is_approved and not is_managed:
-            ... block ...
-    When AGY_IS_MANAGED=1, 'is_managed' is True, completely skipping the check!
+    Post-S02 behavior: Bypass condition removed; approval check is unconditional.
     """
     render_script = Path.cwd() / "scripts" / "render_project.py"
     content = render_script.read_text(encoding="utf-8")

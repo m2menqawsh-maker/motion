@@ -68,6 +68,10 @@ class SecuritySettings(BaseModel):
     )
 
     # Cryptographic secrets
+    auth_secret_key: Optional[str] = Field(
+        default_factory=lambda: __import__("os").environ.get("AUTH_SECRET_KEY"),
+        description="Secret key used for HMAC-SHA256 signing of authentication tokens"
+    )
     jwt_secret_key: Optional[str] = Field(
         default=None,
         description="Secret key used for signing and verifying JWT tokens"
@@ -89,6 +93,9 @@ class SecuritySettings(BaseModel):
 
             if not self.enforce_studio_approval:
                 raise ValueError("Security Violation: enforce_studio_approval cannot be disabled in PRODUCTION environment.")
+
+            if self.auth_secret_key is not None and len(self.auth_secret_key) < 32:
+                raise ValueError("Security Violation: auth_secret_key must be at least 32 characters in PRODUCTION environment.")
 
         # Ensure python interpreter is a valid executable path
         if not self.python_interpreter.is_absolute():

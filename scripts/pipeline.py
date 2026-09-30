@@ -86,23 +86,34 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
                 
         except Exception as e:
             duration_ms = int((time.time() - start_time) * 1000)
-            from scripts.core.failure_model import FailureInfo, FailureCode
-            failure = FailureInfo(
-                code=FailureCode.GATE_EXECUTION_FAILED,
-                message=str(e),
-                cause_type=type(e).__name__,
+            from scripts.core.failure_model import FailureInfo, FailureCode, FailureClassifier
+            from scripts.core.retry_policy import RetryPolicyEngine, RetryContext
+            from scripts.core.state_store import StateStore
+
+            res_returncode = result.returncode if 'result' in locals() and result else 1
+            res_stdout = result.stdout if 'result' in locals() and result else ""
+            res_stderr = result.stderr if 'result' in locals() and result else ""
+
+            failure = FailureClassifier.classify(
+                script_name=script_name,
+                returncode=res_returncode,
+                stdout=res_stdout,
+                stderr=res_stderr,
+                exception=e,
                 stage=stage,
-                component=component
+                component=component,
             )
+
             child_logger.event(
                 "gate.execution", 
                 status="failure",
                 duration_ms=duration_ms,
                 failure_info=failure
             )
-            print(f"   ❌ فشل في {script_name}")
+            print(f"   ❌ فشل في {script_name} [{failure.code.value}]")
             print("\n" + "="*40 + f" تفاصيل الخطأ (محاولة {current_attempt_ctx.attempt}) " + "="*40)
-            print(f"   💬 السبب: {str(e)}")
+            print(f"   💬 الكود: {failure.code.value} | التصنيف: {failure.metadata.category.value}")
+            print(f"   💬 السبب: {failure.message}")
             try:
                 if result.stdout:
                     print(result.stdout.strip())
@@ -112,7 +123,60 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
                 pass # result might not be defined
             print("="*94 + "\n")
             
-            decision = RetryPolicyEngine.evaluate(failure, idempotency, current_attempt_ctx.attempt)
+            # Precondition validation for conditional retries
+            is_valid = True
+            if current_attempt_ctx.project_id:
+                proj_dir = Path("projects") / current_attempt_ctx.project_id
+                state_file = proj_dir / StateStore.STATE_FILE
+                if state_file.is_file():
+                    input_fps = {}
+                    for arg in args:
+                        if isinstance(arg, str):
+                            p = Path(arg)
+                            if p.is_file():
+                                try:
+                                    input_fps[p.name] = StateStore._compute_sha256(p)
+                                except Exception:
+                                    pass
+                    
+                    try:
+                        st = StateStore.load(proj_dir)
+                    except Exception:
+                        st = None
+
+                    if st:
+                        curr_rev = st.revision
+                        retry_ctx = RetryContext(
+                            project_id=current_attempt_ctx.project_id,
+                            stage=stage,
+                            operation=component,
+                            attempt=current_attempt_ctx.attempt,
+                            expected_revision=curr_rev,
+                            input_fingerprints=input_fps,
+                            evidence_paths=list(expected_artifacts) if expected_artifacts else [],
+                            idempotency=idempotency,
+                        )
+                        is_valid, val_reason = RetryPolicyEngine.validate_retry_preconditions(retry_ctx, proj_dir)
+                        if not is_valid:
+                            print(f"   ⚠️ شروط إعادة المحاولة غير مستوفاة: {val_reason}")
+
+            decision = RetryPolicyEngine.evaluate(failure, idempotency, current_attempt_ctx.attempt, is_state_valid=is_valid)
+
+            # Persist failure attempt into ProjectState
+            if current_attempt_ctx.project_id:
+                proj_dir = Path("projects") / current_attempt_ctx.project_id
+                state_file = proj_dir / StateStore.STATE_FILE
+                if state_file.is_file():
+                    try:
+                        RetryPolicyEngine.record_failure_attempt(
+                            project_dir=proj_dir,
+                            failure=failure,
+                            attempt=current_attempt_ctx.attempt,
+                            will_retry=decision.should_retry,
+                            operation_id=current_attempt_ctx.span_id,
+                        )
+                    except Exception as ex:
+                        print(f"   ⚠️ تعذر تسجيل محاولة الفشل في الحالة: {ex}")
             
             if decision.should_retry:
                 child_logger.event(
@@ -176,44 +240,107 @@ def main():
     ctx = RunContext(run_id=run_id, project_id=project_id, span_id=span_id, parent_span_id=parent_span_id)
     logger = RuntimeLogger(ctx)
     logger.event("pipeline.execution", status="started", component="pipeline", stage="pipeline")
+
+    # ==========================================
+    # Cross-Process Execution Lock (LED-061)
+    # ==========================================
+    import atexit
+    from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
+    is_managed = os.environ.get("AGY_IS_MANAGED") == "1"
+    execution_lock = None
+    if not is_managed:
+        execution_lock = ProjectExecutionLock(
+            project_dir=proj_dir,
+            owner_id=os.environ.get("AGY_WORKER_ID", "cli"),
+            run_id=run_id,
+        )
+        try:
+            execution_lock.acquire()
+            atexit.register(execution_lock.release)
+        except ProjectExecutionConflictError as e:
+            print(f"\n🛑 [CONCURRENCY CONFLICT] {e}")
+            logger.event("pipeline.conflict", status="failed", error=str(e))
+            sys.exit(1)
     
     # ==========================================
     # Initialization & Recovery
     # ==========================================
-    from scripts.core.state_store import StateStore
+    from scripts.core.state_store import StateStore, StateCorruptedError, StateIOError
     from scripts.core.state_model import LifecycleState, ValidationLevel, ProjectState, StateMachine
-    from scripts.core.recovery_engine import RecoveryEngine
+    from scripts.core.lifecycle_service import LifecycleService
+    from scripts.core.recovery_engine import RecoveryEngine, RecoveryPlanner, RecoveryService
     import time
     
-    decision = RecoveryEngine.evaluate(proj_dir)
-    
-    if decision.can_resume:
-        logger.event("recovery.resumed", status="resumed")
-        next_state = decision.next_state
-        print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة الحالية: {next_state}")
-    else:
+    try:
+        current_state_record = StateStore.load(proj_dir)
+    except StateCorruptedError as e:
+        print(f"\n🛑 [خطأ أمني فادح] ملف حالة المشروع تالف وغير قابل للقراءة: {e}")
+        logger.event("state.corrupted", status="failed", error=str(e))
+        sys.exit(1)
+    except StateIOError as e:
+        print(f"\n🛑 [خطأ إدخال/إخراج] تعذر قراءة ملف حالة المشروع: {e}")
+        logger.event("state.io_error", status="failed", error=str(e))
+        sys.exit(1)
+
+    if current_state_record is None:
         logger.event("recovery.detected", status="detected")
         next_state = LifecycleState.DRAFT
+        current_revision = 1
         print(f"\n🔍 [المنسق الذكي] بداية جديدة للمشروع: {project_id}...")
+    else:
+        decision = RecoveryEngine.evaluate(proj_dir)
+        if decision.can_resume:
+            logger.event("recovery.resumed", status="resumed")
+            next_state = decision.next_state
+            current_revision = current_state_record.revision
+            print(f"\n✅ استئناف من نقطة الحفظ: {decision.reason} -> المرحلة الحالية: {next_state}")
+        else:
+            logger.event("recovery.plan_required", status="plan_required", reason=decision.reason)
+            print(f"\n⚠️ [الاسترجاع والتسوية] تعذر الاستئناف المباشر: {decision.reason}")
+
+            plan = decision.recovery_plan or RecoveryPlanner.create_plan(proj_dir, state=current_state_record)
+            if plan.requires_manual_action:
+                print(f"🛑 [توقف أمان] يتطلب المشروع تدخلاً يدوياً: {plan.reason}")
+                sys.exit(1)
+
+            print(f"   📋 تطبيق خطة الاسترجاع: {plan.current_state.value} ➔ {plan.target_state.value}")
+            if plan.invalidated_evidence_paths:
+                print(f"   🗑️ أدلة تم إبطالها: {plan.invalidated_evidence_paths}")
+            if plan.stale_disk_paths:
+                print(f"   🧹 إزالة علامات غير صالحة: {plan.stale_disk_paths}")
+
+            reconciled_state = RecoveryService.apply_plan(proj_dir, plan)
+            next_state = plan.target_state
+            current_revision = reconciled_state.revision
+            print(f"   ✅ تمت تسوية حالة القرص بنجاح (المراجعة: {current_revision}) -> استئناف من {next_state.value}\n")
 
     def save_state(target_state: LifecycleState, artifacts: list):
-        refs = []
-        for path, val_level in artifacts:
-            refs.append(StateStore.create_artifact_record(proj_dir, path, val_level))
-        
-        state = StateStore.load(proj_dir)
-        if not state:
-            state = ProjectState(project_id=project_id)
-            
-        state.artifact_records = refs
-        StateMachine.transition(state, target_state)
-        StateStore.save(proj_dir, state)
+        nonlocal current_revision
+        disk_state = StateStore.load(proj_dir)
+        if disk_state and disk_state.revision > current_revision:
+            current_revision = disk_state.revision
 
-    def mark_failed():
-        state = StateStore.load(proj_dir)
-        if state:
-            state.lifecycle_state = LifecycleState.FAILED
-            StateStore.save(proj_dir, state)
+        st = LifecycleService.transition(
+            project_dir=proj_dir,
+            target_state=target_state,
+            artifacts=artifacts,
+            expected_revision=current_revision,
+        )
+        current_revision = st.revision
+
+    def mark_failed(reason: str = "Pipeline execution failed"):
+        nonlocal current_revision
+        disk_state = StateStore.load(proj_dir)
+        if disk_state and disk_state.revision > current_revision:
+            current_revision = disk_state.revision
+
+        st = LifecycleService.transition(
+            project_dir=proj_dir,
+            target_state=LifecycleState.FAILED,
+            reason=reason,
+            expected_revision=current_revision,
+        )
+        current_revision = st.revision
 
     # State Machine Loop
     while next_state != LifecycleState.COMPLETE:
@@ -289,7 +416,8 @@ def main():
             save_state(LifecycleState.PROBE_PASSED, [
                 ("master_plan.md", ValidationLevel.SHA256),
                 ("05_blueprint.json", ValidationLevel.SHA256),
-                ("probe_qc_report.json", ValidationLevel.EXISTS)
+                ("probe_qc_report.json", ValidationLevel.SHA256),
+                ("contact_sheet.png", ValidationLevel.SHA256),
             ])
             next_state = LifecycleState.PROBE_PASSED
 
@@ -301,19 +429,56 @@ def main():
 
         # 7. AWAITING_REVIEW -> REVIEW_APPROVED
         elif next_state == LifecycleState.AWAITING_REVIEW:
-            approved_marker = proj_dir / ".studio_approved"
-            if approved_marker.exists():
-                print(f"\n✅ تم العثور على الموافقة البشرية (.studio_approved). ننتقل لـ REVIEW_APPROVED.")
-                save_state(LifecycleState.REVIEW_APPROVED, [])
+            from scripts.core.review_service import ReviewService, ReviewDecisionType, create_local_trusted_principal
+            state = StateStore.load(proj_dir)
+            active_bundle = state.get_active_review_bundle() if state else None
+            active_decision = state.get_active_review_decision() if state else None
+
+            # Auto-create bundle if not yet created so reviewer has snapshot ready
+            if not active_bundle or active_bundle.status != "ACTIVE":
+                try:
+                    active_bundle = ReviewService.create_review_bundle(proj_dir)
+                    print(f"📦 تم إنشاء حزمة المراجعة: {active_bundle.review_bundle_id}")
+                except Exception as e:
+                    print(f"⚠️ تعذر إنشاء حزمة المراجعة: {e}")
+
+            if active_decision and active_decision.decision == ReviewDecisionType.APPROVED:
+                print(f"\n✅ تم التحقق من اعتماد المراجعة الرسمي ({active_decision.decision_id}). ننتقل لـ REVIEW_APPROVED.")
                 next_state = LifecycleState.REVIEW_APPROVED
             else:
-                print(f"\n⏸️ المنسق متوقف مؤقتاً.")
-                print(f"المشروع جاهز للمعاينة في الاستوديو (AWAITING_REVIEW). يرجى مراجعة الفيديو وإنشاء ملف .studio_approved قبل الرندر النهائي.")
-                sys.exit(0)
+                approved_marker = proj_dir / ".studio_approved"
+                if approved_marker.exists() and active_bundle and active_bundle.status == "ACTIVE":
+                    try:
+                        principal = create_local_trusted_principal("local_studio_reviewer")
+                        active_decision = ReviewService.approve(
+                            proj_dir,
+                            active_bundle.review_bundle_id,
+                            principal=principal,
+                            reason="Approved via local studio session"
+                        )
+                        current_revision = active_decision.state_revision
+                        print(f"\n✅ تم توثيق الاعتماد البشري عبر ReviewService ({active_decision.decision_id}). ننتقل لـ REVIEW_APPROVED.")
+                        next_state = LifecycleState.REVIEW_APPROVED
+                    except Exception as e:
+                        print(f"\n❌ فشل توثيق الاعتماد البشري: {e}")
+                        sys.exit(1)
+                else:
+                    print(f"\n⏸️ المنسق متوقف مؤقتاً.")
+                    print(f"المشروع جاهز للمعاينة في الاستوديو (AWAITING_REVIEW).")
+                    print(f"حزمة المراجعة: {active_bundle.review_bundle_id if active_bundle else 'N/A'}")
+                    print(f"يرجى مراجعة الفيديو وإنشاء ملف .studio_approved أو اعتماد حزمة المراجعة عبر ReviewService قبل الرندر النهائي.")
+                    sys.exit(0)
 
         # 8. REVIEW_APPROVED -> RENDERED
         elif next_state == LifecycleState.REVIEW_APPROVED:
             print(f"\n➔ الانتقال من REVIEW_APPROVED إلى RENDERED (الرندر النهائي):")
+            from scripts.core.review_service import assert_render_authorized, RenderNotAuthorizedError
+            try:
+                assert_render_authorized(proj_dir)
+            except RenderNotAuthorizedError as e:
+                print(f"\n🛑 [GUARDIAN BLOCK] ممنوع الرندر: {e}")
+                mark_failed()
+                sys.exit(1)
             FailureInjector.maybe_inject(InjectionPoint.BEFORE_RENDER)
             if not run_script(logger, "render", "remotion", "render_project.py", IdempotencyClass.CONDITIONALLY_RETRYABLE, project_id, expected_artifacts=[str(proj_dir / "out.mp4")]):
                 mark_failed()
@@ -347,6 +512,8 @@ def main():
 
     logger.event("pipeline.execution", status="success", stage="pipeline", component="pipeline")
     print("\n🎉 انتهى الفحص بنجاح! جميع ملفاتك وحالتك الحالية سليمة 100%. (الحالة: COMPLETE)")
+    if execution_lock is not None:
+        execution_lock.release()
 
 if __name__ == "__main__":
     main()

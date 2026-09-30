@@ -68,13 +68,17 @@ def main():
         }
         (project_dir / "overrides.json").write_text(json.dumps(overrides_data, ensure_ascii=False, indent=2), encoding="utf-8")
         
-        # 02_asset_manifest.json
-        manifest_data = {
-            "project_id": project_id,
-            "generated_at": timestamp,
-            "assets": []
-        }
-        (project_dir / "02_asset_manifest.json").write_text(json.dumps(manifest_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        # 02_asset_manifest.json (Canonical Manifest v2)
+        from scripts.core.manifest_loader import save_manifest
+        from scripts.core.manifest_model import ManifestV2
+
+        manifest_v2 = ManifestV2(
+            manifest_version="2.0.0",
+            project_id=project_id,
+            created_at=timestamp,
+            assets=[]
+        )
+        save_manifest(manifest_v2, project_dir / "02_asset_manifest.json")
         
         # .studio_approved MUST NOT be created automatically. The user creates it after Probe QC.
         

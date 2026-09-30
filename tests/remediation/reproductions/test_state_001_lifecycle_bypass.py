@@ -9,6 +9,7 @@ from scripts.core.state_model import ProjectState, LifecycleState
 async def test_state_001_api_bypasses_gates_and_validation(tmp_path, monkeypatch):
     """
     Finding: STATE-001 / LED-018
+    Owner Package: S03 (Lifecycle State Engine)
     Expected correct behavior: PipelineService.finish_stage("2") MUST NOT transition
     the lifecycle to BLUEPRINT_READY unless blueprint validation succeeds.
     Actual behavior on current main: PipelineService directly mutates state.lifecycle_state
@@ -28,7 +29,8 @@ async def test_state_001_api_bypasses_gates_and_validation(tmp_path, monkeypatch
     # Calling finish_stage for stage 2 (blueprint stage) WITHOUT any valid blueprint on disk
     assert not (project_dir / "05_blueprint.json").exists()
     
-    result = await PipelineService.finish_stage(project_id, "2")
+    with pytest.raises(Exception):
+        await PipelineService.finish_stage(project_id, "2")
     
     loaded_state = StateStore.load(project_dir)
     assert loaded_state is not None

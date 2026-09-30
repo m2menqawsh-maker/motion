@@ -1,68 +1,63 @@
+"""Single Authority Subprocess Confinement Adapter.
+
+In accordance with S01 Trust Model, ADR-001, and S02 Security Enforcement:
+This module acts strictly as a thin backward-compatible adapter delegating all execution
+policy evaluations to the canonical authority: `scripts.core.security.command_policy.CommandPolicy`.
+Independent, duplicated allowlists are completely removed.
+"""
+
+import os
 import subprocess
+from pathlib import Path
+from typing import List, Union
+from scripts.core.security.command_policy import CommandPolicy, CommandSecurityViolation
 
+# Legacy constant references kept for backward-compatibility with tests/callers that inspect them
 ALLOWED_COMMANDS = {"ffmpeg", "ffprobe"}
-
 ALLOWED_SCRIPTS = {
-    "python": [
-        "scripts/pipeline.py", "scripts/validators/validate_schemas.py", "scripts/render_project.py", 
-        "scripts/maintenance/scene_compiler.py", ".agents/guardian/post_executor.py", 
-        "scripts/scaffold_project.py", "scripts/archive/migrate_state.py",
-        "scripts/validators/template_lint.py", "scripts/metrics/benchmark_guards.py",
-        "scripts/gates/asset_gate.py", "scripts/gates/plan_gate.py", "scripts/gates/taste_gate.py",
-        "scripts/gates/validate_blueprint.py", "scripts/gates/motion_validator.py",
-        "scripts/gates/code_template_gate.py", "scripts/generators/materialize_project.py", "scripts/gates/probe_qc.py", "scripts/gates/final_qc.py"
-    ],
-    "npm": ["run", "build"], 
-    "docker": ["info", "run"],
+    "npm": ["run", "build"],
+    "docker": ["info", "run", "build"],
     "npx": ["remotion"],
-    "npx.cmd": ["remotion"]
+    "npx.cmd": ["remotion"],
 }
 
-def safe_subprocess(cmd_list, **kwargs):
+
+def safe_subprocess(cmd_list: Union[str, List[str]], **kwargs):
+    """Safely execute a subprocess, rigorously enforced by canonical CommandPolicy."""
     if isinstance(cmd_list, str):
         cmd_list = cmd_list.split()
 
     if not cmd_list:
         raise PermissionError("Empty command")
 
-    cmd = cmd_list[0]
-    
-    # Strip path from python/npm/docker just in case they are absolute
-    if "python" in cmd: cmd = "python"
-    elif "npm" in cmd: cmd = "npm"
-    elif "docker" in cmd: cmd = "docker"
-    elif "npx.cmd" in cmd: cmd = "npx.cmd"
-    elif "npx" in cmd: cmd = "npx"
+    cwd = kwargs.get("cwd")
+    timeout = kwargs.get("timeout")
 
-    if cmd not in ALLOWED_COMMANDS:
-        if cmd in ALLOWED_SCRIPTS:
-                if len(cmd_list) >= 2:
-                    # Normalize slashes for Windows
-                    normalized_script = cmd_list[1].replace("\\", "/")
-                else:
-                    normalized_script = ""
-                
-                is_allowed = False
-                if len(cmd_list) >= 2:
-                    for allowed in ALLOWED_SCRIPTS[cmd]:
-                        if normalized_script == allowed or normalized_script.endswith("/" + allowed):
-                            is_allowed = True
-                            break
-                            
-                if not is_allowed:
-                    # Allow npm run build specifically
-                    if cmd == "npm" and len(cmd_list) >= 3 and cmd_list[1] == "run" and cmd_list[2] == "build":
-                        pass # Valid
-                    elif cmd == "docker":
-                        pass # Valid for run and info
-                    else:
-                        raise PermissionError(f"Command not allowed: {' '.join(cmd_list)}")
-        else:
-            raise PermissionError(f"Command not allowed: {cmd}")
-            
-    # Force safe defaults
+    is_prod = os.environ.get("MOTION_ENV", "development").lower() == "production"
+
+    validation = CommandPolicy.validate_command(
+        cmd=list(cmd_list),
+        cwd=cwd,
+        timeout=timeout,
+        is_production=is_prod
+    )
+
+    if not validation.is_allowed:
+        raise PermissionError(f"Command not allowed: {'; '.join(validation.violations)}")
+
+    # Force safe execution defaults
     kwargs["shell"] = False
     if "timeout" not in kwargs:
-        kwargs["timeout"] = 900
-        
-    return subprocess.run(cmd_list, **kwargs)
+        kwargs["timeout"] = validation.timeout_seconds
+
+    # Use sanitized command (e.g. sys.executable instead of bare python)
+    exec_cmd = validation.sanitized_cmd
+
+    # Ensure environment is sanitized
+    kwargs["env"] = CommandPolicy.sanitize_environment(
+        base_env=kwargs.get("env"),
+        workspace_root=Path(cwd) if cwd else None,
+        is_production=is_prod
+    )
+
+    return subprocess.run(exec_cmd, **kwargs)

@@ -5,9 +5,11 @@
     "studio": "remotion studio remotion-app/src/index.ts --config=remotion-app/remotion.config.ts",
     "build": "remotion render remotion-app/src/index.ts BlueprintVideo out/video.mp4 --config=remotion-app/remotion.config.ts",
     "dev": "concurrently \"npm run api:dev\" \"npm run studio\"",
-    "test": "vitest run tests/remotion/contracts.test.ts tests/remotion/merge.test.ts tests/remotion/template_runtime_resolution.test.ts tests/remotion/datastory_contract.test.ts",
-    "test:contracts": "vitest run tests/remotion/contracts.test.ts",
-    "test:templates": "vitest run tests/remotion/template_runtime_resolution.test.ts"
+    "test": "vitest run tests/remotion/contracts.test.ts tests/remotion/merge.test.ts tests/remotion/template_runtime_resolution.test.ts tests/remotion/datastory_contract.test.ts tests/remotion/manifest.test.ts tests/remotion/blueprint.test.ts tests/remotion/asset_resolution.test.ts tests/remotion/template_contract_parity.test.ts tests/remotion/effects.test.ts tests/remotion/s16_reproductions.test.ts tests/remotion/s16_pre_mount_gate.test.ts tests/remotion/s17_render_input_parity.test.ts",
+    "test:contracts": "vitest run tests/remotion/contracts.test.ts tests/remotion/manifest.test.ts tests/remotion/blueprint.test.ts tests/remotion/asset_resolution.test.ts",
+    "test:templates": "vitest run tests/remotion/template_runtime_resolution.test.ts",
+    "generate:template-contract": "python scripts/generators/generate_template_contract.py",
+    "check:template-contract": "python scripts/generators/generate_template_contract.py --check"
   },
   "dependencies": {
     "@remotion/cli": "4.0.525",

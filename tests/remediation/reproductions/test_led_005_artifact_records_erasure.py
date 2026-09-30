@@ -6,6 +6,7 @@ from scripts.core.state_model import ProjectState, ArtifactRecord, ValidationLev
 def test_led_005_stage_save_erases_previous_artifacts(tmp_path):
     """
     Finding: LED-005
+    Owner Package: S06 (Artifact Registry & Retention)
     Expected correct behavior: Artifact records from previous stages (e.g. 02_asset_manifest.json,
     master_plan.md) must be preserved in state across subsequent stage transitions.
     Actual behavior on current main: In scripts/pipeline.py line 208:
