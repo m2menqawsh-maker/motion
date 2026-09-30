@@ -151,7 +151,7 @@ class HealthService:
                 return True, {"status": "pass", "latency_ms": latency}
             finally:
                 conn.close()
-        except Exception as e:
+        except Exception:
             return False, {
                 "status": "fail",
                 "reason": "Database connection or read error",

@@ -88,7 +88,7 @@ class PipelineService:
         from scripts.core.state_store import StateCorruptedError
         try:
             state = StateStore.load(project_dir)
-        except StateCorruptedError as e:
+        except StateCorruptedError:
             # Check for legacy GUI state adapter fallback
             state_file = Path(project_dir) / StateStore.STATE_FILE
             if state_file.exists():

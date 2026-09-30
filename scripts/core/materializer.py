@@ -26,7 +26,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 from scripts.core.blueprint_errors import BlueprintError, BlueprintValidationError
 from scripts.core.blueprint_loader import load_blueprint
@@ -388,7 +388,7 @@ def materialize_project_atomic(
             staging_resolved = staging_dest.resolve()
             gen_dir_resolved = gen_dir.resolve()
             staging_resolved.relative_to(gen_dir_resolved)
-        except Exception as e:
+        except Exception:
             fails.append(f"asset '{aid}': destination escape detected: {candidate_filename}")
             continue
 

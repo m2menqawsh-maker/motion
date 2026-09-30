@@ -261,7 +261,7 @@ class RetryPolicyEngine:
 
     @staticmethod
     def _get_max_attempts(code: FailureCode) -> int:
-        meta = failure_metadata = FailureInfo(code=code, message="").metadata
+        meta = FailureInfo(code=code, message="").metadata
         return meta.max_attempts
 
     @staticmethod

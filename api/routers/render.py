@@ -24,7 +24,7 @@ async def websocket_endpoint(websocket: WebSocket, project_id: str):
     await manager.connect(websocket, project_id)
     try:
         while True:
-            data = await websocket.receive_text()
+            await websocket.receive_text()
     except WebSocketDisconnect:
         manager.disconnect(websocket, project_id)
 

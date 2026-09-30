@@ -7,7 +7,7 @@ Single source of truth used by LifecycleService, RecoveryEngine, and Pipeline.
 
 from enum import Enum
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
+from typing import Dict, List, Optional, Any, Set, Union
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 

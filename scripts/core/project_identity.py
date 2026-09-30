@@ -105,7 +105,7 @@ def validate_project_identity(
                 bp_id = raw_bp.get("project_id")
                 identities["blueprint"] = bp_id
                 if not bp_id:
-                    mismatches.append(f"05_blueprint.json is missing mandatory project_id")
+                    mismatches.append("05_blueprint.json is missing mandatory project_id")
                 elif bp_id != target_id:
                     mismatches.append(f"05_blueprint.json project_id '{bp_id}' != expected '{target_id}'")
             except Exception as e:
