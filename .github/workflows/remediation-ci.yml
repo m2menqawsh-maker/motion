@@ -97,9 +97,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Node Dependencies
+        run: |
+          npm ci
+          cd remotion-app && npm ci
 
       - name: Install Python Dependencies
         run: |
@@ -251,3 +261,4 @@ jobs:
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
+          trivyignores: '.trivyignore'

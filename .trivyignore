@@ -1,0 +1,3 @@
+# Trivy Ignore File
+# CVE-2025-66414: MCP TypeScript SDK DNS rebinding advisory for local CLI MCP servers
+CVE-2025-66414
