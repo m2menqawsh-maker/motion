@@ -131,6 +131,13 @@ class HealthService:
         start = time.perf_counter()
         try:
             if not target_db.exists():
+                try:
+                    from scripts.core.run_repository import RunRepository
+                    RunRepository(target_db)
+                except Exception:
+                    pass
+
+            if not target_db.exists():
                 return False, {
                     "status": "fail",
                     "reason": f"Database file does not exist at {target_db.name}",
