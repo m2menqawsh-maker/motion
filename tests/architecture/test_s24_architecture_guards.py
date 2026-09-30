@@ -6,7 +6,6 @@ canonical factory fixtures, Docker hermeticity, coverage threshold, and security
 
 import ast
 import re
-import yaml
 from pathlib import Path
 import pytest
 
