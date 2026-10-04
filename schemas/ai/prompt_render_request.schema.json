@@ -1,0 +1,55 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Request contract to resolve and safely render a versioned prompt.",
+  "properties": {
+    "prompt_id": {
+      "description": "Identifier of the prompt to render",
+      "minLength": 1,
+      "title": "Prompt Id",
+      "type": "string"
+    },
+    "variables": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Typed variable substitutions",
+      "title": "Variables",
+      "type": "object"
+    },
+    "version": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target version. If None, resolves active PRODUCTION version.",
+      "title": "Version"
+    },
+    "workspace_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Tenant boundary isolation key",
+      "title": "Workspace Id"
+    }
+  },
+  "required": [
+    "prompt_id"
+  ],
+  "title": "PromptRenderRequest",
+  "type": "object"
+}

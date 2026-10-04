@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "UsageUnitRecord": {
+      "additionalProperties": false,
+      "description": "Auxiliary consumption metric for non-token modalities (e.g., characters, search calls).",
+      "properties": {
+        "quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Measured consumption quantity",
+          "title": "Quantity"
+        },
+        "unit_type": {
+          "description": "Resource metric identifier",
+          "minLength": 1,
+          "title": "Unit Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit_type",
+        "quantity"
+      ],
+      "title": "UsageUnitRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical, provider-neutral resource consumption record.\nSupports LLMs, speech synthesis, vision processing, and generative media.",
+  "properties": {
+    "audio_seconds": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "ge": "0"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Duration of processed audio",
+      "title": "Audio Seconds"
+    },
+    "image_count": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Count of images generated or analyzed",
+      "title": "Image Count"
+    },
+    "input_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Number of prompt/input tokens",
+      "title": "Input Tokens"
+    },
+    "output_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Number of completion/output tokens",
+      "title": "Output Tokens"
+    },
+    "reported_units": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/UsageUnitRecord"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional provider-reported auxiliary consumption units",
+      "title": "Reported Units"
+    },
+    "total_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Total tokens consumed",
+      "title": "Total Tokens"
+    },
+    "video_seconds": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "ge": "0"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Duration of processed video",
+      "title": "Video Seconds"
+    }
+  },
+  "title": "UsageRecord",
+  "type": "object"
+}

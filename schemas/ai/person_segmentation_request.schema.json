@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for human segmentation mask extraction.",
+  "properties": {
+    "content_hash": {
+      "description": "SHA-256 hash of input image",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "image_storage_key": {
+      "description": "Abstract StorageService key for input image/frame",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "return_mask": {
+      "default": true,
+      "description": "Whether to produce alpha matte binary mask",
+      "title": "Return Mask",
+      "type": "boolean"
+    },
+    "threshold": {
+      "default": 0.5,
+      "description": "Probability cutoff threshold",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Threshold",
+      "type": "number"
+    }
+  },
+  "required": [
+    "image_storage_key",
+    "content_hash"
+  ],
+  "title": "PersonSegmentationRequest",
+  "type": "object"
+}

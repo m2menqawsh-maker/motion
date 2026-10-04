@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for storing transformed media into project cache.",
+  "properties": {
+    "asset_id": {
+      "description": "Asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "source_storage_key": {
+      "description": "StorageService key of rendered variant to cache",
+      "minLength": 1,
+      "title": "Source Storage Key",
+      "type": "string"
+    },
+    "transformation_hash": {
+      "description": "Deterministic hash of transformation parameters",
+      "minLength": 8,
+      "title": "Transformation Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "transformation_hash",
+    "source_storage_key"
+  ],
+  "title": "StoreCacheInput",
+  "type": "object"
+}

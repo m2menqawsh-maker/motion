@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "ConflictPrecedenceRank": {
+      "description": "Hierarchical precedence authority for resolving competing creative directives.",
+      "enum": [
+        "HARD_SYSTEM_CONSTRAINT",
+        "USER_EXPLICIT_REQUIREMENT",
+        "RECIPE_CONSTRAINT",
+        "DIRECTOR_RECOMMENDATION",
+        "SOFT_TASTE_PREFERENCE"
+      ],
+      "title": "ConflictPrecedenceRank",
+      "type": "string"
+    },
+    "ConflictSeverity": {
+      "description": "Classification of conflict impact.",
+      "enum": [
+        "HARD",
+        "CREATIVE_TENSION"
+      ],
+      "title": "ConflictSeverity",
+      "type": "string"
+    },
+    "ConflictStatus": {
+      "description": "Lifecycle status of a detected creative conflict.",
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ],
+      "title": "ConflictStatus",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Structured representation of a detected creative contradiction or tension.\nRecords conflicting parties, competing directives, applied precedence, and outcome.",
+  "properties": {
+    "applied_precedence": {
+      "$ref": "#/$defs/ConflictPrecedenceRank",
+      "description": "Authority precedence applied during resolution"
+    },
+    "competing_directives": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Concrete competing values or directives",
+      "title": "Competing Directives",
+      "type": "object"
+    },
+    "conflict_id": {
+      "description": "Unique conflict identifier",
+      "title": "Conflict Id",
+      "type": "string"
+    },
+    "conflict_type": {
+      "description": "Categorical conflict type (e.g., 'PACING_MISMATCH', 'STYLE_TENSION', 'AUDIO_MODE_VIOLATION')",
+      "title": "Conflict Type",
+      "type": "string"
+    },
+    "conflicting_parties": {
+      "description": "Identities of conflicting sources (e.g., ['Recipe:fast_paced', 'User:calm_premium'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Conflicting Parties",
+      "type": "array"
+    },
+    "description": {
+      "description": "Clear explanation of what is in contradiction",
+      "title": "Description",
+      "type": "string"
+    },
+    "reason_summary": {
+      "description": "Auditable summary explaining why resolution was chosen without hidden CoT",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "resolved_directive": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The winning directive chosen by resolution policy",
+      "title": "Resolved Directive"
+    },
+    "severity": {
+      "$ref": "#/$defs/ConflictSeverity",
+      "description": "Conflict severity (HARD vs CREATIVE_TENSION)"
+    },
+    "status": {
+      "$ref": "#/$defs/ConflictStatus",
+      "description": "Resolution status ('RESOLVED' or 'UNRESOLVED')"
+    }
+  },
+  "required": [
+    "conflict_id",
+    "conflict_type",
+    "severity",
+    "description",
+    "conflicting_parties",
+    "competing_directives",
+    "applied_precedence",
+    "status",
+    "reason_summary"
+  ],
+  "title": "CreativeConflict",
+  "type": "object"
+}

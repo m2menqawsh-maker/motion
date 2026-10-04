@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Individual test fixture or labeled example within an evaluation dataset.",
+  "properties": {
+    "example_id": {
+      "description": "Unique example identifier within dataset",
+      "minLength": 1,
+      "title": "Example Id",
+      "type": "string"
+    },
+    "expected_output": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Expected structured output",
+      "title": "Expected Output"
+    },
+    "expected_schema": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Expected schema identifier or regex",
+      "title": "Expected Schema"
+    },
+    "ground_truth_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Human or verified label",
+      "title": "Ground Truth Label"
+    },
+    "input_payload": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Structured input given to candidate",
+      "title": "Input Payload",
+      "type": "object"
+    },
+    "is_human_verified": {
+      "default": false,
+      "description": "Whether ground truth was created by human annotator",
+      "title": "Is Human Verified",
+      "type": "boolean"
+    },
+    "min_quality_score": {
+      "default": 0.8,
+      "description": "Minimum acceptable quality threshold",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Min Quality Score",
+      "type": "number"
+    }
+  },
+  "required": [
+    "example_id",
+    "input_payload"
+  ],
+  "title": "EvalExample",
+  "type": "object"
+}

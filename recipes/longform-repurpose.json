@@ -62,7 +62,7 @@
     ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py"
   ],
   "providers": {
-    "transcription": "openai_whisper",
+    "transcription": "SPEECH_TO_TEXT",
     "compose": "ffmpeg_or_remotion",
     "captions": "ass_karaoke"
   },

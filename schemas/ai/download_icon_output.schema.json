@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for downloaded icon.",
+  "properties": {
+    "asset_id": {
+      "description": "Created asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "format": {
+      "default": "svg",
+      "description": "Icon format",
+      "title": "Format",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "storage_key": {
+      "description": "StorageService key for downloaded SVG/PNG icon",
+      "minLength": 1,
+      "title": "Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "storage_key"
+  ],
+  "title": "DownloadIconOutput",
+  "type": "object"
+}

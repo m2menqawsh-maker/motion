@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for searching stock footage.",
+  "properties": {
+    "orientation": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional orientation filter ('landscape', 'portrait', 'square')",
+      "title": "Orientation"
+    },
+    "page": {
+      "default": 1,
+      "description": "Page index",
+      "minimum": 1,
+      "title": "Page",
+      "type": "integer"
+    },
+    "per_page": {
+      "default": 15,
+      "description": "Results per page",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Per Page",
+      "type": "integer"
+    },
+    "query": {
+      "description": "Search keyword query",
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "SearchStockVideosInput",
+  "type": "object"
+}

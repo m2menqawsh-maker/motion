@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "description": "Structured result of CreativePlan validation (S28-05).",
+  "properties": {
+    "checked_invariants": {
+      "description": "Audit checklist of verified invariants",
+      "items": {
+        "type": "string"
+      },
+      "title": "Checked Invariants",
+      "type": "array"
+    },
+    "errors": {
+      "description": "Explicit failure messages if invalid",
+      "items": {
+        "type": "string"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "valid": {
+      "description": "Whether the CreativePlan is valid and ready for compilation",
+      "title": "Valid",
+      "type": "boolean"
+    },
+    "warnings": {
+      "description": "Non-fatal warning advisories",
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "valid"
+  ],
+  "title": "CreativePlanValidationResult",
+  "type": "object"
+}

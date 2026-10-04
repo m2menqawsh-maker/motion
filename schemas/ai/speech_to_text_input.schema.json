@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for transcribing speech audio.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio file",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "detect_speakers": {
+      "default": false,
+      "description": "Whether to perform speaker diarization",
+      "title": "Detect Speakers",
+      "type": "boolean"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Expected spoken language code (e.g. 'ar', 'en')",
+      "title": "Language"
+    },
+    "model_size": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "base",
+      "description": "Whisper model tier ('tiny', 'base', 'small', 'medium', 'large-v3')",
+      "title": "Model Size"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "SpeechToTextInput",
+  "type": "object"
+}

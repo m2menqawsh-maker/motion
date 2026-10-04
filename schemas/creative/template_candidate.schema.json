@@ -1,0 +1,290 @@
+{
+  "$defs": {
+    "CandidateStatus": {
+      "description": "Authoritative lifecycle vocabulary for TemplateCandidate.",
+      "enum": [
+        "DRAFT",
+        "VALIDATING",
+        "VALIDATED",
+        "AWAITING_APPROVAL",
+        "APPROVED",
+        "REJECTED",
+        "PROMOTED",
+        "RETIRED"
+      ],
+      "title": "CandidateStatus",
+      "type": "string"
+    },
+    "CreativeTier": {
+      "description": "Canonical creativity tiers (S28-01A / S28-06).",
+      "enum": [
+        "REUSE",
+        "COMPOSE",
+        "CREATE"
+      ],
+      "title": "CreativeTier",
+      "type": "string"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A proposed custom template undergoing isolation and evaluation (S28-07A).\nNever executes directly in production before formal certification and promotion.\nRequires explicit provenance linking to S28-06 NEEDS_CREATE decision.",
+  "properties": {
+    "author": {
+      "default": "system",
+      "description": "Author identifier (human user or agent)",
+      "title": "Author",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Unique candidate identifier (e.g., 'cand_my_pulse_text')",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "content_hash": {
+      "default": "",
+      "description": "Server-computed deterministic SHA-256 hash of candidate content",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "UTC timestamp of candidate creation",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "creative_plan_reference": {
+      "default": "",
+      "description": "Reference to originating CreativePlan ID",
+      "title": "Creative Plan Reference",
+      "type": "string"
+    },
+    "creative_tier_decision_reference": {
+      "default": "",
+      "description": "Reference to originating CreativeTierDecision ID",
+      "title": "Creative Tier Decision Reference",
+      "type": "string"
+    },
+    "creator_ai_run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "AI Run ID that generated this candidate",
+      "title": "Creator Ai Run Id"
+    },
+    "dependencies": {
+      "description": "External package dependencies required by candidate",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "description": {
+      "default": "",
+      "description": "Description of the template visual capability",
+      "title": "Description",
+      "type": "string"
+    },
+    "fixtures": {
+      "additionalProperties": true,
+      "description": "Sample props / test fixtures for candidate validation and rendering",
+      "title": "Fixtures",
+      "type": "object"
+    },
+    "name": {
+      "default": "",
+      "description": "Proposed human-readable template name",
+      "title": "Name",
+      "type": "string"
+    },
+    "origin_project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Legacy alias for source_project_id",
+      "title": "Origin Project Id"
+    },
+    "proposed_category": {
+      "default": "elements/ui",
+      "description": "Target category (e.g., 'typography', 'data', 'scenes')",
+      "title": "Proposed Category",
+      "type": "string"
+    },
+    "proposed_tags": {
+      "description": "Descriptive classification tags",
+      "items": {
+        "type": "string"
+      },
+      "title": "Proposed Tags",
+      "type": "array"
+    },
+    "required_provenance": {
+      "$ref": "#/$defs/ProvenanceRecord",
+      "description": "Mandatory provenance record documenting candidate lineage"
+    },
+    "revision": {
+      "default": 1,
+      "description": "Monotonic optimistic concurrency / CAS revision sequence",
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "source_code": {
+      "default": "",
+      "description": "TSX source code of the proposed template candidate",
+      "title": "Source Code",
+      "type": "string"
+    },
+    "source_code_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Storage key or isolated path where candidate source is persisted",
+      "title": "Source Code Path"
+    },
+    "source_project_id": {
+      "default": "",
+      "description": "Origin project identifier incubating this candidate",
+      "title": "Source Project Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/CandidateStatus",
+      "default": "DRAFT",
+      "description": "Server-controlled lifecycle status (starts DRAFT)"
+    },
+    "storage_keys": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of artifact types to canonical storage keys",
+      "title": "Storage Keys",
+      "type": "object"
+    },
+    "target_tier": {
+      "$ref": "#/$defs/CreativeTier",
+      "default": "REUSE",
+      "description": "Target tier upon promotion (typically REUSE)"
+    },
+    "template_schema": {
+      "additionalProperties": true,
+      "description": "Zod / JSON schema describing props of the proposed candidate",
+      "title": "Template Schema",
+      "type": "object"
+    },
+    "updated_at": {
+      "description": "UTC timestamp of candidate update",
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "why_compose_failed": {
+      "default": "",
+      "description": "Auditable evidence/rationale why Lego primitives (COMPOSE) were insufficient",
+      "title": "Why Compose Failed",
+      "type": "string"
+    },
+    "why_reuse_failed": {
+      "default": "",
+      "description": "Auditable evidence/rationale why existing templates (REUSE) were insufficient",
+      "title": "Why Reuse Failed",
+      "type": "string"
+    },
+    "workspace_id": {
+      "default": "ws_default",
+      "description": "MANDATORY workspace identifier for multi-tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "required_provenance",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "TemplateCandidate",
+  "type": "object"
+}

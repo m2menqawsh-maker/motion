@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for job cancellation.",
+  "properties": {
+    "cancelled": {
+      "description": "Whether the job was successfully cancelled",
+      "title": "Cancelled",
+      "type": "boolean"
+    },
+    "job_id": {
+      "description": "Cancelled job identifier",
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "termination_status": {
+      "description": "Post-cancellation state description",
+      "title": "Termination Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "job_id",
+    "cancelled",
+    "termination_status"
+  ],
+  "title": "CancelJobOutput",
+  "type": "object"
+}

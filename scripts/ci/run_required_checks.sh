@@ -20,7 +20,9 @@ echo ""
 echo "─── 1. [ground-truth] Schema & Dependency Drift Check ───"
 python scripts/validators/check_ground_truth_sync.py --check
 python scripts/validators/check_dependencies_lock.py --check
-echo "✅ Ground Truth & Dependencies verified."
+python scripts/generate_ai_contracts.py --check
+python scripts/generate_creative_contracts.py --check
+echo "✅ Ground Truth, Dependencies, AI & Creative Contracts verified."
 
 echo ""
 echo "─── 2. [security-audit] Security, Dependency & Secret Audits ───"
@@ -45,7 +47,7 @@ echo "✅ TypeScript contracts and Vitest passed."
 echo ""
 echo "─── 4. [python-tests] Pytest Suite with Coverage Threshold ───"
 pytest --cov=api --cov=scripts/core --cov-report=xml --cov-report=term --cov-fail-under=48 \
-  tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/e2e/test_pipeline_integration.py
+  tests/core tests/gates tests/generators tests/validators tests/architecture tests/ai tests/contracts tests/e2e/test_pipeline_integration.py
 echo "✅ Python tests and coverage verified."
 
 echo ""

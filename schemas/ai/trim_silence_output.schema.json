@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for silence-trimmed audio.",
+  "properties": {
+    "original_duration_seconds": {
+      "description": "Original audio duration",
+      "minimum": 0.0,
+      "title": "Original Duration Seconds",
+      "type": "number"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for trimmed audio",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "trimmed_duration_seconds": {
+      "description": "Final duration after silence removal",
+      "minimum": 0.0,
+      "title": "Trimmed Duration Seconds",
+      "type": "number"
+    },
+    "trimmed_end_seconds": {
+      "description": "Duration removed from end",
+      "minimum": 0.0,
+      "title": "Trimmed End Seconds",
+      "type": "number"
+    },
+    "trimmed_start_seconds": {
+      "description": "Duration removed from beginning",
+      "minimum": 0.0,
+      "title": "Trimmed Start Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "original_duration_seconds",
+    "trimmed_duration_seconds",
+    "trimmed_start_seconds",
+    "trimmed_end_seconds"
+  ],
+  "title": "TrimSilenceOutput",
+  "type": "object"
+}

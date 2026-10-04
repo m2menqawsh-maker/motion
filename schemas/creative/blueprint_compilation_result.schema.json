@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Structured result of Blueprint compilation (S28-05).",
+  "properties": {
+    "blueprint": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Canonical Blueprint v2 data dictionary",
+      "title": "Blueprint"
+    },
+    "compiler_version": {
+      "default": "1.0.0",
+      "description": "Compiler version",
+      "title": "Compiler Version",
+      "type": "string"
+    },
+    "errors": {
+      "description": "Compilation errors if failed",
+      "items": {
+        "type": "string"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "success": {
+      "description": "Whether compilation succeeded",
+      "title": "Success",
+      "type": "boolean"
+    },
+    "warnings": {
+      "description": "Compilation warnings",
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "success"
+  ],
+  "title": "BlueprintCompilationResult",
+  "type": "object"
+}

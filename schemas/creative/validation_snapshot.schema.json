@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "ValidationPhase": {
+      "description": "Validation lifecycle phase.",
+      "enum": [
+        "STATIC",
+        "RUNTIME"
+      ],
+      "title": "ValidationPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Immutable snapshot binding a candidate version to a validation run (S28-07B / S28-07C).",
+  "properties": {
+    "candidate_content_hash": {
+      "description": "SHA-256 content hash of the candidate at validation start",
+      "title": "Candidate Content Hash",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Target candidate identifier",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_revision": {
+      "description": "Monotonic revision number of the candidate at validation start",
+      "minimum": 1,
+      "title": "Candidate Revision",
+      "type": "integer"
+    },
+    "phase": {
+      "$ref": "#/$defs/ValidationPhase",
+      "default": "STATIC",
+      "description": "Validation phase: STATIC or RUNTIME"
+    },
+    "policy_version": {
+      "default": "1.0.0",
+      "description": "Policy version governing validation",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "runtime_validation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Runtime validation execution identifier",
+      "title": "Runtime Validation Id"
+    },
+    "started_at": {
+      "description": "UTC timestamp when validation started",
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "static_validation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to passing static validation report ID (for RUNTIME phase)",
+      "title": "Static Validation Id"
+    },
+    "static_validation_report_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SHA-256 digest of passing static validation report (for RUNTIME phase)",
+      "title": "Static Validation Report Hash"
+    },
+    "workspace_id": {
+      "description": "Workspace identifier for multi-tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "workspace_id",
+    "candidate_content_hash",
+    "candidate_revision",
+    "started_at"
+  ],
+  "title": "ValidationSnapshot",
+  "type": "object"
+}

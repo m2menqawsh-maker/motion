@@ -1,0 +1,1332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "mapping_metadata": {
+    "milestone": "S28-M02",
+    "title": "Legacy MCP Tool to Canonical Capability Migration Map",
+    "timestamp": "2026-10-03T22:30:00+03:00",
+    "summary": {
+      "m01_active_tools": 34,
+      "mapped_tools": 34,
+      "unmapped_tools": 0,
+      "duplicate_primary_mappings": 0,
+      "unique_target_capabilities": 32,
+      "status_distribution": {
+        "WORKING": 18,
+        "PARTIALLY_WORKING": 10,
+        "BROKEN": 1,
+        "UNVERIFIED": 5
+      }
+    },
+    "version": "1.1.0",
+    "patch": "S28-M02.1"
+  },
+  "historical_or_quarantined_implementations": [
+    {
+      "identity": "Video_Editor_MCP",
+      "known_status": "QUARANTINED",
+      "quarantine_evidence": "Purged in commit 7e94c15 and formally quarantined in .agents/AGENTS.md",
+      "why_not_part_of_active_6": "Unbounded arbitrary host shell command execution (execute_command) violating safe video workspace boundary",
+      "known_former_capabilities": [
+        "Arbitrary FFmpeg CLI execution"
+      ],
+      "replacement_mapping": "Replaced by specialized, strictly bounded media processing tools (TRIM_VIDEO, CONCATENATE_VIDEOS, etc.)",
+      "historical_mapping_incomplete": true,
+      "notes": "Quarantined historical server; excluded from the 6 active servers and 34 active tool mappings."
+    }
+  ],
+  "mappings": [
+    {
+      "legacy_tool_id": "trim_audio",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "TRIM_AUDIO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Audio Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md",
+        "ai/mcp/adapters/audio.py"
+      ],
+      "current_implementation_dependencies": [
+        "/usr/bin/ffmpeg (-c copy)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Accepts arbitrary raw filesystem paths without project confinement"
+      ],
+      "tenant_notes": [
+        "Legacy MCP is completely tenant-unaware; target capability must bind to workspace/project context"
+      ],
+      "storage_notes": [
+        "Direct raw filesystem write; target must respect project storage boundary"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Fast streamcopy audio trim; preserve execution fidelity.",
+      "target_storage_boundary": "StorageService / Project Audio",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "extend_audio",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "EXTEND_AUDIO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Audio Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md",
+        "ai/mcp/adapters/audio.py"
+      ],
+      "current_implementation_dependencies": [
+        "/usr/bin/ffmpeg (-stream_loop)",
+        "/usr/bin/ffprobe"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Accepts arbitrary raw filesystem paths"
+      ],
+      "tenant_notes": [
+        "Legacy MCP is tenant-unaware"
+      ],
+      "storage_notes": [
+        "Direct raw filesystem write"
+      ],
+      "secondary_observed_responsibilities": [
+        "Silence detection pre-trimming when auto_trim_silence_before_loop is true"
+      ],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Handles short audio looping and crossfade padding.",
+      "target_storage_boundary": "StorageService / Project Audio",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "normalize_loudness",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "NORMALIZE_AUDIO_LOUDNESS",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Audio Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/audio.py"
+      ],
+      "current_implementation_dependencies": [
+        "/usr/bin/ffmpeg (loudnorm filter)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem paths"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Direct raw filesystem write"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Essential audio broadcast compliance standard: -16 LUFS for VO, -24 LUFS for SFX.",
+      "target_storage_boundary": "StorageService / Project Audio",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "detect_and_trim_silence",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "TRIM_AUDIO_SILENCE",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Audio Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "ai/mcp/adapters/audio.py"
+      ],
+      "current_implementation_dependencies": [
+        "/usr/bin/ffmpeg (silencedetect)",
+        "/usr/bin/ffprobe"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem paths"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Direct raw filesystem write"
+      ],
+      "secondary_observed_responsibilities": [
+        "Audio silence intervals inspection and reporting"
+      ],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Trims lead-in and lead-out dead air.",
+      "target_storage_boundary": "StorageService / Project Audio",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "analyze_voiceover",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "SPEECH_TO_TEXT",
+      "target_category": "MODEL",
+      "target_owner": "ModelRouter / SpeechIntelligenceSubsystem",
+      "migration_strategy": "MOVE_TO_MODEL_SUBSYSTEM",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md",
+        "recipes/dynamic-montage-ad.json"
+      ],
+      "current_implementation_dependencies": [
+        "faster-whisper (CTranslate2)",
+        "Silero VAD (onnxruntime)",
+        "av",
+        "numpy",
+        "ffmpeg"
+      ],
+      "known_issues": [
+        "Writes unconfined .{stem}_{hash}.analysis.json directly into audio directory",
+        "Creates unconfined .device_capability.json in MCP directory"
+      ],
+      "security_notes": [
+        "Arbitrary file read and write without tenant scoping"
+      ],
+      "tenant_notes": [
+        "Cache files are placed alongside source files without tenant boundary"
+      ],
+      "storage_notes": [
+        "Analysis cache bypasses StorageService and DB"
+      ],
+      "secondary_observed_responsibilities": [
+        "VOICE_ACTIVITY_DETECTION: Silero VAD runs internally for silence/speech demarcation",
+        "AUDIO_METADATA_EXTRACTION: extracts audio duration, language probability",
+        "WORD_TIMESTAMP_EXTRACTION: generates millisecond kinetic subtitle tokens"
+      ],
+      "future_phase": "S28-M04",
+      "notes": "Core AI model inference tool. Silero VAD is retained as an internal implementation dependency rather than a standalone product capability because consumers only request unified speech analysis.",
+      "target_storage_boundary": "ArtifactService / Transient Analysis Cache",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "LOCAL_TEMP_WRITE"
+      ]
+    },
+    {
+      "legacy_tool_id": "split_voiceover_sentences",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "SEGMENT_SPEECH_AUDIO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService / SpeechIntelligenceSubsystem",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md",
+        "recipes/dynamic-montage-ad.json"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI",
+        "Consumes analysis JSON from analyze_voiceover"
+      ],
+      "known_issues": [
+        "Creates unconfined output_dir on local filesystem"
+      ],
+      "security_notes": [
+        "Path traversal possible if output_dir is not sanitized"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Writes raw sentence WAV slices without manifest integration"
+      ],
+      "secondary_observed_responsibilities": [
+        "Punctuation and natural pause cadence analysis"
+      ],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Slices speech tracks into per-sentence audio files for modular video scene assembly.",
+      "target_storage_boundary": "StorageService / Project Audio Slices",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "get_voiceover_manifest",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "GENERATE_SPEECH_MANIFEST",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "SpeechIntelligenceSubsystem / DomainArtifactService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md"
+      ],
+      "current_implementation_dependencies": [
+        "Python Standard Library"
+      ],
+      "known_issues": [
+        "Can write to arbitrary output_path if provided"
+      ],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Should integrate with ManifestV2 / DomainArtifactService"
+      ],
+      "secondary_observed_responsibilities": [
+        "Timeline coverage audit and gap detection"
+      ],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Domain metadata aggregation and validation operation, not a media transform primitive.",
+      "target_storage_boundary": "ArtifactService / Speech Manifest",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "DOMAIN_MUTATION"
+      ]
+    },
+    {
+      "legacy_tool_id": "build_voiceover_timeline",
+      "legacy_mcp_id": "audio-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "BUILD_SPEECH_TIMELINE",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "SpeechIntelligenceSubsystem / DomainArtifactService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md",
+        ".agents/rules/video-production-protocol.md"
+      ],
+      "current_implementation_dependencies": [
+        "Python Standard Library"
+      ],
+      "known_issues": [
+        "Unconfined filesystem output write"
+      ],
+      "security_notes": [
+        "Raw filesystem write"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Should produce project-confined domain artifact"
+      ],
+      "secondary_observed_responsibilities": [
+        "Word-level and silence interval chronological sequencing"
+      ],
+      "future_phase": "S28-M03 / S28-M07",
+      "notes": "Converts voiceover manifest into Remotion-ready temporal sequence for kinetic typography.",
+      "target_storage_boundary": "ArtifactService / Speech Timeline",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "DOMAIN_MUTATION"
+      ]
+    },
+    {
+      "legacy_tool_id": "check_cache",
+      "legacy_mcp_id": "common-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "CHECK_MEDIA_CACHE",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "AssetService / CacheService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/parity.py"
+      ],
+      "current_implementation_dependencies": [
+        "Python Standard Library"
+      ],
+      "known_issues": [
+        "Checks repository-level assets/ready and assets/cache instead of tenant-isolated project boundaries"
+      ],
+      "security_notes": [
+        "Cross-project / cross-tenant cache pollution possible in shared directory"
+      ],
+      "tenant_notes": [
+        "Must be scoped to Project / Workspace boundary via AssetService.check_asset_cache"
+      ],
+      "storage_notes": [
+        "Direct directory scan; target must use canonical AssetService"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03",
+      "notes": "AssetService already implements check_asset_cache(project_id, asset_id, specs_hash).",
+      "target_storage_boundary": "AssetService / Managed Cache Hierarchy",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "save_to_cache",
+      "legacy_mcp_id": "common-tools-mcp",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "STORE_MEDIA_CACHE",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "AssetService / CacheService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/parity.py"
+      ],
+      "current_implementation_dependencies": [
+        "Python Standard Library (shutil.copy2)"
+      ],
+      "known_issues": [
+        "Ignores cache_dir argument, hardcoding write path to DATA_DIR/assets/cache"
+      ],
+      "security_notes": [
+        "Writes to global cache directory bypassing tenant confinement"
+      ],
+      "tenant_notes": [
+        "Must be scoped to Project boundary via AssetService.save_asset_to_cache"
+      ],
+      "storage_notes": [
+        "Direct file copy bypassing ManifestV2 tracking"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03",
+      "notes": "AssetService already implements save_asset_to_cache(project_id, asset_id, file_path, specs_hash).",
+      "target_storage_boundary": "AssetService / Managed Cache Hierarchy",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "DOMAIN_MUTATION"
+      ]
+    },
+    {
+      "legacy_tool_id": "speed_up_video",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "CHANGE_VIDEO_SPEED",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)"
+      ],
+      "current_implementation_dependencies": [
+        "Node.js v26.7 spawn",
+        "FFmpeg CLI (setpts filter)"
+      ],
+      "known_issues": [
+        "PowerShell WMI job process monitoring fails on Linux",
+        "Creates unmanaged background jobs writing to .agents/mcp_state/ffmpeg_jobs.json"
+      ],
+      "security_notes": [
+        "Detached processes without resource watchdog"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Writes directly into VIDEOS_PATH"
+      ],
+      "secondary_observed_responsibilities": [
+        "Spawns asynchronous job record in local state file"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Requires platform-agnostic process monitoring (POSIX PID / ps / job runner).",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS",
+        "BACKGROUND_JOB"
+      ]
+    },
+    {
+      "legacy_tool_id": "check_processing_status",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "GET_JOB_STATUS",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "RunService / JobExecutionService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md"
+      ],
+      "current_implementation_dependencies": [
+        "Node.js fs/promises",
+        "WMI (Windows)"
+      ],
+      "known_issues": [
+        "WMI process check fails on Linux, falls back to reading unmanaged log file"
+      ],
+      "security_notes": [
+        "Unauthenticated job status query across all jobs"
+      ],
+      "tenant_notes": [
+        "No workspace or project scoping on job IDs"
+      ],
+      "storage_notes": [
+        "Reads ad-hoc JSON file in .agents/mcp_state/"
+      ],
+      "secondary_observed_responsibilities": [
+        "Process alive check and log file tailing"
+      ],
+      "future_phase": "S28-M03",
+      "notes": "Job status monitoring belongs to canonical RunService / Job execution authority.",
+      "target_storage_boundary": "RunService / Durable Job Record",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "cancel_video_processing",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "CANCEL_PROCESSING_JOB",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "RunService / JobExecutionService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md"
+      ],
+      "current_implementation_dependencies": [
+        "Node.js process.kill",
+        "Windows taskkill"
+      ],
+      "known_issues": [
+        "Tries Windows taskkill first before process.kill fallback",
+        "Throws unhandled error if job status is already completed"
+      ],
+      "security_notes": [
+        "Arbitrary PID termination if job state is tampered with"
+      ],
+      "tenant_notes": [
+        "No tenant authorization on job cancellation"
+      ],
+      "storage_notes": [
+        "Mutates .agents/mcp_state/ffmpeg_jobs.json directly"
+      ],
+      "secondary_observed_responsibilities": [
+        "Subprocess SIGKILL signal dispatch"
+      ],
+      "future_phase": "S28-M03",
+      "notes": "Job lifecycle cancellation belongs to canonical RunService.cancel_run.",
+      "target_storage_boundary": "RunService / Durable Job Record",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "DOMAIN_MUTATION",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "increase_keyframes",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "ENFORCE_KEYFRAME_INTERVAL",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI (-g <gop_value>)",
+        "Node.js spawn"
+      ],
+      "known_issues": [
+        "WMI process monitoring fails on Linux; detached background process"
+      ],
+      "security_notes": [
+        "Detached processes without resource watchdog"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Writes directly into VIDEOS_PATH"
+      ],
+      "secondary_observed_responsibilities": [
+        "Spawns asynchronous job record in local state file"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Crucial for Remotion seek-time performance; transcode should be managed by MediaProcessingService.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "get_files_info",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "INSPECT_MEDIA",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService / StorageService",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md"
+      ],
+      "current_implementation_dependencies": [
+        "Node.js fs.stat"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Directory argument can inspect arbitrary unconfined paths if unsanitized"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Read-only inspection"
+      ],
+      "secondary_observed_responsibilities": [
+        "Formatted file size computation and ISO timestamp formatting"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Read-only file inventory helper; should be unified under MediaInspection.",
+      "target_storage_boundary": "StorageService / Read-Only Probe",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "READ_ONLY",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "concatenate_videos",
+      "legacy_mcp_id": "ffmpeg-mcp-server",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "CONCATENATE_VIDEOS",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI (concat demuxer)",
+        "Node.js execAsync"
+      ],
+      "known_issues": [
+        "CRITICAL SECURITY FINDING: Raw shell string interpolation in execAsync presents shell injection risk",
+        "Creates unconfined temporary concat_list.txt in working directory"
+      ],
+      "security_notes": [
+        "High risk shell injection vulnerability: filenames are interpolated directly into shell string"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Writes output video and temporary text file directly to disk"
+      ],
+      "secondary_observed_responsibilities": [
+        "Temporary concat manifest file generation and cleanup"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Must be repaired to use safe argument arrays (execFile/spawn) without shell interpolation.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "upscale_image",
+      "legacy_mcp_id": "image-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "RESIZE_IMAGE",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Image Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/image.py"
+      ],
+      "current_implementation_dependencies": [
+        "Python Pillow (PIL.Image.Resampling.LANCZOS)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M08",
+      "notes": "Performs classical Lanczos resampling. Distinct from neural AI super-resolution (UPSCALE).",
+      "target_storage_boundary": "StorageService / Project Images",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE"
+      ]
+    },
+    {
+      "legacy_tool_id": "crop_to_ratio",
+      "legacy_mcp_id": "image-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "CROP_IMAGE_TO_RATIO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Image Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/image.py"
+      ],
+      "current_implementation_dependencies": [
+        "Python Pillow (PIL.Image.crop)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M08",
+      "notes": "Center crops image to standard aspect ratios (9:16, 16:9, 1:1).",
+      "target_storage_boundary": "StorageService / Project Images",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE"
+      ]
+    },
+    {
+      "legacy_tool_id": "auto_crop_content",
+      "legacy_mcp_id": "image-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "AUTO_CROP_IMAGE",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Image Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md",
+        "ai/mcp/adapters/image.py"
+      ],
+      "current_implementation_dependencies": [
+        "Python Pillow (PIL.ImageChops)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [
+        "Border color detection and bounding box calculation"
+      ],
+      "future_phase": "S28-M03 / S28-M08",
+      "notes": "Detects solid/transparent borders and trims to content bounding box.",
+      "target_storage_boundary": "StorageService / Project Images",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE"
+      ]
+    },
+    {
+      "legacy_tool_id": "download_direct_file",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "DOWNLOAD_REMOTE_MEDIA",
+      "target_category": "TOOL",
+      "target_owner": "MediaAcquisitionService / StorageService",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4, §10)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx streaming client"
+      ],
+      "known_issues": [
+        "Hardcoded Windows path fallback c:\\video\\clean-video-workspace",
+        "safe_resolve rejects valid Linux paths without SVM_DATA_DIR environment variable"
+      ],
+      "security_notes": [
+        "SSRF risk on arbitrary URLs; path traversal defenses are buggy on Linux"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware; does not isolate downloads by project or workspace"
+      ],
+      "storage_notes": [
+        "Writes directly to incoming/ directory bypassing AssetService.upload_asset and ManifestV2"
+      ],
+      "secondary_observed_responsibilities": [
+        "MIME type sniffing and file extension resolution"
+      ],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Must be repaired for cross-platform Linux path resolution and integrated with StorageService.",
+      "target_storage_boundary": "StorageService / Ingestion Hierarchy",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "EXTERNAL_NETWORK"
+      ]
+    },
+    {
+      "legacy_tool_id": "download_media_page",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "EXTRACT_MEDIA_PAGE",
+      "target_category": "TOOL",
+      "target_owner": "MediaAcquisitionService",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "yt-dlp Python library"
+      ],
+      "known_issues": [
+        "Hardcoded Windows path fallback c:\\video\\clean-video-workspace",
+        "safe_resolve rejects valid Linux paths without SVM_DATA_DIR"
+      ],
+      "security_notes": [
+        "External extractor execution; requires network sandboxing"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Writes directly to disk bypassing AssetService"
+      ],
+      "secondary_observed_responsibilities": [
+        "Video stream selection and audio extraction"
+      ],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Wraps yt-dlp media extraction.",
+      "target_storage_boundary": "StorageService / Ingestion Hierarchy",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "EXTERNAL_NETWORK"
+      ]
+    },
+    {
+      "legacy_tool_id": "change_asset_status",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "MUTATE_ASSET_STATUS",
+      "target_category": "DOMAIN_SERVICE",
+      "target_owner": "AssetService",
+      "migration_strategy": "MOVE_TO_DOMAIN_SERVICE",
+      "current_consumers": [
+        "references/ROUTER.md (§2)",
+        "ai/mcp/adapters/parity.py"
+      ],
+      "current_implementation_dependencies": [
+        "shutil.move"
+      ],
+      "known_issues": [
+        "Direct bypass of StorageService and ManifestV2: moves files on disk without updating manifest or database",
+        "Hardcoded Windows path fallback"
+      ],
+      "security_notes": [
+        "Arbitrary file move on local filesystem"
+      ],
+      "tenant_notes": [
+        "CRITICAL: Asset lifecycle status mutations must be project/tenant scoped"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService.update_asset_status and downstream invalidation graph"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03",
+      "notes": "This is fundamentally a domain service operation. AssetService.update_asset_status already exists as authoritative implementation.",
+      "target_storage_boundary": "AssetService / ManifestV2 Authority",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "DOMAIN_MUTATION",
+        "PERSISTENT_WRITE"
+      ]
+    },
+    {
+      "legacy_tool_id": "iconify_search",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "SEARCH_ICONS",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService (Icon Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "api.iconify.design"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Public outbound HTTP request"
+      ],
+      "tenant_notes": [
+        "Global public search"
+      ],
+      "storage_notes": [
+        "In-memory search results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Searches open-source icon collections via Iconify REST API.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "download_iconify_icon",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "DOWNLOAD_ICON",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService / MediaAcquisitionService",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "api.iconify.design"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Outbound HTTP download; writes SVG to local filesystem"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware file save"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService upload"
+      ],
+      "secondary_observed_responsibilities": [
+        "SVG color injection and dimension scaling"
+      ],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Downloads and customizes vector SVG icons.",
+      "target_storage_boundary": "StorageService / Project Icons",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "EXTERNAL_NETWORK"
+      ]
+    },
+    {
+      "legacy_tool_id": "pixabay_search_images",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "UNVERIFIED",
+      "primary_target_capability_id": "SEARCH_STOCK_IMAGES",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "CONSOLIDATE",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "pixabay.com API"
+      ],
+      "known_issues": [
+        "Unverified in M01 due to missing PIXABAY_API_KEY environment secret"
+      ],
+      "security_notes": [
+        "Outbound authenticated API request"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Consolidated with pexels_search_images under SEARCH_STOCK_IMAGES capability.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "pixabay_search_videos",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "UNVERIFIED",
+      "primary_target_capability_id": "SEARCH_STOCK_VIDEOS",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "CONSOLIDATE",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "pixabay.com Video API"
+      ],
+      "known_issues": [
+        "Unverified in M01 due to missing PIXABAY_API_KEY environment secret"
+      ],
+      "security_notes": [
+        "Outbound authenticated API request"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Consolidated with pexels_search_videos under SEARCH_STOCK_VIDEOS capability.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "pixabay_search_audio",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "BROKEN",
+      "primary_target_capability_id": "SEARCH_STOCK_AUDIO",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "playwright.async_api (Chromium browser)"
+      ],
+      "known_issues": [
+        "BROKEN in M01: Playwright Chromium browser binaries are not installed on host environment",
+        "Fragile web scraper targeting undocumented DOM"
+      ],
+      "security_notes": [
+        "Launches headless browser subprocess with network access"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [
+        "HTML DOM scraping and JSON bootstrap extraction"
+      ],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Capability SEARCH_STOCK_AUDIO is active and required; legacy implementation is broken. Replace with official API adapter or install headless browser in M05.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "freesound_search",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "UNVERIFIED",
+      "primary_target_capability_id": "SEARCH_SOUND_EFFECTS",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "freesound.org API"
+      ],
+      "known_issues": [
+        "Unverified in M01 due to missing FREESOUND_API_KEY environment secret"
+      ],
+      "security_notes": [
+        "Outbound authenticated API request"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Searches sound effects and ambient tracks via Freesound API.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "pexels_search_images",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "UNVERIFIED",
+      "primary_target_capability_id": "SEARCH_STOCK_IMAGES",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "CONSOLIDATE",
+      "current_consumers": [
+        "references/ROUTER.md (§2)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "api.pexels.com API"
+      ],
+      "known_issues": [
+        "Unverified in M01 due to missing PEXELS_API_KEY environment secret"
+      ],
+      "security_notes": [
+        "Outbound authenticated API request"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Consolidated with pixabay_search_images under SEARCH_STOCK_IMAGES capability.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "pexels_search_videos",
+      "legacy_mcp_id": "media-sources-mcp",
+      "m01_status": "UNVERIFIED",
+      "primary_target_capability_id": "SEARCH_STOCK_VIDEOS",
+      "target_category": "TOOL",
+      "target_owner": "StockMediaService",
+      "migration_strategy": "CONSOLIDATE",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)"
+      ],
+      "current_implementation_dependencies": [
+        "httpx",
+        "api.pexels.com Video API"
+      ],
+      "known_issues": [
+        "Unverified in M01 due to missing PEXELS_API_KEY environment secret"
+      ],
+      "security_notes": [
+        "Outbound authenticated API request"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "In-memory results"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M05",
+      "notes": "Consolidated with pixabay_search_videos under SEARCH_STOCK_VIDEOS capability.",
+      "target_storage_boundary": "Stateless In-Memory API",
+      "target_tenant_scope": "WORKSPACE",
+      "target_side_effects": [
+        "EXTERNAL_NETWORK",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "legacy_tool_id": "trim_video",
+      "legacy_mcp_id": "video-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "TRIM_VIDEO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/video.py"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI (-c copy)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Fast streamcopy video trimming.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "extend_video",
+      "legacy_mcp_id": "video-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "EXTEND_VIDEO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/video.py"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI",
+        "ffprobe"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Extends video duration via stream loop or freeze-frame padding.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "resize_video",
+      "legacy_mcp_id": "video-tools-mcp",
+      "m01_status": "WORKING",
+      "primary_target_capability_id": "RESIZE_VIDEO",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        "ai/mcp/adapters/video.py"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI (scale and pad filters)"
+      ],
+      "known_issues": [],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [
+        "Aspect ratio letterbox padding computation"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Encodes video to target dimensions.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    },
+    {
+      "legacy_tool_id": "detect_and_trim_black_frames",
+      "legacy_mcp_id": "video-tools-mcp",
+      "m01_status": "PARTIALLY_WORKING",
+      "primary_target_capability_id": "TRIM_BLACK_FRAMES",
+      "target_category": "TOOL",
+      "target_owner": "MediaProcessingService (Video Subsystem)",
+      "migration_strategy": "REPAIR_THEN_WRAP",
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "ai/mcp/adapters/video.py"
+      ],
+      "current_implementation_dependencies": [
+        "FFmpeg CLI (blackdetect filter)"
+      ],
+      "known_issues": [
+        "Critical parameter bug: default threshold=0.1 passed to pic_th causes false-positive 100% black frame detection",
+        "Requires threshold=0.98 (or pix_th=0.10) to execute reliably"
+      ],
+      "security_notes": [
+        "Raw filesystem reads and writes"
+      ],
+      "tenant_notes": [
+        "Tenant-unaware"
+      ],
+      "storage_notes": [
+        "Bypasses AssetService manifest synchronization"
+      ],
+      "secondary_observed_responsibilities": [
+        "Black intervals detection and timeline interval logging"
+      ],
+      "future_phase": "S28-M03 / S28-M06",
+      "notes": "Must be repaired in wrapper to pass proper FFmpeg filter parameters.",
+      "target_storage_boundary": "StorageService / Project Video",
+      "target_tenant_scope": "PROJECT",
+      "target_side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ]
+    }
+  ]
+}

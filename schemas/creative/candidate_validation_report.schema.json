@@ -1,0 +1,271 @@
+{
+  "$defs": {
+    "CandidateGateResult": {
+      "additionalProperties": false,
+      "description": "Standardized, auditable outcome of an individual validation gate.",
+      "properties": {
+        "evidence_refs": {
+          "description": "Storage keys or references to evidence artifacts",
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "failure_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Deterministic error or violation code if failed",
+          "title": "Failure Code"
+        },
+        "gate_id": {
+          "description": "Unique identifier of the validation gate",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "machine_details": {
+          "additionalProperties": true,
+          "description": "Structured diagnostics and technical context",
+          "title": "Machine Details",
+          "type": "object"
+        },
+        "status": {
+          "$ref": "#/$defs/GateStatus",
+          "description": "Outcome of the gate check: PASS, FAIL, or ERROR"
+        },
+        "summary": {
+          "description": "Human-readable summary of the gate outcome",
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "status",
+        "summary"
+      ],
+      "title": "CandidateGateResult",
+      "type": "object"
+    },
+    "GateStatus": {
+      "description": "Status verdict for an individual gate.",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR"
+      ],
+      "title": "GateStatus",
+      "type": "string"
+    },
+    "ValidationOverallResult": {
+      "description": "Overall outcome of candidate validation.",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR"
+      ],
+      "title": "ValidationOverallResult",
+      "type": "string"
+    },
+    "ValidationPhase": {
+      "description": "Validation lifecycle phase.",
+      "enum": [
+        "STATIC",
+        "RUNTIME"
+      ],
+      "title": "ValidationPhase",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Automated evaluation report assessing candidate code against technical,\nsecurity, static, and runtime quality gates (S28-07B / S28-07C).",
+  "properties": {
+    "candidate_content_hash": {
+      "default": "",
+      "description": "Immutable content hash bound to snapshot",
+      "title": "Candidate Content Hash",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Evaluated TemplateCandidate ID",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_revision": {
+      "default": 1,
+      "description": "Candidate CAS revision sequence bound to snapshot",
+      "minimum": 1,
+      "title": "Candidate Revision",
+      "type": "integer"
+    },
+    "completed_at": {
+      "description": "UTC timestamp when validation finished",
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    },
+    "evaluated_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Legacy alias for completed_at",
+      "title": "Evaluated At"
+    },
+    "evidence_refs": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of artifact types to storage keys",
+      "title": "Evidence Refs",
+      "type": "object"
+    },
+    "findings": {
+      "description": "Detailed findings or failure reasons",
+      "items": {
+        "type": "string"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "gates": {
+      "description": "Results of all evaluated validation gates",
+      "items": {
+        "$ref": "#/$defs/CandidateGateResult"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "has_documentation": {
+      "default": true,
+      "description": "True if prop schema and README documentation exist",
+      "title": "Has Documentation",
+      "type": "boolean"
+    },
+    "no_dangerous_imports": {
+      "default": true,
+      "description": "True if no native Node or forbidden packages are imported",
+      "title": "No Dangerous Imports",
+      "type": "boolean"
+    },
+    "overall_result": {
+      "$ref": "#/$defs/ValidationOverallResult",
+      "default": "PASS",
+      "description": "Overall verdict: PASS, FAIL, or ERROR"
+    },
+    "passed": {
+      "default": true,
+      "description": "True if overall validation passed",
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "phase": {
+      "$ref": "#/$defs/ValidationPhase",
+      "default": "STATIC",
+      "description": "Validation phase: STATIC or RUNTIME"
+    },
+    "policy_version": {
+      "default": "1.0.0",
+      "description": "Validation policy version",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "quality_score": {
+      "default": 1.0,
+      "description": "Composite quality rating [0.0 - 1.0]",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Quality Score",
+      "type": "number"
+    },
+    "report_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Legacy alias for validation_id",
+      "title": "Report Id"
+    },
+    "security_clean": {
+      "default": true,
+      "description": "True if static analysis detects no unauthorized imports",
+      "title": "Security Clean",
+      "type": "boolean"
+    },
+    "started_at": {
+      "description": "UTC timestamp when validation started",
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "static_validation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to passing static validation report ID",
+      "title": "Static Validation Id"
+    },
+    "static_validation_report_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SHA-256 digest of passing static validation report",
+      "title": "Static Validation Report Hash"
+    },
+    "typescript_compiles": {
+      "default": true,
+      "description": "True if component passes TypeScript type check",
+      "title": "Typescript Compiles",
+      "type": "boolean"
+    },
+    "validation_id": {
+      "description": "Unique validation execution identifier (val_{hex12})",
+      "title": "Validation Id",
+      "type": "string"
+    },
+    "workspace_id": {
+      "default": "ws_default",
+      "description": "Workspace identifier for tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "validation_id",
+    "candidate_id",
+    "started_at",
+    "completed_at"
+  ],
+  "title": "CandidateValidationReport",
+  "type": "object"
+}

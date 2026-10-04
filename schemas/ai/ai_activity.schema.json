@@ -1,0 +1,537 @@
+{
+  "$defs": {
+    "AIError": {
+      "additionalProperties": false,
+      "description": "Structured, client-safe error object emitted by the AI subsystem.\nExcludes sensitive infrastructure secrets and un-sanitized exception traces.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/AIErrorCode",
+          "description": "Canonical machine-readable error code"
+        },
+        "dependency_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional upstream dependency identifier associated with the failure",
+          "title": "Dependency Reference"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured context details safe for client inspection",
+          "title": "Details"
+        },
+        "message": {
+          "description": "Sanitized client-safe error message",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "description": "Whether the operation may succeed if retried",
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "AIError",
+      "type": "object"
+    },
+    "AIErrorCode": {
+      "description": "Authoritative error classification for AI subsystem failures.",
+      "enum": [
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "INVALID_MODEL_OUTPUT",
+        "SCHEMA_VALIDATION_FAILED",
+        "CAPABILITY_UNAVAILABLE",
+        "BUDGET_EXCEEDED",
+        "POLICY_DENIED",
+        "TENANT_ACCESS_DENIED",
+        "CONTENT_REJECTED",
+        "DEPENDENCY_FAILED",
+        "CANCELLED",
+        "INTERNAL_ERROR"
+      ],
+      "title": "AIErrorCode",
+      "type": "string"
+    },
+    "ActivityStatus": {
+      "description": "Lifecycle status of a durable activity.",
+      "enum": [
+        "PENDING",
+        "RUNNING",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "ActivityStatus",
+      "type": "string"
+    },
+    "CostEstimate": {
+      "additionalProperties": false,
+      "description": "Precision-safe monetary cost representation for budgeting and accounting.\nEnforces exact Decimal calculations to avoid binary floating-point drift.",
+      "properties": {
+        "actual_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Final settled cost",
+          "title": "Actual Cost"
+        },
+        "currency": {
+          "default": "USD",
+          "description": "ISO 4217 3-letter currency code (e.g. USD, EUR)",
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "estimated_cost": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Estimated cost prior to execution",
+          "title": "Estimated Cost"
+        },
+        "pricing_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the rate card or pricing matrix used",
+          "title": "Pricing Version"
+        },
+        "reserved_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Budget reserved during execution",
+          "title": "Reserved Cost"
+        }
+      },
+      "required": [
+        "estimated_cost"
+      ],
+      "title": "CostEstimate",
+      "type": "object"
+    },
+    "IdempotencySemantics": {
+      "description": "Authoritative execution semantics for external activities.",
+      "enum": [
+        "AT_MOST_ONCE",
+        "AT_LEAST_ONCE",
+        "EFFECTIVELY_ONCE"
+      ],
+      "title": "IdempotencySemantics",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "UsageRecord": {
+      "additionalProperties": false,
+      "description": "Canonical, provider-neutral resource consumption record.\nSupports LLMs, speech synthesis, vision processing, and generative media.",
+      "properties": {
+        "audio_seconds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration of processed audio",
+          "title": "Audio Seconds"
+        },
+        "image_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Count of images generated or analyzed",
+          "title": "Image Count"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of prompt/input tokens",
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of completion/output tokens",
+          "title": "Output Tokens"
+        },
+        "reported_units": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/UsageUnitRecord"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional provider-reported auxiliary consumption units",
+          "title": "Reported Units"
+        },
+        "total_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total tokens consumed",
+          "title": "Total Tokens"
+        },
+        "video_seconds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration of processed video",
+          "title": "Video Seconds"
+        }
+      },
+      "title": "UsageRecord",
+      "type": "object"
+    },
+    "UsageUnitRecord": {
+      "additionalProperties": false,
+      "description": "Auxiliary consumption metric for non-token modalities (e.g., characters, search calls).",
+      "properties": {
+        "quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Measured consumption quantity",
+          "title": "Quantity"
+        },
+        "unit_type": {
+          "description": "Resource metric identifier",
+          "minLength": 1,
+          "title": "Unit Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit_type",
+        "quantity"
+      ],
+      "title": "UsageUnitRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Durable record representing an external operation (provider generation, MCP call, tool side-effect).",
+  "properties": {
+    "activity_id": {
+      "description": "Unique identifier for the activity execution",
+      "minLength": 1,
+      "title": "Activity Id",
+      "type": "string"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Activity completion timestamp",
+      "title": "Completed At"
+    },
+    "cost": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CostEstimate"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Estimated/actual cost of activity"
+    },
+    "cost_settled": {
+      "default": false,
+      "description": "Whether cost has been permanently settled in ledger",
+      "title": "Cost Settled",
+      "type": "boolean"
+    },
+    "created_at": {
+      "description": "Creation timestamp of activity record",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AIError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Error details if activity failed"
+    },
+    "idempotency_key": {
+      "description": "Stable logical deduplication key",
+      "minLength": 1,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resolved model identifier",
+      "title": "Model"
+    },
+    "output_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Persistent output artifact or storage reference",
+      "title": "Output Ref"
+    },
+    "provider": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resolved provider adapter identifier",
+      "title": "Provider"
+    },
+    "remote_operation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Remote provider request ID or reference",
+      "title": "Remote Operation Ref"
+    },
+    "reservation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated budget reservation identifier",
+      "title": "Reservation Id"
+    },
+    "run_id": {
+      "description": "Associated AIRun identifier",
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "semantics": {
+      "$ref": "#/$defs/IdempotencySemantics",
+      "default": "EFFECTIVELY_ONCE",
+      "description": "Execution idempotency guarantee classification"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Activity start timestamp",
+      "title": "Started At"
+    },
+    "status": {
+      "$ref": "#/$defs/ActivityStatus",
+      "description": "Current execution lifecycle status"
+    },
+    "step_id": {
+      "description": "Associated AIStep identifier",
+      "minLength": 1,
+      "title": "Step Id",
+      "type": "string"
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UsageRecord"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resource consumption of activity"
+    }
+  },
+  "required": [
+    "activity_id",
+    "run_id",
+    "step_id",
+    "idempotency_key",
+    "status",
+    "created_at"
+  ],
+  "title": "AIActivityRecord",
+  "type": "object"
+}

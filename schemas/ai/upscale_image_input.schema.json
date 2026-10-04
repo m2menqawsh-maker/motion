@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for upscaling or resizing an image.",
+  "properties": {
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "scale_factor": {
+      "default": 2.0,
+      "description": "Upscale multiplier",
+      "exclusiveMinimum": 0.0,
+      "maximum": 8.0,
+      "title": "Scale Factor",
+      "type": "number"
+    },
+    "target_height": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional explicit target height",
+      "title": "Target Height"
+    },
+    "target_width": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional explicit target width",
+      "title": "Target Width"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "UpscaleImageInput",
+  "type": "object"
+}

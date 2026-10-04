@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "MemoryEntry": {
+      "additionalProperties": false,
+      "description": "An individual memory record retrieved from the memory subsystem.",
+      "properties": {
+        "confidence": {
+          "description": "Confidence metric of retrieved context",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "content": {
+          "description": "Textual or structured memory content",
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "created_at": {
+          "description": "Timezone-aware creation timestamp",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "entry_id": {
+          "description": "Unique memory record identifier",
+          "minLength": 1,
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "memory_type": {
+          "$ref": "#/$defs/MemoryType",
+          "description": "Memory category"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceRecord",
+          "description": "Record of when and how this memory was formed"
+        },
+        "relevance_score": {
+          "description": "Vector similarity or ranking score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Relevance Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "entry_id",
+        "memory_type",
+        "content",
+        "relevance_score",
+        "confidence",
+        "provenance",
+        "created_at"
+      ],
+      "title": "MemoryEntry",
+      "type": "object"
+    },
+    "MemoryType": {
+      "description": "Categorization of AI memory structures.",
+      "enum": [
+        "WORKING",
+        "CONVERSATION",
+        "PROJECT",
+        "USER_PREFERENCE",
+        "WORKSPACE",
+        "DECISION",
+        "KNOWLEDGE",
+        "MEDIA_INTELLIGENCE",
+        "EPISODIC",
+        "SEMANTIC"
+      ],
+      "title": "MemoryType",
+      "type": "string"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Outcome contract containing retrieved memory items matching a MemoryQuery.",
+  "properties": {
+    "entries": {
+      "description": "Ranked retrieved memory items",
+      "items": {
+        "$ref": "#/$defs/MemoryEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "query_duration_ms": {
+      "description": "Query execution duration in milliseconds",
+      "minimum": 0,
+      "title": "Query Duration Ms",
+      "type": "integer"
+    },
+    "total_found": {
+      "description": "Total number of matching memories discovered",
+      "minimum": 0,
+      "title": "Total Found",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "total_found",
+    "query_duration_ms"
+  ],
+  "title": "MemoryResult",
+  "type": "object"
+}

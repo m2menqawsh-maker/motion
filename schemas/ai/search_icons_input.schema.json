@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for querying icons.",
+  "properties": {
+    "collection": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional icon set collection filter",
+      "title": "Collection"
+    },
+    "limit": {
+      "default": 20,
+      "description": "Maximum results to return",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Limit",
+      "type": "integer"
+    },
+    "query": {
+      "description": "Search term for icons",
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "SearchIconsInput",
+  "type": "object"
+}

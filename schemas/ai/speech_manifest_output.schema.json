@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract containing voiceover manifest reference.",
+  "properties": {
+    "manifest_storage_key": {
+      "description": "StorageService key for generated manifest artifact",
+      "minLength": 1,
+      "title": "Manifest Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "sentence_count": {
+      "description": "Number of sentences in manifest",
+      "minimum": 0,
+      "title": "Sentence Count",
+      "type": "integer"
+    },
+    "total_duration_seconds": {
+      "description": "Total voiceover duration",
+      "minimum": 0.0,
+      "title": "Total Duration Seconds",
+      "type": "number"
+    },
+    "words_count": {
+      "description": "Total transcribed words",
+      "minimum": 0,
+      "title": "Words Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "manifest_storage_key",
+    "sentence_count",
+    "total_duration_seconds",
+    "words_count"
+  ],
+  "title": "SpeechManifestOutput",
+  "type": "object"
+}

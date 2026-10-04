@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "TasteRuleSeverity": {
+      "description": "Enforcement severity of a taste rule (supports MUST/SHOULD/PREFER/AVOID and legacy aliases).",
+      "enum": [
+        "MUST",
+        "SHOULD",
+        "PREFER",
+        "AVOID",
+        "MANDATORY_CREATIVE",
+        "PREFERRED",
+        "ADVISORY"
+      ],
+      "title": "TasteRuleSeverity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Formal representation of a creative taste principle guiding aesthetic choices\n(e.g., spring physics, visual hierarchy, beat density, gestural sync).",
+  "properties": {
+    "applies_when": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Structured criteria/predicates determining when rule applies",
+      "title": "Applies When",
+      "type": "object"
+    },
+    "category": {
+      "description": "Rule category (e.g., 'motion_personality', 'beat_density', 'gestural_sync')",
+      "title": "Category",
+      "type": "string"
+    },
+    "citation_source": {
+      "description": "Source citation path (e.g., 'references/4_taste_engine/user-signature-style.md#L10')",
+      "title": "Citation Source",
+      "type": "string"
+    },
+    "description": {
+      "description": "Technical and aesthetic explanation of the rule",
+      "title": "Description",
+      "type": "string"
+    },
+    "exceptions": {
+      "description": "Explicit conditions or contexts where rule is bypassed",
+      "items": {
+        "type": "string"
+      },
+      "title": "Exceptions",
+      "type": "array"
+    },
+    "name": {
+      "description": "Human-readable rule name",
+      "title": "Name",
+      "type": "string"
+    },
+    "parameters": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Concrete numerical or categorical parameters",
+      "title": "Parameters",
+      "type": "object"
+    },
+    "priority": {
+      "default": 50,
+      "description": "Evaluation priority rank (1-100, higher evaluated first)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Priority",
+      "type": "integer"
+    },
+    "rationale": {
+      "description": "Creative justification derived from film/motion craft",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "recommendation": {
+      "default": "",
+      "description": "Structured creative recommendation or instruction",
+      "title": "Recommendation",
+      "type": "string"
+    },
+    "rule_id": {
+      "description": "Unique rule identifier (e.g., 'taste_beat_density_v2')",
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/TasteRuleSeverity",
+      "default": "PREFERRED",
+      "description": "Enforcement severity"
+    },
+    "source_knowledge_ids": {
+      "description": "IDs of supporting knowledge documents establishing provenance",
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Knowledge Ids",
+      "type": "array"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Semver version of this taste rule",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "rule_id",
+    "category",
+    "name",
+    "description",
+    "rationale",
+    "citation_source"
+  ],
+  "title": "TasteRule",
+  "type": "object"
+}

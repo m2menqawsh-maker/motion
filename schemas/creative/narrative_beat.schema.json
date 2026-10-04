@@ -1,0 +1,80 @@
+{
+  "additionalProperties": false,
+  "description": "An individual story beat within a narrative progression.",
+  "properties": {
+    "beat_id": {
+      "description": "Unique beat identifier",
+      "title": "Beat Id",
+      "type": "string"
+    },
+    "beat_index": {
+      "description": "0-indexed sequence position of this beat",
+      "minimum": 0,
+      "title": "Beat Index",
+      "type": "integer"
+    },
+    "emotional_target": {
+      "description": "Target emotional tone (e.g., curiosity, trust, urgency, delight)",
+      "title": "Emotional Target",
+      "type": "string"
+    },
+    "estimated_duration_sec": {
+      "description": "Estimated duration in seconds",
+      "exclusiveMinimum": 0,
+      "title": "Estimated Duration Sec",
+      "type": "number"
+    },
+    "key_message": {
+      "description": "Core message or narrative objective of this beat",
+      "title": "Key Message",
+      "type": "string"
+    },
+    "pacing": {
+      "description": "Rhythmic pacing for this beat (e.g., fast, moderate, slow, pause)",
+      "title": "Pacing",
+      "type": "string"
+    },
+    "phase": {
+      "description": "Story phase (e.g., hook, setup, problem, mechanism, proof, cta, resolution)",
+      "title": "Phase",
+      "type": "string"
+    },
+    "sound_effect_cue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Recommended SFX or audio accent",
+      "title": "Sound Effect Cue"
+    },
+    "visual_hook_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Descriptive visual concept for the beat",
+      "title": "Visual Hook Description"
+    }
+  },
+  "required": [
+    "beat_id",
+    "beat_index",
+    "phase",
+    "emotional_target",
+    "pacing",
+    "estimated_duration_sec",
+    "key_message"
+  ],
+  "title": "NarrativeBeat",
+  "type": "object"
+}

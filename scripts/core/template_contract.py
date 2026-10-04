@@ -190,3 +190,10 @@ def get_template_contract(contract_path: Optional[Path] = None, reload: bool = F
         path = contract_path or DEFAULT_CONTRACT_PATH
         _CONTRACT_INSTANCE = TemplateRegistryContract(contract_path=path)
     return _CONTRACT_INSTANCE
+
+
+def invalidate_template_contract_cache() -> None:
+    """Clears the cached singleton instance so the next get_template_contract() call reloads from disk."""
+    global _CONTRACT_INSTANCE
+    _CONTRACT_INSTANCE = None
+

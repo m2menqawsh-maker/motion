@@ -1,0 +1,377 @@
+{
+  "$defs": {
+    "AIError": {
+      "additionalProperties": false,
+      "description": "Structured, client-safe error object emitted by the AI subsystem.\nExcludes sensitive infrastructure secrets and un-sanitized exception traces.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/AIErrorCode",
+          "description": "Canonical machine-readable error code"
+        },
+        "dependency_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional upstream dependency identifier associated with the failure",
+          "title": "Dependency Reference"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured context details safe for client inspection",
+          "title": "Details"
+        },
+        "message": {
+          "description": "Sanitized client-safe error message",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "description": "Whether the operation may succeed if retried",
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "AIError",
+      "type": "object"
+    },
+    "AIErrorCode": {
+      "description": "Authoritative error classification for AI subsystem failures.",
+      "enum": [
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "INVALID_MODEL_OUTPUT",
+        "SCHEMA_VALIDATION_FAILED",
+        "CAPABILITY_UNAVAILABLE",
+        "BUDGET_EXCEEDED",
+        "POLICY_DENIED",
+        "TENANT_ACCESS_DENIED",
+        "CONTENT_REJECTED",
+        "DEPENDENCY_FAILED",
+        "CANCELLED",
+        "INTERNAL_ERROR"
+      ],
+      "title": "AIErrorCode",
+      "type": "string"
+    },
+    "CacheEntryStatus": {
+      "description": "Lifecycle status of an AI cache entry.",
+      "enum": [
+        "IN_FLIGHT",
+        "READY",
+        "FAILED"
+      ],
+      "title": "CacheEntryStatus",
+      "type": "string"
+    },
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "TRIM_AUDIO_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Authoritative typed record representing a cached AI execution artifact.",
+  "properties": {
+    "activity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Shared durable activity identifier",
+      "title": "Activity Id"
+    },
+    "activity_idempotency_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Durable execution identity for shared activity",
+      "title": "Activity Idempotency Key"
+    },
+    "analysis_version": {
+      "default": "1.0.0",
+      "description": "SemVer of analysis logic",
+      "title": "Analysis Version",
+      "type": "string"
+    },
+    "cache_key": {
+      "description": "Canonical SHA-256 derived cache identifier",
+      "minLength": 8,
+      "title": "Cache Key",
+      "type": "string"
+    },
+    "capability": {
+      "$ref": "#/$defs/CapabilityType",
+      "description": "Associated domain capability"
+    },
+    "contract_version": {
+      "default": "1.0.0",
+      "description": "SemVer of the contract",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "Creation timestamp of cache entry",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AIError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured error if execution failed"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional TTL expiration timestamp",
+      "title": "Expires At"
+    },
+    "generation": {
+      "default": 1,
+      "description": "Logical cache computation generation",
+      "minimum": 1,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "input_hash": {
+      "description": "Canonical SHA-256 of normalized inputs",
+      "minLength": 8,
+      "title": "Input Hash",
+      "type": "string"
+    },
+    "lease_expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Lease deadline for crash recovery",
+      "title": "Lease Expires At"
+    },
+    "lease_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Monotonic lease fencing token",
+      "title": "Lease Token"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Model identifier used for generation",
+      "title": "Model"
+    },
+    "model_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Version of model used for generation",
+      "title": "Model Version"
+    },
+    "output_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Storage key pointing to persisted artifact in StorageService",
+      "title": "Output Ref"
+    },
+    "owner_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Worker identifier currently leasing in-flight execution",
+      "title": "Owner Id"
+    },
+    "producer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Provider or worker that generated the result",
+      "title": "Producer"
+    },
+    "prompt_version": {
+      "default": "1.0.0",
+      "description": "SemVer or hash of prompt",
+      "title": "Prompt Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/CacheEntryStatus",
+      "description": "Current status of the cache record"
+    },
+    "workspace_id": {
+      "description": "Tenant isolation boundary",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "cache_key",
+    "workspace_id",
+    "capability",
+    "input_hash",
+    "status",
+    "created_at"
+  ],
+  "title": "AICacheEntry",
+  "type": "object"
+}

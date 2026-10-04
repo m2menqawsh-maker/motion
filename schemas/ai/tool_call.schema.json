@@ -1,0 +1,51 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Contract representing a request to invoke an authorized tool.\nOriginates from model completion and is subject to strict parameter policy enforcement.",
+  "properties": {
+    "call_id": {
+      "description": "Unique identifier for matching tool execution results",
+      "pattern": "^[a-zA-Z0-9_\\-]+$",
+      "title": "Call Id",
+      "type": "string"
+    },
+    "parameters": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Tool input arguments validated against the tool schema",
+      "title": "Parameters",
+      "type": "object"
+    },
+    "tool_name": {
+      "description": "Canonical identifier of the requested tool",
+      "pattern": "^[a-zA-Z0-9_\\-]+$",
+      "title": "Tool Name",
+      "type": "string"
+    },
+    "untrusted_metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Non-authoritative contextual metadata emitted by the model",
+      "title": "Untrusted Metadata"
+    }
+  },
+  "required": [
+    "call_id",
+    "tool_name"
+  ],
+  "title": "ToolCall",
+  "type": "object"
+}

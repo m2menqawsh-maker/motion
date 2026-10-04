@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for audio loudness normalization.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "peak_limit_db": {
+      "default": -1.0,
+      "description": "True peak limit in dBFS",
+      "maximum": 0.0,
+      "title": "Peak Limit Db",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_lufs": {
+      "default": -16.0,
+      "description": "Target integrated loudness in LUFS",
+      "maximum": 0.0,
+      "minimum": -70.0,
+      "title": "Target Lufs",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "NormalizeLoudnessInput",
+  "type": "object"
+}

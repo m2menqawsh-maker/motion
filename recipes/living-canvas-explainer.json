@@ -109,7 +109,7 @@
     "voice": "elevenlabs (expressive model with audio tags for story; standard model for announcer)",
     "music": "elevenlabs_music (or any text-to-music)",
     "sfx": "elevenlabs_sound_generation (min duration 0.5s)",
-    "transcription": "groq whisper-large-v3 (word timestamps)",
+    "transcription": "SPEECH_TO_TEXT",
     "finishing": "ffmpeg"
   },
   "routing_keywords": [

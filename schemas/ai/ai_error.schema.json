@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "AIErrorCode": {
+      "description": "Authoritative error classification for AI subsystem failures.",
+      "enum": [
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "INVALID_MODEL_OUTPUT",
+        "SCHEMA_VALIDATION_FAILED",
+        "CAPABILITY_UNAVAILABLE",
+        "BUDGET_EXCEEDED",
+        "POLICY_DENIED",
+        "TENANT_ACCESS_DENIED",
+        "CONTENT_REJECTED",
+        "DEPENDENCY_FAILED",
+        "CANCELLED",
+        "INTERNAL_ERROR"
+      ],
+      "title": "AIErrorCode",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Structured, client-safe error object emitted by the AI subsystem.\nExcludes sensitive infrastructure secrets and un-sanitized exception traces.",
+  "properties": {
+    "code": {
+      "$ref": "#/$defs/AIErrorCode",
+      "description": "Canonical machine-readable error code"
+    },
+    "dependency_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional upstream dependency identifier associated with the failure",
+      "title": "Dependency Reference"
+    },
+    "details": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured context details safe for client inspection",
+      "title": "Details"
+    },
+    "message": {
+      "description": "Sanitized client-safe error message",
+      "minLength": 1,
+      "title": "Message",
+      "type": "string"
+    },
+    "retryable": {
+      "description": "Whether the operation may succeed if retried",
+      "title": "Retryable",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "code",
+    "message",
+    "retryable"
+  ],
+  "title": "AIError",
+  "type": "object"
+}

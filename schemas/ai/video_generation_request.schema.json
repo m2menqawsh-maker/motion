@@ -1,0 +1,76 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for video generation.",
+  "properties": {
+    "duration_seconds": {
+      "default": 4.0,
+      "description": "Target clip duration",
+      "maximum": 60.0,
+      "minimum": 0.5,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "fps": {
+      "default": 24,
+      "description": "Target frame rate",
+      "maximum": 60,
+      "minimum": 12,
+      "title": "Fps",
+      "type": "integer"
+    },
+    "height": {
+      "default": 720,
+      "description": "Target height",
+      "maximum": 2160,
+      "minimum": 256,
+      "title": "Height",
+      "type": "integer"
+    },
+    "input_frame_storage_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Key for image-to-video conditioning",
+      "title": "Input Frame Storage Key"
+    },
+    "prompt": {
+      "description": "Text prompt describing video motion and narrative",
+      "minLength": 1,
+      "title": "Prompt",
+      "type": "string"
+    },
+    "seed": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Deterministic seed",
+      "title": "Seed"
+    },
+    "width": {
+      "default": 1280,
+      "description": "Target width",
+      "maximum": 3840,
+      "minimum": 256,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "prompt"
+  ],
+  "title": "VideoGenerationRequest",
+  "type": "object"
+}

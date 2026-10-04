@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for cache store operation.",
+  "properties": {
+    "asset_id": {
+      "description": "Asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "cached_storage_key": {
+      "description": "StorageService key for cached artifact",
+      "minLength": 1,
+      "title": "Cached Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "stored": {
+      "default": true,
+      "description": "Whether caching succeeded",
+      "title": "Stored",
+      "type": "boolean"
+    },
+    "transformation_hash": {
+      "description": "Transformation parameters hash",
+      "minLength": 8,
+      "title": "Transformation Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "transformation_hash",
+    "cached_storage_key"
+  ],
+  "title": "StoreCacheOutput",
+  "type": "object"
+}

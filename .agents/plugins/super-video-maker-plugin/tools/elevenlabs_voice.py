@@ -53,89 +53,33 @@ def to_iso(language: str) -> str:
 
 
 def _key() -> str:
-    k = os.getenv("ELEVENLABS_API_KEY")
-    if k:
-        return k
-    for base in [Path.cwd(), *Path.cwd().parents, Path(__file__).resolve().parents[1]]:
-        env = base / ".env"
-        if env.exists():
-            for line in env.read_text().splitlines():
-                if line.strip().startswith("ELEVENLABS_API_KEY="):
-                    return line.split("=", 1)[1].strip().strip('"').strip("'")
-    raise SystemExit("ELEVENLABS_API_KEY not set (env or .env)")
+    raise PermissionError("DIRECT SECRET ACCESS BLOCKED: Raw ELEVENLABS_API_KEY access outside canonical S27 capability adapters is prohibited.")
 
 
 def _get(url: str):
-    req = urllib.request.Request(url, headers={"xi-api-key": _key(), "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=45) as r:
-        return json.load(r)
+    raise RuntimeError("DIRECT PROVIDER EXECUTION BLOCKED: Direct ElevenLabs network calls via legacy elevenlabs_voice.py are prohibited.")
 
 
 def pick_voice(language: str, gender: str = None, prefer: str = None) -> dict:
     """Pick a shared-library voice matching `language` (ISO or free-text).
     gender ('female'|'male') and prefer (substring of a voice name) bias the choice."""
-    iso = to_iso(language)
-    data = _get(f"{EL_BASE}/v1/shared-voices?language={iso}&page_size=40")
-    voices = data.get("voices", data) if isinstance(data, dict) else data
-    voices = [v for v in voices if v.get("language") == iso]
-    if not voices:
-        raise SystemExit(f"no ElevenLabs shared voices for language={iso}")
-
-    def score(v):
-        s = 0
-        if prefer and prefer.lower() in (v.get("name") or "").lower():
-            s += 100
-        if gender and (v.get("gender") or "").lower() == gender.lower():
-            s += 10
-        if (v.get("accent") or "") == "standard":
-            s += 2
-        return s
-
-    best = sorted(voices, key=score, reverse=True)[0]
-    vid = best.get("voice_id")
-    if not vid:
-        raise SystemExit(f"ElevenLabs shared voice for {iso} ({best.get('name')!r}) has no voice_id")
-    return {"voice_id": vid, "name": best.get("name"),
-            "gender": best.get("gender"), "accent": best.get("accent"), "language": iso}
+    raise RuntimeError(
+        "DIRECT PROVIDER EXECUTION BLOCKED: Direct voice picking via legacy elevenlabs_voice.py is prohibited. "
+        "Use canonical S27 speech capability adapters and ModelRouter."
+    )
 
 
 def tts(text: str, voice_id: str, out_path: str, model_id: str = PRIMARY_MODEL,
         stability: float = 0.4, similarity: float = 0.75) -> dict:
     """Synthesize `text` to mp3. Tries model_id, then FALLBACK_MODEL. Returns {out, model}."""
-    models = [model_id] if model_id == FALLBACK_MODEL else [model_id, FALLBACK_MODEL]
-    body_obj = {"text": text, "voice_settings": {"stability": stability, "similarity_boost": similarity}}
-    last_err = None
-    for m in models:
-        body = json.dumps({**body_obj, "model_id": m}).encode()
-        req = urllib.request.Request(
-            f"{EL_BASE}/v1/text-to-speech/{voice_id}", data=body, method="POST",
-            headers={"xi-api-key": _key(), "Content-Type": "application/json", "Accept": "audio/mpeg"})
-        try:
-            with urllib.request.urlopen(req, timeout=180) as r:
-                audio = r.read()
-            Path(out_path).parent.mkdir(parents=True, exist_ok=True)
-            Path(out_path).write_bytes(audio)
-            return {"out": out_path, "model": m, "bytes": len(audio)}
-        except urllib.error.HTTPError as e:
-            last_err = f"{e.code}: {e.read()[:300]!r}"
-            continue
-    raise SystemExit(f"ElevenLabs TTS failed for all models {models}: {last_err}")
+    raise RuntimeError(
+        "DIRECT PROVIDER EXECUTION BLOCKED: Direct TTS execution via legacy elevenlabs_voice.py is prohibited. "
+        "Use canonical S27 speech capability adapters and ModelRouter."
+    )
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--language", required=True)
-    ap.add_argument("--gender", default=None)
-    ap.add_argument("--prefer", default=None)
-    ap.add_argument("--text", default=None)
-    ap.add_argument("--out", default=None)
-    ap.add_argument("--model", default=PRIMARY_MODEL)
-    a = ap.parse_args()
-    if is_english(a.language):
-        print(json.dumps({"english": True, "note": "English uses the HeyGen text path; ElevenLabs not used."}))
-        raise SystemExit(0)
-    v = pick_voice(a.language, a.gender, a.prefer)
-    print("picked voice:", json.dumps(v))
-    if a.text and a.out:
-        res = tts(a.text, v["voice_id"], a.out, model_id=a.model)
-        print("RESULT:", json.dumps({"status": "succeeded", "voice": v, **res}))
+    raise RuntimeError(
+        "DIRECT PROVIDER BYPASS BLOCKED: Direct CLI execution of elevenlabs_voice.py is prohibited. "
+        "Route all speech requests via S27 speech capabilities and ModelRouter."
+    )

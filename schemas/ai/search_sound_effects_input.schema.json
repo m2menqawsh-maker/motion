@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for searching sound effects.",
+  "properties": {
+    "duration_range": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "[min_seconds, max_seconds]",
+      "title": "Duration Range"
+    },
+    "page": {
+      "default": 1,
+      "description": "Page index",
+      "minimum": 1,
+      "title": "Page",
+      "type": "integer"
+    },
+    "per_page": {
+      "default": 15,
+      "description": "Results per page",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Per Page",
+      "type": "integer"
+    },
+    "query": {
+      "description": "Search keyword query",
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "SearchSoundEffectsInput",
+  "type": "object"
+}

@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "TraceAssertionType": {
+      "description": "Types of deterministic assertions against execution traces.",
+      "enum": [
+        "EVENT_EXISTS",
+        "EVENT_ABSENT",
+        "ORDERED_BEFORE",
+        "SELECTED_VALUE_EQUALS",
+        "SELECTED_VALUE_IN_SET",
+        "FORBIDDEN_TRANSITION_ABSENT",
+        "TOOL_INVOCATION_COUNT_IN_RANGE"
+      ],
+      "title": "TraceAssertionType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Deterministic assertion evaluated against execution traces.",
+  "properties": {
+    "allowed_values": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Acceptable set of values for SELECTED_VALUE_IN_SET",
+      "title": "Allowed Values"
+    },
+    "assertion_type": {
+      "$ref": "#/$defs/TraceAssertionType",
+      "description": "Assertion operator"
+    },
+    "description": {
+      "default": "",
+      "description": "Human-readable description of assertion rationale",
+      "title": "Description",
+      "type": "string"
+    },
+    "expected_value": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/JsonValue"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Expected exact value for SELECTED_VALUE_EQUALS"
+    },
+    "field_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Dot-notated field path within event or span attributes",
+      "title": "Field Path"
+    },
+    "forbidden_values": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Values that must never occur",
+      "title": "Forbidden Values"
+    },
+    "max_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Maximum occurrences for count assertions",
+      "title": "Max Count"
+    },
+    "min_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Minimum occurrences for count assertions",
+      "title": "Min Count"
+    },
+    "secondary_target": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Secondary event or span for ORDERED_BEFORE (primary must precede secondary)",
+      "title": "Secondary Target"
+    },
+    "target_event_or_span": {
+      "description": "Primary event or span name under test",
+      "title": "Target Event Or Span",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assertion_type",
+    "target_event_or_span"
+  ],
+  "title": "TraceAssertion",
+  "type": "object"
+}

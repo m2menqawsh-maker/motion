@@ -1,0 +1,349 @@
+{
+  "$defs": {
+    "EvalCategory": {
+      "description": "Subsystem evaluation domain category.",
+      "enum": [
+        "INTENT",
+        "KNOWLEDGE_RETRIEVAL",
+        "SKILL_ROUTING",
+        "RECIPE_SELECTION",
+        "AUDIO_MODE",
+        "NARRATIVE",
+        "TASTE",
+        "CREATIVE_PLAN",
+        "TEMPLATE_SELECTION",
+        "TIER_SELECTION",
+        "COMPOSITION",
+        "CANDIDATE_DECISION",
+        "STYLE_ADHERENCE"
+      ],
+      "title": "EvalCategory",
+      "type": "string"
+    },
+    "EvalSeverity": {
+      "description": "Failure impact severity classification.",
+      "enum": [
+        "BLOCKER",
+        "CRITICAL",
+        "MAJOR",
+        "MINOR"
+      ],
+      "title": "EvalSeverity",
+      "type": "string"
+    },
+    "GradingMethod": {
+      "description": "Evaluation methodology applied to a case.",
+      "enum": [
+        "EXACT",
+        "SET_MEMBERSHIP",
+        "RANGE",
+        "RANKING_RETRIEVAL",
+        "TRACE_ASSERTION",
+        "RUBRIC_SCORE",
+        "PAIRWISE"
+      ],
+      "title": "GradingMethod",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "TraceAssertion": {
+      "additionalProperties": false,
+      "description": "Deterministic assertion evaluated against execution traces.",
+      "properties": {
+        "allowed_values": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Acceptable set of values for SELECTED_VALUE_IN_SET",
+          "title": "Allowed Values"
+        },
+        "assertion_type": {
+          "$ref": "#/$defs/TraceAssertionType",
+          "description": "Assertion operator"
+        },
+        "description": {
+          "default": "",
+          "description": "Human-readable description of assertion rationale",
+          "title": "Description",
+          "type": "string"
+        },
+        "expected_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expected exact value for SELECTED_VALUE_EQUALS"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Dot-notated field path within event or span attributes",
+          "title": "Field Path"
+        },
+        "forbidden_values": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Values that must never occur",
+          "title": "Forbidden Values"
+        },
+        "max_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum occurrences for count assertions",
+          "title": "Max Count"
+        },
+        "min_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Minimum occurrences for count assertions",
+          "title": "Min Count"
+        },
+        "secondary_target": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Secondary event or span for ORDERED_BEFORE (primary must precede secondary)",
+          "title": "Secondary Target"
+        },
+        "target_event_or_span": {
+          "description": "Primary event or span name under test",
+          "title": "Target Event Or Span",
+          "type": "string"
+        }
+      },
+      "required": [
+        "assertion_type",
+        "target_event_or_span"
+      ],
+      "title": "TraceAssertion",
+      "type": "object"
+    },
+    "TraceAssertionType": {
+      "description": "Types of deterministic assertions against execution traces.",
+      "enum": [
+        "EVENT_EXISTS",
+        "EVENT_ABSENT",
+        "ORDERED_BEFORE",
+        "SELECTED_VALUE_EQUALS",
+        "SELECTED_VALUE_IN_SET",
+        "FORBIDDEN_TRANSITION_ABSENT",
+        "TOOL_INVOCATION_COUNT_IN_RANGE"
+      ],
+      "title": "TraceAssertionType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical evaluation case contract for the Creative Regression Suite.",
+  "properties": {
+    "allowed_outputs": {
+      "description": "Allowed outputs for set-membership or retrieval matching",
+      "items": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Allowed Outputs",
+      "type": "array"
+    },
+    "case_id": {
+      "description": "Unique evaluation case identifier",
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "category": {
+      "$ref": "#/$defs/EvalCategory",
+      "description": "Subsystem evaluation category"
+    },
+    "expected_constraints": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Hard constraints that must be observed",
+      "title": "Expected Constraints",
+      "type": "object"
+    },
+    "expected_decisions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Expected system decisions (e.g. recipe_id, tier, winning_source)",
+      "title": "Expected Decisions",
+      "type": "object"
+    },
+    "forbidden_outputs": {
+      "description": "Forbidden outputs that immediately fail the case",
+      "items": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Forbidden Outputs",
+      "type": "array"
+    },
+    "grading_method": {
+      "$ref": "#/$defs/GradingMethod",
+      "description": "Evaluation methodology to apply"
+    },
+    "input_fixture": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Input payload given to target workflow",
+      "title": "Input Fixture",
+      "type": "object"
+    },
+    "is_deliberately_bad": {
+      "default": false,
+      "description": "Whether this case injects a defect to prove suite negative gate detection",
+      "title": "Is Deliberately Bad",
+      "type": "boolean"
+    },
+    "min_mrr": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Min Mrr"
+    },
+    "min_precision_at_k": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Min Precision At K"
+    },
+    "min_recall_at_k": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Min Recall At K"
+    },
+    "retrieval_k": {
+      "default": 3,
+      "description": "K for retrieval metrics",
+      "minimum": 1,
+      "title": "Retrieval K",
+      "type": "integer"
+    },
+    "rubric_thresholds": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "description": "Thresholds for rubric evaluation (composite, brief_adherence, etc.)",
+      "title": "Rubric Thresholds",
+      "type": "object"
+    },
+    "severity": {
+      "$ref": "#/$defs/EvalSeverity",
+      "default": "CRITICAL",
+      "description": "Severity weighting if this case fails"
+    },
+    "source": {
+      "default": "canonical",
+      "description": "Provenance origin of this case",
+      "title": "Source",
+      "type": "string"
+    },
+    "tags": {
+      "description": "Classification tags",
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "trace_assertions": {
+      "description": "Trace assertions to verify for this case",
+      "items": {
+        "$ref": "#/$defs/TraceAssertion"
+      },
+      "title": "Trace Assertions",
+      "type": "array"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Case contract version",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "category",
+    "input_fixture",
+    "grading_method"
+  ],
+  "title": "CreativeEvalCase",
+  "type": "object"
+}

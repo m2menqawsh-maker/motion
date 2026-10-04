@@ -1,0 +1,558 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "AudioBeatTrack": {
+      "additionalProperties": false,
+      "description": "Musical tempo and rhythmic beat timestamps extracted for timeline synchronization.",
+      "properties": {
+        "beat_timestamps": {
+          "description": "Chronological beat timestamps in seconds",
+          "items": {
+            "type": "number"
+          },
+          "title": "Beat Timestamps",
+          "type": "array"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Beat grid tracking confidence",
+          "title": "Confidence"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "tempo_bpm": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected tempo in Beats Per Minute",
+          "title": "Tempo Bpm"
+        }
+      },
+      "title": "AudioBeatTrack",
+      "type": "object"
+    },
+    "AudioLoudnessMetrics": {
+      "additionalProperties": false,
+      "description": "Deterministic loudness and dynamic range metrics extracted via DSP.",
+      "properties": {
+        "clipping_detected": {
+          "default": false,
+          "description": "Whether digital audio clipping was detected",
+          "title": "Clipping Detected",
+          "type": "boolean"
+        },
+        "clipping_events_count": {
+          "default": 0,
+          "description": "Total number of clipped sample runs",
+          "minimum": 0,
+          "title": "Clipping Events Count",
+          "type": "integer"
+        },
+        "integrated_lufs": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Integrated loudness in LUFS (EBU R128)",
+          "title": "Integrated Lufs"
+        },
+        "momentary_max_lufs": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum momentary loudness in LUFS",
+          "title": "Momentary Max Lufs"
+        },
+        "peak_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "True peak sample level in dBFS",
+          "title": "Peak Db"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "rms_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Root-mean-square level in dBFS",
+          "title": "Rms Db"
+        }
+      },
+      "title": "AudioLoudnessMetrics",
+      "type": "object"
+    },
+    "AudioNoiseEstimate": {
+      "additionalProperties": false,
+      "description": "Acoustic noise floor and signal-to-noise ratio estimation.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimation confidence",
+          "title": "Confidence"
+        },
+        "noise_floor_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated ambient noise floor in dBFS",
+          "title": "Noise Floor Db"
+        },
+        "noise_profile_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Noise categorization ('clean', 'hum', 'hiss', 'broadband')",
+          "title": "Noise Profile Label"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "snr_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated Signal-to-Noise Ratio in dB",
+          "title": "Snr Db"
+        }
+      },
+      "title": "AudioNoiseEstimate",
+      "type": "object"
+    },
+    "AudioQualityObservation": {
+      "additionalProperties": false,
+      "description": "Individual audio quality evaluation metric.",
+      "properties": {
+        "details": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explanatory notes or diagnostic indicators",
+          "title": "Details"
+        },
+        "metric_name": {
+          "description": "Quality attribute name (e.g. 'clarity', 'echo_detected')",
+          "minLength": 1,
+          "title": "Metric Name",
+          "type": "string"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "score": {
+          "description": "Normalized quality score [0.0, 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "metric_name",
+        "score"
+      ],
+      "title": "AudioQualityObservation",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "description": "Canonical chronological interval in seconds.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "End timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional classification label (e.g. 'silence', 'speech')",
+          "title": "Label"
+        },
+        "start": {
+          "description": "Start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical Audio Intelligence contract unifying DSP metrics and acoustic observations.",
+  "properties": {
+    "beat_timestamps": {
+      "description": "Extracted musical beat timestamps",
+      "items": {
+        "type": "number"
+      },
+      "title": "Beat Timestamps",
+      "type": "array"
+    },
+    "beats": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AudioBeatTrack"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Musical tempo and beat grid"
+    },
+    "has_audio_analysis": {
+      "default": false,
+      "description": "Whether audio analysis has been executed",
+      "title": "Has Audio Analysis",
+      "type": "boolean"
+    },
+    "loudness": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AudioLoudnessMetrics"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "DSP loudness and peak metrics"
+    },
+    "music_ranges": {
+      "description": "Detected background music intervals",
+      "items": {
+        "$ref": "#/$defs/TimeRange"
+      },
+      "title": "Music Ranges",
+      "type": "array"
+    },
+    "noise_estimate": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AudioNoiseEstimate"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SNR and noise floor estimates"
+    },
+    "noise_profile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Acoustic noise classification",
+      "title": "Noise Profile"
+    },
+    "provenance": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalysisProvenance"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Overall audio analysis provenance"
+    },
+    "quality_observations": {
+      "description": "Audio quality scores",
+      "items": {
+        "$ref": "#/$defs/AudioQualityObservation"
+      },
+      "title": "Quality Observations",
+      "type": "array"
+    },
+    "silence_ranges": {
+      "description": "Detected silence intervals",
+      "items": {
+        "$ref": "#/$defs/TimeRange"
+      },
+      "title": "Silence Ranges",
+      "type": "array"
+    },
+    "speech_ranges": {
+      "description": "Detected speech intervals",
+      "items": {
+        "$ref": "#/$defs/TimeRange"
+      },
+      "title": "Speech Ranges",
+      "type": "array"
+    },
+    "status": {
+      "default": "TYPED_FOUNDATION_AI13",
+      "description": "Subsystem readiness state",
+      "title": "Status",
+      "type": "string"
+    },
+    "tempo_bpm": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Detected musical tempo in BPM",
+      "title": "Tempo Bpm"
+    },
+    "vocal_isolation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Storage key to separated vocal stem",
+      "title": "Vocal Isolation Ref"
+    }
+  },
+  "title": "AudioIntelligence",
+  "type": "object"
+}

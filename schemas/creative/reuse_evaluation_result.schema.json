@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "ReuseCandidateScore": {
+      "additionalProperties": false,
+      "description": "Detailed score and eligibility evaluation for a template candidate in REUSE search.",
+      "properties": {
+        "eligible": {
+          "description": "Whether template passed all hard compatibility filters",
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "fit_score": {
+          "default": 0.0,
+          "description": "Overall suitability fit score (0.0 - 1.0)",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "hard_filter_failures": {
+          "description": "Reasons for hard filter rejection",
+          "items": {
+            "type": "string"
+          },
+          "title": "Hard Filter Failures",
+          "type": "array"
+        },
+        "score_breakdown": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Component scores (style, motion, content, duration, media)",
+          "title": "Score Breakdown",
+          "type": "object"
+        },
+        "sufficient": {
+          "default": false,
+          "description": "Whether template passes sufficiency threshold for direct REUSE",
+          "title": "Sufficient",
+          "type": "boolean"
+        },
+        "template_id": {
+          "description": "Canonical template ID",
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template_id",
+        "eligible"
+      ],
+      "title": "ReuseCandidateScore",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured audit evidence of REUSE search and suitability evaluation.",
+  "properties": {
+    "candidates_checked": {
+      "description": "All registered templates evaluated",
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidates Checked",
+      "type": "array"
+    },
+    "eligible_candidates": {
+      "description": "Candidates passing hard compatibility filters",
+      "items": {
+        "type": "string"
+      },
+      "title": "Eligible Candidates",
+      "type": "array"
+    },
+    "need_description": {
+      "description": "Description of requested scene intent or creative need",
+      "title": "Need Description",
+      "type": "string"
+    },
+    "ranked_candidates": {
+      "description": "Ranked candidates with scores",
+      "items": {
+        "$ref": "#/$defs/ReuseCandidateScore"
+      },
+      "title": "Ranked Candidates",
+      "type": "array"
+    },
+    "rationale": {
+      "description": "Human/audit readable summary of REUSE evaluation",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "rejection_reasons": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "description": "Reasons for candidate rejections",
+      "title": "Rejection Reasons",
+      "type": "object"
+    },
+    "selected_candidate": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Selected canonical template ID if REUSE sufficient",
+      "title": "Selected Candidate"
+    },
+    "sufficiency": {
+      "description": "Whether REUSE was found to be sufficient",
+      "title": "Sufficiency",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "need_description",
+    "sufficiency",
+    "rationale"
+  ],
+  "title": "ReuseEvaluationResult",
+  "type": "object"
+}

@@ -1,0 +1,84 @@
+{
+  "$defs": {
+    "ImplementationStatus": {
+      "description": "Runtime verification status of an implementation from M01 baseline.",
+      "enum": [
+        "WORKING",
+        "PARTIALLY_WORKING",
+        "BROKEN",
+        "UNVERIFIED"
+      ],
+      "title": "ImplementationStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Lightweight descriptor of a concrete runtime implementation providing a capability.\nUsed for discovery, routing registry, and migration audit.",
+  "properties": {
+    "constraints": {
+      "description": "Runtime or environment constraints",
+      "items": {
+        "type": "string"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "current_status": {
+      "$ref": "#/$defs/ImplementationStatus",
+      "description": "M01 verified runtime status"
+    },
+    "implementation_id": {
+      "description": "Unique implementation identifier",
+      "pattern": "^[a-zA-Z0-9_\\-]+$",
+      "title": "Implementation Id",
+      "type": "string"
+    },
+    "implementation_kind": {
+      "description": "Descriptor kind (e.g. LEGACY_MCP, EMBEDDED_MODEL, NATIVE_SERVICE, EXTERNAL_API)",
+      "title": "Implementation Kind",
+      "type": "string"
+    },
+    "known_issues": {
+      "description": "Known defects, drifts, or security issues from M01 audit",
+      "items": {
+        "type": "string"
+      },
+      "title": "Known Issues",
+      "type": "array"
+    },
+    "legacy_storage_behavior": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Observed legacy storage/filesystem behavior of this implementation",
+      "title": "Legacy Storage Behavior"
+    },
+    "provider_or_engine": {
+      "description": "Underlying provider, library, or engine",
+      "minLength": 1,
+      "title": "Provider Or Engine",
+      "type": "string"
+    },
+    "source": {
+      "description": "Source path or module implementing this capability",
+      "minLength": 1,
+      "title": "Source",
+      "type": "string"
+    }
+  },
+  "required": [
+    "implementation_id",
+    "implementation_kind",
+    "current_status",
+    "source",
+    "provider_or_engine"
+  ],
+  "title": "ImplementationDescriptor",
+  "type": "object"
+}

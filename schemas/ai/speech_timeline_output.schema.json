@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for built voiceover timeline.",
+  "properties": {
+    "cue_points_count": {
+      "description": "Total timeline cues extracted",
+      "minimum": 0,
+      "title": "Cue Points Count",
+      "type": "integer"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "timeline_storage_key": {
+      "description": "StorageService key for generated timeline artifact",
+      "minLength": 1,
+      "title": "Timeline Storage Key",
+      "type": "string"
+    },
+    "total_frames": {
+      "description": "Total composition frame count",
+      "minimum": 0,
+      "title": "Total Frames",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "timeline_storage_key",
+    "total_frames",
+    "cue_points_count"
+  ],
+  "title": "SpeechTimelineOutput",
+  "type": "object"
+}

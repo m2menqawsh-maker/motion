@@ -82,7 +82,7 @@
   "providers": {
     "avatar": "HeyGen (text voice for English; audio-driven lip-sync for non-English)",
     "voice_non_english": "ElevenLabs eleven_v3 (dynamic voice pick from the shared library by language)",
-    "transcription": "Groq Whisper (whisper-large-v3, multilingual)",
+    "transcription": "SPEECH_TO_TEXT",
     "captions": "ImageMagick rounded pills",
     "compositing": "FFmpeg",
     "sfx": "procedural (FFmpeg synthesis)"

@@ -1,0 +1,299 @@
+{
+  "milestone": "S28-06",
+  "timestamp": "2026-10-02T14:11:45.852754+00:00",
+  "retrieval_metrics": {
+    "dataset_size": 10,
+    "k": 3,
+    "mean_precision_at_k": 0.85,
+    "mean_recall_at_k": 0.7917,
+    "incompatible_result_count": 0,
+    "incompatible_retrieval_rate": 0.0,
+    "wrong_aspect_caught_count": 1,
+    "unsupported_props_caught_count": 1
+  },
+  "retrieval_cases": [
+    {
+      "case_id": "retrieval_01_metric_counter",
+      "description": "Numeric metric callout retrieves stat-card or counter templates",
+      "expected_acceptable": [
+        "animatedcounter-element",
+        "rui-stat-card",
+        "rui-metric-ticker"
+      ],
+      "retrieved_top_k": [
+        "rui-metric-ticker",
+        "rui-news-ticker-bar",
+        "rui-stat-card"
+      ],
+      "precision_at_k": 0.6667,
+      "recall_at_k": 0.6667,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_02_code_showcase",
+      "description": "Code reveal intent retrieves code accordion, code reveal, or code diff wipe",
+      "expected_acceptable": [
+        "rui-code-accordion",
+        "rui-code-diff-wipe",
+        "rui-code-reveal",
+        "codeblock-element"
+      ],
+      "retrieved_top_k": [
+        "rui-code-accordion",
+        "rui-code-diff-wipe",
+        "rui-code-reveal"
+      ],
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.75,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_03_attention_hook",
+      "description": "Attention hook intent retrieves hook-card or intro templates",
+      "expected_acceptable": [
+        "rui-hook-card",
+        "rui-intro",
+        "rui-title-card"
+      ],
+      "retrieved_top_k": [
+        "rui-intro",
+        "rui-hook-card",
+        "rui-title-card"
+      ],
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_04_data_comparison_chart",
+      "description": "Data comparison retrieves animated bar chart or comparison table",
+      "expected_acceptable": [
+        "rui-animated-bar-chart",
+        "rui-comparison-table"
+      ],
+      "retrieved_top_k": [
+        "rui-animated-bar-chart",
+        "rui-org-chart-build"
+      ],
+      "precision_at_k": 0.5,
+      "recall_at_k": 0.5,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_05_cta_outro",
+      "description": "Call to action retrieves end-card or callout spotlight",
+      "expected_acceptable": [
+        "rui-end-card",
+        "rui-callout-spotlight"
+      ],
+      "retrieved_top_k": [
+        "rui-end-card"
+      ],
+      "precision_at_k": 1.0,
+      "recall_at_k": 0.5,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_06_talking_head_vlog",
+      "description": "Talking head presenter intent retrieves talking-head-layout",
+      "expected_acceptable": [
+        "rui-talking-head-layout",
+        "rui-creator-reel"
+      ],
+      "retrieved_top_k": [
+        "rui-creator-reel",
+        "rui-talking-head-layout"
+      ],
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_07_audiogram_clip",
+      "description": "Speech audiogram retrieves audiogram scene with audio wave",
+      "expected_acceptable": [
+        "rui-audiogram-scene",
+        "rui-podcast-clip"
+      ],
+      "retrieved_top_k": [
+        "rui-audiogram-scene",
+        "rui-podcast-clip"
+      ],
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_08_aspect_mismatch_negative",
+      "description": "Target 9:16 excludes template restricted to 16:9 only",
+      "expected_acceptable": [
+        "animatedcounter-element",
+        "rui-metric-ticker"
+      ],
+      "retrieved_top_k": [
+        "rui-metric-ticker",
+        "rui-news-ticker-bar",
+        "rui-org-chart-build"
+      ],
+      "precision_at_k": 0.3333,
+      "recall_at_k": 0.5,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_09_audio_mode_music_only_negative",
+      "description": "MUSIC_ONLY mode excludes spoken-word audiogram templates",
+      "expected_acceptable": [],
+      "retrieved_top_k": [],
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "incompatible_retrieved": [],
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_10_unsupported_props_negative",
+      "description": "Missing required prop excludes candidate",
+      "expected_acceptable": [],
+      "retrieved_top_k": [],
+      "precision_at_k": 1.0,
+      "recall_at_k": 1.0,
+      "incompatible_retrieved": [],
+      "passed": true
+    }
+  ],
+  "compose_metrics": {
+    "compose_scenario_count": 6,
+    "valid_plan_count": 4,
+    "valid_composition_plan_rate": 1.0,
+    "registered_component_only_rate": 1.0,
+    "unknown_component_violations_caught": 1,
+    "unknown_component_leak_count": 0
+  },
+  "compose_cases": [
+    {
+      "case_id": "compose_01_split_comparison",
+      "description": "Side-by-side comparison composed from split screen, animated text, and stat card",
+      "expected_composable": true,
+      "actual_composable": true,
+      "base_anchor": "rui-split-screen",
+      "layers_count": 2,
+      "used_registered_components_only": true,
+      "passed": true
+    },
+    {
+      "case_id": "compose_02_code_metric_split",
+      "description": "Live code split composed with syntax block and latency counter",
+      "expected_composable": true,
+      "actual_composable": true,
+      "base_anchor": "rui-live-code-split",
+      "layers_count": 2,
+      "used_registered_components_only": true,
+      "passed": true
+    },
+    {
+      "case_id": "compose_03_dashboard_populate",
+      "description": "Metric dashboard composed with counter and gradient ambient backdrop",
+      "expected_composable": true,
+      "actual_composable": true,
+      "base_anchor": "rui-dashboard-populate",
+      "layers_count": 2,
+      "used_registered_components_only": true,
+      "passed": true
+    },
+    {
+      "case_id": "compose_04_bento_feature_pan",
+      "description": "Bento feature overview composed with text and spotlight callout",
+      "expected_composable": true,
+      "actual_composable": true,
+      "base_anchor": "rui-bento-pan",
+      "layers_count": 2,
+      "used_registered_components_only": true,
+      "passed": true
+    },
+    {
+      "case_id": "compose_05_unknown_component_violation",
+      "description": "Injected unknown component in composition must fail validation closed",
+      "expected_composable": false,
+      "actual_composable": false,
+      "base_anchor": null,
+      "layers_count": 0,
+      "used_registered_components_only": true,
+      "passed": true
+    },
+    {
+      "case_id": "compose_06_impossible_need_outside_lego",
+      "description": "Impossible custom requirement cannot be composed from Lego",
+      "expected_composable": false,
+      "actual_composable": false,
+      "base_anchor": null,
+      "layers_count": 0,
+      "used_registered_components_only": true,
+      "passed": true
+    }
+  ],
+  "policy_metrics": {
+    "policy_case_count": 5,
+    "correct_decisions": 5,
+    "tier_decision_accuracy": 1.0,
+    "bypass_attempts_evaluated": 2,
+    "bypass_denial_rate": 1.0,
+    "reuse_bypass_rate": 0.0,
+    "compose_bypass_rate": 0.0,
+    "premature_escalation_rate": 0.0
+  },
+  "policy_cases": [
+    {
+      "case_id": "policy_01_reuse_standard_metric",
+      "description": "Standard metric reveal selects REUSE tier",
+      "expected_tier": "REUSE",
+      "actual_tier": "REUSE",
+      "is_bypass_attempt": false,
+      "bypass_denied": true,
+      "passed": true
+    },
+    {
+      "case_id": "policy_02_compose_split_comparison",
+      "description": "Composite split requirement selects COMPOSE tier",
+      "expected_tier": "COMPOSE",
+      "actual_tier": "COMPOSE",
+      "is_bypass_attempt": false,
+      "bypass_denied": true,
+      "passed": true
+    },
+    {
+      "case_id": "policy_03_create_escalation_impossible_need",
+      "description": "Unsatisfiable need escalates to CREATE-needed without execution",
+      "expected_tier": "CREATE",
+      "actual_tier": "CREATE",
+      "is_bypass_attempt": false,
+      "bypass_denied": true,
+      "passed": true
+    },
+    {
+      "case_id": "policy_04_anti_bypass_reuse_when_create_requested",
+      "description": "Caller asks CREATE when REUSE available: policy denies and enforces REUSE",
+      "expected_tier": "REUSE",
+      "actual_tier": "REUSE",
+      "is_bypass_attempt": true,
+      "bypass_denied": true,
+      "passed": true
+    },
+    {
+      "case_id": "policy_05_anti_bypass_compose_when_create_requested",
+      "description": "Caller asks CREATE when COMPOSE available: policy denies and enforces COMPOSE",
+      "expected_tier": "COMPOSE",
+      "actual_tier": "COMPOSE",
+      "is_bypass_attempt": true,
+      "bypass_denied": true,
+      "passed": true
+    }
+  ],
+  "overall_verdict": "PASS"
+}

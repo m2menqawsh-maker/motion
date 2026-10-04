@@ -46,6 +46,9 @@ class Action(str, Enum):
     # System administration
     SYSTEM_ADMIN = "system:admin"
 
+    # Template Promotion
+    TEMPLATE_PROMOTE = "template:promote"
+
 
 class AccessDeniedError(Exception):
     """Raised when a principal is denied access to an action or project."""

@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for detecting and trimming black frames.",
+  "properties": {
+    "black_pixel_threshold": {
+      "default": 0.1,
+      "description": "Luminance threshold below which a pixel is black",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Black Pixel Threshold",
+      "type": "number"
+    },
+    "black_ratio_threshold": {
+      "default": 0.98,
+      "description": "Proportion of pixels that must be black",
+      "maximum": 1.0,
+      "minimum": 0.5,
+      "title": "Black Ratio Threshold",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key"
+  ],
+  "title": "DetectBlackFramesInput",
+  "type": "object"
+}

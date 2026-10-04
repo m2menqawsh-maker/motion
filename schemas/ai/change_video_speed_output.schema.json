@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for speed adjustment.",
+  "properties": {
+    "is_async": {
+      "default": false,
+      "description": "Whether execution was dispatched asynchronously",
+      "title": "Is Async",
+      "type": "boolean"
+    },
+    "job_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Background job identifier if executed asynchronously",
+      "title": "Job Id"
+    },
+    "output_storage_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "StorageService key if completed synchronously",
+      "title": "Output Storage Key"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id"
+  ],
+  "title": "ChangeVideoSpeedOutput",
+  "type": "object"
+}

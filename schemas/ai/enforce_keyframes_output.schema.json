@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for keyframe-enforced video.",
+  "properties": {
+    "keyframe_interval": {
+      "description": "Enforced keyframe interval",
+      "minimum": 1,
+      "title": "Keyframe Interval",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for keyframe-aligned video",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "keyframe_interval"
+  ],
+  "title": "EnforceKeyframesOutput",
+  "type": "object"
+}

@@ -1,0 +1,19 @@
+{
+  "workload": "Real Production-like E2E Workflow (Audio DSP + Whisper STT + Vision + Cache)",
+  "sample_count": 18,
+  "wall_clock_total_s": 10.53,
+  "p50_ms": 126.1,
+  "p95_ms": 1936.99,
+  "context_tokens": 2000,
+  "cache_hit_rate_pct": 35.29,
+  "routing_escalation_rate_pct": 0.0,
+  "fallback_rate_pct": 0.0,
+  "provider_failure_rate_pct": 0.0,
+  "duplicate_expensive_work_pct": 0.0,
+  "cost_classification": {
+    "ACTUAL_PROVIDER_COST": "$0.000000 (No external cloud billing incurred)",
+    "CALCULATED_FROM_PRICING": "$0.002800 (Estimated script generation)",
+    "LOCAL_API_COST": "$0.000000 (Local STT & DSP API cost)",
+    "LOCAL_COMPUTE_COST_UNKNOWN": "UNKNOWN_NOT_MONETIZED (Local CPU on-prem compute)"
+  }
+}

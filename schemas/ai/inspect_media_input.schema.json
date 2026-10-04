@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for technical media probing.",
+  "properties": {
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "storage_keys": {
+      "description": "List of media storage keys to probe",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Storage Keys",
+      "type": "array"
+    }
+  },
+  "required": [
+    "project_id",
+    "storage_keys"
+  ],
+  "title": "InspectMediaInput",
+  "type": "object"
+}

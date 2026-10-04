@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "description": "Normalized icon metadata item.",
+  "properties": {
+    "collection": {
+      "description": "Icon set collection identifier",
+      "minLength": 1,
+      "title": "Collection",
+      "type": "string"
+    },
+    "icon_name": {
+      "description": "Full canonical icon identifier (e.g. 'mdi:video')",
+      "minLength": 1,
+      "title": "Icon Name",
+      "type": "string"
+    },
+    "name": {
+      "description": "Short name within collection",
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "svg_preview": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Inline SVG preview string",
+      "title": "Svg Preview"
+    }
+  },
+  "required": [
+    "icon_name",
+    "collection",
+    "name"
+  ],
+  "title": "IconSearchResultItem",
+  "type": "object"
+}

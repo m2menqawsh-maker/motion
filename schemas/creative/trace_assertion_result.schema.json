@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "description": "Outcome of evaluating a single TraceAssertion.",
+  "properties": {
+    "assertion_type": {
+      "description": "TraceAssertionType string",
+      "title": "Assertion Type",
+      "type": "string"
+    },
+    "details": {
+      "description": "Diagnostic explanation of result",
+      "title": "Details",
+      "type": "string"
+    },
+    "passed": {
+      "description": "Whether assertion held true",
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "target": {
+      "description": "Target event or span",
+      "title": "Target",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assertion_type",
+    "target",
+    "passed",
+    "details"
+  ],
+  "title": "TraceAssertionResult",
+  "type": "object"
+}

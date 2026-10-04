@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Structured sound design and gesture-binding recommendation emitted by SfxDirector.",
+  "properties": {
+    "audio_mode": {
+      "$ref": "#/$defs/AudioMode",
+      "description": "Governing AudioMode policy (must be strictly respected)"
+    },
+    "beat_or_scene_id": {
+      "description": "Target beat or scene identifier",
+      "title": "Beat Or Scene Id",
+      "type": "string"
+    },
+    "ducking_profile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Audio ducking instruction (e.g., 'duck_dialogue_3db', 'none')",
+      "title": "Ducking Profile"
+    },
+    "reason_summary": {
+      "default": "",
+      "description": "Auditable rationale summary",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "sound_cues": {
+      "description": "Bound sound effect cues paired with visual gestures",
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "title": "Sound Cues",
+      "type": "array"
+    },
+    "taste_rule_ids": {
+      "description": "Associated TasteRule IDs influencing this direction",
+      "items": {
+        "type": "string"
+      },
+      "title": "Taste Rule Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "beat_or_scene_id",
+    "audio_mode"
+  ],
+  "title": "SfxDirection",
+  "type": "object"
+}

@@ -1,0 +1,954 @@
+{
+  "$defs": {
+    "ComposeEvaluationResult": {
+      "additionalProperties": false,
+      "description": "Structured audit evidence of COMPOSE planning and suitability evaluation.",
+      "properties": {
+        "components_checked": {
+          "description": "Registered Lego components considered",
+          "items": {
+            "type": "string"
+          },
+          "title": "Components Checked",
+          "type": "array"
+        },
+        "composition_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CompositionPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Synthesized CompositionPlan if valid"
+        },
+        "eligible_components": {
+          "description": "Registered components passing compatibility",
+          "items": {
+            "type": "string"
+          },
+          "title": "Eligible Components",
+          "type": "array"
+        },
+        "need_description": {
+          "description": "Description of requested scene intent or creative need",
+          "title": "Need Description",
+          "type": "string"
+        },
+        "rationale": {
+          "description": "Human/audit readable summary of COMPOSE evaluation",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "rejection_reasons": {
+          "description": "Reasons why composition could not satisfy need",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rejection Reasons",
+          "type": "array"
+        },
+        "sufficiency": {
+          "description": "Whether COMPOSE was found to be sufficient",
+          "title": "Sufficiency",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "need_description",
+        "sufficiency",
+        "rationale"
+      ],
+      "title": "ComposeEvaluationResult",
+      "type": "object"
+    },
+    "CompositionLayer": {
+      "additionalProperties": false,
+      "description": "A visual layer within a multi-layer composition hierarchy.",
+      "properties": {
+        "element_ref": {
+          "description": "Reference to template, asset, or primitive component",
+          "title": "Element Ref",
+          "type": "string"
+        },
+        "layer_type": {
+          "description": "Layer category: 'primary' (100%), 'secondary' (30-50%), or 'ambient' (10-20%)",
+          "title": "Layer Type",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Layer-specific motion and style props",
+          "title": "Properties",
+          "type": "object"
+        }
+      },
+      "required": [
+        "layer_type",
+        "element_ref"
+      ],
+      "title": "CompositionLayer",
+      "type": "object"
+    },
+    "CompositionPlan": {
+      "additionalProperties": false,
+      "description": "Spatial, layer, and choreography plan for a scene.",
+      "properties": {
+        "base_template_or_primitive": {
+          "description": "Primary visual anchor or template",
+          "title": "Base Template Or Primitive",
+          "type": "string"
+        },
+        "camera_motion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Camera directive (e.g., 'dive_into_word', 'static', 'whip_pan')",
+          "title": "Camera Motion"
+        },
+        "composition_id": {
+          "description": "Unique composition plan identifier",
+          "title": "Composition Id",
+          "type": "string"
+        },
+        "effects": {
+          "description": "Optional registered effects applied",
+          "items": {
+            "type": "string"
+          },
+          "title": "Effects",
+          "type": "array"
+        },
+        "gestural_elements": {
+          "description": "Visual gestures (e.g., ['Neon Ring', 'Marker Underline'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Gestural Elements",
+          "type": "array"
+        },
+        "layers": {
+          "description": "Staged composition layers",
+          "items": {
+            "$ref": "#/$defs/CompositionLayer"
+          },
+          "title": "Layers",
+          "type": "array"
+        },
+        "layout_zone": {
+          "default": "full",
+          "description": "Layout zone on canvas (e.g., 'full', 'top_split', 'bottom_card')",
+          "title": "Layout Zone",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Associated scene identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "sfx_bindings": {
+          "description": "SFX cues bound to visual moments",
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Sfx Bindings",
+          "type": "array"
+        },
+        "transition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional transition out (e.g., 'fade', 'slide')",
+          "title": "Transition"
+        }
+      },
+      "required": [
+        "composition_id",
+        "scene_id",
+        "base_template_or_primitive"
+      ],
+      "title": "CompositionPlan",
+      "type": "object"
+    },
+    "CreativePlanStatus": {
+      "description": "Proposal lifecycle state for creative plans.",
+      "enum": [
+        "PROPOSED",
+        "APPROVED_BY_USER",
+        "REJECTED"
+      ],
+      "title": "CreativePlanStatus",
+      "type": "string"
+    },
+    "CreativeTier": {
+      "description": "Canonical creativity tiers (S28-01A / S28-06).",
+      "enum": [
+        "REUSE",
+        "COMPOSE",
+        "CREATE"
+      ],
+      "title": "CreativeTier",
+      "type": "string"
+    },
+    "CreativeTierDecision": {
+      "additionalProperties": false,
+      "description": "Explicit decision selecting the implementation tier for a scene.",
+      "properties": {
+        "compose_candidates_checked": {
+          "description": "IDs of components evaluated for COMPOSE",
+          "items": {
+            "type": "string"
+          },
+          "title": "Compose Candidates Checked",
+          "type": "array"
+        },
+        "compose_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComposeEvaluationResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured COMPOSE evaluation evidence"
+        },
+        "composite_elements": {
+          "description": "List of primitive elements if COMPOSE",
+          "items": {
+            "type": "string"
+          },
+          "title": "Composite Elements",
+          "type": "array"
+        },
+        "composition_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CompositionPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Resolved composition plan if COMPOSE"
+        },
+        "decision_id": {
+          "description": "Unique decision identifier",
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "needs_create_evaluation": {
+          "default": false,
+          "description": "Flag indicating candidate creation was evaluated prior to selecting CREATE",
+          "title": "Needs Create Evaluation",
+          "type": "boolean"
+        },
+        "rationale": {
+          "description": "Justification for why this tier is optimal for this scene",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "requested_need": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Creative need or intent description",
+          "title": "Requested Need"
+        },
+        "reuse_candidates_checked": {
+          "description": "IDs of registered templates evaluated for REUSE",
+          "items": {
+            "type": "string"
+          },
+          "title": "Reuse Candidates Checked",
+          "type": "array"
+        },
+        "reuse_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReuseEvaluationResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured REUSE evaluation evidence"
+        },
+        "scene_id": {
+          "description": "Target scene identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "selected_tier": {
+          "$ref": "#/$defs/CreativeTier",
+          "description": "Selected implementation tier (REUSE, COMPOSE, CREATE)"
+        },
+        "template_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Template identifier if REUSE",
+          "title": "Template Ref"
+        }
+      },
+      "required": [
+        "decision_id",
+        "scene_id",
+        "selected_tier",
+        "rationale"
+      ],
+      "title": "CreativeTierDecision",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "NarrativeBeat": {
+      "additionalProperties": false,
+      "description": "An individual story beat within a narrative progression.",
+      "properties": {
+        "beat_id": {
+          "description": "Unique beat identifier",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "beat_index": {
+          "description": "0-indexed sequence position of this beat",
+          "minimum": 0,
+          "title": "Beat Index",
+          "type": "integer"
+        },
+        "emotional_target": {
+          "description": "Target emotional tone (e.g., curiosity, trust, urgency, delight)",
+          "title": "Emotional Target",
+          "type": "string"
+        },
+        "estimated_duration_sec": {
+          "description": "Estimated duration in seconds",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Duration Sec",
+          "type": "number"
+        },
+        "key_message": {
+          "description": "Core message or narrative objective of this beat",
+          "title": "Key Message",
+          "type": "string"
+        },
+        "pacing": {
+          "description": "Rhythmic pacing for this beat (e.g., fast, moderate, slow, pause)",
+          "title": "Pacing",
+          "type": "string"
+        },
+        "phase": {
+          "description": "Story phase (e.g., hook, setup, problem, mechanism, proof, cta, resolution)",
+          "title": "Phase",
+          "type": "string"
+        },
+        "sound_effect_cue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Recommended SFX or audio accent",
+          "title": "Sound Effect Cue"
+        },
+        "visual_hook_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Descriptive visual concept for the beat",
+          "title": "Visual Hook Description"
+        }
+      },
+      "required": [
+        "beat_id",
+        "beat_index",
+        "phase",
+        "emotional_target",
+        "pacing",
+        "estimated_duration_sec",
+        "key_message"
+      ],
+      "title": "NarrativeBeat",
+      "type": "object"
+    },
+    "NarrativePlan": {
+      "additionalProperties": false,
+      "description": "Structured narrative arc ordering story beats before visual composition.\nEnforces sequential consistency across story beats.",
+      "properties": {
+        "arc_structure": {
+          "description": "Structural taxonomy (e.g., Three-Act, Hook-Proof-CTA, Living Canvas)",
+          "title": "Arc Structure",
+          "type": "string"
+        },
+        "beats": {
+          "description": "Ordered sequence of narrative beats",
+          "items": {
+            "$ref": "#/$defs/NarrativeBeat"
+          },
+          "minItems": 1,
+          "title": "Beats",
+          "type": "array"
+        },
+        "brief_id": {
+          "description": "Associated CreativeBrief identifier",
+          "title": "Brief Id",
+          "type": "string"
+        },
+        "core_hook": {
+          "description": "Opening hook statement or visual proposition",
+          "title": "Core Hook",
+          "type": "string"
+        },
+        "created_at": {
+          "description": "UTC timestamp of plan synthesis",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "estimated_total_duration_sec": {
+          "description": "Sum of estimated beat durations",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Total Duration Sec",
+          "type": "number"
+        },
+        "narrative_id": {
+          "description": "Unique identifier for this narrative plan",
+          "title": "Narrative Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceRecord",
+          "description": "Provenance trace of narrative planning"
+        }
+      },
+      "required": [
+        "narrative_id",
+        "brief_id",
+        "core_hook",
+        "beats",
+        "arc_structure",
+        "estimated_total_duration_sec",
+        "provenance",
+        "created_at"
+      ],
+      "title": "NarrativePlan",
+      "type": "object"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    },
+    "ReuseCandidateScore": {
+      "additionalProperties": false,
+      "description": "Detailed score and eligibility evaluation for a template candidate in REUSE search.",
+      "properties": {
+        "eligible": {
+          "description": "Whether template passed all hard compatibility filters",
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "fit_score": {
+          "default": 0.0,
+          "description": "Overall suitability fit score (0.0 - 1.0)",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "hard_filter_failures": {
+          "description": "Reasons for hard filter rejection",
+          "items": {
+            "type": "string"
+          },
+          "title": "Hard Filter Failures",
+          "type": "array"
+        },
+        "score_breakdown": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Component scores (style, motion, content, duration, media)",
+          "title": "Score Breakdown",
+          "type": "object"
+        },
+        "sufficient": {
+          "default": false,
+          "description": "Whether template passes sufficiency threshold for direct REUSE",
+          "title": "Sufficient",
+          "type": "boolean"
+        },
+        "template_id": {
+          "description": "Canonical template ID",
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template_id",
+        "eligible"
+      ],
+      "title": "ReuseCandidateScore",
+      "type": "object"
+    },
+    "ReuseEvaluationResult": {
+      "additionalProperties": false,
+      "description": "Structured audit evidence of REUSE search and suitability evaluation.",
+      "properties": {
+        "candidates_checked": {
+          "description": "All registered templates evaluated",
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidates Checked",
+          "type": "array"
+        },
+        "eligible_candidates": {
+          "description": "Candidates passing hard compatibility filters",
+          "items": {
+            "type": "string"
+          },
+          "title": "Eligible Candidates",
+          "type": "array"
+        },
+        "need_description": {
+          "description": "Description of requested scene intent or creative need",
+          "title": "Need Description",
+          "type": "string"
+        },
+        "ranked_candidates": {
+          "description": "Ranked candidates with scores",
+          "items": {
+            "$ref": "#/$defs/ReuseCandidateScore"
+          },
+          "title": "Ranked Candidates",
+          "type": "array"
+        },
+        "rationale": {
+          "description": "Human/audit readable summary of REUSE evaluation",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "rejection_reasons": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "description": "Reasons for candidate rejections",
+          "title": "Rejection Reasons",
+          "type": "object"
+        },
+        "selected_candidate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Selected canonical template ID if REUSE sufficient",
+          "title": "Selected Candidate"
+        },
+        "sufficiency": {
+          "description": "Whether REUSE was found to be sufficient",
+          "title": "Sufficiency",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "need_description",
+        "sufficiency",
+        "rationale"
+      ],
+      "title": "ReuseEvaluationResult",
+      "type": "object"
+    },
+    "SceneIntent": {
+      "additionalProperties": false,
+      "description": "Creative intent and aesthetic parameters for an individual scene.",
+      "properties": {
+        "asset_requirements": {
+          "description": "High-level asset requirements (e.g., ['product_demo_screen', 'brand_logo'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Asset Requirements",
+          "type": "array"
+        },
+        "audio_intent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio treatment intent (e.g., 'ambient_music_with_whoosh', 'silence')",
+          "title": "Audio Intent"
+        },
+        "beat_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Linked NarrativeBeat ID if derived from beat",
+          "title": "Beat Id"
+        },
+        "estimated_duration_sec": {
+          "description": "Scene duration in seconds",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Duration Sec",
+          "type": "number"
+        },
+        "intent_label": {
+          "description": "Scene purpose (e.g., 'hook', 'problem_statement', 'cta')",
+          "title": "Intent Label",
+          "type": "string"
+        },
+        "mood": {
+          "description": "Scene mood (e.g., 'energetic', 'thoughtful')",
+          "title": "Mood",
+          "type": "string"
+        },
+        "motion_personality": {
+          "description": "Motion personality profile (e.g., 'Cinematic', 'Energetic')",
+          "title": "Motion Personality",
+          "type": "string"
+        },
+        "primary_visual_job": {
+          "description": "Visual job (e.g., 'proof', 'mechanism', 'consequence', 'action')",
+          "title": "Primary Visual Job",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Unique scene identifier (e.g., 'scene_001')",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "scene_index": {
+          "description": "Sequential position of this scene",
+          "minimum": 0,
+          "title": "Scene Index",
+          "type": "integer"
+        },
+        "spoken_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Voiceover line or text delivered in scene",
+          "title": "Spoken Text"
+        },
+        "taste_decisions": {
+          "description": "Taste decisions governing this scene",
+          "items": {
+            "$ref": "#/$defs/TasteDecision"
+          },
+          "title": "Taste Decisions",
+          "type": "array"
+        },
+        "template_requirements": {
+          "description": "Template capability/category requirements (e.g., ['text_with_device', 'minimal_quote'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Template Requirements",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scene_id",
+        "scene_index",
+        "intent_label",
+        "mood",
+        "motion_personality",
+        "primary_visual_job",
+        "estimated_duration_sec"
+      ],
+      "title": "SceneIntent",
+      "type": "object"
+    },
+    "TasteDecision": {
+      "additionalProperties": false,
+      "description": "Documented application of a specific TasteRule to a scene or shot element.\nProvides verifiable proof of compliance with the creative style system.",
+      "properties": {
+        "applied_value": {
+          "description": "The concrete setting or parameter applied (e.g., 'cubic-bezier(0.4,0,0.2,1), 400ms')",
+          "title": "Applied Value",
+          "type": "string"
+        },
+        "citation": {
+          "description": "Verbatim citation from the taste documentation proving alignment",
+          "title": "Citation",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 1.0,
+          "description": "Confidence score [0.0 - 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "context_ref": {
+          "description": "Reference to the target scene or shot (e.g., 'scene_001_shot_002')",
+          "title": "Context Ref",
+          "type": "string"
+        },
+        "decision_id": {
+          "description": "Unique identifier for this decision instance",
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "Verifiable context citations or trigger evidence",
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Concise auditable rationale summary without hidden CoT",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "reasoning": {
+          "description": "Explanation of why this value was chosen for this context",
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "rule_id": {
+          "description": "ID of the governing TasteRule applied",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_ids": {
+          "description": "IDs of all rules influencing this decision",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision_id",
+        "rule_id",
+        "context_ref",
+        "applied_value",
+        "reasoning",
+        "citation"
+      ],
+      "title": "TasteDecision",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical creative proposal specifying what we want to create creatively.\nAdvisory artifact: requires user approval before compiling to Blueprint v2.",
+  "properties": {
+    "brief_id": {
+      "description": "Associated CreativeBrief identifier",
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "compositions": {
+      "description": "Spatial composition plans",
+      "items": {
+        "$ref": "#/$defs/CompositionPlan"
+      },
+      "title": "Compositions",
+      "type": "array"
+    },
+    "created_at": {
+      "description": "UTC timestamp of plan generation",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "narrative_plan": {
+      "$ref": "#/$defs/NarrativePlan",
+      "description": "Underlying narrative arc"
+    },
+    "plan_id": {
+      "description": "Unique plan identifier",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceRecord",
+      "description": "Provenance trace of creative planning"
+    },
+    "recipe_id": {
+      "description": "Associated RecipeDefinition identifier",
+      "title": "Recipe Id",
+      "type": "string"
+    },
+    "scenes": {
+      "description": "Sequential scene intents",
+      "items": {
+        "$ref": "#/$defs/SceneIntent"
+      },
+      "minItems": 1,
+      "title": "Scenes",
+      "type": "array"
+    },
+    "status": {
+      "$ref": "#/$defs/CreativePlanStatus",
+      "default": "PROPOSED",
+      "description": "Creative proposal status (never automatically APPROVED)"
+    },
+    "tier_decisions": {
+      "description": "Tier decisions per scene",
+      "items": {
+        "$ref": "#/$defs/CreativeTierDecision"
+      },
+      "title": "Tier Decisions",
+      "type": "array"
+    },
+    "title": {
+      "description": "Working title of the video",
+      "title": "Title",
+      "type": "string"
+    },
+    "total_estimated_duration_sec": {
+      "description": "Total planned duration in seconds",
+      "exclusiveMinimum": 0,
+      "title": "Total Estimated Duration Sec",
+      "type": "number"
+    }
+  },
+  "required": [
+    "plan_id",
+    "brief_id",
+    "recipe_id",
+    "title",
+    "narrative_plan",
+    "scenes",
+    "total_estimated_duration_sec",
+    "provenance",
+    "created_at"
+  ],
+  "title": "CreativePlan",
+  "type": "object"
+}

@@ -1,0 +1,300 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "TechnicalMetadata": {
+      "additionalProperties": false,
+      "description": "Deterministic technical audio/video inspection metadata.\nExtracted from file headers / local probes without expensive model calls.",
+      "properties": {
+        "audio_bitrate": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio bitrate in bps",
+          "title": "Audio Bitrate"
+        },
+        "audio_channels": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of audio channels",
+          "title": "Audio Channels"
+        },
+        "audio_codec": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio codec identifier (e.g. 'pcm_s16le', 'aac')",
+          "title": "Audio Codec"
+        },
+        "audio_sample_rate": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio sample rate in Hz",
+          "title": "Audio Sample Rate"
+        },
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total media duration in seconds",
+          "title": "Duration Seconds"
+        },
+        "file_size_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Size of file payload in bytes",
+          "title": "File Size Bytes"
+        },
+        "format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Container format (e.g. 'wav', 'mp4')",
+          "title": "Format"
+        },
+        "fps": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frames per second",
+          "title": "Fps"
+        },
+        "has_audio": {
+          "default": false,
+          "description": "Whether an audio stream is detected",
+          "title": "Has Audio",
+          "type": "boolean"
+        },
+        "has_video": {
+          "default": false,
+          "description": "Whether a video stream is detected",
+          "title": "Has Video",
+          "type": "boolean"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frame height in pixels",
+          "title": "Height"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance of technical inspection"
+        },
+        "video_codec": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video codec identifier (e.g. 'h264')",
+          "title": "Video Codec"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frame width in pixels",
+          "title": "Width"
+        }
+      },
+      "title": "TechnicalMetadata",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Output contract containing technical inspection metadata.",
+  "properties": {
+    "files_info": {
+      "description": "Extracted technical metadata per file",
+      "items": {
+        "$ref": "#/$defs/TechnicalMetadata"
+      },
+      "title": "Files Info",
+      "type": "array"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id"
+  ],
+  "title": "InspectMediaOutput",
+  "type": "object"
+}

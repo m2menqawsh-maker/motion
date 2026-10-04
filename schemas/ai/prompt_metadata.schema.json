@@ -1,0 +1,70 @@
+{
+  "additionalProperties": false,
+  "description": "Typed audit metadata for prompt entities.",
+  "properties": {
+    "author": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Author identifier or creator role",
+      "title": "Author"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Human-readable description of prompt purpose",
+      "title": "Description"
+    },
+    "eval_gate_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Eval run/gate approval ID proving quality",
+      "title": "Eval Gate Id"
+    },
+    "eval_quality_score": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Verified benchmark score",
+      "title": "Eval Quality Score"
+    },
+    "tags": {
+      "description": "Categorization tags",
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "title": "PromptMetadata",
+  "type": "object"
+}

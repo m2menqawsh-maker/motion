@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "PromotionRecordStatus": {
+      "description": "Lifecycle status for a template candidate promotion attempt (S28-07E).",
+      "enum": [
+        "PREPARING",
+        "COMMITTED",
+        "FAILED",
+        "ROLLED_BACK"
+      ],
+      "title": "PromotionRecordStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Durable record documenting publication and lifecycle transition to PROMOTED (S28-07E).",
+  "properties": {
+    "approval_decision_id": {
+      "description": "Identifier of authoritative human CandidateReviewDecision",
+      "title": "Approval Decision Id",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Target candidate identifier",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "UTC timestamp when promotion completed",
+      "title": "Completed At"
+    },
+    "error_message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Detailed failure or rollback reason if failed",
+      "title": "Error Message"
+    },
+    "post_publish_registry_hash": {
+      "default": "",
+      "description": "SHA-256 of template-registry-data.json after publication",
+      "title": "Post Publish Registry Hash",
+      "type": "string"
+    },
+    "pre_publish_registry_hash": {
+      "description": "SHA-256 of template-registry-data.json before publication",
+      "title": "Pre Publish Registry Hash",
+      "type": "string"
+    },
+    "promoted_by_principal_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Principal ID of authorized actor executing promotion",
+      "title": "Promoted By Principal Id"
+    },
+    "promotion_id": {
+      "description": "Unique promotion identifier (prom_{hex12})",
+      "title": "Promotion Id",
+      "type": "string"
+    },
+    "promotion_manifest_hash": {
+      "description": "Deterministic SHA-256 digest of PromotionManifest",
+      "title": "Promotion Manifest Hash",
+      "type": "string"
+    },
+    "published_artifact_hashes": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of published artifact relative paths to SHA-256 digests",
+      "title": "Published Artifact Hashes",
+      "type": "object"
+    },
+    "review_bundle_hash": {
+      "description": "Digest of verified CandidateReviewBundle",
+      "title": "Review Bundle Hash",
+      "type": "string"
+    },
+    "started_at": {
+      "description": "UTC timestamp when promotion started",
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PromotionRecordStatus",
+      "description": "Promotion attempt status (PREPARING, COMMITTED, FAILED, ROLLED_BACK)"
+    },
+    "target_template_id": {
+      "description": "Target canonical template ID",
+      "title": "Target Template Id",
+      "type": "string"
+    },
+    "target_template_version": {
+      "default": "1.0.0",
+      "description": "Target template version",
+      "title": "Target Template Version",
+      "type": "string"
+    },
+    "workspace_id": {
+      "default": "ws_default",
+      "description": "Workspace identifier for multi-tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "promotion_id",
+    "candidate_id",
+    "promotion_manifest_hash",
+    "approval_decision_id",
+    "review_bundle_hash",
+    "target_template_id",
+    "pre_publish_registry_hash",
+    "status",
+    "started_at"
+  ],
+  "title": "CandidatePromotionRecord",
+  "type": "object"
+}

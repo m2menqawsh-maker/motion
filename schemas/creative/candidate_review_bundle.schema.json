@@ -1,0 +1,144 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical, immutable review bundle freezing the exact candidate snapshot\nand verified validation evidence for human review (S28-07D).",
+  "properties": {
+    "candidate_content_hash": {
+      "description": "SHA-256 content hash of the candidate snapshot",
+      "title": "Candidate Content Hash",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Target candidate identifier",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_revision": {
+      "description": "Candidate CAS revision at review freeze",
+      "minimum": 1,
+      "title": "Candidate Revision",
+      "type": "integer"
+    },
+    "created_at": {
+      "description": "UTC timestamp when review bundle was created",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "fixtures_hash": {
+      "description": "SHA-256 digest of sample fixtures",
+      "title": "Fixtures Hash",
+      "type": "string"
+    },
+    "probe_report_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Storage key of probe report",
+      "title": "Probe Report Ref"
+    },
+    "qc_report_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Storage key of QC report",
+      "title": "Qc Report Ref"
+    },
+    "render_evidence_refs": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Storage keys of render evidence",
+      "title": "Render Evidence Refs",
+      "type": "object"
+    },
+    "representative_frame_refs": {
+      "description": "Storage keys of representative probe frames",
+      "items": {
+        "type": "string"
+      },
+      "title": "Representative Frame Refs",
+      "type": "array"
+    },
+    "review_bundle_hash": {
+      "description": "Deterministic SHA-256 digest of review bundle content",
+      "title": "Review Bundle Hash",
+      "type": "string"
+    },
+    "review_bundle_id": {
+      "description": "Unique review bundle identifier (rbd_{hex12})",
+      "title": "Review Bundle Id",
+      "type": "string"
+    },
+    "review_policy_version": {
+      "default": "1.0.0",
+      "description": "Review policy version",
+      "title": "Review Policy Version",
+      "type": "string"
+    },
+    "runtime_report_hash": {
+      "description": "SHA-256 digest of runtime validation report",
+      "title": "Runtime Report Hash",
+      "type": "string"
+    },
+    "runtime_validation_id": {
+      "description": "ID of passing runtime validation report",
+      "title": "Runtime Validation Id",
+      "type": "string"
+    },
+    "schema_hash": {
+      "description": "SHA-256 digest of candidate props schema",
+      "title": "Schema Hash",
+      "type": "string"
+    },
+    "source_code_hash": {
+      "description": "SHA-256 digest of candidate source code",
+      "title": "Source Code Hash",
+      "type": "string"
+    },
+    "static_report_hash": {
+      "description": "SHA-256 digest of static validation report",
+      "title": "Static Report Hash",
+      "type": "string"
+    },
+    "static_validation_id": {
+      "description": "ID of passing static validation report",
+      "title": "Static Validation Id",
+      "type": "string"
+    },
+    "workspace_id": {
+      "default": "ws_default",
+      "description": "Workspace identifier for multi-tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "review_bundle_id",
+    "candidate_id",
+    "candidate_content_hash",
+    "candidate_revision",
+    "static_validation_id",
+    "runtime_validation_id",
+    "static_report_hash",
+    "runtime_report_hash",
+    "source_code_hash",
+    "schema_hash",
+    "fixtures_hash",
+    "created_at",
+    "review_bundle_hash"
+  ],
+  "title": "CandidateReviewBundle",
+  "type": "object"
+}

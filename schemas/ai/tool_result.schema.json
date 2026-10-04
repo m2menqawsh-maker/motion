@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "AIError": {
+      "additionalProperties": false,
+      "description": "Structured, client-safe error object emitted by the AI subsystem.\nExcludes sensitive infrastructure secrets and un-sanitized exception traces.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/AIErrorCode",
+          "description": "Canonical machine-readable error code"
+        },
+        "dependency_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional upstream dependency identifier associated with the failure",
+          "title": "Dependency Reference"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured context details safe for client inspection",
+          "title": "Details"
+        },
+        "message": {
+          "description": "Sanitized client-safe error message",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "description": "Whether the operation may succeed if retried",
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "AIError",
+      "type": "object"
+    },
+    "AIErrorCode": {
+      "description": "Authoritative error classification for AI subsystem failures.",
+      "enum": [
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "INVALID_MODEL_OUTPUT",
+        "SCHEMA_VALIDATION_FAILED",
+        "CAPABILITY_UNAVAILABLE",
+        "BUDGET_EXCEEDED",
+        "POLICY_DENIED",
+        "TENANT_ACCESS_DENIED",
+        "CONTENT_REJECTED",
+        "DEPENDENCY_FAILED",
+        "CANCELLED",
+        "INTERNAL_ERROR"
+      ],
+      "title": "AIErrorCode",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "ToolCallStatus": {
+      "description": "Outcome status of an executed tool call.",
+      "enum": [
+        "SUCCESS",
+        "ERROR"
+      ],
+      "title": "ToolCallStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contract representing the completed execution of an authorized tool.\nReturned to the orchestration loop.",
+  "properties": {
+    "call_id": {
+      "description": "Identifier matching the originating ToolCall",
+      "pattern": "^[a-zA-Z0-9_\\-]+$",
+      "title": "Call Id",
+      "type": "string"
+    },
+    "completed_at": {
+      "description": "Timezone-aware completion timestamp",
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    },
+    "duration_ms": {
+      "description": "Measured execution duration in milliseconds",
+      "minimum": 0,
+      "title": "Duration Ms",
+      "type": "integer"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AIError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured error details if tool execution failed"
+    },
+    "output": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured return payload from successful tool execution",
+      "title": "Output"
+    },
+    "started_at": {
+      "description": "Timezone-aware start timestamp",
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ToolCallStatus",
+      "description": "Execution outcome status"
+    }
+  },
+  "required": [
+    "call_id",
+    "status",
+    "started_at",
+    "completed_at",
+    "duration_ms"
+  ],
+  "title": "ToolResult",
+  "type": "object"
+}

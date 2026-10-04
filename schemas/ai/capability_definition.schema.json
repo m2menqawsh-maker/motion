@@ -1,0 +1,422 @@
+{
+  "$defs": {
+    "CapabilityCategory": {
+      "description": "Authoritative category classifying the fundamental nature of the capability.",
+      "enum": [
+        "MODEL",
+        "TOOL",
+        "DOMAIN_SERVICE"
+      ],
+      "title": "CapabilityCategory",
+      "type": "string"
+    },
+    "CapabilityFamily": {
+      "description": "Functional clustering of related capabilities.",
+      "enum": [
+        "SPEECH_INTELLIGENCE",
+        "AUDIO_PROCESSING",
+        "VIDEO_PROCESSING",
+        "IMAGE_PROCESSING",
+        "MEDIA_ACQUISITION",
+        "MEDIA_INSPECTION",
+        "ASSET_DOMAIN_OPERATIONS",
+        "CACHE_MANAGEMENT",
+        "JOB_MANAGEMENT"
+      ],
+      "title": "CapabilityFamily",
+      "type": "string"
+    },
+    "CapabilityLifecycleStatus": {
+      "description": "Lifecycle governance state of a capability definition.",
+      "enum": [
+        "ACTIVE",
+        "EXPERIMENTAL",
+        "DEPRECATED",
+        "PROPOSED"
+      ],
+      "title": "CapabilityLifecycleStatus",
+      "type": "string"
+    },
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "TRIM_AUDIO_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "CostClass": {
+      "description": "Coarse resource consumption and financial cost tier.",
+      "enum": [
+        "NEGLIGIBLE",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "EXTERNAL_BILLED"
+      ],
+      "title": "CostClass",
+      "type": "string"
+    },
+    "ExecutionMode": {
+      "description": "Neutral descriptor of capability execution topology.",
+      "enum": [
+        "LOCAL",
+        "WORKER",
+        "REMOTE",
+        "MODEL",
+        "EXTERNAL_API",
+        "COMPATIBILITY_MCP"
+      ],
+      "title": "ExecutionMode",
+      "type": "string"
+    },
+    "IdempotencyPolicy": {
+      "description": "Execution replay semantics.",
+      "enum": [
+        "READ_ONLY",
+        "IDEMPOTENT",
+        "IDEMPOTENT_WITH_KEY",
+        "NON_IDEMPOTENT",
+        "CONDITIONAL"
+      ],
+      "title": "IdempotencyPolicy",
+      "type": "string"
+    },
+    "ImplementationDescriptor": {
+      "additionalProperties": false,
+      "description": "Lightweight descriptor of a concrete runtime implementation providing a capability.\nUsed for discovery, routing registry, and migration audit.",
+      "properties": {
+        "constraints": {
+          "description": "Runtime or environment constraints",
+          "items": {
+            "type": "string"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "current_status": {
+          "$ref": "#/$defs/ImplementationStatus",
+          "description": "M01 verified runtime status"
+        },
+        "implementation_id": {
+          "description": "Unique implementation identifier",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "title": "Implementation Id",
+          "type": "string"
+        },
+        "implementation_kind": {
+          "description": "Descriptor kind (e.g. LEGACY_MCP, EMBEDDED_MODEL, NATIVE_SERVICE, EXTERNAL_API)",
+          "title": "Implementation Kind",
+          "type": "string"
+        },
+        "known_issues": {
+          "description": "Known defects, drifts, or security issues from M01 audit",
+          "items": {
+            "type": "string"
+          },
+          "title": "Known Issues",
+          "type": "array"
+        },
+        "legacy_storage_behavior": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Observed legacy storage/filesystem behavior of this implementation",
+          "title": "Legacy Storage Behavior"
+        },
+        "provider_or_engine": {
+          "description": "Underlying provider, library, or engine",
+          "minLength": 1,
+          "title": "Provider Or Engine",
+          "type": "string"
+        },
+        "source": {
+          "description": "Source path or module implementing this capability",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "implementation_id",
+        "implementation_kind",
+        "current_status",
+        "source",
+        "provider_or_engine"
+      ],
+      "title": "ImplementationDescriptor",
+      "type": "object"
+    },
+    "ImplementationStatus": {
+      "description": "Runtime verification status of an implementation from M01 baseline.",
+      "enum": [
+        "WORKING",
+        "PARTIALLY_WORKING",
+        "BROKEN",
+        "UNVERIFIED"
+      ],
+      "title": "ImplementationStatus",
+      "type": "string"
+    },
+    "LatencyClass": {
+      "description": "Coarse execution duration tier.",
+      "enum": [
+        "INTERACTIVE",
+        "SHORT",
+        "LONG_RUNNING",
+        "BACKGROUND"
+      ],
+      "title": "LatencyClass",
+      "type": "string"
+    },
+    "RetryPolicy": {
+      "description": "Fault tolerance and retry semantics.",
+      "enum": [
+        "NEVER",
+        "SAFE_TRANSIENT",
+        "CONDITIONAL"
+      ],
+      "title": "RetryPolicy",
+      "type": "string"
+    },
+    "SideEffectClass": {
+      "description": "Taxonomy of side-effects produced by executing a capability.",
+      "enum": [
+        "NONE",
+        "READ_ONLY",
+        "LOCAL_TEMP_WRITE",
+        "PERSISTENT_WRITE",
+        "EXTERNAL_NETWORK",
+        "DOMAIN_MUTATION",
+        "SUBPROCESS",
+        "BACKGROUND_JOB"
+      ],
+      "title": "SideEffectClass",
+      "type": "string"
+    },
+    "TenantScope": {
+      "description": "Authoritative isolation boundary required for executing the capability.",
+      "enum": [
+        "NONE",
+        "WORKSPACE",
+        "PROJECT",
+        "ASSET",
+        "SYSTEM"
+      ],
+      "title": "TenantScope",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Authoritative canonical contract defining a product capability (S28-M02 / S28-M02.1).\nProvider-neutral, tenant-aware, and strictly decoupling capability semantics from implementation.",
+  "properties": {
+    "capability_id": {
+      "$ref": "#/$defs/CapabilityType",
+      "description": "Canonical, provider-neutral capability identifier"
+    },
+    "category": {
+      "$ref": "#/$defs/CapabilityCategory",
+      "description": "High-level category: MODEL, TOOL, or DOMAIN_SERVICE"
+    },
+    "cost_class": {
+      "$ref": "#/$defs/CostClass",
+      "default": "NEGLIGIBLE",
+      "description": "Coarse compute/resource cost tier"
+    },
+    "description": {
+      "description": "Concise explanation of product capability",
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "execution_mode": {
+      "$ref": "#/$defs/ExecutionMode",
+      "default": "LOCAL",
+      "description": "Implementation execution topology"
+    },
+    "family": {
+      "$ref": "#/$defs/CapabilityFamily",
+      "description": "Functional grouping family"
+    },
+    "idempotency_policy": {
+      "$ref": "#/$defs/IdempotencyPolicy",
+      "default": "NON_IDEMPOTENT",
+      "description": "Idempotency guarantee"
+    },
+    "implementations": {
+      "description": "Registered runtime implementations",
+      "items": {
+        "$ref": "#/$defs/ImplementationDescriptor"
+      },
+      "title": "Implementations",
+      "type": "array"
+    },
+    "input_contract": {
+      "description": "Name or identifier of canonical input contract schema",
+      "minLength": 1,
+      "title": "Input Contract",
+      "type": "string"
+    },
+    "latency_class": {
+      "$ref": "#/$defs/LatencyClass",
+      "default": "SHORT",
+      "description": "Execution latency tier"
+    },
+    "name": {
+      "description": "Human-readable domain name",
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "output_contract": {
+      "description": "Name or identifier of canonical output contract schema",
+      "minLength": 1,
+      "title": "Output Contract",
+      "type": "string"
+    },
+    "owner": {
+      "description": "Semantic target architectural owner service",
+      "minLength": 1,
+      "title": "Owner",
+      "type": "string"
+    },
+    "required_permissions": {
+      "description": "Required authorization permissions (e.g. viewer, editor, admin)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Permissions",
+      "type": "array"
+    },
+    "retry_policy": {
+      "$ref": "#/$defs/RetryPolicy",
+      "default": "NEVER",
+      "description": "Fault tolerance and retry policy"
+    },
+    "side_effect_class": {
+      "$ref": "#/$defs/SideEffectClass",
+      "description": "Primary side-effect taxonomy classification"
+    },
+    "side_effects": {
+      "description": "Canonical set of unique side-effects produced by executing this capability",
+      "items": {
+        "$ref": "#/$defs/SideEffectClass"
+      },
+      "title": "Side Effects",
+      "type": "array"
+    },
+    "status": {
+      "$ref": "#/$defs/CapabilityLifecycleStatus",
+      "default": "ACTIVE",
+      "description": "Lifecycle status of capability"
+    },
+    "target_storage_boundary": {
+      "default": "StorageService",
+      "description": "Canonical architectural owner governing storage boundary (e.g. 'StorageService', 'AssetService', 'ArtifactService', 'RunService', 'Stateless In-Memory API')",
+      "minLength": 1,
+      "title": "Target Storage Boundary",
+      "type": "string"
+    },
+    "tenant_scope": {
+      "$ref": "#/$defs/TenantScope",
+      "default": "WORKSPACE",
+      "description": "Authoritative tenant isolation boundary"
+    },
+    "timeout_seconds": {
+      "default": 30.0,
+      "description": "Execution timeout budget in seconds",
+      "exclusiveMinimum": 0.0,
+      "maximum": 600.0,
+      "title": "Timeout Seconds",
+      "type": "number"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "SemVer version of this capability contract",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "capability_id",
+    "name",
+    "description",
+    "category",
+    "family",
+    "input_contract",
+    "output_contract",
+    "side_effect_class",
+    "owner"
+  ],
+  "title": "CapabilityDefinition",
+  "type": "object"
+}

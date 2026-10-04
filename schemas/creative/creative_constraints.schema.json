@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Technical and stylistic boundaries for the creative generation.\nEnforces validation against contradictory constraints.",
+  "properties": {
+    "aspect_ratios": {
+      "description": "Permitted aspect ratios (e.g. ['9:16', '16:9'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Aspect Ratios",
+      "type": "array"
+    },
+    "audio_mode": {
+      "$ref": "#/$defs/AudioMode",
+      "default": "VO_MUSIC",
+      "description": "Audio mode governing the sound architecture"
+    },
+    "brand_colors": {
+      "description": "List of hexadecimal color codes (#RRGGBB)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Brand Colors",
+      "type": "array"
+    },
+    "excluded_templates": {
+      "description": "Template IDs explicitly forbidden from use",
+      "items": {
+        "type": "string"
+      },
+      "title": "Excluded Templates",
+      "type": "array"
+    },
+    "forbidden_words": {
+      "description": "Words or phrases strictly forbidden from scripts",
+      "items": {
+        "type": "string"
+      },
+      "title": "Forbidden Words",
+      "type": "array"
+    },
+    "max_duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 1.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Maximum duration limit in seconds",
+      "title": "Max Duration Seconds"
+    },
+    "min_duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 1.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Minimum duration limit in seconds",
+      "title": "Min Duration Seconds"
+    },
+    "safe_zone_margin_px": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Margin in pixels for UI safe zones",
+      "title": "Safe Zone Margin Px"
+    },
+    "target_duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 1.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Ideal target duration in seconds",
+      "title": "Target Duration Seconds"
+    }
+  },
+  "title": "CreativeConstraints",
+  "type": "object"
+}

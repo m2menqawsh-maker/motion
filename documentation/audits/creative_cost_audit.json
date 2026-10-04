@@ -1,0 +1,100 @@
+{
+  "run_id": "audit_a4f4f9e028ad",
+  "policy_version": "S28-08C",
+  "projects_evaluated": 5,
+  "usage_totals": {
+    "total_ai_calls": 5,
+    "total_generation_calls": 1,
+    "total_planning_tokens": 8130,
+    "total_retrieval_tokens": 25,
+    "total_events": 13
+  },
+  "cost_totals": {
+    "total_actual_cost": "0.000000",
+    "total_estimated_cost": "0.022085",
+    "currency": "USD",
+    "cost_coverage_complete": true,
+    "known_cost_event_count": 13,
+    "unknown_cost_event_count": 0
+  },
+  "latency_summary": {
+    "total_latency_ms": 6820.4,
+    "avg_latency_ms": 524.65
+  },
+  "tier_distribution": {
+    "reuse_count": 3,
+    "compose_count": 1,
+    "create_count": 0,
+    "reuse_rate": 0.75,
+    "compose_rate": 0.25,
+    "create_rate": 0.0
+  },
+  "cost_coverage_complete": true,
+  "known_cost_event_count": 13,
+  "unknown_cost_event_count": 0,
+  "findings": [
+    {
+      "finding_id": "eff_0fb421bfa3ee",
+      "workspace_id": "ws_audit_master",
+      "project_id": "proj_product_ad_001",
+      "run_id": "run_ad_01",
+      "finding_type": "DUPLICATE_PLANNING",
+      "severity": "CRITICAL",
+      "observed_value": {
+        "duplicate_call_count": 2,
+        "stage": "CREATIVE_PLANNING"
+      },
+      "expected_bound": {
+        "max_calls": 1
+      },
+      "evidence_refs": [
+        "use_1071c9b6797d",
+        "use_d8610d531f8d"
+      ],
+      "summary": "Duplicate planning detected in stage 'CREATIVE_PLANNING': 2 calls executed with identical inputs (hash: hash_ad_pl...) without retry or fallback reason."
+    },
+    {
+      "finding_id": "eff_a74286ac49b7",
+      "workspace_id": "ws_audit_master",
+      "project_id": "proj_defect_overretrieval",
+      "run_id": "run_defect_01",
+      "finding_type": "OVER_RETRIEVAL",
+      "severity": "WARNING",
+      "observed_value": {
+        "retrieved_count": 22,
+        "threshold_provenance": "HEURISTIC"
+      },
+      "expected_bound": {
+        "max_retrieval_bound": 15,
+        "threshold_provenance": "HEURISTIC"
+      },
+      "evidence_refs": [
+        "use_bc6ed305c00d"
+      ],
+      "summary": "Over-retrieval observed (heuristic): 22 knowledge chunks retrieved exceeding reference bound (15)."
+    },
+    {
+      "finding_id": "eff_f346b09217c1",
+      "workspace_id": "ws_audit_master",
+      "project_id": "proj_talking_head_003",
+      "run_id": "run_th_01",
+      "finding_type": "UNNECESSARY_GENERATION",
+      "severity": "CRITICAL",
+      "observed_value": {
+        "generation_operation": "MEDIA_GENERATION",
+        "tier_selected": "REUSE"
+      },
+      "expected_bound": {
+        "allowed_generations_under_reuse": 0
+      },
+      "evidence_refs": [
+        "use_f77eb745ea6d",
+        "use_d738f6d45e30"
+      ],
+      "summary": "Unnecessary generation invoked: Operation 'MEDIA_GENERATION' called despite reusable canonical template already selected for project 'proj_talking_head_003'."
+    }
+  ],
+  "started_at": "2026-10-03T15:48:03.588144Z",
+  "completed_at": "2026-10-03T15:48:03.605237Z",
+  "verdict": "PASS"
+}

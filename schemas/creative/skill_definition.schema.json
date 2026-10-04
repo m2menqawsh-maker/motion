@@ -1,0 +1,211 @@
+{
+  "$defs": {
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "TRIM_AUDIO_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "SkillStatus": {
+      "description": "Operational status for skills.",
+      "enum": [
+        "ACTIVE",
+        "RETIRED",
+        "DISABLED",
+        "DRAFT"
+      ],
+      "title": "SkillStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Formal definition of an operational Skill: encapsulates how the system\nhandles a specific task type and what capability primitives it orchestrates.",
+  "properties": {
+    "allowed_tools": {
+      "description": "Discrete domain tools this skill may request (subject to ToolAuthorizationPolicy)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Tools",
+      "type": "array"
+    },
+    "applicable_recipe_ids": {
+      "description": "List of recipe IDs compatible with this skill",
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicable Recipe Ids",
+      "type": "array"
+    },
+    "description": {
+      "description": "Detailed description of the task handling logic",
+      "title": "Description",
+      "type": "string"
+    },
+    "input_contract": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Schema or specification name for input payload",
+      "title": "Input Contract"
+    },
+    "metadata": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Additional structured operational parameters",
+      "title": "Metadata",
+      "type": "object"
+    },
+    "name": {
+      "description": "Human-readable skill name",
+      "title": "Name",
+      "type": "string"
+    },
+    "output_contract": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Schema or specification name for output payload",
+      "title": "Output Contract"
+    },
+    "required_capabilities": {
+      "description": "Provider-neutral capabilities orchestrated by this skill",
+      "items": {
+        "$ref": "#/$defs/CapabilityType"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "required_context": {
+      "description": "Context variables or parameters required to execute this skill",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Context",
+      "type": "array"
+    },
+    "required_knowledge": {
+      "description": "Knowledge document IDs required by this skill",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Knowledge",
+      "type": "array"
+    },
+    "skill_id": {
+      "description": "Unique skill identifier (e.g., 'skill_motion_typography')",
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/SkillStatus",
+      "default": "ACTIVE",
+      "description": "Lifecycle and routing status of this skill"
+    },
+    "task_type": {
+      "default": "",
+      "description": "Task category handled (e.g., 'motion_typography', 'avatar_explainer')",
+      "title": "Task Type",
+      "type": "string"
+    },
+    "trigger_conditions": {
+      "description": "Intent phrases, keywords, or condition markers that trigger this skill",
+      "items": {
+        "type": "string"
+      },
+      "title": "Trigger Conditions",
+      "type": "array"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Semver version of the skill definition",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_id",
+    "name",
+    "description"
+  ],
+  "title": "SkillDefinition",
+  "type": "object"
+}

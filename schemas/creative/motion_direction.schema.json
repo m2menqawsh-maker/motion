@@ -1,0 +1,74 @@
+{
+  "additionalProperties": false,
+  "description": "Structured motion and animation choreography recommendation emitted by MotionDirector.",
+  "properties": {
+    "camera_intent": {
+      "description": "Camera motion intent (e.g., 'dive_into_word', 'whip_pan', 'slow_zoom', 'static')",
+      "title": "Camera Intent",
+      "type": "string"
+    },
+    "entry_style": {
+      "description": "Element entrance choreography (e.g., 'fade_in_scale', 'slide_up', 'snap_edge', 'bounce_up')",
+      "title": "Entry Style",
+      "type": "string"
+    },
+    "exit_style": {
+      "description": "Element exit choreography (e.g., 'accelerate_out', 'fade_out', 'static_hold')",
+      "title": "Exit Style",
+      "type": "string"
+    },
+    "motion_energy": {
+      "description": "Motion energy profile ('calm', 'controlled', 'dynamic', 'explosive', 'urgent')",
+      "title": "Motion Energy",
+      "type": "string"
+    },
+    "motion_personality": {
+      "description": "Governing motion archetype ('Cinematic', 'Energetic', 'Playful', 'Corporate')",
+      "title": "Motion Personality",
+      "type": "string"
+    },
+    "reason_summary": {
+      "default": "",
+      "description": "Auditable rationale summary",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "scene_id": {
+      "description": "Target scene or beat identifier",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "taste_rule_ids": {
+      "description": "Associated TasteRule IDs influencing this direction",
+      "items": {
+        "type": "string"
+      },
+      "title": "Taste Rule Ids",
+      "type": "array"
+    },
+    "text_motion": {
+      "description": "Text reveal choreography (e.g., 'rtl_kinetic_tracking', 'word_by_word_pop', 'smooth_fade')",
+      "title": "Text Motion",
+      "type": "string"
+    },
+    "visual_hierarchy": {
+      "description": "Visual element stacking order ('hero_text', 'peripheral_icon', etc.)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Visual Hierarchy",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scene_id",
+    "motion_energy",
+    "motion_personality",
+    "entry_style",
+    "exit_style",
+    "camera_intent",
+    "text_motion"
+  ],
+  "title": "MotionDirection",
+  "type": "object"
+}

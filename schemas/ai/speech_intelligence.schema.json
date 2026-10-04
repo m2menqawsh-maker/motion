@@ -1,0 +1,417 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "SpeechSegment": {
+      "additionalProperties": false,
+      "description": "Canonical speech utterance / sentence / subtitle segment.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Segment average confidence",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "Segment end timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Unique segment identifier",
+          "title": "Id"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Segment language if distinct/code-switched",
+          "title": "Language"
+        },
+        "speaker_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated speaker identifier",
+          "title": "Speaker Id"
+        },
+        "start": {
+          "description": "Segment start timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "text": {
+          "description": "Segment verbatim transcript text",
+          "title": "Text",
+          "type": "string"
+        },
+        "words": {
+          "description": "Constituent aligned words if available",
+          "items": {
+            "$ref": "#/$defs/SpeechWord"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "text"
+      ],
+      "title": "SpeechSegment",
+      "type": "object"
+    },
+    "SpeechSpeaker": {
+      "additionalProperties": false,
+      "description": "Canonical speaker diarization identity turn record.\nUses neutral identifiers (e.g. SPEAKER_00) to avoid false human attribution.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Speaker cluster confidence",
+          "title": "Confidence"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Descriptive or role-based label if known",
+          "title": "Label"
+        },
+        "speaker_id": {
+          "description": "Neutral speaker identifier (e.g. 'SPEAKER_00')",
+          "minLength": 1,
+          "title": "Speaker Id",
+          "type": "string"
+        },
+        "total_speaking_time_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total active duration",
+          "title": "Total Speaking Time Seconds"
+        }
+      },
+      "required": [
+        "speaker_id"
+      ],
+      "title": "SpeechSpeaker",
+      "type": "object"
+    },
+    "SpeechWord": {
+      "additionalProperties": false,
+      "description": "Canonical word-level timestamp and confidence alignment token.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Word-level recognition confidence",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "End timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Token language if distinct from primary",
+          "title": "Language"
+        },
+        "speaker_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated speaker identifier (e.g. 'SPEAKER_00')",
+          "title": "Speaker Id"
+        },
+        "start": {
+          "description": "Start timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "text": {
+          "description": "Word verbatim text",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "start",
+        "end"
+      ],
+      "title": "SpeechWord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical Speech Intelligence contract.\nAll speech providers (regardless of vendor API shape) normalize into this structure.",
+  "properties": {
+    "duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Duration of speech activity",
+      "title": "Duration Seconds"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Primary detected language code (e.g. 'ar', 'en')",
+      "title": "Language"
+    },
+    "language_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Language detection confidence",
+      "title": "Language Confidence"
+    },
+    "overall_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Aggregate confidence",
+      "title": "Overall Confidence"
+    },
+    "provenance": {
+      "$ref": "#/$defs/AnalysisProvenance",
+      "description": "Audit record tracking speech generation source"
+    },
+    "segments": {
+      "description": "Chronological speech segments",
+      "items": {
+        "$ref": "#/$defs/SpeechSegment"
+      },
+      "title": "Segments",
+      "type": "array"
+    },
+    "speakers": {
+      "description": "Identified speaker diarization clusters",
+      "items": {
+        "$ref": "#/$defs/SpeechSpeaker"
+      },
+      "title": "Speakers",
+      "type": "array"
+    },
+    "transcript": {
+      "description": "Full consolidated verbatim transcript",
+      "title": "Transcript",
+      "type": "string"
+    },
+    "words": {
+      "description": "Chronological aligned word tokens",
+      "items": {
+        "$ref": "#/$defs/SpeechWord"
+      },
+      "title": "Words",
+      "type": "array"
+    }
+  },
+  "required": [
+    "transcript",
+    "provenance"
+  ],
+  "title": "SpeechIntelligence",
+  "type": "object"
+}

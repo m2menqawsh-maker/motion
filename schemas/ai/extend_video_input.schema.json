@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for extending video duration.",
+  "properties": {
+    "mode": {
+      "default": "loop",
+      "description": "Extension mode ('loop', 'ping_pong')",
+      "title": "Mode",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_duration_seconds": {
+      "description": "Target duration in seconds",
+      "exclusiveMinimum": 0.0,
+      "title": "Target Duration Seconds",
+      "type": "number"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key",
+    "target_duration_seconds"
+  ],
+  "title": "ExtendVideoInput",
+  "type": "object"
+}

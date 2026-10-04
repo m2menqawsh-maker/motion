@@ -1,0 +1,113 @@
+{
+  "additionalProperties": false,
+  "description": "High-level creative goal, audience, tone, and strategic intent.",
+  "properties": {
+    "audience": {
+      "description": "Target audience demographic or psychographic profile",
+      "title": "Audience",
+      "type": "string"
+    },
+    "call_to_action": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Explicit CTA text or action desired",
+      "title": "Call To Action"
+    },
+    "goal": {
+      "description": "Primary objective (e.g., product explainer, brand awareness, conversion ad)",
+      "title": "Goal",
+      "type": "string"
+    },
+    "intent_id": {
+      "description": "Unique identifier for this creative intent record",
+      "title": "Intent Id",
+      "type": "string"
+    },
+    "key_takeaway": {
+      "description": "Core concept or value proposition the viewer should retain",
+      "title": "Key Takeaway",
+      "type": "string"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Primary language of the video content (e.g., AR, EN)",
+      "title": "Language"
+    },
+    "pace": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Pacing profile (e.g., FAST, MODERATE, DYNAMIC)",
+      "title": "Pace"
+    },
+    "style": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Creative style guideline (e.g., CLEAN, BOLD, MINIMAL)",
+      "title": "Style"
+    },
+    "target_platforms": {
+      "description": "Target distribution platforms (e.g., youtube_shorts, tiktok)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Platforms",
+      "type": "array"
+    },
+    "tone": {
+      "description": "Intended emotional or stylistic tone (e.g., cinematic, energetic, technical)",
+      "title": "Tone",
+      "type": "string"
+    },
+    "video_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Categorical video type (e.g., SAAS_DEMO, DYNAMIC_MONTAGE, EXPLAINER)",
+      "title": "Video Type"
+    }
+  },
+  "required": [
+    "intent_id",
+    "goal",
+    "audience",
+    "tone",
+    "key_takeaway"
+  ],
+  "title": "CreativeIntent",
+  "type": "object"
+}

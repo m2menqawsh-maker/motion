@@ -60,6 +60,66 @@ class ProjectService:
         return sorted(dirs)
 
     @classmethod
+    def get_project_workspace_id(cls, project_id: str) -> Optional[str]:
+        """Domain resolution of the workspace owning a project (S24.5 / S27.9)."""
+        validate_project_id(project_id)
+        # Check relational database tenant registry first
+        try:
+            from scripts.core.database import get_database_engine, TenantRepository
+            repo = TenantRepository(get_database_engine())
+            proj_rec = repo.get_project(project_id)
+            if proj_rec:
+                return proj_rec.workspace_id
+        except Exception:
+            pass
+
+        # Check local state store if project directory exists
+        try:
+            proj_dir = cls._get_project_dir(project_id)
+            state = StateStore.load(proj_dir)
+            if state and getattr(state, "workspace_id", None):
+                return state.workspace_id
+        except Exception:
+            pass
+
+        return None
+
+    @classmethod
+    def is_project_accessible_by_tenant(
+        cls,
+        project_id: str,
+        workspace_id: str,
+        is_admin: bool = False,
+        actor_id: Optional[str] = None,
+    ) -> tuple[bool, Optional[str]]:
+        """
+        Domain boundary verifying if a project belongs to or is accessible by the tenant/actor.
+        Returns (is_accessible, rejection_reason).
+        """
+        validate_project_id(project_id)
+        if is_admin:
+            return True, None
+
+        owner_ws = cls.get_project_workspace_id(project_id)
+        if owner_ws is not None and owner_ws != workspace_id:
+            return False, (
+                f"Cross-tenant access violation: Target project '{project_id}' belongs to "
+                f"workspace '{owner_ws}', but caller belongs to '{workspace_id}'."
+            )
+
+        if owner_ws is not None and actor_id is not None:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                repo = TenantRepository(get_database_engine())
+                membership = repo.get_membership(owner_ws, actor_id)
+                if membership is None:
+                    return False, f"Actor '{actor_id}' is not an active member of workspace '{owner_ws}'."
+            except Exception:
+                pass
+
+        return True, None
+
+    @classmethod
     def get_lifecycle_dto(cls, project_id: str, db_path: Optional[Path | str] = None) -> LifecycleDTO:
         """
         Derives the canonical, un-degraded LifecycleDTO projection (LED-071).

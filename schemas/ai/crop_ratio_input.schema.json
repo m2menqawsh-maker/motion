@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for cropping an image to target aspect ratio.",
+  "properties": {
+    "aspect_ratio": {
+      "default": "16:9",
+      "description": "Target aspect ratio string (e.g. '16:9', '9:16', '1:1')",
+      "title": "Aspect Ratio",
+      "type": "string"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "CropRatioInput",
+  "type": "object"
+}

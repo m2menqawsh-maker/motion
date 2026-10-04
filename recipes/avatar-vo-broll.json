@@ -75,7 +75,7 @@
   ],
   "providers": {
     "avatar": "HeyGen",
-    "transcription": "Groq Whisper (whisper-large-v3)",
+    "transcription": "SPEECH_TO_TEXT",
     "captions": "ImageMagick rounded pills",
     "compositing": "FFmpeg",
     "sfx": "procedural (FFmpeg synthesis)"

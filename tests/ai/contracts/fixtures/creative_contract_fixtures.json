@@ -1,0 +1,423 @@
+{
+  "valid": {
+    "creative_brief": {
+      "brief_id": "brief_tech_saas_001",
+      "project_id": "prj_saas_launch",
+      "workspace_id": "ws_alpha",
+      "user_request_raw": "Create a 30s vertical product explainer showing our cloud database with neon accents and high energy pacing.",
+      "interpreted_intent": {
+        "intent_id": "intent_001",
+        "goal": "Product explainer for developers",
+        "audience": "Cloud software engineers",
+        "tone": "Energetic and technical",
+        "key_takeaway": "Sub-millisecond query performance",
+        "call_to_action": "Try free at database.io",
+        "target_platforms": ["youtube_shorts", "tiktok"]
+      },
+      "constraints": {
+        "min_duration_seconds": 25.0,
+        "max_duration_seconds": 35.0,
+        "target_duration_seconds": 30.0,
+        "aspect_ratios": ["9:16"],
+        "audio_mode": "VO_MUSIC",
+        "brand_colors": ["#00F0FF", "#7B2CBF", "#101010"],
+        "excluded_templates": ["archived_retro_box"],
+        "forbidden_words": ["cheap", "unlimited"],
+        "safe_zone_margin_px": 40
+      },
+      "provenance": {
+        "source": "creative_brief_synthesizer",
+        "model_id": "gemini-1.5-pro",
+        "provider_id": "google",
+        "timestamp": "2026-10-01T17:00:00Z",
+        "latency_ms": 420
+      },
+      "created_at": "2026-10-01T17:00:00Z",
+      "version": "1.0.0"
+    },
+    "narrative_plan": {
+      "narrative_id": "narrative_001",
+      "brief_id": "brief_tech_saas_001",
+      "core_hook": "Your database queries shouldn't take longer than your coffee brew.",
+      "beats": [
+        {
+          "beat_id": "beat_0",
+          "beat_index": 0,
+          "phase": "hook",
+          "emotional_target": "urgency",
+          "pacing": "fast",
+          "estimated_duration_sec": 5.0,
+          "key_message": "Legacy databases waste engineering time.",
+          "visual_hook_description": "Terminal stalling on slow query.",
+          "sound_effect_cue": "whoosh_fast.wav"
+        },
+        {
+          "beat_id": "beat_1",
+          "beat_index": 1,
+          "phase": "mechanism",
+          "emotional_target": "curiosity",
+          "pacing": "moderate",
+          "estimated_duration_sec": 15.0,
+          "key_message": "Our distributed engine parallelizes execution instantly.",
+          "visual_hook_description": "Live code split showing 0.4ms latency.",
+          "sound_effect_cue": "digital_beep.wav"
+        },
+        {
+          "beat_id": "beat_2",
+          "beat_index": 2,
+          "phase": "cta",
+          "emotional_target": "confidence",
+          "pacing": "fast",
+          "estimated_duration_sec": 10.0,
+          "key_message": "Deploy in 30 seconds for free.",
+          "visual_hook_description": "End card with QR code and link.",
+          "sound_effect_cue": "chime_success.wav"
+        }
+      ],
+      "arc_structure": "Hook-Mechanism-CTA",
+      "estimated_total_duration_sec": 30.0,
+      "provenance": {
+        "source": "narrative_planner",
+        "model_id": "gpt-4o",
+        "timestamp": "2026-10-01T17:00:05Z",
+        "latency_ms": 310
+      },
+      "created_at": "2026-10-01T17:00:05Z"
+    },
+    "skill_definition": {
+      "skill_id": "skill_motion_typography",
+      "name": "Motion Typography Skill",
+      "description": "Orchestrates kinetic typography, word-level audio synchronization, and emphasis gestures.",
+      "task_type": "motion_typography",
+      "version": "1.0.0",
+      "required_capabilities": ["TEXT_TO_SPEECH", "SPEECH_ALIGNMENT"],
+      "applicable_recipe_ids": ["dynamic-montage-ad", "living-canvas-explainer"],
+      "metadata": {
+        "max_words_per_second": 3.2,
+        "default_font": "Inter"
+      }
+    },
+    "knowledge_descriptor": {
+      "knowledge_id": "know_motion_personality",
+      "category": "taste_principles",
+      "title": "Motion Personality Framework",
+      "source_uri": "references/4_taste_engine/motion-personality.md",
+      "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tags": ["motion", "personality", "spring", "taste"],
+      "authority_level": 5,
+      "summary": "Defines four motion profiles (Cinematic, Energetic, Playful, Technical) with precise timing and cubic-bezier curves."
+    },
+    "recipe_definition": {
+      "recipe_id": "living-canvas-explainer",
+      "name": "Living Canvas Explainer",
+      "version": "1.0.0",
+      "description": "Boutique-grade continuous canvas SaaS explainer with near-zero hard cuts.",
+      "best_for": ["SaaS product launches", "Architecture explainers"],
+      "not_for": ["Fast-paced meme shorts"],
+      "platforms": ["youtube", "linkedin", "x"],
+      "aspect_ratios": ["16:9", "9:16"],
+      "duration_seconds_min": 20.0,
+      "duration_seconds_max": 60.0,
+      "duration_seconds_target": 45.0,
+      "stages": [
+        {
+          "stage_id": "stage_0_brief",
+          "title": "Creative Brief & Narrative",
+          "actions": ["Synthesize user brief", "Construct 3-act narrative"],
+          "required_capabilities": [],
+          "artifacts": ["creative_brief.json", "narrative_plan.json"],
+          "paid_generation": false
+        },
+        {
+          "stage_id": "stage_1_voiceover",
+          "title": "Voiceover Synthesis & Word Timings",
+          "actions": ["Generate high-clarity TTS", "Extract word-level timestamps"],
+          "required_capabilities": ["TEXT_TO_SPEECH", "SPEECH_ALIGNMENT"],
+          "artifacts": ["voiceover.wav", "04_timings.json"],
+          "paid_generation": true
+        },
+        {
+          "stage_id": "stage_2_composition",
+          "title": "Continuous Canvas Composition",
+          "actions": ["Stage primary visual elements", "Bind SFX to gestures"],
+          "required_capabilities": [],
+          "artifacts": ["composition_plan.json", "05_blueprint.json"],
+          "paid_generation": false
+        }
+      ],
+      "required_skills": ["skill_motion_typography"],
+      "required_capabilities": ["TEXT_TO_SPEECH", "SPEECH_ALIGNMENT"],
+      "routing_keywords": ["living canvas", "saas explainer", "continuous layout"],
+      "routing_negative_keywords": ["talking head only", "avatar selfie"],
+      "deliverables": ["out.mp4", "contact_sheet.png"]
+    },
+    "recipe_selection": {
+      "selection_id": "sel_001",
+      "brief_id": "brief_tech_saas_001",
+      "selected_recipe_id": "living-canvas-explainer",
+      "confidence_score": 0.94,
+      "matched_keywords": ["product explainer", "developer audience"],
+      "alternative_recipe_ids": ["dynamic-montage-ad"],
+      "selection_rationale": "High match on technical SaaS explainer with multi-scene canvas choreography.",
+      "provenance": {
+        "source": "recipe_router",
+        "timestamp": "2026-10-01T17:00:10Z"
+      },
+      "created_at": "2026-10-01T17:00:10Z"
+    },
+    "taste_rule": {
+      "rule_id": "taste_beat_density_v2",
+      "category": "beat_density",
+      "name": "Beat Density Pacing Rule",
+      "description": "Limits shots per sentence: <2.5s: 1 shot; 2.5-5s: 2 shots; 5-8s: 2-3 shots; >8s: 3-4 shots.",
+      "rationale": "Prevents hyperactive cuts while maintaining engaging visual rhythm.",
+      "citation_source": "references/4_taste_engine/user-signature-style.md#L13",
+      "severity": "MANDATORY_CREATIVE",
+      "parameters": {
+        "max_shots_under_2_5s": 1,
+        "max_shots_under_5s": 2
+      }
+    },
+    "taste_decision": {
+      "decision_id": "dec_001",
+      "rule_id": "taste_beat_density_v2",
+      "context_ref": "scene_001_shot_001",
+      "applied_value": "1 shot for 2.1s voiceover sentence",
+      "reasoning": "Sentence duration is under 2.5 seconds, enforcing single visual anchor shot.",
+      "citation": "references/4_taste_engine/user-signature-style.md#L14"
+    },
+    "creative_tier_decision": {
+      "decision_id": "tier_dec_001",
+      "scene_id": "scene_001",
+      "selected_tier": "REUSE",
+      "rationale": "Standard metric reveal matches certified StatCard template with 100% feature coverage.",
+      "template_ref": "StatCard",
+      "composite_elements": []
+    },
+    "scene_intent": {
+      "scene_id": "scene_001",
+      "scene_index": 0,
+      "beat_id": "beat_0",
+      "intent_label": "hook",
+      "mood": "energetic",
+      "motion_personality": "Energetic",
+      "primary_visual_job": "mechanism",
+      "estimated_duration_sec": 5.0,
+      "spoken_text": "Your queries shouldn't take longer than your coffee brew.",
+      "taste_decisions": []
+    },
+    "composition_plan": {
+      "composition_id": "comp_001",
+      "scene_id": "scene_001",
+      "base_template_or_primitive": "StatCard",
+      "layers": [
+        {
+          "layer_type": "primary",
+          "element_ref": "StatCard",
+          "properties": { "value": "0.4ms", "label": "Latency" }
+        },
+        {
+          "layer_type": "ambient",
+          "element_ref": "GridField",
+          "properties": { "grid_size": 40, "opacity": 0.15 }
+        }
+      ],
+      "layout_zone": "full",
+      "camera_motion": "dive_into_word",
+      "gestural_elements": ["Neon Ring"],
+      "sfx_bindings": [
+        {
+          "cue": "chime_high.wav",
+          "at_sec": 1.2,
+          "volume_db": -24.0
+        }
+      ]
+    },
+    "creative_plan": {
+      "plan_id": "cplan_tech_001",
+      "brief_id": "brief_tech_saas_001",
+      "recipe_id": "living-canvas-explainer",
+      "title": "Sub-millisecond DB Explainer",
+      "narrative_plan": {
+        "narrative_id": "narrative_001",
+        "brief_id": "brief_tech_saas_001",
+        "core_hook": "Your queries shouldn't take longer than your coffee brew.",
+        "beats": [
+          {
+            "beat_id": "beat_0",
+            "beat_index": 0,
+            "phase": "hook",
+            "emotional_target": "urgency",
+            "pacing": "fast",
+            "estimated_duration_sec": 10.0,
+            "key_message": "Slow queries kill productivity."
+          },
+          {
+            "beat_id": "beat_1",
+            "beat_index": 1,
+            "phase": "cta",
+            "emotional_target": "confidence",
+            "pacing": "fast",
+            "estimated_duration_sec": 10.0,
+            "key_message": "Switch to our database today."
+          }
+        ],
+        "arc_structure": "Hook-CTA",
+        "estimated_total_duration_sec": 20.0,
+        "provenance": {
+          "source": "narrative_planner",
+          "timestamp": "2026-10-01T17:00:00Z"
+        },
+        "created_at": "2026-10-01T17:00:00Z"
+      },
+      "scenes": [
+        {
+          "scene_id": "scene_001",
+          "scene_index": 0,
+          "beat_id": "beat_0",
+          "intent_label": "hook",
+          "mood": "energetic",
+          "motion_personality": "Energetic",
+          "primary_visual_job": "mechanism",
+          "estimated_duration_sec": 10.0,
+          "spoken_text": "Slow queries kill productivity.",
+          "taste_decisions": []
+        },
+        {
+          "scene_id": "scene_002",
+          "scene_index": 1,
+          "beat_id": "beat_1",
+          "intent_label": "cta",
+          "mood": "confident",
+          "motion_personality": "Energetic",
+          "primary_visual_job": "action",
+          "estimated_duration_sec": 10.0,
+          "spoken_text": "Switch to our database today.",
+          "taste_decisions": []
+        }
+      ],
+      "compositions": [],
+      "tier_decisions": [],
+      "total_estimated_duration_sec": 20.0,
+      "status": "PROPOSED",
+      "provenance": {
+        "source": "creative_planner",
+        "timestamp": "2026-10-01T17:00:15Z"
+      },
+      "created_at": "2026-10-01T17:00:15Z"
+    },
+    "template_candidate": {
+      "candidate_id": "cand_custom_pulse_box",
+      "name": "Custom Pulse Box",
+      "description": "Glowing animated glassmorphic container with customizable border pulse.",
+      "source_code_path": "templates/custom/LevelZeroBox.tsx",
+      "origin_project_id": "prj_saas_launch",
+      "author": "usr_designer_1",
+      "proposed_category": "elements/ui",
+      "proposed_tags": ["glassmorphic", "pulse", "container"],
+      "target_tier": "REUSE",
+      "required_provenance": {
+        "source": "project_custom_incubation",
+        "timestamp": "2026-10-01T17:00:00Z"
+      },
+      "created_at": "2026-10-01T17:00:00Z"
+    },
+    "candidate_validation_report": {
+      "report_id": "val_cand_001",
+      "candidate_id": "cand_custom_pulse_box",
+      "typescript_compiles": true,
+      "security_clean": true,
+      "no_dangerous_imports": true,
+      "has_documentation": true,
+      "quality_score": 0.95,
+      "passed": true,
+      "findings": [],
+      "evaluated_at": "2026-10-01T17:00:20Z"
+    },
+    "promotion_decision": {
+      "decision_id": "pdec_001",
+      "candidate_id": "cand_custom_pulse_box",
+      "status": "APPROVED",
+      "promoted_template_id": "PulseBoxWrapper",
+      "authorized_by": "usr_lead_architect",
+      "reasoning": "Component passes all security, type-checking, and visual quality requirements.",
+      "decided_at": "2026-10-01T17:00:25Z"
+    },
+    "user_style_profile": {
+      "profile_id": "prof_alpha_editor",
+      "workspace_id": "ws_alpha",
+      "preferred_motion_personality": "Cinematic",
+      "preferred_color_palette": ["#00F0FF", "#111111"],
+      "pacing_preference": "deliberate",
+      "taste_preferences": {
+        "prefer_dark_mode": true
+      },
+      "updated_at": "2026-10-01T17:00:00Z"
+    },
+    "creative_feedback": {
+      "feedback_id": "fb_001",
+      "project_id": "prj_saas_launch",
+      "plan_id": "cplan_tech_001",
+      "user_rating": 5,
+      "liked_aspects": ["color_palette", "cinematic_zoom"],
+      "disliked_aspects": [],
+      "critique_text": "Pacing felt natural and the typography emphasis was spot on.",
+      "created_at": "2026-10-01T17:00:30Z"
+    }
+  },
+  "invalid": {
+    "missing_required_fields": {
+      "project_id": "prj_saas_launch",
+      "user_request_raw": "Missing brief_id, workspace_id, intent, and provenance"
+    },
+    "unknown_enum_values": {
+      "decision_id": "tier_dec_bad",
+      "scene_id": "scene_001",
+      "selected_tier": "TIER_99_ULTRA",
+      "rationale": "Invalid tier enum"
+    },
+    "contradictory_constraints": {
+      "min_duration_seconds": 60.0,
+      "max_duration_seconds": 30.0,
+      "target_duration_seconds": 45.0,
+      "aspect_ratios": ["9:16"],
+      "audio_mode": "VO_MUSIC"
+    },
+    "invalid_audio_mode": {
+      "min_duration_seconds": 10.0,
+      "max_duration_seconds": 30.0,
+      "aspect_ratios": ["9:16"],
+      "audio_mode": "VOICEOVER_DRIVEN"
+    },
+    "invalid_creative_tier": {
+      "decision_id": "tier_dec_bad",
+      "scene_id": "scene_001",
+      "selected_tier": "TIER_0_RAW",
+      "rationale": "Invalid tier string"
+    },
+    "candidate_no_provenance": {
+      "candidate_id": "cand_orphan",
+      "name": "Orphan Component",
+      "description": "Missing required provenance lineage",
+      "source_code_path": "templates/custom/Orphan.tsx",
+      "origin_project_id": "prj_test",
+      "author": "anon",
+      "proposed_category": "elements/ui",
+      "target_tier": "REUSE",
+      "required_provenance": {
+        "source": "",
+        "timestamp": "2026-10-01T17:00:00Z"
+      },
+      "created_at": "2026-10-01T17:00:00Z"
+    },
+    "promotion_authorized_by_ai": {
+      "decision_id": "pdec_bad",
+      "candidate_id": "cand_custom_pulse_box",
+      "status": "APPROVED",
+      "promoted_template_id": "PulseBox",
+      "authorized_by": "ai",
+      "reasoning": "AI attempted to self-authorize template promotion into canonical registry",
+      "decided_at": "2026-10-01T17:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for extracting media assets from a webpage.",
+  "properties": {
+    "media_type": {
+      "default": "video",
+      "description": "Media kind filter ('video', 'image', 'audio')",
+      "title": "Media Type",
+      "type": "string"
+    },
+    "page_url": {
+      "description": "Webpage URL containing media assets",
+      "minLength": 1,
+      "title": "Page Url",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "page_url"
+  ],
+  "title": "ExtractMediaPageInput",
+  "type": "object"
+}

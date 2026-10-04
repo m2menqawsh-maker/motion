@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for extended audio.",
+  "properties": {
+    "duration_seconds": {
+      "description": "Final duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "loop_count": {
+      "description": "Number of loop cycles applied",
+      "minimum": 1,
+      "title": "Loop Count",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for extended audio",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "duration_seconds",
+    "loop_count"
+  ],
+  "title": "ExtendAudioOutput",
+  "type": "object"
+}

@@ -1,0 +1,395 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "TRIM_AUDIO_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "RecipeStage": {
+      "additionalProperties": false,
+      "description": "An execution stage within a production recipe.",
+      "properties": {
+        "actions": {
+          "description": "List of concrete actions performed in this stage",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Actions",
+          "type": "array"
+        },
+        "artifacts": {
+          "description": "Expected deliverable artifact identifiers",
+          "items": {
+            "type": "string"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "paid_generation": {
+          "default": false,
+          "description": "Flag indicating if stage consumes paid AI generation",
+          "title": "Paid Generation",
+          "type": "boolean"
+        },
+        "required_capabilities": {
+          "description": "Provider-neutral capabilities needed for this stage",
+          "items": {
+            "$ref": "#/$defs/CapabilityType"
+          },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "stage_id": {
+          "description": "Stage identifier (e.g., 'stage_brief', 'stage_storyboard')",
+          "title": "Stage Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "Human-readable stage title",
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stage_id",
+        "title",
+        "actions"
+      ],
+      "title": "RecipeStage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Formal recipe definition specifying stages, topology, routing, and deliverables.\nAdheres strictly to provider neutrality: capabilities over vendors.",
+  "properties": {
+    "aspect_ratios": {
+      "description": "Supported aspect ratios (e.g., ['9:16', '16:9'])",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Aspect Ratios",
+      "type": "array"
+    },
+    "best_for": {
+      "description": "Recommended use cases",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Best For",
+      "type": "array"
+    },
+    "budget_profile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "STANDARD",
+      "description": "Target budget profile",
+      "title": "Budget Profile"
+    },
+    "deliverables": {
+      "description": "Expected end-product deliverables",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Deliverables",
+      "type": "array"
+    },
+    "dependencies": {
+      "description": "Prerequisite assets or tool dependencies",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "description": {
+      "description": "Comprehensive description of what this recipe produces",
+      "title": "Description",
+      "type": "string"
+    },
+    "duration_seconds_max": {
+      "description": "Maximum recommended duration",
+      "exclusiveMinimum": 0,
+      "title": "Duration Seconds Max",
+      "type": "number"
+    },
+    "duration_seconds_min": {
+      "description": "Minimum recommended duration",
+      "exclusiveMinimum": 0,
+      "title": "Duration Seconds Min",
+      "type": "number"
+    },
+    "duration_seconds_target": {
+      "description": "Target optimal duration",
+      "exclusiveMinimum": 0,
+      "title": "Duration Seconds Target",
+      "type": "number"
+    },
+    "fallback_strategy": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Typed fallback strategy or alternative recipe ID",
+      "title": "Fallback Strategy"
+    },
+    "forbidden_capabilities": {
+      "description": "Capabilities strictly forbidden in this recipe",
+      "items": {
+        "$ref": "#/$defs/CapabilityType"
+      },
+      "title": "Forbidden Capabilities",
+      "type": "array"
+    },
+    "name": {
+      "description": "Human-readable recipe name",
+      "title": "Name",
+      "type": "string"
+    },
+    "not_for": {
+      "description": "Anti-patterns or unsuited use cases",
+      "items": {
+        "type": "string"
+      },
+      "title": "Not For",
+      "type": "array"
+    },
+    "optional_capabilities": {
+      "description": "Optional capabilities that may be utilized by this recipe",
+      "items": {
+        "$ref": "#/$defs/CapabilityType"
+      },
+      "title": "Optional Capabilities",
+      "type": "array"
+    },
+    "owner": {
+      "default": "CreativePlatform",
+      "description": "Owning team or authority responsible for recipe maintenance",
+      "title": "Owner",
+      "type": "string"
+    },
+    "phases": {
+      "description": "Ordered production phases",
+      "items": {
+        "type": "string"
+      },
+      "title": "Phases",
+      "type": "array"
+    },
+    "platforms": {
+      "description": "Supported social/distribution platforms",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Platforms",
+      "type": "array"
+    },
+    "quality_profile": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "STANDARD",
+      "description": "Target quality profile",
+      "title": "Quality Profile"
+    },
+    "recipe_id": {
+      "description": "Unique recipe identifier (e.g., 'living-canvas-explainer')",
+      "title": "Recipe Id",
+      "type": "string"
+    },
+    "required_capabilities": {
+      "description": "Provider-neutral capabilities required across the entire recipe",
+      "items": {
+        "$ref": "#/$defs/CapabilityType"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "required_knowledge": {
+      "description": "Knowledge IDs required by this recipe",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Knowledge",
+      "type": "array"
+    },
+    "required_skills": {
+      "description": "IDs of skills required",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Skills",
+      "type": "array"
+    },
+    "routing_keywords": {
+      "description": "Keywords matching user intent to this recipe",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Routing Keywords",
+      "type": "array"
+    },
+    "routing_negative_keywords": {
+      "description": "Keywords that disqualify this recipe",
+      "items": {
+        "type": "string"
+      },
+      "title": "Routing Negative Keywords",
+      "type": "array"
+    },
+    "stages": {
+      "description": "Ordered sequence of production stages",
+      "items": {
+        "$ref": "#/$defs/RecipeStage"
+      },
+      "minItems": 1,
+      "title": "Stages",
+      "type": "array"
+    },
+    "supported_audio_modes": {
+      "description": "Supported audio modes",
+      "items": {
+        "$ref": "#/$defs/AudioMode"
+      },
+      "title": "Supported Audio Modes",
+      "type": "array"
+    },
+    "supported_intents": {
+      "description": "Supported canonical intent or video types",
+      "items": {
+        "type": "string"
+      },
+      "title": "Supported Intents",
+      "type": "array"
+    },
+    "supported_platforms": {
+      "description": "Explicit supported platforms",
+      "items": {
+        "type": "string"
+      },
+      "title": "Supported Platforms",
+      "type": "array"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Semver version of this recipe",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "recipe_id",
+    "name",
+    "description",
+    "best_for",
+    "platforms",
+    "aspect_ratios",
+    "duration_seconds_min",
+    "duration_seconds_max",
+    "duration_seconds_target",
+    "stages",
+    "routing_keywords",
+    "deliverables"
+  ],
+  "title": "RecipeDefinition",
+  "type": "object"
+}

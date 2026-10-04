@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "description": "Segment item produced by splitting audio.",
+  "properties": {
+    "end_seconds": {
+      "description": "End timestamp relative to source audio",
+      "minimum": 0.0,
+      "title": "End Seconds",
+      "type": "number"
+    },
+    "segment_id": {
+      "description": "Identifier of the audio slice",
+      "minLength": 1,
+      "title": "Segment Id",
+      "type": "string"
+    },
+    "start_seconds": {
+      "description": "Start timestamp relative to source audio",
+      "minimum": 0.0,
+      "title": "Start Seconds",
+      "type": "number"
+    },
+    "storage_key": {
+      "description": "StorageService key for slice payload",
+      "minLength": 1,
+      "title": "Storage Key",
+      "type": "string"
+    },
+    "text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Aligned verbatim transcript text",
+      "title": "Text"
+    }
+  },
+  "required": [
+    "segment_id",
+    "storage_key",
+    "start_seconds",
+    "end_seconds"
+  ],
+  "title": "AudioSegmentItem",
+  "type": "object"
+}

@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "GateStatus": {
+      "description": "Status verdict for an individual gate.",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR"
+      ],
+      "title": "GateStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Standardized, auditable outcome of an individual validation gate.",
+  "properties": {
+    "evidence_refs": {
+      "description": "Storage keys or references to evidence artifacts",
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "failure_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Deterministic error or violation code if failed",
+      "title": "Failure Code"
+    },
+    "gate_id": {
+      "description": "Unique identifier of the validation gate",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "machine_details": {
+      "additionalProperties": true,
+      "description": "Structured diagnostics and technical context",
+      "title": "Machine Details",
+      "type": "object"
+    },
+    "status": {
+      "$ref": "#/$defs/GateStatus",
+      "description": "Outcome of the gate check: PASS, FAIL, or ERROR"
+    },
+    "summary": {
+      "description": "Human-readable summary of the gate outcome",
+      "title": "Summary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "gate_id",
+    "status",
+    "summary"
+  ],
+  "title": "CandidateGateResult",
+  "type": "object"
+}

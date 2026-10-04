@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Authoritative aggregated cost and resource consumption summary for a project.\nStrictly distinguishes actual billed spend from calculated estimates.",
+  "properties": {
+    "actual_cost": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "default": "0.000000",
+      "description": "Actual settled spend",
+      "title": "Actual Cost"
+    },
+    "ai_calls": {
+      "default": 0,
+      "description": "Total AI model invocations",
+      "minimum": 0,
+      "title": "Ai Calls",
+      "type": "integer"
+    },
+    "compose_count": {
+      "default": 0,
+      "description": "Total scenes resolved via COMPOSE tier",
+      "minimum": 0,
+      "title": "Compose Count",
+      "type": "integer"
+    },
+    "cost_coverage_complete": {
+      "default": true,
+      "description": "True if 100% of events have known cost provenance",
+      "title": "Cost Coverage Complete",
+      "type": "boolean"
+    },
+    "create_count": {
+      "default": 0,
+      "description": "Total scenes resolved via CREATE tier",
+      "minimum": 0,
+      "title": "Create Count",
+      "type": "integer"
+    },
+    "currency": {
+      "default": "USD",
+      "description": "ISO 4217 currency code",
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "estimated_cost": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "default": "0.000000",
+      "description": "Estimated calculated spend",
+      "title": "Estimated Cost"
+    },
+    "generation_calls": {
+      "default": 0,
+      "description": "Total media/template generation invocations",
+      "minimum": 0,
+      "title": "Generation Calls",
+      "type": "integer"
+    },
+    "known_cost_event_count": {
+      "default": 0,
+      "description": "Events with known ACTUAL or ESTIMATED cost",
+      "minimum": 0,
+      "title": "Known Cost Event Count",
+      "type": "integer"
+    },
+    "model_breakdown": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Calls, tokens, and costs by model",
+      "title": "Model Breakdown",
+      "type": "object"
+    },
+    "planning_tokens": {
+      "default": 0,
+      "description": "Tokens consumed during creative planning stages",
+      "minimum": 0,
+      "title": "Planning Tokens",
+      "type": "integer"
+    },
+    "pricing_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "2026.09.v1",
+      "description": "Pricing schedule version applied",
+      "title": "Pricing Version"
+    },
+    "project_id": {
+      "description": "Project identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "provider_breakdown": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Calls and costs by provider",
+      "title": "Provider Breakdown",
+      "type": "object"
+    },
+    "retrieval_tokens": {
+      "default": 0,
+      "description": "Tokens or volume consumed in retrieval stages",
+      "minimum": 0,
+      "title": "Retrieval Tokens",
+      "type": "integer"
+    },
+    "reuse_count": {
+      "default": 0,
+      "description": "Total scenes resolved via REUSE tier",
+      "minimum": 0,
+      "title": "Reuse Count",
+      "type": "integer"
+    },
+    "run_count": {
+      "default": 0,
+      "description": "Total creative runs evaluated",
+      "minimum": 0,
+      "title": "Run Count",
+      "type": "integer"
+    },
+    "stage_breakdown": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Metrics broken down by pipeline stage",
+      "title": "Stage Breakdown",
+      "type": "object"
+    },
+    "status_breakdown": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Cost split across successful, failed, and retried runs",
+      "title": "Status Breakdown",
+      "type": "object"
+    },
+    "tier_breakdown": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Counts, rates, and costs by tier",
+      "title": "Tier Breakdown",
+      "type": "object"
+    },
+    "total_latency_ms": {
+      "default": 0.0,
+      "description": "Cumulative latency in milliseconds",
+      "minimum": 0.0,
+      "title": "Total Latency Ms",
+      "type": "number"
+    },
+    "unknown_cost_event_count": {
+      "default": 0,
+      "description": "Events where cost is UNKNOWN (pricing unavailable)",
+      "minimum": 0,
+      "title": "Unknown Cost Event Count",
+      "type": "integer"
+    },
+    "workspace_id": {
+      "description": "Tenant workspace identifier",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "workspace_id",
+    "project_id"
+  ],
+  "title": "CreativeProjectCostSummary",
+  "type": "object"
+}

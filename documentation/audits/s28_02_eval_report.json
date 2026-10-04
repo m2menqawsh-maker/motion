@@ -1,0 +1,435 @@
+{
+  "suite": "S28-02 Knowledge + Skills Platform Evaluation Gate",
+  "status": "PASS",
+  "knowledge_retrieval_benchmark": {
+    "total_cases": 12,
+    "mean_precision_at_k": 0.8611,
+    "mean_recall_at_k": 0.9167,
+    "irrelevant_retrieval_rate": 0.0,
+    "cases": [
+      {
+        "case_id": "k_case_01_music_only_montage",
+        "description": "Music-only montage must retrieve motion/collage playbooks and strictly exclude voiceover SOPs",
+        "retrieved_documents": [
+          "know_playbook_motion_collage"
+        ],
+        "expected_documents": [
+          "know_taste_motion_personality",
+          "know_playbook_motion_collage"
+        ],
+        "forbidden_documents": [
+          "know_playbook_video_copy",
+          "know_sop_spoken_vo",
+          "know_sop_seedance_avatar"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 0.5,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 1262
+      },
+      {
+        "case_id": "k_case_02_spoken_voiceover_humanizer",
+        "description": "Voiceover script query must retrieve spoken VO humanizer and copywriting pacing rules",
+        "retrieved_documents": [
+          "know_playbook_video_copy",
+          "know_sop_spoken_vo"
+        ],
+        "expected_documents": [
+          "know_playbook_video_copy",
+          "know_sop_spoken_vo"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 1265
+      },
+      {
+        "case_id": "k_case_03_living_canvas_explainer",
+        "description": "Living canvas explainer query retrieves continuous living canvas playbook",
+        "retrieved_documents": [
+          "know_playbook_living_canvas"
+        ],
+        "expected_documents": [
+          "know_playbook_living_canvas"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 1223
+      },
+      {
+        "case_id": "k_case_04_remotion_spring_physics",
+        "description": "Engineering Remotion query retrieves Remotion guide and Disney animation principles",
+        "retrieved_documents": [
+          "know_eng_remotion",
+          "know_taste_disney"
+        ],
+        "expected_documents": [
+          "know_eng_remotion",
+          "know_taste_disney"
+        ],
+        "forbidden_documents": [
+          "know_sop_spoken_vo"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 302
+      },
+      {
+        "case_id": "k_case_05_article_sprint_reels",
+        "description": "Fast short-form article reel query retrieves hook sprint playbook",
+        "retrieved_documents": [
+          "know_playbook_hook_sprint"
+        ],
+        "expected_documents": [
+          "know_playbook_hook_sprint"
+        ],
+        "forbidden_documents": [
+          "know_playbook_tabletop"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 948
+      },
+      {
+        "case_id": "k_case_06_hyperrealistic_image_prompts",
+        "description": "Image prompting query retrieves hyperrealistic image and lighting SOP",
+        "retrieved_documents": [
+          "know_sop_hyperrealistic"
+        ],
+        "expected_documents": [
+          "know_sop_hyperrealistic"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg",
+          "know_sop_spoken_vo"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 1151
+      },
+      {
+        "case_id": "k_case_07_tabletop_layered_explainer",
+        "description": "Tabletop concept query retrieves tabletop explainer playbook",
+        "retrieved_documents": [
+          "know_sop_hyperrealistic",
+          "know_playbook_tabletop"
+        ],
+        "expected_documents": [
+          "know_playbook_tabletop"
+        ],
+        "forbidden_documents": [
+          "know_playbook_hook_sprint"
+        ],
+        "forbidden_hits": [],
+        "precision": 0.5,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 618
+      },
+      {
+        "case_id": "k_case_08_competitor_review_conquest",
+        "description": "Competitor review query retrieves review conquest playbook",
+        "retrieved_documents": [
+          "know_playbook_review"
+        ],
+        "expected_documents": [
+          "know_playbook_review"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 976
+      },
+      {
+        "case_id": "k_case_09_ffmpeg_transcoding_recipes",
+        "description": "FFmpeg audio/video CLI query retrieves FFmpeg recipes playbook",
+        "retrieved_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "expected_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_documents": [
+          "know_taste_disney",
+          "know_sop_spoken_vo"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 300
+      },
+      {
+        "case_id": "k_case_10_sfx_binding_matrix",
+        "description": "Sound design and audio ducking query retrieves SFX binding matrix",
+        "retrieved_documents": [
+          "know_taste_sfx_matrix"
+        ],
+        "expected_documents": [
+          "know_taste_sfx_matrix"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_hits": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 934
+      },
+      {
+        "case_id": "k_case_11_semantic_paraphrase_dialogue",
+        "description": "Semantic paraphrase query (dialogue delivery natural rhythm and pause dynamics) retrieves spoken VO humanizer",
+        "retrieved_documents": [
+          "know_sop_spoken_vo",
+          "know_sop_hyperrealistic"
+        ],
+        "expected_documents": [
+          "know_sop_spoken_vo"
+        ],
+        "forbidden_documents": [
+          "know_playbook_ffmpeg"
+        ],
+        "forbidden_hits": [],
+        "precision": 0.5,
+        "recall": 1.0,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 1470
+      },
+      {
+        "case_id": "k_case_12_lexical_false_friend_ducking",
+        "description": "False-friend query: heavy voiceover speech wording but semantic intent is audio volume ducking",
+        "retrieved_documents": [
+          "know_playbook_video_copy",
+          "know_taste_sfx_matrix",
+          "know_playbook_ffmpeg"
+        ],
+        "expected_documents": [
+          "know_taste_sfx_matrix",
+          "know_sop_sound_design"
+        ],
+        "forbidden_documents": [
+          "know_taste_disney",
+          "know_playbook_tabletop"
+        ],
+        "forbidden_hits": [],
+        "precision": 0.3333,
+        "recall": 0.5,
+        "irrelevant_rate": 0.0,
+        "total_tokens": 724
+      }
+    ],
+    "ablation_evaluation": {
+      "lexical_only": {
+        "mean_precision_at_k": 0.9375,
+        "mean_recall_at_k": 0.9167,
+        "irrelevant_retrieval_rate": 0.0,
+        "forbidden_document_violations": 0
+      },
+      "semantic_only": {
+        "mean_precision_at_k": 0.5278,
+        "mean_recall_at_k": 0.7083,
+        "irrelevant_retrieval_rate": 0.0,
+        "forbidden_document_violations": 0
+      },
+      "hybrid": {
+        "mean_precision_at_k": 0.8611,
+        "mean_recall_at_k": 0.9167,
+        "irrelevant_retrieval_rate": 0.0,
+        "forbidden_document_violations": 0
+      }
+    }
+  },
+  "skill_routing_benchmark": {
+    "total_cases": 10,
+    "correct_activation_rate": 1.0,
+    "false_activation_rate": 0.0,
+    "missing_activation_rate": 0.0,
+    "cases": [
+      {
+        "case_id": "s_case_01_music_only_montage",
+        "description": "Music-only montage activates dynamic montage and strictly forbids spoken VO skills",
+        "selected_skills": [
+          "skill_dynamic_montage"
+        ],
+        "expected_skills": [
+          "skill_dynamic_montage"
+        ],
+        "forbidden_skills": [
+          "skill_prompt_expert",
+          "skill_spoken_vo_humanizer"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_02_spoken_vo_script",
+        "description": "Voiceover humanization intent activates spoken VO humanizer skill",
+        "selected_skills": [
+          "skill_spoken_vo_humanizer"
+        ],
+        "expected_skills": [
+          "skill_spoken_vo_humanizer"
+        ],
+        "forbidden_skills": [
+          "skill_dynamic_montage"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_03_avatar_explainer",
+        "description": "Avatar video intent activates avatar explainer skill",
+        "selected_skills": [
+          "skill_avatar_explainer"
+        ],
+        "expected_skills": [
+          "skill_avatar_explainer"
+        ],
+        "forbidden_skills": [
+          "skill_dynamic_montage"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_04_remotion_component",
+        "description": "Remotion TSX component intent activates remocn skill",
+        "selected_skills": [
+          "skill_remocn"
+        ],
+        "expected_skills": [
+          "skill_remocn"
+        ],
+        "forbidden_skills": [
+          "skill_prompt_expert"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_05_tailwind_motion_ui",
+        "description": "Tailwind motion UI intent activates snapcn skill",
+        "selected_skills": [
+          "skill_motion_typography",
+          "skill_snapcn",
+          "skill_remocn"
+        ],
+        "expected_skills": [
+          "skill_snapcn"
+        ],
+        "forbidden_skills": [
+          "skill_spoken_vo_humanizer"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_06_broll_assembly",
+        "description": "B-roll cutaways intent activates broll assembly skill",
+        "selected_skills": [
+          "skill_broll_assembly"
+        ],
+        "expected_skills": [
+          "skill_broll_assembly"
+        ],
+        "forbidden_skills": [
+          "skill_prompt_expert"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_07_prompt_engineering",
+        "description": "Prompt optimization intent activates prompt expert skill",
+        "selected_skills": [
+          "skill_prompt_expert"
+        ],
+        "expected_skills": [
+          "skill_prompt_expert"
+        ],
+        "forbidden_skills": [
+          "skill_avatar_explainer",
+          "skill_dynamic_montage"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_08_kinetic_typography",
+        "description": "Motion typography intent activates motion typography skill",
+        "selected_skills": [
+          "skill_motion_typography",
+          "skill_snapcn",
+          "skill_spoken_vo_humanizer"
+        ],
+        "expected_skills": [
+          "skill_motion_typography"
+        ],
+        "forbidden_skills": [
+          "skill_dynamic_montage"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_09_music_video_no_vo",
+        "description": "Music video beats strictly excludes avatar and spoken VO skills",
+        "selected_skills": [
+          "skill_dynamic_montage",
+          "skill_broll_assembly"
+        ],
+        "expected_skills": [
+          "skill_dynamic_montage"
+        ],
+        "forbidden_skills": [
+          "skill_avatar_explainer",
+          "skill_spoken_vo_humanizer"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      },
+      {
+        "case_id": "s_case_10_missing_capability_exclusion",
+        "description": "Skill requiring unavailable capability is marked ineligible",
+        "selected_skills": [],
+        "expected_skills": [],
+        "forbidden_skills": [
+          "skill_avatar_explainer"
+        ],
+        "forbidden_hits": [],
+        "is_correct": true,
+        "has_missing": false
+      }
+    ]
+  }
+}

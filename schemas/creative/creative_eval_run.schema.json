@@ -1,0 +1,191 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "JudgeCalibrationRecord": {
+      "additionalProperties": false,
+      "description": "Tracking metrics comparing evaluator/judge against human-labeled ground truth.",
+      "properties": {
+        "agreement_count": {
+          "minimum": 0,
+          "title": "Agreement Count",
+          "type": "integer"
+        },
+        "agreement_rate": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Agreement Rate",
+          "type": "number"
+        },
+        "calibrated": {
+          "description": "Whether agreement meets minimum threshold (e.g. >= 0.80)",
+          "title": "Calibrated",
+          "type": "boolean"
+        },
+        "calibration_method": {
+          "default": "DETERMINISTIC_RUBRICS",
+          "title": "Calibration Method",
+          "type": "string"
+        },
+        "disagreements": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Disagreements",
+          "type": "array"
+        },
+        "total_calibration_pairs": {
+          "minimum": 0,
+          "title": "Total Calibration Pairs",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_calibration_pairs",
+        "agreement_count",
+        "agreement_rate",
+        "calibrated"
+      ],
+      "title": "JudgeCalibrationRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Authoritative machine-readable summary of a Creative Regression Suite run.",
+  "properties": {
+    "by_category": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "description": "Metrics summary aggregated by EvalCategory",
+      "title": "By Category",
+      "type": "object"
+    },
+    "by_severity": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "description": "Metrics summary aggregated by EvalSeverity",
+      "title": "By Severity",
+      "type": "object"
+    },
+    "cases_total": {
+      "description": "Total cases executed",
+      "minimum": 0,
+      "title": "Cases Total",
+      "type": "integer"
+    },
+    "completed_at": {
+      "description": "Execution completion timestamp",
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    },
+    "deliberately_bad_detected_count": {
+      "default": 0,
+      "title": "Deliberately Bad Detected Count",
+      "type": "integer"
+    },
+    "deliberately_bad_total_count": {
+      "default": 0,
+      "title": "Deliberately Bad Total Count",
+      "type": "integer"
+    },
+    "failed_count": {
+      "description": "Count of failed cases",
+      "minimum": 0,
+      "title": "Failed Count",
+      "type": "integer"
+    },
+    "judge_calibration": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/JudgeCalibrationRecord"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Calibration statistics if judge evaluation was executed"
+    },
+    "pass_rate": {
+      "description": "Ratio of passed cases",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Pass Rate",
+      "type": "number"
+    },
+    "passed_count": {
+      "description": "Count of passed cases",
+      "minimum": 0,
+      "title": "Passed Count",
+      "type": "integer"
+    },
+    "regressions": {
+      "description": "Specific cases that regressed or failed",
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "title": "Regressions",
+      "type": "array"
+    },
+    "run_id": {
+      "description": "Unique execution run identifier",
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "started_at": {
+      "description": "Execution start timestamp",
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "suite_version": {
+      "default": "S28-08B",
+      "description": "Regression suite version",
+      "title": "Suite Version",
+      "type": "string"
+    },
+    "trace_failures": {
+      "description": "Trace assertions that failed",
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "title": "Trace Failures",
+      "type": "array"
+    },
+    "verdict": {
+      "description": "'PASS' or 'FAIL'",
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "cases_total",
+    "passed_count",
+    "failed_count",
+    "pass_rate",
+    "started_at",
+    "completed_at",
+    "verdict"
+  ],
+  "title": "CreativeEvalRun",
+  "type": "object"
+}
