@@ -5,9 +5,32 @@ import {
   type AssetRef,
   collectAssetReferences,
 } from "./asset-resolver";
-import { isKnownEffect, isExecutableEffect, EFFECTS_RUNTIME } from "../registry/effects-runtime";
+import {
+  isKnownEffect,
+  isExecutableEffect,
+  SEMANTIC_EFFECTS_CATALOG,
+  EffectRefSchema,
+  type EffectRef,
+} from "./effects";
+import {
+  CanonicalLayerSchema,
+  type CanonicalLayer,
+  validateLayerHierarchy,
+} from "./layers";
+import {
+  SUPPORTED_TRANSITION_TYPES,
+  TransitionTypeSchema,
+  type TransitionType,
+} from "./timeline";
 
 export { AssetRefSchema, type AssetRef } from "./asset-resolver";
+export { EffectRefSchema, type EffectRef } from "./effects";
+export { CanonicalLayerSchema, type CanonicalLayer } from "./layers";
+export {
+  SUPPORTED_TRANSITION_TYPES,
+  TransitionTypeSchema,
+  type TransitionType,
+} from "./timeline";
 
 // ==========================================
 // 1. Primitive Tokens & Enumerations
@@ -88,6 +111,20 @@ export const StyleOverrideSchema = z.object({
 });
 export type StyleOverride = z.infer<typeof StyleOverrideSchema>;
 
+export const SceneOverrideSchema = z.object({
+  props: z.record(z.string(), z.any()).optional(),
+  timing: z.object({
+    startFrame: z.number().int().optional(),
+    durationFrames: z.number().int().optional(),
+  }).optional(),
+});
+export type SceneOverride = z.infer<typeof SceneOverrideSchema>;
+
+export const OverridesSchema = z.object({
+  scenes: z.record(z.string(), SceneOverrideSchema).default({}),
+}).default({ scenes: {} });
+export type Overrides = z.infer<typeof OverridesSchema>;
+
 // ==========================================
 // 2. Style Surface
 // ==========================================
@@ -152,44 +189,15 @@ export type SceneContent = z.infer<typeof SceneContentSchema>;
 // 4. Transitions & Effects (S16 - LED-043, LED-046)
 // ==========================================
 
-export const SUPPORTED_TRANSITION_TYPES = [
-  "fade",
-  "slide",
-  "wipe",
-  "flip",
-  "zoom",
-  "cross-zoom",
-  "film-burn",
-  "dissolve",
-  "iris",
-  "none",
-] as const;
-
-export const TransitionTypeSchema = z.enum(SUPPORTED_TRANSITION_TYPES);
-export type TransitionType = z.infer<typeof TransitionTypeSchema>;
-
 export const TransitionRefSchema = z.object({
   type: TransitionTypeSchema.default("fade"),
   durationFrames: z.number().int().min(1).default(15),
   timing: z.enum(["linear", "ease-in-out"]).optional(),
+  overlap_semantics: z.enum(["overlap", "insert"]).default("overlap"),
 });
 export type TransitionRef = z.infer<typeof TransitionRefSchema>;
 
-export const EffectRefSchema = z.object({
-  effect: z.string().min(1).superRefine((val: string, ctx: z.RefinementCtx) => {
-    if (!isExecutableEffect(val)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: EFFECTS_RUNTIME[val]
-          ? `Unsupported effect '${val}' (kind: '${EFFECTS_RUNTIME[val].kind}'). Cannot render unbridged effect without runtime component.`
-          : `Unknown effect '${val}'. Must be registered in EFFECTS_RUNTIME with an executable component.`,
-      });
-    }
-  }),
-  apply: z.enum(["scene", "overlay"]).optional().default("scene"),
-  params: z.record(z.string(), z.any()).optional().default({}),
-});
-export type EffectRef = z.infer<typeof EffectRefSchema>;
+// EffectRefSchema is canonically defined in and re-exported from ./effects
 
 // ==========================================
 // 5. Canonical AudioPlan Contract (S12)
@@ -223,10 +231,12 @@ export const MusicTrackSchema = z.object({
 export type MusicTrack = z.infer<typeof MusicTrackSchema>;
 
 export const GlobalSfxTrackSchema = z.object({
+  track_id: z.string().optional(),
   asset_ref: AssetRefSchema,
   startFrame: z.number().int().min(0).default(0),
   durationFrames: z.number().int().min(1).optional(),
   volume: z.number().min(0.0).max(1.0).default(1.0),
+  mute: z.boolean().default(false).optional(),
 });
 export type GlobalSfxTrack = z.infer<typeof GlobalSfxTrackSchema>;
 
@@ -257,6 +267,7 @@ export const BlueprintSceneSchema = z.object({
   props: z.record(z.string(), z.any()).optional(),
   surface: z.record(z.string(), z.any()).optional(),
   layout: LayoutSchema.optional(),
+  layers: z.array(CanonicalLayerSchema).optional(),
   media_refs: z.array(AssetRefSchema).optional(),
   sfx_ref: AssetRefSchema.nullable().optional(),
   captions_ref: AssetRefSchema.nullable().optional(),
@@ -284,6 +295,8 @@ export const BlueprintV2Schema = z.object({
   scenes: z.array(BlueprintSceneSchema),
   audio: AudioPlanSchema.optional(),
   meta: MetaSchema.optional().default({}),
+  revision: z.number().int().min(0).optional().default(0),
+  applied_mutations: z.array(z.string()).optional().default([]),
 });
 export type BlueprintV2 = z.infer<typeof BlueprintV2Schema>;
 
@@ -363,6 +376,28 @@ export function validateBlueprintV2(
       );
     }
 
+    if (s.layers && s.layers.length > 0) {
+      const hierarchyRes = validateLayerHierarchy(s.layers);
+      if (!hierarchyRes.ok) {
+        for (const hErr of hierarchyRes.errors) {
+          errors.push(`scenes[${idx}] ('${s.scene_id}'): ${hErr}`);
+        }
+      }
+    }
+  }
+
+  // Check project-wide layer ID uniqueness
+  const projectLayerIds = new Set<string>();
+  for (let sIdx = 0; sIdx < bp.scenes.length; sIdx++) {
+    const s = bp.scenes[sIdx];
+    if (s.layers) {
+      for (const l of s.layers) {
+        if (projectLayerIds.has(l.layer_id)) {
+          errors.push(`scenes[${sIdx}] ('${s.scene_id}'): duplicate layer_id '${l.layer_id}' already used in project`);
+        }
+        projectLayerIds.add(l.layer_id);
+      }
+    }
   }
 
   // 3. Audio Plan Volume Checks

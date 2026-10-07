@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "PromptMetadata": {
+      "additionalProperties": false,
+      "description": "Typed audit metadata for prompt entities.",
+      "properties": {
+        "author": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Author identifier or creator role",
+          "title": "Author"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Human-readable description of prompt purpose",
+          "title": "Description"
+        },
+        "eval_gate_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Eval run/gate approval ID proving quality",
+          "title": "Eval Gate Id"
+        },
+        "eval_quality_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Verified benchmark score",
+          "title": "Eval Quality Score"
+        },
+        "tags": {
+          "description": "Categorization tags",
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        }
+      },
+      "title": "PromptMetadata",
+      "type": "object"
+    },
+    "PromptStatus": {
+      "description": "Authoritative lifecycle status for versioned prompts.",
+      "enum": [
+        "DRAFT",
+        "TESTING",
+        "PRODUCTION",
+        "RETIRED"
+      ],
+      "title": "PromptStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Authoritative versioned prompt entity.\nGuarantees immutable content hash and strict version progression.",
+  "properties": {
+    "created_at": {
+      "description": "Creation timestamp of this specific version",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "hash": {
+      "description": "Deterministic SHA-256 hash of template + system_prompt",
+      "minLength": 8,
+      "title": "Hash",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/PromptMetadata",
+      "description": "Audit & governance metadata"
+    },
+    "prompt_id": {
+      "description": "Canonical identifier of the prompt template",
+      "minLength": 1,
+      "title": "Prompt Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PromptStatus",
+      "description": "Current lifecycle state"
+    },
+    "system_prompt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional system-level instruction",
+      "title": "System Prompt"
+    },
+    "template": {
+      "description": "Parameterized prompt template with {var} placeholders",
+      "minLength": 1,
+      "title": "Template",
+      "type": "string"
+    },
+    "variables": {
+      "description": "Declared variable names expected in template",
+      "items": {
+        "type": "string"
+      },
+      "title": "Variables",
+      "type": "array"
+    },
+    "version": {
+      "description": "Strict monotonic integer version (1, 2, 3...)",
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "workspace_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional tenant workspace scope. None indicates global platform prompt.",
+      "title": "Workspace Id"
+    }
+  },
+  "required": [
+    "prompt_id",
+    "version",
+    "hash",
+    "status",
+    "template",
+    "created_at"
+  ],
+  "title": "PromptContract",
+  "type": "object"
+}

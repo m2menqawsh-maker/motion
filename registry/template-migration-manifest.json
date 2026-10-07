@@ -1,0 +1,1935 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "milestone": "S28-R05",
+  "single_authority": "registry/template-registry-data.json",
+  "counts": {
+    "total": 105,
+    "native": 29,
+    "hybrid": 14,
+    "engine_backed": 3,
+    "legacy_compatibility": 59,
+    "unknown": 0
+  },
+  "entries": {
+    "animatedcounter-element": {
+      "template_id": "animatedcounter-element",
+      "aliases": [
+        "AnimatedCounterWrapper",
+        "AnimatedcounterElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.animatedcounter-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_animatedcounter-element",
+      "legacy_implementation": "templates/elements/AnimatedCounterWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic text layer with numeric interpolation channel, prefix, and suffix",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "animatedtext-element": {
+      "template_id": "animatedtext-element",
+      "aliases": [
+        "AnimatedTextWrapper",
+        "Animatedtextwrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.animatedtext-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_animatedtext-element",
+      "legacy_implementation": "templates/elements/AnimatedTextWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic text layer with word/character animation channels and typography",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "book-flip-transition": {
+      "template_id": "book-flip-transition",
+      "aliases": [
+        "BookFlipTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.book-flip-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_book-flip-transition",
+      "legacy_implementation": "templates/effects/BookFlipTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "GL shader 3D page flip transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "clock-wipe-transition": {
+      "template_id": "clock-wipe-transition",
+      "aliases": [
+        "ClockWipeTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.clock-wipe-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_clock-wipe-transition",
+      "legacy_implementation": "templates/effects/ClockWipeTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Radial wipe shader transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "codeblock-element": {
+      "template_id": "codeblock-element",
+      "aliases": [
+        "CodeBlockWrapper",
+        "CodeblockElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.codeblock-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_codeblock-element",
+      "legacy_implementation": "templates/elements/CodeBlockWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic text layer with monospaced typography, syntax theme, and line highlight shapes",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "cross-zoom-transition": {
+      "template_id": "cross-zoom-transition",
+      "aliases": [
+        "CrossZoomTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.cross-zoom-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_cross-zoom-transition",
+      "legacy_implementation": "templates/effects/CrossZoomTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Cross-zoom optical blur transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "crosswarp-transition": {
+      "template_id": "crosswarp-transition",
+      "aliases": [
+        "CrosswarpTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.crosswarp-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_crosswarp-transition",
+      "legacy_implementation": "templates/effects/CrosswarpTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "GL warp distortion transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "dissolve-transition": {
+      "template_id": "dissolve-transition",
+      "aliases": [
+        "DissolveTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.dissolve-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_dissolve-transition",
+      "legacy_implementation": "templates/effects/DissolveTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard cross-dissolve transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "dreamy-zoom-transition": {
+      "template_id": "dreamy-zoom-transition",
+      "aliases": [
+        "DreamyZoomTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.dreamy-zoom-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_dreamy-zoom-transition",
+      "legacy_implementation": "templates/effects/DreamyZoomTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Dreamy glow zoom transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "fade-transition": {
+      "template_id": "fade-transition",
+      "aliases": [
+        "FadeTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.fade-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_fade-transition",
+      "legacy_implementation": "templates/effects/FadeTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard opacity fade transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "film-burn-transition": {
+      "template_id": "film-burn-transition",
+      "aliases": [
+        "FilmBurnTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.film-burn-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_film-burn-transition",
+      "legacy_implementation": "templates/effects/FilmBurnTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Film burn overlay blend transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "flip-transition": {
+      "template_id": "flip-transition",
+      "aliases": [
+        "FlipTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.flip-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_flip-transition",
+      "legacy_implementation": "templates/effects/FlipTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard card flip transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "gradient-element": {
+      "template_id": "gradient-element",
+      "aliases": [
+        "GradientElement",
+        "GradientWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.gradient-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_gradient-element",
+      "legacy_implementation": "templates/elements/GradientWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic shape layer with gradient styling, angle, and dimensions",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "iris-transition": {
+      "template_id": "iris-transition",
+      "aliases": [
+        "IrisTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.iris-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_iris-transition",
+      "legacy_implementation": "templates/effects/IrisTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Iris circular mask transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "linear-blur-transition": {
+      "template_id": "linear-blur-transition",
+      "aliases": [
+        "LinearBlurTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.linear-blur-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_linear-blur-transition",
+      "legacy_implementation": "templates/effects/LinearBlurTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Directional motion blur transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "matrixrain-element": {
+      "template_id": "matrixrain-element",
+      "aliases": [
+        "MatrixRainWrapper",
+        "MatrixrainElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.matrixrain-element",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_matrixrain-element",
+      "legacy_implementation": "templates/elements/MatrixRainWrapper.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "remotion-bits"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Standard text layout combined with specialized Matrix code rain canvas simulation",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "particlesystem-element": {
+      "template_id": "particlesystem-element",
+      "aliases": [
+        "ParticleSystemWrapper",
+        "ParticlesystemElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.particlesystem-element",
+      "classification": "ENGINE_BACKED",
+      "semantic_spec_id": "spec_particlesystem-element",
+      "legacy_implementation": "templates/elements/ParticleSystemWrapper.tsx",
+      "migration_status": "DOCUMENTED_ENGINE_REQUIREMENT",
+      "unsupported_features": [
+        "remotion-bits"
+      ],
+      "parity_status": "SPECIALIZED_RUNTIME_REQUIRED",
+      "reason": "Requires particle system runtime physics and spawner simulation",
+      "notes": "Classified as ENGINE_BACKED for milestone S28-R05."
+    },
+    "push-cut-transition": {
+      "template_id": "push-cut-transition",
+      "aliases": [
+        "PushCutTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.push-cut-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_push-cut-transition",
+      "legacy_implementation": "templates/effects/PushCutTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Push cut directional transition",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "ripple-transition": {
+      "template_id": "ripple-transition",
+      "aliases": [
+        "RippleTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.ripple-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_ripple-transition",
+      "legacy_implementation": "templates/effects/RippleTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Water ripple displacement shader",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "rui-ai-composer-showcase": {
+      "template_id": "rui-ai-composer-showcase",
+      "aliases": [
+        "AiComposerShowcaseWrapper",
+        "RuiAiComposerShowcase"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-ai-composer-showcase",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-ai-composer-showcase",
+      "legacy_implementation": "templates/scenes/AiComposerShowcaseWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-ai-generation-canvas": {
+      "template_id": "rui-ai-generation-canvas",
+      "aliases": [
+        "AiGenerationCanvasWrapper",
+        "RuiAiGenerationCanvas"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-ai-generation-canvas",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-ai-generation-canvas",
+      "legacy_implementation": "templates/scenes/AiGenerationCanvasWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-animated-bar-chart": {
+      "template_id": "rui-animated-bar-chart",
+      "aliases": [
+        "AnimatedBarChartWrapper",
+        "RuiAnimatedBarChart"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-animated-bar-chart",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-animated-bar-chart",
+      "legacy_implementation": "templates/elements/AnimatedBarChartWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-audiogram-scene": {
+      "template_id": "rui-audiogram-scene",
+      "aliases": [
+        "AudiogramSceneWrapper",
+        "RuiAudiogramScene"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-audiogram-scene",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-audiogram-scene",
+      "legacy_implementation": "templates/scenes/AudiogramSceneWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-auto-fit-title": {
+      "template_id": "rui-auto-fit-title",
+      "aliases": [
+        "AutoFitTitleWrapper",
+        "RuiAutoFitTitle"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-auto-fit-title",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-auto-fit-title",
+      "legacy_implementation": "templates/elements/AutoFitTitleWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Headline text, Typography styling, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-b-roll-stack": {
+      "template_id": "rui-b-roll-stack",
+      "aliases": [
+        "BRollStackWrapper",
+        "RuiBRollStack"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-b-roll-stack",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-b-roll-stack",
+      "legacy_implementation": "templates/elements/BRollStackWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Media stack, Headline text, and Background plate",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-bento-pan": {
+      "template_id": "rui-bento-pan",
+      "aliases": [
+        "BentoPanWrapper",
+        "RuiBentoPan"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-bento-pan",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-bento-pan",
+      "legacy_implementation": "templates/elements/BentoPanWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Bento grid panel shapes, Media references, Titles, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-browser-flow": {
+      "template_id": "rui-browser-flow",
+      "aliases": [
+        "BrowserFlowWrapper",
+        "RuiBrowserFlow"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-browser-flow",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-browser-flow",
+      "legacy_implementation": "templates/scenes/BrowserFlowWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-calendar-month-fill": {
+      "template_id": "rui-calendar-month-fill",
+      "aliases": [
+        "CalendarMonthFillWrapper",
+        "RuiCalendarMonthFill"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-calendar-month-fill",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-calendar-month-fill",
+      "legacy_implementation": "templates/elements/CalendarMonthFillWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-callout-spotlight": {
+      "template_id": "rui-callout-spotlight",
+      "aliases": [
+        "CalloutSpotlightWrapper",
+        "RuiCalloutSpotlight"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-callout-spotlight",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-callout-spotlight",
+      "legacy_implementation": "templates/elements/CalloutSpotlightWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Callout text, Spotlight focus shape, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-caption-bumper": {
+      "template_id": "rui-caption-bumper",
+      "aliases": [
+        "CaptionBumperWrapper",
+        "RuiCaptionBumper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-caption-bumper",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-caption-bumper",
+      "legacy_implementation": "templates/elements/CaptionBumperWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-caption-scene": {
+      "template_id": "rui-caption-scene",
+      "aliases": [
+        "CaptionSceneWrapper",
+        "RuiCaptionScene"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-caption-scene",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-caption-scene",
+      "legacy_implementation": "templates/scenes/CaptionSceneWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-changelog-entry": {
+      "template_id": "rui-changelog-entry",
+      "aliases": [
+        "ChangelogEntryWrapper",
+        "RuiChangelogEntry"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-changelog-entry",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-changelog-entry",
+      "legacy_implementation": "templates/elements/ChangelogEntryWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-chat-to-preview": {
+      "template_id": "rui-chat-to-preview",
+      "aliases": [
+        "ChatToPreviewWrapper",
+        "RuiChatToPreview"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-chat-to-preview",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-chat-to-preview",
+      "legacy_implementation": "templates/elements/ChatToPreviewWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-code-accordion": {
+      "template_id": "rui-code-accordion",
+      "aliases": [
+        "CodeAccordionWrapper",
+        "RuiCodeAccordion"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-code-accordion",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-code-accordion",
+      "legacy_implementation": "templates/elements/CodeAccordionWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-code-diff-wipe": {
+      "template_id": "rui-code-diff-wipe",
+      "aliases": [
+        "CodeDiffWipeWrapper",
+        "RuiCodeDiffWipe"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-code-diff-wipe",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-code-diff-wipe",
+      "legacy_implementation": "templates/elements/CodeDiffWipeWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-code-reveal": {
+      "template_id": "rui-code-reveal",
+      "aliases": [
+        "CodeRevealWrapper",
+        "RuiCodeReveal"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-code-reveal",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-code-reveal",
+      "legacy_implementation": "templates/elements/CodeRevealWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-comment-callout": {
+      "template_id": "rui-comment-callout",
+      "aliases": [
+        "CommentCalloutWrapper",
+        "RuiCommentCallout"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-comment-callout",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-comment-callout",
+      "legacy_implementation": "templates/elements/CommentCalloutWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-commit-graph": {
+      "template_id": "rui-commit-graph",
+      "aliases": [
+        "CommitGraphWrapper",
+        "RuiCommitGraph"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-commit-graph",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-commit-graph",
+      "legacy_implementation": "templates/elements/CommitGraphWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-comparison-table": {
+      "template_id": "rui-comparison-table",
+      "aliases": [
+        "ComparisonTableWrapper",
+        "RuiComparisonTable"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-comparison-table",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-comparison-table",
+      "legacy_implementation": "templates/elements/ComparisonTableWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-countdown-timer": {
+      "template_id": "rui-countdown-timer",
+      "aliases": [
+        "CountdownTimerWrapper",
+        "RuiCountdownTimer"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-countdown-timer",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-countdown-timer",
+      "legacy_implementation": "templates/elements/CountdownTimerWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Number counter, Label, Progress shape, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-creator-reel": {
+      "template_id": "rui-creator-reel",
+      "aliases": [
+        "CreatorReelWrapper",
+        "RuiCreatorReel"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-creator-reel",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-creator-reel",
+      "legacy_implementation": "templates/scenes/CreatorReelWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-dashboard-populate": {
+      "template_id": "rui-dashboard-populate",
+      "aliases": [
+        "DashboardPopulateWrapper",
+        "RuiDashboardPopulate"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-dashboard-populate",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-dashboard-populate",
+      "legacy_implementation": "templates/elements/DashboardPopulateWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-data-flow-pipes": {
+      "template_id": "rui-data-flow-pipes",
+      "aliases": [
+        "DataFlowPipesWrapper",
+        "RuiDataFlowPipes"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-data-flow-pipes",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-data-flow-pipes",
+      "legacy_implementation": "templates/scenes/DataFlowPipesWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-data-story": {
+      "template_id": "rui-data-story",
+      "aliases": [
+        "DataStoryWrapper",
+        "RuiDataStory"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-data-story",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-data-story",
+      "legacy_implementation": "templates/scenes/DataStoryWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-deploy-reveal": {
+      "template_id": "rui-deploy-reveal",
+      "aliases": [
+        "DeployRevealWrapper",
+        "RuiDeployReveal"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-deploy-reveal",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-deploy-reveal",
+      "legacy_implementation": "templates/elements/DeployRevealWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-device-mockup-zoom": {
+      "template_id": "rui-device-mockup-zoom",
+      "aliases": [
+        "DeviceMockupZoomWrapper",
+        "RuiDeviceMockupZoom"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-device-mockup-zoom",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-device-mockup-zoom",
+      "legacy_implementation": "templates/elements/DeviceMockupZoomWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-drag-drop-flow": {
+      "template_id": "rui-drag-drop-flow",
+      "aliases": [
+        "DragDropFlowWrapper",
+        "RuiDragDropFlow"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-drag-drop-flow",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-drag-drop-flow",
+      "legacy_implementation": "templates/scenes/DragDropFlowWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-ecosystem-orbit": {
+      "template_id": "rui-ecosystem-orbit",
+      "aliases": [
+        "EcosystemOrbitWrapper",
+        "RuiEcosystemOrbit"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-ecosystem-orbit",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-ecosystem-orbit",
+      "legacy_implementation": "templates/scenes/EcosystemOrbitWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-end-card": {
+      "template_id": "rui-end-card",
+      "aliases": [
+        "EndCardWrapper",
+        "RuiEndCard"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-end-card",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-end-card",
+      "legacy_implementation": "templates/elements/EndCardWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Title, Subtitle, CTA text, Logo asset, and Background shape",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-faq-accordion": {
+      "template_id": "rui-faq-accordion",
+      "aliases": [
+        "FaqAccordionWrapper",
+        "RuiFaqAccordion"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-faq-accordion",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-faq-accordion",
+      "legacy_implementation": "templates/elements/FaqAccordionWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-feature-list": {
+      "template_id": "rui-feature-list",
+      "aliases": [
+        "FeatureListWrapper",
+        "RuiFeatureList"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-feature-list",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-feature-list",
+      "legacy_implementation": "templates/elements/FeatureListWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Header title, Feature items list, Badges, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-file-tree-reveal": {
+      "template_id": "rui-file-tree-reveal",
+      "aliases": [
+        "FileTreeRevealWrapper",
+        "RuiFileTreeReveal"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-file-tree-reveal",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-file-tree-reveal",
+      "legacy_implementation": "templates/elements/FileTreeRevealWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-form-fill-sequence": {
+      "template_id": "rui-form-fill-sequence",
+      "aliases": [
+        "FormFillSequenceWrapper",
+        "RuiFormFillSequence"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-form-fill-sequence",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-form-fill-sequence",
+      "legacy_implementation": "templates/scenes/FormFillSequenceWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-hero-device-assemble": {
+      "template_id": "rui-hero-device-assemble",
+      "aliases": [
+        "HeroDeviceAssembleWrapper",
+        "RuiHeroDeviceAssemble"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-hero-device-assemble",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-hero-device-assemble",
+      "legacy_implementation": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-hero-loop": {
+      "template_id": "rui-hero-loop",
+      "aliases": [
+        "HeroLoopWrapper",
+        "RuiHeroLoop"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-hero-loop",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-hero-loop",
+      "legacy_implementation": "templates/scenes/HeroLoopWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-hook-card": {
+      "template_id": "rui-hook-card",
+      "aliases": [
+        "HookCardWrapper",
+        "RuiHookCard"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-hook-card",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-hook-card",
+      "legacy_implementation": "templates/elements/HookCardWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-image-expand": {
+      "template_id": "rui-image-expand",
+      "aliases": [
+        "ImageExpandWrapper",
+        "RuiImageExpand"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-image-expand",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-image-expand",
+      "legacy_implementation": "templates/elements/ImageExpandWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-intro": {
+      "template_id": "rui-intro",
+      "aliases": [
+        "IntroWrapper",
+        "RuiIntro"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-intro",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-intro",
+      "legacy_implementation": "templates/scenes/IntroWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Main title, Tagline, Brand logo asset, and Background plate",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-kanban-move": {
+      "template_id": "rui-kanban-move",
+      "aliases": [
+        "KanbanMoveWrapper",
+        "RuiKanbanMove"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-kanban-move",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-kanban-move",
+      "legacy_implementation": "templates/elements/KanbanMoveWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-landing-code-showcase": {
+      "template_id": "rui-landing-code-showcase",
+      "aliases": [
+        "LandingCodeShowcaseWrapper",
+        "RuiLandingCodeShowcase"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-landing-code-showcase",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-landing-code-showcase",
+      "legacy_implementation": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-live-code-split": {
+      "template_id": "rui-live-code-split",
+      "aliases": [
+        "LiveCodeSplitWrapper",
+        "RuiLiveCodeSplit"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-live-code-split",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-live-code-split",
+      "legacy_implementation": "templates/scenes/LiveCodeSplitWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-logo-reveal": {
+      "template_id": "rui-logo-reveal",
+      "aliases": [
+        "LogoRevealWrapper",
+        "RuiLogoReveal"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-logo-reveal",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-logo-reveal",
+      "legacy_implementation": "templates/elements/LogoRevealWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Logo asset, Scale/Opacity keyframe animation, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-logo-wall": {
+      "template_id": "rui-logo-wall",
+      "aliases": [
+        "LogoWallWrapper",
+        "RuiLogoWall"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-logo-wall",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-logo-wall",
+      "legacy_implementation": "templates/elements/LogoWallWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-lower-third": {
+      "template_id": "rui-lower-third",
+      "aliases": [
+        "LowerThirdWrapper",
+        "RuiLowerThird"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-lower-third",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-lower-third",
+      "legacy_implementation": "templates/elements/LowerThirdWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Title, Subtitle, Background plate, and Accent line",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-map-flight": {
+      "template_id": "rui-map-flight",
+      "aliases": [
+        "MapFlightWrapper",
+        "RuiMapFlight"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-map-flight",
+      "classification": "ENGINE_BACKED",
+      "semantic_spec_id": "spec_rui-map-flight",
+      "legacy_implementation": "templates/elements/MapFlightWrapper.tsx",
+      "migration_status": "DOCUMENTED_ENGINE_REQUIREMENT",
+      "unsupported_features": [
+        "maplibre-gl"
+      ],
+      "parity_status": "SPECIALIZED_RUNTIME_REQUIRED",
+      "reason": "Requires MapLibre GL map engine and WebGL canvas context",
+      "notes": "Classified as ENGINE_BACKED for milestone S28-R05."
+    },
+    "rui-media-frame": {
+      "template_id": "rui-media-frame",
+      "aliases": [
+        "MediaFrameWrapper",
+        "RuiMediaFrame"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-media-frame",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-media-frame",
+      "legacy_implementation": "templates/elements/MediaFrameWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Image/Video layer, Frame shape, Caption, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-media-sequence": {
+      "template_id": "rui-media-sequence",
+      "aliases": [
+        "MediaSequenceWrapper",
+        "RuiMediaSequence"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-media-sequence",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-media-sequence",
+      "legacy_implementation": "templates/scenes/MediaSequenceWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-metric-ticker": {
+      "template_id": "rui-metric-ticker",
+      "aliases": [
+        "MetricTickerWrapper",
+        "RuiMetricTicker"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-metric-ticker",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-metric-ticker",
+      "legacy_implementation": "templates/elements/MetricTickerWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Label, Value, Delta ticker, and Background shape",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-news-ticker-bar": {
+      "template_id": "rui-news-ticker-bar",
+      "aliases": [
+        "NewsTickerBarWrapper",
+        "RuiNewsTickerBar"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-news-ticker-bar",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-news-ticker-bar",
+      "legacy_implementation": "templates/elements/NewsTickerBarWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-notification-stack": {
+      "template_id": "rui-notification-stack",
+      "aliases": [
+        "NotificationStackWrapper",
+        "RuiNotificationStack"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-notification-stack",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-notification-stack",
+      "legacy_implementation": "templates/elements/NotificationStackWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-org-chart-build": {
+      "template_id": "rui-org-chart-build",
+      "aliases": [
+        "OrgChartBuildWrapper",
+        "RuiOrgChartBuild"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-org-chart-build",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-org-chart-build",
+      "legacy_implementation": "templates/elements/OrgChartBuildWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-podcast-clip": {
+      "template_id": "rui-podcast-clip",
+      "aliases": [
+        "PodcastClipWrapper",
+        "RuiPodcastClip"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-podcast-clip",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-podcast-clip",
+      "legacy_implementation": "templates/elements/PodcastClipWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-poll-overlay": {
+      "template_id": "rui-poll-overlay",
+      "aliases": [
+        "PollOverlayWrapper",
+        "RuiPollOverlay"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-poll-overlay",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-poll-overlay",
+      "legacy_implementation": "templates/elements/PollOverlayWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-pricing-card": {
+      "template_id": "rui-pricing-card",
+      "aliases": [
+        "PricingCardWrapper",
+        "RuiPricingCard"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-pricing-card",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-pricing-card",
+      "legacy_implementation": "templates/elements/PricingCardWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-pricing-focus": {
+      "template_id": "rui-pricing-focus",
+      "aliases": [
+        "PricingFocusWrapper",
+        "RuiPricingFocus"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-pricing-focus",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-pricing-focus",
+      "legacy_implementation": "templates/elements/PricingFocusWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-quiz-question": {
+      "template_id": "rui-quiz-question",
+      "aliases": [
+        "QuizQuestionWrapper",
+        "RuiQuizQuestion"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-quiz-question",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-quiz-question",
+      "legacy_implementation": "templates/elements/QuizQuestionWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-quote-card": {
+      "template_id": "rui-quote-card",
+      "aliases": [
+        "QuoteCardWrapper",
+        "RuiQuoteCard"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-quote-card",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-quote-card",
+      "legacy_implementation": "templates/elements/QuoteCardWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Quote text, Author, Citation, Avatar media, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-reaction-burst": {
+      "template_id": "rui-reaction-burst",
+      "aliases": [
+        "ReactionBurstWrapper",
+        "RuiReactionBurst"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-reaction-burst",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-reaction-burst",
+      "legacy_implementation": "templates/elements/ReactionBurstWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-roadmap-lanes": {
+      "template_id": "rui-roadmap-lanes",
+      "aliases": [
+        "RoadmapLanesWrapper",
+        "RuiRoadmapLanes"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-roadmap-lanes",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-roadmap-lanes",
+      "legacy_implementation": "templates/elements/RoadmapLanesWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-search-results-populate": {
+      "template_id": "rui-search-results-populate",
+      "aliases": [
+        "RuiSearchResultsPopulate",
+        "SearchResultsPopulateWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-search-results-populate",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-search-results-populate",
+      "legacy_implementation": "templates/elements/SearchResultsPopulateWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-showcase": {
+      "template_id": "rui-showcase",
+      "aliases": [
+        "RuiShowcase",
+        "ShowcaseWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-showcase",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-showcase",
+      "legacy_implementation": "templates/scenes/ShowcaseWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Hero media, Headline, Subtitle, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-social-clip": {
+      "template_id": "rui-social-clip",
+      "aliases": [
+        "RuiSocialClip",
+        "SocialClipWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-social-clip",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-social-clip",
+      "legacy_implementation": "templates/elements/SocialClipWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-split-screen": {
+      "template_id": "rui-split-screen",
+      "aliases": [
+        "RuiSplitScreen",
+        "SplitScreenWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-split-screen",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-split-screen",
+      "legacy_implementation": "templates/scenes/SplitScreenWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Split frame shapes, Left media, Right media/text, and Background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-sports-scorebug": {
+      "template_id": "rui-sports-scorebug",
+      "aliases": [
+        "RuiSportsScorebug",
+        "SportsScorebugWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-sports-scorebug",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-sports-scorebug",
+      "legacy_implementation": "templates/elements/SportsScorebugWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-stat-card": {
+      "template_id": "rui-stat-card",
+      "aliases": [
+        "RuiStatCard",
+        "StatCardWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-stat-card",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-stat-card",
+      "legacy_implementation": "templates/elements/StatCardWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Metric value, Label, Caption, Accent, and Background shape",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-t-h-e-m-e-s": {
+      "template_id": "rui-t-h-e-m-e-s",
+      "aliases": [
+        "RuiTHEMES",
+        "THEMESWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-t-h-e-m-e-s",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-t-h-e-m-e-s",
+      "legacy_implementation": "templates/elements/THEMESWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-tab-switch-panel": {
+      "template_id": "rui-tab-switch-panel",
+      "aliases": [
+        "RuiTabSwitchPanel",
+        "TabSwitchPanelWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-tab-switch-panel",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-tab-switch-panel",
+      "legacy_implementation": "templates/elements/TabSwitchPanelWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-talking-head-layout": {
+      "template_id": "rui-talking-head-layout",
+      "aliases": [
+        "RuiTalkingHeadLayout",
+        "TalkingHeadLayoutWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-talking-head-layout",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-talking-head-layout",
+      "legacy_implementation": "templates/scenes/TalkingHeadLayoutWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-team-grid": {
+      "template_id": "rui-team-grid",
+      "aliases": [
+        "RuiTeamGrid",
+        "TeamGridWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-team-grid",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-team-grid",
+      "legacy_implementation": "templates/scenes/TeamGridWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-terminal-simulator": {
+      "template_id": "rui-terminal-simulator",
+      "aliases": [
+        "RuiTerminalSimulator",
+        "TerminalSimulatorWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-terminal-simulator",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-terminal-simulator",
+      "legacy_implementation": "templates/elements/TerminalSimulatorWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-timeline-steps": {
+      "template_id": "rui-timeline-steps",
+      "aliases": [
+        "RuiTimelineSteps",
+        "TimelineStepsWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-timeline-steps",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-timeline-steps",
+      "legacy_implementation": "templates/elements/TimelineStepsWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-title-card": {
+      "template_id": "rui-title-card",
+      "aliases": [
+        "RuiTitleCard",
+        "TitleCardWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-title-card",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_rui-title-card",
+      "legacy_implementation": "templates/elements/TitleCardWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic layout with Title, Subtitle, Eyebrow, Meta, and Shape background",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "rui-tool-menu-slide": {
+      "template_id": "rui-tool-menu-slide",
+      "aliases": [
+        "RuiToolMenuSlide",
+        "ToolMenuSlideWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-tool-menu-slide",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-tool-menu-slide",
+      "legacy_implementation": "templates/scenes/ToolMenuSlideWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-tutorial-clip": {
+      "template_id": "rui-tutorial-clip",
+      "aliases": [
+        "RuiTutorialClip",
+        "TutorialClipWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-tutorial-clip",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-tutorial-clip",
+      "legacy_implementation": "templates/elements/TutorialClipWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-weather-card": {
+      "template_id": "rui-weather-card",
+      "aliases": [
+        "RuiWeatherCard",
+        "WeatherCardWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-weather-card",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-weather-card",
+      "legacy_implementation": "templates/elements/WeatherCardWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "rui-zoom-pan-frame": {
+      "template_id": "rui-zoom-pan-frame",
+      "aliases": [
+        "RuiZoomPanFrame",
+        "ZoomPanFrameWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.rui-zoom-pan-frame",
+      "classification": "LEGACY_COMPATIBILITY",
+      "semantic_spec_id": "spec_rui-zoom-pan-frame",
+      "legacy_implementation": "templates/elements/ZoomPanFrameWrapper.tsx",
+      "migration_status": "PRESERVED_COMPATIBILITY",
+      "unsupported_features": [
+        "pending_declarative_layer_synthesis"
+      ],
+      "parity_status": "LEGACY_REMOTION_PARITY",
+      "reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09",
+      "notes": "Classified as LEGACY_COMPATIBILITY for milestone S28-R05."
+    },
+    "scene3d-element": {
+      "template_id": "scene3d-element",
+      "aliases": [
+        "Scene3DElement",
+        "Scene3DWrapper"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.scene3d-element",
+      "classification": "ENGINE_BACKED",
+      "semantic_spec_id": "spec_scene3d-element",
+      "legacy_implementation": "templates/elements/Scene3DWrapper.tsx",
+      "migration_status": "DOCUMENTED_ENGINE_REQUIREMENT",
+      "unsupported_features": [
+        "three"
+      ],
+      "parity_status": "SPECIALIZED_RUNTIME_REQUIRED",
+      "reason": "Requires 3D device mockup camera rig and WebGL/perspective projection",
+      "notes": "Classified as ENGINE_BACKED for milestone S28-R05."
+    },
+    "scrollingimages-element": {
+      "template_id": "scrollingimages-element",
+      "aliases": [
+        "ScrollingImagesWrapper",
+        "ScrollingimagesElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.scrollingimages-element",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_scrollingimages-element",
+      "legacy_implementation": "templates/elements/ScrollingImagesWrapper.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "remotion-bits"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Continuous infinite momentum parallax scroller requiring runtime scroll loop",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "slide-transition": {
+      "template_id": "slide-transition",
+      "aliases": [
+        "SlideTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.slide-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_slide-transition",
+      "legacy_implementation": "templates/effects/SlideTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard directional slide transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "staggeredmotion-element": {
+      "template_id": "staggeredmotion-element",
+      "aliases": [
+        "StaggeredMotionWrapper",
+        "StaggeredmotionElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.staggeredmotion-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_staggeredmotion-element",
+      "legacy_implementation": "templates/elements/StaggeredMotionWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic group layer with staggered child transforms and delays",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "swap-transition": {
+      "template_id": "swap-transition",
+      "aliases": [
+        "SwapTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.swap-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_swap-transition",
+      "legacy_implementation": "templates/effects/SwapTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard swap transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "typewriter-element": {
+      "template_id": "typewriter-element",
+      "aliases": [
+        "TypeWriterWrapper",
+        "TypewriterElement"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.typewriter-element",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_typewriter-element",
+      "legacy_implementation": "templates/elements/TypeWriterWrapper.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Semantic text layer with character reveal channel and cursor shape",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "wipe-transition": {
+      "template_id": "wipe-transition",
+      "aliases": [
+        "WipeTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.wipe-transition",
+      "classification": "NATIVE",
+      "semantic_spec_id": "spec_wipe-transition",
+      "legacy_implementation": "templates/effects/WipeTransition.tsx",
+      "migration_status": "MIGRATED",
+      "unsupported_features": [],
+      "parity_status": "VERIFIED_SEMANTIC_PARITY",
+      "reason": "Standard directional wipe transition (CanonicalTransitionSpec)",
+      "notes": "Classified as NATIVE for milestone S28-R05."
+    },
+    "zoom-blur-transition": {
+      "template_id": "zoom-blur-transition",
+      "aliases": [
+        "ZoomBlurTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.zoom-blur-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_zoom-blur-transition",
+      "legacy_implementation": "templates/effects/ZoomBlurTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Radial zoom blur shader",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    },
+    "zoom-in-out-transition": {
+      "template_id": "zoom-in-out-transition",
+      "aliases": [
+        "ZoomInOutTransition"
+      ],
+      "legacy_source": "registry/template-registry-data.json",
+      "legacy_registry_entry": "templates.zoom-in-out-transition",
+      "classification": "HYBRID",
+      "semantic_spec_id": "spec_zoom-in-out-transition",
+      "legacy_implementation": "templates/effects/ZoomInOutTransition.tsx",
+      "migration_status": "HYBRID_SEMANTIC_SPECIALIZED",
+      "unsupported_features": [
+        "specialized_shader"
+      ],
+      "parity_status": "PARTIAL_NATIVE_HYBRID",
+      "reason": "Compound zoom shader",
+      "notes": "Classified as HYBRID for milestone S28-R05."
+    }
+  }
+}

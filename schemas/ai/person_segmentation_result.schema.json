@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical result for person segmentation.",
+  "properties": {
+    "confidence": {
+      "description": "Average segmentation confidence",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "mask_hash": {
+      "description": "SHA-256 hash of mask payload",
+      "minLength": 8,
+      "title": "Mask Hash",
+      "type": "string"
+    },
+    "mask_storage_key": {
+      "description": "Abstract StorageService key for segmentation mask",
+      "minLength": 1,
+      "title": "Mask Storage Key",
+      "type": "string"
+    },
+    "person_count": {
+      "default": 1,
+      "description": "Detected human figure count",
+      "minimum": 0,
+      "title": "Person Count",
+      "type": "integer"
+    },
+    "provenance": {
+      "$ref": "#/$defs/AnalysisProvenance",
+      "description": "Provenance audit record"
+    }
+  },
+  "required": [
+    "mask_storage_key",
+    "mask_hash",
+    "confidence",
+    "provenance"
+  ],
+  "title": "PersonSegmentationResult",
+  "type": "object"
+}

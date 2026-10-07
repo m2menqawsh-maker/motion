@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for normalized audio.",
+  "properties": {
+    "measured_lufs": {
+      "description": "Measured integrated loudness after normalization",
+      "title": "Measured Lufs",
+      "type": "number"
+    },
+    "normalization_applied": {
+      "default": true,
+      "description": "Whether gain adjustment was performed",
+      "title": "Normalization Applied",
+      "type": "boolean"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for normalized audio",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "measured_lufs"
+  ],
+  "title": "NormalizeLoudnessOutput",
+  "type": "object"
+}

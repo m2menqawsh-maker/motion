@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Detected silence interval item.",
+  "properties": {
+    "duration_seconds": {
+      "description": "Interval duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "end_seconds": {
+      "description": "Silence end timestamp in seconds",
+      "minimum": 0.0,
+      "title": "End Seconds",
+      "type": "number"
+    },
+    "start_seconds": {
+      "description": "Silence start timestamp in seconds",
+      "minimum": 0.0,
+      "title": "Start Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "start_seconds",
+    "end_seconds",
+    "duration_seconds"
+  ],
+  "title": "SilenceIntervalItem",
+  "type": "object"
+}

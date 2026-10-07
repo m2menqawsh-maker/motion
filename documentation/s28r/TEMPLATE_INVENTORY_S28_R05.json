@@ -1,0 +1,6646 @@
+[
+  {
+    "template_id": "animatedcounter-element",
+    "aliases": [
+      "AnimatedCounterWrapper",
+      "AnimatedcounterElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/AnimatedCounterWrapper.tsx",
+    "current_category_family": "ui-block",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "value",
+        "startValue",
+        "animation",
+        "prefix",
+        "suffix",
+        "color",
+        "fontSize",
+        "fontFamily",
+        "number"
+      ],
+      "defaults": {
+        "value": "",
+        "startValue": "",
+        "animation": "none",
+        "prefix": "",
+        "suffix": "",
+        "color": "#ffffff",
+        "fontSize": 40,
+        "fontFamily": "Inter",
+        "number": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic text layer with numeric interpolation channel, prefix, and suffix"
+  },
+  {
+    "template_id": "animatedtext-element",
+    "aliases": [
+      "AnimatedTextWrapper",
+      "Animatedtextwrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/AnimatedTextWrapper.tsx",
+    "current_category_family": "text",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "animation",
+        "color",
+        "fontSize",
+        "fontFamily"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "animation": "none",
+        "color": "#ffffff",
+        "fontSize": 40,
+        "fontFamily": "Inter"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic text layer with word/character animation channels and typography"
+  },
+  {
+    "template_id": "book-flip-transition",
+    "aliases": [
+      "BookFlipTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/BookFlipTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "book-flip-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "GL shader 3D page flip transition"
+  },
+  {
+    "template_id": "clock-wipe-transition",
+    "aliases": [
+      "ClockWipeTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/ClockWipeTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "width",
+        "height",
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "width": 100,
+        "height": 100,
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "clock-wipe-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Radial wipe shader transition"
+  },
+  {
+    "template_id": "codeblock-element",
+    "aliases": [
+      "CodeBlockWrapper",
+      "CodeblockElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CodeBlockWrapper.tsx",
+    "current_category_family": "ui-block",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "language",
+        "fontSize",
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "animation": "none",
+        "language": "",
+        "fontSize": 40,
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic text layer with monospaced typography, syntax theme, and line highlight shapes"
+  },
+  {
+    "template_id": "cross-zoom-transition",
+    "aliases": [
+      "CrossZoomTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/CrossZoomTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "cross-zoom-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Cross-zoom optical blur transition"
+  },
+  {
+    "template_id": "crosswarp-transition",
+    "aliases": [
+      "CrosswarpTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/CrosswarpTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "crosswarp-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "GL warp distortion transition"
+  },
+  {
+    "template_id": "dissolve-transition",
+    "aliases": [
+      "DissolveTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/DissolveTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "dissolve-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard cross-dissolve transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "dreamy-zoom-transition",
+    "aliases": [
+      "DreamyZoomTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/DreamyZoomTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "dreamy-zoom-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Dreamy glow zoom transition"
+  },
+  {
+    "template_id": "fade-transition",
+    "aliases": [
+      "FadeTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/FadeTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "fade-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard opacity fade transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "film-burn-transition",
+    "aliases": [
+      "FilmBurnTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/FilmBurnTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "film-burn-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Film burn overlay blend transition"
+  },
+  {
+    "template_id": "flip-transition",
+    "aliases": [
+      "FlipTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/FlipTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "animation": "none",
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "flip-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard card flip transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "gradient-element",
+    "aliases": [
+      "GradientElement",
+      "GradientWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/GradientWrapper.tsx",
+    "current_category_family": "overlay",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "colors"
+      ],
+      "defaults": {
+        "animation": "none",
+        "colors": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic shape layer with gradient styling, angle, and dimensions"
+  },
+  {
+    "template_id": "iris-transition",
+    "aliases": [
+      "IrisTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/IrisTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "iris-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Iris circular mask transition"
+  },
+  {
+    "template_id": "linear-blur-transition",
+    "aliases": [
+      "LinearBlurTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/LinearBlurTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "linear-blur-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Directional motion blur transition"
+  },
+  {
+    "template_id": "matrixrain-element",
+    "aliases": [
+      "MatrixRainWrapper",
+      "MatrixrainElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/MatrixRainWrapper.tsx",
+    "current_category_family": "overlay",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "background",
+        "color",
+        "fontFamily",
+        "fontSize",
+        "text",
+        "subtext",
+        "lines"
+      ],
+      "defaults": {
+        "animation": "none",
+        "background": "#ffffff",
+        "color": "#ffffff",
+        "fontFamily": "Inter",
+        "fontSize": 40,
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Standard text layout combined with specialized Matrix code rain canvas simulation"
+  },
+  {
+    "template_id": "particlesystem-element",
+    "aliases": [
+      "ParticleSystemWrapper",
+      "ParticlesystemElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ParticleSystemWrapper.tsx",
+    "current_category_family": "overlay",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "background",
+        "color",
+        "fontFamily",
+        "fontSize",
+        "text",
+        "subtext",
+        "lines"
+      ],
+      "defaults": {
+        "animation": "none",
+        "background": "#ffffff",
+        "color": "#ffffff",
+        "fontFamily": "Inter",
+        "fontSize": 40,
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "SPECIALIZED_ENGINE",
+    "migration_classification": "ENGINE_BACKED",
+    "migration_reason": "Requires particle system runtime physics and spawner simulation"
+  },
+  {
+    "template_id": "push-cut-transition",
+    "aliases": [
+      "PushCutTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/PushCutTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "push-cut-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Push cut directional transition"
+  },
+  {
+    "template_id": "ripple-transition",
+    "aliases": [
+      "RippleTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/RippleTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "ripple-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Water ripple displacement shader"
+  },
+  {
+    "template_id": "rui-ai-composer-showcase",
+    "aliases": [
+      "AiComposerShowcaseWrapper",
+      "RuiAiComposerShowcase"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/AiComposerShowcaseWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-ai-generation-canvas",
+    "aliases": [
+      "AiGenerationCanvasWrapper",
+      "RuiAiGenerationCanvas"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/AiGenerationCanvasWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-animated-bar-chart",
+    "aliases": [
+      "AnimatedBarChartWrapper",
+      "RuiAnimatedBarChart"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/AnimatedBarChartWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-audiogram-scene",
+    "aliases": [
+      "AudiogramSceneWrapper",
+      "RuiAudiogramScene"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/AudiogramSceneWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": true,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-auto-fit-title",
+    "aliases": [
+      "AutoFitTitleWrapper",
+      "RuiAutoFitTitle"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/AutoFitTitleWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Headline text, Typography styling, and Background"
+  },
+  {
+    "template_id": "rui-b-roll-stack",
+    "aliases": [
+      "BRollStackWrapper",
+      "RuiBRollStack"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/BRollStackWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "items",
+        "text"
+      ],
+      "defaults": {
+        "items": "",
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Media stack, Headline text, and Background plate"
+  },
+  {
+    "template_id": "rui-bento-pan",
+    "aliases": [
+      "BentoPanWrapper",
+      "RuiBentoPan"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/BentoPanWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Bento grid panel shapes, Media references, Titles, and Background"
+  },
+  {
+    "template_id": "rui-browser-flow",
+    "aliases": [
+      "BrowserFlowWrapper",
+      "RuiBrowserFlow"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/BrowserFlowWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "lines",
+        "text"
+      ],
+      "defaults": {
+        "lines": "",
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-calendar-month-fill",
+    "aliases": [
+      "CalendarMonthFillWrapper",
+      "RuiCalendarMonthFill"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CalendarMonthFillWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-callout-spotlight",
+    "aliases": [
+      "CalloutSpotlightWrapper",
+      "RuiCalloutSpotlight"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CalloutSpotlightWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Callout text, Spotlight focus shape, and Background"
+  },
+  {
+    "template_id": "rui-caption-bumper",
+    "aliases": [
+      "CaptionBumperWrapper",
+      "RuiCaptionBumper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CaptionBumperWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-caption-scene",
+    "aliases": [
+      "CaptionSceneWrapper",
+      "RuiCaptionScene"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/CaptionSceneWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-changelog-entry",
+    "aliases": [
+      "ChangelogEntryWrapper",
+      "RuiChangelogEntry"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ChangelogEntryWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-chat-to-preview",
+    "aliases": [
+      "ChatToPreviewWrapper",
+      "RuiChatToPreview"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ChatToPreviewWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "items"
+      ],
+      "defaults": {
+        "items": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-code-accordion",
+    "aliases": [
+      "CodeAccordionWrapper",
+      "RuiCodeAccordion"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CodeAccordionWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-code-diff-wipe",
+    "aliases": [
+      "CodeDiffWipeWrapper",
+      "RuiCodeDiffWipe"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CodeDiffWipeWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-code-reveal",
+    "aliases": [
+      "CodeRevealWrapper",
+      "RuiCodeReveal"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CodeRevealWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-comment-callout",
+    "aliases": [
+      "CommentCalloutWrapper",
+      "RuiCommentCallout"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CommentCalloutWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-commit-graph",
+    "aliases": [
+      "CommitGraphWrapper",
+      "RuiCommitGraph"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CommitGraphWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-comparison-table",
+    "aliases": [
+      "ComparisonTableWrapper",
+      "RuiComparisonTable"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ComparisonTableWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-countdown-timer",
+    "aliases": [
+      "CountdownTimerWrapper",
+      "RuiCountdownTimer"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/CountdownTimerWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Number counter, Label, Progress shape, and Background"
+  },
+  {
+    "template_id": "rui-creator-reel",
+    "aliases": [
+      "CreatorReelWrapper",
+      "RuiCreatorReel"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/CreatorReelWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-dashboard-populate",
+    "aliases": [
+      "DashboardPopulateWrapper",
+      "RuiDashboardPopulate"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/DashboardPopulateWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "subtext",
+        "background",
+        "lines",
+        "numbers"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "background": "#ffffff",
+        "lines": "",
+        "numbers": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-data-flow-pipes",
+    "aliases": [
+      "DataFlowPipesWrapper",
+      "RuiDataFlowPipes"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/DataFlowPipesWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-data-story",
+    "aliases": [
+      "DataStoryWrapper",
+      "RuiDataStory"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/DataStoryWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines",
+        "label",
+        "value",
+        "color",
+        "delta"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": "",
+        "label": "",
+        "value": "",
+        "color": "#ffffff",
+        "delta": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-deploy-reveal",
+    "aliases": [
+      "DeployRevealWrapper",
+      "RuiDeployReveal"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/DeployRevealWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-device-mockup-zoom",
+    "aliases": [
+      "DeviceMockupZoomWrapper",
+      "RuiDeviceMockupZoom"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/DeviceMockupZoomWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "fontFamily",
+        "color",
+        "text",
+        "subtext",
+        "background",
+        "icons",
+        "lines"
+      ],
+      "defaults": {
+        "fontFamily": "Inter",
+        "color": "#ffffff",
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "background": "#ffffff",
+        "icons": "",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": true,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-drag-drop-flow",
+    "aliases": [
+      "DragDropFlowWrapper",
+      "RuiDragDropFlow"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/DragDropFlowWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-ecosystem-orbit",
+    "aliases": [
+      "EcosystemOrbitWrapper",
+      "RuiEcosystemOrbit"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/EcosystemOrbitWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-end-card",
+    "aliases": [
+      "EndCardWrapper",
+      "RuiEndCard"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/EndCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "subtext",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Title, Subtitle, CTA text, Logo asset, and Background shape"
+  },
+  {
+    "template_id": "rui-faq-accordion",
+    "aliases": [
+      "FaqAccordionWrapper",
+      "RuiFaqAccordion"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/FaqAccordionWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "items",
+        "text"
+      ],
+      "defaults": {
+        "items": "",
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-feature-list",
+    "aliases": [
+      "FeatureListWrapper",
+      "RuiFeatureList"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/FeatureListWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Header title, Feature items list, Badges, and Background"
+  },
+  {
+    "template_id": "rui-file-tree-reveal",
+    "aliases": [
+      "FileTreeRevealWrapper",
+      "RuiFileTreeReveal"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/FileTreeRevealWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-form-fill-sequence",
+    "aliases": [
+      "FormFillSequenceWrapper",
+      "RuiFormFillSequence"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/FormFillSequenceWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-hero-device-assemble",
+    "aliases": [
+      "HeroDeviceAssembleWrapper",
+      "RuiHeroDeviceAssemble"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/HeroDeviceAssembleWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-hero-loop",
+    "aliases": [
+      "HeroLoopWrapper",
+      "RuiHeroLoop"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/HeroLoopWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-hook-card",
+    "aliases": [
+      "HookCardWrapper",
+      "RuiHookCard"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/HookCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "lines"
+      ],
+      "defaults": {
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-image-expand",
+    "aliases": [
+      "ImageExpandWrapper",
+      "RuiImageExpand"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ImageExpandWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-intro",
+    "aliases": [
+      "IntroWrapper",
+      "RuiIntro"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/IntroWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Main title, Tagline, Brand logo asset, and Background plate"
+  },
+  {
+    "template_id": "rui-kanban-move",
+    "aliases": [
+      "KanbanMoveWrapper",
+      "RuiKanbanMove"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/KanbanMoveWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-landing-code-showcase",
+    "aliases": [
+      "LandingCodeShowcaseWrapper",
+      "RuiLandingCodeShowcase"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/LandingCodeShowcaseWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-live-code-split",
+    "aliases": [
+      "LiveCodeSplitWrapper",
+      "RuiLiveCodeSplit"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/LiveCodeSplitWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-logo-reveal",
+    "aliases": [
+      "LogoRevealWrapper",
+      "RuiLogoReveal"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/LogoRevealWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Logo asset, Scale/Opacity keyframe animation, and Background"
+  },
+  {
+    "template_id": "rui-logo-wall",
+    "aliases": [
+      "LogoWallWrapper",
+      "RuiLogoWall"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/LogoWallWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-lower-third",
+    "aliases": [
+      "LowerThirdWrapper",
+      "RuiLowerThird"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/LowerThirdWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Title, Subtitle, Background plate, and Accent line"
+  },
+  {
+    "template_id": "rui-map-flight",
+    "aliases": [
+      "MapFlightWrapper",
+      "RuiMapFlight"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/MapFlightWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "maplibre-gl"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "SPECIALIZED_ENGINE",
+    "migration_classification": "ENGINE_BACKED",
+    "migration_reason": "Requires MapLibre GL map engine and WebGL canvas context"
+  },
+  {
+    "template_id": "rui-media-frame",
+    "aliases": [
+      "MediaFrameWrapper",
+      "RuiMediaFrame"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/MediaFrameWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Image/Video layer, Frame shape, Caption, and Background"
+  },
+  {
+    "template_id": "rui-media-sequence",
+    "aliases": [
+      "MediaSequenceWrapper",
+      "RuiMediaSequence"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/MediaSequenceWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "items"
+      ],
+      "defaults": {
+        "items": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-metric-ticker",
+    "aliases": [
+      "MetricTickerWrapper",
+      "RuiMetricTicker"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/MetricTickerWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Label, Value, Delta ticker, and Background shape"
+  },
+  {
+    "template_id": "rui-news-ticker-bar",
+    "aliases": [
+      "NewsTickerBarWrapper",
+      "RuiNewsTickerBar"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/NewsTickerBarWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-notification-stack",
+    "aliases": [
+      "NotificationStackWrapper",
+      "RuiNotificationStack"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/NotificationStackWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-org-chart-build",
+    "aliases": [
+      "OrgChartBuildWrapper",
+      "RuiOrgChartBuild"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/OrgChartBuildWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-podcast-clip",
+    "aliases": [
+      "PodcastClipWrapper",
+      "RuiPodcastClip"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/PodcastClipWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-poll-overlay",
+    "aliases": [
+      "PollOverlayWrapper",
+      "RuiPollOverlay"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/PollOverlayWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-pricing-card",
+    "aliases": [
+      "PricingCardWrapper",
+      "RuiPricingCard"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/PricingCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-pricing-focus",
+    "aliases": [
+      "PricingFocusWrapper",
+      "RuiPricingFocus"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/PricingFocusWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-quiz-question",
+    "aliases": [
+      "QuizQuestionWrapper",
+      "RuiQuizQuestion"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/QuizQuestionWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-quote-card",
+    "aliases": [
+      "QuoteCardWrapper",
+      "RuiQuoteCard"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/QuoteCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Quote text, Author, Citation, Avatar media, and Background"
+  },
+  {
+    "template_id": "rui-reaction-burst",
+    "aliases": [
+      "ReactionBurstWrapper",
+      "RuiReactionBurst"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ReactionBurstWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-roadmap-lanes",
+    "aliases": [
+      "RoadmapLanesWrapper",
+      "RuiRoadmapLanes"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/RoadmapLanesWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-search-results-populate",
+    "aliases": [
+      "RuiSearchResultsPopulate",
+      "SearchResultsPopulateWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/SearchResultsPopulateWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-showcase",
+    "aliases": [
+      "RuiShowcase",
+      "ShowcaseWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/ShowcaseWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Hero media, Headline, Subtitle, and Background"
+  },
+  {
+    "template_id": "rui-social-clip",
+    "aliases": [
+      "RuiSocialClip",
+      "SocialClipWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/SocialClipWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-split-screen",
+    "aliases": [
+      "RuiSplitScreen",
+      "SplitScreenWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/SplitScreenWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Split frame shapes, Left media, Right media/text, and Background"
+  },
+  {
+    "template_id": "rui-sports-scorebug",
+    "aliases": [
+      "RuiSportsScorebug",
+      "SportsScorebugWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/SportsScorebugWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-stat-card",
+    "aliases": [
+      "RuiStatCard",
+      "StatCardWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/StatCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "subtext",
+        "background",
+        "color",
+        "lines",
+        "numbers"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "background": "#ffffff",
+        "color": "#ffffff",
+        "lines": "",
+        "numbers": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Metric value, Label, Caption, Accent, and Background shape"
+  },
+  {
+    "template_id": "rui-t-h-e-m-e-s",
+    "aliases": [
+      "RuiTHEMES",
+      "THEMESWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/THEMESWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-tab-switch-panel",
+    "aliases": [
+      "RuiTabSwitchPanel",
+      "TabSwitchPanelWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TabSwitchPanelWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-talking-head-layout",
+    "aliases": [
+      "RuiTalkingHeadLayout",
+      "TalkingHeadLayoutWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/TalkingHeadLayoutWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-team-grid",
+    "aliases": [
+      "RuiTeamGrid",
+      "TeamGridWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/TeamGridWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-terminal-simulator",
+    "aliases": [
+      "RuiTerminalSimulator",
+      "TerminalSimulatorWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TerminalSimulatorWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "background",
+        "color",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "background": "#ffffff",
+        "color": "#ffffff",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-timeline-steps",
+    "aliases": [
+      "RuiTimelineSteps",
+      "TimelineStepsWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TimelineStepsWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-title-card",
+    "aliases": [
+      "RuiTitleCard",
+      "TitleCardWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TitleCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic layout with Title, Subtitle, Eyebrow, Meta, and Shape background"
+  },
+  {
+    "template_id": "rui-tool-menu-slide",
+    "aliases": [
+      "RuiToolMenuSlide",
+      "ToolMenuSlideWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/scenes/ToolMenuSlideWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-tutorial-clip",
+    "aliases": [
+      "RuiTutorialClip",
+      "TutorialClipWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TutorialClipWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "lines"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "lines": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-weather-card",
+    "aliases": [
+      "RuiWeatherCard",
+      "WeatherCardWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/WeatherCardWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [],
+      "defaults": {}
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "rui-zoom-pan-frame",
+    "aliases": [
+      "RuiZoomPanFrame",
+      "ZoomPanFrameWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ZoomPanFrameWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text"
+      ],
+      "defaults": {
+        "text": "Sample Text"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 150,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PRESERVED_COMPATIBILITY",
+    "migration_classification": "LEGACY_COMPATIBILITY",
+    "migration_reason": "Legacy Remotion TSX implementation preserved for pipeline compatibility until R08/R09"
+  },
+  {
+    "template_id": "scene3d-element",
+    "aliases": [
+      "Scene3DElement",
+      "Scene3DWrapper"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/Scene3DWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "subtext",
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "subtext": "Sample Text",
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "three"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "SPECIALIZED_ENGINE",
+    "migration_classification": "ENGINE_BACKED",
+    "migration_reason": "Requires 3D device mockup camera rig and WebGL/perspective projection"
+  },
+  {
+    "template_id": "scrollingimages-element",
+    "aliases": [
+      "ScrollingImagesWrapper",
+      "ScrollingimagesElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/ScrollingImagesWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "images",
+        "animation",
+        "imageWidth"
+      ],
+      "defaults": {
+        "images": "",
+        "animation": "none",
+        "imageWidth": 100
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": true,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": true,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Continuous infinite momentum parallax scroller requiring runtime scroll loop"
+  },
+  {
+    "template_id": "slide-transition",
+    "aliases": [
+      "SlideTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/SlideTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "animation": "none",
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "slide-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard directional slide transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "staggeredmotion-element",
+    "aliases": [
+      "StaggeredMotionWrapper",
+      "StaggeredmotionElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/StaggeredMotionWrapper.tsx",
+    "current_category_family": "composition",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "fontSize",
+        "color",
+        "background",
+        "lines",
+        "images"
+      ],
+      "defaults": {
+        "animation": "none",
+        "fontSize": 40,
+        "color": "#ffffff",
+        "background": "#ffffff",
+        "lines": "",
+        "images": ""
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic group layer with staggered child transforms and delays"
+  },
+  {
+    "template_id": "swap-transition",
+    "aliases": [
+      "SwapTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/SwapTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "swap-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard swap transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "typewriter-element",
+    "aliases": [
+      "TypeWriterWrapper",
+      "TypewriterElement"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/elements/TypeWriterWrapper.tsx",
+    "current_category_family": "text",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "text",
+        "animation",
+        "color",
+        "fontSize",
+        "fontFamily"
+      ],
+      "defaults": {
+        "text": "Sample Text",
+        "animation": "none",
+        "color": "#ffffff",
+        "fontSize": 40,
+        "fontFamily": "Inter"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": false,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [],
+    "external_library_dependencies": [
+      "remotion-bits"
+    ],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 120,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Semantic text layer with character reveal channel and cursor shape"
+  },
+  {
+    "template_id": "wipe-transition",
+    "aliases": [
+      "WipeTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/WipeTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "animation",
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "animation": "none",
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "wipe-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "FULL",
+    "migration_classification": "NATIVE",
+    "migration_reason": "Standard directional wipe transition (CanonicalTransitionSpec)"
+  },
+  {
+    "template_id": "zoom-blur-transition",
+    "aliases": [
+      "ZoomBlurTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/ZoomBlurTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "zoom-blur-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Radial zoom blur shader"
+  },
+  {
+    "template_id": "zoom-in-out-transition",
+    "aliases": [
+      "ZoomInOutTransition"
+    ],
+    "current_registry_source": "registry/template-registry-data.json",
+    "current_implementation_path": "templates/effects/ZoomInOutTransition.tsx",
+    "current_category_family": "effect",
+    "current_props_input_contract": {
+      "schema_fields": [
+        "background",
+        "color"
+      ],
+      "defaults": {
+        "background": "#ffffff",
+        "color": "#ffffff"
+      }
+    },
+    "current_consumers": [
+      "registry/template-registry-data.json",
+      "registry/template-registry.tsx",
+      "registry/semantic-registry.ts",
+      "contracts/render-input.ts",
+      "remotion-app/src/merge.ts",
+      "remotion-app/src/BlueprintVideo.tsx"
+    ],
+    "uses_remotion": false,
+    "uses_react": true,
+    "uses_tsx": true,
+    "uses_useCurrentFrame": false,
+    "uses_interpolate": false,
+    "uses_spring": false,
+    "uses_Sequence": true,
+    "uses_AbsoluteFill": false,
+    "uses_remotion_media_components": false,
+    "uses_custom_hooks": false,
+    "asset_dependencies": [],
+    "font_dependencies": [],
+    "effect_dependencies": [],
+    "transition_dependencies": [
+      "zoom-in-out-transition"
+    ],
+    "external_library_dependencies": [],
+    "known_aspect_ratios": [
+      "16:9",
+      "9:16",
+      "1:1",
+      "4:5",
+      "21:9"
+    ],
+    "duration_assumptions": {
+      "default_duration_frames": 90,
+      "min_duration_frames": 15,
+      "max_duration_frames": 600
+    },
+    "fps_assumptions": [
+      30,
+      60,
+      24,
+      25
+    ],
+    "semantic_representability": "PARTIAL",
+    "migration_classification": "HYBRID",
+    "migration_reason": "Compound zoom shader"
+  }
+]

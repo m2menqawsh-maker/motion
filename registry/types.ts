@@ -1,30 +1,10 @@
-import type { ComponentType } from "react";
 import type { StyleSurface } from "../contracts/StyleSurface";
+import type { SchemaField, SchemaFieldType } from "../contracts/template-schemas";
 
-/** نوع الحقل في واجهة المستخدم (الـ GUI) */
-export type SchemaFieldType =
-  | "text"
-  | "number"
-  | "color"
-  | "select"
-  | "range"
-  | "fontKey"
-  | "animation"
-  | "anchor"
-  | "boolean"
-  | "logo";
+export type { SchemaField, SchemaFieldType } from "../contracts/template-schemas";
 
-/** تعريف حقل واحد من حقول الخصائص */
-export interface SchemaField {
-  type: SchemaFieldType;
-  label: { ar: string; en: string };
-  min?: number;
-  max?: number;
-  step?: number;
-  options?: string[];
-  default?: any;
-  placeholder?: string;
-}
+/** Concrete component binding type for renderer wrapper/element */
+export type ComponentBinding = any;
 
 /** التصنيفات الأساسية للقوالب */
 export type TemplateCategory = "text" | "media" | "brand" | "layout" | "effect" | "data" | "audio" | "composition" | "element" | "wrapper" | "ui-block" | "overlay";
@@ -43,7 +23,7 @@ export interface TemplateEntry {
   /** تصنيف القالب */
   category: TemplateCategory;
   /** مكون React الفعلي للقالب */
-  component: ComponentType<any>;
+  component: ComponentBinding;
   /** المدة الافتراضية للقالب بالإطارات */
   defaultDurationFrames: number;
   /** اسم أيقونة القالب للواجهة (اختياري) */

@@ -4,7 +4,7 @@
  */
 
 import type { Position } from "./StyleSurface";
-import type { CSSProperties } from "react";
+export type PositionStyle = Record<string, string | number>;
 
 /**
  * تحويل الارتكاز والإزاحة إلى خصائص CSS للموضع
@@ -15,7 +15,7 @@ import type { CSSProperties } from "react";
 export function usePosition(
   p: Position | undefined,
   canvas?: { w: number; h: number } // Added as optional since some users might not pass it directly or might not need canvas dimensions for CSS translate approach
-): CSSProperties {
+): PositionStyle {
   if (!p) return {};
 
   const { anchor, x = 0, y = 0 } = p;

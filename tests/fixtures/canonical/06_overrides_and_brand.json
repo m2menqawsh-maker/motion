@@ -1,0 +1,18 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_overrides_06",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_overridden_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 100,
+      "surface": {
+        "text": "Initial Text",
+        "color": "brand.primary"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1022 @@
+[
+  {
+    "legacy_id": "ref-taste-choreography",
+    "source_path": "references/4_taste_engine/choreography.md",
+    "current_purpose": "Multi-element choreography, 3D camera staging, and layer parallax rules",
+    "current_consumer": "Agent, Remotion Developers",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor and TasteRule"
+  },
+  {
+    "legacy_id": "ref-taste-context",
+    "source_path": "references/4_taste_engine/context-adaptation.md",
+    "current_purpose": "Context-based adaptation rules (mood-to-personality mapping)",
+    "current_consumer": "Agent, Template Router",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Formalize into TasteRule and ContextAdaptation"
+  },
+  {
+    "legacy_id": "ref-taste-philosophy",
+    "source_path": "references/4_taste_engine/core-philosophy.md",
+    "current_purpose": "Three pillars (Emotional Intent, Visual Narrative, Motion Craft) and Attention Budget",
+    "current_consumer": "Agent, Developers",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Core taste principles to be formalized into TasteRule contracts"
+  },
+  {
+    "legacy_id": "ref-taste-decision",
+    "source_path": "references/4_taste_engine/decision-framework.md",
+    "current_purpose": "Creative decision framework and style selection matrix",
+    "current_consumer": "Agent, Pipeline Planner",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Decision heuristics mapped to TasteDecision contract"
+  },
+  {
+    "legacy_id": "ref-taste-disney",
+    "source_path": "references/4_taste_engine/disney-principles.md",
+    "current_purpose": "12 Disney animation principles adapted to Remotion declarative motion",
+    "current_consumer": "Agent, Component Authors",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Knowledge base descriptor for motion physics"
+  },
+  {
+    "legacy_id": "ref-taste-emotion",
+    "source_path": "references/4_taste_engine/emotion-mapping.md",
+    "current_purpose": "Emotional intent to spring physics, timing, and color mappings",
+    "current_consumer": "Agent, Scene Planner",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Formalized into TasteRule dataset"
+  },
+  {
+    "legacy_id": "ref-taste-personality",
+    "source_path": "references/4_taste_engine/motion-personality.md",
+    "current_purpose": "Official motion personalities (Cinematic, Energetic, Playful, Technical) with timing/easing numbers",
+    "current_consumer": "scripts/gates/motion_validator.py, Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Motion rules formalized as TasteRule models with machine-verifiable constraints"
+  },
+  {
+    "legacy_id": "ref-taste-narrative",
+    "source_path": "references/4_taste_engine/narrative-structure.md",
+    "current_purpose": "Narrative arcs (Three-Act, Hook-Proof-CTA, Problem-Agitation-Solution)",
+    "current_consumer": "Agent, Narrative Planner",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Narrative Planning",
+    "migration_status": "MIGRATE",
+    "notes": "Formalize into NarrativePlan and NarrativeBeat contracts"
+  },
+  {
+    "legacy_id": "ref-taste-sfx",
+    "source_path": "references/4_taste_engine/sfx_binding_matrix.md",
+    "current_purpose": "SFX gesture binding matrix, audio ducking, and frequency rules",
+    "current_consumer": "Agent, Blueprint Validator",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Formalize into TasteRule and AudioPlan binding rules"
+  },
+  {
+    "legacy_id": "ref-taste-signature",
+    "source_path": "references/4_taste_engine/user-signature-style.md",
+    "current_purpose": "Director's Signature v2: Scene=Sentence, Shot=Beat, double variance, emphasis grammar",
+    "current_consumer": "scripts/gates/taste_gate.py, Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Formalize into TasteRule models executed by TasteValidator"
+  },
+  {
+    "legacy_id": "ref-playbook-ffmpeg",
+    "source_path": "references/1_playbooks/ffmpeg_recipes.md",
+    "current_purpose": "FFmpeg command line recipes for normalization, all-intra transcoding, and concatenation",
+    "current_consumer": "Developers, Processing MCPs",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "KEEP",
+    "notes": "Standard operational engineering reference"
+  },
+  {
+    "legacy_id": "ref-playbook-hook-sprint",
+    "source_path": "references/1_playbooks/hook_playbook_article_sprint.md",
+    "current_purpose": "Production playbook for 30s fast article sprint reels",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for article-sprint recipe"
+  },
+  {
+    "legacy_id": "ref-playbook-living-canvas",
+    "source_path": "references/1_playbooks/living_canvas.md",
+    "current_purpose": "Playbook for seamless, continuous living canvas explainer videos",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for living-canvas recipe"
+  },
+  {
+    "legacy_id": "ref-playbook-motion-collage",
+    "source_path": "references/1_playbooks/motion_collage.md",
+    "current_purpose": "Playbook for living collage cutout animation videos",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for motion-collage recipe"
+  },
+  {
+    "legacy_id": "ref-playbook-review",
+    "source_path": "references/1_playbooks/review_video.md",
+    "current_purpose": "Playbook for competitor review conquest compilation videos",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for review-conquest recipe"
+  },
+  {
+    "legacy_id": "ref-playbook-tabletop",
+    "source_path": "references/1_playbooks/tabletop_explainer.md",
+    "current_purpose": "Playbook for tiered concept layered tabletop explainer reels",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for tabletop recipe"
+  },
+  {
+    "legacy_id": "ref-playbook-video-copy",
+    "source_path": "references/1_playbooks/video_copy.md",
+    "current_purpose": "Copywriting guidelines, word count bounds, and voiceover pacing rules",
+    "current_consumer": "Agent, Script Writer",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor and CreativeBrief interpreter"
+  },
+  {
+    "legacy_id": "ref-sop-hyperrealistic",
+    "source_path": "references/2_sops/hyperrealistic_image.md",
+    "current_purpose": "Standard operating procedure for realistic character and background prompts",
+    "current_consumer": "Agent, Image Capability",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for visual generation"
+  },
+  {
+    "legacy_id": "ref-sop-plan-template",
+    "source_path": "references/2_sops/plan_template.md",
+    "current_purpose": "Structural markdown specification for human/agent detailed video plans",
+    "current_consumer": "Agent, scripts/gates/plan_gate.py",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-05 Creative Planning",
+    "migration_status": "MIGRATE",
+    "notes": "Superseded by S28 CreativePlan canonical contract"
+  },
+  {
+    "legacy_id": "ref-sop-seedance-avatar",
+    "source_path": "references/2_sops/seedance_avatar.md",
+    "current_purpose": "SOP for avatar video generation, lip sync, and green-screen extraction",
+    "current_consumer": "Agent, Avatar Capability",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for avatar workflows"
+  },
+  {
+    "legacy_id": "ref-sop-spoken-vo",
+    "source_path": "references/2_sops/spoken_vo_humanizer.md",
+    "current_purpose": "SOP for adapting written text into natural spoken cadence for TTS",
+    "current_consumer": "Agent, TTS Capability",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "MIGRATE",
+    "notes": "Ingest into KnowledgeDescriptor for audio narration"
+  },
+  {
+    "legacy_id": "ref-sop-template-proposal",
+    "source_path": "references/2_sops/template_proposal.md",
+    "current_purpose": "SOP for proposing new custom templates from projects/ into catalog",
+    "current_consumer": "Agent, scripts/validators/template_proposal_validator.py",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-07 Template Promotion",
+    "migration_status": "WRAP",
+    "notes": "Governed by TemplateCandidate and PromotionDecision contracts"
+  },
+  {
+    "legacy_id": "ref-eng-remotion",
+    "source_path": "references/3_engineering/remotion_guide.md",
+    "current_purpose": "Remotion engineering rules, composition lifecycle, and spring math",
+    "current_consumer": "Developers, Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "KEEP",
+    "notes": "Authoritative technical guide for Remotion render engine"
+  },
+  {
+    "legacy_id": "ref-router",
+    "source_path": "references/ROUTER.md",
+    "current_purpose": "Monolithic decision router: recipe matching, tool dispatch, personality selection",
+    "current_consumer": "Agent",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-03 Recipe Engine / S28-04 Taste Engine",
+    "migration_status": "WRAP",
+    "notes": "Logic to be decomposed into canonical RecipeSelection, SkillRouting, and TasteDecision contracts; preserved for parity"
+  },
+  {
+    "legacy_id": "ref-readme",
+    "source_path": "references/README.md",
+    "current_purpose": "Documentation index for references folder",
+    "current_consumer": "Developers",
+    "current_authority": "Reference Level 5",
+    "target_subsystem": "S28-02 Knowledge Platform",
+    "migration_status": "KEEP",
+    "notes": "Directory index"
+  },
+  {
+    "legacy_id": "recipe-agent-browser-proof",
+    "source_path": "recipes/agent-browser-proof.json",
+    "current_purpose": "Production recipe specification for agent-browser-proof: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-avatar-explainer",
+    "source_path": "recipes/avatar-explainer.json",
+    "current_purpose": "Production recipe specification for avatar-explainer: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-avatar-hook-broll",
+    "source_path": "recipes/avatar-hook-broll.json",
+    "current_purpose": "Production recipe specification for avatar-hook-broll: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-avatar-insta-split",
+    "source_path": "recipes/avatar-insta-split.json",
+    "current_purpose": "Production recipe specification for avatar-insta-split: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-avatar-product-walkthrough",
+    "source_path": "recipes/avatar-product-walkthrough.json",
+    "current_purpose": "Production recipe specification for avatar-product-walkthrough: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-avatar-vo-broll",
+    "source_path": "recipes/avatar-vo-broll.json",
+    "current_purpose": "Production recipe specification for avatar-vo-broll: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-captioned-talking-head",
+    "source_path": "recipes/captioned-talking-head.json",
+    "current_purpose": "Production recipe specification for captioned-talking-head: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-dynamic-montage-ad",
+    "source_path": "recipes/dynamic-montage-ad.json",
+    "current_purpose": "Production recipe specification for dynamic-montage-ad: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-faceless-broll-ad",
+    "source_path": "recipes/faceless-broll-ad.json",
+    "current_purpose": "Production recipe specification for faceless-broll-ad: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-living-canvas-explainer",
+    "source_path": "recipes/living-canvas-explainer.json",
+    "current_purpose": "Production recipe specification for living-canvas-explainer: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-longform-repurpose",
+    "source_path": "recipes/longform-repurpose.json",
+    "current_purpose": "Production recipe specification for longform-repurpose: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-misotts-article-sprint",
+    "source_path": "recipes/misotts-article-sprint.json",
+    "current_purpose": "Production recipe specification for misotts-article-sprint: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-motion-collage-explainer",
+    "source_path": "recipes/motion-collage-explainer.json",
+    "current_purpose": "Production recipe specification for motion-collage-explainer: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-motion-graphics",
+    "source_path": "recipes/motion-graphics.json",
+    "current_purpose": "Production recipe specification for motion-graphics: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-review-conquest-compilation",
+    "source_path": "recipes/review-conquest-compilation.json",
+    "current_purpose": "Production recipe specification for review-conquest-compilation: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-screencast-demo",
+    "source_path": "recipes/screencast-demo.json",
+    "current_purpose": "Production recipe specification for screencast-demo: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-tabletop-levels-explainer",
+    "source_path": "recipes/tabletop-levels-explainer.json",
+    "current_purpose": "Production recipe specification for tabletop-levels-explainer: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-ugc-ai-ad",
+    "source_path": "recipes/ugc-ai-ad.json",
+    "current_purpose": "Production recipe specification for ugc-ai-ad: stages, keywords, platforms, and required deliverables",
+    "current_consumer": "references/ROUTER.md, Agent, tools/video_recipes.py (quarantined)",
+    "current_authority": "Unversioned JSON File",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "WRAP",
+    "notes": "To be validated and ingested by S28-03 RecipeDefinition canonical contract without provider lock-in"
+  },
+  {
+    "legacy_id": "recipe-schema",
+    "source_path": "recipes/schema.json",
+    "current_purpose": "Draft-07 JSON Schema for legacy recipes/*.json files",
+    "current_consumer": "tools/video_recipes.py",
+    "current_authority": "Unversioned Schema",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "DEPRECATE",
+    "notes": "Superseded by S28-03 canonical RecipeDefinition JSON Schema"
+  },
+  {
+    "legacy_id": "recipe-readme",
+    "source_path": "recipes/README.md",
+    "current_purpose": "Documentation guide for recipe CLI commands and recipe authoring",
+    "current_consumer": "Developers",
+    "current_authority": "Documentation",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "KEEP",
+    "notes": "General authoring documentation"
+  },
+  {
+    "legacy_id": "agent-directives",
+    "source_path": ".agents/AGENTS.md",
+    "current_purpose": "Master agent directives, source of truth hierarchy, and pipeline operating rules",
+    "current_consumer": "AI Agents",
+    "current_authority": "Instruction Authority Level 4",
+    "target_subsystem": "S28-01 Foundation & Governance",
+    "migration_status": "WRAP",
+    "notes": "Preserved instruction authority; creative rules align with S28 contracts"
+  },
+  {
+    "legacy_id": "agent-protocol",
+    "source_path": ".agents/rules/video-production-protocol.md",
+    "current_purpose": "Operational rules for phased pipeline execution (Phases 0 through 8)",
+    "current_consumer": "AI Agents",
+    "current_authority": "Instruction Authority Level 4",
+    "target_subsystem": "S28-01 Foundation & Governance",
+    "migration_status": "WRAP",
+    "notes": "Operational rules preserved; creative planning delegated to S28 contracts"
+  },
+  {
+    "legacy_id": "agent-skill-prompt-expert",
+    "source_path": ".agents/skills/prompt-engineering-expert/SKILL.md",
+    "current_purpose": "Prompt engineering guidelines and best practices for Claude agent",
+    "current_consumer": "Claude Agent",
+    "current_authority": "Skill Specification",
+    "target_subsystem": "S28-02 Skills Platform",
+    "migration_status": "KEEP",
+    "notes": "General skill retained in current location"
+  },
+  {
+    "legacy_id": "agent-skill-remocn",
+    "source_path": ".agents/plugins/super-video-maker-plugin/skills/remocn/SKILL.md",
+    "current_purpose": "Remocn vendor skill for React Remotion component authoring and archetypes",
+    "current_consumer": "Claude Agent, skills-lock.json",
+    "current_authority": "Vendor GitHub Lock",
+    "target_subsystem": "S28-02 Skills Platform",
+    "migration_status": "KEEP",
+    "notes": "Vendor skill locked by skills-lock.json; wrapped by S28 SkillDefinition"
+  },
+  {
+    "legacy_id": "agent-skill-snapcn",
+    "source_path": ".agents/plugins/super-video-maker-plugin/skills/snapcn/SKILL.md",
+    "current_purpose": "Snapcn vendor skill for Tailwind/motion UI component authoring and archetypes",
+    "current_consumer": "Claude Agent, skills-lock.json",
+    "current_authority": "Vendor GitHub Lock",
+    "target_subsystem": "S28-02 Skills Platform",
+    "migration_status": "KEEP",
+    "notes": "Vendor skill locked by skills-lock.json; wrapped by S28 SkillDefinition"
+  },
+  {
+    "legacy_id": "agent-skills-index",
+    "source_path": ".agents/plugins/super-video-maker-plugin/skills/INDEX.md",
+    "current_purpose": "Notice declaring vendor skills live under plugin directory",
+    "current_consumer": "Developers",
+    "current_authority": "Documentation",
+    "target_subsystem": "S28-02 Skills Platform",
+    "migration_status": "KEEP",
+    "notes": "Documentation note"
+  },
+  {
+    "legacy_id": "agent-cmd-avatar-insta",
+    "source_path": ".agents/plugins/super-video-maker-plugin/commands/avatar-insta-reel.md",
+    "current_purpose": "Slash command prompt for Instagram split-screen reel production",
+    "current_consumer": "AI Agent",
+    "current_authority": "Slash Command",
+    "target_subsystem": "S28-03 Recipe Engine",
+    "migration_status": "MIGRATE",
+    "notes": "Workflow to be formalized as RecipeDefinition"
+  },
+  {
+    "legacy_id": "agent-plugin-json",
+    "source_path": ".agents/plugins/super-video-maker-plugin/plugin.json",
+    "current_purpose": "Plugin manifest defining tools, skills, and configuration",
+    "current_consumer": "Antigravity CLI / Agent Runner",
+    "current_authority": "Plugin Manifest",
+    "target_subsystem": "S28-01 Foundation",
+    "migration_status": "KEEP",
+    "notes": "Active plugin configuration"
+  },
+  {
+    "legacy_id": "agent-mcp-config",
+    "source_path": ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+    "current_purpose": "Configuration for local MCP servers registered in plugin",
+    "current_consumer": "MCP Runner",
+    "current_authority": "MCP Config",
+    "target_subsystem": "S27 / Core",
+    "migration_status": "KEEP",
+    "notes": "Governed by S27 tool registry"
+  },
+  {
+    "legacy_id": "agent-guard-behavior",
+    "source_path": ".agents/guardian/behavior_guard.py",
+    "current_purpose": "Guardian hook evaluating general agent actions",
+    "current_consumer": "hooks.json",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-command",
+    "source_path": ".agents/guardian/command_guard.py",
+    "current_purpose": "Guardian hook validating shell commands against security policy",
+    "current_consumer": "hooks.json",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-write",
+    "source_path": ".agents/guardian/write_guard.py",
+    "current_purpose": "Guardian hook preventing direct writes to protected files",
+    "current_consumer": "hooks.json",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-post",
+    "source_path": ".agents/guardian/post_executor.py",
+    "current_purpose": "Guardian post-execution validation hook",
+    "current_consumer": "hooks.json",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-circuit",
+    "source_path": ".agents/guardian/circuit_breaker.json",
+    "current_purpose": "Circuit breaker state for agent failures",
+    "current_consumer": "Guardian Hooks",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-utils",
+    "source_path": ".agents/guardian/utils.py",
+    "current_purpose": "Helper utilities for Guardian security hooks",
+    "current_consumer": "Guardian Hooks",
+    "current_authority": "Security Guard",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-guard-log",
+    "source_path": ".agents/logs/guardrails.log",
+    "current_purpose": "Audit log of guardian hook executions and blocks",
+    "current_consumer": "Audit System",
+    "current_authority": "Security Audit",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-qc-salt",
+    "source_path": ".agents/secrets/.qc_salt",
+    "current_purpose": "HMAC secret salt for authenticating QC signatures",
+    "current_consumer": "SmartQC / ReviewService",
+    "current_authority": "Cryptographic Secret",
+    "target_subsystem": "Core Security",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "agent-docker-remotion",
+    "source_path": ".agents/docker/Dockerfile.remotion",
+    "current_purpose": "Docker container definition for hermetic Remotion rendering",
+    "current_consumer": "CI / Docker Runner",
+    "current_authority": "DevOps Contract",
+    "target_subsystem": "Core Render",
+    "migration_status": "KEEP",
+    "notes": "Critical security/infrastructure asset; retained without modification"
+  },
+  {
+    "legacy_id": "tool-ad-quality-gate",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py",
+    "current_purpose": "Quality checks for paid-social ads (aspect ratio, duration, hooks)",
+    "current_consumer": "Agent, QC Runner",
+    "current_authority": "Local Script",
+    "target_subsystem": "scripts/gates/",
+    "migration_status": "WRAP",
+    "notes": "Local QC tool to be integrated into domain QC gates"
+  },
+  {
+    "legacy_id": "tool-broll-layout-qc",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py",
+    "current_purpose": "B-roll layout and safe-zone verification tool",
+    "current_consumer": "Agent, QC Runner",
+    "current_authority": "Local Script",
+    "target_subsystem": "scripts/gates/",
+    "migration_status": "WRAP",
+    "notes": "Local QC tool to be integrated into domain QC gates"
+  },
+  {
+    "legacy_id": "tool-ffmpeg-qc",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/ffmpeg_qc.py",
+    "current_purpose": "FFmpeg-based technical validation (GOP, codec, audio levels)",
+    "current_consumer": "Agent, QC Runner",
+    "current_authority": "Local Script",
+    "target_subsystem": "scripts/gates/",
+    "migration_status": "WRAP",
+    "notes": "Local QC tool; domain authority in scripts/gates/probe_qc.py"
+  },
+  {
+    "legacy_id": "tool-media-pipeline",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/media_pipeline.py",
+    "current_purpose": "Legacy asset life-cycle coordinator and download orchestrator",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "api/services/asset_service.py",
+    "migration_status": "WRAP",
+    "notes": "Superseded by S27 AssetService and StorageService; retained for backwards compatibility"
+  },
+  {
+    "legacy_id": "tool-screen-recorder",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/screen_recorder.py",
+    "current_purpose": "Screen recording capture utility for demo videos",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/specialized",
+    "migration_status": "WRAP",
+    "notes": "Wrap as specialized capability"
+  },
+  {
+    "legacy_id": "tool-agent-browser",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/agent_browser_recorder.py",
+    "current_purpose": "Browser automation recording for software demo videos",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/specialized",
+    "migration_status": "WRAP",
+    "notes": "Wrap as specialized capability"
+  },
+  {
+    "legacy_id": "tool-video-captioner",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/video_captioner.py",
+    "current_purpose": "Whisper/SRT subtitle generator and timing extractor",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/speech",
+    "migration_status": "WRAP",
+    "notes": "Superseded by S27 speech intelligence; retained as compatibility wrapper"
+  },
+  {
+    "legacy_id": "tool-elevenlabs",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/elevenlabs_voice.py",
+    "current_purpose": "Direct ElevenLabs API client for TTS audio generation",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/providers/elevenlabs",
+    "migration_status": "DEPRECATE",
+    "notes": "Provider lock-in; superseded by S27 provider-neutral TTS capability"
+  },
+  {
+    "legacy_id": "tool-heygen",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/heygen_client.py",
+    "current_purpose": "Direct HeyGen API client for avatar video synthesis",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/providers/heygen",
+    "migration_status": "DEPRECATE",
+    "notes": "Provider lock-in; superseded by S27 provider-neutral video capability"
+  },
+  {
+    "legacy_id": "tool-fal-seedance",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/fal_seedance_video.py",
+    "current_purpose": "Direct Fal AI / Seedance API client for avatar video",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/providers/fal",
+    "migration_status": "DEPRECATE",
+    "notes": "Provider lock-in; superseded by S27 provider-neutral video capability"
+  },
+  {
+    "legacy_id": "tool-replicate",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/replicate_video.py",
+    "current_purpose": "Direct Replicate API client for fallback video generation",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/providers/replicate",
+    "migration_status": "DEPRECATE",
+    "notes": "Provider lock-in; superseded by S27 provider-neutral video capability"
+  },
+  {
+    "legacy_id": "tool-image-provider",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/image_provider.py",
+    "current_purpose": "Direct OpenAI/Replicate image generation wrapper",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/capabilities/image_generation",
+    "migration_status": "DEPRECATE",
+    "notes": "Provider lock-in; superseded by S27 provider-neutral image generation capability"
+  },
+  {
+    "legacy_id": "tool-music-provider",
+    "source_path": ".agents/plugins/super-video-maker-plugin/tools/music_provider.py",
+    "current_purpose": "Direct audio/music search and fetch utility",
+    "current_consumer": "Agent",
+    "current_authority": "Local Script",
+    "target_subsystem": "ai/capabilities/audio",
+    "migration_status": "WRAP",
+    "notes": "Wrap into media intelligence audio lookup"
+  },
+  {
+    "legacy_id": "tool-plugin-verify",
+    "source_path": ".agents/plugins/super-video-maker-plugin/verify.py",
+    "current_purpose": "Self-verification test script for plugin tools and configs",
+    "current_consumer": "Developers",
+    "current_authority": "Test Script",
+    "target_subsystem": "scripts/ci",
+    "migration_status": "KEEP",
+    "notes": "Plugin self-test utility"
+  },
+  {
+    "legacy_id": "script-taste-gate",
+    "source_path": "scripts/gates/taste_gate.py",
+    "current_purpose": "Active gate verifying scene plans against user signature style rules",
+    "current_consumer": "scripts/pipeline.py, Stage Gate",
+    "current_authority": "Pipeline Gate Authority",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "WRAP",
+    "notes": "Active gate; will execute S28 TasteRule evaluation"
+  },
+  {
+    "legacy_id": "script-motion-validator",
+    "source_path": "scripts/gates/motion_validator.py",
+    "current_purpose": "Validates motion parameters against motion-personality.md",
+    "current_consumer": "Pipeline, Developers",
+    "current_authority": "Gate Validator",
+    "target_subsystem": "S28-04 Taste Engine",
+    "migration_status": "WRAP",
+    "notes": "Active validator; will parse S28 TasteRule models"
+  },
+  {
+    "legacy_id": "script-plan-gate",
+    "source_path": "scripts/gates/plan_gate.py",
+    "current_purpose": "Validates master_plan.md structure and contains legacy OpenAI judge call",
+    "current_consumer": "scripts/pipeline.py",
+    "current_authority": "Pipeline Gate Authority",
+    "target_subsystem": "S28-05 Creative Planning",
+    "migration_status": "WRAP",
+    "notes": "Active gate; remove direct OpenAI call in favor of provider-neutral evaluation"
+  },
+  {
+    "legacy_id": "script-generate-plan",
+    "source_path": "scripts/generators/generate_plan.py",
+    "current_purpose": "Generates plan_skeleton.md for project initialization",
+    "current_consumer": "Agent, Developers",
+    "current_authority": "Generator",
+    "target_subsystem": "S28-05 Creative Planning",
+    "migration_status": "WRAP",
+    "notes": "To be updated to generate CreativePlan proposals"
+  },
+  {
+    "legacy_id": "script-template-router",
+    "source_path": "scripts/maintenance/template_router.py",
+    "current_purpose": "CLI heuristic matcher searching template_catalog.json",
+    "current_consumer": "references/ROUTER.md, Agent",
+    "current_authority": "Maintenance Script",
+    "target_subsystem": "S28-05 Creative Planning / Blueprint Compiler",
+    "migration_status": "WRAP",
+    "notes": "To be backed by S28 RecipeSelection and CompositionPlan"
+  },
+  {
+    "legacy_id": "script-promote-template",
+    "source_path": "scripts/maintenance/promote_template.py",
+    "current_purpose": "Direct promoter copying proposed templates to templates/ and editing TEMPLATE_INDEX.md",
+    "current_consumer": "references/2_sops/template_proposal.md",
+    "current_authority": "Uncontrolled Script",
+    "target_subsystem": "S28-07 Template Promotion",
+    "migration_status": "WRAP",
+    "notes": "Violates registry authority; must be guarded by PromotionDecision contract and QC"
+  },
+  {
+    "legacy_id": "script-template-proposal-val",
+    "source_path": "scripts/validators/template_proposal_validator.py",
+    "current_purpose": "Validates template candidate directory and proposal.json",
+    "current_consumer": "references/2_sops/template_proposal.md",
+    "current_authority": "Validator Script",
+    "target_subsystem": "S28-07 Template Candidate Validation",
+    "migration_status": "WRAP",
+    "notes": "Maps directly to CandidateValidationReport contract"
+  },
+  {
+    "legacy_id": "script-sync-templates",
+    "source_path": "scripts/maintenance/sync_templates.py",
+    "current_purpose": "Synchronizes templates and extracts metadata",
+    "current_consumer": "Maintenance",
+    "current_authority": "Maintenance Script",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Template metadata synchronization utility"
+  },
+  {
+    "legacy_id": "script-probe-planner",
+    "source_path": "scripts/core/probe_planner.py",
+    "current_purpose": "Planning probe utility for checking plan validity",
+    "current_consumer": "Probe System",
+    "current_authority": "Core Script",
+    "target_subsystem": "scripts/core",
+    "migration_status": "KEEP",
+    "notes": "Core probe planner"
+  },
+  {
+    "legacy_id": "script-template-lint",
+    "source_path": "scripts/validators/template_lint.py",
+    "current_purpose": "Lints React Remotion template syntax and props",
+    "current_consumer": "Pipeline, Developers",
+    "current_authority": "Code Linter",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Authoritative template linter"
+  },
+  {
+    "legacy_id": "script-validate-template",
+    "source_path": "scripts/validators/validate_template.py",
+    "current_purpose": "Validates template component constraints",
+    "current_consumer": "Pipeline",
+    "current_authority": "Validator",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Template validator"
+  },
+  {
+    "legacy_id": "script-inspect-template",
+    "source_path": "scripts/validators/inspect_template.py",
+    "current_purpose": "Inspects template properties from runtime registry",
+    "current_consumer": "Agent, Developers",
+    "current_authority": "Inspector Tool",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Template property inspector"
+  },
+  {
+    "legacy_id": "script-template-contract",
+    "source_path": "scripts/core/template_contract.py",
+    "current_purpose": "Core models for template registry contract",
+    "current_consumer": "scripts/generators/generate_template_contract.py",
+    "current_authority": "Contract Model",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Canonical template contract model"
+  },
+  {
+    "legacy_id": "script-gen-template-contract",
+    "source_path": "scripts/generators/generate_template_contract.py",
+    "current_purpose": "Generates template-runtime-contract.json from runtime registry",
+    "current_consumer": "Build System",
+    "current_authority": "Generator",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Template contract generator"
+  },
+  {
+    "legacy_id": "script-gen-template-aliases",
+    "source_path": "scripts/generators/generate_template_aliases.py",
+    "current_purpose": "Generates template-aliases.ts from single data authority",
+    "current_consumer": "Build System",
+    "current_authority": "Generator",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Template alias generator"
+  },
+  {
+    "legacy_id": "tmpl-custom-level-one",
+    "source_path": "templates/custom/LevelOneScene.tsx",
+    "current_purpose": "Staged custom composite scene template created in Level 1 workflow",
+    "current_consumer": "Experimental Projects",
+    "current_authority": "Unregistered Code",
+    "target_subsystem": "S28-07 Template Candidate",
+    "migration_status": "MIGRATE",
+    "notes": "Reference artifact for TemplateCandidate validation tests"
+  },
+  {
+    "legacy_id": "tmpl-custom-level-zero",
+    "source_path": "templates/custom/LevelZeroBox.tsx",
+    "current_purpose": "Staged raw primitive box template created in Level 0 workflow",
+    "current_consumer": "Experimental Projects",
+    "current_authority": "Unregistered Code",
+    "target_subsystem": "S28-07 Template Candidate",
+    "migration_status": "MIGRATE",
+    "notes": "Reference artifact for TemplateCandidate validation tests"
+  },
+  {
+    "legacy_id": "gt-template-catalog",
+    "source_path": "ground-truth/template_catalog.json",
+    "current_purpose": "Compiled catalog of registered templates with metadata, keywords, and quality ratings",
+    "current_consumer": "scripts/maintenance/template_router.py, Agent",
+    "current_authority": "Derived Ground Truth",
+    "target_subsystem": "registry",
+    "migration_status": "KEEP",
+    "notes": "Authoritative template catalog for proposal matching"
+  },
+  {
+    "legacy_id": "gt-template-index",
+    "source_path": "ground-truth/TEMPLATE_INDEX.md",
+    "current_purpose": "Human-readable index of all available Remotion templates",
+    "current_consumer": "Agent, Developers",
+    "current_authority": "Ground Truth Doc",
+    "target_subsystem": "ground-truth",
+    "migration_status": "KEEP",
+    "notes": "Living template index"
+  },
+  {
+    "legacy_id": "gt-recipes-index",
+    "source_path": "ground-truth/RECIPES_INDEX.md",
+    "current_purpose": "Index of all 18 production recipes",
+    "current_consumer": "Agent, references/ROUTER.md",
+    "current_authority": "Derived Ground Truth",
+    "target_subsystem": "ground-truth",
+    "migration_status": "KEEP",
+    "notes": "Living recipe index"
+  },
+  {
+    "legacy_id": "gt-playbooks-index",
+    "source_path": "ground-truth/PLAYBOOKS_INDEX.md",
+    "current_purpose": "Index of all production playbooks",
+    "current_consumer": "Agent",
+    "current_authority": "Derived Ground Truth",
+    "target_subsystem": "ground-truth",
+    "migration_status": "KEEP",
+    "notes": "Living playbook index"
+  },
+  {
+    "legacy_id": "gt-cinematic-index",
+    "source_path": "ground-truth/CINEMATIC_INDEX.md",
+    "current_purpose": "Index of cinematic engine primitives and properties",
+    "current_consumer": "Agent",
+    "current_authority": "Derived Ground Truth",
+    "target_subsystem": "ground-truth",
+    "migration_status": "KEEP",
+    "notes": "Living cinematic engine index"
+  },
+  {
+    "legacy_id": "gt-vocab-remap",
+    "source_path": "ground-truth/VOCAB_REMAP.md",
+    "current_purpose": "Remapping table preventing hallucinated component names",
+    "current_consumer": "Agent, Template Linter",
+    "current_authority": "Ground Truth Policy",
+    "target_subsystem": "ground-truth",
+    "migration_status": "KEEP",
+    "notes": "Vocabulary anti-hallucination table"
+  },
+  {
+    "legacy_id": "skills-lock",
+    "source_path": "skills-lock.json",
+    "current_purpose": "Lock file tracking vendor skill git hashes (remocn, snapcn)",
+    "current_consumer": "Agent Runner",
+    "current_authority": "Security Lock",
+    "target_subsystem": "S28-02 Skills Platform",
+    "migration_status": "KEEP",
+    "notes": "Vendor skills dependency lock"
+  },
+  {
+    "legacy_id": "hooks-config",
+    "source_path": "hooks.json",
+    "current_purpose": "Tool use hooks configuration routing to Guardian security scripts",
+    "current_consumer": "Antigravity CLI / Runner",
+    "current_authority": "Security Configuration",
+    "target_subsystem": "Security Core",
+    "migration_status": "KEEP",
+    "notes": "Authoritative tool hook configuration"
+  }
+]

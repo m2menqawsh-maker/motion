@@ -29,10 +29,58 @@ const DUMMY_PROJECT_DATA: ProjectData = {
 };
 
 import { parseRenderInput } from "../../contracts/render-input";
+import { CanonicalVideo } from "./CanonicalVideo";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="CanonicalVideo"
+        component={CanonicalVideo as React.FC<any>}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          document: DUMMY_PROJECT_DATA.blueprint as any,
+          brand: DUMMY_PROJECT_DATA.brand,
+        }}
+        calculateMetadata={async ({ props }) => {
+          const doc = (props as any)?.document || (props as any)?.blueprint || props;
+          const fps = doc?.fps || 30;
+          let width = 1920;
+          let height = 1080;
+          const ratio = doc?.aspect_ratio;
+          if (ratio === "9:16") {
+            width = 1080;
+            height = 1920;
+          } else if (ratio === "1:1") {
+            width = 1080;
+            height = 1080;
+          } else if (ratio === "4:5") {
+            width = 1080;
+            height = 1350;
+          }
+          let durationInFrames = doc?.totalDurationFrames;
+          if (!durationInFrames && Array.isArray(doc?.scenes)) {
+            durationInFrames = doc.scenes.reduce((acc: number, s: any) => {
+              const end = (s.startFrame ?? 0) + (s.durationFrames ?? 1);
+              return Math.max(acc, end);
+            }, 0);
+          }
+          if (!durationInFrames || durationInFrames <= 0) {
+            durationInFrames = 30;
+          }
+          return {
+            fps,
+            durationInFrames,
+            width,
+            height,
+            props: {
+              document: doc,
+              brand: (props as any)?.brand || DUMMY_PROJECT_DATA.brand,
+            },
+          };
+        }}
+      />
       <Composition
         id="BlueprintVideo"
         component={BlueprintVideo as React.FC<any>}

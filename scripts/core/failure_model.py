@@ -70,12 +70,18 @@ class FailureCode(str, Enum):
     # Timeouts & Transient (RETRYABLE)
     TIMEOUT = "TIMEOUT"
     RENDER_TIMEOUT = "RENDER_TIMEOUT"
+    RENDERER_TIMEOUT = "RENDERER_TIMEOUT"
     TRANSIENT_NETWORK_ERROR = "TRANSIENT_NETWORK_ERROR"
 
     # Render Failures (CONDITIONALLY_RETRYABLE)
     RENDER_PROCESS_FAILED = "RENDER_PROCESS_FAILED"
     RENDER_OUTPUT_MISSING = "RENDER_OUTPUT_MISSING"
     RENDER_DOCKER_FAILED = "RENDER_DOCKER_FAILED"
+    RENDERER_UNAVAILABLE = "RENDERER_UNAVAILABLE"
+    RENDERER_EXECUTION_FAILED = "RENDERER_EXECUTION_FAILED"
+    RENDERER_OUTPUT_INVALID = "RENDERER_OUTPUT_INVALID"
+    RENDERER_CANCELLED = "RENDERER_CANCELLED"
+    RENDERER_CAPABILITY_MISMATCH = "RENDERER_CAPABILITY_MISMATCH"
 
     # State & Preconditions
     STATE_CORRUPTION = "STATE_CORRUPTION"
@@ -89,6 +95,20 @@ class FailureCode(str, Enum):
     # Security & Unexpected Internal
     SECURITY_POLICY_BLOCKED = "SECURITY_POLICY_BLOCKED"
     UNEXPECTED_INTERNAL_ERROR = "UNEXPECTED_INTERNAL_ERROR"
+
+    # S28-R14 Integration & Section 27 Taxonomy
+    REVISION_CONFLICT = "REVISION_CONFLICT"
+    IDEMPOTENCY_CONFLICT = "IDEMPOTENCY_CONFLICT"
+    AUTHORING_TARGET_NOT_FOUND = "AUTHORING_TARGET_NOT_FOUND"
+    AUTHORING_TARGET_AMBIGUOUS = "AUTHORING_TARGET_AMBIGUOUS"
+    UNSUPPORTED_AUTHORING_OPERATION = "UNSUPPORTED_AUTHORING_OPERATION"
+    UNAUTHORIZED = "UNAUTHORIZED"
+    FORBIDDEN = "FORBIDDEN"
+    TENANT_SCOPE_VIOLATION = "TENANT_SCOPE_VIOLATION"
+    BUDGET_EXCEEDED = "BUDGET_EXCEEDED"
+    RUN_CANCELLED = "RUN_CANCELLED"
+    STORAGE_UNAVAILABLE = "STORAGE_UNAVAILABLE"
+    PERSISTENCE_CONFLICT = "PERSISTENCE_CONFLICT"
 
 
 @dataclass
@@ -197,6 +217,24 @@ _FAILURE_METADATA_REGISTRY: Dict[FailureCode, FailureMetadata] = {
     FailureCode.RENDER_OUTPUT_MISSING: FailureMetadata(
         FailureCategory.IO_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
     ),
+    FailureCode.RENDERER_TIMEOUT: FailureMetadata(
+        FailureCategory.TIMEOUT, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+    ),
+    FailureCode.RENDERER_UNAVAILABLE: FailureMetadata(
+        FailureCategory.RENDER_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.RENDERER_EXECUTION_FAILED: FailureMetadata(
+        FailureCategory.RENDER_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=2
+    ),
+    FailureCode.RENDERER_OUTPUT_INVALID: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.RENDERER_CANCELLED: FailureMetadata(
+        FailureCategory.CANCELLED_ERROR, Severity.INFO, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=False, max_attempts=1
+    ),
+    FailureCode.RENDERER_CAPABILITY_MISMATCH: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
     FailureCode.GATE_EXECUTION_FAILED: FailureMetadata(
         FailureCategory.INTERNAL_ERROR, Severity.ERROR, RetryDisposition.CONDITIONALLY_RETRYABLE, retryable=True, recoverable=False, user_action_required=False, max_attempts=3
     ),
@@ -226,6 +264,44 @@ _FAILURE_METADATA_REGISTRY: Dict[FailureCode, FailureMetadata] = {
     ),
     FailureCode.UNEXPECTED_INTERNAL_ERROR: FailureMetadata(
         FailureCategory.INTERNAL_ERROR, Severity.CRITICAL, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+
+    # S28-R14 Metadata
+    FailureCode.REVISION_CONFLICT: FailureMetadata(
+        FailureCategory.STATE_CONFLICT, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.IDEMPOTENCY_CONFLICT: FailureMetadata(
+        FailureCategory.STATE_CONFLICT, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.PERSISTENCE_CONFLICT: FailureMetadata(
+        FailureCategory.STATE_CONFLICT, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=True, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.AUTHORING_TARGET_NOT_FOUND: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.AUTHORING_TARGET_AMBIGUOUS: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.UNSUPPORTED_AUTHORING_OPERATION: FailureMetadata(
+        FailureCategory.VALIDATION_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.UNAUTHORIZED: FailureMetadata(
+        FailureCategory.SECURITY_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.FORBIDDEN: FailureMetadata(
+        FailureCategory.SECURITY_ERROR, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.TENANT_SCOPE_VIOLATION: FailureMetadata(
+        FailureCategory.SECURITY_ERROR, Severity.CRITICAL, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.BUDGET_EXCEEDED: FailureMetadata(
+        FailureCategory.GATE_FAILURE, Severity.ERROR, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=True, max_attempts=1
+    ),
+    FailureCode.RUN_CANCELLED: FailureMetadata(
+        FailureCategory.CANCELLED_ERROR, Severity.INFO, RetryDisposition.NEVER, retryable=False, recoverable=False, user_action_required=False, max_attempts=1
+    ),
+    FailureCode.STORAGE_UNAVAILABLE: FailureMetadata(
+        FailureCategory.TRANSIENT_EXTERNAL, Severity.ERROR, RetryDisposition.RETRYABLE, retryable=True, recoverable=True, user_action_required=False, max_attempts=3
     ),
 }
 
@@ -317,6 +393,56 @@ class FailureClassifier:
                 cause_type="SecurityPolicyBlocked",
                 stage=stage,
                 component=component or "security",
+            )
+
+        # R14 Renderer Specific Failures
+        if "RENDERER_TIMEOUT" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_TIMEOUT,
+                message=f"Renderer node execution timed out in {script_name}",
+                cause_type="RendererTimeoutError",
+                stage=stage or "render",
+                component=component or "renderer",
+            )
+        if "RENDERER_UNAVAILABLE" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_UNAVAILABLE,
+                message=f"Assigned renderer is unavailable in {script_name}",
+                cause_type="RendererUnavailableError",
+                stage=stage or "render",
+                component=component or "renderer",
+            )
+        if "RENDERER_CAPABILITY_MISMATCH" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_CAPABILITY_MISMATCH,
+                message=f"Renderer capability mismatch in {script_name}",
+                cause_type="CapabilityMismatchError",
+                stage=stage or "render",
+                component=component or "renderer",
+            )
+        if "RENDERER_OUTPUT_INVALID" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_OUTPUT_INVALID,
+                message=f"Renderer produced invalid media output in {script_name}",
+                cause_type="InvalidOutputError",
+                stage=stage or "render",
+                component=component or "renderer",
+            )
+        if "RENDERER_CANCELLED" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_CANCELLED,
+                message=f"Renderer execution was cancelled in {script_name}",
+                cause_type="CancelledError",
+                stage=stage or "render",
+                component=component or "renderer",
+            )
+        if "RENDERER_EXECUTION_FAILED" in combined_text:
+            return FailureInfo(
+                code=FailureCode.RENDERER_EXECUTION_FAILED,
+                message=f"Renderer execution failed in {script_name}",
+                cause_type="ExecutionFailedError",
+                stage=stage or "render",
+                component=component or "renderer",
             )
 
         # 2. Timeouts

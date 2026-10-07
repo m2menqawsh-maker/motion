@@ -1,0 +1,781 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "ConflictPrecedenceRank": {
+      "description": "Hierarchical precedence authority for resolving competing creative directives.",
+      "enum": [
+        "HARD_SYSTEM_CONSTRAINT",
+        "USER_EXPLICIT_REQUIREMENT",
+        "RECIPE_CONSTRAINT",
+        "DIRECTOR_RECOMMENDATION",
+        "SOFT_TASTE_PREFERENCE"
+      ],
+      "title": "ConflictPrecedenceRank",
+      "type": "string"
+    },
+    "ConflictSeverity": {
+      "description": "Classification of conflict impact.",
+      "enum": [
+        "HARD",
+        "CREATIVE_TENSION"
+      ],
+      "title": "ConflictSeverity",
+      "type": "string"
+    },
+    "ConflictStatus": {
+      "description": "Lifecycle status of a detected creative conflict.",
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ],
+      "title": "ConflictStatus",
+      "type": "string"
+    },
+    "CreativeConflict": {
+      "additionalProperties": false,
+      "description": "Structured representation of a detected creative contradiction or tension.\nRecords conflicting parties, competing directives, applied precedence, and outcome.",
+      "properties": {
+        "applied_precedence": {
+          "$ref": "#/$defs/ConflictPrecedenceRank",
+          "description": "Authority precedence applied during resolution"
+        },
+        "competing_directives": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Concrete competing values or directives",
+          "title": "Competing Directives",
+          "type": "object"
+        },
+        "conflict_id": {
+          "description": "Unique conflict identifier",
+          "title": "Conflict Id",
+          "type": "string"
+        },
+        "conflict_type": {
+          "description": "Categorical conflict type (e.g., 'PACING_MISMATCH', 'STYLE_TENSION', 'AUDIO_MODE_VIOLATION')",
+          "title": "Conflict Type",
+          "type": "string"
+        },
+        "conflicting_parties": {
+          "description": "Identities of conflicting sources (e.g., ['Recipe:fast_paced', 'User:calm_premium'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Conflicting Parties",
+          "type": "array"
+        },
+        "description": {
+          "description": "Clear explanation of what is in contradiction",
+          "title": "Description",
+          "type": "string"
+        },
+        "reason_summary": {
+          "description": "Auditable summary explaining why resolution was chosen without hidden CoT",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "resolved_directive": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The winning directive chosen by resolution policy",
+          "title": "Resolved Directive"
+        },
+        "severity": {
+          "$ref": "#/$defs/ConflictSeverity",
+          "description": "Conflict severity (HARD vs CREATIVE_TENSION)"
+        },
+        "status": {
+          "$ref": "#/$defs/ConflictStatus",
+          "description": "Resolution status ('RESOLVED' or 'UNRESOLVED')"
+        }
+      },
+      "required": [
+        "conflict_id",
+        "conflict_type",
+        "severity",
+        "description",
+        "conflicting_parties",
+        "competing_directives",
+        "applied_precedence",
+        "status",
+        "reason_summary"
+      ],
+      "title": "CreativeConflict",
+      "type": "object"
+    },
+    "EmotionDirection": {
+      "additionalProperties": false,
+      "description": "Structured emotional tone and energy curve recommendation emitted by EmotionDirector.",
+      "properties": {
+        "beat_or_scene_id": {
+          "description": "Target beat or scene identifier",
+          "title": "Beat Or Scene Id",
+          "type": "string"
+        },
+        "color_pairing_hint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Suggested accent palette pairing based on emotion psychology",
+          "title": "Color Pairing Hint"
+        },
+        "emotional_progression": {
+          "description": "Arc trajectory (e.g., 'tension -> curiosity -> resolution')",
+          "title": "Emotional Progression",
+          "type": "string"
+        },
+        "intensity": {
+          "description": "Emotional intensity ('low', 'medium', 'high')",
+          "title": "Intensity",
+          "type": "string"
+        },
+        "primary_emotion": {
+          "description": "Core targeted emotion (e.g., 'Joy/Delight', 'Calm/Serenity', 'Urgency/Alert', 'Confidence', 'Curiosity')",
+          "title": "Primary Emotion",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "beat_or_scene_id",
+        "primary_emotion",
+        "intensity",
+        "emotional_progression"
+      ],
+      "title": "EmotionDirection",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "MotionDirection": {
+      "additionalProperties": false,
+      "description": "Structured motion and animation choreography recommendation emitted by MotionDirector.",
+      "properties": {
+        "camera_intent": {
+          "description": "Camera motion intent (e.g., 'dive_into_word', 'whip_pan', 'slow_zoom', 'static')",
+          "title": "Camera Intent",
+          "type": "string"
+        },
+        "entry_style": {
+          "description": "Element entrance choreography (e.g., 'fade_in_scale', 'slide_up', 'snap_edge', 'bounce_up')",
+          "title": "Entry Style",
+          "type": "string"
+        },
+        "exit_style": {
+          "description": "Element exit choreography (e.g., 'accelerate_out', 'fade_out', 'static_hold')",
+          "title": "Exit Style",
+          "type": "string"
+        },
+        "motion_energy": {
+          "description": "Motion energy profile ('calm', 'controlled', 'dynamic', 'explosive', 'urgent')",
+          "title": "Motion Energy",
+          "type": "string"
+        },
+        "motion_personality": {
+          "description": "Governing motion archetype ('Cinematic', 'Energetic', 'Playful', 'Corporate')",
+          "title": "Motion Personality",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Target scene or beat identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        },
+        "text_motion": {
+          "description": "Text reveal choreography (e.g., 'rtl_kinetic_tracking', 'word_by_word_pop', 'smooth_fade')",
+          "title": "Text Motion",
+          "type": "string"
+        },
+        "visual_hierarchy": {
+          "description": "Visual element stacking order ('hero_text', 'peripheral_icon', etc.)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Visual Hierarchy",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scene_id",
+        "motion_energy",
+        "motion_personality",
+        "entry_style",
+        "exit_style",
+        "camera_intent",
+        "text_motion"
+      ],
+      "title": "MotionDirection",
+      "type": "object"
+    },
+    "NarrativeBeat": {
+      "additionalProperties": false,
+      "description": "An individual story beat within a narrative progression.",
+      "properties": {
+        "beat_id": {
+          "description": "Unique beat identifier",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "beat_index": {
+          "description": "0-indexed sequence position of this beat",
+          "minimum": 0,
+          "title": "Beat Index",
+          "type": "integer"
+        },
+        "emotional_target": {
+          "description": "Target emotional tone (e.g., curiosity, trust, urgency, delight)",
+          "title": "Emotional Target",
+          "type": "string"
+        },
+        "estimated_duration_sec": {
+          "description": "Estimated duration in seconds",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Duration Sec",
+          "type": "number"
+        },
+        "key_message": {
+          "description": "Core message or narrative objective of this beat",
+          "title": "Key Message",
+          "type": "string"
+        },
+        "pacing": {
+          "description": "Rhythmic pacing for this beat (e.g., fast, moderate, slow, pause)",
+          "title": "Pacing",
+          "type": "string"
+        },
+        "phase": {
+          "description": "Story phase (e.g., hook, setup, problem, mechanism, proof, cta, resolution)",
+          "title": "Phase",
+          "type": "string"
+        },
+        "sound_effect_cue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Recommended SFX or audio accent",
+          "title": "Sound Effect Cue"
+        },
+        "visual_hook_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Descriptive visual concept for the beat",
+          "title": "Visual Hook Description"
+        }
+      },
+      "required": [
+        "beat_id",
+        "beat_index",
+        "phase",
+        "emotional_target",
+        "pacing",
+        "estimated_duration_sec",
+        "key_message"
+      ],
+      "title": "NarrativeBeat",
+      "type": "object"
+    },
+    "NarrativeDirection": {
+      "additionalProperties": false,
+      "description": "Structured editorial and narrative recommendation emitted by NarrativeDirector.",
+      "properties": {
+        "beat_id": {
+          "description": "Target NarrativeBeat identifier",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "information_density": {
+          "description": "Density target (e.g., 'minimal', 'balanced', 'dense')",
+          "title": "Information Density",
+          "type": "string"
+        },
+        "narrative_focus": {
+          "description": "Editorial focus (e.g., 'hook_grab', 'problem_statement', 'proof_reveal', 'action_cta')",
+          "title": "Narrative Focus",
+          "type": "string"
+        },
+        "pacing_instruction": {
+          "description": "Rhythmic pacing direction (e.g., 'accelerate_cut', 'deliberate_pause', 'rhythmic_build')",
+          "title": "Pacing Instruction",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "spoken_line": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Proposed voiceover sentence if spoken mode applies",
+          "title": "Spoken Line"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        },
+        "visual_progression_cue": {
+          "description": "Visual storyline requirement (e.g., 'reveal_canvas_from_void', 'cutout_assemble')",
+          "title": "Visual Progression Cue",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "narrative_focus",
+        "pacing_instruction",
+        "information_density",
+        "visual_progression_cue"
+      ],
+      "title": "NarrativeDirection",
+      "type": "object"
+    },
+    "NarrativePlan": {
+      "additionalProperties": false,
+      "description": "Structured narrative arc ordering story beats before visual composition.\nEnforces sequential consistency across story beats.",
+      "properties": {
+        "arc_structure": {
+          "description": "Structural taxonomy (e.g., Three-Act, Hook-Proof-CTA, Living Canvas)",
+          "title": "Arc Structure",
+          "type": "string"
+        },
+        "beats": {
+          "description": "Ordered sequence of narrative beats",
+          "items": {
+            "$ref": "#/$defs/NarrativeBeat"
+          },
+          "minItems": 1,
+          "title": "Beats",
+          "type": "array"
+        },
+        "brief_id": {
+          "description": "Associated CreativeBrief identifier",
+          "title": "Brief Id",
+          "type": "string"
+        },
+        "core_hook": {
+          "description": "Opening hook statement or visual proposition",
+          "title": "Core Hook",
+          "type": "string"
+        },
+        "created_at": {
+          "description": "UTC timestamp of plan synthesis",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "estimated_total_duration_sec": {
+          "description": "Sum of estimated beat durations",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Total Duration Sec",
+          "type": "number"
+        },
+        "narrative_id": {
+          "description": "Unique identifier for this narrative plan",
+          "title": "Narrative Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceRecord",
+          "description": "Provenance trace of narrative planning"
+        }
+      },
+      "required": [
+        "narrative_id",
+        "brief_id",
+        "core_hook",
+        "beats",
+        "arc_structure",
+        "estimated_total_duration_sec",
+        "provenance",
+        "created_at"
+      ],
+      "title": "NarrativePlan",
+      "type": "object"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    },
+    "SfxDirection": {
+      "additionalProperties": false,
+      "description": "Structured sound design and gesture-binding recommendation emitted by SfxDirector.",
+      "properties": {
+        "audio_mode": {
+          "$ref": "#/$defs/AudioMode",
+          "description": "Governing AudioMode policy (must be strictly respected)"
+        },
+        "beat_or_scene_id": {
+          "description": "Target beat or scene identifier",
+          "title": "Beat Or Scene Id",
+          "type": "string"
+        },
+        "ducking_profile": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio ducking instruction (e.g., 'duck_dialogue_3db', 'none')",
+          "title": "Ducking Profile"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "sound_cues": {
+          "description": "Bound sound effect cues paired with visual gestures",
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Sound Cues",
+          "type": "array"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "beat_or_scene_id",
+        "audio_mode"
+      ],
+      "title": "SfxDirection",
+      "type": "object"
+    },
+    "TasteDecision": {
+      "additionalProperties": false,
+      "description": "Documented application of a specific TasteRule to a scene or shot element.\nProvides verifiable proof of compliance with the creative style system.",
+      "properties": {
+        "applied_value": {
+          "description": "The concrete setting or parameter applied (e.g., 'cubic-bezier(0.4,0,0.2,1), 400ms')",
+          "title": "Applied Value",
+          "type": "string"
+        },
+        "citation": {
+          "description": "Verbatim citation from the taste documentation proving alignment",
+          "title": "Citation",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 1.0,
+          "description": "Confidence score [0.0 - 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "context_ref": {
+          "description": "Reference to the target scene or shot (e.g., 'scene_001_shot_002')",
+          "title": "Context Ref",
+          "type": "string"
+        },
+        "decision_id": {
+          "description": "Unique identifier for this decision instance",
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "Verifiable context citations or trigger evidence",
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Concise auditable rationale summary without hidden CoT",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "reasoning": {
+          "description": "Explanation of why this value was chosen for this context",
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "rule_id": {
+          "description": "ID of the governing TasteRule applied",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_ids": {
+          "description": "IDs of all rules influencing this decision",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision_id",
+        "rule_id",
+        "context_ref",
+        "applied_value",
+        "reasoning",
+        "citation"
+      ],
+      "title": "TasteDecision",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Consolidated output of S28-04 Narrative Intelligence, Taste Engine,\nCreative Directors, and Conflict Resolution.\nAdvisory guidance ready for S28-05 Creative Planning.",
+  "properties": {
+    "brief_id": {
+      "description": "Associated CreativeBrief identifier",
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "UTC timestamp of guidance generation",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "detected_conflicts": {
+      "description": "All detected creative conflicts",
+      "items": {
+        "$ref": "#/$defs/CreativeConflict"
+      },
+      "title": "Detected Conflicts",
+      "type": "array"
+    },
+    "emotion_directions": {
+      "description": "Emotion director guidance",
+      "items": {
+        "$ref": "#/$defs/EmotionDirection"
+      },
+      "title": "Emotion Directions",
+      "type": "array"
+    },
+    "guidance_id": {
+      "description": "Unique guidance run identifier",
+      "title": "Guidance Id",
+      "type": "string"
+    },
+    "motion_directions": {
+      "description": "Motion director guidance",
+      "items": {
+        "$ref": "#/$defs/MotionDirection"
+      },
+      "title": "Motion Directions",
+      "type": "array"
+    },
+    "narrative_directions": {
+      "description": "Narrative director guidance",
+      "items": {
+        "$ref": "#/$defs/NarrativeDirection"
+      },
+      "title": "Narrative Directions",
+      "type": "array"
+    },
+    "narrative_plan": {
+      "$ref": "#/$defs/NarrativePlan",
+      "description": "Underlying narrative arc"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceRecord",
+      "description": "Provenance trace of creative intelligence execution"
+    },
+    "recipe_id": {
+      "description": "Associated recipe identifier",
+      "title": "Recipe Id",
+      "type": "string"
+    },
+    "sfx_directions": {
+      "description": "SFX director guidance",
+      "items": {
+        "$ref": "#/$defs/SfxDirection"
+      },
+      "title": "Sfx Directions",
+      "type": "array"
+    },
+    "status": {
+      "default": "SUCCESS",
+      "description": "Guidance resolution status ('SUCCESS' or 'FAILED_UNRESOLVED_CONFLICT')",
+      "title": "Status",
+      "type": "string"
+    },
+    "taste_decisions": {
+      "description": "Applied taste decisions from TasteEngine",
+      "items": {
+        "$ref": "#/$defs/TasteDecision"
+      },
+      "title": "Taste Decisions",
+      "type": "array"
+    },
+    "unresolved_conflicts": {
+      "description": "Any unresolved conflicts",
+      "items": {
+        "$ref": "#/$defs/CreativeConflict"
+      },
+      "title": "Unresolved Conflicts",
+      "type": "array"
+    }
+  },
+  "required": [
+    "guidance_id",
+    "brief_id",
+    "recipe_id",
+    "narrative_plan",
+    "taste_decisions",
+    "provenance",
+    "created_at"
+  ],
+  "title": "ResolvedCreativeGuidance",
+  "type": "object"
+}

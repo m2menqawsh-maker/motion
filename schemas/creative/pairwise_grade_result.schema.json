@@ -1,0 +1,43 @@
+{
+  "additionalProperties": false,
+  "description": "Structured pairwise comparison outcome (A vs B).",
+  "properties": {
+    "margin": {
+      "description": "Score delta between candidates",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Margin",
+      "type": "number"
+    },
+    "per_dimension_deltas": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Per Dimension Deltas",
+      "type": "object"
+    },
+    "preferred_candidate": {
+      "description": "'A', 'B', 'TIE', or 'INSUFFICIENT_EVIDENCE'",
+      "title": "Preferred Candidate",
+      "type": "string"
+    },
+    "rationale": {
+      "description": "Transparent structured explanation (no hidden CoT)",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "scenario_id": {
+      "description": "Scenario ID evaluated",
+      "title": "Scenario Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "preferred_candidate",
+    "margin",
+    "rationale"
+  ],
+  "title": "PairwiseGradeResult",
+  "type": "object"
+}

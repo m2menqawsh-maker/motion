@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "description": "Formal tracking record for deferred real-media benchmarks.\nGuarantees honest accounting of technical debt without injecting fake scores.",
+  "properties": {
+    "benchmark_id": {
+      "description": "Canonical benchmark identifier",
+      "minLength": 1,
+      "title": "Benchmark Id",
+      "type": "string"
+    },
+    "fake_scores_injected": {
+      "default": false,
+      "description": "Safety invariant flag verifying no fabricated scores",
+      "title": "Fake Scores Injected",
+      "type": "boolean"
+    },
+    "name": {
+      "description": "Descriptive benchmark title",
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "notes": {
+      "description": "Formal justification and resolution criteria",
+      "minLength": 1,
+      "title": "Notes",
+      "type": "string"
+    },
+    "status": {
+      "default": "DEFERRED_FINAL_VALIDATION",
+      "description": "Status code",
+      "title": "Status",
+      "type": "string"
+    },
+    "target_stage": {
+      "default": "AI-15",
+      "description": "Stage designated for resolution",
+      "title": "Target Stage",
+      "type": "string"
+    }
+  },
+  "required": [
+    "benchmark_id",
+    "name",
+    "notes"
+  ],
+  "title": "BenchmarkDebtContract",
+  "type": "object"
+}

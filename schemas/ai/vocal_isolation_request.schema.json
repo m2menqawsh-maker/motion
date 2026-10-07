@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for stem separation / vocal isolation.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "Abstract StorageService key for composite audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "content_hash": {
+      "description": "SHA-256 hash of composite audio",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "extract_instrumental": {
+      "default": true,
+      "description": "Whether to also produce backing track stem",
+      "title": "Extract Instrumental",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "audio_storage_key",
+    "content_hash"
+  ],
+  "title": "VocalIsolationRequest",
+  "type": "object"
+}

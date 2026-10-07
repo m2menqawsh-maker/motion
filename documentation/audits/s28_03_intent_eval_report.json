@@ -1,0 +1,20 @@
+{
+  "total_cases": 16,
+  "intent_accuracy": 1.0,
+  "field_accuracy": 1.0,
+  "per_field_accuracy": {
+    "video_type": 1.0,
+    "duration": 1.0,
+    "language": 1.0,
+    "audio_mode": 1.0,
+    "style": 1.0,
+    "pace": 1.0
+  },
+  "wrong_explicit_field_count": 0,
+  "unsupported_inferred_or_defaulted_field_count": 0,
+  "unsupported_inference_rate": 0.0,
+  "contradiction_detection_rate": 1.0,
+  "cases_passed": 16,
+  "cases_failed": 0,
+  "failure_details": []
+}

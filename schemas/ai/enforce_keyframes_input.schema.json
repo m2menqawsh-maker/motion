@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for enforcing GOP keyframe intervals.",
+  "properties": {
+    "keyframe_interval": {
+      "default": 1,
+      "description": "Keyframe distance (GOP size in frames)",
+      "minimum": 1,
+      "title": "Keyframe Interval",
+      "type": "integer"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key"
+  ],
+  "title": "EnforceKeyframesInput",
+  "type": "object"
+}

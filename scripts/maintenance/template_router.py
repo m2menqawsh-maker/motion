@@ -58,6 +58,7 @@ def route(intent=None, use_case=None, mood=None, type_=None,
     return results
 
 if __name__ == "__main__":
+    print("ℹ️ Note: template_router.py is a legacy heuristic search utility. Production template selection is governed by S28-06 CreativeTierPolicy and RecipeSelector.")
     parser = argparse.ArgumentParser(description="Template Router")
     parser.add_argument("--intent", type=str)
     parser.add_argument("--use-case", type=str)

@@ -1,0 +1,192 @@
+{
+  "$defs": {
+    "CompositionLayer": {
+      "additionalProperties": false,
+      "description": "A visual layer within a multi-layer composition hierarchy.",
+      "properties": {
+        "element_ref": {
+          "description": "Reference to template, asset, or primitive component",
+          "title": "Element Ref",
+          "type": "string"
+        },
+        "layer_type": {
+          "description": "Layer category: 'primary' (100%), 'secondary' (30-50%), or 'ambient' (10-20%)",
+          "title": "Layer Type",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Layer-specific motion and style props",
+          "title": "Properties",
+          "type": "object"
+        }
+      },
+      "required": [
+        "layer_type",
+        "element_ref"
+      ],
+      "title": "CompositionLayer",
+      "type": "object"
+    },
+    "CompositionPlan": {
+      "additionalProperties": false,
+      "description": "Spatial, layer, and choreography plan for a scene.",
+      "properties": {
+        "base_template_or_primitive": {
+          "description": "Primary visual anchor or template",
+          "title": "Base Template Or Primitive",
+          "type": "string"
+        },
+        "camera_motion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Camera directive (e.g., 'dive_into_word', 'static', 'whip_pan')",
+          "title": "Camera Motion"
+        },
+        "composition_id": {
+          "description": "Unique composition plan identifier",
+          "title": "Composition Id",
+          "type": "string"
+        },
+        "effects": {
+          "description": "Optional registered effects applied",
+          "items": {
+            "type": "string"
+          },
+          "title": "Effects",
+          "type": "array"
+        },
+        "gestural_elements": {
+          "description": "Visual gestures (e.g., ['Neon Ring', 'Marker Underline'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Gestural Elements",
+          "type": "array"
+        },
+        "layers": {
+          "description": "Staged composition layers",
+          "items": {
+            "$ref": "#/$defs/CompositionLayer"
+          },
+          "title": "Layers",
+          "type": "array"
+        },
+        "layout_zone": {
+          "default": "full",
+          "description": "Layout zone on canvas (e.g., 'full', 'top_split', 'bottom_card')",
+          "title": "Layout Zone",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Associated scene identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "sfx_bindings": {
+          "description": "SFX cues bound to visual moments",
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Sfx Bindings",
+          "type": "array"
+        },
+        "transition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional transition out (e.g., 'fade', 'slide')",
+          "title": "Transition"
+        }
+      },
+      "required": [
+        "composition_id",
+        "scene_id",
+        "base_template_or_primitive"
+      ],
+      "title": "CompositionPlan",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Structured audit evidence of COMPOSE planning and suitability evaluation.",
+  "properties": {
+    "components_checked": {
+      "description": "Registered Lego components considered",
+      "items": {
+        "type": "string"
+      },
+      "title": "Components Checked",
+      "type": "array"
+    },
+    "composition_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompositionPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Synthesized CompositionPlan if valid"
+    },
+    "eligible_components": {
+      "description": "Registered components passing compatibility",
+      "items": {
+        "type": "string"
+      },
+      "title": "Eligible Components",
+      "type": "array"
+    },
+    "need_description": {
+      "description": "Description of requested scene intent or creative need",
+      "title": "Need Description",
+      "type": "string"
+    },
+    "rationale": {
+      "description": "Human/audit readable summary of COMPOSE evaluation",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "rejection_reasons": {
+      "description": "Reasons why composition could not satisfy need",
+      "items": {
+        "type": "string"
+      },
+      "title": "Rejection Reasons",
+      "type": "array"
+    },
+    "sufficiency": {
+      "description": "Whether COMPOSE was found to be sufficient",
+      "title": "Sufficiency",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "need_description",
+    "sufficiency",
+    "rationale"
+  ],
+  "title": "ComposeEvaluationResult",
+  "type": "object"
+}

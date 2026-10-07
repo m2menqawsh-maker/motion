@@ -1,0 +1,28 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_09_timeline_basic",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_basic_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 60,
+      "surface": {
+        "text": "Timeline Scene 1",
+        "fontSize": 48
+      }
+    },
+    {
+      "scene_id": "sc_basic_02",
+      "template": "ShowcaseWrapper",
+      "startFrame": 60,
+      "durationFrames": 60,
+      "surface": {
+        "text": "Timeline Scene 2",
+        "fontSize": 48
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for auto-cropping whitespace / borders.",
+  "properties": {
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "padding_ratio": {
+      "default": 0.05,
+      "description": "Safety padding ratio around detected content",
+      "maximum": 0.5,
+      "minimum": 0.0,
+      "title": "Padding Ratio",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "AutoCropInput",
+  "type": "object"
+}

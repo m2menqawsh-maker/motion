@@ -72,26 +72,11 @@ def emit(payload: dict[str, Any]) -> None:
 
 
 def load_dotenv_files() -> None:
-    """Read the .env files only. Called before the parser is built so that
-    SEEDANCE_VERSION and friends can be set in .env and still reach the
-    argparse defaults, which are evaluated at parser-construction time."""
-    load_dotenv(REPO_ROOT / ".env")
-    load_dotenv(SKILL_DIR / ".env", override=False)
+    raise PermissionError("DIRECT SECRET ACCESS BLOCKED: Direct credential loading outside canonical S27 capability adapters is prohibited.")
 
 
 def load_env() -> None:
-    load_dotenv_files()
-    fal_key = os.getenv("FAL_KEY") or os.getenv("FALAI_API_KEY")
-    if not fal_key:
-        emit(
-            {
-                "status": "failed",
-                "error": "FALAI_API_KEY or FAL_KEY missing in .env",
-                "provider": "fal.ai",
-            }
-        )
-        sys.exit(2)
-    os.environ["FAL_KEY"] = fal_key
+    raise PermissionError("DIRECT SECRET ACCESS BLOCKED: Direct credential loading outside canonical S27 capability adapters is prohibited.")
 
 
 def import_fal_client():
@@ -275,119 +260,10 @@ def is_placeholder_result(video_url: str) -> bool:
 
 
 def cmd_generate(args: argparse.Namespace) -> None:
-    load_env()
-    fal_client = import_fal_client()
-    model = choose_model(args)
-    started = time.time()
-    try:
-        payload = build_arguments(args, fal_client)
-        log(
-            f"[fal-seedance] subscribe model={model} mode={args.mode} "
-            f"duration={args.duration}s resolution={args.resolution} ar={args.aspect_ratio}"
-        )
-        result = fal_client.subscribe(
-            model,
-            arguments=payload,
-            with_logs=True,
-            client_timeout=args.client_timeout,
-        )
-        video_url = extract_video_url(result)
-
-        if is_placeholder_result(video_url):
-            requested = version_of(model)
-            log(
-                f"[fal-seedance] Seedance {requested} returned its canned example "
-                f"clip instead of generating ({video_url}). This account is not "
-                f"entitled to the {requested} early-access model."
-            )
-            if not args.fallback_version:
-                emit(
-                    {
-                        "status": "failed",
-                        "provider": "fal.ai",
-                        "model": model,
-                        "seedance_version": requested,
-                        "error": (
-                            f"Seedance {requested} is early-access and this fal account is "
-                            "not entitled: fal returned the endpoint's example video instead "
-                            "of generating. Request access on the model page at "
-                            f"https://fal.ai/models/bytedance/seedance-{requested}/{MODE_ENDPOINTS[args.mode]} "
-                            "(B2B-only terms, requires end_user_id), or rerun with "
-                            "--seedance-version 2.0."
-                        ),
-                        "placeholder_url": video_url,
-                    }
-                )
-                sys.exit(1)
-
-            fallback_model = choose_model(
-                argparse.Namespace(
-                    **{
-                        **vars(args),
-                        "seedance_version": args.fallback_version,
-                        "model": "",
-                    }
-                )
-            )
-            log(
-                f"[fal-seedance] falling back to {fallback_model}. "
-                "Pass --no-fallback to fail instead."
-            )
-            model = fallback_model
-            result = fal_client.subscribe(
-                model,
-                arguments=payload,
-                with_logs=True,
-                client_timeout=args.client_timeout,
-            )
-            video_url = extract_video_url(result)
-            if is_placeholder_result(video_url):
-                raise RuntimeError(
-                    f"Fallback model {model} also returned a placeholder clip: {video_url}"
-                )
-        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-        local_path = (
-            OUTPUT_DIR
-            / f"fal_seedance{version_of(model)}_{args.mode}_{int(time.time())}.mp4"
-        )
-        urlretrieve(video_url, local_path)
-        elapsed = round(time.time() - started, 1)
-        emit(
-            {
-                "status": "succeeded",
-                "provider": "fal.ai",
-                "model": model,
-                "seedance_version": version_of(model),
-                "requested_version": args.seedance_version,
-                "fell_back": version_of(model) != args.seedance_version,
-                "mode": args.mode,
-                "output_url": video_url,
-                "local_path": str(local_path.relative_to(REPO_ROOT))
-                if local_path.is_relative_to(REPO_ROOT)
-                else str(local_path),
-                "seed": result.get("seed"),
-                "duration_s": args.duration,
-                "resolution": args.resolution,
-                "aspect_ratio": args.aspect_ratio,
-                "generate_audio": args.generate_audio,
-                "elapsed_s": elapsed,
-            }
-        )
-    except Exception as exc:  # noqa: BLE001
-        detail = error_detail(exc)
-        response_text = str(detail.get("response_text") or "")
-        if "Exhausted balance" in response_text:
-            detail["action"] = "Top up the fal.ai account balance, then retry."
-        emit(
-            {
-                "status": "failed",
-                "provider": "fal.ai",
-                "model": model,
-                "error": detail["message"],
-                "error_detail": detail,
-            }
-        )
-        sys.exit(1)
+    raise RuntimeError(
+        "DIRECT PROVIDER EXECUTION BLOCKED: Direct Fal/Seedance provider execution via legacy fal_seedance_video.py is prohibited. "
+        "Use canonical S27 video capability adapters and ModelRouter."
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -492,9 +368,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    load_dotenv_files()
-    args = build_parser().parse_args()
-    args.func(args)
+    raise RuntimeError(
+        "DIRECT PROVIDER BYPASS BLOCKED: Direct CLI execution of fal_seedance_video.py is prohibited. "
+        "Route all video requests via canonical S27 capabilities and ModelRouter."
+    )
 
 
 if __name__ == "__main__":

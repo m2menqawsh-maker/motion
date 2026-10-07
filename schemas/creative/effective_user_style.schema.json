@@ -1,0 +1,293 @@
+{
+  "$defs": {
+    "StyleDecisionTrace": {
+      "additionalProperties": false,
+      "description": "Auditable trace record for a single style dimension resolution.\nDocuments what was considered, what won, whether an override occurred, and why.",
+      "properties": {
+        "applied_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Effective style value chosen",
+          "title": "Applied Value"
+        },
+        "considered_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence of considered preference",
+          "title": "Considered Confidence"
+        },
+        "considered_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance or status of considered preference",
+          "title": "Considered Source"
+        },
+        "considered_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Stored preference value considered",
+          "title": "Considered Value"
+        },
+        "dimension": {
+          "description": "Style dimension evaluated",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "is_overridden": {
+          "default": false,
+          "description": "True if a higher-priority source overrode stored preference",
+          "title": "Is Overridden",
+          "type": "boolean"
+        },
+        "override_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Auditable reason for override",
+          "title": "Override Reason"
+        },
+        "winning_source": {
+          "$ref": "#/$defs/WinningSource",
+          "description": "Precedence tier that dictated the applied value"
+        }
+      },
+      "required": [
+        "dimension",
+        "winning_source"
+      ],
+      "title": "StyleDecisionTrace",
+      "type": "object"
+    },
+    "WinningSource": {
+      "description": "Authority rank determining the winning creative direction.",
+      "enum": [
+        "CURRENT_REQUEST",
+        "BRAND_CONSTRAINT",
+        "CONFIRMED_USER_PREFERENCE",
+        "INFERRED_PREFERENCE",
+        "GLOBAL_DEFAULT"
+      ],
+      "title": "WinningSource",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Compact, structured context delivered to CreativePlanner containing only\npreferences relevant to the current request with full provenance and trace records.\nNever dumps raw unorganized memory history into model context.",
+  "properties": {
+    "caption_style": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective caption style",
+      "title": "Caption Style"
+    },
+    "disliked_patterns": {
+      "description": "Forbidden or disliked stylistic patterns",
+      "items": {
+        "type": "string"
+      },
+      "title": "Disliked Patterns",
+      "type": "array"
+    },
+    "motion_intensity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective motion intensity",
+      "title": "Motion Intensity"
+    },
+    "motion_personality": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective motion personality",
+      "title": "Motion Personality"
+    },
+    "music_preference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective music direction",
+      "title": "Music Preference"
+    },
+    "pacing": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective pacing profile",
+      "title": "Pacing"
+    },
+    "preferred_color_palette": {
+      "description": "Favored brand hexadecimal color codes",
+      "items": {
+        "type": "string"
+      },
+      "title": "Preferred Color Palette",
+      "type": "array"
+    },
+    "preferred_voices": {
+      "description": "Favored voice profile IDs",
+      "items": {
+        "type": "string"
+      },
+      "title": "Preferred Voices",
+      "type": "array"
+    },
+    "profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Underlying profile identifier if resolved from stored profile",
+      "title": "Profile Id"
+    },
+    "resolved_at": {
+      "description": "UTC timestamp when effective style was resolved",
+      "format": "date-time",
+      "title": "Resolved At",
+      "type": "string"
+    },
+    "text_density": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective text density",
+      "title": "Text Density"
+    },
+    "trace_records": {
+      "description": "Auditable precedence decision traces per dimension",
+      "items": {
+        "$ref": "#/$defs/StyleDecisionTrace"
+      },
+      "title": "Trace Records",
+      "type": "array"
+    },
+    "transition_style": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective transition style",
+      "title": "Transition Style"
+    },
+    "user_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Authoritative user boundary",
+      "title": "User Id"
+    },
+    "visual_complexity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective visual complexity",
+      "title": "Visual Complexity"
+    },
+    "workspace_id": {
+      "description": "Authoritative workspace boundary",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "workspace_id",
+    "resolved_at"
+  ],
+  "title": "EffectiveUserStyle",
+  "type": "object"
+}

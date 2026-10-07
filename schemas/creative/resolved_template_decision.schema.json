@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "External/trusted template decision input for BlueprintCompiler (S28-05).",
+  "properties": {
+    "scene_id": {
+      "description": "Target scene identifier",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "template_id": {
+      "description": "Canonical template ID from template catalog",
+      "title": "Template Id",
+      "type": "string"
+    },
+    "template_props": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Resolved template properties",
+      "title": "Template Props",
+      "type": "object"
+    }
+  },
+  "required": [
+    "scene_id",
+    "template_id"
+  ],
+  "title": "ResolvedTemplateDecision",
+  "type": "object"
+}

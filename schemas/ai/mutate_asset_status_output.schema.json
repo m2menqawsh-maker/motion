@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for asset status mutation.",
+  "properties": {
+    "asset_id": {
+      "description": "Target asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "current_status": {
+      "description": "Current status after mutation",
+      "title": "Current Status",
+      "type": "string"
+    },
+    "manifest_updated": {
+      "default": true,
+      "description": "Whether 02_asset_manifest.json was updated",
+      "title": "Manifest Updated",
+      "type": "boolean"
+    },
+    "previous_status": {
+      "description": "Previous status before mutation",
+      "title": "Previous Status",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "previous_status",
+    "current_status"
+  ],
+  "title": "MutateAssetStatusOutput",
+  "type": "object"
+}

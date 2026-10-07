@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for visual background removal.",
+  "properties": {
+    "content_hash": {
+      "description": "SHA-256 hash of input image",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "image_storage_key": {
+      "description": "Abstract StorageService key for input image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "output_format": {
+      "default": "png",
+      "description": "Output format preserving alpha (e.g. 'png', 'webp')",
+      "title": "Output Format",
+      "type": "string"
+    }
+  },
+  "required": [
+    "image_storage_key",
+    "content_hash"
+  ],
+  "title": "BackgroundRemovalRequest",
+  "type": "object"
+}

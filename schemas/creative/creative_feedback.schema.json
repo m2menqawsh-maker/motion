@@ -1,0 +1,355 @@
+{
+  "$defs": {
+    "FeedbackCategory": {
+      "description": "Categorical classification of user feedback.",
+      "enum": [
+        "PACING",
+        "MOTION",
+        "MUSIC",
+        "CAPTION",
+        "VISUAL",
+        "TRANSITION",
+        "VOICE",
+        "GENERAL"
+      ],
+      "title": "FeedbackCategory",
+      "type": "string"
+    },
+    "FeedbackClassification": {
+      "additionalProperties": false,
+      "description": "Structured domain classification of a user critique or feedback event.\nProvides verified signals for memory policy evaluation without mutating core state.",
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/FeedbackCategory",
+          "description": "Creative category (PACING, MOTION, MUSIC, etc.)"
+        },
+        "classification_id": {
+          "description": "Unique classification identifier",
+          "title": "Classification Id",
+          "type": "string"
+        },
+        "confidence": {
+          "description": "Domain-controlled confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "created_at": {
+          "description": "UTC timestamp of classification",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "feedback_id": {
+          "description": "Associated feedback event identifier",
+          "title": "Feedback Id",
+          "type": "string"
+        },
+        "is_explicit_general_rule": {
+          "default": false,
+          "description": "True if user explicitly stated a general rule",
+          "title": "Is Explicit General Rule",
+          "type": "boolean"
+        },
+        "preference_dimension": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific style dimension (e.g., 'pacing', 'motion_intensity')",
+          "title": "Preference Dimension"
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated project identifier if scoped",
+          "title": "Project Id"
+        },
+        "proposed_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Extracted preference value (e.g., 'fast', 'calm', 'low')",
+          "title": "Proposed Value"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope",
+          "description": "Recommended memory boundary scope (USER, PROJECT, etc.)"
+        },
+        "sentiment": {
+          "$ref": "#/$defs/FeedbackSentiment",
+          "description": "Sentiment polarity"
+        },
+        "source": {
+          "$ref": "#/$defs/SourceType",
+          "description": "Provenance source type"
+        },
+        "target_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Target entity ID such as scene_id or template_id",
+          "title": "Target Reference"
+        },
+        "target_type": {
+          "$ref": "#/$defs/FeedbackTargetType",
+          "description": "Scope target of feedback (e.g. SCENE, PROJECT, GENERAL_STYLE)"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Authoritative user identifier",
+          "title": "User Id"
+        },
+        "workspace_id": {
+          "description": "Authoritative workspace boundary",
+          "title": "Workspace Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "classification_id",
+        "feedback_id",
+        "workspace_id",
+        "target_type",
+        "category",
+        "sentiment",
+        "scope",
+        "confidence",
+        "source",
+        "created_at"
+      ],
+      "title": "FeedbackClassification",
+      "type": "object"
+    },
+    "FeedbackSentiment": {
+      "description": "Sentiment direction of creative feedback.",
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "NEUTRAL",
+        "CONSTRUCTIVE"
+      ],
+      "title": "FeedbackSentiment",
+      "type": "string"
+    },
+    "FeedbackTargetType": {
+      "description": "Target entity or level of abstraction targeted by feedback.",
+      "enum": [
+        "SCENE",
+        "PROJECT",
+        "TEMPLATE",
+        "VIDEO_TYPE",
+        "GENERAL_STYLE"
+      ],
+      "title": "FeedbackTargetType",
+      "type": "string"
+    },
+    "MemoryScope": {
+      "description": "Authoritative boundary scopes for memory accessibility.\n\nGLOBAL is strictly restricted to system-controlled safe shared knowledge.\nUser-generated or private tenant memory is forbidden in GLOBAL scope.",
+      "enum": [
+        "GLOBAL",
+        "WORKSPACE",
+        "USER",
+        "PROJECT",
+        "SESSION"
+      ],
+      "title": "MemoryScope",
+      "type": "string"
+    },
+    "SourceType": {
+      "description": "Provenance origin of the memory record.",
+      "enum": [
+        "USER_STATEMENT",
+        "CONVERSATION_SUMMARY",
+        "PROJECT_FACT",
+        "HUMAN_CONFIRMATION",
+        "AI_INFERENCE",
+        "MEDIA_ANALYSIS",
+        "DECISION",
+        "SYSTEM_IMPORT"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured user feedback on a creative plan, storyboard, or rendered preview.\nProvides signal for aesthetic refinement without mutating core state.",
+  "properties": {
+    "classification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackClassification"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured classification of this feedback"
+    },
+    "created_at": {
+      "description": "UTC timestamp of feedback entry",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "critique_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Freeform qualitative feedback",
+      "title": "Critique Text"
+    },
+    "disliked_aspects": {
+      "description": "Aspects criticized (e.g., ['pacing_too_fast'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Disliked Aspects",
+      "type": "array"
+    },
+    "feedback_id": {
+      "description": "Unique feedback event identifier",
+      "title": "Feedback Id",
+      "type": "string"
+    },
+    "liked_aspects": {
+      "description": "Aspects praised (e.g., ['typography', 'rhythm'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Liked Aspects",
+      "type": "array"
+    },
+    "plan_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target CreativePlan identifier if applicable",
+      "title": "Plan Id"
+    },
+    "project_id": {
+      "description": "Associated project identifier",
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target entity ID",
+      "title": "Target Reference"
+    },
+    "target_type": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackTargetType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target entity type"
+    },
+    "user_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated user identifier",
+      "title": "User Id"
+    },
+    "user_rating": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "1 to 5 star satisfaction score",
+      "title": "User Rating"
+    },
+    "workspace_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated workspace identifier",
+      "title": "Workspace Id"
+    }
+  },
+  "required": [
+    "feedback_id",
+    "project_id",
+    "created_at"
+  ],
+  "title": "CreativeFeedback",
+  "type": "object"
+}

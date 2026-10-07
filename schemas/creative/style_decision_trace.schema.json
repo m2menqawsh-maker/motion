@@ -1,0 +1,108 @@
+{
+  "$defs": {
+    "WinningSource": {
+      "description": "Authority rank determining the winning creative direction.",
+      "enum": [
+        "CURRENT_REQUEST",
+        "BRAND_CONSTRAINT",
+        "CONFIRMED_USER_PREFERENCE",
+        "INFERRED_PREFERENCE",
+        "GLOBAL_DEFAULT"
+      ],
+      "title": "WinningSource",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Auditable trace record for a single style dimension resolution.\nDocuments what was considered, what won, whether an override occurred, and why.",
+  "properties": {
+    "applied_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Effective style value chosen",
+      "title": "Applied Value"
+    },
+    "considered_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Confidence of considered preference",
+      "title": "Considered Confidence"
+    },
+    "considered_source": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Provenance or status of considered preference",
+      "title": "Considered Source"
+    },
+    "considered_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Stored preference value considered",
+      "title": "Considered Value"
+    },
+    "dimension": {
+      "description": "Style dimension evaluated",
+      "title": "Dimension",
+      "type": "string"
+    },
+    "is_overridden": {
+      "default": false,
+      "description": "True if a higher-priority source overrode stored preference",
+      "title": "Is Overridden",
+      "type": "boolean"
+    },
+    "override_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Auditable reason for override",
+      "title": "Override Reason"
+    },
+    "winning_source": {
+      "$ref": "#/$defs/WinningSource",
+      "description": "Precedence tier that dictated the applied value"
+    }
+  },
+  "required": [
+    "dimension",
+    "winning_source"
+  ],
+  "title": "StyleDecisionTrace",
+  "type": "object"
+}

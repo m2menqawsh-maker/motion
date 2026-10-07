@@ -18,8 +18,11 @@
   "include": [
     "contracts/**/*",
     "registry/**/*",
+    "preview/**/*",
     "scripts/**/*",
     "tests/**/*",
-    "templates/**/*"
+    "templates/**/*",
+    "remotion/**/*",
+    "remotion-app/src/**/*"
   ]
 }

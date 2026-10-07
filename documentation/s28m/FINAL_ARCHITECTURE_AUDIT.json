@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "metadata": {
+    "milestone": "S28-M11",
+    "title": "Final Architecture Layer & Boundary Audit",
+    "total_boundaries": 11,
+    "all_passed": true,
+    "critical_violations_count": 0,
+    "warnings_count": 0
+  },
+  "boundaries": [
+    {
+      "boundary_id": "BND-01-CREATIVE-INTELLIGENCE",
+      "name": "Creative Intelligence & Planner Authority",
+      "authority": "Creative proposal, intent formulation, narrative structure, recipe execution, and capability request generation",
+      "allowed_callers": [
+        "UserRequest",
+        "ProductAPI",
+        "AutonomousCreativePipeline"
+      ],
+      "allowed_dependencies": [
+        "ai.contracts",
+        "ai.routing.CapabilityRouter",
+        "TemplateRegistry",
+        "RecipeEngine"
+      ],
+      "forbidden_dependencies": [
+        "ai.mcp.* (Raw MCP Transport)",
+        "subprocess / os.system (Host Shell)",
+        "Direct FFmpeg command construction",
+        "Direct project filesystem writes"
+      ],
+      "verification_method": "Automated AST / Regex repository search & Architecture Guard test suite",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_01_no_raw_mcp_in_creative_planner",
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_04_no_arbitrary_shell_in_ai_subsystem",
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_05_no_ai_direct_ffmpeg_strings"
+      ]
+    },
+    {
+      "boundary_id": "BND-02-RECIPES-SKILLS",
+      "name": "Recipes and Skills Decoupling",
+      "authority": "Creative templates, skill workflows, and declarative capability requirements",
+      "allowed_callers": [
+        "CreativePlanner",
+        "AutonomousDirector"
+      ],
+      "allowed_dependencies": [
+        "ai.contracts.CapabilityRequest",
+        "ai.contracts.ModelRequirement"
+      ],
+      "forbidden_dependencies": [
+        "Hardcoded provider names as execution authority",
+        "Direct MCP transport sessions",
+        "Direct local filesystem absolute paths"
+      ],
+      "verification_method": "JSON Schema recipe validation & Skill source AST audit",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_02_recipes_have_no_provider_authority",
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_03_no_raw_mcp_transport_in_skills"
+      ]
+    },
+    {
+      "boundary_id": "BND-03-CAPABILITY-ROUTER",
+      "name": "Capability Routing & Classification Seam",
+      "authority": "Sole authoritative dispatch point mapping abstract CapabilityRequest into ModelRouter or ToolGateway",
+      "allowed_callers": [
+        "CreativePlanner",
+        "InternalAI",
+        "AutonomousWorkflowEngine"
+      ],
+      "allowed_dependencies": [
+        "ai.capabilities.catalog",
+        "ai.routing.ModelRouter",
+        "ai.tools.ToolGateway"
+      ],
+      "forbidden_dependencies": [
+        "Direct execution of provider API network calls",
+        "Direct execution of native tools bypassing ToolGateway or ModelRouter"
+      ],
+      "verification_method": "CapabilityRouter category dispatch and catalog completeness tests",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/routing/test_capability_router.py::TestCapabilityRouterResolution::test_all_capabilities_known_to_router",
+        "tests/ai/routing/test_capability_router.py::TestCapabilityRouterResolution::test_known_model_capability_routes_to_model_seam",
+        "tests/ai/routing/test_capability_router.py::TestCapabilityRouterResolution::test_known_tool_capability_routes_to_tool_gateway"
+      ]
+    },
+    {
+      "boundary_id": "BND-04-MODEL-ROUTER",
+      "name": "Model Subsystem & Local STT Boundary",
+      "authority": "Deterministic model candidate evaluation, scoring, fallback chains, and SPEECH_TO_TEXT local execution",
+      "allowed_callers": [
+        "CapabilityRouter (for MODEL category)"
+      ],
+      "allowed_dependencies": [
+        "LocalSTTProvider (faster-whisper)",
+        "STTCacheManager",
+        "StorageService"
+      ],
+      "forbidden_dependencies": [
+        "audio-tools-mcp (Architectural ownership eliminated in S28-M04)",
+        "Direct host filesystem path references in caller contracts"
+      ],
+      "verification_method": "STT canonical integration and ModelRouter boundary guards",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_10_speech_to_text_is_model_capability",
+        "tests/ai/speech/test_stt_canonical_integration.py::TestSTTCanonicalIntegration::test_full_pipeline_canonical_speech_to_text"
+      ]
+    },
+    {
+      "boundary_id": "BND-05-TOOL-GATEWAY",
+      "name": "ToolGateway & Authorization Policy Gate",
+      "authority": "Multi-tenant boundary enforcement, role-based authorization, rate limiting, and tool adapter dispatch",
+      "allowed_callers": [
+        "CapabilityRouter (for TOOL and DOMAIN_SERVICE categories)",
+        "MCPCompatibilityFacade"
+      ],
+      "allowed_dependencies": [
+        "TrustedToolExecutionContext",
+        "MediaProcessingAdapter",
+        "ImageProcessingAdapter",
+        "AssetAcquisitionAdapter",
+        "DomainServiceAdapter"
+      ],
+      "forbidden_dependencies": [
+        "Bypassing tenant or project access confinement",
+        "Executing unauthenticated or untrusted requests"
+      ],
+      "verification_method": "Multi-tenant adversarial tests and RBAC validation",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_11_tool_capabilities_routed_through_tool_gateway",
+        "tests/ai/security/test_s28_m10_security_campaign.py::TestSecurityHardeningAndBoundaries::test_cross_tenant_access_denied_fail_closed"
+      ]
+    },
+    {
+      "boundary_id": "BND-06-DOMAIN-SERVICES",
+      "name": "Canonical Domain Service Authority",
+      "authority": "Asset status management, media cache, job queue management, and manifest mutations",
+      "allowed_callers": [
+        "ToolGateway -> DomainServiceAdapter"
+      ],
+      "allowed_dependencies": [
+        "AssetService",
+        "StorageService",
+        "RunService"
+      ],
+      "forbidden_dependencies": [
+        "ai.mcp.* (Domain services must never depend on compatibility facades)",
+        "Arbitrary raw filesystem writes outside StorageService"
+      ],
+      "verification_method": "Boundary dependency audit and DomainServiceAdapter isolation tests",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_09_domain_services_do_not_depend_on_compatibility_mcp"
+      ]
+    },
+    {
+      "boundary_id": "BND-07-WORKER-ADAPTER",
+      "name": "Durable Worker & Staging Workspace",
+      "authority": "Heavy media processing execution, FFmpeg/PIL encapsulation, and disposable scratch management",
+      "allowed_callers": [
+        "ToolGateway"
+      ],
+      "allowed_dependencies": [
+        "StorageService",
+        "FFmpegAdapter",
+        "Pillow",
+        "WorkerLeaseManager"
+      ],
+      "forbidden_dependencies": [
+        "Retaining permanent state in temporary worker directories",
+        "Emitting unverified or unprobed output media"
+      ],
+      "verification_method": "Worker crash/cleanup simulation and scratch workspace inspection",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_durable_worker_disposable_scratch_and_storage_truth"
+      ]
+    },
+    {
+      "boundary_id": "BND-08-STORAGE-SERVICE",
+      "name": "Authoritative Heavy Object Storage",
+      "authority": "Canonical source of truth for assets, artifacts, transcripts, renders, and media cache",
+      "allowed_callers": [
+        "AssetService",
+        "DomainServices",
+        "WorkerAdapters"
+      ],
+      "allowed_dependencies": [
+        "LocalStorageBackend",
+        "S3CompatibleStorageBackend"
+      ],
+      "forbidden_dependencies": [
+        "Unbounded path traversal (e.g. '../..')",
+        "Arbitrary host filesystem access outside storage root"
+      ],
+      "verification_method": "Storage security guard and traversal rejection tests",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_08_no_mcp_direct_cross_tenant_storage"
+      ]
+    },
+    {
+      "boundary_id": "BND-09-MCP-COMPATIBILITY",
+      "name": "External MCP Compatibility Facade",
+      "authority": "Translates legacy MCP protocol requests from external IDE/editor clients to canonical ToolGateway requests",
+      "allowed_callers": [
+        "External IDE Clients (Cursor, Claude Desktop, Antigravity)"
+      ],
+      "allowed_dependencies": [
+        "ToolGateway",
+        "MCPCompatibilityFacade"
+      ],
+      "forbidden_dependencies": [
+        "Direct canonical state ownership",
+        "Bypassing ToolGateway authorization and tenant boundaries",
+        "Internal AI caller dependencies on MCP facade"
+      ],
+      "verification_method": "Dual-path parity tests and MCP offline independence tests",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_06_mcp_compatibility_and_core_parity_proof",
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_07_mcp_offline_independence"
+      ]
+    },
+    {
+      "boundary_id": "BND-10-LIFECYCLE-REGISTRY",
+      "name": "Canonical Lifecycle & Registry Inviolability",
+      "authority": "Sole authority for project state transitions and capability catalog registration",
+      "allowed_callers": [
+        "ProjectLifecycleService",
+        "ApplicationBootstrapper"
+      ],
+      "allowed_dependencies": [
+        "CanonicalDatabase",
+        "CoreManifest"
+      ],
+      "forbidden_dependencies": [
+        "Direct mutation from external MCP tools",
+        "Direct mutation from internal AI reasoning components"
+      ],
+      "verification_method": "Lifecycle and registry mutation rejection guards",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_06_no_lifecycle_mutation_in_mcp_or_ai",
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_07_no_canonical_registry_mutation_in_mcp_or_ai"
+      ]
+    },
+    {
+      "boundary_id": "BND-11-PIPELINE-RENDER-QC",
+      "name": "Rendering & Quality Control (QC) Authority",
+      "authority": "Rendering orchestration, technical probing, AV sync analysis, black frame detection, and final acceptance gate",
+      "allowed_callers": [
+        "PipelineService",
+        "CoreRunner"
+      ],
+      "allowed_dependencies": [
+        "RemotionRenderer",
+        "FFprobe",
+        "FinalQCValidator"
+      ],
+      "forbidden_dependencies": [
+        "Bypassing final QC checks",
+        "Publishing artifacts marked failed by QC"
+      ],
+      "verification_method": "Final QC gate tests and remediation acceptance proof",
+      "violations_found": [],
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/audit/test_s28_m11_final_architecture_audit.py::TestS28M11ArchitectureAudit::test_guard_13_qc_authority_inviolability",
+        "tests/remediation/reproductions/test_s19_remediation_proof.py"
+      ]
+    }
+  ]
+}

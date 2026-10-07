@@ -1,0 +1,755 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "BoundingBox": {
+      "additionalProperties": false,
+      "description": "Normalized spatial 2D bounding box [0.0, 1.0].",
+      "properties": {
+        "height": {
+          "description": "Normalized box height",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Height",
+          "type": "number"
+        },
+        "width": {
+          "description": "Normalized box width",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Width",
+          "type": "number"
+        },
+        "x": {
+          "description": "Normalized horizontal top-left origin",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Normalized vertical top-left origin",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "title": "BoundingBox",
+      "type": "object"
+    },
+    "Keyframe": {
+      "additionalProperties": false,
+      "description": "Representative extracted keyframe linked deterministically to a shot or time interval.",
+      "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "SHA-256 hash of keyframe image bytes",
+          "title": "Content Hash"
+        },
+        "frame_index": {
+          "description": "0-indexed absolute frame number",
+          "minimum": 0,
+          "title": "Frame Index",
+          "type": "integer"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pixel height of keyframe",
+          "title": "Height"
+        },
+        "is_representative": {
+          "default": true,
+          "description": "Whether this frame is primary representative for shot",
+          "title": "Is Representative",
+          "type": "boolean"
+        },
+        "keyframe_id": {
+          "description": "Unique keyframe record identifier",
+          "minLength": 1,
+          "title": "Keyframe Id",
+          "type": "string"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "resolution_tier": {
+          "default": "MEDIUM",
+          "description": "Extraction resolution tier (LOW, MEDIUM, HIGH)",
+          "title": "Resolution Tier",
+          "type": "string"
+        },
+        "shot_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated shot identifier",
+          "title": "Shot Id"
+        },
+        "storage_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Abstract StorageService key for keyframe image",
+          "title": "Storage Key"
+        },
+        "timestamp": {
+          "description": "Timestamp of keyframe within the video",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pixel width of keyframe",
+          "title": "Width"
+        }
+      },
+      "required": [
+        "keyframe_id",
+        "timestamp",
+        "frame_index"
+      ],
+      "title": "Keyframe",
+      "type": "object"
+    },
+    "VideoShot": {
+      "additionalProperties": false,
+      "description": "Canonical video shot segment identified via deterministic/native detection or AI refinement.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detection confidence",
+          "title": "Confidence"
+        },
+        "duration": {
+          "description": "Shot duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration",
+          "type": "number"
+        },
+        "end": {
+          "description": "Shot end timestamp in seconds relative to video start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "keyframe_indices": {
+          "description": "Frame indices associated with this shot",
+          "items": {
+            "type": "integer"
+          },
+          "title": "Keyframe Indices",
+          "type": "array"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detailed provenance audit"
+        },
+        "shot_id": {
+          "description": "Unique identifier for the shot",
+          "minLength": 1,
+          "title": "Shot Id",
+          "type": "string"
+        },
+        "source": {
+          "default": "native_algorithm",
+          "description": "Algorithm or source (native_algorithm, ffmpeg, ai)",
+          "title": "Source",
+          "type": "string"
+        },
+        "start": {
+          "description": "Shot start timestamp in seconds relative to video start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "transition_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "hard_cut",
+          "description": "Transition boundary type (hard_cut, dissolve, fade)",
+          "title": "Transition Type"
+        }
+      },
+      "required": [
+        "shot_id",
+        "start",
+        "end",
+        "duration"
+      ],
+      "title": "VideoShot",
+      "type": "object"
+    },
+    "VisualOCRObservation": {
+      "additionalProperties": false,
+      "description": "Optical Character Recognition observation supporting Arabic, English, and UI/screen text.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding coordinates"
+        },
+        "confidence": {
+          "description": "OCR detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated keyframe identifier or reference",
+          "title": "Frame Ref"
+        },
+        "is_ui_screen": {
+          "default": false,
+          "description": "Whether text was detected in UI / screen demo context",
+          "title": "Is Ui Screen",
+          "type": "boolean"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected text language (e.g. 'ar', 'en')",
+          "title": "Language"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking OCR engine source"
+        },
+        "text": {
+          "description": "Detected verbatim text content",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds where text appeared",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualOCRObservation",
+      "type": "object"
+    },
+    "VisualObjectObservation": {
+      "additionalProperties": false,
+      "description": "Spatial object detection observation with bounded confidence and coordinates.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding box"
+        },
+        "confidence": {
+          "description": "Detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Keyframe identifier",
+          "title": "Frame Ref"
+        },
+        "label": {
+          "description": "Identified object class label",
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking detection model source"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualObjectObservation",
+      "type": "object"
+    },
+    "VisualObservation": {
+      "additionalProperties": false,
+      "description": "Important visual event or narrative observation extracted from video stream.",
+      "properties": {
+        "category": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Semantic category (e.g. 'talking_head', 'screen_demo')",
+          "title": "Category"
+        },
+        "end": {
+          "description": "End timestamp",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "importance_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Salience/importance score",
+          "title": "Importance Score"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking observation source"
+        },
+        "start": {
+          "description": "Start timestamp",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "summary": {
+          "description": "Concise textual summary of visual observation",
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary",
+        "start",
+        "end",
+        "provenance"
+      ],
+      "title": "VisualObservation",
+      "type": "object"
+    },
+    "VisualPersonObservation": {
+      "additionalProperties": false,
+      "description": "Human subject detection and tracking observation. Uses neutral person identifiers.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding coordinates"
+        },
+        "confidence": {
+          "description": "Detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Keyframe identifier",
+          "title": "Frame Ref"
+        },
+        "person_id": {
+          "description": "Neutral identifier (e.g. 'PERSON_00')",
+          "minLength": 1,
+          "title": "Person Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking person detector source"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "person_id",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualPersonObservation",
+      "type": "object"
+    },
+    "VisualSceneClassification": {
+      "additionalProperties": false,
+      "description": "Semantic scene classification (e.g. studio, b-roll, screen-recording, urban, indoor).",
+      "properties": {
+        "confidence": {
+          "description": "Classification confidence",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "end": {
+          "description": "End timestamp of classified scene",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "label": {
+          "description": "Scene category label",
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking classification source"
+        },
+        "resolution_tier": {
+          "default": "LOW",
+          "description": "Analysis resolution tier utilized",
+          "title": "Resolution Tier",
+          "type": "string"
+        },
+        "start": {
+          "description": "Start timestamp of classified scene",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "start",
+        "end",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualSceneClassification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical Visual Intelligence & Video Understanding contract.\nUnifies shots, keyframes, OCR, objects, people, and scene classifications.",
+  "properties": {
+    "has_visual_analysis": {
+      "default": false,
+      "description": "Whether visual analysis has been executed",
+      "title": "Has Visual Analysis",
+      "type": "boolean"
+    },
+    "keyframes": {
+      "description": "Extracted representative keyframes",
+      "items": {
+        "$ref": "#/$defs/Keyframe"
+      },
+      "title": "Keyframes",
+      "type": "array"
+    },
+    "objects": {
+      "description": "Detected visual objects",
+      "items": {
+        "$ref": "#/$defs/VisualObjectObservation"
+      },
+      "title": "Objects",
+      "type": "array"
+    },
+    "observations": {
+      "description": "Important visual observations",
+      "items": {
+        "$ref": "#/$defs/VisualObservation"
+      },
+      "title": "Observations",
+      "type": "array"
+    },
+    "ocr": {
+      "description": "Extracted OCR text observations",
+      "items": {
+        "$ref": "#/$defs/VisualOCRObservation"
+      },
+      "title": "Ocr",
+      "type": "array"
+    },
+    "people": {
+      "description": "Detected human subjects",
+      "items": {
+        "$ref": "#/$defs/VisualPersonObservation"
+      },
+      "title": "People",
+      "type": "array"
+    },
+    "provenance": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalysisProvenance"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Overall visual analysis provenance"
+    },
+    "scene_classifications": {
+      "description": "Scene categories",
+      "items": {
+        "$ref": "#/$defs/VisualSceneClassification"
+      },
+      "title": "Scene Classifications",
+      "type": "array"
+    },
+    "shots": {
+      "description": "Chronological detected video shots",
+      "items": {
+        "$ref": "#/$defs/VideoShot"
+      },
+      "title": "Shots",
+      "type": "array"
+    },
+    "status": {
+      "default": "TYPED_FOUNDATION_AI13",
+      "description": "Subsystem readiness state",
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "title": "VisualIntelligence",
+  "type": "object"
+}

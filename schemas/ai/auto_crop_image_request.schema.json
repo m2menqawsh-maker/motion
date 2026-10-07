@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for auto-detecting and stripping solid/transparent borders.",
+  "properties": {
+    "background_color": {
+      "default": "auto",
+      "description": "Background mode: auto, transparent, white, black",
+      "title": "Background Color",
+      "type": "string"
+    },
+    "background_threshold": {
+      "default": 10,
+      "description": "Color difference tolerance (0-255)",
+      "maximum": 255,
+      "minimum": 0,
+      "title": "Background Threshold",
+      "type": "integer"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "output_format": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional target format",
+      "title": "Output Format"
+    },
+    "padding_ratio": {
+      "default": 0.0,
+      "description": "Safety padding ratio around detected content",
+      "maximum": 0.5,
+      "minimum": 0.0,
+      "title": "Padding Ratio",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 95,
+      "description": "Compression quality (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "AutoCropImageRequest",
+  "type": "object"
+}

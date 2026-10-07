@@ -1,0 +1,241 @@
+{
+  "dataset_version": "1.0.0",
+  "domain": "S28 Creative Intent Understanding Benchmark",
+  "cases": [
+    {
+      "case_id": "ar_saas_music_acceptance",
+      "user_request": "بدي ريل سريع لمنتج SaaS بدون تعليق صوتي بس موسيقى وستايل clean.",
+      "language": "AR",
+      "category": "detailed",
+      "expected_intent": "SAAS_DEMO",
+      "expected_audio_mode": "MUSIC_ONLY",
+      "expected_pace": "FAST",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "style": "EXPLICIT",
+        "duration": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_saas_demo_short",
+      "user_request": "Quick 30s SaaS product demo reel with energetic music and fast cuts",
+      "language": "EN",
+      "category": "short",
+      "expected_intent": "SAAS_DEMO",
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "FAST",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "duration": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "style": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "ar_avatar_explainer",
+      "user_request": "فيديو توضيحي يشرح ميزة الذكاء الاصطناعي بواسطة شخصية افتراضية مع تعليق صوتي فقط ومود هادئ",
+      "language": "AR",
+      "category": "detailed",
+      "expected_intent": "AVATAR_EXPLAINER",
+      "expected_audio_mode": "VO_ONLY",
+      "expected_pace": "SLOW",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "style": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "mixed_montage_reel",
+      "user_request": "عمل montage ad سريع للـ product مع BGM only وألوان #FF5733 و#1E3A8A",
+      "language": "MIXED",
+      "category": "detailed",
+      "expected_intent": "DYNAMIC_MONTAGE",
+      "expected_audio_mode": "MUSIC_ONLY",
+      "expected_pace": "FAST",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "brand_colors": "EXPLICIT"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_silent_motion_graphics",
+      "user_request": "Silent motion graphics animation for store display billboard, 15 seconds clean minimal",
+      "language": "EN",
+      "category": "detailed",
+      "expected_intent": "MOTION_GRAPHICS",
+      "expected_audio_mode": "SILENT",
+      "expected_pace": "MODERATE",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT",
+        "duration": "EXPLICIT",
+        "style": "EXPLICIT"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "ar_talking_head_interview",
+      "user_request": "ريلز لحديث الكاميرا مع مؤسس الشركة مع الحفاظ على الصوت المسجل الأصلي وكابشن واضح",
+      "language": "AR",
+      "category": "detailed",
+      "expected_intent": "TALKING_HEAD",
+      "expected_audio_mode": "SOURCE_AUDIO",
+      "expected_pace": "MODERATE",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT",
+        "duration": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_source_audio_music",
+      "user_request": "Talking head podcast clip keeping the original audio with music in the background",
+      "language": "EN",
+      "category": "detailed",
+      "expected_intent": "TALKING_HEAD",
+      "expected_audio_mode": "SOURCE_AUDIO_MUSIC",
+      "expected_pace": "MODERATE",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "audio_mode": "EXPLICIT"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "ar_vague_request",
+      "user_request": "بدي فيديو تسويقي ممتاز للشركة",
+      "language": "AR",
+      "category": "vague",
+      "expected_intent": null,
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "MODERATE",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "UNKNOWN",
+        "audio_mode": "DEFAULTED",
+        "duration": "DEFAULTED",
+        "pace": "DEFAULTED",
+        "style": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_vague_request",
+      "user_request": "make a cool video for our brand",
+      "language": "EN",
+      "category": "vague",
+      "expected_intent": null,
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "MODERATE",
+      "expected_style": "CLEAN",
+      "expected_provenance_types": {
+        "video_type": "UNKNOWN",
+        "audio_mode": "DEFAULTED",
+        "duration": "DEFAULTED",
+        "pace": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "ar_short_request",
+      "user_request": "ريل سريع",
+      "language": "AR",
+      "category": "short",
+      "expected_intent": "DYNAMIC_MONTAGE",
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "FAST",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "audio_mode": "DEFAULTED",
+        "duration": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_short_request",
+      "user_request": "Fast montage reel",
+      "language": "EN",
+      "category": "short",
+      "expected_intent": "DYNAMIC_MONTAGE",
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "FAST",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "audio_mode": "DEFAULTED"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "ar_contradiction_silent_vo",
+      "user_request": "فيديو صامت بدون صوت نهائياً واعمل فيه تعليق صوتي احترافي",
+      "language": "AR",
+      "category": "contradictory",
+      "has_contradiction": true
+    },
+    {
+      "case_id": "en_contradiction_silent_vo",
+      "user_request": "Silent video without any audio, but add dynamic voiceover narration",
+      "language": "EN",
+      "category": "contradictory",
+      "has_contradiction": true
+    },
+    {
+      "case_id": "ar_contradiction_music_nomusic",
+      "user_request": "ريلز بدون موسيقى إطلاقاً بس حط موسيقى حماسية بالخلفية",
+      "language": "AR",
+      "category": "contradictory",
+      "has_contradiction": true
+    },
+    {
+      "case_id": "mixed_article_sprint",
+      "user_request": "تحويل مقال تقني إلى article sprint reel سريع 30s",
+      "language": "MIXED",
+      "category": "detailed",
+      "expected_intent": "ARTICLE_SPRINT",
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "FAST",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "duration": "EXPLICIT"
+      },
+      "has_contradiction": false
+    },
+    {
+      "case_id": "en_cinematic_explainer",
+      "user_request": "A cinematic explainer video for fintech infrastructure, slow pace and elegant styling",
+      "language": "EN",
+      "category": "detailed",
+      "expected_intent": "EXPLAINER",
+      "expected_audio_mode": "VO_MUSIC",
+      "expected_pace": "SLOW",
+      "expected_style": "CINEMATIC",
+      "expected_provenance_types": {
+        "video_type": "EXPLICIT",
+        "pace": "EXPLICIT",
+        "style": "EXPLICIT"
+      },
+      "has_contradiction": false
+    }
+  ]
+}

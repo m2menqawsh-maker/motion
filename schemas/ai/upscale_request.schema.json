@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for visual super-resolution / upscaling.",
+  "properties": {
+    "content_hash": {
+      "description": "SHA-256 hash of input media",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "media_storage_key": {
+      "description": "Abstract StorageService key for input media",
+      "minLength": 1,
+      "title": "Media Storage Key",
+      "type": "string"
+    },
+    "scale_factor": {
+      "default": 2.0,
+      "description": "Spatial scaling factor",
+      "maximum": 8.0,
+      "minimum": 1.0,
+      "title": "Scale Factor",
+      "type": "number"
+    },
+    "target_height": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional target height constraint",
+      "title": "Target Height"
+    },
+    "target_width": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional target width constraint",
+      "title": "Target Width"
+    }
+  },
+  "required": [
+    "media_storage_key",
+    "content_hash"
+  ],
+  "title": "UpscaleRequest",
+  "type": "object"
+}

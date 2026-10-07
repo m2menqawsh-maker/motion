@@ -65,6 +65,29 @@ class HealthSnapshot:
     avg_run_duration_ms: int = 0
     avg_render_duration_ms: int = 0
     
+    # S28-R14 Section 17 Production Telemetry & Observability
+    authoring_latencies_ms: List[int] = field(default_factory=list)
+    mutation_conflicts: int = 0
+    idempotency_hits: int = 0
+    idempotency_conflicts: int = 0
+    preview_proxy_queue_latencies_ms: List[int] = field(default_factory=list)
+    preview_proxy_render_latencies_ms: List[int] = field(default_factory=list)
+    preview_cache_hits: int = 0
+    preview_cache_misses: int = 0
+    render_queue_latencies_ms: List[int] = field(default_factory=list)
+    render_durations_ms: List[int] = field(default_factory=list)
+    renderer_durations_by_renderer: Dict[str, List[int]] = field(default_factory=dict)
+    renderer_errors_by_class: Dict[str, int] = field(default_factory=dict)
+    renderer_timeouts: int = 0
+    render_graph_node_counts: List[int] = field(default_factory=list)
+    cancellations_total: int = 0
+    composition_durations_ms: List[int] = field(default_factory=list)
+    qc_durations_ms: List[int] = field(default_factory=list)
+    storage_failures: int = 0
+    worker_lease_losses: int = 0
+    budget_exceeded_total: int = 0
+    usage_events_total: int = 0
+
     components: Dict[str, ComponentMetrics] = field(default_factory=dict)
     
     @property
@@ -111,5 +134,26 @@ class HealthSnapshot:
             "corruption_types": list(self.corruption_types),
             "avg_run_duration_ms": self.avg_run_duration_ms,
             "avg_render_duration_ms": self.avg_render_duration_ms,
+            "authoring_latencies_ms": self.authoring_latencies_ms,
+            "mutation_conflicts": self.mutation_conflicts,
+            "idempotency_hits": self.idempotency_hits,
+            "idempotency_conflicts": self.idempotency_conflicts,
+            "preview_proxy_queue_latencies_ms": self.preview_proxy_queue_latencies_ms,
+            "preview_proxy_render_latencies_ms": self.preview_proxy_render_latencies_ms,
+            "preview_cache_hits": self.preview_cache_hits,
+            "preview_cache_misses": self.preview_cache_misses,
+            "render_queue_latencies_ms": self.render_queue_latencies_ms,
+            "render_durations_ms": self.render_durations_ms,
+            "renderer_durations_by_renderer": self.renderer_durations_by_renderer,
+            "renderer_errors_by_class": self.renderer_errors_by_class,
+            "renderer_timeouts": self.renderer_timeouts,
+            "render_graph_node_counts": self.render_graph_node_counts,
+            "cancellations_total": self.cancellations_total,
+            "composition_durations_ms": self.composition_durations_ms,
+            "qc_durations_ms": self.qc_durations_ms,
+            "storage_failures": self.storage_failures,
+            "worker_lease_losses": self.worker_lease_losses,
+            "budget_exceeded_total": self.budget_exceeded_total,
+            "usage_events_total": self.usage_events_total,
             "components": {k: v.to_dict() for k, v in self.components.items()}
         }

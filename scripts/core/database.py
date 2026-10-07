@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS _schema_migrations (
     version INTEGER PRIMARY KEY,
     applied_at TEXT NOT NULL
 );
-INSERT OR IGNORE INTO _schema_migrations (version, applied_at) VALUES (1, '2026-09-30T00:00:00Z');
+INSERT INTO _schema_migrations (version, applied_at) VALUES (1, '2026-09-30T00:00:00Z') ON CONFLICT (version) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -215,7 +215,79 @@ CREATE TABLE IF NOT EXISTS usage_events (
     FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_usage_events_ws ON usage_events(workspace_id, created_at);
+
+CREATE TABLE IF NOT EXISTS canonical_assets (
+    id TEXT PRIMARY KEY,
+    asset_id TEXT NOT NULL,
+    project_id TEXT NOT NULL,
+    workspace_id TEXT NOT NULL,
+    content_hash TEXT NOT NULL,
+    storage_key TEXT NOT NULL,
+    media_type TEXT NOT NULL,
+    mime_type TEXT NOT NULL,
+    file_size_bytes INTEGER NOT NULL,
+    provenance_json TEXT NOT NULL DEFAULT '{}',
+    created_at TEXT NOT NULL,
+    UNIQUE (project_id, content_hash)
+);
+CREATE INDEX IF NOT EXISTS idx_canonical_assets_lookup ON canonical_assets(project_id, content_hash);
+CREATE INDEX IF NOT EXISTS idx_canonical_assets_project_asset ON canonical_assets(project_id, asset_id);
+
+CREATE TABLE IF NOT EXISTS tool_idempotency_records (
+    idempotency_key TEXT PRIMARY KEY,
+    payload_hash TEXT NOT NULL,
+    status TEXT NOT NULL,
+    result_json TEXT,
+    error_json TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    lease_expires_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_tool_idempotency_status ON tool_idempotency_records(status);
+
+CREATE TABLE IF NOT EXISTS authoring_idempotency_records (
+    workspace_id TEXT NOT NULL,
+    project_id TEXT NOT NULL,
+    operation_id TEXT NOT NULL,
+    operation_type TEXT NOT NULL,
+    base_revision INTEGER NOT NULL,
+    payload_hash TEXT NOT NULL,
+    status TEXT NOT NULL,
+    result_revision INTEGER,
+    result_json TEXT,
+    error_json TEXT,
+    lease_expires_at TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    PRIMARY KEY (workspace_id, project_id, operation_id)
+);
+CREATE INDEX IF NOT EXISTS idx_authoring_idemp_lookup ON authoring_idempotency_records(workspace_id, project_id, operation_id);
 """
+
+
+class PostgresConnectionWrapper:
+    """Connection wrapper for PostgreSQL translating sqlite-style ? placeholders to %s."""
+
+    def __init__(self, raw_conn: Any) -> None:
+        self._conn = raw_conn
+
+    def execute(self, sql: str, params: Optional[Any] = None) -> Any:
+        pg_sql = sql.replace("?", "%s")
+        if params is not None:
+            return self._conn.execute(pg_sql, params)
+        return self._conn.execute(pg_sql)
+
+    def commit(self) -> None:
+        self._conn.commit()
+
+    def rollback(self) -> None:
+        self._conn.rollback()
+
+    def close(self) -> None:
+        self._conn.close()
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._conn, name)
 
 
 class DatabaseEngine:
@@ -252,10 +324,11 @@ class DatabaseEngine:
             # PostgreSQL connection via psycopg / psycopg2 if available
             try:
                 import psycopg
-                return psycopg.connect(self.db_url)
+                raw_conn = psycopg.connect(self.db_url)
             except ImportError:
                 import psycopg2
-                return psycopg2.connect(self.db_url)
+                raw_conn = psycopg2.connect(self.db_url)
+            return PostgresConnectionWrapper(raw_conn)
 
     @contextmanager
     def transaction(self, mode: str = "IMMEDIATE") -> Generator[Any, None, None]:
@@ -276,6 +349,36 @@ class DatabaseEngine:
     def _init_schema(self) -> None:
         """Executes DDL statements to ensure all multi-tenant tables exist."""
         with self.transaction("IMMEDIATE") as conn:
+            if self.is_sqlite:
+                cur = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='canonical_assets'")
+                if cur.fetchone():
+                    col_cur = conn.execute("PRAGMA table_info(canonical_assets)")
+                    cols = [r[1] for r in col_cur.fetchall()]
+                    if "id" not in cols:
+                        conn.execute("ALTER TABLE canonical_assets RENAME TO canonical_assets_old")
+                        conn.execute("""
+                            CREATE TABLE canonical_assets (
+                                id TEXT PRIMARY KEY,
+                                asset_id TEXT NOT NULL,
+                                project_id TEXT NOT NULL,
+                                workspace_id TEXT NOT NULL,
+                                content_hash TEXT NOT NULL,
+                                storage_key TEXT NOT NULL,
+                                media_type TEXT NOT NULL,
+                                mime_type TEXT NOT NULL,
+                                file_size_bytes INTEGER NOT NULL,
+                                provenance_json TEXT NOT NULL DEFAULT '{}',
+                                created_at TEXT NOT NULL,
+                                UNIQUE (project_id, content_hash)
+                            )
+                        """)
+                        conn.execute("""
+                            INSERT INTO canonical_assets (id, asset_id, project_id, workspace_id, content_hash, storage_key, media_type, mime_type, file_size_bytes, provenance_json, created_at)
+                            SELECT project_id || ':' || content_hash, asset_id, project_id, workspace_id, content_hash, storage_key, media_type, mime_type, file_size_bytes, provenance_json, created_at
+                            FROM canonical_assets_old
+                        """)
+                        conn.execute("DROP TABLE canonical_assets_old")
+
             for statement in SCHEMA_SQL.strip().split(";"):
                 stmt = statement.strip()
                 if stmt:

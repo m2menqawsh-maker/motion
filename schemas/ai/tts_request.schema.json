@@ -1,0 +1,73 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for neural text-to-speech synthesis.",
+  "properties": {
+    "format": {
+      "default": "wav",
+      "description": "Target audio format ('wav', 'mp3')",
+      "title": "Format",
+      "type": "string"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Spoken language code (e.g. 'ar', 'en')",
+      "title": "Language"
+    },
+    "pitch": {
+      "anyOf": [
+        {
+          "maximum": 20.0,
+          "minimum": -20.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": 0.0,
+      "description": "Semitone pitch offset",
+      "title": "Pitch"
+    },
+    "speed": {
+      "anyOf": [
+        {
+          "maximum": 4.0,
+          "minimum": 0.25,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": 1.0,
+      "description": "Pacing multiplier",
+      "title": "Speed"
+    },
+    "text": {
+      "description": "Verbatim text to synthesize",
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "voice_id": {
+      "description": "Target voice profile identifier",
+      "minLength": 1,
+      "title": "Voice Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "text",
+    "voice_id"
+  ],
+  "title": "TTSRequest",
+  "type": "object"
+}

@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for normalized audio (canonical S28-M07 alias).",
+  "properties": {
+    "duration_seconds": {
+      "description": "Final audio duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "file_size_bytes": {
+      "description": "Output file size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "measured_lufs": {
+      "description": "Measured integrated loudness after normalization",
+      "title": "Measured Lufs",
+      "type": "number"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for normalized audio",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_lufs": {
+      "description": "Requested target LUFS",
+      "title": "Target Lufs",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "target_lufs",
+    "measured_lufs",
+    "duration_seconds",
+    "file_size_bytes"
+  ],
+  "title": "NormalizeAudioOutput",
+  "type": "object"
+}

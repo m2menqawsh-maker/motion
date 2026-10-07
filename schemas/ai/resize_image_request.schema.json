@@ -1,0 +1,102 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for resizing or scaling an image.",
+  "properties": {
+    "fit_mode": {
+      "default": "contain",
+      "description": "Fit mode: contain, cover, stretch, exact",
+      "title": "Fit Mode",
+      "type": "string"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "maintain_aspect_ratio": {
+      "default": true,
+      "description": "Whether to preserve aspect ratio when one dimension provided",
+      "title": "Maintain Aspect Ratio",
+      "type": "boolean"
+    },
+    "output_format": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target format: png, jpeg, webp",
+      "title": "Output Format"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 95,
+      "description": "Compression quality (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "scale_factor": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0.0,
+          "maximum": 16.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional scaling multiplier",
+      "title": "Scale Factor"
+    },
+    "target_height": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target pixel height",
+      "title": "Target Height"
+    },
+    "target_width": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Target pixel width",
+      "title": "Target Width"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "ResizeImageRequest",
+  "type": "object"
+}

@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "A visual layer within a multi-layer composition hierarchy.",
+  "properties": {
+    "element_ref": {
+      "description": "Reference to template, asset, or primitive component",
+      "title": "Element Ref",
+      "type": "string"
+    },
+    "layer_type": {
+      "description": "Layer category: 'primary' (100%), 'secondary' (30-50%), or 'ambient' (10-20%)",
+      "title": "Layer Type",
+      "type": "string"
+    },
+    "properties": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Layer-specific motion and style props",
+      "title": "Properties",
+      "type": "object"
+    }
+  },
+  "required": [
+    "layer_type",
+    "element_ref"
+  ],
+  "title": "CompositionLayer",
+  "type": "object"
+}

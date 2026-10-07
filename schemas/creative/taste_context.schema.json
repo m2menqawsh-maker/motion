@@ -1,0 +1,928 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "CreativeBrief": {
+      "additionalProperties": false,
+      "description": "Canonical, structured creative brief representing the interpreted intent\nand boundary constraints derived from the user request.",
+      "properties": {
+        "brief_id": {
+          "description": "Unique brief identifier",
+          "title": "Brief Id",
+          "type": "string"
+        },
+        "constraints": {
+          "$ref": "#/$defs/CreativeConstraints",
+          "description": "Technical and stylistic boundary constraints"
+        },
+        "created_at": {
+          "description": "UTC timestamp of brief synthesis",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "detected_contradictions": {
+          "description": "Contradictions detected between user statements or constraints during parsing",
+          "items": {
+            "type": "string"
+          },
+          "title": "Detected Contradictions",
+          "type": "array"
+        },
+        "field_provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/FieldProvenance"
+          },
+          "description": "Per-field epistemic provenance mapping for key brief dimensions",
+          "title": "Field Provenance",
+          "type": "object"
+        },
+        "interpreted_intent": {
+          "$ref": "#/$defs/CreativeIntent",
+          "description": "Structured interpretation of the creative direction"
+        },
+        "project_id": {
+          "description": "Associated project identifier",
+          "title": "Project Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceRecord",
+          "description": "Provenance trace of brief interpretation"
+        },
+        "user_request_raw": {
+          "description": "Original, unmodified user request prompt",
+          "title": "User Request Raw",
+          "type": "string"
+        },
+        "version": {
+          "default": "1.0.0",
+          "description": "Contract version",
+          "title": "Version",
+          "type": "string"
+        },
+        "workspace_id": {
+          "description": "Owning workspace identifier",
+          "title": "Workspace Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "brief_id",
+        "project_id",
+        "workspace_id",
+        "user_request_raw",
+        "interpreted_intent",
+        "constraints",
+        "provenance",
+        "created_at"
+      ],
+      "title": "CreativeBrief",
+      "type": "object"
+    },
+    "CreativeConstraints": {
+      "additionalProperties": false,
+      "description": "Technical and stylistic boundaries for the creative generation.\nEnforces validation against contradictory constraints.",
+      "properties": {
+        "aspect_ratios": {
+          "description": "Permitted aspect ratios (e.g. ['9:16', '16:9'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Aspect Ratios",
+          "type": "array"
+        },
+        "audio_mode": {
+          "$ref": "#/$defs/AudioMode",
+          "default": "VO_MUSIC",
+          "description": "Audio mode governing the sound architecture"
+        },
+        "brand_colors": {
+          "description": "List of hexadecimal color codes (#RRGGBB)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Brand Colors",
+          "type": "array"
+        },
+        "excluded_templates": {
+          "description": "Template IDs explicitly forbidden from use",
+          "items": {
+            "type": "string"
+          },
+          "title": "Excluded Templates",
+          "type": "array"
+        },
+        "forbidden_words": {
+          "description": "Words or phrases strictly forbidden from scripts",
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Words",
+          "type": "array"
+        },
+        "max_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum duration limit in seconds",
+          "title": "Max Duration Seconds"
+        },
+        "min_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Minimum duration limit in seconds",
+          "title": "Min Duration Seconds"
+        },
+        "safe_zone_margin_px": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Margin in pixels for UI safe zones",
+          "title": "Safe Zone Margin Px"
+        },
+        "target_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ideal target duration in seconds",
+          "title": "Target Duration Seconds"
+        }
+      },
+      "title": "CreativeConstraints",
+      "type": "object"
+    },
+    "CreativeIntent": {
+      "additionalProperties": false,
+      "description": "High-level creative goal, audience, tone, and strategic intent.",
+      "properties": {
+        "audience": {
+          "description": "Target audience demographic or psychographic profile",
+          "title": "Audience",
+          "type": "string"
+        },
+        "call_to_action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explicit CTA text or action desired",
+          "title": "Call To Action"
+        },
+        "goal": {
+          "description": "Primary objective (e.g., product explainer, brand awareness, conversion ad)",
+          "title": "Goal",
+          "type": "string"
+        },
+        "intent_id": {
+          "description": "Unique identifier for this creative intent record",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "key_takeaway": {
+          "description": "Core concept or value proposition the viewer should retain",
+          "title": "Key Takeaway",
+          "type": "string"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Primary language of the video content (e.g., AR, EN)",
+          "title": "Language"
+        },
+        "pace": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pacing profile (e.g., FAST, MODERATE, DYNAMIC)",
+          "title": "Pace"
+        },
+        "style": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Creative style guideline (e.g., CLEAN, BOLD, MINIMAL)",
+          "title": "Style"
+        },
+        "target_platforms": {
+          "description": "Target distribution platforms (e.g., youtube_shorts, tiktok)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Target Platforms",
+          "type": "array"
+        },
+        "tone": {
+          "description": "Intended emotional or stylistic tone (e.g., cinematic, energetic, technical)",
+          "title": "Tone",
+          "type": "string"
+        },
+        "video_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Categorical video type (e.g., SAAS_DEMO, DYNAMIC_MONTAGE, EXPLAINER)",
+          "title": "Video Type"
+        }
+      },
+      "required": [
+        "intent_id",
+        "goal",
+        "audience",
+        "tone",
+        "key_takeaway"
+      ],
+      "title": "CreativeIntent",
+      "type": "object"
+    },
+    "EpistemicStatus": {
+      "description": "Epistemic classification distinguishing stated facts from AI inferences.",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "CONFIRMED"
+      ],
+      "title": "EpistemicStatus",
+      "type": "string"
+    },
+    "FieldProvenance": {
+      "additionalProperties": false,
+      "description": "Tracks origin, epistemic classification, and rationale for a single brief field.",
+      "properties": {
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explanation or citation for inferred or defaulted value",
+          "title": "Rationale"
+        },
+        "raw_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Exact phrase or asset attribute from which value was derived",
+          "title": "Raw Reference"
+        },
+        "source_type": {
+          "$ref": "#/$defs/ProvenanceType",
+          "description": "Epistemic provenance category"
+        }
+      },
+      "required": [
+        "source_type"
+      ],
+      "title": "FieldProvenance",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "NarrativeBeat": {
+      "additionalProperties": false,
+      "description": "An individual story beat within a narrative progression.",
+      "properties": {
+        "beat_id": {
+          "description": "Unique beat identifier",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "beat_index": {
+          "description": "0-indexed sequence position of this beat",
+          "minimum": 0,
+          "title": "Beat Index",
+          "type": "integer"
+        },
+        "emotional_target": {
+          "description": "Target emotional tone (e.g., curiosity, trust, urgency, delight)",
+          "title": "Emotional Target",
+          "type": "string"
+        },
+        "estimated_duration_sec": {
+          "description": "Estimated duration in seconds",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Duration Sec",
+          "type": "number"
+        },
+        "key_message": {
+          "description": "Core message or narrative objective of this beat",
+          "title": "Key Message",
+          "type": "string"
+        },
+        "pacing": {
+          "description": "Rhythmic pacing for this beat (e.g., fast, moderate, slow, pause)",
+          "title": "Pacing",
+          "type": "string"
+        },
+        "phase": {
+          "description": "Story phase (e.g., hook, setup, problem, mechanism, proof, cta, resolution)",
+          "title": "Phase",
+          "type": "string"
+        },
+        "sound_effect_cue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Recommended SFX or audio accent",
+          "title": "Sound Effect Cue"
+        },
+        "visual_hook_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Descriptive visual concept for the beat",
+          "title": "Visual Hook Description"
+        }
+      },
+      "required": [
+        "beat_id",
+        "beat_index",
+        "phase",
+        "emotional_target",
+        "pacing",
+        "estimated_duration_sec",
+        "key_message"
+      ],
+      "title": "NarrativeBeat",
+      "type": "object"
+    },
+    "NarrativePlan": {
+      "additionalProperties": false,
+      "description": "Structured narrative arc ordering story beats before visual composition.\nEnforces sequential consistency across story beats.",
+      "properties": {
+        "arc_structure": {
+          "description": "Structural taxonomy (e.g., Three-Act, Hook-Proof-CTA, Living Canvas)",
+          "title": "Arc Structure",
+          "type": "string"
+        },
+        "beats": {
+          "description": "Ordered sequence of narrative beats",
+          "items": {
+            "$ref": "#/$defs/NarrativeBeat"
+          },
+          "minItems": 1,
+          "title": "Beats",
+          "type": "array"
+        },
+        "brief_id": {
+          "description": "Associated CreativeBrief identifier",
+          "title": "Brief Id",
+          "type": "string"
+        },
+        "core_hook": {
+          "description": "Opening hook statement or visual proposition",
+          "title": "Core Hook",
+          "type": "string"
+        },
+        "created_at": {
+          "description": "UTC timestamp of plan synthesis",
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "estimated_total_duration_sec": {
+          "description": "Sum of estimated beat durations",
+          "exclusiveMinimum": 0,
+          "title": "Estimated Total Duration Sec",
+          "type": "number"
+        },
+        "narrative_id": {
+          "description": "Unique identifier for this narrative plan",
+          "title": "Narrative Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceRecord",
+          "description": "Provenance trace of narrative planning"
+        }
+      },
+      "required": [
+        "narrative_id",
+        "brief_id",
+        "core_hook",
+        "beats",
+        "arc_structure",
+        "estimated_total_duration_sec",
+        "provenance",
+        "created_at"
+      ],
+      "title": "NarrativePlan",
+      "type": "object"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    },
+    "ProvenanceType": {
+      "description": "Epistemic provenance category for individual brief dimensions (S28-03).",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "DEFAULTED",
+        "UNKNOWN"
+      ],
+      "title": "ProvenanceType",
+      "type": "string"
+    },
+    "SourceType": {
+      "description": "Provenance origin of the memory record.",
+      "enum": [
+        "USER_STATEMENT",
+        "CONVERSATION_SUMMARY",
+        "PROJECT_FACT",
+        "HUMAN_CONFIRMATION",
+        "AI_INFERENCE",
+        "MEDIA_ANALYSIS",
+        "DECISION",
+        "SYSTEM_IMPORT"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StylePreferenceProvenance": {
+      "additionalProperties": false,
+      "description": "Provenance and confidence record for an individual style preference dimension.\nDistinguishes user-declared facts (EXPLICIT), repeated evidence (CONFIRMED),\nand behavioral hypotheses (INFERRED).",
+      "properties": {
+        "confidence": {
+          "description": "Domain-controlled confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "dimension": {
+          "description": "Preference dimension (e.g., 'pacing', 'motion_intensity')",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "epistemic_status": {
+          "$ref": "#/$defs/EpistemicStatus",
+          "description": "Epistemic status: EXPLICIT, CONFIRMED, or INFERRED"
+        },
+        "evidence_count": {
+          "default": 1,
+          "description": "Number of observed evidence instances",
+          "minimum": 1,
+          "title": "Evidence Count",
+          "type": "integer"
+        },
+        "last_observed_at": {
+          "description": "UTC timestamp of the most recent evidence observation",
+          "format": "date-time",
+          "title": "Last Observed At",
+          "type": "string"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Auditable provenance note without hidden reasoning",
+          "title": "Rationale"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Originating feedback_id or memory_id",
+          "title": "Source Id"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType",
+          "description": "Origin source type"
+        }
+      },
+      "required": [
+        "dimension",
+        "epistemic_status",
+        "confidence",
+        "source_type",
+        "last_observed_at"
+      ],
+      "title": "StylePreferenceProvenance",
+      "type": "object"
+    },
+    "UserStyleProfile": {
+      "additionalProperties": false,
+      "description": "Persistent creative preferences associated with a user or workspace,\ninforming future CreativeBrief interpretation and NarrativePlanning.",
+      "properties": {
+        "caption_style": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Caption styling preference (e.g., 'compact', 'prominent', 'karaoke')",
+          "title": "Caption Style"
+        },
+        "disliked_patterns": {
+          "description": "Styles or patterns explicitly disliked",
+          "items": {
+            "type": "string"
+          },
+          "title": "Disliked Patterns",
+          "type": "array"
+        },
+        "motion_intensity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Motion dynamics preference (e.g., 'low', 'medium', 'high')",
+          "title": "Motion Intensity"
+        },
+        "music_tendencies": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Musical style tendency (e.g., 'ambient', 'upbeat', 'none')",
+          "title": "Music Tendencies"
+        },
+        "pacing_preference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Rhythmic pacing preference (e.g., 'fast', 'deliberate', 'calm')",
+          "title": "Pacing Preference"
+        },
+        "preferred_color_palette": {
+          "description": "List of favored brand hexadecimal color codes",
+          "items": {
+            "type": "string"
+          },
+          "title": "Preferred Color Palette",
+          "type": "array"
+        },
+        "preferred_motion_personality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Preferred motion profile (e.g., 'Cinematic', 'Energetic', 'Technical', 'Playful')",
+          "title": "Preferred Motion Personality"
+        },
+        "preferred_voices": {
+          "description": "Favored voice profile IDs",
+          "items": {
+            "type": "string"
+          },
+          "title": "Preferred Voices",
+          "type": "array"
+        },
+        "profile_id": {
+          "description": "Unique profile identifier",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "provenance_by_dimension": {
+          "additionalProperties": {
+            "$ref": "#/$defs/StylePreferenceProvenance"
+          },
+          "description": "Per-dimension provenance and confidence tracking",
+          "title": "Provenance By Dimension",
+          "type": "object"
+        },
+        "taste_preferences": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Custom taste overrides or preferences",
+          "title": "Taste Preferences",
+          "type": "object"
+        },
+        "text_density": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Text density preference (e.g., 'minimal', 'balanced', 'dense')",
+          "title": "Text Density"
+        },
+        "transition_preference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Transition preference (e.g., 'subtle_dissolve', 'whip_pan', 'hard_cut')",
+          "title": "Transition Preference"
+        },
+        "updated_at": {
+          "description": "UTC timestamp of profile update",
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated user identifier if user-scoped",
+          "title": "User Id"
+        },
+        "visual_complexity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Visual complexity level (e.g., 'minimal', 'rich', 'clean')",
+          "title": "Visual Complexity"
+        },
+        "workspace_id": {
+          "description": "Associated workspace identifier",
+          "title": "Workspace Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_id",
+        "workspace_id",
+        "updated_at"
+      ],
+      "title": "UserStyleProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contextual snapshot provided to TasteEngine and Creative Directors.",
+  "properties": {
+    "active_knowledge_ids": {
+      "description": "IDs of relevant active knowledge descriptors",
+      "items": {
+        "type": "string"
+      },
+      "title": "Active Knowledge Ids",
+      "type": "array"
+    },
+    "active_skill_ids": {
+      "description": "IDs of relevant active skills",
+      "items": {
+        "type": "string"
+      },
+      "title": "Active Skill Ids",
+      "type": "array"
+    },
+    "available_assets": {
+      "description": "Asset URIs or identifiers available",
+      "items": {
+        "type": "string"
+      },
+      "title": "Available Assets",
+      "type": "array"
+    },
+    "brief": {
+      "$ref": "#/$defs/CreativeBrief",
+      "description": "The underlying CreativeBrief"
+    },
+    "media_intelligence": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Media intelligence signals",
+      "title": "Media Intelligence",
+      "type": "object"
+    },
+    "narrative_plan": {
+      "$ref": "#/$defs/NarrativePlan",
+      "description": "The planned narrative arc"
+    },
+    "recipe_id": {
+      "description": "ID of the selected recipe",
+      "title": "Recipe Id",
+      "type": "string"
+    },
+    "recipe_name": {
+      "default": "",
+      "description": "Name of the selected recipe",
+      "title": "Recipe Name",
+      "type": "string"
+    },
+    "user_style_profile": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UserStyleProfile"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional persistent user style profile"
+    }
+  },
+  "required": [
+    "brief",
+    "narrative_plan",
+    "recipe_id"
+  ],
+  "title": "TasteContext",
+  "type": "object"
+}

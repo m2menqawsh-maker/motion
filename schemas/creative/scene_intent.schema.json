@@ -1,0 +1,195 @@
+{
+  "$defs": {
+    "TasteDecision": {
+      "additionalProperties": false,
+      "description": "Documented application of a specific TasteRule to a scene or shot element.\nProvides verifiable proof of compliance with the creative style system.",
+      "properties": {
+        "applied_value": {
+          "description": "The concrete setting or parameter applied (e.g., 'cubic-bezier(0.4,0,0.2,1), 400ms')",
+          "title": "Applied Value",
+          "type": "string"
+        },
+        "citation": {
+          "description": "Verbatim citation from the taste documentation proving alignment",
+          "title": "Citation",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 1.0,
+          "description": "Confidence score [0.0 - 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "context_ref": {
+          "description": "Reference to the target scene or shot (e.g., 'scene_001_shot_002')",
+          "title": "Context Ref",
+          "type": "string"
+        },
+        "decision_id": {
+          "description": "Unique identifier for this decision instance",
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "Verifiable context citations or trigger evidence",
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Concise auditable rationale summary without hidden CoT",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "reasoning": {
+          "description": "Explanation of why this value was chosen for this context",
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "rule_id": {
+          "description": "ID of the governing TasteRule applied",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_ids": {
+          "description": "IDs of all rules influencing this decision",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision_id",
+        "rule_id",
+        "context_ref",
+        "applied_value",
+        "reasoning",
+        "citation"
+      ],
+      "title": "TasteDecision",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Creative intent and aesthetic parameters for an individual scene.",
+  "properties": {
+    "asset_requirements": {
+      "description": "High-level asset requirements (e.g., ['product_demo_screen', 'brand_logo'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Asset Requirements",
+      "type": "array"
+    },
+    "audio_intent": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Audio treatment intent (e.g., 'ambient_music_with_whoosh', 'silence')",
+      "title": "Audio Intent"
+    },
+    "beat_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Linked NarrativeBeat ID if derived from beat",
+      "title": "Beat Id"
+    },
+    "estimated_duration_sec": {
+      "description": "Scene duration in seconds",
+      "exclusiveMinimum": 0,
+      "title": "Estimated Duration Sec",
+      "type": "number"
+    },
+    "intent_label": {
+      "description": "Scene purpose (e.g., 'hook', 'problem_statement', 'cta')",
+      "title": "Intent Label",
+      "type": "string"
+    },
+    "mood": {
+      "description": "Scene mood (e.g., 'energetic', 'thoughtful')",
+      "title": "Mood",
+      "type": "string"
+    },
+    "motion_personality": {
+      "description": "Motion personality profile (e.g., 'Cinematic', 'Energetic')",
+      "title": "Motion Personality",
+      "type": "string"
+    },
+    "primary_visual_job": {
+      "description": "Visual job (e.g., 'proof', 'mechanism', 'consequence', 'action')",
+      "title": "Primary Visual Job",
+      "type": "string"
+    },
+    "scene_id": {
+      "description": "Unique scene identifier (e.g., 'scene_001')",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "scene_index": {
+      "description": "Sequential position of this scene",
+      "minimum": 0,
+      "title": "Scene Index",
+      "type": "integer"
+    },
+    "spoken_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Voiceover line or text delivered in scene",
+      "title": "Spoken Text"
+    },
+    "taste_decisions": {
+      "description": "Taste decisions governing this scene",
+      "items": {
+        "$ref": "#/$defs/TasteDecision"
+      },
+      "title": "Taste Decisions",
+      "type": "array"
+    },
+    "template_requirements": {
+      "description": "Template capability/category requirements (e.g., ['text_with_device', 'minimal_quote'])",
+      "items": {
+        "type": "string"
+      },
+      "title": "Template Requirements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scene_id",
+    "scene_index",
+    "intent_label",
+    "mood",
+    "motion_personality",
+    "primary_visual_job",
+    "estimated_duration_sec"
+  ],
+  "title": "SceneIntent",
+  "type": "object"
+}

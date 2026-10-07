@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for downloaded remote media.",
+  "properties": {
+    "asset_id": {
+      "description": "Created asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "content_type": {
+      "description": "MIME content type",
+      "minLength": 1,
+      "title": "Content Type",
+      "type": "string"
+    },
+    "file_size_bytes": {
+      "description": "Size of downloaded payload",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "storage_key": {
+      "description": "StorageService key for stored file",
+      "minLength": 1,
+      "title": "Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "storage_key",
+    "file_size_bytes",
+    "content_type"
+  ],
+  "title": "DownloadRemoteMediaOutput",
+  "type": "object"
+}

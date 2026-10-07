@@ -1,0 +1,1980 @@
+{
+  "$defs": {
+    "AnalysisProvenance": {
+      "additionalProperties": false,
+      "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
+      "properties": {
+        "analysis_version": {
+          "default": "1.0.0",
+          "description": "Analysis schema and logic version",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score bounded [0.0, 1.0]",
+          "title": "Confidence"
+        },
+        "contract_version": {
+          "default": "1.0.0",
+          "description": "SemVer of canonical contract",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific model invoked (e.g. 'whisper-large-v3')",
+          "title": "Model"
+        },
+        "producer": {
+          "description": "Originating subsystem, service, or tool",
+          "minLength": 1,
+          "title": "Producer",
+          "type": "string"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter identifier (e.g. 'local', 'whisper')",
+          "title": "Provider"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of analysis execution",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider or model engine version",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "producer",
+        "timestamp"
+      ],
+      "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "AudioBeatTrack": {
+      "additionalProperties": false,
+      "description": "Musical tempo and rhythmic beat timestamps extracted for timeline synchronization.",
+      "properties": {
+        "beat_timestamps": {
+          "description": "Chronological beat timestamps in seconds",
+          "items": {
+            "type": "number"
+          },
+          "title": "Beat Timestamps",
+          "type": "array"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Beat grid tracking confidence",
+          "title": "Confidence"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "tempo_bpm": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected tempo in Beats Per Minute",
+          "title": "Tempo Bpm"
+        }
+      },
+      "title": "AudioBeatTrack",
+      "type": "object"
+    },
+    "AudioIntelligence": {
+      "additionalProperties": false,
+      "description": "Canonical Audio Intelligence contract unifying DSP metrics and acoustic observations.",
+      "properties": {
+        "beat_timestamps": {
+          "description": "Extracted musical beat timestamps",
+          "items": {
+            "type": "number"
+          },
+          "title": "Beat Timestamps",
+          "type": "array"
+        },
+        "beats": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AudioBeatTrack"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Musical tempo and beat grid"
+        },
+        "has_audio_analysis": {
+          "default": false,
+          "description": "Whether audio analysis has been executed",
+          "title": "Has Audio Analysis",
+          "type": "boolean"
+        },
+        "loudness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AudioLoudnessMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "DSP loudness and peak metrics"
+        },
+        "music_ranges": {
+          "description": "Detected background music intervals",
+          "items": {
+            "$ref": "#/$defs/TimeRange"
+          },
+          "title": "Music Ranges",
+          "type": "array"
+        },
+        "noise_estimate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AudioNoiseEstimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "SNR and noise floor estimates"
+        },
+        "noise_profile": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Acoustic noise classification",
+          "title": "Noise Profile"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Overall audio analysis provenance"
+        },
+        "quality_observations": {
+          "description": "Audio quality scores",
+          "items": {
+            "$ref": "#/$defs/AudioQualityObservation"
+          },
+          "title": "Quality Observations",
+          "type": "array"
+        },
+        "silence_ranges": {
+          "description": "Detected silence intervals",
+          "items": {
+            "$ref": "#/$defs/TimeRange"
+          },
+          "title": "Silence Ranges",
+          "type": "array"
+        },
+        "speech_ranges": {
+          "description": "Detected speech intervals",
+          "items": {
+            "$ref": "#/$defs/TimeRange"
+          },
+          "title": "Speech Ranges",
+          "type": "array"
+        },
+        "status": {
+          "default": "TYPED_FOUNDATION_AI13",
+          "description": "Subsystem readiness state",
+          "title": "Status",
+          "type": "string"
+        },
+        "tempo_bpm": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected musical tempo in BPM",
+          "title": "Tempo Bpm"
+        },
+        "vocal_isolation_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Storage key to separated vocal stem",
+          "title": "Vocal Isolation Ref"
+        }
+      },
+      "title": "AudioIntelligence",
+      "type": "object"
+    },
+    "AudioLoudnessMetrics": {
+      "additionalProperties": false,
+      "description": "Deterministic loudness and dynamic range metrics extracted via DSP.",
+      "properties": {
+        "clipping_detected": {
+          "default": false,
+          "description": "Whether digital audio clipping was detected",
+          "title": "Clipping Detected",
+          "type": "boolean"
+        },
+        "clipping_events_count": {
+          "default": 0,
+          "description": "Total number of clipped sample runs",
+          "minimum": 0,
+          "title": "Clipping Events Count",
+          "type": "integer"
+        },
+        "integrated_lufs": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Integrated loudness in LUFS (EBU R128)",
+          "title": "Integrated Lufs"
+        },
+        "momentary_max_lufs": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum momentary loudness in LUFS",
+          "title": "Momentary Max Lufs"
+        },
+        "peak_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "True peak sample level in dBFS",
+          "title": "Peak Db"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "rms_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Root-mean-square level in dBFS",
+          "title": "Rms Db"
+        }
+      },
+      "title": "AudioLoudnessMetrics",
+      "type": "object"
+    },
+    "AudioNoiseEstimate": {
+      "additionalProperties": false,
+      "description": "Acoustic noise floor and signal-to-noise ratio estimation.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimation confidence",
+          "title": "Confidence"
+        },
+        "noise_floor_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated ambient noise floor in dBFS",
+          "title": "Noise Floor Db"
+        },
+        "noise_profile_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Noise categorization ('clean', 'hum', 'hiss', 'broadband')",
+          "title": "Noise Profile Label"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "snr_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated Signal-to-Noise Ratio in dB",
+          "title": "Snr Db"
+        }
+      },
+      "title": "AudioNoiseEstimate",
+      "type": "object"
+    },
+    "AudioQualityObservation": {
+      "additionalProperties": false,
+      "description": "Individual audio quality evaluation metric.",
+      "properties": {
+        "details": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explanatory notes or diagnostic indicators",
+          "title": "Details"
+        },
+        "metric_name": {
+          "description": "Quality attribute name (e.g. 'clarity', 'echo_detected')",
+          "minLength": 1,
+          "title": "Metric Name",
+          "type": "string"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "score": {
+          "description": "Normalized quality score [0.0, 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "metric_name",
+        "score"
+      ],
+      "title": "AudioQualityObservation",
+      "type": "object"
+    },
+    "BoundingBox": {
+      "additionalProperties": false,
+      "description": "Normalized spatial 2D bounding box [0.0, 1.0].",
+      "properties": {
+        "height": {
+          "description": "Normalized box height",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Height",
+          "type": "number"
+        },
+        "width": {
+          "description": "Normalized box width",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Width",
+          "type": "number"
+        },
+        "x": {
+          "description": "Normalized horizontal top-left origin",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Normalized vertical top-left origin",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "title": "BoundingBox",
+      "type": "object"
+    },
+    "Keyframe": {
+      "additionalProperties": false,
+      "description": "Representative extracted keyframe linked deterministically to a shot or time interval.",
+      "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "SHA-256 hash of keyframe image bytes",
+          "title": "Content Hash"
+        },
+        "frame_index": {
+          "description": "0-indexed absolute frame number",
+          "minimum": 0,
+          "title": "Frame Index",
+          "type": "integer"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pixel height of keyframe",
+          "title": "Height"
+        },
+        "is_representative": {
+          "default": true,
+          "description": "Whether this frame is primary representative for shot",
+          "title": "Is Representative",
+          "type": "boolean"
+        },
+        "keyframe_id": {
+          "description": "Unique keyframe record identifier",
+          "minLength": 1,
+          "title": "Keyframe Id",
+          "type": "string"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance audit"
+        },
+        "resolution_tier": {
+          "default": "MEDIUM",
+          "description": "Extraction resolution tier (LOW, MEDIUM, HIGH)",
+          "title": "Resolution Tier",
+          "type": "string"
+        },
+        "shot_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated shot identifier",
+          "title": "Shot Id"
+        },
+        "storage_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Abstract StorageService key for keyframe image",
+          "title": "Storage Key"
+        },
+        "timestamp": {
+          "description": "Timestamp of keyframe within the video",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pixel width of keyframe",
+          "title": "Width"
+        }
+      },
+      "required": [
+        "keyframe_id",
+        "timestamp",
+        "frame_index"
+      ],
+      "title": "Keyframe",
+      "type": "object"
+    },
+    "MediaQualityIntelligence": {
+      "additionalProperties": false,
+      "description": "Unified media quality evaluation section.\nHouses speech quality in AI-12; audio/visual quality in AI-13+.",
+      "properties": {
+        "audio_quality_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Overall audio quality",
+          "title": "Audio Quality Score"
+        },
+        "overall_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Composite media quality score",
+          "title": "Overall Score"
+        },
+        "speech": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SpeechQuality"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Speech-specific acoustic quality metrics"
+        },
+        "visual_quality_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Overall visual quality",
+          "title": "Visual Quality Score"
+        }
+      },
+      "title": "MediaQualityIntelligence",
+      "type": "object"
+    },
+    "SemanticIntelligenceFoundation": {
+      "additionalProperties": false,
+      "description": "Typed foundation for semantic classification and summarization (AI-13).\nUnimplemented in AI-12/AI-13; provides strict structural boundary.",
+      "properties": {
+        "status": {
+          "default": "TYPED_FOUNDATION_AI13",
+          "description": "Subsystem readiness state",
+          "title": "Status",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Concise multi-modal narrative summary",
+          "title": "Summary"
+        },
+        "topics": {
+          "description": "Extracted semantic topic labels",
+          "items": {
+            "type": "string"
+          },
+          "title": "Topics",
+          "type": "array"
+        }
+      },
+      "title": "SemanticIntelligenceFoundation",
+      "type": "object"
+    },
+    "SpeechIntelligence": {
+      "additionalProperties": false,
+      "description": "Canonical Speech Intelligence contract.\nAll speech providers (regardless of vendor API shape) normalize into this structure.",
+      "properties": {
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration of speech activity",
+          "title": "Duration Seconds"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Primary detected language code (e.g. 'ar', 'en')",
+          "title": "Language"
+        },
+        "language_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Language detection confidence",
+          "title": "Language Confidence"
+        },
+        "overall_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Aggregate confidence",
+          "title": "Overall Confidence"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking speech generation source"
+        },
+        "segments": {
+          "description": "Chronological speech segments",
+          "items": {
+            "$ref": "#/$defs/SpeechSegment"
+          },
+          "title": "Segments",
+          "type": "array"
+        },
+        "speakers": {
+          "description": "Identified speaker diarization clusters",
+          "items": {
+            "$ref": "#/$defs/SpeechSpeaker"
+          },
+          "title": "Speakers",
+          "type": "array"
+        },
+        "transcript": {
+          "description": "Full consolidated verbatim transcript",
+          "title": "Transcript",
+          "type": "string"
+        },
+        "words": {
+          "description": "Chronological aligned word tokens",
+          "items": {
+            "$ref": "#/$defs/SpeechWord"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "transcript",
+        "provenance"
+      ],
+      "title": "SpeechIntelligence",
+      "type": "object"
+    },
+    "SpeechQuality": {
+      "additionalProperties": false,
+      "description": "Acoustic and speech intelligibility quality metrics.",
+      "properties": {
+        "audio_clarity_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Subjective clarity [0.0, 1.0]",
+          "title": "Audio Clarity Score"
+        },
+        "clipping_detected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether digital audio clipping was detected",
+          "title": "Clipping Detected"
+        },
+        "silence_percentage": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Proportion of silent audio",
+          "title": "Silence Percentage"
+        },
+        "speech_snr_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated Signal-to-Noise Ratio in dB",
+          "title": "Speech Snr Db"
+        }
+      },
+      "title": "SpeechQuality",
+      "type": "object"
+    },
+    "SpeechSegment": {
+      "additionalProperties": false,
+      "description": "Canonical speech utterance / sentence / subtitle segment.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Segment average confidence",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "Segment end timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Unique segment identifier",
+          "title": "Id"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Segment language if distinct/code-switched",
+          "title": "Language"
+        },
+        "speaker_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated speaker identifier",
+          "title": "Speaker Id"
+        },
+        "start": {
+          "description": "Segment start timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "text": {
+          "description": "Segment verbatim transcript text",
+          "title": "Text",
+          "type": "string"
+        },
+        "words": {
+          "description": "Constituent aligned words if available",
+          "items": {
+            "$ref": "#/$defs/SpeechWord"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "text"
+      ],
+      "title": "SpeechSegment",
+      "type": "object"
+    },
+    "SpeechSpeaker": {
+      "additionalProperties": false,
+      "description": "Canonical speaker diarization identity turn record.\nUses neutral identifiers (e.g. SPEAKER_00) to avoid false human attribution.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Speaker cluster confidence",
+          "title": "Confidence"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Descriptive or role-based label if known",
+          "title": "Label"
+        },
+        "speaker_id": {
+          "description": "Neutral speaker identifier (e.g. 'SPEAKER_00')",
+          "minLength": 1,
+          "title": "Speaker Id",
+          "type": "string"
+        },
+        "total_speaking_time_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total active duration",
+          "title": "Total Speaking Time Seconds"
+        }
+      },
+      "required": [
+        "speaker_id"
+      ],
+      "title": "SpeechSpeaker",
+      "type": "object"
+    },
+    "SpeechWord": {
+      "additionalProperties": false,
+      "description": "Canonical word-level timestamp and confidence alignment token.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Word-level recognition confidence",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "End timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Token language if distinct from primary",
+          "title": "Language"
+        },
+        "speaker_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated speaker identifier (e.g. 'SPEAKER_00')",
+          "title": "Speaker Id"
+        },
+        "start": {
+          "description": "Start timestamp in seconds relative to original asset start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "text": {
+          "description": "Word verbatim text",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "start",
+        "end"
+      ],
+      "title": "SpeechWord",
+      "type": "object"
+    },
+    "TechnicalMetadata": {
+      "additionalProperties": false,
+      "description": "Deterministic technical audio/video inspection metadata.\nExtracted from file headers / local probes without expensive model calls.",
+      "properties": {
+        "audio_bitrate": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio bitrate in bps",
+          "title": "Audio Bitrate"
+        },
+        "audio_channels": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of audio channels",
+          "title": "Audio Channels"
+        },
+        "audio_codec": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio codec identifier (e.g. 'pcm_s16le', 'aac')",
+          "title": "Audio Codec"
+        },
+        "audio_sample_rate": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio sample rate in Hz",
+          "title": "Audio Sample Rate"
+        },
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total media duration in seconds",
+          "title": "Duration Seconds"
+        },
+        "file_size_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Size of file payload in bytes",
+          "title": "File Size Bytes"
+        },
+        "format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Container format (e.g. 'wav', 'mp4')",
+          "title": "Format"
+        },
+        "fps": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frames per second",
+          "title": "Fps"
+        },
+        "has_audio": {
+          "default": false,
+          "description": "Whether an audio stream is detected",
+          "title": "Has Audio",
+          "type": "boolean"
+        },
+        "has_video": {
+          "default": false,
+          "description": "Whether a video stream is detected",
+          "title": "Has Video",
+          "type": "boolean"
+        },
+        "height": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frame height in pixels",
+          "title": "Height"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provenance of technical inspection"
+        },
+        "video_codec": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video codec identifier (e.g. 'h264')",
+          "title": "Video Codec"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video frame width in pixels",
+          "title": "Width"
+        }
+      },
+      "title": "TechnicalMetadata",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "description": "Canonical chronological interval in seconds.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Confidence score",
+          "title": "Confidence"
+        },
+        "end": {
+          "description": "End timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional classification label (e.g. 'silence', 'speech')",
+          "title": "Label"
+        },
+        "start": {
+          "description": "Start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    },
+    "VideoShot": {
+      "additionalProperties": false,
+      "description": "Canonical video shot segment identified via deterministic/native detection or AI refinement.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detection confidence",
+          "title": "Confidence"
+        },
+        "duration": {
+          "description": "Shot duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration",
+          "type": "number"
+        },
+        "end": {
+          "description": "Shot end timestamp in seconds relative to video start",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "keyframe_indices": {
+          "description": "Frame indices associated with this shot",
+          "items": {
+            "type": "integer"
+          },
+          "title": "Keyframe Indices",
+          "type": "array"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detailed provenance audit"
+        },
+        "shot_id": {
+          "description": "Unique identifier for the shot",
+          "minLength": 1,
+          "title": "Shot Id",
+          "type": "string"
+        },
+        "source": {
+          "default": "native_algorithm",
+          "description": "Algorithm or source (native_algorithm, ffmpeg, ai)",
+          "title": "Source",
+          "type": "string"
+        },
+        "start": {
+          "description": "Shot start timestamp in seconds relative to video start",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "transition_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "hard_cut",
+          "description": "Transition boundary type (hard_cut, dissolve, fade)",
+          "title": "Transition Type"
+        }
+      },
+      "required": [
+        "shot_id",
+        "start",
+        "end",
+        "duration"
+      ],
+      "title": "VideoShot",
+      "type": "object"
+    },
+    "VisualIntelligence": {
+      "additionalProperties": false,
+      "description": "Canonical Visual Intelligence & Video Understanding contract.\nUnifies shots, keyframes, OCR, objects, people, and scene classifications.",
+      "properties": {
+        "has_visual_analysis": {
+          "default": false,
+          "description": "Whether visual analysis has been executed",
+          "title": "Has Visual Analysis",
+          "type": "boolean"
+        },
+        "keyframes": {
+          "description": "Extracted representative keyframes",
+          "items": {
+            "$ref": "#/$defs/Keyframe"
+          },
+          "title": "Keyframes",
+          "type": "array"
+        },
+        "objects": {
+          "description": "Detected visual objects",
+          "items": {
+            "$ref": "#/$defs/VisualObjectObservation"
+          },
+          "title": "Objects",
+          "type": "array"
+        },
+        "observations": {
+          "description": "Important visual observations",
+          "items": {
+            "$ref": "#/$defs/VisualObservation"
+          },
+          "title": "Observations",
+          "type": "array"
+        },
+        "ocr": {
+          "description": "Extracted OCR text observations",
+          "items": {
+            "$ref": "#/$defs/VisualOCRObservation"
+          },
+          "title": "Ocr",
+          "type": "array"
+        },
+        "people": {
+          "description": "Detected human subjects",
+          "items": {
+            "$ref": "#/$defs/VisualPersonObservation"
+          },
+          "title": "People",
+          "type": "array"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalysisProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Overall visual analysis provenance"
+        },
+        "scene_classifications": {
+          "description": "Scene categories",
+          "items": {
+            "$ref": "#/$defs/VisualSceneClassification"
+          },
+          "title": "Scene Classifications",
+          "type": "array"
+        },
+        "shots": {
+          "description": "Chronological detected video shots",
+          "items": {
+            "$ref": "#/$defs/VideoShot"
+          },
+          "title": "Shots",
+          "type": "array"
+        },
+        "status": {
+          "default": "TYPED_FOUNDATION_AI13",
+          "description": "Subsystem readiness state",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "title": "VisualIntelligence",
+      "type": "object"
+    },
+    "VisualOCRObservation": {
+      "additionalProperties": false,
+      "description": "Optical Character Recognition observation supporting Arabic, English, and UI/screen text.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding coordinates"
+        },
+        "confidence": {
+          "description": "OCR detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated keyframe identifier or reference",
+          "title": "Frame Ref"
+        },
+        "is_ui_screen": {
+          "default": false,
+          "description": "Whether text was detected in UI / screen demo context",
+          "title": "Is Ui Screen",
+          "type": "boolean"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected text language (e.g. 'ar', 'en')",
+          "title": "Language"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking OCR engine source"
+        },
+        "text": {
+          "description": "Detected verbatim text content",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds where text appeared",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualOCRObservation",
+      "type": "object"
+    },
+    "VisualObjectObservation": {
+      "additionalProperties": false,
+      "description": "Spatial object detection observation with bounded confidence and coordinates.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding box"
+        },
+        "confidence": {
+          "description": "Detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Keyframe identifier",
+          "title": "Frame Ref"
+        },
+        "label": {
+          "description": "Identified object class label",
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking detection model source"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualObjectObservation",
+      "type": "object"
+    },
+    "VisualObservation": {
+      "additionalProperties": false,
+      "description": "Important visual event or narrative observation extracted from video stream.",
+      "properties": {
+        "category": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Semantic category (e.g. 'talking_head', 'screen_demo')",
+          "title": "Category"
+        },
+        "end": {
+          "description": "End timestamp",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "importance_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Salience/importance score",
+          "title": "Importance Score"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking observation source"
+        },
+        "start": {
+          "description": "Start timestamp",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        },
+        "summary": {
+          "description": "Concise textual summary of visual observation",
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary",
+        "start",
+        "end",
+        "provenance"
+      ],
+      "title": "VisualObservation",
+      "type": "object"
+    },
+    "VisualPersonObservation": {
+      "additionalProperties": false,
+      "description": "Human subject detection and tracking observation. Uses neutral person identifiers.",
+      "properties": {
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spatial bounding coordinates"
+        },
+        "confidence": {
+          "description": "Detection confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "frame_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Keyframe identifier",
+          "title": "Frame Ref"
+        },
+        "person_id": {
+          "description": "Neutral identifier (e.g. 'PERSON_00')",
+          "minLength": 1,
+          "title": "Person Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking person detector source"
+        },
+        "timestamp": {
+          "description": "Timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Timestamp",
+          "type": "number"
+        }
+      },
+      "required": [
+        "person_id",
+        "timestamp",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualPersonObservation",
+      "type": "object"
+    },
+    "VisualSceneClassification": {
+      "additionalProperties": false,
+      "description": "Semantic scene classification (e.g. studio, b-roll, screen-recording, urban, indoor).",
+      "properties": {
+        "confidence": {
+          "description": "Classification confidence",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "end": {
+          "description": "End timestamp of classified scene",
+          "minimum": 0.0,
+          "title": "End",
+          "type": "number"
+        },
+        "label": {
+          "description": "Scene category label",
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/AnalysisProvenance",
+          "description": "Audit record tracking classification source"
+        },
+        "resolution_tier": {
+          "default": "LOW",
+          "description": "Analysis resolution tier utilized",
+          "title": "Resolution Tier",
+          "type": "string"
+        },
+        "start": {
+          "description": "Start timestamp of classified scene",
+          "minimum": 0.0,
+          "title": "Start",
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "start",
+        "end",
+        "confidence",
+        "provenance"
+      ],
+      "title": "VisualSceneClassification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Authoritative canonical contract unifying all media understanding dimensions.\nMediates between raw assets, provider models, and downstream domain services.",
+  "properties": {
+    "analysis_version": {
+      "default": "1.0.0",
+      "description": "Analysis semantics and pipeline version",
+      "title": "Analysis Version",
+      "type": "string"
+    },
+    "asset_id": {
+      "description": "Associated domain asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "audio": {
+      "$ref": "#/$defs/AudioIntelligence",
+      "description": "Acoustic intelligence (AI-13)"
+    },
+    "content_hash": {
+      "description": "Cryptographic SHA-256 hash of media bytes",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "1.0.0",
+      "description": "SemVer of canonical contract",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "Timezone-aware timestamp of analysis record",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/AnalysisProvenance",
+      "description": "Top-level analysis provenance audit record"
+    },
+    "quality": {
+      "$ref": "#/$defs/MediaQualityIntelligence",
+      "description": "Quality evaluation"
+    },
+    "semantic": {
+      "$ref": "#/$defs/SemanticIntelligenceFoundation",
+      "description": "Semantic foundation (AI-13)"
+    },
+    "speech": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SpeechIntelligence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Speech recognition, alignment, diarization"
+    },
+    "technical": {
+      "$ref": "#/$defs/TechnicalMetadata",
+      "description": "Technical container inspection"
+    },
+    "visual": {
+      "$ref": "#/$defs/VisualIntelligence",
+      "description": "Visual intelligence (AI-13)"
+    },
+    "workspace_id": {
+      "description": "Tenant workspace ownership scope",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "workspace_id",
+    "asset_id",
+    "content_hash",
+    "created_at",
+    "provenance"
+  ],
+  "title": "MediaIntelligence",
+  "type": "object"
+}

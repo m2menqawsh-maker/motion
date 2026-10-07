@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for building voiceover timeline.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio file",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "fps": {
+      "default": 30.0,
+      "description": "Composition frame rate",
+      "exclusiveMinimum": 0.0,
+      "title": "Fps",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "SpeechTimelineInput",
+  "type": "object"
+}

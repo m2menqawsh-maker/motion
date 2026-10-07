@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for concatenated video.",
+  "properties": {
+    "input_count": {
+      "description": "Number of input clips joined",
+      "minimum": 2,
+      "title": "Input Count",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for concatenated video",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "total_duration_seconds": {
+      "description": "Duration of concatenated output",
+      "minimum": 0.0,
+      "title": "Total Duration Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "total_duration_seconds",
+    "input_count"
+  ],
+  "title": "ConcatenateVideosOutput",
+  "type": "object"
+}

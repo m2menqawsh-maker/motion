@@ -1,0 +1,281 @@
+{
+  "run_id": "e2e_run_f288cb57e14b",
+  "policy_version": "S28-08D",
+  "timestamp": "2026-10-03T15:48:10.242392+00:00",
+  "verdict": "PASS",
+  "elapsed_seconds": 0.094,
+  "coverage_matrix": {
+    "video_types": {
+      "required": [
+        "PRODUCT_AD",
+        "SAAS_DEMO",
+        "EXPLAINER",
+        "TALKING_HEAD",
+        "MUSIC_MONTAGE",
+        "SOCIAL_REEL",
+        "LONGFORM_REPURPOSE"
+      ],
+      "covered": [
+        "EXPLAINER",
+        "LONGFORM_REPURPOSE",
+        "MUSIC_MONTAGE",
+        "PRODUCT_AD",
+        "SAAS_DEMO",
+        "SOCIAL_REEL",
+        "TALKING_HEAD"
+      ],
+      "coverage_pct": 100.0
+    },
+    "audio_modes": {
+      "required": [
+        "VO_MUSIC",
+        "VO_ONLY",
+        "SOURCE_AUDIO_MUSIC",
+        "MUSIC_ONLY",
+        "SILENT",
+        "SOURCE_AUDIO"
+      ],
+      "covered": [
+        "MUSIC_ONLY",
+        "SILENT",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "VO_MUSIC",
+        "VO_ONLY"
+      ],
+      "coverage_pct": 100.0
+    },
+    "aspect_ratios": {
+      "required": [
+        "9:16",
+        "16:9",
+        "1:1"
+      ],
+      "covered": [
+        "16:9",
+        "1:1",
+        "9:16"
+      ],
+      "coverage_pct": 100.0
+    },
+    "creativity_tiers": {
+      "required": [
+        "REUSE",
+        "COMPOSE",
+        "CREATE"
+      ],
+      "covered": [
+        "COMPOSE",
+        "CREATE",
+        "REUSE"
+      ],
+      "coverage_pct": 100.0
+    },
+    "cartesian_renders_avoided": 370,
+    "cartesian_space_total": 378,
+    "representative_scenarios_executed": 8
+  },
+  "scenarios": [
+    {
+      "scenario_id": "scenario_01_product_ad",
+      "title": "Product Ad (9:16, VO_MUSIC, REUSE)",
+      "video_type": "PRODUCT_AD",
+      "audio_mode": "VO_MUSIC",
+      "aspect_ratio": "9:16",
+      "selected_tier": "REUSE",
+      "status": "PASS",
+      "recipe_id": "ugc-ai-ad",
+      "scenes_count": 5,
+      "duration_sec": 30.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "REUSE sufficient: canonical registered templates satisfied all scenes",
+        "Audio ducking verified: music volume dynamically attenuated during voiceover",
+        "Strict 9:16 vertical layout validated by Core validator"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_02_saas_demo",
+      "title": "SaaS Demo (16:9, VO_ONLY, COMPOSE)",
+      "video_type": "SAAS_DEMO",
+      "audio_mode": "VO_ONLY",
+      "aspect_ratio": "16:9",
+      "selected_tier": "COMPOSE",
+      "status": "PASS",
+      "recipe_id": "ugc-ai-ad",
+      "scenes_count": 5,
+      "duration_sec": 45.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "COMPOSE tier enforced: Lego assembly of browser-flow + codeblock + text overlay",
+        "Audio Invariant VO_ONLY: voiceover track present, music track strictly absent",
+        "Zero CREATE escalation: composition satisfied all scene requirements"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_03_explainer",
+      "title": "Explainer (16:9, VO_MUSIC, REUSE)",
+      "video_type": "EXPLAINER",
+      "audio_mode": "VO_MUSIC",
+      "aspect_ratio": "16:9",
+      "selected_tier": "REUSE",
+      "status": "PASS",
+      "recipe_id": "tabletop-levels-explainer",
+      "scenes_count": 5,
+      "duration_sec": 30.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "REUSE direct: canonical technical visualization templates satisfied needs",
+        "Widescreen 16:9 layout compatibility verified",
+        "Audio ducking parameters properly calibrated for clear speech intelligibility"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_04_talking_head",
+      "title": "Talking Head (9:16, SOURCE_AUDIO_MUSIC, REUSE)",
+      "video_type": "TALKING_HEAD",
+      "audio_mode": "SOURCE_AUDIO_MUSIC",
+      "aspect_ratio": "9:16",
+      "selected_tier": "REUSE",
+      "status": "PASS",
+      "recipe_id": "captioned-talking-head",
+      "scenes_count": 4,
+      "duration_sec": 30.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "Source audio preservation: live speaker audio track anchored cleanly",
+        "Background music attenuation: background music bed ducked under live voice",
+        "Audiogram kinetic caption sync verified"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_05_music_montage",
+      "title": "Music Montage (1:1, MUSIC_ONLY, COMPOSE)",
+      "video_type": "MUSIC_MONTAGE",
+      "audio_mode": "MUSIC_ONLY",
+      "aspect_ratio": "1:1",
+      "selected_tier": "COMPOSE",
+      "status": "PASS",
+      "recipe_id": "dynamic-montage-flow",
+      "scenes_count": 4,
+      "duration_sec": 15.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "Audio Invariant MUSIC_ONLY: voiceover strictly absent, speech skills excluded",
+        "Square 1:1 aspect ratio layout verified",
+        "Rhythmic cut sync and cross-zoom transition composition validated"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_06_social_reel",
+      "title": "Social Reel (9:16, SILENT, REUSE + Personalization Override)",
+      "video_type": "SOCIAL_REEL",
+      "audio_mode": "SILENT",
+      "aspect_ratio": "9:16",
+      "selected_tier": "REUSE",
+      "status": "PASS",
+      "recipe_id": "social-sprint-flow",
+      "scenes_count": 3,
+      "duration_sec": 15.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "Memory != Current Request Authority: explicit brief request beat stored profile",
+        "Audio Invariant SILENT: AudioPlan is None, zero audio assets compiled",
+        "Fast rhythmic pacing applied via kinetic hook card layout"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_07_longform_repurpose",
+      "title": "Longform Repurpose (16:9, SOURCE_AUDIO, COMPOSE)",
+      "video_type": "LONGFORM_REPURPOSE",
+      "audio_mode": "SOURCE_AUDIO",
+      "aspect_ratio": "16:9",
+      "selected_tier": "COMPOSE",
+      "status": "PASS",
+      "recipe_id": "longform-repurpose",
+      "scenes_count": 5,
+      "duration_sec": 60.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "invariants_verified": [
+        "COMPOSE tier applied: spotlight callout composed with lower-third highlight layer",
+        "SOURCE_AUDIO track verified: keynote presenter audio attached cleanly",
+        "Zero CREATE escalation: modular composition satisfied longform repurpose structure"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    },
+    {
+      "scenario_id": "scenario_08_create_learning_loop",
+      "title": "Full CREATE Learning Loop (CREATE Escalation -> Promotion -> REUSE)",
+      "video_type": "PRODUCT_AD",
+      "audio_mode": "VO_MUSIC",
+      "aspect_ratio": "9:16",
+      "selected_tier": "CREATE",
+      "downstream_tier": "REUSE",
+      "status": "PASS",
+      "recipe_id": "standard-narrative-flow",
+      "scenes_count": 5,
+      "duration_sec": 30.0,
+      "blueprint_valid": true,
+      "audio_valid": true,
+      "promoted_template_id": "tpl-hologram-packshot-v1",
+      "invariants_verified": [
+        "Anti-Bypass: BlueprintCompiler refused compilation during CREATE escalation",
+        "Certification & Validation: Candidate passed Static AST and Headless Render gates",
+        "Promotion Authority: Candidate transitioned DRAFT -> VALIDATING -> VALIDATED -> APPROVED -> PROMOTED (Human-Governed)",
+        "Closed Learning Loop: Downstream project discovered promoted template and achieved REUSE direct"
+      ],
+      "cost_telemetry": {
+        "ai_calls": 1,
+        "planning_tokens": 600,
+        "actual_cost": "0.000600"
+      }
+    }
+  ],
+  "summary": {
+    "total_scenarios": 8,
+    "passed_scenarios": 8,
+    "failed_scenarios": 0,
+    "cartesian_renders_avoided": 370
+  }
+}

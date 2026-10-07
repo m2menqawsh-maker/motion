@@ -1,0 +1,69 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for read-only audio loudness analysis.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "duration_seconds": {
+      "description": "Probed audio duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "integrated_lufs": {
+      "description": "Integrated loudness in LUFS",
+      "title": "Integrated Lufs",
+      "type": "number"
+    },
+    "loudness_range": {
+      "description": "Loudness range (LRA) in LU",
+      "minimum": 0.0,
+      "title": "Loudness Range",
+      "type": "number"
+    },
+    "measurement_standard": {
+      "default": "EBU R128",
+      "description": "Applied measurement standard",
+      "title": "Measurement Standard",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "threshold_db": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Measurement threshold in dB",
+      "title": "Threshold Db"
+    },
+    "true_peak_db": {
+      "description": "True peak level in dBFS",
+      "title": "True Peak Db",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key",
+    "integrated_lufs",
+    "loudness_range",
+    "true_peak_db",
+    "duration_seconds"
+  ],
+  "title": "AnalyzeLoudnessOutput",
+  "type": "object"
+}

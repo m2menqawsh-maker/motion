@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "EpistemicStatus": {
+      "description": "Epistemic classification distinguishing stated facts from AI inferences.",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "CONFIRMED"
+      ],
+      "title": "EpistemicStatus",
+      "type": "string"
+    },
+    "SourceType": {
+      "description": "Provenance origin of the memory record.",
+      "enum": [
+        "USER_STATEMENT",
+        "CONVERSATION_SUMMARY",
+        "PROJECT_FACT",
+        "HUMAN_CONFIRMATION",
+        "AI_INFERENCE",
+        "MEDIA_ANALYSIS",
+        "DECISION",
+        "SYSTEM_IMPORT"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Provenance and confidence record for an individual style preference dimension.\nDistinguishes user-declared facts (EXPLICIT), repeated evidence (CONFIRMED),\nand behavioral hypotheses (INFERRED).",
+  "properties": {
+    "confidence": {
+      "description": "Domain-controlled confidence score",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "dimension": {
+      "description": "Preference dimension (e.g., 'pacing', 'motion_intensity')",
+      "title": "Dimension",
+      "type": "string"
+    },
+    "epistemic_status": {
+      "$ref": "#/$defs/EpistemicStatus",
+      "description": "Epistemic status: EXPLICIT, CONFIRMED, or INFERRED"
+    },
+    "evidence_count": {
+      "default": 1,
+      "description": "Number of observed evidence instances",
+      "minimum": 1,
+      "title": "Evidence Count",
+      "type": "integer"
+    },
+    "last_observed_at": {
+      "description": "UTC timestamp of the most recent evidence observation",
+      "format": "date-time",
+      "title": "Last Observed At",
+      "type": "string"
+    },
+    "rationale": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Auditable provenance note without hidden reasoning",
+      "title": "Rationale"
+    },
+    "source_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Originating feedback_id or memory_id",
+      "title": "Source Id"
+    },
+    "source_type": {
+      "$ref": "#/$defs/SourceType",
+      "description": "Origin source type"
+    }
+  },
+  "required": [
+    "dimension",
+    "epistemic_status",
+    "confidence",
+    "source_type",
+    "last_observed_at"
+  ],
+  "title": "StylePreferenceProvenance",
+  "type": "object"
+}

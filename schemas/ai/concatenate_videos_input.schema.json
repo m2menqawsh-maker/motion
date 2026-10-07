@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for concatenating multiple video clips.",
+  "properties": {
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "transition": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional transition effect name",
+      "title": "Transition"
+    },
+    "video_storage_keys": {
+      "description": "Ordered list of video storage keys to concatenate",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "title": "Video Storage Keys",
+      "type": "array"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_keys"
+  ],
+  "title": "ConcatenateVideosInput",
+  "type": "object"
+}

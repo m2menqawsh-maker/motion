@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "MemoryType": {
+      "description": "Categorization of AI memory structures.",
+      "enum": [
+        "WORKING",
+        "CONVERSATION",
+        "PROJECT",
+        "USER_PREFERENCE",
+        "WORKSPACE",
+        "DECISION",
+        "KNOWLEDGE",
+        "MEDIA_INTELLIGENCE",
+        "EPISODIC",
+        "SEMANTIC"
+      ],
+      "title": "MemoryType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contract for semantic search and retrieval from AI memory.\nEnforces tenant scoping before vector ranking.",
+  "properties": {
+    "limit": {
+      "default": 10,
+      "description": "Maximum number of items to retrieve",
+      "exclusiveMinimum": 0,
+      "maximum": 100,
+      "title": "Limit",
+      "type": "integer"
+    },
+    "memory_type": {
+      "$ref": "#/$defs/MemoryType",
+      "description": "Target memory tier"
+    },
+    "minimum_confidence": {
+      "default": 0.7,
+      "description": "Minimum similarity/confidence threshold (0.0 to 1.0)",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Minimum Confidence",
+      "type": "number"
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional project context constraint",
+      "title": "Project Id"
+    },
+    "query_text": {
+      "description": "Natural language semantic search query",
+      "minLength": 1,
+      "title": "Query Text",
+      "type": "string"
+    },
+    "session_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional session context constraint",
+      "title": "Session Id"
+    },
+    "workspace_id": {
+      "description": "Mandatory tenant isolation identifier",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "workspace_id",
+    "memory_type",
+    "query_text"
+  ],
+  "title": "MemoryQuery",
+  "type": "object"
+}

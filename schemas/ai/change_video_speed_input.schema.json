@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for adjusting video playback speed.",
+  "properties": {
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "run_in_background": {
+      "default": false,
+      "description": "Whether to execute asynchronously via background job",
+      "title": "Run In Background",
+      "type": "boolean"
+    },
+    "speed_factor": {
+      "description": "Playback speed multiplier (e.g. 1.5 for 1.5x)",
+      "exclusiveMinimum": 0.0,
+      "maximum": 16.0,
+      "title": "Speed Factor",
+      "type": "number"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key",
+    "speed_factor"
+  ],
+  "title": "ChangeVideoSpeedInput",
+  "type": "object"
+}

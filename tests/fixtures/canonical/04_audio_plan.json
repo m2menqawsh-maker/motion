@@ -1,0 +1,38 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_audio_04",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_audio_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 120
+    }
+  ],
+  "audio": {
+    "voiceover": {
+      "asset_ref": "ast_vo_primary",
+      "volume": 1.0,
+      "startFrame": 0
+    },
+    "music": {
+      "asset_ref": "ast_music_track",
+      "volume": 0.2,
+      "loop": true,
+      "ducking": {
+        "enabled": true,
+        "ducking_volume": 0.05,
+        "duck_under": ["voiceover"]
+      }
+    },
+    "global_sfx": [
+      {
+        "asset_ref": "ast_sfx_hit",
+        "startFrame": 15,
+        "volume": 0.8
+      }
+    ]
+  }
+}

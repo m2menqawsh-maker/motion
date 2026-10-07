@@ -208,6 +208,7 @@ def main():
         print("الاستخدام: python template_proposal_validator.py <proposal_id>")
         sys.exit(1)
 
+    print("⚠️ NOTICE: Legacy proposal validation via template_proposal_validator.py is superseded by S28-07 Candidate Static Validator (creative_governance.candidates.validation_service).")
     proposal_id = sys.argv[1]
     validator = TemplateProposalValidator(proposal_id)
 

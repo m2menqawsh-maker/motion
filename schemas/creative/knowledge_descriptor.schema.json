@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "KnowledgeStatus": {
+      "description": "Lifecycle and eligibility status for Knowledge documents.",
+      "enum": [
+        "ACTIVE",
+        "RETIRED",
+        "DRAFT"
+      ],
+      "title": "KnowledgeStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Catalog descriptor for reference knowledge: documents, playbooks, guidelines,\nand heuristics used for creative reasoning without conveying runtime authority.",
+  "properties": {
+    "audio_modes": {
+      "description": "Compatible audio presentation modes",
+      "items": {
+        "$ref": "#/$defs/AudioMode"
+      },
+      "title": "Audio Modes",
+      "type": "array"
+    },
+    "authority_level": {
+      "default": 5,
+      "description": "Hierarchy level (Level 5 = Reference, non-runtime)",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Authority Level",
+      "type": "integer"
+    },
+    "category": {
+      "description": "Category (e.g., 'PLAYBOOK', 'SOP', 'ENGINEERING_GUIDE', 'TASTE_REFERENCE')",
+      "title": "Category",
+      "type": "string"
+    },
+    "content_hash": {
+      "description": "Cryptographic digest (SHA-256) of document content",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "dependencies": {
+      "description": "List of knowledge or asset IDs this document depends upon",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "knowledge_id": {
+      "description": "Unique knowledge item identifier",
+      "title": "Knowledge Id",
+      "type": "string"
+    },
+    "language": {
+      "default": "any",
+      "description": "Language code for the knowledge artifact (e.g., 'ar', 'en', 'any')",
+      "title": "Language",
+      "type": "string"
+    },
+    "platforms": {
+      "description": "Target distribution platforms (e.g., 'youtube', 'tiktok', 'instagram')",
+      "items": {
+        "type": "string"
+      },
+      "title": "Platforms",
+      "type": "array"
+    },
+    "source_uri": {
+      "description": "Relative path or URI to the source artifact (e.g., 'references/...')",
+      "title": "Source Uri",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/KnowledgeStatus",
+      "default": "ACTIVE",
+      "description": "Lifecycle and retrieval eligibility status"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Concise synopsis of the knowledge content",
+      "title": "Summary"
+    },
+    "tags": {
+      "description": "Descriptive classification tags",
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "title": {
+      "description": "Title of the knowledge document",
+      "title": "Title",
+      "type": "string"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Semver version of the knowledge artifact",
+      "title": "Version",
+      "type": "string"
+    },
+    "video_types": {
+      "description": "Applicable video types (e.g., 'explainer', 'montage', 'demo')",
+      "items": {
+        "type": "string"
+      },
+      "title": "Video Types",
+      "type": "array"
+    }
+  },
+  "required": [
+    "knowledge_id",
+    "category",
+    "title",
+    "source_uri",
+    "content_hash"
+  ],
+  "title": "KnowledgeDescriptor",
+  "type": "object"
+}

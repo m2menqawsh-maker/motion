@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for downloading an icon asset.",
+  "properties": {
+    "color": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional fill color hex code (e.g. '#ffffff')",
+      "title": "Color"
+    },
+    "icon_name": {
+      "description": "Full canonical icon identifier (e.g. 'mdi:movie')",
+      "minLength": 1,
+      "title": "Icon Name",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "size": {
+      "default": 64,
+      "description": "Icon dimensions in pixels",
+      "maximum": 1024,
+      "minimum": 16,
+      "title": "Size",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "icon_name"
+  ],
+  "title": "DownloadIconInput",
+  "type": "object"
+}

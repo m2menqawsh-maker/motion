@@ -23,9 +23,12 @@ class Action(str, Enum):
     ASSET_UPLOAD = "asset:upload"
     ASSET_DELETE = "asset:delete"
 
-    # Blueprint
+    # Blueprint & Authoring
     BLUEPRINT_READ = "blueprint:read"
     BLUEPRINT_EDIT = "blueprint:edit"
+    AUTHORING_READ = "authoring:read"
+    AUTHORING_EDIT = "authoring:edit"
+    PREVIEW_REQUEST = "preview:request"
 
     # Pipeline execution
     RUN_EXECUTE = "run:execute"
@@ -45,6 +48,9 @@ class Action(str, Enum):
 
     # System administration
     SYSTEM_ADMIN = "system:admin"
+
+    # Template Promotion
+    TEMPLATE_PROMOTE = "template:promote"
 
 
 class AccessDeniedError(Exception):
@@ -74,6 +80,7 @@ ROLE_PERMISSIONS_MATRIX: Dict[Role, Set[Action]] = {
         Action.PROJECT_READ,
         Action.ASSET_READ,
         Action.BLUEPRINT_READ,
+        Action.AUTHORING_READ,
         Action.QC_VIEW,
         Action.RENDER_READ,
     },
@@ -86,6 +93,9 @@ ROLE_PERMISSIONS_MATRIX: Dict[Role, Set[Action]] = {
         Action.ASSET_DELETE,
         Action.BLUEPRINT_READ,
         Action.BLUEPRINT_EDIT,
+        Action.AUTHORING_READ,
+        Action.AUTHORING_EDIT,
+        Action.PREVIEW_REQUEST,
         Action.RUN_EXECUTE,
         Action.RUN_CANCEL,
         Action.RENDER_TRIGGER,
@@ -96,6 +106,7 @@ ROLE_PERMISSIONS_MATRIX: Dict[Role, Set[Action]] = {
         Action.PROJECT_READ,
         Action.ASSET_READ,
         Action.BLUEPRINT_READ,
+        Action.AUTHORING_READ,
         Action.QC_VIEW,
         Action.RENDER_READ,
         # Independent reviewer privileges
@@ -106,6 +117,8 @@ ROLE_PERMISSIONS_MATRIX: Dict[Role, Set[Action]] = {
         Action.PROJECT_READ,
         Action.ASSET_READ,
         Action.BLUEPRINT_READ,
+        Action.AUTHORING_READ,
+        Action.PREVIEW_REQUEST,
         Action.RUN_EXECUTE,
         Action.RUN_CANCEL,
         Action.QC_VIEW,

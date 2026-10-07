@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for converted image.",
+  "properties": {
+    "file_size_bytes": {
+      "description": "Output payload size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "height": {
+      "description": "Image pixel height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for converted image",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "source_format": {
+      "description": "Original image format",
+      "minLength": 1,
+      "title": "Source Format",
+      "type": "string"
+    },
+    "target_format": {
+      "description": "Converted image format",
+      "minLength": 1,
+      "title": "Target Format",
+      "type": "string"
+    },
+    "width": {
+      "description": "Image pixel width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "source_format",
+    "target_format",
+    "width",
+    "height",
+    "file_size_bytes"
+  ],
+  "title": "ConvertImageResult",
+  "type": "object"
+}

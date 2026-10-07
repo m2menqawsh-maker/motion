@@ -1,0 +1,108 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract orchestrating full asset ingestion: orientation normalization,\noptional resizing, optimization, storage persistence, and Manifest v2 registration.",
+  "properties": {
+    "asset_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional canonical asset ID to assign",
+      "title": "Asset Id"
+    },
+    "generate_thumbnail": {
+      "default": true,
+      "description": "Whether to generate companion thumbnail",
+      "title": "Generate Thumbnail",
+      "type": "boolean"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "max_height": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Max height bound",
+      "title": "Max Height"
+    },
+    "max_width": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Max width bound",
+      "title": "Max Width"
+    },
+    "normalize_orientation": {
+      "default": true,
+      "description": "Whether to transpose image based on EXIF orientation",
+      "title": "Normalize Orientation",
+      "type": "boolean"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 90,
+      "description": "Output quality",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "target_format": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional format conversion (PNG, JPEG, WEBP)",
+      "title": "Target Format"
+    },
+    "thumbnail_size": {
+      "default": 256,
+      "description": "Thumbnail square dimension bound",
+      "maximum": 1024,
+      "minimum": 32,
+      "title": "Thumbnail Size",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "PrepareImageAssetRequest",
+  "type": "object"
+}

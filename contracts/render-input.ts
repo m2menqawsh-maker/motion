@@ -15,13 +15,18 @@ import {
   TransitionRef,
 } from "./blueprint";
 import { BrandKit } from "./brand";
-import { getRegistryEntry } from "../registry/template-registry";
-import { EFFECTS_RUNTIME, isKnownEffect, isExecutableEffect } from "../registry/effects-runtime";
+import {
+  SceneOverride,
+  SceneOverrideSchema,
+  OverridesSchema,
+} from "./blueprint";
+export { type SceneOverride, SceneOverrideSchema, OverridesSchema } from "./blueprint";
+import { getSemanticTemplateEntry } from "../registry/semantic-registry";
+import { SEMANTIC_EFFECTS_CATALOG, isKnownEffect, isExecutableEffect } from "./effects";
 import {
   validateTemplatePayload,
   InvalidTemplatePayloadError,
 } from "./template-schemas";
-import { SceneOverride } from "../remotion-app/src/merge";
 
 // ─── 1. Error Taxonomy ────────────────────────────────────────────────────────
 
@@ -151,17 +156,6 @@ export const DEFAULT_BRAND_KIT: BrandKit = {
   }
 };
 
-export const SceneOverrideSchema = z.object({
-  props: z.record(z.string(), z.any()).optional(),
-  timing: z.object({
-    startFrame: z.number().int().optional(),
-    durationFrames: z.number().int().optional(),
-  }).optional(),
-});
-
-export const OverridesSchema = z.object({
-  scenes: z.record(z.string(), SceneOverrideSchema).default({}),
-}).default({ scenes: {} });
 
 // ─── 3. Canonical Validated Render Input Interface ────────────────────────────
 
@@ -263,7 +257,7 @@ export function parseRenderInput(rawInput: unknown): ValidatedRenderInput {
     const scenePath = `scenes[${idx}] ('${scene.scene_id}')`;
 
     // 4a. Template Identity Check (S15 Authority)
-    const entry = getRegistryEntry(scene.template);
+    const entry = getSemanticTemplateEntry(scene.template);
     if (!entry) {
       throw new UnknownTemplateError(scene.template, scene.scene_id, `scenes[${idx}].template`);
     }
@@ -276,7 +270,7 @@ export function parseRenderInput(rawInput: unknown): ValidatedRenderInput {
           throw new UnknownEffectError(eff.effect, scene.scene_id, `scenes[${idx}].effects[${eIdx}].effect`);
         }
         if (!isExecutableEffect(eff.effect)) {
-          const reason = EFFECTS_RUNTIME[eff.effect]?.reason || "unbridged";
+          const reason = SEMANTIC_EFFECTS_CATALOG[eff.effect]?.reason || "unbridged";
           throw new UnknownEffectError(
             `${eff.effect} (unsupported: ${reason})`,
             scene.scene_id,

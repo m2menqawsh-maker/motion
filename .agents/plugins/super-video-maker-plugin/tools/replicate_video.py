@@ -42,14 +42,7 @@ def emit(payload: dict[str, Any]) -> None:
 
 
 def load_env() -> str:
-    # Load .env from repo root first, then skill folder as fallback.
-    load_dotenv(REPO_ROOT / ".env")
-    load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
-    token = os.getenv("REPLICATE_API_TOKEN")
-    if not token:
-        emit({"status": "failed", "error": "REPLICATE_API_TOKEN missing in .env", "model": DEFAULT_MODEL})
-        sys.exit(2)
-    return token
+    raise PermissionError("DIRECT SECRET ACCESS BLOCKED: Direct access to REPLICATE_API_TOKEN outside canonical S27 capability adapters is prohibited.")
 
 
 def resolve_reference(ref: str) -> Any:
@@ -63,71 +56,10 @@ def resolve_reference(ref: str) -> Any:
 
 
 def cmd_generate(args: argparse.Namespace) -> None:
-    load_env()
-    import replicate  # imported after env is loaded
-
-    inputs: dict[str, Any] = {
-        "prompt": args.prompt,
-        "aspect_ratio": args.aspect_ratio,
-        "duration": args.duration,
-        "resolution": args.resolution,
-        "generate_audio": args.generate_audio,
-        "reference_images": [resolve_reference(r) for r in (args.reference_image or [])],
-        "reference_audios": [resolve_reference(r) for r in (args.reference_audio or [])],
-        "reference_videos": [resolve_reference(r) for r in (args.reference_video or [])],
-    }
-    if args.seed is not None:
-        inputs["seed"] = args.seed
-
-    log(f"[replicate-video] running {args.model} duration={args.duration}s "
-        f"resolution={args.resolution} ar={args.aspect_ratio} "
-        f"refs(img/aud/vid)={len(inputs['reference_images'])}/"
-        f"{len(inputs['reference_audios'])}/{len(inputs['reference_videos'])}")
-    started = time.time()
-
-    try:
-        output = replicate.run(args.model, input=inputs)
-    except Exception as exc:  # noqa: BLE001
-        emit({"status": "failed", "error": str(exc), "model": args.model})
-        sys.exit(1)
-
-    # Replicate returns a FileOutput object (or list) for video models.
-    file_obj = output[0] if isinstance(output, list) else output
-
-    try:
-        url = file_obj.url() if hasattr(file_obj, "url") else str(file_obj)
-    except Exception:  # noqa: BLE001
-        url = str(file_obj)
-
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    local_path = OUTPUT_DIR / f"seedance_{int(time.time())}.mp4"
-    try:
-        if hasattr(file_obj, "read"):
-            local_path.write_bytes(file_obj.read())
-        else:
-            import urllib.request
-            urllib.request.urlretrieve(url, local_path)
-    except Exception as exc:  # noqa: BLE001
-        emit({
-            "status": "succeeded_no_local",
-            "error": f"download failed: {exc}",
-            "output_url": url,
-            "model": args.model,
-        })
-        sys.exit(0)
-
-    elapsed = round(time.time() - started, 1)
-    log(f"[replicate-video] done in {elapsed}s -> {local_path}")
-    emit({
-        "status": "succeeded",
-        "output_url": url,
-        "local_path": str(local_path.relative_to(REPO_ROOT)) if local_path.is_relative_to(REPO_ROOT) else str(local_path),
-        "duration_s": args.duration,
-        "resolution": args.resolution,
-        "aspect_ratio": args.aspect_ratio,
-        "model": args.model,
-        "elapsed_s": elapsed,
-    })
+    raise RuntimeError(
+        "DIRECT PROVIDER EXECUTION BLOCKED: Direct Replicate provider execution via legacy replicate_video.py is prohibited. "
+        "Use canonical S27 video capability adapters and ModelRouter."
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -151,8 +83,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    args = build_parser().parse_args()
-    args.func(args)
+    raise RuntimeError(
+        "DIRECT PROVIDER BYPASS BLOCKED: Direct CLI execution of replicate_video.py is prohibited. "
+        "Route all video requests via canonical S27 capabilities and ModelRouter."
+    )
 
 
 if __name__ == "__main__":

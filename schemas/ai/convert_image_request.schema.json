@@ -1,0 +1,58 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for converting image format with safe alpha handling.",
+  "properties": {
+    "background_color": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "#ffffff",
+      "description": "Background color for RGBA -> RGB conversions",
+      "title": "Background Color"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 95,
+      "description": "Compression quality (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "strip_metadata": {
+      "default": false,
+      "description": "Whether to strip EXIF and metadata",
+      "title": "Strip Metadata",
+      "type": "boolean"
+    },
+    "target_format": {
+      "description": "Target format (PNG, JPEG, WEBP)",
+      "minLength": 3,
+      "title": "Target Format",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key",
+    "target_format"
+  ],
+  "title": "ConvertImageRequest",
+  "type": "object"
+}

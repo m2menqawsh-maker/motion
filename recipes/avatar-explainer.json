@@ -93,7 +93,7 @@
   "providers": {
     "avatar": "heygen",
     "broll": "screenshots_then_fal_seedance_then_openai_kenburns",
-    "transcription": "openai_whisper",
+    "transcription": "SPEECH_TO_TEXT",
     "compose": "ffmpeg"
   },
   "routing_keywords": [

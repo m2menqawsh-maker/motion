@@ -124,16 +124,66 @@ def main():
             npx_cmd = "npx.cmd" if os.name == "nt" else "npx"
             engine_dir = workspace_root / "remotion-app"
             
-            print(f"🎥 جاري الرندر (محلي)...")
-            result = safe_subprocess(
-                [npx_cmd, "remotion", "render", "src/index.ts", "BlueprintVideo", str(tmp_out_file), "--props", str(props_file_abs)],
-                env=env,
-                cwd=str(engine_dir),
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            print(result.stdout)
+            # S28-R14: Primary execution through RenderPlanner -> Multi-Engine RenderGraph -> Master Compositor
+            use_legacy = os.environ.get("USE_LEGACY_RENDER_PATH") == "1" or "--legacy-cli" in sys.argv
+            planner_script = workspace_root / "scripts" / "render_via_planner.ts"
+            adapter_script = workspace_root / "scripts" / "render_via_adapter.ts"
+            render_success = False
+
+            ws_id = os.environ.get("AGY_WORKSPACE_ID", "ws_default")
+            input_rev = os.environ.get("AGY_INPUT_REVISION", "1")
+
+            if not use_legacy and planner_script.exists():
+                print(f"🎥 جاري الرندر عبر Multi-Engine RenderPlanner & MasterCompositor (S28-R14)...")
+                try:
+                    cmd_planner = [
+                        npx_cmd, "tsx", str(planner_script), project_id,
+                        "--out", str(tmp_out_file),
+                        "--run-id", run_id,
+                        "--workspace", ws_id,
+                        "--revision", input_rev,
+                    ]
+                    res = safe_subprocess(
+                        cmd_planner,
+                        env=env,
+                        cwd=str(workspace_root),
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
+                    print(res.stdout)
+                    render_success = True
+                except Exception as ex:
+                    print(f"⚠️ فشل مسار Multi-Engine Planner ({ex}) — تجربة مسار Adapter الفردي...")
+
+            if not render_success and not use_legacy and adapter_script.exists():
+                print(f"🎥 جاري الرندر عبر RemotionRendererAdapter (S28-R09)...")
+                try:
+                    res = safe_subprocess(
+                        [npx_cmd, "tsx", str(adapter_script), project_id, "--out", str(tmp_out_file)],
+                        env=env,
+                        cwd=str(workspace_root),
+                        check=True,
+                        capture_output=True,
+                        text=True
+                    )
+                    print(res.stdout)
+                    render_success = True
+                except Exception as ex:
+                    print(f"⚠️ فشل مسار Adapter ({ex}) — تفعيل جسر التوافق (Legacy Remotion CLI)...")
+
+            if not render_success:
+                print(f"🎥 جاري الرندر عبر مسار التوافق (Remotion CLI)...")
+                result = safe_subprocess(
+                    [npx_cmd, "remotion", "render", "src/index.ts", "BlueprintVideo", str(tmp_out_file), "--props", str(props_file_abs)],
+                    env=env,
+                    cwd=str(engine_dir),
+                    check=True,
+                    capture_output=True,
+                    text=True
+                )
+                print(result.stdout)
+
             duration_ms = int((time.time() - start_time) * 1000)
             
             if tmp_out_file.exists():

@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "CostEstimate": {
+      "additionalProperties": false,
+      "description": "Precision-safe monetary cost representation for budgeting and accounting.\nEnforces exact Decimal calculations to avoid binary floating-point drift.",
+      "properties": {
+        "actual_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Final settled cost",
+          "title": "Actual Cost"
+        },
+        "currency": {
+          "default": "USD",
+          "description": "ISO 4217 3-letter currency code (e.g. USD, EUR)",
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "estimated_cost": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Estimated cost prior to execution",
+          "title": "Estimated Cost"
+        },
+        "pricing_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the rate card or pricing matrix used",
+          "title": "Pricing Version"
+        },
+        "reserved_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Budget reserved during execution",
+          "title": "Reserved Cost"
+        }
+      },
+      "required": [
+        "estimated_cost"
+      ],
+      "title": "CostEstimate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contract representing the outcome of a routing decision.\nIdentifies the primary deployment candidate and ranked fallbacks.",
+  "properties": {
+    "estimated_cost": {
+      "$ref": "#/$defs/CostEstimate",
+      "description": "Estimated cost of executing with primary model"
+    },
+    "fallback_candidates": {
+      "description": "Ranked fallback candidate identifiers",
+      "items": {
+        "type": "string"
+      },
+      "title": "Fallback Candidates",
+      "type": "array"
+    },
+    "primary_model": {
+      "description": "Resolved primary model identifier",
+      "minLength": 1,
+      "title": "Primary Model",
+      "type": "string"
+    },
+    "reason_code": {
+      "description": "Deterministic reason code for this selection",
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "primary_model",
+    "reason_code",
+    "estimated_cost"
+  ],
+  "title": "ModelSelection",
+  "type": "object"
+}

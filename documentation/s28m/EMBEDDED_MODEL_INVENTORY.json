@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "audit_metadata": {
+    "milestone": "S28-M01",
+    "subsystem": "MCP Embedded Machine Learning Models",
+    "timestamp": "2026-10-03T21:43:00+03:00",
+    "total_models_discovered": 2,
+    "verified_working_models": 2
+  },
+  "embedded_models": [
+    {
+      "model_id": "faster-whisper-speech-to-text",
+      "model_name": "faster-whisper",
+      "owning_mcp": "audio-tools-mcp",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/voiceover_ops.py",
+      "invoking_tool": "analyze_voiceover",
+      "purpose": "Local automated speech recognition (ASR), multi-language voiceover transcription, sentence/word segmentation, and millisecond-accurate word-level timestamp extraction.",
+      "package_library": "faster-whisper (>=1.1.1)",
+      "inference_engine": "CTranslate2",
+      "configured_default_model": "base",
+      "supported_model_sizes": [
+        "tiny",
+        "base",
+        "small",
+        "medium",
+        "large-v1",
+        "large-v2",
+        "large-v3"
+      ],
+      "model_architecture": "Encoder-Decoder Transformer (Whisper architecture optimized via CTranslate2 quantization)",
+      "execution_mode": "local_embedded",
+      "hardware_device_selection": {
+        "priority_order": [
+          "1. In-process singleton cache (WhisperModelManager)",
+          "2. Persistent JSON cache (.device_capability.json)",
+          "3. WHISPER_DEVICE environment variable override (e.g. 'cuda')",
+          "4. Quick cuBLAS DLL check (ctypes.CDLL('cublas64_12.dll') + ctranslate2.get_cuda_device_count() > 0)",
+          "5. CPU fallback (int8 quantization with cpu_threads = min(8, os.cpu_count() or 4))"
+        ],
+        "active_device_detected": "cpu",
+        "active_compute_type": "int8",
+        "device_cache_file": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/.device_capability.json"
+      },
+      "model_lifecycle": {
+        "loading_strategy": "Lazy loaded singleton on first invocation of analyze_voiceover",
+        "singleton_class": "WhisperModelManager",
+        "persistence": "Resident in memory for duration of MCP server process; reused across multiple tool calls if model_size matches"
+      },
+      "caching_mechanisms": {
+        "model_weights_cache": "~/.cache/huggingface/hub/models--Systran--faster-whisper-*",
+        "inference_output_cache": ".{audio_stem}_{sha256[:8]}.analysis.json saved in the same directory as source audio file"
+      },
+      "inputs": {
+        "audio_path": "str (path to wav/mp3/m4a audio file, decoded to 16 kHz mono float32 numpy array)",
+        "language": "str | None (optional ISO 639-1 language code, e.g. 'ar', 'en')",
+        "model_size": "str | None (optional model size name, defaults to 'base')"
+      },
+      "outputs": {
+        "full_text": "str",
+        "language": "str",
+        "language_probability": "float",
+        "duration": "float",
+        "model_device": "str",
+        "compute_type": "str",
+        "model_size": "str",
+        "segments": "list[dict] (start, end, text, confidence, words)",
+        "speech_periods": "list[dict] (start, end)",
+        "silence_periods": "list[dict] (start, end)"
+      },
+      "current_consumers": [
+        "audio-tools-mcp::analyze_voiceover",
+        "audio-tools-mcp::split_voiceover_sentences (via analysis JSON)",
+        "audio-tools-mcp::get_voiceover_manifest",
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json"
+      ],
+      "failure_behavior": "Catches exceptions gracefully via _fallback_analysis; extracts audio duration using ffprobe subprocess and returns structured fallback payload with single speech segment '[Audio Voiceover Track]' without crashing the MCP server.",
+      "resource_requirements": {
+        "ram": "~500 MB (tiny/base) to ~3 GB (large-v3)",
+        "vram": "Optional ~1-4 GB if CUDA enabled",
+        "disk": "~150 MB (base model weights) in HuggingFace cache"
+      },
+      "external_provider_involved": false,
+      "verification_status": "WORKING",
+      "verification_evidence": "Executed live transcription on assets/incoming/tests/human_vo_01.wav with model_size='tiny' via UV runtime in scratch/run_actual_mcp_verification.py. Successfully returned text, duration (2.85s), and word timestamps."
+    },
+    {
+      "model_id": "silero-vad-onnx",
+      "model_name": "Silero VAD",
+      "owning_mcp": "audio-tools-mcp",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/voiceover_ops.py",
+      "invoking_tool": "analyze_voiceover",
+      "purpose": "Voice activity detection (VAD); calculates speech probabilities across audio frames to demarcate active speech boundaries and compute silence intervals for accurate video timeline pacing.",
+      "package_library": "faster-whisper.vad (via onnxruntime)",
+      "inference_engine": "ONNX Runtime",
+      "model_file": "silero_vad.onnx",
+      "execution_mode": "local_embedded",
+      "hardware_device_selection": {
+        "device": "cpu",
+        "engine": "onnxruntime C++ CPU inference"
+      },
+      "model_lifecycle": {
+        "loading_strategy": "Lazy loaded singleton on first invocation via WhisperModelManager.get_vad_model()",
+        "persistence": "Resident in memory for process lifetime"
+      },
+      "caching_mechanisms": {
+        "model_file_cache": "Cached inside faster_whisper/assets/silero_vad.onnx in virtualenv site-packages",
+        "result_cache": "Included inside .{audio_stem}_{sha256[:8]}.analysis.json"
+      },
+      "inputs": {
+        "audio_array": "numpy.ndarray (float32 mono, 16000 Hz sample rate)",
+        "vad_options": "VadOptions(threshold=0.5, min_speech_duration_ms=250, max_speech_duration_s=float('inf'), min_silence_duration_ms=2000, speech_pad_ms=400)"
+      },
+      "outputs": {
+        "speech_timestamps": "list[dict] with 'start' and 'end' frame/sample timestamps converted to seconds",
+        "speech_periods": "list[dict(start: float, end: float)]",
+        "silence_periods": "list[dict(start: float, end: float)]"
+      },
+      "current_consumers": [
+        "audio-tools-mcp::analyze_voiceover",
+        "audio-tools-mcp::split_voiceover_sentences (via speech periods and silence thresholds)"
+      ],
+      "failure_behavior": "If VAD calculation fails, logs warning and falls back to whole-audio single speech interval: [{'start': 0.0, 'end': audio_duration}].",
+      "resource_requirements": {
+        "ram": "< 50 MB",
+        "disk": "~2 MB (ONNX model file)"
+      },
+      "external_provider_involved": false,
+      "verification_status": "WORKING",
+      "verification_evidence": "Executed live during analyze_voiceover test in scratch/run_actual_mcp_verification.py. Accurately extracted speech periods and silence intervals."
+    }
+  ],
+  "evaluated_non_ml_subsystems": [
+    {
+      "subsystem": "image-tools-mcp (upscale_image)",
+      "technology": "PIL.Image.Resampling.LANCZOS",
+      "is_ml_model": false,
+      "rationale": "Uses classical Lanczos sinc-based digital interpolation resampling algorithm. No neural network or learned weights."
+    },
+    {
+      "subsystem": "image-tools-mcp (auto_crop_content)",
+      "technology": "PIL.ImageChops.difference",
+      "is_ml_model": false,
+      "rationale": "Uses classical pixel color subtraction and thresholding to find non-background bounding boxes. No neural network."
+    },
+    {
+      "subsystem": "video-tools-mcp (detect_and_trim_black_frames)",
+      "technology": "FFmpeg blackdetect filter",
+      "is_ml_model": false,
+      "rationale": "Uses native FFmpeg luminance threshold calculation (pic_th, pix_th). No neural network."
+    },
+    {
+      "subsystem": "video_captioner.py (Plugin Tool)",
+      "technology": "OpenAI Whisper Cloud API (whisper-1)",
+      "is_ml_model": false,
+      "rationale": "External cloud API client, not a local embedded MCP model."
+    }
+  ]
+}

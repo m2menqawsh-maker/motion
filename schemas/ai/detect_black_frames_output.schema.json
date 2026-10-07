@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for black-frame trimmed video.",
+  "properties": {
+    "black_segments_count": {
+      "description": "Number of black frame intervals removed",
+      "minimum": 0,
+      "title": "Black Segments Count",
+      "type": "integer"
+    },
+    "original_duration_seconds": {
+      "description": "Original duration",
+      "minimum": 0.0,
+      "title": "Original Duration Seconds",
+      "type": "number"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for trimmed video",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "trimmed_duration_seconds": {
+      "description": "Final duration after black frames removed",
+      "minimum": 0.0,
+      "title": "Trimmed Duration Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "original_duration_seconds",
+    "trimmed_duration_seconds",
+    "black_segments_count"
+  ],
+  "title": "DetectBlackFramesOutput",
+  "type": "object"
+}

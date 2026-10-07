@@ -1,0 +1,455 @@
+{
+  "$defs": {
+    "ComposeEvaluationResult": {
+      "additionalProperties": false,
+      "description": "Structured audit evidence of COMPOSE planning and suitability evaluation.",
+      "properties": {
+        "components_checked": {
+          "description": "Registered Lego components considered",
+          "items": {
+            "type": "string"
+          },
+          "title": "Components Checked",
+          "type": "array"
+        },
+        "composition_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CompositionPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Synthesized CompositionPlan if valid"
+        },
+        "eligible_components": {
+          "description": "Registered components passing compatibility",
+          "items": {
+            "type": "string"
+          },
+          "title": "Eligible Components",
+          "type": "array"
+        },
+        "need_description": {
+          "description": "Description of requested scene intent or creative need",
+          "title": "Need Description",
+          "type": "string"
+        },
+        "rationale": {
+          "description": "Human/audit readable summary of COMPOSE evaluation",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "rejection_reasons": {
+          "description": "Reasons why composition could not satisfy need",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rejection Reasons",
+          "type": "array"
+        },
+        "sufficiency": {
+          "description": "Whether COMPOSE was found to be sufficient",
+          "title": "Sufficiency",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "need_description",
+        "sufficiency",
+        "rationale"
+      ],
+      "title": "ComposeEvaluationResult",
+      "type": "object"
+    },
+    "CompositionLayer": {
+      "additionalProperties": false,
+      "description": "A visual layer within a multi-layer composition hierarchy.",
+      "properties": {
+        "element_ref": {
+          "description": "Reference to template, asset, or primitive component",
+          "title": "Element Ref",
+          "type": "string"
+        },
+        "layer_type": {
+          "description": "Layer category: 'primary' (100%), 'secondary' (30-50%), or 'ambient' (10-20%)",
+          "title": "Layer Type",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Layer-specific motion and style props",
+          "title": "Properties",
+          "type": "object"
+        }
+      },
+      "required": [
+        "layer_type",
+        "element_ref"
+      ],
+      "title": "CompositionLayer",
+      "type": "object"
+    },
+    "CompositionPlan": {
+      "additionalProperties": false,
+      "description": "Spatial, layer, and choreography plan for a scene.",
+      "properties": {
+        "base_template_or_primitive": {
+          "description": "Primary visual anchor or template",
+          "title": "Base Template Or Primitive",
+          "type": "string"
+        },
+        "camera_motion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Camera directive (e.g., 'dive_into_word', 'static', 'whip_pan')",
+          "title": "Camera Motion"
+        },
+        "composition_id": {
+          "description": "Unique composition plan identifier",
+          "title": "Composition Id",
+          "type": "string"
+        },
+        "effects": {
+          "description": "Optional registered effects applied",
+          "items": {
+            "type": "string"
+          },
+          "title": "Effects",
+          "type": "array"
+        },
+        "gestural_elements": {
+          "description": "Visual gestures (e.g., ['Neon Ring', 'Marker Underline'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Gestural Elements",
+          "type": "array"
+        },
+        "layers": {
+          "description": "Staged composition layers",
+          "items": {
+            "$ref": "#/$defs/CompositionLayer"
+          },
+          "title": "Layers",
+          "type": "array"
+        },
+        "layout_zone": {
+          "default": "full",
+          "description": "Layout zone on canvas (e.g., 'full', 'top_split', 'bottom_card')",
+          "title": "Layout Zone",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Associated scene identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "sfx_bindings": {
+          "description": "SFX cues bound to visual moments",
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Sfx Bindings",
+          "type": "array"
+        },
+        "transition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional transition out (e.g., 'fade', 'slide')",
+          "title": "Transition"
+        }
+      },
+      "required": [
+        "composition_id",
+        "scene_id",
+        "base_template_or_primitive"
+      ],
+      "title": "CompositionPlan",
+      "type": "object"
+    },
+    "CreativeTier": {
+      "description": "Canonical creativity tiers (S28-01A / S28-06).",
+      "enum": [
+        "REUSE",
+        "COMPOSE",
+        "CREATE"
+      ],
+      "title": "CreativeTier",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "ReuseCandidateScore": {
+      "additionalProperties": false,
+      "description": "Detailed score and eligibility evaluation for a template candidate in REUSE search.",
+      "properties": {
+        "eligible": {
+          "description": "Whether template passed all hard compatibility filters",
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "fit_score": {
+          "default": 0.0,
+          "description": "Overall suitability fit score (0.0 - 1.0)",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "hard_filter_failures": {
+          "description": "Reasons for hard filter rejection",
+          "items": {
+            "type": "string"
+          },
+          "title": "Hard Filter Failures",
+          "type": "array"
+        },
+        "score_breakdown": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Component scores (style, motion, content, duration, media)",
+          "title": "Score Breakdown",
+          "type": "object"
+        },
+        "sufficient": {
+          "default": false,
+          "description": "Whether template passes sufficiency threshold for direct REUSE",
+          "title": "Sufficient",
+          "type": "boolean"
+        },
+        "template_id": {
+          "description": "Canonical template ID",
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template_id",
+        "eligible"
+      ],
+      "title": "ReuseCandidateScore",
+      "type": "object"
+    },
+    "ReuseEvaluationResult": {
+      "additionalProperties": false,
+      "description": "Structured audit evidence of REUSE search and suitability evaluation.",
+      "properties": {
+        "candidates_checked": {
+          "description": "All registered templates evaluated",
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidates Checked",
+          "type": "array"
+        },
+        "eligible_candidates": {
+          "description": "Candidates passing hard compatibility filters",
+          "items": {
+            "type": "string"
+          },
+          "title": "Eligible Candidates",
+          "type": "array"
+        },
+        "need_description": {
+          "description": "Description of requested scene intent or creative need",
+          "title": "Need Description",
+          "type": "string"
+        },
+        "ranked_candidates": {
+          "description": "Ranked candidates with scores",
+          "items": {
+            "$ref": "#/$defs/ReuseCandidateScore"
+          },
+          "title": "Ranked Candidates",
+          "type": "array"
+        },
+        "rationale": {
+          "description": "Human/audit readable summary of REUSE evaluation",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "rejection_reasons": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "description": "Reasons for candidate rejections",
+          "title": "Rejection Reasons",
+          "type": "object"
+        },
+        "selected_candidate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Selected canonical template ID if REUSE sufficient",
+          "title": "Selected Candidate"
+        },
+        "sufficiency": {
+          "description": "Whether REUSE was found to be sufficient",
+          "title": "Sufficiency",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "need_description",
+        "sufficiency",
+        "rationale"
+      ],
+      "title": "ReuseEvaluationResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Explicit decision selecting the implementation tier for a scene.",
+  "properties": {
+    "compose_candidates_checked": {
+      "description": "IDs of components evaluated for COMPOSE",
+      "items": {
+        "type": "string"
+      },
+      "title": "Compose Candidates Checked",
+      "type": "array"
+    },
+    "compose_result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ComposeEvaluationResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured COMPOSE evaluation evidence"
+    },
+    "composite_elements": {
+      "description": "List of primitive elements if COMPOSE",
+      "items": {
+        "type": "string"
+      },
+      "title": "Composite Elements",
+      "type": "array"
+    },
+    "composition_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompositionPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resolved composition plan if COMPOSE"
+    },
+    "decision_id": {
+      "description": "Unique decision identifier",
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "needs_create_evaluation": {
+      "default": false,
+      "description": "Flag indicating candidate creation was evaluated prior to selecting CREATE",
+      "title": "Needs Create Evaluation",
+      "type": "boolean"
+    },
+    "rationale": {
+      "description": "Justification for why this tier is optimal for this scene",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "requested_need": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Creative need or intent description",
+      "title": "Requested Need"
+    },
+    "reuse_candidates_checked": {
+      "description": "IDs of registered templates evaluated for REUSE",
+      "items": {
+        "type": "string"
+      },
+      "title": "Reuse Candidates Checked",
+      "type": "array"
+    },
+    "reuse_result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReuseEvaluationResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Structured REUSE evaluation evidence"
+    },
+    "scene_id": {
+      "description": "Target scene identifier",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "selected_tier": {
+      "$ref": "#/$defs/CreativeTier",
+      "description": "Selected implementation tier (REUSE, COMPOSE, CREATE)"
+    },
+    "template_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Template identifier if REUSE",
+      "title": "Template Ref"
+    }
+  },
+  "required": [
+    "decision_id",
+    "scene_id",
+    "selected_tier",
+    "rationale"
+  ],
+  "title": "CreativeTierDecision",
+  "type": "object"
+}

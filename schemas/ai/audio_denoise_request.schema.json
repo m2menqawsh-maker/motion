@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for acoustic background noise suppression.",
+  "properties": {
+    "aggressiveness": {
+      "default": 0.5,
+      "description": "Denoise suppression strength",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Aggressiveness",
+      "type": "number"
+    },
+    "audio_storage_key": {
+      "description": "Abstract StorageService key for noisy audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "content_hash": {
+      "description": "SHA-256 hash of noisy audio",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "audio_storage_key",
+    "content_hash"
+  ],
+  "title": "AudioDenoiseRequest",
+  "type": "object"
+}

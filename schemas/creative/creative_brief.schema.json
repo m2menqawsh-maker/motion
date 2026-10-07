@@ -1,0 +1,423 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "CreativeConstraints": {
+      "additionalProperties": false,
+      "description": "Technical and stylistic boundaries for the creative generation.\nEnforces validation against contradictory constraints.",
+      "properties": {
+        "aspect_ratios": {
+          "description": "Permitted aspect ratios (e.g. ['9:16', '16:9'])",
+          "items": {
+            "type": "string"
+          },
+          "title": "Aspect Ratios",
+          "type": "array"
+        },
+        "audio_mode": {
+          "$ref": "#/$defs/AudioMode",
+          "default": "VO_MUSIC",
+          "description": "Audio mode governing the sound architecture"
+        },
+        "brand_colors": {
+          "description": "List of hexadecimal color codes (#RRGGBB)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Brand Colors",
+          "type": "array"
+        },
+        "excluded_templates": {
+          "description": "Template IDs explicitly forbidden from use",
+          "items": {
+            "type": "string"
+          },
+          "title": "Excluded Templates",
+          "type": "array"
+        },
+        "forbidden_words": {
+          "description": "Words or phrases strictly forbidden from scripts",
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Words",
+          "type": "array"
+        },
+        "max_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum duration limit in seconds",
+          "title": "Max Duration Seconds"
+        },
+        "min_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Minimum duration limit in seconds",
+          "title": "Min Duration Seconds"
+        },
+        "safe_zone_margin_px": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Margin in pixels for UI safe zones",
+          "title": "Safe Zone Margin Px"
+        },
+        "target_duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ideal target duration in seconds",
+          "title": "Target Duration Seconds"
+        }
+      },
+      "title": "CreativeConstraints",
+      "type": "object"
+    },
+    "CreativeIntent": {
+      "additionalProperties": false,
+      "description": "High-level creative goal, audience, tone, and strategic intent.",
+      "properties": {
+        "audience": {
+          "description": "Target audience demographic or psychographic profile",
+          "title": "Audience",
+          "type": "string"
+        },
+        "call_to_action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explicit CTA text or action desired",
+          "title": "Call To Action"
+        },
+        "goal": {
+          "description": "Primary objective (e.g., product explainer, brand awareness, conversion ad)",
+          "title": "Goal",
+          "type": "string"
+        },
+        "intent_id": {
+          "description": "Unique identifier for this creative intent record",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "key_takeaway": {
+          "description": "Core concept or value proposition the viewer should retain",
+          "title": "Key Takeaway",
+          "type": "string"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Primary language of the video content (e.g., AR, EN)",
+          "title": "Language"
+        },
+        "pace": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Pacing profile (e.g., FAST, MODERATE, DYNAMIC)",
+          "title": "Pace"
+        },
+        "style": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Creative style guideline (e.g., CLEAN, BOLD, MINIMAL)",
+          "title": "Style"
+        },
+        "target_platforms": {
+          "description": "Target distribution platforms (e.g., youtube_shorts, tiktok)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Target Platforms",
+          "type": "array"
+        },
+        "tone": {
+          "description": "Intended emotional or stylistic tone (e.g., cinematic, energetic, technical)",
+          "title": "Tone",
+          "type": "string"
+        },
+        "video_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Categorical video type (e.g., SAAS_DEMO, DYNAMIC_MONTAGE, EXPLAINER)",
+          "title": "Video Type"
+        }
+      },
+      "required": [
+        "intent_id",
+        "goal",
+        "audience",
+        "tone",
+        "key_takeaway"
+      ],
+      "title": "CreativeIntent",
+      "type": "object"
+    },
+    "FieldProvenance": {
+      "additionalProperties": false,
+      "description": "Tracks origin, epistemic classification, and rationale for a single brief field.",
+      "properties": {
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Explanation or citation for inferred or defaulted value",
+          "title": "Rationale"
+        },
+        "raw_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Exact phrase or asset attribute from which value was derived",
+          "title": "Raw Reference"
+        },
+        "source_type": {
+          "$ref": "#/$defs/ProvenanceType",
+          "description": "Epistemic provenance category"
+        }
+      },
+      "required": [
+        "source_type"
+      ],
+      "title": "FieldProvenance",
+      "type": "object"
+    },
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    },
+    "ProvenanceType": {
+      "description": "Epistemic provenance category for individual brief dimensions (S28-03).",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "DEFAULTED",
+        "UNKNOWN"
+      ],
+      "title": "ProvenanceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical, structured creative brief representing the interpreted intent\nand boundary constraints derived from the user request.",
+  "properties": {
+    "brief_id": {
+      "description": "Unique brief identifier",
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "constraints": {
+      "$ref": "#/$defs/CreativeConstraints",
+      "description": "Technical and stylistic boundary constraints"
+    },
+    "created_at": {
+      "description": "UTC timestamp of brief synthesis",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "detected_contradictions": {
+      "description": "Contradictions detected between user statements or constraints during parsing",
+      "items": {
+        "type": "string"
+      },
+      "title": "Detected Contradictions",
+      "type": "array"
+    },
+    "field_provenance": {
+      "additionalProperties": {
+        "$ref": "#/$defs/FieldProvenance"
+      },
+      "description": "Per-field epistemic provenance mapping for key brief dimensions",
+      "title": "Field Provenance",
+      "type": "object"
+    },
+    "interpreted_intent": {
+      "$ref": "#/$defs/CreativeIntent",
+      "description": "Structured interpretation of the creative direction"
+    },
+    "project_id": {
+      "description": "Associated project identifier",
+      "title": "Project Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceRecord",
+      "description": "Provenance trace of brief interpretation"
+    },
+    "user_request_raw": {
+      "description": "Original, unmodified user request prompt",
+      "title": "User Request Raw",
+      "type": "string"
+    },
+    "version": {
+      "default": "1.0.0",
+      "description": "Contract version",
+      "title": "Version",
+      "type": "string"
+    },
+    "workspace_id": {
+      "description": "Owning workspace identifier",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "brief_id",
+    "project_id",
+    "workspace_id",
+    "user_request_raw",
+    "interpreted_intent",
+    "constraints",
+    "provenance",
+    "created_at"
+  ],
+  "title": "CreativeBrief",
+  "type": "object"
+}

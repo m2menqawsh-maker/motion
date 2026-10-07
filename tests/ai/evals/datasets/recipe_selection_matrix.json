@@ -1,0 +1,133 @@
+{
+  "matrix_version": "1.0.0",
+  "domain": "S28 Recipe Selection Matrix Benchmark",
+  "cases": [
+    {
+      "matrix_id": "mat_saas_reels_music_only",
+      "user_request": "بدي ريل سريع لمنتج SaaS بدون تعليق صوتي بس موسيقى وستايل clean.",
+      "platform": "instagram_reels",
+      "audio_mode": "MUSIC_ONLY",
+      "expected_selected_recipe": ["dynamic-montage-ad", "motion-graphics", "screencast-demo"],
+      "must_not_select": ["avatar-explainer", "avatar-product-walkthrough", "ugc-ai-ad", "captioned-talking-head"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_avatar_youtube_vo_music",
+      "user_request": "فيديو توضيحي على يوتيوب بشخصية أفاتار مع تعليق صوتي وموسيقى هادئة",
+      "platform": "youtube",
+      "audio_mode": "VO_MUSIC",
+      "expected_selected_recipe": ["avatar-explainer", "avatar-product-walkthrough"],
+      "must_not_select": ["captioned-talking-head", "motion-graphics"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_talking_head_source_audio",
+      "user_request": "ريلز لحديث الكاميرا مع مؤسس الشركة مع الحفاظ على الصوت المسجل الأصلي",
+      "platform": "instagram_reels",
+      "audio_mode": "SOURCE_AUDIO",
+      "expected_selected_recipe": ["captioned-talking-head"],
+      "must_not_select": ["dynamic-montage-ad", "avatar-explainer", "motion-graphics"],
+      "has_source_speech_media": true
+    },
+    {
+      "matrix_id": "mat_talking_head_music_only_contradiction",
+      "user_request": "ريلز لحديث الكاميرا متحدث ولكن بدون صوت متحدث بس موسيقى فقط",
+      "platform": "instagram_reels",
+      "audio_mode": "MUSIC_ONLY",
+      "expected_selected_recipe": ["dynamic-montage-ad", "motion-graphics", "motion-collage-explainer", "faceless-broll-ad"],
+      "must_not_select": ["captioned-talking-head", "avatar-explainer"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_silent_billboard_website",
+      "user_request": "Silent motion graphics animation for store display billboard, 15 seconds clean minimal",
+      "platform": "website",
+      "audio_mode": "SILENT",
+      "expected_selected_recipe": ["motion-graphics", "screencast-demo", "agent-browser-proof"],
+      "must_not_select": ["avatar-explainer", "dynamic-montage-ad", "captioned-talking-head", "living-canvas-explainer"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_dynamic_montage_tiktok_music",
+      "user_request": "عمل montage ad سريع للـ product مع BGM only وألوان #FF5733",
+      "platform": "tiktok",
+      "audio_mode": "MUSIC_ONLY",
+      "expected_selected_recipe": ["dynamic-montage-ad", "faceless-broll-ad"],
+      "must_not_select": ["avatar-explainer", "captioned-talking-head", "review-conquest-compilation"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_living_canvas_explainer",
+      "user_request": "شرح SaaS تفصيلي على منصة YouTube بستايل living canvas مع تعليق صوتي وموسيقى",
+      "platform": "youtube",
+      "audio_mode": "VO_MUSIC",
+      "expected_selected_recipe": ["living-canvas-explainer", "avatar-product-walkthrough", "screencast-demo"],
+      "must_not_select": ["captioned-talking-head"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_article_sprint_shorts",
+      "user_request": "تحويل مقال تقني إلى article sprint reel سريع 30s",
+      "platform": "youtube_shorts",
+      "audio_mode": "VO_MUSIC",
+      "expected_selected_recipe": ["misotts-article-sprint", "avatar-insta-split", "dynamic-montage-ad"],
+      "must_not_select": ["captioned-talking-head", "agent-browser-proof"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_longform_repurpose_reels",
+      "user_request": "تقطيع بودكاست طويل إلى ريلز اجتماعية مع الصوت الأصلي وكابشن كاريوكي",
+      "platform": "instagram_reels",
+      "audio_mode": "SOURCE_AUDIO",
+      "expected_selected_recipe": ["longform-repurpose", "captioned-talking-head"],
+      "must_not_select": ["dynamic-montage-ad", "avatar-explainer"],
+      "has_source_speech_media": true
+    },
+    {
+      "matrix_id": "mat_review_conquest",
+      "user_request": "فيديو مراجعة منافسين review conquest compilation مع تعليق صوتي وموسيقى",
+      "platform": "youtube",
+      "audio_mode": "VO_MUSIC",
+      "expected_selected_recipe": ["review-conquest-compilation"],
+      "must_not_select": ["captioned-talking-head", "motion-graphics"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_vo_only_explainer",
+      "user_request": "فيديو توضيحي يشرح ميزة الذكاء الاصطناعي مع تعليق صوتي فقط وبدون أي موسيقى",
+      "platform": "youtube",
+      "audio_mode": "VO_ONLY",
+      "expected_selected_recipe": ["motion-graphics", "living-canvas-explainer", "motion-collage-explainer", "avatar-explainer", "screencast-demo"],
+      "must_not_select": ["dynamic-montage-ad", "captioned-talking-head", "longform-repurpose"],
+      "has_source_speech_media": false
+    },
+    {
+      "matrix_id": "mat_source_audio_music_clip",
+      "user_request": "مقطع بودكاست حديث الكاميرا مع الصوت المسجل الأصلي وإضافة موسيقى خلفية هادئة",
+      "platform": "instagram_reels",
+      "audio_mode": "SOURCE_AUDIO_MUSIC",
+      "expected_selected_recipe": ["captioned-talking-head", "longform-repurpose"],
+      "must_not_select": ["dynamic-montage-ad", "avatar-explainer", "motion-graphics"],
+      "has_source_speech_media": true
+    },
+    {
+      "matrix_id": "mat_talking_head_missing_media_rejection",
+      "user_request": "ريلز لحديث الكاميرا مع مؤسس الشركة مع الحفاظ على الصوت المسجل الأصلي",
+      "platform": "instagram_reels",
+      "audio_mode": "SOURCE_AUDIO",
+      "expected_selected_recipe": ["NO_RECIPE_ELIGIBLE"],
+      "must_not_select": ["captioned-talking-head", "longform-repurpose"],
+      "has_source_speech_media": false,
+      "available_media": []
+    },
+    {
+      "matrix_id": "mat_linkedin_screencast_vo_music",
+      "user_request": "SaaS software screencast demo video for LinkedIn with professional voiceover and subtle background music",
+      "platform": "linkedin",
+      "audio_mode": "VO_MUSIC",
+      "expected_selected_recipe": ["screencast-demo", "agent-browser-proof", "avatar-product-walkthrough"],
+      "must_not_select": ["captioned-talking-head", "dynamic-montage-ad"],
+      "has_source_speech_media": false
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "AlignedWordItem": {
+      "additionalProperties": false,
+      "description": "Individual aligned word metadata.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Alignment confidence",
+          "title": "Confidence"
+        },
+        "duration_seconds": {
+          "description": "Word duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "End timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "start_seconds": {
+          "description": "Start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        },
+        "word": {
+          "description": "Word text",
+          "minLength": 1,
+          "title": "Word",
+          "type": "string"
+        }
+      },
+      "required": [
+        "word",
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "AlignedWordItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Input contract for aligning audio metadata.",
+  "properties": {
+    "audio_duration_seconds": {
+      "description": "Total audio duration in seconds",
+      "exclusiveMinimum": 0.0,
+      "title": "Audio Duration Seconds",
+      "type": "number"
+    },
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "transcript": {
+      "description": "Full transcript text",
+      "title": "Transcript",
+      "type": "string"
+    },
+    "words": {
+      "description": "Timestamped words",
+      "items": {
+        "$ref": "#/$defs/AlignedWordItem"
+      },
+      "title": "Words",
+      "type": "array"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key",
+    "transcript",
+    "audio_duration_seconds"
+  ],
+  "title": "AlignAudioMetadataInput",
+  "type": "object"
+}

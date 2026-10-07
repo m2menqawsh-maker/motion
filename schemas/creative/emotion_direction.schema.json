@@ -1,0 +1,61 @@
+{
+  "additionalProperties": false,
+  "description": "Structured emotional tone and energy curve recommendation emitted by EmotionDirector.",
+  "properties": {
+    "beat_or_scene_id": {
+      "description": "Target beat or scene identifier",
+      "title": "Beat Or Scene Id",
+      "type": "string"
+    },
+    "color_pairing_hint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Suggested accent palette pairing based on emotion psychology",
+      "title": "Color Pairing Hint"
+    },
+    "emotional_progression": {
+      "description": "Arc trajectory (e.g., 'tension -> curiosity -> resolution')",
+      "title": "Emotional Progression",
+      "type": "string"
+    },
+    "intensity": {
+      "description": "Emotional intensity ('low', 'medium', 'high')",
+      "title": "Intensity",
+      "type": "string"
+    },
+    "primary_emotion": {
+      "description": "Core targeted emotion (e.g., 'Joy/Delight', 'Calm/Serenity', 'Urgency/Alert', 'Confidence', 'Curiosity')",
+      "title": "Primary Emotion",
+      "type": "string"
+    },
+    "reason_summary": {
+      "default": "",
+      "description": "Auditable rationale summary",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "taste_rule_ids": {
+      "description": "Associated TasteRule IDs influencing this direction",
+      "items": {
+        "type": "string"
+      },
+      "title": "Taste Rule Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "beat_or_scene_id",
+    "primary_emotion",
+    "intensity",
+    "emotional_progression"
+  ],
+  "title": "EmotionDirection",
+  "type": "object"
+}

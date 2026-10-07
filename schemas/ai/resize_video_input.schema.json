@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for resizing video.",
+  "properties": {
+    "mode": {
+      "default": "contain",
+      "description": "Fit mode ('contain', 'cover', 'stretch')",
+      "title": "Mode",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_height": {
+      "description": "Target height in pixels",
+      "exclusiveMinimum": 0,
+      "title": "Target Height",
+      "type": "integer"
+    },
+    "target_width": {
+      "description": "Target width in pixels",
+      "exclusiveMinimum": 0,
+      "title": "Target Width",
+      "type": "integer"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key",
+    "target_width",
+    "target_height"
+  ],
+  "title": "ResizeVideoInput",
+  "type": "object"
+}

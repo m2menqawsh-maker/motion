@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "PromptStatus": {
+      "description": "Authoritative lifecycle status for versioned prompts.",
+      "enum": [
+        "DRAFT",
+        "TESTING",
+        "PRODUCTION",
+        "RETIRED"
+      ],
+      "title": "PromptStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Result of resolving and rendering a versioned prompt.\nProvides full auditability (version, hash) to attach to AIRun / AIStep / Cache.",
+  "properties": {
+    "hash": {
+      "description": "Content hash of the rendered prompt version",
+      "minLength": 8,
+      "title": "Hash",
+      "type": "string"
+    },
+    "prompt_id": {
+      "description": "Prompt identifier",
+      "minLength": 1,
+      "title": "Prompt Id",
+      "type": "string"
+    },
+    "rendered_text": {
+      "description": "Final rendered prompt text",
+      "minLength": 1,
+      "title": "Rendered Text",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PromptStatus",
+      "description": "Status of the resolved prompt version"
+    },
+    "system_prompt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Rendered system prompt if applicable",
+      "title": "System Prompt"
+    },
+    "version": {
+      "description": "Resolved version",
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "prompt_id",
+    "version",
+    "hash",
+    "rendered_text",
+    "status"
+  ],
+  "title": "PromptRenderResult",
+  "type": "object"
+}

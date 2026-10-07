@@ -1,0 +1,24 @@
+# S28-R15 Evidence: Fault & Destruction Injection Matrix
+
+**Milestone**: S28-R15 Verification, Fault Destruction, Fencing, Load & Soak  
+**Date**: October 7, 2026  
+
+---
+
+## 1. Fault Injection Scenarios & Observed Behaviors
+
+| Fault Scenario | Injection Mechanism | Target Subsystem | Expected Defense | Observed Behavior | Test Binding |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Database Outage / Drop** | Exception inside transactional context | `DatabaseEngine` | Rollback; CAS revision preserved | Uncommitted state cleanly rolled back; zero revision bump | [`test_c10_database_fault_injection`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L275) |
+| **Storage 500 / Unavailable** | Throwing mock backend during upload | `StorageService` | `STORAGE_UNAVAILABLE` fail-closed | Execution halts immediately; run never marked `SUCCESS` | [`R15-PUB-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_part3_final_campaigns.test.ts#L247) |
+| **Path Traversal Escape** | Storage keys containing `../` or null bytes | `LocalStorageBackend` | `StorageSecurityError` rejection | Direct reject fail-closed without disk write | [`test_c11_storage_service_fault_injection`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L310) |
+| **API Process Death** | Killing in-memory repository instances | `AuthoringService` | Crash-safe recovery from SQL | Recovered instance resumes from DB with committed revision | [`test_c12_api_process_death_and_checkpoint_recovery`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L325) |
+| **Worker Lease Expiry** | Expired lease timestamp in DB runs table | `project_execution_leases` | Orphan recovery by Worker 2 | Worker 2 acquires job; Worker 1 fenced from committing | [`test_c13_worker_death_lease_expiry_and_fencing`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L370) |
+| **Stale Worker Fencing Attack** | Stale Worker A resumes with old epoch/token | `runs` / `run_events` | Generational fencing rejection | Stale commit rowcount == 0; authoritative state untouched | [`test_r15_c31_stale_worker_fencing_attack`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L420), [`R15-FENCE-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_part3_final_campaigns.test.ts#L310) |
+| **Renderer Hang / Timeout** | Renderer delay exceeding `nodeTimeoutMs` | `ProductionRenderGraphExecutor` | `RENDERER_TIMEOUT` structured error | Timeout triggered at 30ms; scratchpad pruned | [`R15-FL-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L740) |
+| **Renderer Capability Mismatch** | Requesting unsupported capability (e.g. 3D) | `RendererRegistry` | `RENDERER_CAPABILITY_MISMATCH` | Fails closed without guessing or silent fallback | [`R15-FL-02`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L790) |
+| **Missing Intermediate Segment** | Missing upstream video segment path | `MasterCompositor` | `MISSING_ARTIFACT` exception | Compositor aborts cleanly; cleans temp files | [`R15-MC-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L835) |
+| **QC Duration Parity Failure** | Output shorter than canonical duration | `runQcForCompositorResult` | `VIDEO_FAILED_QC` reported | Duration check fails (`status: FAIL`); overall pass: false | [`R15-QC-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L920) |
+| **QC Script Missing / Exec Error** | Non-existent python script path | `runQcForCompositorResult` | `QC_CHECK_FAILED_TO_EXECUTE` | Differentiated error; never false pass | [`R15-QC-02`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L950) |
+| **Mid-Execution Cancellation** | Triggering `AbortSignal.abort()` | `ProductionRenderGraphExecutor` | Immediate halt & scratchpad cleanup | `RENDERER_CANCELLED` error; scratchpad pruned | [`R15-CN-01`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/remotion/s28_r15_destruction_and_load.test.ts#L990) |
+| **High Contention CAS Race** | 10 concurrent mutation attempts | `CanonicalDocumentRepository` | Exactly 1 winner; 9 `REVISION_CONFLICT` | Monotonic revision 2; zero lost updates | [`test_r15_c08_concurrent_authoring_cas`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/core/test_s28_r15_destruction_and_fault.py#L195) |

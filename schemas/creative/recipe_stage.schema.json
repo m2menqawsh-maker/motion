@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "TRIM_AUDIO_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "An execution stage within a production recipe.",
+  "properties": {
+    "actions": {
+      "description": "List of concrete actions performed in this stage",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "artifacts": {
+      "description": "Expected deliverable artifact identifiers",
+      "items": {
+        "type": "string"
+      },
+      "title": "Artifacts",
+      "type": "array"
+    },
+    "paid_generation": {
+      "default": false,
+      "description": "Flag indicating if stage consumes paid AI generation",
+      "title": "Paid Generation",
+      "type": "boolean"
+    },
+    "required_capabilities": {
+      "description": "Provider-neutral capabilities needed for this stage",
+      "items": {
+        "$ref": "#/$defs/CapabilityType"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "stage_id": {
+      "description": "Stage identifier (e.g., 'stage_brief', 'stage_storyboard')",
+      "title": "Stage Id",
+      "type": "string"
+    },
+    "title": {
+      "description": "Human-readable stage title",
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "stage_id",
+    "title",
+    "actions"
+  ],
+  "title": "RecipeStage",
+  "type": "object"
+}

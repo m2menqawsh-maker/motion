@@ -1,0 +1,39 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Reference and role of a registered primitive component in a composition.",
+  "properties": {
+    "component_id": {
+      "description": "Canonical registered element or effect ID",
+      "title": "Component Id",
+      "type": "string"
+    },
+    "component_type": {
+      "description": "Component category: element, effect, transition, overlay, ui-block",
+      "title": "Component Type",
+      "type": "string"
+    },
+    "props": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Props bound to this component",
+      "title": "Props",
+      "type": "object"
+    },
+    "role": {
+      "description": "Role within composition (e.g. background, hero_text, stat_display, transition)",
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "required": [
+    "component_id",
+    "component_type",
+    "role"
+  ],
+  "title": "ComposeComponentRef",
+  "type": "object"
+}

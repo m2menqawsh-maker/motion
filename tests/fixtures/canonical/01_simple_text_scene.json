@@ -1,0 +1,20 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_text_01",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_text_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 90,
+      "surface": {
+        "text": "العنوان الرئيسي المعتمد",
+        "fontSize": 48,
+        "color": "#FFFFFF",
+        "fontFamily": "Cairo"
+      }
+    }
+  ]
+}

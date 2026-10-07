@@ -1,0 +1,118 @@
+{
+  "additionalProperties": false,
+  "description": "Normalized search result item across stock media providers.",
+  "properties": {
+    "download_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Source download URL if available",
+      "title": "Download Url"
+    },
+    "duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Media duration in seconds",
+      "title": "Duration Seconds"
+    },
+    "height": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Visual height in pixels",
+      "title": "Height"
+    },
+    "license": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "License terms or category",
+      "title": "License"
+    },
+    "media_id": {
+      "description": "Provider-agnostic stock media identifier",
+      "minLength": 1,
+      "title": "Media Id",
+      "type": "string"
+    },
+    "media_type": {
+      "description": "Media kind: image, video, audio, sound_effect",
+      "minLength": 1,
+      "title": "Media Type",
+      "type": "string"
+    },
+    "preview_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Low-resolution preview URL",
+      "title": "Preview Url"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Title or description of the media item",
+      "title": "Title"
+    },
+    "width": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Visual width in pixels",
+      "title": "Width"
+    }
+  },
+  "required": [
+    "media_id",
+    "media_type"
+  ],
+  "title": "StockMediaItem",
+  "type": "object"
+}

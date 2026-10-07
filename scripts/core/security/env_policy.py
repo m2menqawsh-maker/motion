@@ -125,6 +125,13 @@ ENV_INVENTORY: Dict[str, EnvVarDefinition] = {
         description="API key for Freesound audio provider.",
         sensitive=True
     ),
+    "OPENROUTER_API_KEY": EnvVarDefinition(
+        name="OPENROUTER_API_KEY",
+        category=EnvCategory.SECRET,
+        description="API key for OpenRouter development AI gateway.",
+        sensitive=True,
+        allowed_in_production=False
+    ),
 
     # Runtime tracing & Context
     "AGY_RUN_ID": EnvVarDefinition(

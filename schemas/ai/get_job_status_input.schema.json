@@ -1,0 +1,24 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for checking asynchronous job state.",
+  "properties": {
+    "job_id": {
+      "description": "Unique job execution identifier",
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "job_id"
+  ],
+  "title": "GetJobStatusInput",
+  "type": "object"
+}

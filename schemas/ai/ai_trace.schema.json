@@ -1,0 +1,390 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "SpanType": {
+      "description": "Categorical classification of AI execution spans.",
+      "enum": [
+        "AI_RUN",
+        "CONTEXT_BUILD",
+        "MEMORY_RETRIEVAL",
+        "MODEL_ROUTE",
+        "CACHE_LOOKUP",
+        "PROVIDER_CALL",
+        "TOOL_CALL",
+        "VALIDATION",
+        "ARTIFACT_PERSISTENCE"
+      ],
+      "title": "SpanType",
+      "type": "string"
+    },
+    "TraceSpanRecord": {
+      "additionalProperties": false,
+      "description": "Authoritative record for a single correlated execution span in an AI trace.",
+      "properties": {
+        "activity_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Correlated durable activity identifier",
+          "title": "Activity Id"
+        },
+        "actual_cost": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Settled actual cost of span execution",
+          "title": "Actual Cost"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "description": "Sanitized, low-cardinality metadata attributes",
+          "title": "Attributes",
+          "type": "object"
+        },
+        "cache_hit": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether operation was served from cache",
+          "title": "Cache Hit"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "AI capability exercised",
+          "title": "Capability"
+        },
+        "duration_ms": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Duration Ms"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Span end timestamp",
+          "title": "Ended At"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Standardized error code if status is ERROR",
+          "title": "Error Code"
+        },
+        "estimated_cost": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated cost of span execution",
+          "title": "Estimated Cost"
+        },
+        "fallback": {
+          "default": false,
+          "description": "Whether fallback model or provider was engaged",
+          "title": "Fallback",
+          "type": "boolean"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Prompt / input tokens consumed",
+          "title": "Input Tokens"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Model identifier used",
+          "title": "Model"
+        },
+        "name": {
+          "description": "Human-readable span operation name",
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Completion / output tokens generated",
+          "title": "Output Tokens"
+        },
+        "parent_span_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Parent span identifier in hierarchy",
+          "title": "Parent Span Id"
+        },
+        "project_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Associated project identifier",
+          "title": "Project Id"
+        },
+        "prompt_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Prompt identifier resolved",
+          "title": "Prompt Id"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Prompt version resolved",
+          "title": "Prompt Version"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Provider adapter invoked",
+          "title": "Provider"
+        },
+        "quality_score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Observed quality score if evaluated",
+          "title": "Quality Score"
+        },
+        "retry_count": {
+          "default": 0,
+          "description": "Number of retry attempts executed",
+          "minimum": 0,
+          "title": "Retry Count",
+          "type": "integer"
+        },
+        "run_id": {
+          "description": "Correlated AIRun identifier",
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "span_id": {
+          "description": "Unique span identifier",
+          "minLength": 1,
+          "title": "Span Id",
+          "type": "string"
+        },
+        "span_type": {
+          "$ref": "#/$defs/SpanType",
+          "description": "Architectural layer or operation type"
+        },
+        "started_at": {
+          "description": "Span start timestamp",
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "default": "SUCCESS",
+          "description": "Execution outcome (SUCCESS, ERROR, CANCELLED)",
+          "title": "Status",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Correlated AIStep identifier",
+          "title": "Step Id"
+        },
+        "trace_id": {
+          "description": "Root distributed trace identifier",
+          "minLength": 1,
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "workspace_id": {
+          "description": "Tenant workspace isolation key",
+          "minLength": 1,
+          "title": "Workspace Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "trace_id",
+        "span_id",
+        "span_type",
+        "name",
+        "run_id",
+        "workspace_id",
+        "started_at"
+      ],
+      "title": "TraceSpanRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Complete correlated trace document aggregating all spans for an AIRun.",
+  "properties": {
+    "run_id": {
+      "description": "Associated AIRun identifier",
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "spans": {
+      "description": "Ordered execution spans",
+      "items": {
+        "$ref": "#/$defs/TraceSpanRecord"
+      },
+      "title": "Spans",
+      "type": "array"
+    },
+    "trace_id": {
+      "description": "Trace identifier",
+      "minLength": 1,
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "workspace_id": {
+      "description": "Tenant boundary",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "trace_id",
+    "run_id",
+    "workspace_id"
+  ],
+  "title": "AITrace",
+  "type": "object"
+}

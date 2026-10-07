@@ -1,0 +1,723 @@
+{
+  "$defs": {
+    "AIError": {
+      "additionalProperties": false,
+      "description": "Structured, client-safe error object emitted by the AI subsystem.\nExcludes sensitive infrastructure secrets and un-sanitized exception traces.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/AIErrorCode",
+          "description": "Canonical machine-readable error code"
+        },
+        "dependency_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional upstream dependency identifier associated with the failure",
+          "title": "Dependency Reference"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Structured context details safe for client inspection",
+          "title": "Details"
+        },
+        "message": {
+          "description": "Sanitized client-safe error message",
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "description": "Whether the operation may succeed if retried",
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "title": "AIError",
+      "type": "object"
+    },
+    "AIErrorCode": {
+      "description": "Authoritative error classification for AI subsystem failures.",
+      "enum": [
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMEOUT",
+        "INVALID_MODEL_OUTPUT",
+        "SCHEMA_VALIDATION_FAILED",
+        "CAPABILITY_UNAVAILABLE",
+        "BUDGET_EXCEEDED",
+        "POLICY_DENIED",
+        "TENANT_ACCESS_DENIED",
+        "CONTENT_REJECTED",
+        "DEPENDENCY_FAILED",
+        "CANCELLED",
+        "INTERNAL_ERROR"
+      ],
+      "title": "AIErrorCode",
+      "type": "string"
+    },
+    "AIStepStatus": {
+      "description": "Lifecycle status of an individual step within an AI run.",
+      "enum": [
+        "PENDING",
+        "RUNNING",
+        "WAITING",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "AIStepStatus",
+      "type": "string"
+    },
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "NORMALIZE_AUDIO",
+        "TRIM_AUDIO_SILENCE",
+        "ANALYZE_LOUDNESS",
+        "DETECT_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "SPLIT_SPEECH_TEXT",
+        "PREPARE_VO_SEGMENTS",
+        "ALIGN_AUDIO_METADATA",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "PROBE_MEDIA",
+        "TRANSCODE_VIDEO",
+        "EXTRACT_AUDIO",
+        "EXTRACT_FRAMES",
+        "CONCAT_MEDIA",
+        "CHANGE_CONTAINER",
+        "NORMALIZE_MEDIA",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "CONVERT_IMAGE",
+        "OPTIMIZE_IMAGE",
+        "PROBE_IMAGE",
+        "PREPARE_IMAGE_ASSET",
+        "THUMBNAIL",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "CostEstimate": {
+      "additionalProperties": false,
+      "description": "Precision-safe monetary cost representation for budgeting and accounting.\nEnforces exact Decimal calculations to avoid binary floating-point drift.",
+      "properties": {
+        "actual_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Final settled cost",
+          "title": "Actual Cost"
+        },
+        "currency": {
+          "default": "USD",
+          "description": "ISO 4217 3-letter currency code (e.g. USD, EUR)",
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "estimated_cost": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Estimated cost prior to execution",
+          "title": "Estimated Cost"
+        },
+        "pricing_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the rate card or pricing matrix used",
+          "title": "Pricing Version"
+        },
+        "reserved_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Budget reserved during execution",
+          "title": "Reserved Cost"
+        }
+      },
+      "required": [
+        "estimated_cost"
+      ],
+      "title": "CostEstimate",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "UsageRecord": {
+      "additionalProperties": false,
+      "description": "Canonical, provider-neutral resource consumption record.\nSupports LLMs, speech synthesis, vision processing, and generative media.",
+      "properties": {
+        "audio_seconds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration of processed audio",
+          "title": "Audio Seconds"
+        },
+        "image_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Count of images generated or analyzed",
+          "title": "Image Count"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of prompt/input tokens",
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of completion/output tokens",
+          "title": "Output Tokens"
+        },
+        "reported_units": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/UsageUnitRecord"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional provider-reported auxiliary consumption units",
+          "title": "Reported Units"
+        },
+        "total_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total tokens consumed",
+          "title": "Total Tokens"
+        },
+        "video_seconds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration of processed video",
+          "title": "Video Seconds"
+        }
+      },
+      "title": "UsageRecord",
+      "type": "object"
+    },
+    "UsageUnitRecord": {
+      "additionalProperties": false,
+      "description": "Auxiliary consumption metric for non-token modalities (e.g., characters, search calls).",
+      "properties": {
+        "quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Measured consumption quantity",
+          "title": "Quantity"
+        },
+        "unit_type": {
+          "description": "Resource metric identifier",
+          "minLength": 1,
+          "title": "Unit Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit_type",
+        "quantity"
+      ],
+      "title": "UsageUnitRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contract representing an individual discrete unit of work within an AIRun.\nTracks step attempt, leased execution, and invocation inputs/outputs.",
+  "properties": {
+    "attempt": {
+      "default": 1,
+      "description": "Execution attempt counter (1-indexed)",
+      "minimum": 1,
+      "title": "Attempt",
+      "type": "integer"
+    },
+    "capability": {
+      "$ref": "#/$defs/CapabilityType",
+      "description": "Capability executed in this step"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Step completion timestamp",
+      "title": "Completed At"
+    },
+    "cost": {
+      "$ref": "#/$defs/CostEstimate",
+      "description": "Monetary cost for this step"
+    },
+    "created_at": {
+      "description": "Timezone-aware step creation timestamp",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "dependencies": {
+      "description": "IDs of prerequisite steps in DAG",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AIError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Step error details if status is FAILED"
+    },
+    "heartbeat_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Last recorded heartbeat timestamp",
+      "title": "Heartbeat At"
+    },
+    "idempotency_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Logical idempotency deduplication key",
+      "title": "Idempotency Key"
+    },
+    "input_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Deterministic content hash of inputs",
+      "title": "Input Hash"
+    },
+    "input_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to input artifact or storage key",
+      "title": "Input Ref"
+    },
+    "lease_expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Lease expiration timestamp",
+      "title": "Lease Expires At"
+    },
+    "lease_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Fencing lease token generation",
+      "title": "Lease Token"
+    },
+    "max_attempts": {
+      "default": 3,
+      "description": "Maximum allowed execution attempts",
+      "minimum": 1,
+      "title": "Max Attempts",
+      "type": "integer"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resolved model identifier",
+      "title": "Model"
+    },
+    "next_retry_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Scheduled earliest retry timestamp",
+      "title": "Next Retry At"
+    },
+    "output_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to output artifact or storage key",
+      "title": "Output Ref"
+    },
+    "prompt_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Content hash of prompt used for this step",
+      "title": "Prompt Hash"
+    },
+    "prompt_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Canonical prompt identifier for this step",
+      "title": "Prompt Id"
+    },
+    "prompt_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Version of prompt used for this step",
+      "title": "Prompt Version"
+    },
+    "provider": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Resolved provider adapter identifier",
+      "title": "Provider"
+    },
+    "run_id": {
+      "description": "Parent AIRun identifier",
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Step start timestamp",
+      "title": "Started At"
+    },
+    "status": {
+      "$ref": "#/$defs/AIStepStatus",
+      "description": "Step lifecycle status"
+    },
+    "step_id": {
+      "description": "Unique step identifier within the run",
+      "minLength": 1,
+      "title": "Step Id",
+      "type": "string"
+    },
+    "usage": {
+      "$ref": "#/$defs/UsageRecord",
+      "description": "Resource consumption for this step"
+    },
+    "worker_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Worker identifier holding the lease",
+      "title": "Worker Id"
+    }
+  },
+  "required": [
+    "step_id",
+    "run_id",
+    "status",
+    "capability",
+    "cost",
+    "created_at"
+  ],
+  "title": "AIStep",
+  "type": "object"
+}

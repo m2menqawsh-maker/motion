@@ -1,0 +1,332 @@
+{
+  "$defs": {
+    "AudioMode": {
+      "description": "Governed canonical audio presentation modes (S28-01A).",
+      "enum": [
+        "MUSIC_ONLY",
+        "VO_ONLY",
+        "VO_MUSIC",
+        "SOURCE_AUDIO",
+        "SOURCE_AUDIO_MUSIC",
+        "SILENT"
+      ],
+      "title": "AudioMode",
+      "type": "string"
+    },
+    "EmotionDirection": {
+      "additionalProperties": false,
+      "description": "Structured emotional tone and energy curve recommendation emitted by EmotionDirector.",
+      "properties": {
+        "beat_or_scene_id": {
+          "description": "Target beat or scene identifier",
+          "title": "Beat Or Scene Id",
+          "type": "string"
+        },
+        "color_pairing_hint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Suggested accent palette pairing based on emotion psychology",
+          "title": "Color Pairing Hint"
+        },
+        "emotional_progression": {
+          "description": "Arc trajectory (e.g., 'tension -> curiosity -> resolution')",
+          "title": "Emotional Progression",
+          "type": "string"
+        },
+        "intensity": {
+          "description": "Emotional intensity ('low', 'medium', 'high')",
+          "title": "Intensity",
+          "type": "string"
+        },
+        "primary_emotion": {
+          "description": "Core targeted emotion (e.g., 'Joy/Delight', 'Calm/Serenity', 'Urgency/Alert', 'Confidence', 'Curiosity')",
+          "title": "Primary Emotion",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "beat_or_scene_id",
+        "primary_emotion",
+        "intensity",
+        "emotional_progression"
+      ],
+      "title": "EmotionDirection",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "MotionDirection": {
+      "additionalProperties": false,
+      "description": "Structured motion and animation choreography recommendation emitted by MotionDirector.",
+      "properties": {
+        "camera_intent": {
+          "description": "Camera motion intent (e.g., 'dive_into_word', 'whip_pan', 'slow_zoom', 'static')",
+          "title": "Camera Intent",
+          "type": "string"
+        },
+        "entry_style": {
+          "description": "Element entrance choreography (e.g., 'fade_in_scale', 'slide_up', 'snap_edge', 'bounce_up')",
+          "title": "Entry Style",
+          "type": "string"
+        },
+        "exit_style": {
+          "description": "Element exit choreography (e.g., 'accelerate_out', 'fade_out', 'static_hold')",
+          "title": "Exit Style",
+          "type": "string"
+        },
+        "motion_energy": {
+          "description": "Motion energy profile ('calm', 'controlled', 'dynamic', 'explosive', 'urgent')",
+          "title": "Motion Energy",
+          "type": "string"
+        },
+        "motion_personality": {
+          "description": "Governing motion archetype ('Cinematic', 'Energetic', 'Playful', 'Corporate')",
+          "title": "Motion Personality",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "Target scene or beat identifier",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        },
+        "text_motion": {
+          "description": "Text reveal choreography (e.g., 'rtl_kinetic_tracking', 'word_by_word_pop', 'smooth_fade')",
+          "title": "Text Motion",
+          "type": "string"
+        },
+        "visual_hierarchy": {
+          "description": "Visual element stacking order ('hero_text', 'peripheral_icon', etc.)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Visual Hierarchy",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scene_id",
+        "motion_energy",
+        "motion_personality",
+        "entry_style",
+        "exit_style",
+        "camera_intent",
+        "text_motion"
+      ],
+      "title": "MotionDirection",
+      "type": "object"
+    },
+    "NarrativeDirection": {
+      "additionalProperties": false,
+      "description": "Structured editorial and narrative recommendation emitted by NarrativeDirector.",
+      "properties": {
+        "beat_id": {
+          "description": "Target NarrativeBeat identifier",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "information_density": {
+          "description": "Density target (e.g., 'minimal', 'balanced', 'dense')",
+          "title": "Information Density",
+          "type": "string"
+        },
+        "narrative_focus": {
+          "description": "Editorial focus (e.g., 'hook_grab', 'problem_statement', 'proof_reveal', 'action_cta')",
+          "title": "Narrative Focus",
+          "type": "string"
+        },
+        "pacing_instruction": {
+          "description": "Rhythmic pacing direction (e.g., 'accelerate_cut', 'deliberate_pause', 'rhythmic_build')",
+          "title": "Pacing Instruction",
+          "type": "string"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "spoken_line": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Proposed voiceover sentence if spoken mode applies",
+          "title": "Spoken Line"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        },
+        "visual_progression_cue": {
+          "description": "Visual storyline requirement (e.g., 'reveal_canvas_from_void', 'cutout_assemble')",
+          "title": "Visual Progression Cue",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "narrative_focus",
+        "pacing_instruction",
+        "information_density",
+        "visual_progression_cue"
+      ],
+      "title": "NarrativeDirection",
+      "type": "object"
+    },
+    "SfxDirection": {
+      "additionalProperties": false,
+      "description": "Structured sound design and gesture-binding recommendation emitted by SfxDirector.",
+      "properties": {
+        "audio_mode": {
+          "$ref": "#/$defs/AudioMode",
+          "description": "Governing AudioMode policy (must be strictly respected)"
+        },
+        "beat_or_scene_id": {
+          "description": "Target beat or scene identifier",
+          "title": "Beat Or Scene Id",
+          "type": "string"
+        },
+        "ducking_profile": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio ducking instruction (e.g., 'duck_dialogue_3db', 'none')",
+          "title": "Ducking Profile"
+        },
+        "reason_summary": {
+          "default": "",
+          "description": "Auditable rationale summary",
+          "title": "Reason Summary",
+          "type": "string"
+        },
+        "sound_cues": {
+          "description": "Bound sound effect cues paired with visual gestures",
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Sound Cues",
+          "type": "array"
+        },
+        "taste_rule_ids": {
+          "description": "Associated TasteRule IDs influencing this direction",
+          "items": {
+            "type": "string"
+          },
+          "title": "Taste Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "beat_or_scene_id",
+        "audio_mode"
+      ],
+      "title": "SfxDirection",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Consolidated bundle of all creative director recommendations for a brief.",
+  "properties": {
+    "brief_id": {
+      "description": "Associated CreativeBrief identifier",
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "UTC timestamp of recommendations synthesis",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "emotion_directions": {
+      "description": "Emotion director recommendations",
+      "items": {
+        "$ref": "#/$defs/EmotionDirection"
+      },
+      "title": "Emotion Directions",
+      "type": "array"
+    },
+    "motion_directions": {
+      "description": "Motion director recommendations",
+      "items": {
+        "$ref": "#/$defs/MotionDirection"
+      },
+      "title": "Motion Directions",
+      "type": "array"
+    },
+    "narrative_directions": {
+      "description": "Narrative director recommendations",
+      "items": {
+        "$ref": "#/$defs/NarrativeDirection"
+      },
+      "title": "Narrative Directions",
+      "type": "array"
+    },
+    "sfx_directions": {
+      "description": "SFX director recommendations",
+      "items": {
+        "$ref": "#/$defs/SfxDirection"
+      },
+      "title": "Sfx Directions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "brief_id",
+    "created_at"
+  ],
+  "title": "DirectorRecommendationBundle",
+  "type": "object"
+}

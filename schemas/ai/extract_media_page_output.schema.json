@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "DownloadedAssetItem": {
+      "additionalProperties": false,
+      "description": "Media asset downloaded from a remote source or webpage.",
+      "properties": {
+        "asset_id": {
+          "description": "Unique project asset identifier",
+          "minLength": 1,
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "content_type": {
+          "description": "MIME content type",
+          "minLength": 1,
+          "title": "Content Type",
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "description": "Size of payload in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "source_url": {
+          "description": "Original remote URL",
+          "minLength": 1,
+          "title": "Source Url",
+          "type": "string"
+        },
+        "storage_key": {
+          "description": "StorageService key for downloaded payload",
+          "minLength": 1,
+          "title": "Storage Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "storage_key",
+        "source_url",
+        "content_type",
+        "file_size_bytes"
+      ],
+      "title": "DownloadedAssetItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Output contract for webpage media extraction.",
+  "properties": {
+    "extracted_assets": {
+      "description": "Extracted project assets",
+      "items": {
+        "$ref": "#/$defs/DownloadedAssetItem"
+      },
+      "title": "Extracted Assets",
+      "type": "array"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "total_extracted": {
+      "description": "Number of media assets extracted",
+      "minimum": 0,
+      "title": "Total Extracted",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "total_extracted"
+  ],
+  "title": "ExtractMediaPageOutput",
+  "type": "object"
+}

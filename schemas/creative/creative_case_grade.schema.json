@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "TraceAssertionResult": {
+      "additionalProperties": false,
+      "description": "Outcome of evaluating a single TraceAssertion.",
+      "properties": {
+        "assertion_type": {
+          "description": "TraceAssertionType string",
+          "title": "Assertion Type",
+          "type": "string"
+        },
+        "details": {
+          "description": "Diagnostic explanation of result",
+          "title": "Details",
+          "type": "string"
+        },
+        "passed": {
+          "description": "Whether assertion held true",
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "target": {
+          "description": "Target event or span",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "assertion_type",
+        "target",
+        "passed",
+        "details"
+      ],
+      "title": "TraceAssertionResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Detailed grading result for an individual CreativeEvalCase.",
+  "properties": {
+    "case_id": {
+      "description": "Evaluated case ID",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "category": {
+      "description": "Evaluation category",
+      "title": "Category",
+      "type": "string"
+    },
+    "detected_deliberate_bad": {
+      "default": false,
+      "description": "True if deliberately bad case was successfully caught by the eval",
+      "title": "Detected Deliberate Bad",
+      "type": "boolean"
+    },
+    "duration_ms": {
+      "default": 0.0,
+      "description": "Execution duration in milliseconds",
+      "title": "Duration Ms",
+      "type": "number"
+    },
+    "expected_items": {
+      "description": "Expected items if applicable",
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Items",
+      "type": "array"
+    },
+    "grading_method": {
+      "description": "Grading method used",
+      "title": "Grading Method",
+      "type": "string"
+    },
+    "is_deliberately_bad": {
+      "default": false,
+      "description": "Flag indicating negative test case",
+      "title": "Is Deliberately Bad",
+      "type": "boolean"
+    },
+    "passed": {
+      "description": "Whether case passed all criteria",
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "reasons": {
+      "description": "Failure diagnostic reasons",
+      "items": {
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "retrieved_items": {
+      "description": "Items retrieved if applicable",
+      "items": {
+        "type": "string"
+      },
+      "title": "Retrieved Items",
+      "type": "array"
+    },
+    "score": {
+      "description": "Normalized score [0.0 - 1.0]",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Score",
+      "type": "number"
+    },
+    "score_breakdown": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "description": "Per-dimension scores",
+      "title": "Score Breakdown",
+      "type": "object"
+    },
+    "severity": {
+      "description": "Case severity",
+      "title": "Severity",
+      "type": "string"
+    },
+    "trace_results": {
+      "description": "Trace assertion outcomes",
+      "items": {
+        "$ref": "#/$defs/TraceAssertionResult"
+      },
+      "title": "Trace Results",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_id",
+    "category",
+    "severity",
+    "grading_method",
+    "passed",
+    "score"
+  ],
+  "title": "CreativeCaseGrade",
+  "type": "object"
+}

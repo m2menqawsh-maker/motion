@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for generating voiceover manifest.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio file",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "manifest_version": {
+      "default": "2.0.0",
+      "description": "Target manifest version",
+      "title": "Manifest Version",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "SpeechManifestInput",
+  "type": "object"
+}

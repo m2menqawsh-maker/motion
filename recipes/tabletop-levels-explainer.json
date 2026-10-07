@@ -95,7 +95,7 @@
     "diagram": "HTML paused-CSS scrub-capture via Playwright, or Remotion / HyperFrames",
     "voice": "Seedance-native audio (voice locked via --reference-audio); ElevenLabs eleven_v3 when credited",
     "music": "ElevenLabs Music / Suno / Replicate; royalty-free/CC fallback when out of credit",
-    "transcription": "whisper (local base.en) or groq whisper-large-v3 for word timing"
+    "transcription": "SPEECH_TO_TEXT"
   },
   "routing_keywords": [
     "levels of x",

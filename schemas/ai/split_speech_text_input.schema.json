@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for deterministic speech text splitting.",
+  "properties": {
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Language code (e.g. 'ar', 'en')",
+      "title": "Language"
+    },
+    "max_sentence_duration": {
+      "default": 10.0,
+      "description": "Maximum allowed duration before forced split",
+      "minimum": 0.5,
+      "title": "Max Sentence Duration",
+      "type": "number"
+    },
+    "min_sentence_duration": {
+      "default": 2.0,
+      "description": "Minimum target duration per sentence",
+      "minimum": 0.1,
+      "title": "Min Sentence Duration",
+      "type": "number"
+    },
+    "silence_threshold": {
+      "default": 0.3,
+      "description": "Inter-word silence threshold to trigger boundary",
+      "minimum": 0.05,
+      "title": "Silence Threshold",
+      "type": "number"
+    },
+    "text": {
+      "description": "Full input speech text to segment",
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "title": "SplitSpeechTextInput",
+  "type": "object"
+}

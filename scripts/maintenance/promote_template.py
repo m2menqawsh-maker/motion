@@ -1,12 +1,9 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import subprocess
 from scripts.security.security import safe_subprocess
-#!/usr/bin/env python3
-"""
-Promote Template — ترقية القالب من proposed/ إلى templates/
-ينقل القالب المقترح ويحدث TEMPLATE_INDEX.md
-"""
-
-import sys
 from scripts.security.path_security import validate_project_id, safe_resolve
 import json
 import shutil
@@ -34,13 +31,12 @@ class TemplatePromoter:
             raise ValueError(f"❌ الاقتراح غير موجود: {self.proposal_dir}")
 
     def promote(self):
-        """يرقي القالب المقترح إلى معتمد"""
-        print(f"🚀 [TemplatePromoter] ترقية القالب: {self.proposal_id}")
-
-        # 1. قراءة proposal.json
-        proposal_file = self.proposal_dir / "proposal.json"
-        with open(proposal_file, 'r', encoding='utf-8') as f:
-            proposal = json.load(f)
+        """يرقي القالب المقترح إلى معتمد — RETIRED in S28-07"""
+        raise RuntimeError(
+            "Direct template promotion via promote_template.py is DEPRECATED and RETIRED in S28-07. "
+            "Template promotion must proceed through the canonical PromotionService "
+            "(scripts.core.template_registry_publisher) with multi-stage human approval."
+        )
 
         # 2. تحديد المسار الهدف
         category = proposal["category"]
@@ -122,19 +118,9 @@ class TemplatePromoter:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("الاستخدام: python promote_template.py <proposal_id>")
-        sys.exit(1)
-
-    proposal_id = sys.argv[1]
-    promoter = TemplatePromoter(proposal_id)
-
-    try:
-        promoter.promote()
-        sys.exit(0)
-    except Exception as e:
-        print(f"\n❌ {e}\n")
-        sys.exit(1)
+    print("❌ ERROR: promote_template.py is DEPRECATED and RETIRED in S28-07.")
+    print("Template promotion must proceed through the canonical PromotionService (scripts.core.template_registry_publisher) and candidate promotion API.")
+    sys.exit(1)
 
 
 if __name__ == "__main__":

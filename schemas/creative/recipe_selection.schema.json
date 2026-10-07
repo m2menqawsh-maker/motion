@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "ProvenanceRecord": {
+      "additionalProperties": false,
+      "description": "Cryptographic and operational audit record tracking origin and execution latency.",
+      "properties": {
+        "latency_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Execution duration in milliseconds",
+          "title": "Latency Ms"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the model invoked",
+          "title": "Model Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the provider adapter",
+          "title": "Provider Id"
+        },
+        "source": {
+          "description": "Origin subsystem or source adapter",
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Timezone-aware timestamp of event occurrence",
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "timestamp"
+      ],
+      "title": "ProvenanceRecord",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Record of a recipe routing decision matching a CreativeBrief to a specific RecipeDefinition.",
+  "properties": {
+    "alternative_recipe_ids": {
+      "description": "Fallback or runner-up recipe IDs",
+      "items": {
+        "type": "string"
+      },
+      "title": "Alternative Recipe Ids",
+      "type": "array"
+    },
+    "brief_id": {
+      "description": "Associated CreativeBrief identifier",
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "confidence_score": {
+      "description": "Confidence score of the match [0.0 - 1.0]",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence Score",
+      "type": "number"
+    },
+    "created_at": {
+      "description": "UTC timestamp of selection",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "excluded_recipe_ids": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Disqualified candidate recipe IDs with rejection rationale",
+      "title": "Excluded Recipe Ids",
+      "type": "object"
+    },
+    "matched_keywords": {
+      "description": "Keywords from the brief that triggered match",
+      "items": {
+        "type": "string"
+      },
+      "title": "Matched Keywords",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceRecord",
+      "description": "Provenance trace of the routing decision"
+    },
+    "required_knowledge": {
+      "description": "IDs of knowledge descriptors required by selected recipe",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Knowledge",
+      "type": "array"
+    },
+    "required_skills": {
+      "description": "IDs of skills required by selected recipe",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Skills",
+      "type": "array"
+    },
+    "selected_recipe_id": {
+      "description": "ID of the chosen RecipeDefinition",
+      "title": "Selected Recipe Id",
+      "type": "string"
+    },
+    "selection_id": {
+      "description": "Unique selection decision identifier",
+      "title": "Selection Id",
+      "type": "string"
+    },
+    "selection_rationale": {
+      "description": "Explainable justification for the selection",
+      "title": "Selection Rationale",
+      "type": "string"
+    },
+    "selection_reasons": {
+      "description": "Audit-ready selection evidence lines",
+      "items": {
+        "type": "string"
+      },
+      "title": "Selection Reasons",
+      "type": "array"
+    }
+  },
+  "required": [
+    "selection_id",
+    "brief_id",
+    "selected_recipe_id",
+    "confidence_score",
+    "selection_rationale",
+    "provenance",
+    "created_at"
+  ],
+  "title": "RecipeSelection",
+  "type": "object"
+}

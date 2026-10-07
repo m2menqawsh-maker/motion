@@ -90,8 +90,5 @@ export const Scene{scene_idx}: React.FC = () => {{
         print(f"Warning: Build directory {build_dir} not found. Skipping tsc.")
 
 if __name__ == "__main__":
-    target_spec = "projects/test_taste/video_spec.json"
-    if len(sys.argv) > 1:
-        target_spec = sys.argv[1]
-    
-    compile_scenes(target_spec)
+    print("⚠️ WARNING: scene_compiler.py is DEPRECATED and RETIRED in favor of canonical BlueprintCompiler and BlueprintVideo.")
+    sys.exit(1)

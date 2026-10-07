@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "CandidateType": {
+      "description": "Subject type under evaluation.",
+      "enum": [
+        "MODEL",
+        "PROMPT",
+        "ROUTER_POLICY"
+      ],
+      "title": "CandidateType",
+      "type": "string"
+    },
+    "EvaluatorType": {
+      "description": "Class of evaluation methodology.",
+      "enum": [
+        "DETERMINISTIC",
+        "SCHEMA_BASED",
+        "CODE_BASED",
+        "HUMAN_LABEL",
+        "LLM_JUDGE"
+      ],
+      "title": "EvaluatorType",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Outcome of an evaluation run for a candidate model or prompt.",
+  "properties": {
+    "candidate_id": {
+      "description": "Model ID or Prompt ID evaluated",
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_type": {
+      "$ref": "#/$defs/CandidateType",
+      "description": "Candidate entity classification"
+    },
+    "candidate_version": {
+      "description": "Version of candidate under test",
+      "minLength": 1,
+      "title": "Candidate Version",
+      "type": "string"
+    },
+    "cost_score": {
+      "description": "Relative cost rating or estimated cost per call",
+      "minimum": 0.0,
+      "title": "Cost Score",
+      "type": "number"
+    },
+    "created_at": {
+      "description": "Evaluation timestamp",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "dataset_id": {
+      "description": "Evaluated dataset ID",
+      "minLength": 1,
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "dataset_version": {
+      "description": "Evaluated dataset version",
+      "minLength": 1,
+      "title": "Dataset Version",
+      "type": "string"
+    },
+    "evaluation_id": {
+      "description": "Unique evaluation execution ID",
+      "minLength": 1,
+      "title": "Evaluation Id",
+      "type": "string"
+    },
+    "evaluators_used": {
+      "description": "Evaluators utilized in this run",
+      "items": {
+        "$ref": "#/$defs/EvaluatorType"
+      },
+      "minItems": 1,
+      "title": "Evaluators Used",
+      "type": "array"
+    },
+    "failure_reasons": {
+      "description": "Detailed failure diagnostics if passed is False",
+      "items": {
+        "type": "string"
+      },
+      "title": "Failure Reasons",
+      "type": "array"
+    },
+    "latency_ms": {
+      "description": "Average execution latency in milliseconds",
+      "minimum": 0.0,
+      "title": "Latency Ms",
+      "type": "number"
+    },
+    "metrics": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Fine-grained metric breakdowns",
+      "title": "Metrics",
+      "type": "object"
+    },
+    "passed": {
+      "description": "Whether candidate satisfied all thresholds",
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "quality_score": {
+      "description": "Overall evaluated quality score",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Quality Score",
+      "type": "number"
+    }
+  },
+  "required": [
+    "evaluation_id",
+    "dataset_id",
+    "dataset_version",
+    "candidate_type",
+    "candidate_id",
+    "candidate_version",
+    "passed",
+    "quality_score",
+    "cost_score",
+    "latency_ms",
+    "evaluators_used",
+    "created_at"
+  ],
+  "title": "EvalResultContract",
+  "type": "object"
+}

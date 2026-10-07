@@ -8,7 +8,28 @@ import {
   GradientSchema,
   SceneContentSchema,
 } from "./blueprint";
-import type { SchemaField, TemplateEntry } from "../registry/types";
+export type SchemaFieldType =
+  | "text"
+  | "number"
+  | "color"
+  | "select"
+  | "range"
+  | "fontKey"
+  | "animation"
+  | "anchor"
+  | "boolean"
+  | "logo";
+
+export interface SchemaField {
+  type: SchemaFieldType;
+  label: { ar: string; en: string };
+  min?: number;
+  max?: number;
+  step?: number;
+  options?: string[];
+  default?: any;
+  placeholder?: string;
+}
 
 // ─── 1. Error Definition ──────────────────────────────────────────────────────
 
@@ -235,7 +256,14 @@ export function resolveTemplateSchemas(
 // ─── 6. Validate Template Payload Fail-Closed ─────────────────────────────────
 
 export function validateTemplatePayload(
-  entry: TemplateEntry,
+  entry: {
+    id: string;
+    schema?: Record<string, any>;
+    contentSchema?: any;
+    propsSchema?: any;
+    surfaceSchema?: any;
+    [key: string]: any;
+  },
   scene: {
     scene_id: string;
     template: string;

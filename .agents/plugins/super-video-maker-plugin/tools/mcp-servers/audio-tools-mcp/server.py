@@ -16,6 +16,11 @@ if isinstance(sys.stderr, io.TextIOWrapper):
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Canonical project root discovery
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../"))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
 from utils.ffmpeg_ops import (
     trim_audio_file,
     detect_and_trim_silence_file,
@@ -142,7 +147,23 @@ async def get_voiceover_manifest(
     else:
         split_data = split_result
         
-    return build_voiceover_manifest_logic(audio_path, analysis_data, split_data, output_path)
+    try:
+        from ai.speech.manifest import SpeechManifestBuilder
+        split_sentences = split_data.get("sentences", []) if isinstance(split_data, dict) else []
+        res = SpeechManifestBuilder.build_manifest(
+            project_id="prj_audio_tools_compat",
+            audio_key_or_path=audio_path,
+            analysis_data=analysis_data,
+            split_sentences=split_sentences,
+            output_path=output_path,
+        )
+        if output_path:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=2)
+        return res
+    except Exception as e:
+        logger.warning(f"Canonical SpeechManifestBuilder fallback: {e}")
+        return build_voiceover_manifest_logic(audio_path, analysis_data, split_data, output_path)
 
 @mcp.tool()
 async def build_voiceover_timeline(
@@ -164,7 +185,20 @@ async def build_voiceover_timeline(
     else:
         manifest_data = manifest
         
-    return build_voiceover_timeline_logic(manifest_data, output_path)
+    try:
+        from ai.speech.timeline import SpeechTimelineBuilder
+        res = SpeechTimelineBuilder.build_timeline(
+            manifest_data=manifest_data,
+            fps=30.0,
+            output_path=output_path,
+        )
+        if output_path:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=2)
+        return res
+    except Exception as e:
+        logger.warning(f"Canonical SpeechTimelineBuilder fallback: {e}")
+        return build_voiceover_timeline_logic(manifest_data, output_path)
 
 if __name__ == "__main__":
     mcp.run()

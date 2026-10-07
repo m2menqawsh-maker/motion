@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for upscaled image.",
+  "properties": {
+    "height": {
+      "description": "Output height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for upscaled image",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "width": {
+      "description": "Output width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "width",
+    "height"
+  ],
+  "title": "UpscaleImageOutput",
+  "type": "object"
+}

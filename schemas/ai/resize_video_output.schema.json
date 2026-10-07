@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for resized video.",
+  "properties": {
+    "height": {
+      "description": "Rendered height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for resized video",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "width": {
+      "description": "Rendered width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "width",
+    "height"
+  ],
+  "title": "ResizeVideoOutput",
+  "type": "object"
+}

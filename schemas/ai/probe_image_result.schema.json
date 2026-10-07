@@ -1,0 +1,101 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract containing technical image probe properties.",
+  "properties": {
+    "file_size_bytes": {
+      "description": "Raw file payload size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "format": {
+      "description": "Image format (PNG, JPEG, WEBP, GIF)",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "frame_count": {
+      "description": "Total frame count (1 for static images)",
+      "minimum": 1,
+      "title": "Frame Count",
+      "type": "integer"
+    },
+    "has_alpha": {
+      "description": "Whether the image contains an alpha channel",
+      "title": "Has Alpha",
+      "type": "boolean"
+    },
+    "height": {
+      "description": "Image pixel height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "is_animated": {
+      "default": false,
+      "description": "Whether image contains multiple frames",
+      "title": "Is Animated",
+      "type": "boolean"
+    },
+    "metadata_summary": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Sanitized metadata summary",
+      "title": "Metadata Summary",
+      "type": "object"
+    },
+    "mode": {
+      "description": "Color mode (RGB, RGBA, L, P, CMYK)",
+      "minLength": 1,
+      "title": "Mode",
+      "type": "string"
+    },
+    "orientation": {
+      "anyOf": [
+        {
+          "maximum": 8,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "EXIF orientation tag if present",
+      "title": "Orientation"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "storage_key": {
+      "description": "Storage key of probed image",
+      "minLength": 1,
+      "title": "Storage Key",
+      "type": "string"
+    },
+    "width": {
+      "description": "Image pixel width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "storage_key",
+    "format",
+    "width",
+    "height",
+    "mode",
+    "has_alpha",
+    "frame_count",
+    "file_size_bytes"
+  ],
+  "title": "ProbeImageResult",
+  "type": "object"
+}

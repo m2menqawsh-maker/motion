@@ -174,7 +174,14 @@ def run_negative_qc_scenario() -> bool:
         ReviewService.approve(project_dir, bundle.review_bundle_id, principal=principal)
 
         # Render valid 16:9 output
-        res_render = subprocess.run([sys.executable, "scripts/render_project.py", project_id], capture_output=True, text=True)
+        sub_env = dict(os.environ, PYTHONPATH=str(workspace_root))
+        res_render = subprocess.run(
+            [sys.executable, "scripts/render_project.py", project_id],
+            cwd=str(workspace_root),
+            env=sub_env,
+            capture_output=True,
+            text=True,
+        )
         if res_render.returncode != 0 or not (project_dir / "out.mp4").exists():
             print("❌ Negative test setup failed at render step")
             return False
@@ -186,7 +193,13 @@ def run_negative_qc_scenario() -> bool:
         bp_path.write_text(json.dumps(bp_data), encoding="utf-8")
 
         # Run Final QC directly -> Must FAIL closed on aspect mismatch
-        proc_qc = subprocess.run([sys.executable, "scripts/gates/final_qc.py", project_id], capture_output=True, text=True)
+        proc_qc = subprocess.run(
+            [sys.executable, "scripts/gates/final_qc.py", project_id],
+            cwd=str(workspace_root),
+            env=sub_env,
+            capture_output=True,
+            text=True,
+        )
         report_file = project_dir / "final_qc_report.json"
         if not report_file.exists():
             print("❌ Final QC report missing after execution")

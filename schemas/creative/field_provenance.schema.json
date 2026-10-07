@@ -1,0 +1,54 @@
+{
+  "$defs": {
+    "ProvenanceType": {
+      "description": "Epistemic provenance category for individual brief dimensions (S28-03).",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "DEFAULTED",
+        "UNKNOWN"
+      ],
+      "title": "ProvenanceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Tracks origin, epistemic classification, and rationale for a single brief field.",
+  "properties": {
+    "rationale": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Explanation or citation for inferred or defaulted value",
+      "title": "Rationale"
+    },
+    "raw_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Exact phrase or asset attribute from which value was derived",
+      "title": "Raw Reference"
+    },
+    "source_type": {
+      "$ref": "#/$defs/ProvenanceType",
+      "description": "Epistemic provenance category"
+    }
+  },
+  "required": [
+    "source_type"
+  ],
+  "title": "FieldProvenance",
+  "type": "object"
+}

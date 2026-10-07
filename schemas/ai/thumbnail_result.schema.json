@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for generated thumbnail.",
+  "properties": {
+    "file_size_bytes": {
+      "description": "Thumbnail file size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "format": {
+      "description": "Thumbnail image format",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "height": {
+      "description": "Thumbnail height in pixels",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for thumbnail",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "width": {
+      "description": "Thumbnail width in pixels",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "width",
+    "height",
+    "format",
+    "file_size_bytes"
+  ],
+  "title": "ThumbnailResult",
+  "type": "object"
+}

@@ -1,0 +1,77 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for auto-cropped image.",
+  "properties": {
+    "cropped_box": {
+      "description": "Bounding box [left, top, right, bottom]",
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Cropped Box",
+      "type": "array"
+    },
+    "file_size_bytes": {
+      "description": "Output file size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "format": {
+      "description": "Output format",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "original_height": {
+      "description": "Original image height",
+      "minimum": 1,
+      "title": "Original Height",
+      "type": "integer"
+    },
+    "original_width": {
+      "description": "Original image width",
+      "minimum": 1,
+      "title": "Original Width",
+      "type": "integer"
+    },
+    "output_height": {
+      "description": "Cropped output height",
+      "minimum": 1,
+      "title": "Output Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for auto-cropped image",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "output_width": {
+      "description": "Cropped output width",
+      "minimum": 1,
+      "title": "Output Width",
+      "type": "integer"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "original_width",
+    "original_height",
+    "output_width",
+    "output_height",
+    "cropped_box",
+    "format",
+    "file_size_bytes"
+  ],
+  "title": "AutoCropImageResult",
+  "type": "object"
+}

@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Output contract for trimmed video.",
+  "properties": {
+    "duration_seconds": {
+      "description": "Final duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for trimmed video",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "duration_seconds"
+  ],
+  "title": "TrimVideoOutput",
+  "type": "object"
+}

@@ -1,0 +1,138 @@
+{
+  "report_id": "eval_s28_05_1790946270",
+  "timestamp": "2026-10-02 13:04:30.819691+00:00",
+  "planner_scenarios_evaluated": 6,
+  "mean_brief_coverage": 1.0,
+  "mean_narrative_coverage": 1.0,
+  "mean_duration_fit": 1.0,
+  "mean_audio_adherence": 1.0,
+  "schema_valid_rate": 1.0,
+  "compiler_determinism_rate": 1.0,
+  "negative_cases_caught_rate": 1.0,
+  "overall_verdict": "PASS",
+  "scenario_scores": [
+    {
+      "scenario_id": "sc_01_saas_demo",
+      "archetype": "SAAS_DEMO",
+      "audio_mode": "VO_MUSIC",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    },
+    {
+      "scenario_id": "sc_02_social_sprint",
+      "archetype": "SHORT_FORM_SPRINT",
+      "audio_mode": "VO_MUSIC",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    },
+    {
+      "scenario_id": "sc_03_music_montage",
+      "archetype": "DYNAMIC_MONTAGE",
+      "audio_mode": "MUSIC_ONLY",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    },
+    {
+      "scenario_id": "sc_04_talking_head",
+      "archetype": "TALKING_HEAD",
+      "audio_mode": "VO_ONLY",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    },
+    {
+      "scenario_id": "sc_05_educational_explainer",
+      "archetype": "EDUCATIONAL_EXPLAINER",
+      "audio_mode": "VO_MUSIC",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    },
+    {
+      "scenario_id": "sc_06_silent_demo",
+      "archetype": "SILENT_PRODUCT_DEMO",
+      "audio_mode": "SILENT",
+      "brief_coverage": 1.0,
+      "narrative_beat_coverage": 1.0,
+      "duration_fit": 1.0,
+      "audio_policy_adherence": 1.0,
+      "asset_feasibility": 1.0,
+      "conflict_free": true,
+      "schema_valid": true,
+      "composite_score": 1.0,
+      "passed": true
+    }
+  ],
+  "determinism_evals": [
+    {
+      "scenario_id": "compiler_determinism_20_iterations",
+      "repeated_runs": 20,
+      "unique_structural_hashes": 1,
+      "equality_rate": 1.0,
+      "passed": true
+    }
+  ],
+  "negative_cases": [
+    {
+      "case_id": "neg_unknown_template",
+      "category": "Template",
+      "expected_error": "UnknownTemplateCompilerError",
+      "caught": true,
+      "details": "Unknown or unregistered template 'bad-ghost-template-999' in scene 'scene_001'."
+    },
+    {
+      "case_id": "neg_unknown_asset",
+      "category": "Asset",
+      "expected_error": "UnknownAssetCompilerError",
+      "caught": true,
+      "details": "Voiceover asset reference 'ast_non_existent' not found in manifest."
+    },
+    {
+      "case_id": "neg_forbidden_capability",
+      "category": "AudioMode",
+      "expected_error": "ForbiddenCapabilityCompilerError",
+      "caught": true,
+      "details": "Voiceover track 'ast_vo_01' is strictly forbidden in AudioMode.MUSIC_ONLY."
+    },
+    {
+      "case_id": "neg_unresolved_conflict",
+      "category": "Conflict",
+      "expected_error": "UnresolvedCreativeConflictError",
+      "caught": true,
+      "details": "ResolvedCreativeGuidance has failed status 'FAILED_UNRESOLVED_CONFLICT' with unresolved conflicts."
+    }
+  ]
+}

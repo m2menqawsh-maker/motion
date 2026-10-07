@@ -1,0 +1,288 @@
+{
+  "$defs": {
+    "EpistemicStatus": {
+      "description": "Epistemic classification distinguishing stated facts from AI inferences.",
+      "enum": [
+        "EXPLICIT",
+        "INFERRED",
+        "CONFIRMED"
+      ],
+      "title": "EpistemicStatus",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "SourceType": {
+      "description": "Provenance origin of the memory record.",
+      "enum": [
+        "USER_STATEMENT",
+        "CONVERSATION_SUMMARY",
+        "PROJECT_FACT",
+        "HUMAN_CONFIRMATION",
+        "AI_INFERENCE",
+        "MEDIA_ANALYSIS",
+        "DECISION",
+        "SYSTEM_IMPORT"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StylePreferenceProvenance": {
+      "additionalProperties": false,
+      "description": "Provenance and confidence record for an individual style preference dimension.\nDistinguishes user-declared facts (EXPLICIT), repeated evidence (CONFIRMED),\nand behavioral hypotheses (INFERRED).",
+      "properties": {
+        "confidence": {
+          "description": "Domain-controlled confidence score",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "dimension": {
+          "description": "Preference dimension (e.g., 'pacing', 'motion_intensity')",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "epistemic_status": {
+          "$ref": "#/$defs/EpistemicStatus",
+          "description": "Epistemic status: EXPLICIT, CONFIRMED, or INFERRED"
+        },
+        "evidence_count": {
+          "default": 1,
+          "description": "Number of observed evidence instances",
+          "minimum": 1,
+          "title": "Evidence Count",
+          "type": "integer"
+        },
+        "last_observed_at": {
+          "description": "UTC timestamp of the most recent evidence observation",
+          "format": "date-time",
+          "title": "Last Observed At",
+          "type": "string"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Auditable provenance note without hidden reasoning",
+          "title": "Rationale"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Originating feedback_id or memory_id",
+          "title": "Source Id"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType",
+          "description": "Origin source type"
+        }
+      },
+      "required": [
+        "dimension",
+        "epistemic_status",
+        "confidence",
+        "source_type",
+        "last_observed_at"
+      ],
+      "title": "StylePreferenceProvenance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Persistent creative preferences associated with a user or workspace,\ninforming future CreativeBrief interpretation and NarrativePlanning.",
+  "properties": {
+    "caption_style": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Caption styling preference (e.g., 'compact', 'prominent', 'karaoke')",
+      "title": "Caption Style"
+    },
+    "disliked_patterns": {
+      "description": "Styles or patterns explicitly disliked",
+      "items": {
+        "type": "string"
+      },
+      "title": "Disliked Patterns",
+      "type": "array"
+    },
+    "motion_intensity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Motion dynamics preference (e.g., 'low', 'medium', 'high')",
+      "title": "Motion Intensity"
+    },
+    "music_tendencies": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Musical style tendency (e.g., 'ambient', 'upbeat', 'none')",
+      "title": "Music Tendencies"
+    },
+    "pacing_preference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Rhythmic pacing preference (e.g., 'fast', 'deliberate', 'calm')",
+      "title": "Pacing Preference"
+    },
+    "preferred_color_palette": {
+      "description": "List of favored brand hexadecimal color codes",
+      "items": {
+        "type": "string"
+      },
+      "title": "Preferred Color Palette",
+      "type": "array"
+    },
+    "preferred_motion_personality": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Preferred motion profile (e.g., 'Cinematic', 'Energetic', 'Technical', 'Playful')",
+      "title": "Preferred Motion Personality"
+    },
+    "preferred_voices": {
+      "description": "Favored voice profile IDs",
+      "items": {
+        "type": "string"
+      },
+      "title": "Preferred Voices",
+      "type": "array"
+    },
+    "profile_id": {
+      "description": "Unique profile identifier",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "provenance_by_dimension": {
+      "additionalProperties": {
+        "$ref": "#/$defs/StylePreferenceProvenance"
+      },
+      "description": "Per-dimension provenance and confidence tracking",
+      "title": "Provenance By Dimension",
+      "type": "object"
+    },
+    "taste_preferences": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "description": "Custom taste overrides or preferences",
+      "title": "Taste Preferences",
+      "type": "object"
+    },
+    "text_density": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Text density preference (e.g., 'minimal', 'balanced', 'dense')",
+      "title": "Text Density"
+    },
+    "transition_preference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Transition preference (e.g., 'subtle_dissolve', 'whip_pan', 'hard_cut')",
+      "title": "Transition Preference"
+    },
+    "updated_at": {
+      "description": "UTC timestamp of profile update",
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "user_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated user identifier if user-scoped",
+      "title": "User Id"
+    },
+    "visual_complexity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Visual complexity level (e.g., 'minimal', 'rich', 'clean')",
+      "title": "Visual Complexity"
+    },
+    "workspace_id": {
+      "description": "Associated workspace identifier",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "profile_id",
+    "workspace_id",
+    "updated_at"
+  ],
+  "title": "UserStyleProfile",
+  "type": "object"
+}

@@ -1,0 +1,475 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "audit_metadata": {
+    "milestone": "S28-M01",
+    "title": "MCP Reality Audit & Baseline",
+    "timestamp": "2026-10-03T21:43:00+03:00",
+    "auditor": "Antigravity Agentic Auditor",
+    "environment": {
+      "os": "Linux x86_64",
+      "python_version": "3.14.7 (.venv) / 3.12.14 (uv CPython)",
+      "node_version": "v26.7.0",
+      "ffmpeg_version": "8.1.3",
+      "uv_version": "0.10.4"
+    },
+    "summary": {
+      "total_servers_discovered": 6,
+      "total_tools_discovered": 34,
+      "working_tools_count": 18,
+      "partially_working_tools_count": 10,
+      "broken_tools_count": 1,
+      "unverified_tools_count": 5,
+      "embedded_models_count": 2,
+      "unknown_servers_count": 0,
+      "unknown_tools_count": 0,
+      "unknown_models_count": 0,
+      "gate_status": "PASS"
+    }
+  },
+  "servers": [
+    {
+      "mcp_id": "audio-tools-mcp",
+      "name": "audio-tools-mcp",
+      "display_name": "Audio Processing & Speech-to-Text MCP",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp",
+      "language_runtime": "python",
+      "runtime_version": ">=3.10",
+      "entrypoint": "server.py",
+      "startup_command": "uv run python server.py",
+      "package_manager": "uv (pyproject.toml, uv.lock)",
+      "dependencies": [
+        "mcp<2.0.0",
+        "faster-whisper>=1.1.1",
+        "ctranslate2",
+        "onnxruntime",
+        "tokenizers",
+        "av",
+        "numpy"
+      ],
+      "configuration_files": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        ".device_capability.json"
+      ],
+      "required_env_vars": [],
+      "optional_env_vars": [
+        "WHISPER_DEVICE",
+        "HF_TOKEN"
+      ],
+      "secret_requirements": "None required for local operations. Optional HF_TOKEN for higher HuggingFace download limits.",
+      "transport": "stdio (FastMCP / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "FastMCP decorator registration (@mcp.tool()) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [
+        "HuggingFace Hub (initial model weight download for faster-whisper and Silero VAD; cached locally afterwards)"
+      ],
+      "filesystem_reads": [
+        "Source audio files",
+        ".device_capability.json",
+        "Analysis JSON files",
+        "Sentence split manifests"
+      ],
+      "filesystem_writes": [
+        "Output trimmed/extended/normalized audio files",
+        ".{audio_stem}_{hash}.analysis.json cache files",
+        "Sentence chunk audio files in output_dir",
+        "Unified manifest JSON",
+        "Timeline JSON",
+        ".device_capability.json"
+      ],
+      "subprocess_usage": [
+        "ffmpeg (audio trimming, extension, normalization, sentence slicing)",
+        "ffprobe (audio duration probe)"
+      ],
+      "local_models": [
+        {
+          "name": "faster-whisper",
+          "engine": "ctranslate2",
+          "default_model": "base",
+          "device": "cpu (int8) / cuda fallback",
+          "purpose": "Local speech-to-text with word-level timestamps"
+        },
+        {
+          "name": "Silero VAD",
+          "engine": "onnxruntime",
+          "purpose": "Voice activity detection and silence segmentation"
+        }
+      ],
+      "external_api_providers": [],
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4, §9)",
+        ".agents/rules/video-production-protocol.md",
+        "recipes/dynamic-montage-ad.json",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py",
+        "ai/mcp/adapters/audio.py",
+        "tests/ai/mcp/test_mcp_catalog.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_mcp_catalog.py",
+        "tests/ai/mcp/test_mcp_contracts.py",
+        "scratch/run_actual_mcp_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 8,
+      "tools": [
+        "trim_audio",
+        "extend_audio",
+        "normalize_loudness",
+        "detect_and_trim_silence",
+        "analyze_voiceover",
+        "split_voiceover_sentences",
+        "get_voiceover_manifest",
+        "build_voiceover_timeline"
+      ]
+    },
+    {
+      "mcp_id": "common-tools-mcp",
+      "name": "common-tools-mcp",
+      "display_name": "Common Cache & Storage Tools MCP",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/common-tools-mcp",
+      "language_runtime": "python",
+      "runtime_version": ">=3.10",
+      "entrypoint": "server.py",
+      "startup_command": "uv run python server.py",
+      "package_manager": "uv (pyproject.toml, uv.lock)",
+      "dependencies": [
+        "mcp<2.0.0"
+      ],
+      "configuration_files": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version"
+      ],
+      "required_env_vars": [],
+      "optional_env_vars": [
+        "SVM_DATA_DIR",
+        "SVM_PLUGIN_ROOT"
+      ],
+      "secret_requirements": "None",
+      "transport": "stdio (FastMCP / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "FastMCP decorator registration (@mcp.tool()) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [],
+      "filesystem_reads": [
+        "ground-truth/ASSET_INDEX.json",
+        "assets/ready",
+        "assets/cache",
+        "Source files passed to save_to_cache"
+      ],
+      "filesystem_writes": [
+        "assets/cache/{asset_id}_{specs_hash}.{ext}"
+      ],
+      "subprocess_usage": [],
+      "local_models": [],
+      "external_api_providers": [],
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py",
+        "ai/mcp/adapters/parity.py",
+        "tests/ai/mcp/test_behavior_parity.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_behavior_parity.py",
+        "tests/architecture/test_plugin_architecture_boundary.py",
+        "scratch/run_actual_mcp_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 2,
+      "tools": [
+        "check_cache",
+        "save_to_cache"
+      ]
+    },
+    {
+      "mcp_id": "ffmpeg-mcp-server",
+      "name": "ffmpeg-mcp-server",
+      "display_name": "FFmpeg Job Queue & Processing MCP (Node.js)",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server",
+      "language_runtime": "node",
+      "runtime_version": ">=18",
+      "entrypoint": "server.js",
+      "startup_command": "node server.js",
+      "package_manager": "npm (package.json, package-lock.json)",
+      "dependencies": [
+        "@modelcontextprotocol/sdk"
+      ],
+      "configuration_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "required_env_vars": [],
+      "optional_env_vars": [
+        "VIDEOS_PATH",
+        "VIDEO_FOLDER"
+      ],
+      "secret_requirements": "None",
+      "transport": "stdio (StdioServerTransport / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "server.setRequestHandler(ListToolsRequestSchema, ...) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [],
+      "filesystem_reads": [
+        "Input video files in VIDEOS_PATH or current working directory",
+        ".agents/mcp_state/ffmpeg_jobs.json"
+      ],
+      "filesystem_writes": [
+        "Output video files in VIDEOS_PATH",
+        ".agents/mcp_state/ffmpeg_jobs.json",
+        ".agents/mcp_state/{jobId}.log",
+        "concat_list.txt (temporary list file during video concatenation)"
+      ],
+      "subprocess_usage": [
+        "ffmpeg (spawn background process, transcode, concat, keyframes)",
+        "powershell (Windows WMI process inspection; fails silently on Linux)",
+        "taskkill (Windows taskkill; falls back to process.kill on Linux)"
+      ],
+      "local_models": [],
+      "external_api_providers": [],
+      "current_consumers": [
+        "references/ROUTER.md (§2)",
+        ".agents/AGENTS.md",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_mcp_catalog.py",
+        "scratch/run_media_and_ffmpeg_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 6,
+      "tools": [
+        "speed_up_video",
+        "check_processing_status",
+        "cancel_video_processing",
+        "increase_keyframes",
+        "get_files_info",
+        "concatenate_videos"
+      ]
+    },
+    {
+      "mcp_id": "image-tools-mcp",
+      "name": "image-tools-mcp",
+      "display_name": "Image Manipulation MCP",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/image-tools-mcp",
+      "language_runtime": "python",
+      "runtime_version": ">=3.10",
+      "entrypoint": "server.py",
+      "startup_command": "uv run python server.py",
+      "package_manager": "uv (pyproject.toml, uv.lock)",
+      "dependencies": [
+        "mcp<2.0.0",
+        "pillow"
+      ],
+      "configuration_files": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version"
+      ],
+      "required_env_vars": [],
+      "optional_env_vars": [],
+      "secret_requirements": "None",
+      "transport": "stdio (FastMCP / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "FastMCP decorator registration (@mcp.tool()) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [],
+      "filesystem_reads": [
+        "Source image files (PNG, JPG, JPEG, WEBP)"
+      ],
+      "filesystem_writes": [
+        "Processed image files (*_upscaled.*, *_ratio.*, *_autocrop.*)"
+      ],
+      "subprocess_usage": [],
+      "local_models": [],
+      "external_api_providers": [],
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py",
+        "ai/mcp/adapters/image.py",
+        "tests/ai/mcp/test_behavior_parity.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_behavior_parity.py",
+        "tests/ai/mcp/test_mcp_catalog.py",
+        "scratch/run_actual_mcp_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 3,
+      "tools": [
+        "upscale_image",
+        "crop_to_ratio",
+        "auto_crop_content"
+      ]
+    },
+    {
+      "mcp_id": "media-sources-mcp",
+      "name": "media-sources-mcp",
+      "display_name": "Media Search & Ingestion MCP",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/media-sources-mcp",
+      "language_runtime": "python",
+      "runtime_version": ">=3.10",
+      "entrypoint": "server.py",
+      "startup_command": "uv run python server.py",
+      "package_manager": "uv (pyproject.toml, uv.lock)",
+      "dependencies": [
+        "mcp<2.0.0",
+        "httpx>=0.28.1",
+        "playwright>=1.54.0",
+        "python-dotenv>=1.1.1",
+        "yt-dlp>=2025.8.20"
+      ],
+      "configuration_files": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        ".env.example"
+      ],
+      "required_env_vars": [
+        "PEXELS_API_KEY (for Pexels tools)",
+        "PIXABAY_API_KEY (for Pixabay image/video tools)",
+        "FREESOUND_API_KEY (for Freesound tools)"
+      ],
+      "optional_env_vars": [
+        "SVM_DATA_DIR",
+        "SVM_PLUGIN_ROOT"
+      ],
+      "secret_requirements": "PEXELS_API_KEY, PIXABAY_API_KEY, and FREESOUND_API_KEY required for corresponding search tools. Iconify tools require no secrets.",
+      "transport": "stdio (FastMCP / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "FastMCP decorator registration (@mcp.tool()) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [
+        "api.iconify.design",
+        "api.pexels.com",
+        "pixabay.com",
+        "freesound.org",
+        "Arbitrary download URLs passed to download_direct_file and download_media_page"
+      ],
+      "filesystem_reads": [
+        "Source files moved via change_asset_status"
+      ],
+      "filesystem_writes": [
+        "assets/incoming/{asset_type}/{source}_{asset_type}_{asset_id}.{ext}",
+        "assets/{to_status}/{asset_type}/{filename}",
+        "custom_path directories passed to download_direct_file / download_media_page / download_iconify_icon"
+      ],
+      "subprocess_usage": [
+        "yt-dlp (page media extraction)"
+      ],
+      "local_models": [],
+      "external_api_providers": [
+        "Iconify API",
+        "Pexels API",
+        "Pixabay API",
+        "Freesound API"
+      ],
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4, §10)",
+        "recipes/dynamic-montage-ad.json",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py",
+        "ai/mcp/adapters/parity.py",
+        "tests/ai/mcp/test_behavior_parity.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_behavior_parity.py",
+        "scratch/run_media_and_ffmpeg_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 11,
+      "tools": [
+        "download_direct_file",
+        "download_media_page",
+        "change_asset_status",
+        "pixabay_search_images",
+        "pixabay_search_videos",
+        "pixabay_search_audio",
+        "freesound_search",
+        "pexels_search_images",
+        "pexels_search_videos",
+        "iconify_search",
+        "download_iconify_icon"
+      ]
+    },
+    {
+      "mcp_id": "video-tools-mcp",
+      "name": "video-tools-mcp",
+      "display_name": "Deterministic Video Processing MCP",
+      "source_path": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp",
+      "language_runtime": "python",
+      "runtime_version": ">=3.10",
+      "entrypoint": "server.py",
+      "startup_command": "uv run python server.py",
+      "package_manager": "uv (pyproject.toml, uv.lock)",
+      "dependencies": [
+        "mcp<2.0.0"
+      ],
+      "configuration_files": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version"
+      ],
+      "required_env_vars": [],
+      "optional_env_vars": [],
+      "secret_requirements": "None",
+      "transport": "stdio (FastMCP / JSON-RPC 2.0)",
+      "tool_discovery_mechanism": "FastMCP decorator registration (@mcp.tool()) exposing tools via stdio tools/list",
+      "startup_status": "starts_successfully",
+      "external_network_dependencies": [],
+      "filesystem_reads": [
+        "Input video files"
+      ],
+      "filesystem_writes": [
+        "Output video files (*_trimmed.mp4, *_extended.mp4, *_resized.mp4, *_noblack.mp4)"
+      ],
+      "subprocess_usage": [
+        "ffmpeg (video trimming, scaling, looping, black frame trimming)",
+        "ffprobe (video duration probe, audio stream probe)"
+      ],
+      "local_models": [],
+      "external_api_providers": [],
+      "current_consumers": [
+        "references/ROUTER.md (§2, §4)",
+        "recipes/dynamic-montage-ad.json",
+        ".agents/plugins/super-video-maker-plugin/mcp_config.json",
+        "ai/mcp/catalog.py",
+        "ai/mcp/adapters/video.py",
+        "tests/ai/mcp/test_mcp_catalog.py"
+      ],
+      "test_coverage": [
+        "tests/ai/mcp/test_mcp_catalog.py",
+        "tests/ai/mcp/test_mcp_contracts.py",
+        "scratch/run_actual_mcp_verification.py"
+      ],
+      "tenant_awareness": false,
+      "storage_service_awareness": false,
+      "relies_on_raw_filesystem": true,
+      "modifies_canonical_artifacts": false,
+      "tools_count": 4,
+      "tools": [
+        "trim_video",
+        "extend_video",
+        "resize_video",
+        "detect_and_trim_black_frames"
+      ]
+    }
+  ]
+}

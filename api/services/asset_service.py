@@ -10,6 +10,7 @@ Integrates with:
 import hashlib
 import json
 import os
+import shutil
 import uuid
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
@@ -190,7 +191,10 @@ class AssetService:
             },
         )
 
-        existing_idx = next((i for i, a in enumerate(manifest.assets) if a.asset_id == final_asset_id), None)
+        existing_idx = next(
+            (i for i, a in enumerate(manifest.assets) if a.asset_id == final_asset_id or getattr(a, "content_hash", None) == sha256_hash),
+            None,
+        )
         if existing_idx is not None:
             manifest.assets[existing_idx] = asset_record
         else:
@@ -257,3 +261,115 @@ class AssetService:
                 pass
 
         return True
+
+    @classmethod
+    def update_asset_status(
+        cls,
+        project_id: str,
+        asset_id: str,
+        new_status: Union[str, AssetStatus],
+    ) -> Dict[str, Any]:
+        """
+        Updates the lifecycle status of an asset within Manifest v2 (S27.10 Domain Migration).
+        Enforces project confinement and triggers downstream invalidation.
+        """
+        proj_dir = cls._get_project_dir(project_id)
+        validate_asset_id(asset_id)
+        manifest = cls._get_or_create_manifest(proj_dir, project_id)
+
+        target = manifest.get_asset(asset_id)
+        if not target:
+            raise AssetNotFoundError(asset_id=asset_id, project_id=project_id)
+
+        status_enum = AssetStatus(new_status) if isinstance(new_status, str) else new_status
+        target.status = status_enum
+
+        manifest_data = manifest.to_dict()
+        manifest_path = proj_dir / "02_asset_manifest.json"
+        save_manifest(manifest, manifest_path)
+
+        state_file = proj_dir / ".pipeline_state.json"
+        if state_file.exists():
+            try:
+                ArtifactService.mutate_artifact(
+                    project_dir=proj_dir,
+                    artifact_kind=ArtifactKind.MANIFEST,
+                    new_content=json.dumps(manifest_data, indent=2, ensure_ascii=False),
+                    reason=f"Asset {asset_id} status changed to {status_enum.value}",
+                )
+            except Exception:
+                pass
+
+        return target.model_dump()
+
+    @classmethod
+    def check_asset_cache(
+        cls,
+        project_id: str,
+        asset_id: str,
+        specs_hash: Optional[str] = None,
+    ) -> Optional[str]:
+        """
+        Checks if an asset or variant exists in cache or ready storage (S27.10 Domain Migration).
+        Confined to project boundaries.
+        """
+        proj_dir = cls._get_project_dir(project_id)
+        validate_asset_id(asset_id)
+        manifest = cls._get_or_create_manifest(proj_dir, project_id)
+        target = manifest.get_asset(asset_id)
+        if not target:
+            return None
+
+        # Check cache subdirectory first if specs_hash is provided
+        if specs_hash:
+            cache_dir = proj_dir / "assets" / "cache"
+            if cache_dir.exists():
+                prefix = f"{asset_id}_{specs_hash}."
+                for f in cache_dir.iterdir():
+                    if f.is_file() and f.name.startswith(prefix):
+                        return str(f.resolve())
+            return None
+
+        # Check if processed or source path exists
+        for p in (target.processed_path, target.source_path):
+            if p:
+                fpath = proj_dir / p
+                if fpath.exists():
+                    return str(fpath.resolve())
+
+        return None
+
+    @classmethod
+    def save_asset_to_cache(
+        cls,
+        project_id: str,
+        asset_id: str,
+        file_path: str,
+        specs_hash: str,
+    ) -> str:
+        """
+        Saves a processed asset variant to the project's cache directory (S27.10 Domain Migration).
+        Confined to project boundaries.
+        """
+        proj_dir = cls._get_project_dir(project_id)
+        validate_asset_id(asset_id)
+        manifest = cls._get_or_create_manifest(proj_dir, project_id)
+        target = manifest.get_asset(asset_id)
+        if not target:
+            raise AssetNotFoundError(asset_id=asset_id, project_id=project_id)
+
+        src_path = Path(file_path).resolve()
+        if not src_path.exists():
+            raise FileNotFoundError(f"Source file not found: {file_path}")
+
+        cache_dir = proj_dir / "assets" / "cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+
+        ext = src_path.suffix
+        dest_name = f"{asset_id}_{specs_hash}{ext}"
+        dest_path = cache_dir / dest_name
+
+        shutil.copy2(src_path, dest_path)
+        return str(dest_path.resolve())
+
+

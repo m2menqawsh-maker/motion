@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "description": "Structured editorial and narrative recommendation emitted by NarrativeDirector.",
+  "properties": {
+    "beat_id": {
+      "description": "Target NarrativeBeat identifier",
+      "title": "Beat Id",
+      "type": "string"
+    },
+    "information_density": {
+      "description": "Density target (e.g., 'minimal', 'balanced', 'dense')",
+      "title": "Information Density",
+      "type": "string"
+    },
+    "narrative_focus": {
+      "description": "Editorial focus (e.g., 'hook_grab', 'problem_statement', 'proof_reveal', 'action_cta')",
+      "title": "Narrative Focus",
+      "type": "string"
+    },
+    "pacing_instruction": {
+      "description": "Rhythmic pacing direction (e.g., 'accelerate_cut', 'deliberate_pause', 'rhythmic_build')",
+      "title": "Pacing Instruction",
+      "type": "string"
+    },
+    "reason_summary": {
+      "default": "",
+      "description": "Auditable rationale summary",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "spoken_line": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Proposed voiceover sentence if spoken mode applies",
+      "title": "Spoken Line"
+    },
+    "taste_rule_ids": {
+      "description": "Associated TasteRule IDs influencing this direction",
+      "items": {
+        "type": "string"
+      },
+      "title": "Taste Rule Ids",
+      "type": "array"
+    },
+    "visual_progression_cue": {
+      "description": "Visual storyline requirement (e.g., 'reveal_canvas_from_void', 'cutout_assemble')",
+      "title": "Visual Progression Cue",
+      "type": "string"
+    }
+  },
+  "required": [
+    "beat_id",
+    "narrative_focus",
+    "pacing_instruction",
+    "information_density",
+    "visual_progression_cue"
+  ],
+  "title": "NarrativeDirection",
+  "type": "object"
+}

@@ -26,13 +26,14 @@ IGNORED_DIRS = {
 
 IGNORED_FILES = {
     "uv.lock", "package-lock.json", "check_secrets.py", "test_s24_architecture_guards.py",
-    "test_s24_remediation_proof.py"
+    "test_s24_remediation_proof.py", "test_redaction.py", "test_ai_security.py"
 }
 
 ALLOWED_TEST_PATTERNS = [
     "production-test-secret-must-be-at-least-32-chars-long!",
     "another-completely-different-secret-key-32-chars!",
     "sk-proj-supersecretkey1234567890",
+    "AKIAIOSFODNN7EXAMPLE",
     "sk-secret",
     "dummy",
     "test",

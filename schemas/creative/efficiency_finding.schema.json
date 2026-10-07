@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "EfficiencyFindingType": {
+      "description": "Categories of detected waste or inefficiency in creative execution.",
+      "enum": [
+        "UNNECESSARY_PREMIUM_CALL",
+        "DUPLICATE_PLANNING",
+        "OVER_RETRIEVAL",
+        "UNNECESSARY_GENERATION",
+        "CREATE_ESCALATION_WITHOUT_REASON",
+        "HIGH_COST_CALL_OBSERVED",
+        "EXPENSIVE_REPEATED_FAILURE",
+        "INCOMPLETE_COST_COVERAGE"
+      ],
+      "title": "EfficiencyFindingType",
+      "type": "string"
+    },
+    "EfficiencySeverity": {
+      "description": "Impact severity of an efficiency finding.",
+      "enum": [
+        "INFO",
+        "WARNING",
+        "CRITICAL"
+      ],
+      "title": "EfficiencySeverity",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Non-mutating diagnostic finding identifying waste, drift, or excessive expenditure.",
+  "properties": {
+    "evidence_refs": {
+      "description": "IDs of spans or events proving the issue",
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "expected_bound": {
+      "$ref": "#/$defs/JsonValue",
+      "description": "Acceptable policy or baseline bound"
+    },
+    "finding_id": {
+      "description": "Unique finding identifier",
+      "minLength": 1,
+      "title": "Finding Id",
+      "type": "string"
+    },
+    "finding_type": {
+      "$ref": "#/$defs/EfficiencyFindingType",
+      "description": "Classification of efficiency issue"
+    },
+    "observed_value": {
+      "$ref": "#/$defs/JsonValue",
+      "description": "Empirically measured metric or value"
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated project identifier",
+      "title": "Project Id"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Associated run identifier",
+      "title": "Run Id"
+    },
+    "severity": {
+      "$ref": "#/$defs/EfficiencySeverity",
+      "description": "Severity impact level"
+    },
+    "summary": {
+      "description": "Human-readable explanation of the finding",
+      "minLength": 1,
+      "title": "Summary",
+      "type": "string"
+    },
+    "workspace_id": {
+      "description": "Tenant workspace identifier",
+      "minLength": 1,
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "finding_id",
+    "workspace_id",
+    "finding_type",
+    "severity",
+    "observed_value",
+    "expected_bound",
+    "summary"
+  ],
+  "title": "EfficiencyFinding",
+  "type": "object"
+}

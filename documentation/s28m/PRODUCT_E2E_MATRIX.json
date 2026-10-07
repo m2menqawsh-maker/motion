@@ -1,0 +1,667 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "metadata": {
+    "milestone": "S28-M11",
+    "title": "Full Product E2E Execution Matrix",
+    "total_scenarios": 16,
+    "all_passed": true,
+    "passed_count": 16,
+    "failed_count": 0,
+    "blocked_count": 0
+  },
+  "scenarios": [
+    {
+      "scenario_id": "SCENARIO-01-VERTICAL",
+      "name": "Stock-First Video (Vertical Social 9:16)",
+      "input_type": "CreativeBrief",
+      "workspace_id": "ws_e2e_stock_vert",
+      "project_id": "prj_stock_vertical_01",
+      "capabilities_used": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "PROBE_MEDIA",
+        "TRIM_VIDEO"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "PROBE_MEDIA",
+        "TRIM_VIDEO"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "AssetAcquisitionAdapter",
+        "MediaProcessingAdapter",
+        "PexelsStockAdapter"
+      ],
+      "assets_created": [
+        "ast_stock_vert_01"
+      ],
+      "artifacts_created": [
+        "blueprint_vertical.json",
+        "output_rendered.mp4",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1920, 30fps, 5.0s)",
+      "qc_result": "PASS (Aspect ratio 9:16 verified, 0 black frames)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_01_stock_first_video_vertical_social"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-01-LANDSCAPE",
+      "name": "Stock-First Video (Landscape Explainer 16:9)",
+      "input_type": "CreativeBrief",
+      "workspace_id": "ws_e2e_stock_land",
+      "project_id": "prj_stock_landscape_02",
+      "capabilities_used": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "PROBE_MEDIA",
+        "RESIZE_VIDEO"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "PROBE_MEDIA",
+        "RESIZE_VIDEO"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "AssetAcquisitionAdapter",
+        "MediaProcessingAdapter",
+        "PixabayStockAdapter"
+      ],
+      "assets_created": [
+        "ast_stock_land_02"
+      ],
+      "artifacts_created": [
+        "blueprint_landscape.json",
+        "output_rendered.mp4",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1920x1080, 30fps, 10.0s)",
+      "qc_result": "PASS (Aspect ratio 16:9 verified, audio sync within 45ms)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_01_stock_first_video_landscape_explainer"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-01-VARIANTS",
+      "name": "Stock Provider Fallback and Empty Result Policy",
+      "input_type": "StockQueryFallback",
+      "workspace_id": "ws_e2e_stock_fallback",
+      "project_id": "prj_stock_fallback_03",
+      "capabilities_used": [
+        "SEARCH_STOCK_VIDEOS"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "SEARCH_STOCK_VIDEOS"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "AssetAcquisitionAdapter",
+        "PexelsStockAdapter",
+        "PixabayStockAdapter"
+      ],
+      "assets_created": [],
+      "artifacts_created": [],
+      "render_result": "SKIPPED_NOT_REQUESTED",
+      "probe_result": "SKIPPED_NOT_REQUESTED",
+      "qc_result": "PASS",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_01_variants_error_and_fallbacks"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-02-TALKING-HEAD",
+      "name": "Talking Head Video + Local STT Journey",
+      "input_type": "UploadedTalkingHeadMedia",
+      "workspace_id": "ws_e2e_talking_head",
+      "project_id": "prj_talking_head_01",
+      "capabilities_used": [
+        "SPEECH_TO_TEXT",
+        "BUILD_SPEECH_TIMELINE",
+        "PROBE_MEDIA"
+      ],
+      "model_capabilities": [
+        "SPEECH_TO_TEXT"
+      ],
+      "tool_capabilities": [
+        "PROBE_MEDIA"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "ModelRouter",
+        "LocalSTTProvider",
+        "MediaProcessingAdapter"
+      ],
+      "assets_created": [
+        "ast_voiceover_arabic_01"
+      ],
+      "artifacts_created": [
+        "transcript_canonical.json",
+        "speech_timeline.json",
+        "blueprint_talking_head.json",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1920, 30fps, 4.0s)",
+      "qc_result": "PASS (Subtitle sync exact, audio loudness -16 LUFS)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_02_talking_head_local_stt_journey"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-02-MULTILINGUAL",
+      "name": "Local STT Multilingual Integration Dataset",
+      "input_type": "AudioDatasetCorpus",
+      "workspace_id": "ws_e2e_stt_corpus",
+      "project_id": "prj_stt_corpus_02",
+      "capabilities_used": [
+        "SPEECH_TO_TEXT"
+      ],
+      "model_capabilities": [
+        "SPEECH_TO_TEXT"
+      ],
+      "tool_capabilities": [],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "ModelRouter",
+        "LocalSTTProvider"
+      ],
+      "assets_created": [
+        "ast_ar_audio",
+        "ast_en_audio",
+        "ast_mixed_audio",
+        "ast_silence_audio"
+      ],
+      "artifacts_created": [
+        "transcript_ar.json",
+        "transcript_en.json",
+        "transcript_mixed.json",
+        "transcript_silence.json"
+      ],
+      "render_result": "SKIPPED_NOT_REQUESTED",
+      "probe_result": "PASS",
+      "qc_result": "PASS (Arabic, English, Mixed recognized; silence detected with 0 segments)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_02_multilingual_dataset_coverage"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-03-AUDIO",
+      "name": "Modernized Audio Processing Flow",
+      "input_type": "SourceVoiceoverWAV",
+      "workspace_id": "ws_e2e_audio_ops",
+      "project_id": "prj_audio_ops_01",
+      "capabilities_used": [
+        "NORMALIZE_AUDIO",
+        "ANALYZE_LOUDNESS",
+        "DETECT_SILENCE",
+        "PREPARE_VO_SEGMENTS"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "NORMALIZE_AUDIO",
+        "ANALYZE_LOUDNESS",
+        "DETECT_SILENCE",
+        "PREPARE_VO_SEGMENTS"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "SpeechPreparationSubsystem",
+        "MediaProcessingAdapter"
+      ],
+      "assets_created": [
+        "ast_raw_voiceover_01"
+      ],
+      "artifacts_created": [
+        "normalized_voiceover.wav",
+        "loudness_report.json",
+        "silence_map.json",
+        "vo_segments.json",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (44100Hz, stereo, integrated -16.0 LUFS)",
+      "qc_result": "PASS (EBU R128 loudness compliant, clipping free)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_03_audio_processing_flow"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-04-IMAGE",
+      "name": "Modernized Image Processing Flow",
+      "input_type": "ProductImagePNG",
+      "workspace_id": "ws_e2e_image_ops",
+      "project_id": "prj_image_ops_01",
+      "capabilities_used": [
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "PROBE_IMAGE",
+        "OPTIMIZE_IMAGE"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "PROBE_IMAGE",
+        "OPTIMIZE_IMAGE"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "ImageProcessingAdapter",
+        "ImageProcessingService"
+      ],
+      "assets_created": [
+        "ast_product_hero_01"
+      ],
+      "artifacts_created": [
+        "resized_image.png",
+        "cropped_ratio.png",
+        "optimized_image.png",
+        "blueprint_image_showcase.json",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1080 square format)",
+      "qc_result": "PASS (Zero quality degradation, bounds verified)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_04_image_processing_flow"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-05-MEDIA",
+      "name": "Typed Media Processing Operations",
+      "input_type": "RawVideoFootageMP4",
+      "workspace_id": "ws_e2e_media_ops",
+      "project_id": "prj_media_ops_01",
+      "capabilities_used": [
+        "PROBE_MEDIA",
+        "TRIM_VIDEO",
+        "RESIZE_VIDEO",
+        "CHANGE_VIDEO_SPEED"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "PROBE_MEDIA",
+        "TRIM_VIDEO",
+        "RESIZE_VIDEO",
+        "CHANGE_VIDEO_SPEED"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "MediaProcessingAdapter",
+        "MediaProcessingService",
+        "FFmpegAdapter"
+      ],
+      "assets_created": [
+        "ast_raw_clip_01"
+      ],
+      "artifacts_created": [
+        "probe_meta.json",
+        "trimmed_clip.mp4",
+        "resized_clip.mp4",
+        "speed_clip.mp4",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1920, 30.0fps)",
+      "qc_result": "PASS (Duration verified, 0 black frames, audio track sync verified)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_05_media_processing_flow"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-06-MCP-PARITY",
+      "name": "External MCP Compatibility & Dual-Path Parity",
+      "input_type": "DualChannelRequests",
+      "workspace_id": "ws_e2e_mcp_parity",
+      "project_id": "prj_mcp_parity_01",
+      "capabilities_used": [
+        "TRIM_VIDEO",
+        "PROBE_MEDIA",
+        "RESIZE_IMAGE",
+        "CHECK_MEDIA_CACHE"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "TRIM_VIDEO",
+        "PROBE_MEDIA",
+        "RESIZE_IMAGE",
+        "CHECK_MEDIA_CACHE"
+      ],
+      "mcp_used": true,
+      "providers_or_adapters": [
+        "MCPCompatibilityFacade",
+        "ToolGateway",
+        "MediaProcessingAdapter",
+        "ImageProcessingAdapter",
+        "DomainServiceAdapter"
+      ],
+      "assets_created": [
+        "ast_shared_video_01",
+        "ast_shared_image_01"
+      ],
+      "artifacts_created": [
+        "internal_trim_result.json",
+        "mcp_trim_result.json",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS",
+      "qc_result": "PASS (Exact semantic parity between Path A internal and Path B MCP)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_06_mcp_compatibility_and_core_parity_proof"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-07-MCP-OFFLINE",
+      "name": "MCP Offline Independence and Fault Containment",
+      "input_type": "SimulatedServerOutage",
+      "workspace_id": "ws_e2e_mcp_offline",
+      "project_id": "prj_mcp_offline_01",
+      "capabilities_used": [
+        "TRIM_VIDEO",
+        "SPEECH_TO_TEXT"
+      ],
+      "model_capabilities": [
+        "SPEECH_TO_TEXT"
+      ],
+      "tool_capabilities": [
+        "TRIM_VIDEO"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "CapabilityRouter",
+        "ToolGateway",
+        "ModelRouter"
+      ],
+      "assets_created": [
+        "ast_offline_asset_01"
+      ],
+      "artifacts_created": [
+        "internal_success_output.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS",
+      "qc_result": "PASS (Internal AI 100% operational; External MCP fails structured without crashing backend)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_07_mcp_offline_independence"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-08-MULTI-TENANT",
+      "name": "Multi-Tenant Product & Resource Isolation",
+      "input_type": "ConcurrentCrossTenantRequests",
+      "workspace_id": "ws_tenant_alpha vs ws_tenant_beta",
+      "project_id": "prj_alpha_100 vs prj_beta_200",
+      "capabilities_used": [
+        "SPEECH_TO_TEXT",
+        "TRIM_VIDEO",
+        "CHECK_MEDIA_CACHE"
+      ],
+      "model_capabilities": [
+        "SPEECH_TO_TEXT"
+      ],
+      "tool_capabilities": [
+        "TRIM_VIDEO",
+        "CHECK_MEDIA_CACHE"
+      ],
+      "mcp_used": true,
+      "providers_or_adapters": [
+        "ToolGateway",
+        "ModelRouter",
+        "CapabilityRouter"
+      ],
+      "assets_created": [
+        "ast_alpha_secret_01",
+        "ast_beta_secret_01"
+      ],
+      "artifacts_created": [
+        "alpha_clean_out.json",
+        "beta_clean_out.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS",
+      "qc_result": "PASS (6/6 cross-tenant breach attempts rejected fail-closed with TENANT_ACCESS_DENIED)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_08_multi_tenant_product_isolation"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-09-FAILURE-RECOVERY",
+      "name": "Mid-Journey Failure Handling and State Integrity",
+      "input_type": "InjectedStorageFailureFlow",
+      "workspace_id": "ws_e2e_failure_test",
+      "project_id": "prj_failure_01",
+      "capabilities_used": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "SEARCH_STOCK_VIDEOS",
+        "DOWNLOAD_REMOTE_MEDIA"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "AssetAcquisitionAdapter",
+        "StorageService"
+      ],
+      "assets_created": [],
+      "artifacts_created": [],
+      "render_result": "BLOCKED_BY_UPSTREAM_FAILURE",
+      "probe_result": "SKIPPED",
+      "qc_result": "REJECTED_UNFINISHED",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_09_failure_during_product_journey"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-10-CANCELLATION",
+      "name": "Mid-Journey Cancellation & State Cleanup",
+      "input_type": "CancelledRunningJob",
+      "workspace_id": "ws_e2e_cancel_test",
+      "project_id": "prj_cancel_01",
+      "capabilities_used": [
+        "TRIM_VIDEO",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "TRIM_VIDEO",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "ToolGateway",
+        "MediaProcessingAdapter",
+        "DomainServiceAdapter"
+      ],
+      "assets_created": [],
+      "artifacts_created": [],
+      "render_result": "CANCELLED",
+      "probe_result": "SKIPPED",
+      "qc_result": "CANCELLED_CLEAN",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_10_cancellation_during_product_journey"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-11-REUSE-PATH",
+      "name": "Creative REUSE Path Flow",
+      "input_type": "TemplateMatchedBrief",
+      "workspace_id": "ws_e2e_reuse_path",
+      "project_id": "prj_reuse_01",
+      "capabilities_used": [
+        "PROBE_MEDIA"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "PROBE_MEDIA"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "TemplateRegistry",
+        "BlueprintCompiler",
+        "FinalQC"
+      ],
+      "assets_created": [
+        "ast_template_brand_01"
+      ],
+      "artifacts_created": [
+        "blueprint_reuse_resolved.json",
+        "rendered_reuse_output.mp4",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1920, 30fps, 5.0s)",
+      "qc_result": "PASS (Verified canonical template integrity, no arbitrary code)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_11_reuse_path_product_flow"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-12-COMPOSE-PATH",
+      "name": "Creative COMPOSE Path Flow",
+      "input_type": "MultiSegmentBrief",
+      "workspace_id": "ws_e2e_compose_path",
+      "project_id": "prj_compose_01",
+      "capabilities_used": [
+        "PROBE_MEDIA",
+        "TRIM_VIDEO"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "PROBE_MEDIA",
+        "TRIM_VIDEO"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "CompositionEngine",
+        "BlueprintCompiler",
+        "FinalQC"
+      ],
+      "assets_created": [
+        "ast_seg_intro",
+        "ast_seg_body",
+        "ast_seg_outro"
+      ],
+      "artifacts_created": [
+        "blueprint_composed.json",
+        "rendered_composed_output.mp4",
+        "qc_report.json"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS (1080x1920, 30fps, 8.0s)",
+      "qc_result": "PASS (Transition smoothness validated, zero black frames, exact duration)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_scenario_12_compose_path_product_flow"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO-13-STORAGE-TRUTH",
+      "name": "Durable Worker Staging & Disposable Workspace Verification",
+      "input_type": "WorkerHeavyJobExecution",
+      "workspace_id": "ws_e2e_storage_truth",
+      "project_id": "prj_storage_truth_01",
+      "capabilities_used": [
+        "TRIM_VIDEO"
+      ],
+      "model_capabilities": [],
+      "tool_capabilities": [
+        "TRIM_VIDEO"
+      ],
+      "mcp_used": false,
+      "providers_or_adapters": [
+        "MediaProcessingAdapter",
+        "StorageService"
+      ],
+      "assets_created": [
+        "ast_durable_input_01"
+      ],
+      "artifacts_created": [
+        "durable_output.mp4"
+      ],
+      "render_result": "PASS",
+      "probe_result": "PASS",
+      "qc_result": "PASS (Wiping temporary worker scratch directory leaves canonical StorageService 100% accessible)",
+      "tenant_isolation_verified": true,
+      "storage_durability_verified": true,
+      "observability_verified": true,
+      "status": "PASS",
+      "evidence_tests": [
+        "tests/ai/e2e/test_s28_m11_product_e2e_matrix.py::TestS28M11ProductE2EMatrix::test_durable_worker_disposable_scratch_and_storage_truth"
+      ]
+    }
+  ]
+}

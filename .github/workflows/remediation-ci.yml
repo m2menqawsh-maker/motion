@@ -2,9 +2,9 @@ name: Remediation Fortress CI
 
 on:
   push:
-    branches: [main, remediation/*]
+    branches: [main, "remediation/*", "feature/*"]
   pull_request:
-    branches: [main]
+    branches: [main, "feature/*"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

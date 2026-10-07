@@ -57,7 +57,7 @@
   },
   "voiceover": {
     "source": "user_upload_or_elevenlabs",
-    "description": "التعليق الصوتي هو الأساس. كل التوقيتات تُستخرج منه عبر analyze_voiceover."
+    "description": "التعليق الصوتي هو الأساس. كل التوقيتات تُستخرج منه عبر SPEECH_TO_TEXT."
   },
   "stages": [
     { "id": "intake", "title": "Intake", "actions": ["Get requirements"] },
@@ -80,8 +80,8 @@
   ],
   "providers": {
     "avatar": "none",
-    "broll": "media-sources-mcp",
-    "transcription": "audio-tools-mcp",
+    "broll": "SEARCH_STOCK_VIDEOS",
+    "transcription": "SPEECH_TO_TEXT",
     "compose": "remotion"
   },
   "deliverables": [

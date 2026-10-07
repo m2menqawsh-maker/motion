@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for trimming video.",
+  "properties": {
+    "duration_seconds": {
+      "description": "Clip duration in seconds",
+      "exclusiveMinimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "start_time_seconds": {
+      "default": 0.0,
+      "description": "Start timestamp in seconds",
+      "minimum": 0.0,
+      "title": "Start Time Seconds",
+      "type": "number"
+    },
+    "video_storage_key": {
+      "description": "StorageService key for source video",
+      "minLength": 1,
+      "title": "Video Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "video_storage_key",
+    "duration_seconds"
+  ],
+  "title": "TrimVideoInput",
+  "type": "object"
+}

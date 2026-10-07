@@ -1,0 +1,18 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_img_02",
+  "fps": 30,
+  "aspect_ratio": "9:16",
+  "scenes": [
+    {
+      "scene_id": "scene_img_01",
+      "template": "MediaFrameWrapper",
+      "startFrame": 0,
+      "durationFrames": 120,
+      "media_refs": ["ast_img_product_01"],
+      "content": {
+        "images": ["ast_img_product_01"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "description": "Contract reference allowing the rest of the workspace to address a media analysis\nor intelligence artifact without coupling to underlying storage backends.",
+  "properties": {
+    "analysis_version": {
+      "default": "1.0.0",
+      "description": "Schema version of the analysis payload",
+      "title": "Analysis Version",
+      "type": "string"
+    },
+    "artifact_id": {
+      "description": "Unique artifact record identifier",
+      "minLength": 1,
+      "title": "Artifact Id",
+      "type": "string"
+    },
+    "asset_id": {
+      "description": "Associated domain asset identifier",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "content_hash": {
+      "description": "Cryptographic SHA-256 hash of analyzed content",
+      "minLength": 8,
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "Timezone-aware timestamp of artifact registration",
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "storage_key": {
+      "description": "Abstract StorageService object key",
+      "minLength": 1,
+      "title": "Storage Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifact_id",
+    "asset_id",
+    "content_hash",
+    "storage_key",
+    "created_at"
+  ],
+  "title": "MediaIntelligenceRef",
+  "type": "object"
+}

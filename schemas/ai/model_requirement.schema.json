@@ -1,0 +1,307 @@
+{
+  "$defs": {
+    "CapabilityType": {
+      "description": "Authoritative, provider-neutral capability identifiers (ADR-004 DEC-06.3).\nVendor names (e.g. openai_*, elevenlabs_*, fal_*) are strictly forbidden.",
+      "enum": [
+        "TEXT_GENERATION",
+        "REASONING",
+        "PLANNING",
+        "SUMMARIZATION",
+        "TRANSLATION",
+        "EMBEDDING",
+        "MULTIMODAL_EMBEDDING",
+        "SPEECH_TO_TEXT",
+        "LANGUAGE_DETECTION",
+        "DIARIZATION",
+        "SPEECH_ALIGNMENT",
+        "TEXT_TO_SPEECH",
+        "AUDIO_DENOISE",
+        "AUDIO_ENHANCE",
+        "VOCAL_ISOLATION",
+        "BEAT_DETECTION",
+        "MUSIC_GENERATION",
+        "VOICE_ANALYSIS",
+        "VISION",
+        "VIDEO_UNDERSTANDING",
+        "OCR",
+        "SHOT_DETECTION",
+        "OBJECT_DETECTION",
+        "PERSON_DETECTION",
+        "SCENE_CLASSIFICATION",
+        "CAPTIONING",
+        "IMAGE_GENERATION",
+        "VIDEO_GENERATION",
+        "PERSON_SEGMENTATION",
+        "BACKGROUND_REMOVAL",
+        "LIP_SYNC",
+        "UPSCALE",
+        "TRIM_AUDIO",
+        "EXTEND_AUDIO",
+        "NORMALIZE_AUDIO_LOUDNESS",
+        "NORMALIZE_AUDIO",
+        "TRIM_AUDIO_SILENCE",
+        "ANALYZE_LOUDNESS",
+        "DETECT_SILENCE",
+        "SEGMENT_SPEECH_AUDIO",
+        "GENERATE_SPEECH_MANIFEST",
+        "BUILD_SPEECH_TIMELINE",
+        "SPLIT_SPEECH_TEXT",
+        "PREPARE_VO_SEGMENTS",
+        "ALIGN_AUDIO_METADATA",
+        "TRIM_VIDEO",
+        "EXTEND_VIDEO",
+        "RESIZE_VIDEO",
+        "TRIM_BLACK_FRAMES",
+        "CHANGE_VIDEO_SPEED",
+        "ENFORCE_KEYFRAME_INTERVAL",
+        "CONCATENATE_VIDEOS",
+        "PROBE_MEDIA",
+        "TRANSCODE_VIDEO",
+        "EXTRACT_AUDIO",
+        "EXTRACT_FRAMES",
+        "CONCAT_MEDIA",
+        "CHANGE_CONTAINER",
+        "NORMALIZE_MEDIA",
+        "RESIZE_IMAGE",
+        "CROP_IMAGE_TO_RATIO",
+        "AUTO_CROP_IMAGE",
+        "CONVERT_IMAGE",
+        "OPTIMIZE_IMAGE",
+        "PROBE_IMAGE",
+        "PREPARE_IMAGE_ASSET",
+        "THUMBNAIL",
+        "DOWNLOAD_REMOTE_MEDIA",
+        "EXTRACT_MEDIA_PAGE",
+        "SEARCH_ICONS",
+        "DOWNLOAD_ICON",
+        "SEARCH_STOCK_IMAGES",
+        "SEARCH_STOCK_VIDEOS",
+        "SEARCH_STOCK_AUDIO",
+        "SEARCH_SOUND_EFFECTS",
+        "INSPECT_MEDIA",
+        "MUTATE_ASSET_STATUS",
+        "CHECK_MEDIA_CACHE",
+        "STORE_MEDIA_CACHE",
+        "GET_JOB_STATUS",
+        "CANCEL_PROCESSING_JOB"
+      ],
+      "title": "CapabilityType",
+      "type": "string"
+    },
+    "CostEstimate": {
+      "additionalProperties": false,
+      "description": "Precision-safe monetary cost representation for budgeting and accounting.\nEnforces exact Decimal calculations to avoid binary floating-point drift.",
+      "properties": {
+        "actual_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Final settled cost",
+          "title": "Actual Cost"
+        },
+        "currency": {
+          "default": "USD",
+          "description": "ISO 4217 3-letter currency code (e.g. USD, EUR)",
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "estimated_cost": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "description": "Estimated cost prior to execution",
+          "title": "Estimated Cost"
+        },
+        "pricing_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of the rate card or pricing matrix used",
+          "title": "Pricing Version"
+        },
+        "reserved_cost": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                }
+              ],
+              "ge": "0"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Budget reserved during execution",
+          "title": "Reserved Cost"
+        }
+      },
+      "required": [
+        "estimated_cost"
+      ],
+      "title": "CostEstimate",
+      "type": "object"
+    },
+    "ExecutionClass": {
+      "description": "Execution latency and scheduling tier for an AI workload.",
+      "enum": [
+        "INTERACTIVE",
+        "BATCH",
+        "BACKGROUND"
+      ],
+      "title": "ExecutionClass",
+      "type": "string"
+    },
+    "PrivacyRequirement": {
+      "description": "Data privacy and retention requirements for external AI processing.",
+      "enum": [
+        "ZERO_DATA_RETENTION",
+        "INTERNAL_ONLY",
+        "PUBLIC_ALLOWED"
+      ],
+      "title": "PrivacyRequirement",
+      "type": "string"
+    },
+    "QualityTarget": {
+      "description": "Quality and resource allocation tier for model generation.",
+      "enum": [
+        "DRAFT",
+        "STANDARD",
+        "HIGH",
+        "ULTRA"
+      ],
+      "title": "QualityTarget",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Contract representing caller requirements and constraints for model resolution.\nUsed by future capability routers to score and select optimal deployments.",
+  "properties": {
+    "budget_constraint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CostEstimate"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Upper budget ceiling allowed for this operation"
+    },
+    "capability": {
+      "$ref": "#/$defs/CapabilityType",
+      "description": "Target capability required for execution"
+    },
+    "execution_class": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionClass"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Execution tier requirement (INTERACTIVE, BACKGROUND, BATCH)"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "ISO 639-1 language code or BCP 47 tag (e.g. 'en', 'ar')",
+      "title": "Language"
+    },
+    "max_latency_ms": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Maximum acceptable execution latency in milliseconds",
+      "title": "Max Latency Ms"
+    },
+    "media_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "MIME type of primary media input/output (e.g. 'audio/wav', 'image/png')",
+      "title": "Media Type"
+    },
+    "privacy_requirement": {
+      "$ref": "#/$defs/PrivacyRequirement",
+      "default": "PUBLIC_ALLOWED",
+      "description": "Data retention and isolation requirement"
+    },
+    "quality_target": {
+      "$ref": "#/$defs/QualityTarget",
+      "default": "STANDARD",
+      "description": "Target quality tier"
+    },
+    "required_features": {
+      "description": "List of feature tags required from candidate models (e.g. 'streaming', 'vision')",
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Features",
+      "type": "array"
+    }
+  },
+  "required": [
+    "capability"
+  ],
+  "title": "ModelRequirement",
+  "type": "object"
+}

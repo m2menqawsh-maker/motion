@@ -1,0 +1,139 @@
+{
+  "$defs": {
+    "CandidateReviewVerdict": {
+      "description": "Authoritative verdict for a human review decision (S28-07D).",
+      "enum": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "title": "CandidateReviewVerdict",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Append-only governance record capturing an authorized human review decision (S28-07D).\nStrictly bound to the specific ReviewBundle and candidate snapshot.\nAI is strictly forbidden from recording approvals.",
+  "properties": {
+    "candidate_content_hash": {
+      "description": "Content hash of approved/rejected candidate snapshot",
+      "title": "Candidate Content Hash",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Target TemplateCandidate ID",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_revision": {
+      "description": "Revision of candidate snapshot",
+      "minimum": 1,
+      "title": "Candidate Revision",
+      "type": "integer"
+    },
+    "decided_at": {
+      "description": "UTC timestamp of the decision",
+      "format": "date-time",
+      "title": "Decided At",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/CandidateReviewVerdict",
+      "description": "Verdict: APPROVED or REJECTED"
+    },
+    "decision_id": {
+      "description": "Unique review decision identifier (rdec_{hex12})",
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "decision_revision": {
+      "default": 1,
+      "description": "Monotonic sequence for this decision",
+      "minimum": 1,
+      "title": "Decision Revision",
+      "type": "integer"
+    },
+    "qc_report_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to QC report",
+      "title": "Qc Report Ref"
+    },
+    "reason": {
+      "description": "Audit explanation for decision (mandatory on REJECTED)",
+      "title": "Reason",
+      "type": "string"
+    },
+    "render_evidence_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference to render evidence",
+      "title": "Render Evidence Ref"
+    },
+    "review_bundle_hash": {
+      "description": "Digest of the reviewed ReviewBundle",
+      "title": "Review Bundle Hash",
+      "type": "string"
+    },
+    "review_bundle_id": {
+      "description": "Identifier of the reviewed CandidateReviewBundle",
+      "title": "Review Bundle Id",
+      "type": "string"
+    },
+    "reviewer_principal_id": {
+      "description": "Authenticated human reviewer principal ID",
+      "title": "Reviewer Principal Id",
+      "type": "string"
+    },
+    "reviewer_role": {
+      "description": "Effective workspace role of reviewer (reviewer or admin)",
+      "title": "Reviewer Role",
+      "type": "string"
+    },
+    "runtime_validation_report_hash": {
+      "description": "Digest of passing runtime validation report",
+      "title": "Runtime Validation Report Hash",
+      "type": "string"
+    },
+    "static_validation_report_hash": {
+      "description": "Digest of passing static validation report",
+      "title": "Static Validation Report Hash",
+      "type": "string"
+    },
+    "workspace_id": {
+      "default": "ws_default",
+      "description": "Workspace identifier for tenant isolation",
+      "title": "Workspace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "review_bundle_id",
+    "candidate_id",
+    "decision",
+    "reviewer_principal_id",
+    "reviewer_role",
+    "reason",
+    "candidate_content_hash",
+    "candidate_revision",
+    "review_bundle_hash",
+    "static_validation_report_hash",
+    "runtime_validation_report_hash",
+    "decided_at"
+  ],
+  "title": "CandidateReviewDecision",
+  "type": "object"
+}

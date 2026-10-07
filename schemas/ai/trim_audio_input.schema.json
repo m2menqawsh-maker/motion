@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for trimming audio.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_duration_seconds": {
+      "description": "Target duration in seconds",
+      "exclusiveMinimum": 0.0,
+      "title": "Target Duration Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key",
+    "target_duration_seconds"
+  ],
+  "title": "TrimAudioInput",
+  "type": "object"
+}

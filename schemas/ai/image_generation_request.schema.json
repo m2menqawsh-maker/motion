@@ -1,0 +1,73 @@
+{
+  "additionalProperties": false,
+  "description": "Canonical request payload for image generation.",
+  "properties": {
+    "height": {
+      "default": 1024,
+      "description": "Output image height",
+      "maximum": 4096,
+      "minimum": 256,
+      "title": "Height",
+      "type": "integer"
+    },
+    "negative_prompt": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Elements to exclude",
+      "title": "Negative Prompt"
+    },
+    "prompt": {
+      "description": "Text prompt describing desired visual",
+      "minLength": 1,
+      "title": "Prompt",
+      "type": "string"
+    },
+    "seed": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Deterministic seed for reproducibility",
+      "title": "Seed"
+    },
+    "style": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Artistic or aesthetic style tag",
+      "title": "Style"
+    },
+    "width": {
+      "default": 1024,
+      "description": "Output image width",
+      "maximum": 4096,
+      "minimum": 256,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "prompt"
+  ],
+  "title": "ImageGenerationRequest",
+  "type": "object"
+}

@@ -1,0 +1,53 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "description": "Tracking metrics comparing evaluator/judge against human-labeled ground truth.",
+  "properties": {
+    "agreement_count": {
+      "minimum": 0,
+      "title": "Agreement Count",
+      "type": "integer"
+    },
+    "agreement_rate": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Agreement Rate",
+      "type": "number"
+    },
+    "calibrated": {
+      "description": "Whether agreement meets minimum threshold (e.g. >= 0.80)",
+      "title": "Calibrated",
+      "type": "boolean"
+    },
+    "calibration_method": {
+      "default": "DETERMINISTIC_RUBRICS",
+      "title": "Calibration Method",
+      "type": "string"
+    },
+    "disagreements": {
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "title": "Disagreements",
+      "type": "array"
+    },
+    "total_calibration_pairs": {
+      "minimum": 0,
+      "title": "Total Calibration Pairs",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "total_calibration_pairs",
+    "agreement_count",
+    "agreement_rate",
+    "calibrated"
+  ],
+  "title": "JudgeCalibrationRecord",
+  "type": "object"
+}

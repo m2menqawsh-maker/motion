@@ -1,0 +1,76 @@
+{
+  "additionalProperties": false,
+  "description": "Documented application of a specific TasteRule to a scene or shot element.\nProvides verifiable proof of compliance with the creative style system.",
+  "properties": {
+    "applied_value": {
+      "description": "The concrete setting or parameter applied (e.g., 'cubic-bezier(0.4,0,0.2,1), 400ms')",
+      "title": "Applied Value",
+      "type": "string"
+    },
+    "citation": {
+      "description": "Verbatim citation from the taste documentation proving alignment",
+      "title": "Citation",
+      "type": "string"
+    },
+    "confidence": {
+      "default": 1.0,
+      "description": "Confidence score [0.0 - 1.0]",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "context_ref": {
+      "description": "Reference to the target scene or shot (e.g., 'scene_001_shot_002')",
+      "title": "Context Ref",
+      "type": "string"
+    },
+    "decision_id": {
+      "description": "Unique identifier for this decision instance",
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "evidence": {
+      "description": "Verifiable context citations or trigger evidence",
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "reason_summary": {
+      "default": "",
+      "description": "Concise auditable rationale summary without hidden CoT",
+      "title": "Reason Summary",
+      "type": "string"
+    },
+    "reasoning": {
+      "description": "Explanation of why this value was chosen for this context",
+      "title": "Reasoning",
+      "type": "string"
+    },
+    "rule_id": {
+      "description": "ID of the governing TasteRule applied",
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "rule_ids": {
+      "description": "IDs of all rules influencing this decision",
+      "items": {
+        "type": "string"
+      },
+      "title": "Rule Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "decision_id",
+    "rule_id",
+    "context_ref",
+    "applied_value",
+    "reasoning",
+    "citation"
+  ],
+  "title": "TasteDecision",
+  "type": "object"
+}

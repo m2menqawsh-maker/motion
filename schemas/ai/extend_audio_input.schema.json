@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for extending audio.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "auto_trim_silence": {
+      "default": true,
+      "description": "Whether to trim silence before looping",
+      "title": "Auto Trim Silence",
+      "type": "boolean"
+    },
+    "fade_duration_seconds": {
+      "default": 0.5,
+      "description": "Crossfade duration in seconds",
+      "minimum": 0.0,
+      "title": "Fade Duration Seconds",
+      "type": "number"
+    },
+    "mode": {
+      "default": "loop",
+      "description": "Extension mode ('loop', 'fade_extend')",
+      "title": "Mode",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "target_duration_seconds": {
+      "description": "Target duration in seconds",
+      "exclusiveMinimum": 0.0,
+      "title": "Target Duration Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key",
+    "target_duration_seconds"
+  ],
+  "title": "ExtendAudioInput",
+  "type": "object"
+}

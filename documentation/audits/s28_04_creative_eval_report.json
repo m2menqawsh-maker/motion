@@ -1,0 +1,254 @@
+{
+  "report_id": "eval_rep_0594a025770e",
+  "generated_at": "2026-10-04 13:20:15.228996+00:00",
+  "golden_scenario_results": {
+    "scenario_premium_saas": {
+      "brief_id": "brief_premium_saas",
+      "video_type": "SAAS_DEMO",
+      "audio_mode": "VO_MUSIC",
+      "target_duration_sec": 30.0,
+      "plan_duration_sec": 30.0,
+      "beats_count": 5,
+      "taste_decisions_count": 30,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_aggressive_short_ad": {
+      "brief_id": "brief_short_ad",
+      "video_type": "PRODUCT_AD",
+      "audio_mode": "VO_MUSIC",
+      "target_duration_sec": 15.0,
+      "plan_duration_sec": 15.0,
+      "beats_count": 3,
+      "taste_decisions_count": 21,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 0.7,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.2,
+        "composite_score": 0.86,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_emotional_montage": {
+      "brief_id": "brief_emotional_montage",
+      "video_type": "DYNAMIC_MONTAGE",
+      "audio_mode": "MUSIC_ONLY",
+      "target_duration_sec": 30.0,
+      "plan_duration_sec": 30.0,
+      "beats_count": 4,
+      "taste_decisions_count": 16,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_educational_explainer": {
+      "brief_id": "brief_edu_explainer",
+      "video_type": "EXPLAINER",
+      "audio_mode": "VO_MUSIC",
+      "target_duration_sec": 45.0,
+      "plan_duration_sec": 45.0,
+      "beats_count": 5,
+      "taste_decisions_count": 30,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_talking_head": {
+      "brief_id": "brief_talking_head",
+      "video_type": "TALKING_HEAD",
+      "audio_mode": "SOURCE_AUDIO",
+      "target_duration_sec": 30.0,
+      "plan_duration_sec": 30.0,
+      "beats_count": 4,
+      "taste_decisions_count": 21,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_music_only_montage": {
+      "brief_id": "brief_music_only",
+      "video_type": "DYNAMIC_MONTAGE",
+      "audio_mode": "MUSIC_ONLY",
+      "target_duration_sec": 25.0,
+      "plan_duration_sec": 25.0,
+      "beats_count": 4,
+      "taste_decisions_count": 16,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_social_sprint": {
+      "brief_id": "brief_social_sprint",
+      "video_type": "ARTICLE_SPRINT",
+      "audio_mode": "VO_MUSIC",
+      "target_duration_sec": 15.0,
+      "plan_duration_sec": 15.0,
+      "beats_count": 3,
+      "taste_decisions_count": 21,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 0.7,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.2,
+        "composite_score": 0.86,
+        "passed": true
+      },
+      "passed": true
+    },
+    "scenario_longform_repurpose": {
+      "brief_id": "brief_longform_repurpose",
+      "video_type": "PODCAST_SNIPPET",
+      "audio_mode": "SOURCE_AUDIO_MUSIC",
+      "target_duration_sec": 40.0,
+      "plan_duration_sec": 40.0,
+      "beats_count": 4,
+      "taste_decisions_count": 21,
+      "conflicts_count": 0,
+      "scores": {
+        "brief_adherence": 1.0,
+        "narrative_coherence": 1.0,
+        "pacing": 0.95,
+        "visual_intent": 1.0,
+        "emotional_fit": 0.95,
+        "overdesign_avoidance": 0.95,
+        "composite_score": 0.98,
+        "passed": true
+      },
+      "passed": true
+    }
+  },
+  "bad_output_detection_results": {
+    "bad_weak_hook": {
+      "defect": "Weak/generic opening hook without audience engagement or topic anchor",
+      "detected_by_gate": true,
+      "hook_relevance_score": 0.8,
+      "logical_flow_score": 0.7
+    },
+    "bad_repetitive_narrative": {
+      "defect": "Duplicate verbatim beat messages across entire story progression",
+      "detected_by_gate": true,
+      "redundancy_penalty_score": 0.97,
+      "passed": false
+    },
+    "bad_overdesigned_motion": {
+      "defect": "Unceasing explosive motion across all scenes with zero resting breathing room",
+      "detected_by_gate": true,
+      "overdesign_avoidance_score": 0.2
+    },
+    "bad_forced_spoken_music_only": {
+      "defect": "Spoken voiceover narrative illegally attached to a MUSIC_ONLY brief",
+      "detected_by_gate": true,
+      "brief_adherence_score": 0.5
+    },
+    "bad_unresolved_contradictory_directions": {
+      "defect": "Unresolved equal-priority hard conflict",
+      "detected_by_gate": true,
+      "status": "FAILED_UNRESOLVED_CONFLICT",
+      "composite_score": 0.88
+    },
+    "bad_inappropriate_pacing": {
+      "defect": "90-second duration jammed into a 15-second target brief",
+      "detected_by_gate": true,
+      "duration_fit_score": 0.0
+    },
+    "bad_wrong_emotional_tone": {
+      "defect": "Grief/sorrow emotion assigned to an aggressive energy drink launch",
+      "detected_by_gate": true,
+      "composite_score": 0.76
+    }
+  },
+  "pairwise_results": [
+    {
+      "scenario_id": "scenario_premium_saas",
+      "preferred_candidate": "A",
+      "margin": 0.12,
+      "rubric_deltas": {
+        "brief_adherence": 0.0,
+        "narrative_coherence": 0.0,
+        "pacing": 0.0,
+        "visual_intent": 0.3,
+        "emotional_fit": 0.0,
+        "overdesign_avoidance": 0.75
+      },
+      "rationale": "Candidate A outperforms Candidate B by +0.12 composite score."
+    },
+    {
+      "scenario_id": "scenario_music_only_montage",
+      "preferred_candidate": "A",
+      "margin": 0.13,
+      "rubric_deltas": {
+        "brief_adherence": 0.5,
+        "narrative_coherence": 0.0,
+        "pacing": 0.0,
+        "visual_intent": 0.0,
+        "emotional_fit": 0.0,
+        "overdesign_avoidance": 0.0
+      },
+      "rationale": "Candidate A outperforms Candidate B by +0.13 composite score."
+    }
+  ],
+  "calibration_result": {
+    "total_calibration_pairs": 3,
+    "agreement_count": 3,
+    "agreement_rate": 1.0,
+    "disagreements": [],
+    "calibrated": true,
+    "llm_judge_status": "LLM_JUDGE_NOT_USED",
+    "evaluation_approach": "DETERMINISTIC_PROGRAMMATIC_RUBRICS"
+  },
+  "gate_status": "PASS"
+}

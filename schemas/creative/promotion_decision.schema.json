@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "PromotionStatus": {
+      "description": "Lifecycle stages for template candidate promotion.",
+      "enum": [
+        "PENDING_EVALUATION",
+        "EVALUATION_PASSED",
+        "EVALUATION_FAILED",
+        "APPROVED",
+        "REJECTED"
+      ],
+      "title": "PromotionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Formal governance decision certifying and promoting a candidate into the\nCanonical Template Registry.\nAI is strictly forbidden from acting as the authorizing entity.",
+  "properties": {
+    "authorized_by": {
+      "description": "Authorized human reviewer or Domain Service (never raw AI)",
+      "title": "Authorized By",
+      "type": "string"
+    },
+    "candidate_id": {
+      "description": "Target TemplateCandidate ID",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "decided_at": {
+      "description": "UTC timestamp of decision",
+      "format": "date-time",
+      "title": "Decided At",
+      "type": "string"
+    },
+    "decision_id": {
+      "description": "Unique decision identifier",
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "promoted_template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Registered template name if APPROVED",
+      "title": "Promoted Template Id"
+    },
+    "reasoning": {
+      "description": "Explanation of the promotion or rejection decision",
+      "title": "Reasoning",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PromotionStatus",
+      "description": "Promotion decision status"
+    }
+  },
+  "required": [
+    "decision_id",
+    "candidate_id",
+    "status",
+    "authorized_by",
+    "reasoning",
+    "decided_at"
+  ],
+  "title": "PromotionDecision",
+  "type": "object"
+}
