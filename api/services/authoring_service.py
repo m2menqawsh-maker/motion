@@ -27,6 +27,7 @@ import json
 import logging
 import os
 import sys
+import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -92,7 +93,7 @@ class AuthoringService:
         ws_id = tenant_context.workspace_id
 
         # 1. Extract and validate parameters
-        operation_id = payload.get("operation_id") or payload.get("request_id") or f"op_{hashlib.md5(os.urandom(16)).hexdigest()[:12]}"
+        operation_id = payload.get("operation_id") or payload.get("request_id") or f"op_{uuid.uuid4().hex[:12]}"
         base_revision = payload.get("base_revision")
 
         if base_revision is None and action in ("execute_request", "undo", "redo", "apply_intent", "batch"):
