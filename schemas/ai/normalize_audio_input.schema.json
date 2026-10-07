@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for audio loudness normalization (canonical S28-M07 alias).",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "loudness_range": {
+      "default": 11.0,
+      "description": "Target loudness range (LRA)",
+      "exclusiveMinimum": 0.0,
+      "title": "Loudness Range",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "sample_rate": {
+      "default": 44100,
+      "description": "Target sample rate in Hz",
+      "maximum": 192000,
+      "minimum": 8000,
+      "title": "Sample Rate",
+      "type": "integer"
+    },
+    "target_lufs": {
+      "default": -16.0,
+      "description": "Target integrated loudness in LUFS",
+      "maximum": 0.0,
+      "minimum": -70.0,
+      "title": "Target Lufs",
+      "type": "number"
+    },
+    "true_peak_db": {
+      "default": -1.5,
+      "description": "True peak limit in dBFS",
+      "maximum": 0.0,
+      "title": "True Peak Db",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "NormalizeAudioInput",
+  "type": "object"
+}

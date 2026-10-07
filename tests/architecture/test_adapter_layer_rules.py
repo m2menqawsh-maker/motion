@@ -25,6 +25,7 @@ def test_routers_do_not_import_scripts_directly():
         "scripts.security.path_security",
         "scripts.core.review_service",
         "scripts.core.state_model",
+        "scripts.core.tenant_model",
     ]
     for router_file in routers_dir.glob("*.py"):
         try:

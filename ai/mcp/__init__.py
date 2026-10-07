@@ -84,6 +84,18 @@ from ai.mcp.adapters import (
     verify_asset_status_parity,
     verify_cache_check_parity,
 )
+from ai.mcp.compatibility import (
+    CompatibilityMCPServer,
+    CompatibilityRegistry,
+    CompatibilityRequest,
+    CompatibilityResponse,
+    LegacyToolDescriptor,
+    MCPCompatibilityFacade,
+    MCPCompatibilityStatus,
+    default_compatibility_registry,
+    default_compatibility_server,
+    get_mcp_compatibility_facade,
+)
 
 __all__ = [
     # Catalog & Contracts
@@ -150,4 +162,15 @@ __all__ = [
     "ImageAutoCropAdapter",
     "verify_cache_check_parity",
     "verify_asset_status_parity",
+    # S28-M09 Compatibility Layer
+    "CompatibilityMCPServer",
+    "CompatibilityRegistry",
+    "CompatibilityRequest",
+    "CompatibilityResponse",
+    "LegacyToolDescriptor",
+    "MCPCompatibilityFacade",
+    "MCPCompatibilityStatus",
+    "default_compatibility_registry",
+    "default_compatibility_server",
+    "get_mcp_compatibility_facade",
 ]

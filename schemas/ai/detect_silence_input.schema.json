@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for read-only silence detection.",
+  "properties": {
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "min_silence_duration_seconds": {
+      "default": 0.1,
+      "description": "Minimum silence interval to detect",
+      "minimum": 0.01,
+      "title": "Min Silence Duration Seconds",
+      "type": "number"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "threshold_db": {
+      "default": -40.0,
+      "description": "Silence threshold in dBFS",
+      "maximum": 0.0,
+      "title": "Threshold Db",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key"
+  ],
+  "title": "DetectSilenceInput",
+  "type": "object"
+}

@@ -1,0 +1,47 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_multi_05",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template": "IntroWrapper",
+      "startFrame": 0,
+      "durationFrames": 90,
+      "transition": {
+        "type": "fade",
+        "durationFrames": 15
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "template": "SplitScreenWrapper",
+      "startFrame": 90,
+      "durationFrames": 120,
+      "effects": [
+        {
+          "effect": "camera-shake",
+          "apply": "scene",
+          "params": { "intensity": 0.8 }
+        }
+      ],
+      "transition": {
+        "type": "slide",
+        "durationFrames": 15
+      }
+    },
+    {
+      "scene_id": "scene_03",
+      "template": "EndCardWrapper",
+      "startFrame": 210,
+      "durationFrames": 90,
+      "effects": [
+        {
+          "effect": "Wallpaper",
+          "apply": "overlay"
+        }
+      ]
+    }
+  ]
+}

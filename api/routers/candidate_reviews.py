@@ -32,21 +32,18 @@ from creative_governance.candidates.errors import (
     CandidateReviewTamperedError,
     CandidateTenantMismatchError,
 )
-from creative_governance.candidates.review_service import CandidateReviewService
-from api.core.auth import require_tenant_context, Action, Principal
-from scripts.core.tenant_model import TenantContext
+from creative_governance.candidates.review_service import (
+    CandidateReviewService,
+    create_candidate_review_service,
+)
+from api.core.auth import require_tenant_context, Action, Principal, TenantContext
 
 router = APIRouter()
 
 
 def get_candidate_review_service() -> CandidateReviewService:
     """Dependency provider for CandidateReviewService."""
-    from scripts.core.database import get_database_engine
-    from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
-    from scripts.core.storage import get_storage_service
-    repo = SqlTemplateCandidateRepository(get_database_engine())
-    storage = get_storage_service()
-    return CandidateReviewService(repository=repo, storage_service=storage)
+    return create_candidate_review_service()
 
 
 # Request schemas

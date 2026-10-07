@@ -141,6 +141,23 @@ from ai.contracts import (
     SpeechManifestOutput,
     SpeechTimelineInput,
     SpeechTimelineOutput,
+    SpeechTextSegmentItem,
+    SplitSpeechTextInput,
+    SplitSpeechTextOutput,
+    PreparedVoSegmentItem,
+    PrepareVoSegmentsInput,
+    PrepareVoSegmentsOutput,
+    AlignedWordItem,
+    AlignedSegmentItem,
+    AlignAudioMetadataInput,
+    AlignAudioMetadataOutput,
+    SilenceIntervalItem,
+    DetectSilenceInput,
+    DetectSilenceOutput,
+    AnalyzeLoudnessInput,
+    AnalyzeLoudnessOutput,
+    NormalizeAudioInput,
+    NormalizeAudioOutput,
     TrimAudioInput,
     TrimAudioOutput,
     ExtendAudioInput,
@@ -198,6 +215,41 @@ from ai.contracts import (
     CancelJobInput,
     CancelJobOutput,
 )
+from ai.image_processing.contracts import (
+    ProbeImageRequest,
+    ProbeImageResult,
+    ResizeImageRequest,
+    ResizeImageResult,
+    CropImageRatioRequest,
+    CropImageRatioResult,
+    AutoCropImageRequest,
+    AutoCropImageResult,
+    ConvertImageRequest,
+    ConvertImageResult,
+    OptimizeImageRequest,
+    OptimizeImageResult,
+    PrepareImageAssetRequest,
+    PrepareImageAssetResult,
+    ThumbnailRequest,
+    ThumbnailResult,
+    ProbeImageInput,
+    ProbeImageOutput,
+    ResizeImageInput,
+    ResizeImageOutput,
+    CropImageRatioInput,
+    CropImageRatioOutput,
+    AutoCropImageInput,
+    AutoCropImageOutput,
+    ConvertImageInput,
+    ConvertImageOutput,
+    OptimizeImageInput,
+    OptimizeImageOutput,
+    PrepareImageAssetInput,
+    PrepareImageAssetOutput,
+    ThumbnailInput,
+    ThumbnailOutput,
+)
+
 
 SCHEMA_DIR = ROOT / "schemas" / "ai"
 TS_OUTPUT_CONTRACTS = ROOT / "contracts" / "generated" / "ai_contracts.ts"
@@ -269,6 +321,23 @@ CANONICAL_MODELS: Dict[str, Type[BaseModel]] = {
     "speech_manifest_output": SpeechManifestOutput,
     "speech_timeline_input": SpeechTimelineInput,
     "speech_timeline_output": SpeechTimelineOutput,
+    "speech_text_segment_item": SpeechTextSegmentItem,
+    "split_speech_text_input": SplitSpeechTextInput,
+    "split_speech_text_output": SplitSpeechTextOutput,
+    "prepared_vo_segment_item": PreparedVoSegmentItem,
+    "prepare_vo_segments_input": PrepareVoSegmentsInput,
+    "prepare_vo_segments_output": PrepareVoSegmentsOutput,
+    "aligned_word_item": AlignedWordItem,
+    "aligned_segment_item": AlignedSegmentItem,
+    "align_audio_metadata_input": AlignAudioMetadataInput,
+    "align_audio_metadata_output": AlignAudioMetadataOutput,
+    "silence_interval_item": SilenceIntervalItem,
+    "detect_silence_input": DetectSilenceInput,
+    "detect_silence_output": DetectSilenceOutput,
+    "analyze_loudness_input": AnalyzeLoudnessInput,
+    "analyze_loudness_output": AnalyzeLoudnessOutput,
+    "normalize_audio_input": NormalizeAudioInput,
+    "normalize_audio_output": NormalizeAudioOutput,
     "trim_audio_input": TrimAudioInput,
     "trim_audio_output": TrimAudioOutput,
     "extend_audio_input": ExtendAudioInput,
@@ -297,6 +366,32 @@ CANONICAL_MODELS: Dict[str, Type[BaseModel]] = {
     "crop_ratio_output": CropRatioOutput,
     "auto_crop_input": AutoCropInput,
     "auto_crop_output": AutoCropOutput,
+    "probe_image_input": ProbeImageInput,
+    "probe_image_output": ProbeImageOutput,
+    "convert_image_input": ConvertImageInput,
+    "convert_image_output": ConvertImageOutput,
+    "optimize_image_input": OptimizeImageInput,
+    "optimize_image_output": OptimizeImageOutput,
+    "prepare_image_asset_input": PrepareImageAssetInput,
+    "prepare_image_asset_output": PrepareImageAssetOutput,
+    "thumbnail_input": ThumbnailInput,
+    "thumbnail_output": ThumbnailOutput,
+    "probe_image_request": ProbeImageRequest,
+    "probe_image_result": ProbeImageResult,
+    "resize_image_request": ResizeImageRequest,
+    "resize_image_result": ResizeImageResult,
+    "crop_image_ratio_request": CropImageRatioRequest,
+    "crop_image_ratio_result": CropImageRatioResult,
+    "auto_crop_image_request": AutoCropImageRequest,
+    "auto_crop_image_result": AutoCropImageResult,
+    "convert_image_request": ConvertImageRequest,
+    "convert_image_result": ConvertImageResult,
+    "optimize_image_request": OptimizeImageRequest,
+    "optimize_image_result": OptimizeImageResult,
+    "prepare_image_asset_request": PrepareImageAssetRequest,
+    "prepare_image_asset_result": PrepareImageAssetResult,
+    "thumbnail_request": ThumbnailRequest,
+    "thumbnail_result": ThumbnailResult,
     "download_remote_media_input": DownloadRemoteMediaInput,
     "download_remote_media_output": DownloadRemoteMediaOutput,
     "extract_media_page_input": ExtractMediaPageInput,
@@ -644,6 +739,149 @@ export interface SpeechTimelineOutput {
   timeline_storage_key: string;
   total_frames: number;
   cue_points_count: number;
+}
+
+export interface SpeechTextSegmentItem {
+  index: number;
+  text: string;
+  start_seconds?: number | null;
+  end_seconds?: number | null;
+  duration_seconds?: number | null;
+  split_reason?: string;
+  word_count: number;
+}
+
+export interface SplitSpeechTextInput {
+  text: string;
+  language?: string | null;
+  min_sentence_duration?: number;
+  max_sentence_duration?: number;
+  silence_threshold?: number;
+}
+
+export interface SplitSpeechTextOutput {
+  segments: SpeechTextSegmentItem[];
+  total_segments: number;
+  total_words: number;
+  language?: string | null;
+}
+
+export interface PreparedVoSegmentItem {
+  segment_id: string;
+  index: number;
+  text: string;
+  estimated_duration_seconds: number;
+  voice_id?: string | null;
+  audio_mode?: string;
+}
+
+export interface PrepareVoSegmentsInput {
+  project_id: string;
+  text_segments: string[];
+  voice_id?: string | null;
+  audio_mode?: string;
+  speaking_rate?: number;
+}
+
+export interface PrepareVoSegmentsOutput {
+  project_id: string;
+  segments: PreparedVoSegmentItem[];
+  total_segments: number;
+  total_estimated_duration_seconds: number;
+  audio_mode: string;
+}
+
+export interface AlignedWordItem {
+  word: string;
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+  confidence?: number | null;
+}
+
+export interface AlignedSegmentItem {
+  segment_id: string;
+  index: number;
+  text: string;
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+  words: AlignedWordItem[];
+}
+
+export interface AlignAudioMetadataInput {
+  project_id: string;
+  audio_storage_key: string;
+  transcript: string;
+  words: AlignedWordItem[];
+  audio_duration_seconds: number;
+}
+
+export interface AlignAudioMetadataOutput {
+  project_id: string;
+  segments: AlignedSegmentItem[];
+  total_words: number;
+  covered_duration_seconds: number;
+  audio_duration_seconds: number;
+  coverage_ratio: number;
+  is_valid?: boolean;
+}
+
+export interface SilenceIntervalItem {
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+}
+
+export interface DetectSilenceInput {
+  project_id: string;
+  audio_storage_key: string;
+  threshold_db?: number;
+  min_silence_duration_seconds?: number;
+}
+
+export interface DetectSilenceOutput {
+  project_id: string;
+  audio_storage_key: string;
+  silence_intervals: SilenceIntervalItem[];
+  total_silence_duration_seconds: number;
+  audio_duration_seconds: number;
+  silence_ratio: number;
+  threshold_used_db: number;
+}
+
+export interface AnalyzeLoudnessInput {
+  project_id: string;
+  audio_storage_key: string;
+}
+
+export interface AnalyzeLoudnessOutput {
+  project_id: string;
+  audio_storage_key: string;
+  integrated_lufs: number;
+  loudness_range: number;
+  true_peak_db: number;
+  threshold_db?: number | null;
+  measurement_standard: string;
+  duration_seconds: number;
+}
+
+export interface NormalizeAudioInput {
+  project_id: string;
+  audio_storage_key: string;
+  target_lufs?: number;
+  true_peak_db?: number;
+  loudness_range?: number;
+  sample_rate?: number;
+}
+
+export interface NormalizeAudioOutput {
+  project_id: string;
+  output_storage_key: string;
+  target_lufs: number;
+  measured_lufs: number;
+  duration_seconds: number;
+  file_size_bytes: number;
 }
 
 export interface TrimAudioInput {

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { TEMPLATE_REGISTRY } from '../../registry/template-registry';
-import { BrandProvider } from '../../contracts/brand';
+import { BrandProvider } from '../../remotion-app/src/BrandContext';
 vi.mock('remotion', async (importOriginal) => {
   const actual: any = await importOriginal();
   return {

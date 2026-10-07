@@ -395,7 +395,26 @@ def check_av_sync(video_path: Path | str, timings_path: Path | str) -> Dict[str,
             }
 
         # Detect audio onset peaks
-        y, sr = librosa.load(str(v_path), sr=None)
+        audio_target = str(v_path)
+        temp_wav_path = None
+        if v_path.suffix.lower() in [".mp4", ".mov", ".mkv", ".webm", ".avi"]:
+            import tempfile, subprocess
+            wav_f = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+            wav_f.close()
+            temp_wav_path = wav_f.name
+            cmd = ["ffmpeg", "-y", "-i", str(v_path), "-vn", "-acodec", "pcm_s16le", temp_wav_path]
+            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+            if res.returncode == 0 and os.path.exists(temp_wav_path) and os.path.getsize(temp_wav_path) > 0:
+                audio_target = temp_wav_path
+
+        try:
+            y, sr = librosa.load(audio_target, sr=None)
+        finally:
+            if temp_wav_path and os.path.exists(temp_wav_path):
+                try:
+                    os.unlink(temp_wav_path)
+                except Exception:
+                    pass
         onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
         onset_times = librosa.frames_to_time(onset_frames, sr=sr)
 

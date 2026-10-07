@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "description": "Individual prepared voiceover segment item.",
+  "properties": {
+    "audio_mode": {
+      "default": "voiceover_primary",
+      "description": "Audio presentation mode",
+      "title": "Audio Mode",
+      "type": "string"
+    },
+    "estimated_duration_seconds": {
+      "description": "Estimated duration in seconds",
+      "minimum": 0.0,
+      "title": "Estimated Duration Seconds",
+      "type": "number"
+    },
+    "index": {
+      "description": "1-indexed sequence position",
+      "minimum": 1,
+      "title": "Index",
+      "type": "integer"
+    },
+    "segment_id": {
+      "description": "Unique segment identifier",
+      "minLength": 1,
+      "title": "Segment Id",
+      "type": "string"
+    },
+    "text": {
+      "description": "Voiceover line text",
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "voice_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Voice identifier",
+      "title": "Voice Id"
+    }
+  },
+  "required": [
+    "segment_id",
+    "index",
+    "text",
+    "estimated_duration_seconds"
+  ],
+  "title": "PreparedVoSegmentItem",
+  "type": "object"
+}

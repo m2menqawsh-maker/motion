@@ -1,0 +1,79 @@
+{
+  "additionalProperties": false,
+  "description": "Segment item produced by deterministic speech text splitting.",
+  "properties": {
+    "duration_seconds": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Segment duration in seconds",
+      "title": "Duration Seconds"
+    },
+    "end_seconds": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "End timestamp if word timestamps provided",
+      "title": "End Seconds"
+    },
+    "index": {
+      "description": "1-indexed segment position",
+      "minimum": 1,
+      "title": "Index",
+      "type": "integer"
+    },
+    "split_reason": {
+      "default": "punctuation",
+      "description": "Reason for boundary split ('punctuation', 'silence', 'duration_limit', 'end_of_text')",
+      "title": "Split Reason",
+      "type": "string"
+    },
+    "start_seconds": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Start timestamp if word timestamps provided",
+      "title": "Start Seconds"
+    },
+    "text": {
+      "description": "Segment text content",
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "word_count": {
+      "description": "Number of words in segment",
+      "minimum": 0,
+      "title": "Word Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "index",
+    "text",
+    "word_count"
+  ],
+  "title": "SpeechTextSegmentItem",
+  "type": "object"
+}

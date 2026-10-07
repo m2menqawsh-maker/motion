@@ -100,6 +100,9 @@ class MetricsCollector:
                     
                 if stage:
                     run.final_stage = stage
+
+                # S28-R14 Section 17 Production Telemetry Parsing
+                self._record_telemetry_fields(event, render_durations, run_durations)
                     
                 # Terminal events for pipeline
                 if evt_name == "pipeline.execution":
@@ -131,6 +134,88 @@ class MetricsCollector:
             self.snapshot.avg_render_duration_ms = sum(render_durations) // len(render_durations)
             
         return self.snapshot
+
+    def record_event(self, event: dict) -> None:
+        """Directly ingest a telemetry/metric event into the snapshot."""
+        self.snapshot.events_processed += 1
+        durations = []
+        run_durs = []
+        self._record_telemetry_fields(event, durations, run_durs)
+
+    def _record_telemetry_fields(self, event: dict, render_durations: list, run_durations: list) -> None:
+        evt_name = event.get("event") or event.get("event_type") or ""
+        error_code = event.get("error_code") or event.get("code") or ""
+        dur = event.get("duration_ms") or event.get("latency_ms")
+
+        # 1. Authoring latency & CAS conflicts
+        if "authoring" in evt_name.lower() and dur:
+            self.snapshot.authoring_latencies_ms.append(dur)
+        if error_code == "REVISION_CONFLICT" or evt_name == "mutation.conflict":
+            self.snapshot.mutation_conflicts += 1
+
+        # 2. Idempotency hits & conflicts
+        if evt_name in ("idempotency.hit", "IDEMPOTENCY_REPLAY") or event.get("idempotency_hit"):
+            self.snapshot.idempotency_hits += 1
+        if error_code == "IDEMPOTENCY_CONFLICT" or evt_name == "idempotency.conflict":
+            self.snapshot.idempotency_conflicts += 1
+
+        # 3. Preview proxy metrics
+        if "preview_queue" in evt_name.lower() and dur:
+            self.snapshot.preview_proxy_queue_latencies_ms.append(dur)
+        if ("preview_render" in evt_name.lower() or evt_name == "PROXIES_MATERIALIZED") and dur:
+            self.snapshot.preview_proxy_render_latencies_ms.append(dur)
+        if event.get("preview_cache_hit") is True or evt_name == "preview.cache_hit":
+            self.snapshot.preview_cache_hits += 1
+        elif event.get("preview_cache_hit") is False or evt_name == "preview.cache_miss":
+            self.snapshot.preview_cache_misses += 1
+
+        # 4. Render queue & duration
+        if "render_queue" in evt_name.lower() and dur:
+            self.snapshot.render_queue_latencies_ms.append(dur)
+        if evt_name in ("RENDER_SUCCEEDED", "render.execution") and dur:
+            self.snapshot.render_durations_ms.append(dur)
+            render_durations.append(dur)
+
+        # 5. Renderer metrics
+        renderer_id = event.get("renderer_id") or event.get("assigned_renderer")
+        if renderer_id and dur:
+            if renderer_id not in self.snapshot.renderer_durations_by_renderer:
+                self.snapshot.renderer_durations_by_renderer[renderer_id] = []
+            self.snapshot.renderer_durations_by_renderer[renderer_id].append(dur)
+
+        if error_code.startswith("RENDERER_") or "RENDER" in error_code:
+            self.snapshot.renderer_errors_by_class[error_code] = (
+                self.snapshot.renderer_errors_by_class.get(error_code, 0) + 1
+            )
+        if error_code == "RENDERER_TIMEOUT":
+            self.snapshot.renderer_timeouts += 1
+
+        # 6. RenderGraph node counts
+        node_count = event.get("node_count") or event.get("nodeCount")
+        if node_count is not None:
+            self.snapshot.render_graph_node_counts.append(int(node_count))
+
+        # 7. Cancellations
+        if error_code in ("RENDERER_CANCELLED", "RUN_CANCELLED") or evt_name in ("RENDER_CANCELLED", "cancellation"):
+            self.snapshot.cancellations_total += 1
+
+        # 8. Composition & QC duration
+        if ("composition" in evt_name.lower() or evt_name == "COMPOSITION_COMPLETED") and dur:
+            self.snapshot.composition_durations_ms.append(dur)
+        if ("qc" in evt_name.lower() or evt_name == "QC_COMPLETED") and dur:
+            self.snapshot.qc_durations_ms.append(dur)
+
+        # 9. Storage failures & worker lease loss
+        if error_code == "STORAGE_UNAVAILABLE" or "storage.failure" in evt_name.lower():
+            self.snapshot.storage_failures += 1
+        if error_code == "WORKER_LEASE_LOST" or "lease_loss" in evt_name.lower():
+            self.snapshot.worker_lease_losses += 1
+
+        # 10. Budget & Usage
+        if error_code == "BUDGET_EXCEEDED" or evt_name == "BUDGET_EXCEEDED":
+            self.snapshot.budget_exceeded_total += 1
+        if evt_name in ("USAGE_METERED", "usage.recorded"):
+            self.snapshot.usage_events_total += 1
         
     def save(self, output_path: Path):
         snapshot = self.collect()

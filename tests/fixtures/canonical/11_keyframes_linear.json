@@ -1,0 +1,54 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_11_keyframes_linear",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_linear_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 60,
+      "layers": [
+        {
+          "layer_id": "layer_moving_title",
+          "kind": "text",
+          "text": "Linear Animated Text",
+          "typography": {
+            "fontFamily": "Cairo",
+            "fontSize": 48
+          },
+          "time_range": { "startFrame": 0, "durationFrames": 60, "endFrame": 60 },
+          "transform": {
+            "position": { "x": 100, "y": 300 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "channels": [
+            {
+              "channel_id": "ch_pos_x",
+              "target": "TRANSFORM_X",
+              "keyframes": [
+                { "keyframe_id": "kf_x_0", "frame": 0, "value": 100, "interpolation": "LINEAR" },
+                { "keyframe_id": "kf_x_30", "frame": 30, "value": 500, "interpolation": "LINEAR" }
+              ]
+            },
+            {
+              "channel_id": "ch_opacity",
+              "target": "OPACITY",
+              "keyframes": [
+                { "keyframe_id": "kf_op_0", "frame": 0, "value": 0, "interpolation": "LINEAR" },
+                { "keyframe_id": "kf_op_15", "frame": 15, "value": 1, "interpolation": "LINEAR" }
+              ]
+            }
+          ],
+          "opacity": 1,
+          "visible": true,
+          "z_index": 0
+        }
+      ]
+    }
+  ]
+}

@@ -514,3 +514,14 @@ class PromotionService:
     ) -> List[CandidatePromotionRecord]:
         """Lists promotion records for current workspace."""
         return self.repository.list_promotion_records(tenant_context.workspace_id, candidate_id=candidate_id)
+
+
+def create_promotion_service() -> PromotionService:
+    """Factory creating PromotionService with database and storage dependencies."""
+    from scripts.core.database import get_database_engine
+    from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
+    from scripts.core.storage import get_storage_service
+
+    repo = SqlTemplateCandidateRepository(get_database_engine())
+    storage = get_storage_service()
+    return PromotionService(repository=repo, storage_service=storage)

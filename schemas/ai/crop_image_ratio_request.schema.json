@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for center-cropping an image to a target aspect ratio.",
+  "properties": {
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "output_format": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional target format: png, jpeg, webp",
+      "title": "Output Format"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 95,
+      "description": "Compression quality (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "target_ratio": {
+      "description": "Target aspect ratio string (e.g. '16:9', '9:16', '1:1', '4:5')",
+      "minLength": 3,
+      "title": "Target Ratio",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key",
+    "target_ratio"
+  ],
+  "title": "CropImageRatioRequest",
+  "type": "object"
+}

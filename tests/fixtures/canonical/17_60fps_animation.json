@@ -1,0 +1,44 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_17_60fps_animation",
+  "fps": 60,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_60fps_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 120,
+      "layers": [
+        {
+          "layer_id": "layer_smooth_motion",
+          "kind": "shape",
+          "shape_type": "rectangle",
+          "size": { "width": 300, "height": 300 },
+          "fillColor": "#F59E0B",
+          "time_range": { "startFrame": 0, "durationFrames": 120, "endFrame": 120 },
+          "transform": {
+            "position": { "x": 0, "y": 0 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "channels": [
+            {
+              "channel_id": "ch_smooth_x",
+              "target": "TRANSFORM_X",
+              "keyframes": [
+                { "keyframe_id": "kf_60_0", "frame": 0, "value": 0, "interpolation": "SPRING", "spring": { "damping": 14, "stiffness": 100, "mass": 1 } },
+                { "keyframe_id": "kf_60_60", "frame": 60, "value": 800, "interpolation": "LINEAR" }
+              ]
+            }
+          ],
+          "opacity": 1,
+          "visible": true,
+          "z_index": 0
+        }
+      ]
+    }
+  ]
+}

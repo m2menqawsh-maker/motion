@@ -13,7 +13,7 @@ def _resolve_repo_root() -> Path:
     for parent in Path(__file__).resolve().parents:
         if (parent / "scripts" / "pipeline.py").exists() or (parent / ".git").exists():
             return parent.resolve()
-    return Path("C:/video/clean-video-workspace").resolve()
+    return Path.cwd().resolve()
 
 def _dirs():
     repo_root = _resolve_repo_root()
@@ -73,7 +73,11 @@ def save_to_cache_file(file_path: str, asset_id: str, specs_hash: str, cache_dir
     if not src_path.exists():
         raise FileNotFoundError(f"Source file not found: {file_path}")
         
-    cache_path = CACHE_DIR
+    if cache_dir:
+        c_dir = Path(cache_dir)
+        cache_path = c_dir if c_dir.is_absolute() else (DATA_DIR / cache_dir)
+    else:
+        cache_path = CACHE_DIR
     cache_path.mkdir(parents=True, exist_ok=True)
     
     ext = src_path.suffix

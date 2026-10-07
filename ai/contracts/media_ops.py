@@ -126,6 +126,102 @@ class SpeechTimelineOutput(AIContractModel):
     cue_points_count: int = Field(ge=0, description="Total timeline cues extracted")
 
 
+class SpeechTextSegmentItem(AIContractModel):
+    """Segment item produced by deterministic speech text splitting."""
+    index: int = Field(ge=1, description="1-indexed segment position")
+    text: str = Field(min_length=1, description="Segment text content")
+    start_seconds: Optional[float] = Field(default=None, ge=0.0, description="Start timestamp if word timestamps provided")
+    end_seconds: Optional[float] = Field(default=None, ge=0.0, description="End timestamp if word timestamps provided")
+    duration_seconds: Optional[float] = Field(default=None, ge=0.0, description="Segment duration in seconds")
+    split_reason: str = Field(default="punctuation", description="Reason for boundary split ('punctuation', 'silence', 'duration_limit', 'end_of_text')")
+    word_count: int = Field(ge=0, description="Number of words in segment")
+
+
+class SplitSpeechTextInput(AIContractModel):
+    """Input contract for deterministic speech text splitting."""
+    text: str = Field(description="Full input speech text to segment")
+    language: Optional[str] = Field(default=None, description="Language code (e.g. 'ar', 'en')")
+    min_sentence_duration: float = Field(default=2.0, ge=0.1, description="Minimum target duration per sentence")
+    max_sentence_duration: float = Field(default=10.0, ge=0.5, description="Maximum allowed duration before forced split")
+    silence_threshold: float = Field(default=0.30, ge=0.05, description="Inter-word silence threshold to trigger boundary")
+
+
+class SplitSpeechTextOutput(AIContractModel):
+    """Output contract for split speech text segments."""
+    segments: List[SpeechTextSegmentItem] = Field(default_factory=list, description="Extracted sentence segments")
+    total_segments: int = Field(ge=0, description="Total number of segments extracted")
+    total_words: int = Field(ge=0, description="Total word count processed")
+    language: Optional[str] = Field(default=None, description="Detected or configured language")
+
+
+class PreparedVoSegmentItem(AIContractModel):
+    """Individual prepared voiceover segment item."""
+    segment_id: str = Field(min_length=1, description="Unique segment identifier")
+    index: int = Field(ge=1, description="1-indexed sequence position")
+    text: str = Field(min_length=1, description="Voiceover line text")
+    estimated_duration_seconds: float = Field(ge=0.0, description="Estimated duration in seconds")
+    voice_id: Optional[str] = Field(default=None, description="Voice identifier")
+    audio_mode: str = Field(default="voiceover_primary", description="Audio presentation mode")
+
+
+class PrepareVoSegmentsInput(AIContractModel):
+    """Input contract for preparing voiceover segment plan."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    text_segments: List[str] = Field(min_length=1, description="Text segments to prepare for voiceover")
+    voice_id: Optional[str] = Field(default=None, description="Voice identifier")
+    audio_mode: str = Field(default="voiceover_primary", description="Audio mode")
+    speaking_rate: float = Field(default=1.0, ge=0.5, le=2.0, description="Target speaking rate multiplier")
+
+
+class PrepareVoSegmentsOutput(AIContractModel):
+    """Output contract for prepared voiceover segment plan."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    segments: List[PreparedVoSegmentItem] = Field(default_factory=list, description="Prepared voiceover segments")
+    total_segments: int = Field(ge=0, description="Total segment count")
+    total_estimated_duration_seconds: float = Field(ge=0.0, description="Total estimated duration")
+    audio_mode: str = Field(description="Selected audio mode")
+
+
+class AlignedWordItem(AIContractModel):
+    """Individual aligned word metadata."""
+    word: str = Field(min_length=1, description="Word text")
+    start_seconds: float = Field(ge=0.0, description="Start timestamp in seconds")
+    end_seconds: float = Field(ge=0.0, description="End timestamp in seconds")
+    duration_seconds: float = Field(ge=0.0, description="Word duration in seconds")
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0, description="Alignment confidence")
+
+
+class AlignedSegmentItem(AIContractModel):
+    """Individual aligned speech segment."""
+    segment_id: str = Field(min_length=1, description="Segment identifier")
+    index: int = Field(ge=1, description="1-indexed position")
+    text: str = Field(min_length=1, description="Segment text")
+    start_seconds: float = Field(ge=0.0, description="Start timestamp")
+    end_seconds: float = Field(ge=0.0, description="End timestamp")
+    duration_seconds: float = Field(ge=0.0, description="Segment duration")
+    words: List[AlignedWordItem] = Field(default_factory=list, description="Aligned word list")
+
+
+class AlignAudioMetadataInput(AIContractModel):
+    """Input contract for aligning audio metadata."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+    transcript: str = Field(description="Full transcript text")
+    words: List[AlignedWordItem] = Field(default_factory=list, description="Timestamped words")
+    audio_duration_seconds: float = Field(gt=0.0, description="Total audio duration in seconds")
+
+
+class AlignAudioMetadataOutput(AIContractModel):
+    """Output contract for aligned audio metadata."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    segments: List[AlignedSegmentItem] = Field(default_factory=list, description="Aligned segments")
+    total_words: int = Field(ge=0, description="Total aligned word count")
+    covered_duration_seconds: float = Field(ge=0.0, description="Sum of speech segment durations")
+    audio_duration_seconds: float = Field(ge=0.0, description="Source audio duration")
+    coverage_ratio: float = Field(ge=0.0, le=1.0, description="Speech duration to audio duration ratio")
+    is_valid: bool = Field(default=True, description="Whether alignment passes boundary checks")
+
+
 # =============================================================================
 # 2. Audio Processing Contracts
 # =============================================================================
@@ -194,6 +290,70 @@ class TrimSilenceOutput(AIContractModel):
     trimmed_duration_seconds: float = Field(ge=0.0, description="Final duration after silence removal")
     trimmed_start_seconds: float = Field(ge=0.0, description="Duration removed from beginning")
     trimmed_end_seconds: float = Field(ge=0.0, description="Duration removed from end")
+
+
+class SilenceIntervalItem(AIContractModel):
+    """Detected silence interval item."""
+    start_seconds: float = Field(ge=0.0, description="Silence start timestamp in seconds")
+    end_seconds: float = Field(ge=0.0, description="Silence end timestamp in seconds")
+    duration_seconds: float = Field(ge=0.0, description="Interval duration in seconds")
+
+
+class DetectSilenceInput(AIContractModel):
+    """Input contract for read-only silence detection."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+    threshold_db: float = Field(default=-40.0, le=0.0, description="Silence threshold in dBFS")
+    min_silence_duration_seconds: float = Field(default=0.1, ge=0.01, description="Minimum silence interval to detect")
+
+
+class DetectSilenceOutput(AIContractModel):
+    """Output contract for read-only silence detection."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+    silence_intervals: List[SilenceIntervalItem] = Field(default_factory=list, description="Detected silence intervals")
+    total_silence_duration_seconds: float = Field(ge=0.0, description="Total cumulative silence duration")
+    audio_duration_seconds: float = Field(ge=0.0, description="Total audio duration probed")
+    silence_ratio: float = Field(ge=0.0, le=1.0, description="Ratio of silence to total audio duration")
+    threshold_used_db: float = Field(description="Threshold used for detection")
+
+
+class AnalyzeLoudnessInput(AIContractModel):
+    """Input contract for read-only audio loudness analysis."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+
+
+class AnalyzeLoudnessOutput(AIContractModel):
+    """Output contract for read-only audio loudness analysis."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+    integrated_lufs: float = Field(description="Integrated loudness in LUFS")
+    loudness_range: float = Field(ge=0.0, description="Loudness range (LRA) in LU")
+    true_peak_db: float = Field(description="True peak level in dBFS")
+    threshold_db: Optional[float] = Field(default=None, description="Measurement threshold in dB")
+    measurement_standard: str = Field(default="EBU R128", description="Applied measurement standard")
+    duration_seconds: float = Field(ge=0.0, description="Probed audio duration in seconds")
+
+
+class NormalizeAudioInput(AIContractModel):
+    """Input contract for audio loudness normalization (canonical S28-M07 alias)."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    audio_storage_key: str = Field(min_length=1, description="StorageService key for source audio")
+    target_lufs: float = Field(default=-16.0, le=0.0, ge=-70.0, description="Target integrated loudness in LUFS")
+    true_peak_db: float = Field(default=-1.5, le=0.0, description="True peak limit in dBFS")
+    loudness_range: float = Field(default=11.0, gt=0.0, description="Target loudness range (LRA)")
+    sample_rate: int = Field(default=44100, ge=8000, le=192000, description="Target sample rate in Hz")
+
+
+class NormalizeAudioOutput(AIContractModel):
+    """Output contract for normalized audio (canonical S28-M07 alias)."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for normalized audio")
+    target_lufs: float = Field(description="Requested target LUFS")
+    measured_lufs: float = Field(description="Measured integrated loudness after normalization")
+    duration_seconds: float = Field(ge=0.0, description="Final audio duration in seconds")
+    file_size_bytes: int = Field(ge=0, description="Output file size in bytes")
 
 
 # =============================================================================
@@ -592,3 +752,150 @@ class CancelJobOutput(AIContractModel):
     job_id: str = Field(min_length=1, description="Cancelled job identifier")
     cancelled: bool = Field(description="Whether the job was successfully cancelled")
     termination_status: str = Field(description="Post-cancellation state description")
+
+
+# =============================================================================
+# 8. S28-M06 Canonical Unified Media Processing Contracts
+# =============================================================================
+
+class ProbeMediaInput(AIContractModel):
+    """Input contract for probing media technical properties."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    storage_key: str = Field(min_length=1, description="StorageService key for media object to probe")
+    deep_probe: bool = Field(default=True, description="Whether to probe stream packets and technical details")
+
+
+class ProbeMediaOutput(AIContractModel):
+    """Output contract containing technical media probe result."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    storage_key: str = Field(min_length=1, description="Probed media storage key")
+    metadata: TechnicalMetadata = Field(description="Technical metadata parsed from ffprobe")
+
+
+class TranscodeVideoInput(AIContractModel):
+    """Input contract for transcoding video into canonical profiles."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    video_storage_key: str = Field(min_length=1, description="StorageService key for source video")
+    target_container: str = Field(default="mp4", description="Target container format ('mp4', 'mkv', 'webm', 'mov')")
+    video_codec: str = Field(default="libx264", description="Target video codec ('libx264', 'libx265', 'vp9', 'copy')")
+    audio_codec: Optional[str] = Field(default="aac", description="Target audio codec ('aac', 'mp3', 'opus', 'pcm_s16le', 'copy')")
+    crf: Optional[int] = Field(default=23, ge=0, le=51, description="Constant rate factor")
+    preset: Optional[str] = Field(default="medium", description="Encoding speed preset")
+    target_width: Optional[int] = Field(default=None, gt=0, description="Optional target width in pixels")
+    target_height: Optional[int] = Field(default=None, gt=0, description="Optional target height in pixels")
+    fps: Optional[float] = Field(default=None, gt=0.0, description="Target frame rate")
+
+
+class TranscodeVideoOutput(AIContractModel):
+    """Output contract for transcoded video."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for transcoded video")
+    container: str = Field(description="Output container format")
+    video_codec: str = Field(description="Output video codec")
+    audio_codec: Optional[str] = Field(default=None, description="Output audio codec if present")
+    width: int = Field(ge=1, description="Output width")
+    height: int = Field(ge=1, description="Output height")
+    duration_seconds: float = Field(ge=0.0, description="Output duration in seconds")
+    file_size_bytes: int = Field(ge=0, description="Output file size in bytes")
+
+
+class ExtractAudioInput(AIContractModel):
+    """Input contract for extracting audio stream from a video."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    video_storage_key: str = Field(min_length=1, description="StorageService key for source video")
+    audio_format: str = Field(default="wav", description="Target audio format ('wav', 'mp3', 'aac', 'flac')")
+    sample_rate: int = Field(default=44100, ge=8000, le=192000, description="Audio sample rate in Hz")
+    channels: int = Field(default=2, ge=1, le=8, description="Number of audio channels")
+
+
+class ExtractAudioOutput(AIContractModel):
+    """Output contract for extracted audio."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for extracted audio")
+    audio_format: str = Field(description="Audio format")
+    sample_rate: int = Field(ge=8000, description="Audio sample rate")
+    channels: int = Field(ge=1, description="Number of audio channels")
+    duration_seconds: float = Field(ge=0.0, description="Audio duration in seconds")
+    file_size_bytes: int = Field(ge=0, description="File size in bytes")
+
+
+class ExtractedFrameItem(AIContractModel):
+    """Item representing a single extracted video frame."""
+    frame_index: int = Field(ge=0, description="Sequential index of the frame")
+    timestamp_seconds: float = Field(ge=0.0, description="Timestamp within source video in seconds")
+    storage_key: str = Field(min_length=1, description="StorageService key for extracted frame image")
+    width: int = Field(ge=1, description="Frame width")
+    height: int = Field(ge=1, description="Frame height")
+
+
+class ExtractFramesInput(AIContractModel):
+    """Input contract for extracting image frames from a video."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    video_storage_key: str = Field(min_length=1, description="StorageService key for source video")
+    timestamps_seconds: Optional[List[float]] = Field(default=None, description="Explicit list of timestamps to extract")
+    fps: Optional[float] = Field(default=None, gt=0.0, description="Frame extraction rate")
+    image_format: str = Field(default="png", description="Target image format ('png', 'jpg')")
+    max_frames: int = Field(default=20, ge=1, le=100, description="Maximum number of frames allowed")
+    scale_width: Optional[int] = Field(default=None, gt=0, description="Optional frame scale width")
+    scale_height: Optional[int] = Field(default=None, gt=0, description="Optional frame scale height")
+
+
+class ExtractFramesOutput(AIContractModel):
+    """Output contract for extracted frames."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    frames: List[ExtractedFrameItem] = Field(default_factory=list, description="Extracted frame items")
+    total_frames: int = Field(ge=0, description="Total number of frames extracted")
+
+
+class ConcatMediaInput(AIContractModel):
+    """Input contract for concatenating media streams."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    storage_keys: List[str] = Field(min_length=2, max_length=100, description="Ordered list of media storage keys to concatenate")
+    media_type: str = Field(default="video", description="Media kind ('video', 'audio')")
+    reencode_if_needed: bool = Field(default=True, description="Whether to re-encode streams if codecs/resolutions differ")
+
+
+class ConcatMediaOutput(AIContractModel):
+    """Output contract for concatenated media."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for concatenated output")
+    input_count: int = Field(ge=2, description="Number of input clips concatenated")
+    total_duration_seconds: float = Field(ge=0.0, description="Total duration of concatenated output")
+    file_size_bytes: int = Field(ge=0, description="Size of concatenated output in bytes")
+
+
+class ChangeContainerInput(AIContractModel):
+    """Input contract for changing container format without re-encoding (remuxing)."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    source_storage_key: str = Field(min_length=1, description="StorageService key for source media")
+    target_container: str = Field(min_length=2, description="Target container extension (e.g. 'mp4', 'mkv', 'mov')")
+
+
+class ChangeContainerOutput(AIContractModel):
+    """Output contract for remuxed container."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for remuxed media")
+    container: str = Field(description="Output container format")
+    duration_seconds: float = Field(ge=0.0, description="Media duration in seconds")
+    file_size_bytes: int = Field(ge=0, description="Output file size in bytes")
+
+
+class NormalizeMediaInput(AIContractModel):
+    """Input contract for loudness and audio normalization."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    media_storage_key: str = Field(min_length=1, description="StorageService key for source media")
+    target_lufs: float = Field(default=-16.0, ge=-70.0, le=0.0, description="Target integrated loudness in LUFS")
+    true_peak_db: float = Field(default=-1.5, le=0.0, description="True peak limit in dBFS")
+    loudness_range: float = Field(default=11.0, gt=0.0, description="Target loudness range in LU")
+    sample_rate: int = Field(default=44100, ge=8000, le=192000, description="Output sample rate in Hz")
+
+
+class NormalizeMediaOutput(AIContractModel):
+    """Output contract for normalized media."""
+    project_id: str = Field(min_length=1, description="Project context identifier")
+    output_storage_key: str = Field(min_length=1, description="StorageService key for normalized media")
+    target_lufs: float = Field(description="Requested target LUFS")
+    measured_lufs: float = Field(description="Measured integrated LUFS after normalization")
+    duration_seconds: float = Field(ge=0.0, description="Media duration in seconds")
+    file_size_bytes: int = Field(ge=0, description="Output file size in bytes")
+

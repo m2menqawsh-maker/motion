@@ -1,0 +1,52 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_12_keyframes_easing",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_ease_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 60,
+      "layers": [
+        {
+          "layer_id": "layer_easing_box",
+          "kind": "shape",
+          "shape_type": "rectangle",
+          "size": { "width": 200, "height": 200 },
+          "fillColor": "#3B82F6",
+          "time_range": { "startFrame": 0, "durationFrames": 60, "endFrame": 60 },
+          "transform": {
+            "position": { "x": 0, "y": 0 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "channels": [
+            {
+              "channel_id": "ch_ease_y",
+              "target": "TRANSFORM_Y",
+              "keyframes": [
+                { "keyframe_id": "kf_ey_0", "frame": 0, "value": 0, "interpolation": "EASE", "easing": "ease-in-out" },
+                { "keyframe_id": "kf_ey_30", "frame": 30, "value": 400, "interpolation": "EASE", "easing": "ease-in-out" }
+              ]
+            },
+            {
+              "channel_id": "ch_bezier_scale",
+              "target": "SCALE",
+              "keyframes": [
+                { "keyframe_id": "kf_bz_0", "frame": 0, "value": 0.5, "interpolation": "CUBIC_BEZIER", "bezier": [0.42, 0, 0.58, 1] },
+                { "keyframe_id": "kf_bz_30", "frame": 30, "value": 1.5, "interpolation": "LINEAR" }
+              ]
+            }
+          ],
+          "opacity": 1,
+          "visible": true,
+          "z_index": 0
+        }
+      ]
+    }
+  ]
+}

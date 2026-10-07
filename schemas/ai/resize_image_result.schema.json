@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for resized image.",
+  "properties": {
+    "file_size_bytes": {
+      "description": "File size of output in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "format": {
+      "description": "Output image format",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "height": {
+      "description": "Rendered image height in pixels",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for resized image",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "width": {
+      "description": "Rendered image width in pixels",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "width",
+    "height",
+    "format",
+    "file_size_bytes"
+  ],
+  "title": "ResizeImageResult",
+  "type": "object"
+}

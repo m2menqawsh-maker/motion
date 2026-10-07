@@ -1,0 +1,48 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_15_cross_scene_audio",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_audio_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 90,
+      "surface": { "text": "Part 1 Introduction" }
+    },
+    {
+      "scene_id": "sc_audio_02",
+      "template": "ShowcaseWrapper",
+      "startFrame": 90,
+      "durationFrames": 90,
+      "surface": { "text": "Part 2 Conclusion" }
+    }
+  ],
+  "audio": {
+    "voiceover": {
+      "asset_ref": "asset_full_vo",
+      "volume": 0.9,
+      "startFrame": 0,
+      "durationFrames": 180
+    },
+    "music": {
+      "asset_ref": "asset_bgm_track",
+      "volume": 0.2,
+      "loop": true,
+      "ducking": {
+        "enabled": true,
+        "ducking_volume": 0.05,
+        "duck_under": ["voiceover"]
+      }
+    },
+    "global_sfx": [
+      {
+        "asset_ref": "asset_whoosh_sfx",
+        "startFrame": 85,
+        "durationFrames": 20,
+        "volume": 0.8
+      }
+    ]
+  }
+}

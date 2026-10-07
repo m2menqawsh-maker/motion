@@ -1,0 +1,17 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_vid_03",
+  "fps": 60,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "scene_vid_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 180,
+      "content": {
+        "screen": "ast_video_broll_01"
+      }
+    }
+  ]
+}

@@ -2,7 +2,8 @@ import { describe, it, expect } from "vitest";
 import { validateStyleSurface } from "../../contracts/StyleSurface";
 import { validateStyleOverride } from "../../contracts/override-validator";
 import { assertFontKey } from "../../contracts/fonts";
-import { ANIMATION_REGISTRY, applyAnimation, AnimationContext } from "../../contracts/animations";
+import { ANIMATION_DEFINITIONS, CANONICAL_ANIMATION_IDS, isKnownAnimation } from "../../contracts/animations";
+import { ANIMATION_REGISTRY, applyAnimation, AnimationContext } from "../../remotion-app/src/animations";
 
 describe("Contracts Module", () => {
   // 1. StyleSurface سليمة تمر validateStyleSurface

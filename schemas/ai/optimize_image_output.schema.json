@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for optimized image with size reduction metrics.",
+  "properties": {
+    "compression_ratio": {
+      "description": "Ratio of output_bytes / input_bytes",
+      "minimum": 0.0,
+      "title": "Compression Ratio",
+      "type": "number"
+    },
+    "format": {
+      "description": "Image format",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "height": {
+      "description": "Final image height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "input_bytes": {
+      "description": "Original image file size in bytes",
+      "minimum": 0,
+      "title": "Input Bytes",
+      "type": "integer"
+    },
+    "output_bytes": {
+      "description": "Optimized image file size in bytes",
+      "minimum": 0,
+      "title": "Output Bytes",
+      "type": "integer"
+    },
+    "output_storage_key": {
+      "description": "StorageService key for optimized image",
+      "minLength": 1,
+      "title": "Output Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "width": {
+      "description": "Final image width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "output_storage_key",
+    "input_bytes",
+    "output_bytes",
+    "compression_ratio",
+    "format",
+    "width",
+    "height"
+  ],
+  "title": "OptimizeImageResult",
+  "type": "object"
+}

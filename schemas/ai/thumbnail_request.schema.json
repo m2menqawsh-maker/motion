@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for generating deterministic image thumbnails.",
+  "properties": {
+    "fit_mode": {
+      "default": "contain",
+      "description": "Fit mode: contain, cover, exact",
+      "title": "Fit Mode",
+      "type": "string"
+    },
+    "height": {
+      "default": 256,
+      "description": "Target thumbnail height",
+      "maximum": 1024,
+      "minimum": 16,
+      "title": "Height",
+      "type": "integer"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "output_format": {
+      "default": "webp",
+      "description": "Output format: webp, png, jpeg",
+      "title": "Output Format",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 85,
+      "description": "Quality factor (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "width": {
+      "default": 256,
+      "description": "Target thumbnail width",
+      "maximum": 1024,
+      "minimum": 16,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "ThumbnailRequest",
+  "type": "object"
+}

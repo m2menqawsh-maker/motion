@@ -23,7 +23,7 @@ export type PrivacyRequirement = "ZERO_DATA_RETENTION" | "INTERNAL_ONLY" | "PUBL
 
 export type QualityTarget = "DRAFT" | "STANDARD" | "HIGH" | "ULTRA";
 
-export type CapabilityType = "TEXT_GENERATION" | "REASONING" | "PLANNING" | "SUMMARIZATION" | "TRANSLATION" | "EMBEDDING" | "MULTIMODAL_EMBEDDING" | "SPEECH_TO_TEXT" | "LANGUAGE_DETECTION" | "DIARIZATION" | "SPEECH_ALIGNMENT" | "TEXT_TO_SPEECH" | "AUDIO_DENOISE" | "AUDIO_ENHANCE" | "VOCAL_ISOLATION" | "BEAT_DETECTION" | "MUSIC_GENERATION" | "VOICE_ANALYSIS" | "VISION" | "VIDEO_UNDERSTANDING" | "OCR" | "SHOT_DETECTION" | "OBJECT_DETECTION" | "PERSON_DETECTION" | "SCENE_CLASSIFICATION" | "CAPTIONING" | "IMAGE_GENERATION" | "VIDEO_GENERATION" | "PERSON_SEGMENTATION" | "BACKGROUND_REMOVAL" | "LIP_SYNC" | "UPSCALE" | "TRIM_AUDIO" | "EXTEND_AUDIO" | "NORMALIZE_AUDIO_LOUDNESS" | "TRIM_AUDIO_SILENCE" | "SEGMENT_SPEECH_AUDIO" | "GENERATE_SPEECH_MANIFEST" | "BUILD_SPEECH_TIMELINE" | "TRIM_VIDEO" | "EXTEND_VIDEO" | "RESIZE_VIDEO" | "TRIM_BLACK_FRAMES" | "CHANGE_VIDEO_SPEED" | "ENFORCE_KEYFRAME_INTERVAL" | "CONCATENATE_VIDEOS" | "RESIZE_IMAGE" | "CROP_IMAGE_TO_RATIO" | "AUTO_CROP_IMAGE" | "DOWNLOAD_REMOTE_MEDIA" | "EXTRACT_MEDIA_PAGE" | "SEARCH_ICONS" | "DOWNLOAD_ICON" | "SEARCH_STOCK_IMAGES" | "SEARCH_STOCK_VIDEOS" | "SEARCH_STOCK_AUDIO" | "SEARCH_SOUND_EFFECTS" | "INSPECT_MEDIA" | "MUTATE_ASSET_STATUS" | "CHECK_MEDIA_CACHE" | "STORE_MEDIA_CACHE" | "GET_JOB_STATUS" | "CANCEL_PROCESSING_JOB";
+export type CapabilityType = "TEXT_GENERATION" | "REASONING" | "PLANNING" | "SUMMARIZATION" | "TRANSLATION" | "EMBEDDING" | "MULTIMODAL_EMBEDDING" | "SPEECH_TO_TEXT" | "LANGUAGE_DETECTION" | "DIARIZATION" | "SPEECH_ALIGNMENT" | "TEXT_TO_SPEECH" | "AUDIO_DENOISE" | "AUDIO_ENHANCE" | "VOCAL_ISOLATION" | "BEAT_DETECTION" | "MUSIC_GENERATION" | "VOICE_ANALYSIS" | "VISION" | "VIDEO_UNDERSTANDING" | "OCR" | "SHOT_DETECTION" | "OBJECT_DETECTION" | "PERSON_DETECTION" | "SCENE_CLASSIFICATION" | "CAPTIONING" | "IMAGE_GENERATION" | "VIDEO_GENERATION" | "PERSON_SEGMENTATION" | "BACKGROUND_REMOVAL" | "LIP_SYNC" | "UPSCALE" | "TRIM_AUDIO" | "EXTEND_AUDIO" | "NORMALIZE_AUDIO_LOUDNESS" | "NORMALIZE_AUDIO" | "TRIM_AUDIO_SILENCE" | "ANALYZE_LOUDNESS" | "DETECT_SILENCE" | "SEGMENT_SPEECH_AUDIO" | "GENERATE_SPEECH_MANIFEST" | "BUILD_SPEECH_TIMELINE" | "SPLIT_SPEECH_TEXT" | "PREPARE_VO_SEGMENTS" | "ALIGN_AUDIO_METADATA" | "TRIM_VIDEO" | "EXTEND_VIDEO" | "RESIZE_VIDEO" | "TRIM_BLACK_FRAMES" | "CHANGE_VIDEO_SPEED" | "ENFORCE_KEYFRAME_INTERVAL" | "CONCATENATE_VIDEOS" | "PROBE_MEDIA" | "TRANSCODE_VIDEO" | "EXTRACT_AUDIO" | "EXTRACT_FRAMES" | "CONCAT_MEDIA" | "CHANGE_CONTAINER" | "NORMALIZE_MEDIA" | "RESIZE_IMAGE" | "CROP_IMAGE_TO_RATIO" | "AUTO_CROP_IMAGE" | "CONVERT_IMAGE" | "OPTIMIZE_IMAGE" | "PROBE_IMAGE" | "PREPARE_IMAGE_ASSET" | "THUMBNAIL" | "DOWNLOAD_REMOTE_MEDIA" | "EXTRACT_MEDIA_PAGE" | "SEARCH_ICONS" | "DOWNLOAD_ICON" | "SEARCH_STOCK_IMAGES" | "SEARCH_STOCK_VIDEOS" | "SEARCH_STOCK_AUDIO" | "SEARCH_SOUND_EFFECTS" | "INSPECT_MEDIA" | "MUTATE_ASSET_STATUS" | "CHECK_MEDIA_CACHE" | "STORE_MEDIA_CACHE" | "GET_JOB_STATUS" | "CANCEL_PROCESSING_JOB";
 
 export type CapabilityStatus = "SUCCESS" | "FAILED" | "PARTIAL";
 
@@ -292,6 +292,149 @@ export interface SpeechTimelineOutput {
   timeline_storage_key: string;
   total_frames: number;
   cue_points_count: number;
+}
+
+export interface SpeechTextSegmentItem {
+  index: number;
+  text: string;
+  start_seconds?: number | null;
+  end_seconds?: number | null;
+  duration_seconds?: number | null;
+  split_reason?: string;
+  word_count: number;
+}
+
+export interface SplitSpeechTextInput {
+  text: string;
+  language?: string | null;
+  min_sentence_duration?: number;
+  max_sentence_duration?: number;
+  silence_threshold?: number;
+}
+
+export interface SplitSpeechTextOutput {
+  segments: SpeechTextSegmentItem[];
+  total_segments: number;
+  total_words: number;
+  language?: string | null;
+}
+
+export interface PreparedVoSegmentItem {
+  segment_id: string;
+  index: number;
+  text: string;
+  estimated_duration_seconds: number;
+  voice_id?: string | null;
+  audio_mode?: string;
+}
+
+export interface PrepareVoSegmentsInput {
+  project_id: string;
+  text_segments: string[];
+  voice_id?: string | null;
+  audio_mode?: string;
+  speaking_rate?: number;
+}
+
+export interface PrepareVoSegmentsOutput {
+  project_id: string;
+  segments: PreparedVoSegmentItem[];
+  total_segments: number;
+  total_estimated_duration_seconds: number;
+  audio_mode: string;
+}
+
+export interface AlignedWordItem {
+  word: string;
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+  confidence?: number | null;
+}
+
+export interface AlignedSegmentItem {
+  segment_id: string;
+  index: number;
+  text: string;
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+  words: AlignedWordItem[];
+}
+
+export interface AlignAudioMetadataInput {
+  project_id: string;
+  audio_storage_key: string;
+  transcript: string;
+  words: AlignedWordItem[];
+  audio_duration_seconds: number;
+}
+
+export interface AlignAudioMetadataOutput {
+  project_id: string;
+  segments: AlignedSegmentItem[];
+  total_words: number;
+  covered_duration_seconds: number;
+  audio_duration_seconds: number;
+  coverage_ratio: number;
+  is_valid?: boolean;
+}
+
+export interface SilenceIntervalItem {
+  start_seconds: number;
+  end_seconds: number;
+  duration_seconds: number;
+}
+
+export interface DetectSilenceInput {
+  project_id: string;
+  audio_storage_key: string;
+  threshold_db?: number;
+  min_silence_duration_seconds?: number;
+}
+
+export interface DetectSilenceOutput {
+  project_id: string;
+  audio_storage_key: string;
+  silence_intervals: SilenceIntervalItem[];
+  total_silence_duration_seconds: number;
+  audio_duration_seconds: number;
+  silence_ratio: number;
+  threshold_used_db: number;
+}
+
+export interface AnalyzeLoudnessInput {
+  project_id: string;
+  audio_storage_key: string;
+}
+
+export interface AnalyzeLoudnessOutput {
+  project_id: string;
+  audio_storage_key: string;
+  integrated_lufs: number;
+  loudness_range: number;
+  true_peak_db: number;
+  threshold_db?: number | null;
+  measurement_standard: string;
+  duration_seconds: number;
+}
+
+export interface NormalizeAudioInput {
+  project_id: string;
+  audio_storage_key: string;
+  target_lufs?: number;
+  true_peak_db?: number;
+  loudness_range?: number;
+  sample_rate?: number;
+}
+
+export interface NormalizeAudioOutput {
+  project_id: string;
+  output_storage_key: string;
+  target_lufs: number;
+  measured_lufs: number;
+  duration_seconds: number;
+  file_size_bytes: number;
 }
 
 export interface TrimAudioInput {

@@ -1,0 +1,73 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_10_layer_stack",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_stack_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 90,
+      "layers": [
+        {
+          "layer_id": "layer_bg",
+          "kind": "shape",
+          "shape_type": "rectangle",
+          "size": { "width": 1920, "height": 1080 },
+          "fillColor": "#111827",
+          "time_range": { "startFrame": 0, "durationFrames": 90, "endFrame": 90 },
+          "transform": {
+            "position": { "x": 0, "y": 0 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0, "y": 0 },
+            "opacity": 1
+          },
+          "opacity": 1,
+          "visible": true,
+          "z_index": 0
+        },
+        {
+          "layer_id": "layer_hero_image",
+          "kind": "image",
+          "asset_ref": "asset_hero_img",
+          "fit": "contain",
+          "time_range": { "startFrame": 0, "durationFrames": 90, "endFrame": 90 },
+          "transform": {
+            "position": { "x": 960, "y": 540 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "opacity": 1,
+          "visible": true,
+          "z_index": 1
+        },
+        {
+          "layer_id": "layer_headline",
+          "kind": "text",
+          "text": "Layer Stacking Heading",
+          "typography": {
+            "fontFamily": "Cairo",
+            "fontSize": 56,
+            "fillColor": "#FFFFFF",
+            "textAlign": "center"
+          },
+          "time_range": { "startFrame": 15, "durationFrames": 75, "endFrame": 90 },
+          "transform": {
+            "position": { "x": 960, "y": 800 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "opacity": 1,
+          "visible": true,
+          "z_index": 2
+        }
+      ]
+    }
+  ]
+}

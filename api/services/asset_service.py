@@ -328,6 +328,7 @@ class AssetService:
                 for f in cache_dir.iterdir():
                     if f.is_file() and f.name.startswith(prefix):
                         return str(f.resolve())
+            return None
 
         # Check if processed or source path exists
         for p in (target.processed_path, target.source_path):

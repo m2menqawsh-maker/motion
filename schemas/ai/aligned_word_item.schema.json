@@ -1,0 +1,53 @@
+{
+  "additionalProperties": false,
+  "description": "Individual aligned word metadata.",
+  "properties": {
+    "confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Alignment confidence",
+      "title": "Confidence"
+    },
+    "duration_seconds": {
+      "description": "Word duration in seconds",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "end_seconds": {
+      "description": "End timestamp in seconds",
+      "minimum": 0.0,
+      "title": "End Seconds",
+      "type": "number"
+    },
+    "start_seconds": {
+      "description": "Start timestamp in seconds",
+      "minimum": 0.0,
+      "title": "Start Seconds",
+      "type": "number"
+    },
+    "word": {
+      "description": "Word text",
+      "minLength": 1,
+      "title": "Word",
+      "type": "string"
+    }
+  },
+  "required": [
+    "word",
+    "start_seconds",
+    "end_seconds",
+    "duration_seconds"
+  ],
+  "title": "AlignedWordItem",
+  "type": "object"
+}

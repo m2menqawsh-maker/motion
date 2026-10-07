@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "AlignedWordItem": {
+      "additionalProperties": false,
+      "description": "Individual aligned word metadata.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Alignment confidence",
+          "title": "Confidence"
+        },
+        "duration_seconds": {
+          "description": "Word duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "End timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "start_seconds": {
+          "description": "Start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        },
+        "word": {
+          "description": "Word text",
+          "minLength": 1,
+          "title": "Word",
+          "type": "string"
+        }
+      },
+      "required": [
+        "word",
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "AlignedWordItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Individual aligned speech segment.",
+  "properties": {
+    "duration_seconds": {
+      "description": "Segment duration",
+      "minimum": 0.0,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "end_seconds": {
+      "description": "End timestamp",
+      "minimum": 0.0,
+      "title": "End Seconds",
+      "type": "number"
+    },
+    "index": {
+      "description": "1-indexed position",
+      "minimum": 1,
+      "title": "Index",
+      "type": "integer"
+    },
+    "segment_id": {
+      "description": "Segment identifier",
+      "minLength": 1,
+      "title": "Segment Id",
+      "type": "string"
+    },
+    "start_seconds": {
+      "description": "Start timestamp",
+      "minimum": 0.0,
+      "title": "Start Seconds",
+      "type": "number"
+    },
+    "text": {
+      "description": "Segment text",
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "words": {
+      "description": "Aligned word list",
+      "items": {
+        "$ref": "#/$defs/AlignedWordItem"
+      },
+      "title": "Words",
+      "type": "array"
+    }
+  },
+  "required": [
+    "segment_id",
+    "index",
+    "text",
+    "start_seconds",
+    "end_seconds",
+    "duration_seconds"
+  ],
+  "title": "AlignedSegmentItem",
+  "type": "object"
+}

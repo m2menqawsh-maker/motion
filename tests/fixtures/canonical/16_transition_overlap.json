@@ -1,0 +1,28 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_16_transition_overlap",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_trans_01",
+      "template": "TitleCardWrapper",
+      "startFrame": 0,
+      "durationFrames": 60,
+      "surface": { "text": "Scene A Outgoing" },
+      "transition": {
+        "type": "cross-zoom",
+        "durationFrames": 15,
+        "timing": "ease-in-out",
+        "overlap_semantics": "overlap"
+      }
+    },
+    {
+      "scene_id": "sc_trans_02",
+      "template": "ShowcaseWrapper",
+      "startFrame": 60,
+      "durationFrames": 60,
+      "surface": { "text": "Scene B Incoming" }
+    }
+  ]
+}

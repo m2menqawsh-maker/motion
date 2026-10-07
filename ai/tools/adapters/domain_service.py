@@ -33,6 +33,8 @@ from ai.contracts.media_ops import (
     SpeechTimelineInput,
     StoreCacheInput,
 )
+from ai.speech.manifest import SpeechManifestBuilder
+from ai.speech.timeline import SpeechTimelineBuilder
 from ai.tools.adapters.base import CapabilityAdapter
 from ai.tools.types import TrustedToolExecutionContext
 from api.services.asset_service import AssetService
@@ -107,8 +109,10 @@ class DomainServiceAdapter(CapabilityAdapter):
         current_st = inp.new_status
         prev_st = "unknown"
         if isinstance(res, dict):
-            current_st = str(res.get("status", inp.new_status))
-            prev_st = str(res.get("previous_status", "unknown"))
+            st = res.get("status", inp.new_status)
+            current_st = st.value if hasattr(st, "value") else str(st)
+            pst = res.get("previous_status", "unknown")
+            prev_st = pst.value if hasattr(pst, "value") else str(pst)
         return {
             "project_id": inp.project_id,
             "asset_id": inp.asset_id,
@@ -230,12 +234,18 @@ class DomainServiceAdapter(CapabilityAdapter):
     ) -> Dict[str, Any]:
         assert isinstance(inp, SpeechManifestInput)
         manifest_key = f"storage/{inp.project_id}/speech_manifest.json"
+        manifest = SpeechManifestBuilder.build_manifest(
+            project_id=inp.project_id,
+            audio_key_or_path=inp.audio_storage_key,
+            analysis_data={"duration": 1.0, "words": []},
+            split_sentences=[],
+        )
         return {
             "project_id": inp.project_id,
             "manifest_storage_key": manifest_key,
-            "sentence_count": 1,
-            "total_duration_seconds": 1.0,
-            "words_count": 3,
+            "sentence_count": manifest["statistics"]["sentence_count"],
+            "total_duration_seconds": float(manifest["source"]["duration"]),
+            "words_count": manifest["statistics"]["word_count"],
         }
 
     async def _execute_build_speech_timeline(
@@ -246,10 +256,19 @@ class DomainServiceAdapter(CapabilityAdapter):
         assert isinstance(inp, SpeechTimelineInput)
         timeline_key = f"storage/{inp.project_id}/speech_timeline.json"
         fps = inp.fps or 30.0
+        manifest_data = {
+            "source": {"duration": 1.0},
+            "sentences": [],
+        }
+        timeline = SpeechTimelineBuilder.build_timeline(
+            manifest_data=manifest_data,
+            fps=fps,
+        )
+        total_frames = timeline.get("source", {}).get("total_frames", int(1.0 * fps))
+        cue_points = len(timeline.get("events", []))
         return {
             "project_id": inp.project_id,
             "timeline_storage_key": timeline_key,
-            "total_frames": int(1.0 * fps),
-            "fps": fps,
-            "duration_seconds": 1.0,
+            "total_frames": total_frames,
+            "cue_points_count": cue_points,
         }

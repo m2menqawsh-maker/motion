@@ -725,3 +725,14 @@ class CandidateReviewService:
         """Lists all review decisions for a candidate scoped strictly to caller's workspace."""
         workspace_id = tenant_context.workspace_id
         return self.repository.list_review_decisions(candidate_id, workspace_id)
+
+
+def create_candidate_review_service() -> CandidateReviewService:
+    """Factory creating CandidateReviewService with database and storage dependencies."""
+    from scripts.core.database import get_database_engine
+    from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
+    from scripts.core.storage import get_storage_service
+
+    repo = SqlTemplateCandidateRepository(get_database_engine())
+    storage = get_storage_service()
+    return CandidateReviewService(repository=repo, storage_service=storage)

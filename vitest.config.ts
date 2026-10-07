@@ -13,6 +13,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "remotion-app/src"),
       "@contracts": path.resolve(import.meta.dirname, "contracts"),
       "@registry": path.resolve(import.meta.dirname, "registry"),
+      "@preview": path.resolve(import.meta.dirname, "preview"),
       "@templates": path.resolve(import.meta.dirname, "templates"),
       "@build": path.resolve(import.meta.dirname, "build/src"),
       "remotion": path.resolve(import.meta.dirname, "node_modules/remotion"),

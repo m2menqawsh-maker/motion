@@ -664,10 +664,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -675,9 +681,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -1031,10 +1049,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -1042,9 +1066,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -1782,10 +1818,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -1793,9 +1835,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -2392,10 +2446,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -2403,9 +2463,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -3382,6 +3454,449 @@
       "title": "ActivityStatus",
       "type": "string"
     },
+    "AlignAudioMetadataInput": {
+      "$defs": {
+        "AlignedWordItem": {
+          "additionalProperties": false,
+          "description": "Individual aligned word metadata.",
+          "properties": {
+            "confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1.0,
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Alignment confidence",
+              "title": "Confidence"
+            },
+            "duration_seconds": {
+              "description": "Word duration in seconds",
+              "minimum": 0.0,
+              "title": "Duration Seconds",
+              "type": "number"
+            },
+            "end_seconds": {
+              "description": "End timestamp in seconds",
+              "minimum": 0.0,
+              "title": "End Seconds",
+              "type": "number"
+            },
+            "start_seconds": {
+              "description": "Start timestamp in seconds",
+              "minimum": 0.0,
+              "title": "Start Seconds",
+              "type": "number"
+            },
+            "word": {
+              "description": "Word text",
+              "minLength": 1,
+              "title": "Word",
+              "type": "string"
+            }
+          },
+          "required": [
+            "word",
+            "start_seconds",
+            "end_seconds",
+            "duration_seconds"
+          ],
+          "title": "AlignedWordItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Input contract for aligning audio metadata.",
+      "properties": {
+        "audio_duration_seconds": {
+          "description": "Total audio duration in seconds",
+          "exclusiveMinimum": 0.0,
+          "title": "Audio Duration Seconds",
+          "type": "number"
+        },
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "transcript": {
+          "description": "Full transcript text",
+          "title": "Transcript",
+          "type": "string"
+        },
+        "words": {
+          "description": "Timestamped words",
+          "items": {
+            "$ref": "#/$defs/AlignedWordItem"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key",
+        "transcript",
+        "audio_duration_seconds"
+      ],
+      "title": "AlignAudioMetadataInput",
+      "type": "object"
+    },
+    "AlignAudioMetadataOutput": {
+      "$defs": {
+        "AlignedSegmentItem": {
+          "additionalProperties": false,
+          "description": "Individual aligned speech segment.",
+          "properties": {
+            "duration_seconds": {
+              "description": "Segment duration",
+              "minimum": 0.0,
+              "title": "Duration Seconds",
+              "type": "number"
+            },
+            "end_seconds": {
+              "description": "End timestamp",
+              "minimum": 0.0,
+              "title": "End Seconds",
+              "type": "number"
+            },
+            "index": {
+              "description": "1-indexed position",
+              "minimum": 1,
+              "title": "Index",
+              "type": "integer"
+            },
+            "segment_id": {
+              "description": "Segment identifier",
+              "minLength": 1,
+              "title": "Segment Id",
+              "type": "string"
+            },
+            "start_seconds": {
+              "description": "Start timestamp",
+              "minimum": 0.0,
+              "title": "Start Seconds",
+              "type": "number"
+            },
+            "text": {
+              "description": "Segment text",
+              "minLength": 1,
+              "title": "Text",
+              "type": "string"
+            },
+            "words": {
+              "description": "Aligned word list",
+              "items": {
+                "$ref": "#/$defs/AlignedWordItem"
+              },
+              "title": "Words",
+              "type": "array"
+            }
+          },
+          "required": [
+            "segment_id",
+            "index",
+            "text",
+            "start_seconds",
+            "end_seconds",
+            "duration_seconds"
+          ],
+          "title": "AlignedSegmentItem",
+          "type": "object"
+        },
+        "AlignedWordItem": {
+          "additionalProperties": false,
+          "description": "Individual aligned word metadata.",
+          "properties": {
+            "confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1.0,
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Alignment confidence",
+              "title": "Confidence"
+            },
+            "duration_seconds": {
+              "description": "Word duration in seconds",
+              "minimum": 0.0,
+              "title": "Duration Seconds",
+              "type": "number"
+            },
+            "end_seconds": {
+              "description": "End timestamp in seconds",
+              "minimum": 0.0,
+              "title": "End Seconds",
+              "type": "number"
+            },
+            "start_seconds": {
+              "description": "Start timestamp in seconds",
+              "minimum": 0.0,
+              "title": "Start Seconds",
+              "type": "number"
+            },
+            "word": {
+              "description": "Word text",
+              "minLength": 1,
+              "title": "Word",
+              "type": "string"
+            }
+          },
+          "required": [
+            "word",
+            "start_seconds",
+            "end_seconds",
+            "duration_seconds"
+          ],
+          "title": "AlignedWordItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Output contract for aligned audio metadata.",
+      "properties": {
+        "audio_duration_seconds": {
+          "description": "Source audio duration",
+          "minimum": 0.0,
+          "title": "Audio Duration Seconds",
+          "type": "number"
+        },
+        "coverage_ratio": {
+          "description": "Speech duration to audio duration ratio",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Coverage Ratio",
+          "type": "number"
+        },
+        "covered_duration_seconds": {
+          "description": "Sum of speech segment durations",
+          "minimum": 0.0,
+          "title": "Covered Duration Seconds",
+          "type": "number"
+        },
+        "is_valid": {
+          "default": true,
+          "description": "Whether alignment passes boundary checks",
+          "title": "Is Valid",
+          "type": "boolean"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "segments": {
+          "description": "Aligned segments",
+          "items": {
+            "$ref": "#/$defs/AlignedSegmentItem"
+          },
+          "title": "Segments",
+          "type": "array"
+        },
+        "total_words": {
+          "description": "Total aligned word count",
+          "minimum": 0,
+          "title": "Total Words",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "total_words",
+        "covered_duration_seconds",
+        "audio_duration_seconds",
+        "coverage_ratio"
+      ],
+      "title": "AlignAudioMetadataOutput",
+      "type": "object"
+    },
+    "AlignedSegmentItem": {
+      "$defs": {
+        "AlignedWordItem": {
+          "additionalProperties": false,
+          "description": "Individual aligned word metadata.",
+          "properties": {
+            "confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1.0,
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Alignment confidence",
+              "title": "Confidence"
+            },
+            "duration_seconds": {
+              "description": "Word duration in seconds",
+              "minimum": 0.0,
+              "title": "Duration Seconds",
+              "type": "number"
+            },
+            "end_seconds": {
+              "description": "End timestamp in seconds",
+              "minimum": 0.0,
+              "title": "End Seconds",
+              "type": "number"
+            },
+            "start_seconds": {
+              "description": "Start timestamp in seconds",
+              "minimum": 0.0,
+              "title": "Start Seconds",
+              "type": "number"
+            },
+            "word": {
+              "description": "Word text",
+              "minLength": 1,
+              "title": "Word",
+              "type": "string"
+            }
+          },
+          "required": [
+            "word",
+            "start_seconds",
+            "end_seconds",
+            "duration_seconds"
+          ],
+          "title": "AlignedWordItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Individual aligned speech segment.",
+      "properties": {
+        "duration_seconds": {
+          "description": "Segment duration",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "End timestamp",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "index": {
+          "description": "1-indexed position",
+          "minimum": 1,
+          "title": "Index",
+          "type": "integer"
+        },
+        "segment_id": {
+          "description": "Segment identifier",
+          "minLength": 1,
+          "title": "Segment Id",
+          "type": "string"
+        },
+        "start_seconds": {
+          "description": "Start timestamp",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        },
+        "text": {
+          "description": "Segment text",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "words": {
+          "description": "Aligned word list",
+          "items": {
+            "$ref": "#/$defs/AlignedWordItem"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "segment_id",
+        "index",
+        "text",
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "AlignedSegmentItem",
+      "type": "object"
+    },
+    "AlignedWordItem": {
+      "additionalProperties": false,
+      "description": "Individual aligned word metadata.",
+      "properties": {
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Alignment confidence",
+          "title": "Confidence"
+        },
+        "duration_seconds": {
+          "description": "Word duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "End timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "start_seconds": {
+          "description": "Start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        },
+        "word": {
+          "description": "Word text",
+          "minLength": 1,
+          "title": "Word",
+          "type": "string"
+        }
+      },
+      "required": [
+        "word",
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "AlignedWordItem",
+      "type": "object"
+    },
     "AnalysisProvenance": {
       "additionalProperties": false,
       "description": "Authoritative audit record tracking the generator, model, version,\nconfidence, and execution timestamp of an intelligence result.",
@@ -3470,6 +3985,99 @@
         "timestamp"
       ],
       "title": "AnalysisProvenance",
+      "type": "object"
+    },
+    "AnalyzeLoudnessInput": {
+      "additionalProperties": false,
+      "description": "Input contract for read-only audio loudness analysis.",
+      "properties": {
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key"
+      ],
+      "title": "AnalyzeLoudnessInput",
+      "type": "object"
+    },
+    "AnalyzeLoudnessOutput": {
+      "additionalProperties": false,
+      "description": "Output contract for read-only audio loudness analysis.",
+      "properties": {
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "duration_seconds": {
+          "description": "Probed audio duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "integrated_lufs": {
+          "description": "Integrated loudness in LUFS",
+          "title": "Integrated Lufs",
+          "type": "number"
+        },
+        "loudness_range": {
+          "description": "Loudness range (LRA) in LU",
+          "minimum": 0.0,
+          "title": "Loudness Range",
+          "type": "number"
+        },
+        "measurement_standard": {
+          "default": "EBU R128",
+          "description": "Applied measurement standard",
+          "title": "Measurement Standard",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "threshold_db": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Measurement threshold in dB",
+          "title": "Threshold Db"
+        },
+        "true_peak_db": {
+          "description": "True peak level in dBFS",
+          "title": "True Peak Db",
+          "type": "number"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key",
+        "integrated_lufs",
+        "loudness_range",
+        "true_peak_db",
+        "duration_seconds"
+      ],
+      "title": "AnalyzeLoudnessOutput",
       "type": "object"
     },
     "AudioBeatTrack": {
@@ -4254,6 +4862,150 @@
       "title": "AudioSegmentItem",
       "type": "object"
     },
+    "AutoCropImageRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for auto-detecting and stripping solid/transparent borders.",
+      "properties": {
+        "background_color": {
+          "default": "auto",
+          "description": "Background mode: auto, transparent, white, black",
+          "title": "Background Color",
+          "type": "string"
+        },
+        "background_threshold": {
+          "default": 10,
+          "description": "Color difference tolerance (0-255)",
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Background Threshold",
+          "type": "integer"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "output_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional target format",
+          "title": "Output Format"
+        },
+        "padding_ratio": {
+          "default": 0.0,
+          "description": "Safety padding ratio around detected content",
+          "maximum": 0.5,
+          "minimum": 0.0,
+          "title": "Padding Ratio",
+          "type": "number"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 95,
+          "description": "Compression quality (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "AutoCropImageRequest",
+      "type": "object"
+    },
+    "AutoCropImageResult": {
+      "additionalProperties": false,
+      "description": "Result contract for auto-cropped image.",
+      "properties": {
+        "cropped_box": {
+          "description": "Bounding box [left, top, right, bottom]",
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Cropped Box",
+          "type": "array"
+        },
+        "file_size_bytes": {
+          "description": "Output file size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Output format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "original_height": {
+          "description": "Original image height",
+          "minimum": 1,
+          "title": "Original Height",
+          "type": "integer"
+        },
+        "original_width": {
+          "description": "Original image width",
+          "minimum": 1,
+          "title": "Original Width",
+          "type": "integer"
+        },
+        "output_height": {
+          "description": "Cropped output height",
+          "minimum": 1,
+          "title": "Output Height",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for auto-cropped image",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "output_width": {
+          "description": "Cropped output width",
+          "minimum": 1,
+          "title": "Output Width",
+          "type": "integer"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "original_width",
+        "original_height",
+        "output_width",
+        "output_height",
+        "cropped_box",
+        "format",
+        "file_size_bytes"
+      ],
+      "title": "AutoCropImageResult",
+      "type": "object"
+    },
     "AutoCropInput": {
       "additionalProperties": false,
       "description": "Input contract for auto-cropping whitespace / borders.",
@@ -4777,10 +5529,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -4788,9 +5546,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -5189,10 +5959,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -5200,9 +5976,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -5752,10 +6540,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -5763,9 +6557,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -6236,10 +7042,16 @@
         "TRIM_AUDIO",
         "EXTEND_AUDIO",
         "NORMALIZE_AUDIO_LOUDNESS",
+        "NORMALIZE_AUDIO",
         "TRIM_AUDIO_SILENCE",
+        "ANALYZE_LOUDNESS",
+        "DETECT_SILENCE",
         "SEGMENT_SPEECH_AUDIO",
         "GENERATE_SPEECH_MANIFEST",
         "BUILD_SPEECH_TIMELINE",
+        "SPLIT_SPEECH_TEXT",
+        "PREPARE_VO_SEGMENTS",
+        "ALIGN_AUDIO_METADATA",
         "TRIM_VIDEO",
         "EXTEND_VIDEO",
         "RESIZE_VIDEO",
@@ -6247,9 +7059,21 @@
         "CHANGE_VIDEO_SPEED",
         "ENFORCE_KEYFRAME_INTERVAL",
         "CONCATENATE_VIDEOS",
+        "PROBE_MEDIA",
+        "TRANSCODE_VIDEO",
+        "EXTRACT_AUDIO",
+        "EXTRACT_FRAMES",
+        "CONCAT_MEDIA",
+        "CHANGE_CONTAINER",
+        "NORMALIZE_MEDIA",
         "RESIZE_IMAGE",
         "CROP_IMAGE_TO_RATIO",
         "AUTO_CROP_IMAGE",
+        "CONVERT_IMAGE",
+        "OPTIMIZE_IMAGE",
+        "PROBE_IMAGE",
+        "PREPARE_IMAGE_ASSET",
+        "THUMBNAIL",
         "DOWNLOAD_REMOTE_MEDIA",
         "EXTRACT_MEDIA_PAGE",
         "SEARCH_ICONS",
@@ -6514,6 +7338,123 @@
       "title": "ConcatenateVideosOutput",
       "type": "object"
     },
+    "ConvertImageRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for converting image format with safe alpha handling.",
+      "properties": {
+        "background_color": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "#ffffff",
+          "description": "Background color for RGBA -> RGB conversions",
+          "title": "Background Color"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 95,
+          "description": "Compression quality (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "strip_metadata": {
+          "default": false,
+          "description": "Whether to strip EXIF and metadata",
+          "title": "Strip Metadata",
+          "type": "boolean"
+        },
+        "target_format": {
+          "description": "Target format (PNG, JPEG, WEBP)",
+          "minLength": 3,
+          "title": "Target Format",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key",
+        "target_format"
+      ],
+      "title": "ConvertImageRequest",
+      "type": "object"
+    },
+    "ConvertImageResult": {
+      "additionalProperties": false,
+      "description": "Result contract for converted image.",
+      "properties": {
+        "file_size_bytes": {
+          "description": "Output payload size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "height": {
+          "description": "Image pixel height",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for converted image",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "source_format": {
+          "description": "Original image format",
+          "minLength": 1,
+          "title": "Source Format",
+          "type": "string"
+        },
+        "target_format": {
+          "description": "Converted image format",
+          "minLength": 1,
+          "title": "Target Format",
+          "type": "string"
+        },
+        "width": {
+          "description": "Image pixel width",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "source_format",
+        "target_format",
+        "width",
+        "height",
+        "file_size_bytes"
+      ],
+      "title": "ConvertImageResult",
+      "type": "object"
+    },
     "CostClass": {
       "description": "Coarse resource consumption and financial cost tier.",
       "enum": [
@@ -6613,6 +7554,117 @@
         "estimated_cost"
       ],
       "title": "CostEstimate",
+      "type": "object"
+    },
+    "CropImageRatioRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for center-cropping an image to a target aspect ratio.",
+      "properties": {
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "output_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional target format: png, jpeg, webp",
+          "title": "Output Format"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 95,
+          "description": "Compression quality (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "target_ratio": {
+          "description": "Target aspect ratio string (e.g. '16:9', '9:16', '1:1', '4:5')",
+          "minLength": 3,
+          "title": "Target Ratio",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key",
+        "target_ratio"
+      ],
+      "title": "CropImageRatioRequest",
+      "type": "object"
+    },
+    "CropImageRatioResult": {
+      "additionalProperties": false,
+      "description": "Result contract for aspect-ratio cropped image.",
+      "properties": {
+        "applied_ratio": {
+          "description": "Applied aspect ratio string",
+          "minLength": 1,
+          "title": "Applied Ratio",
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "description": "Output file size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Output format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "description": "Rendered image height",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for cropped image",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "width": {
+          "description": "Rendered image width",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "width",
+        "height",
+        "applied_ratio",
+        "format",
+        "file_size_bytes"
+      ],
+      "title": "CropImageRatioResult",
       "type": "object"
     },
     "CropRatioInput": {
@@ -6772,6 +7824,137 @@
         "black_segments_count"
       ],
       "title": "DetectBlackFramesOutput",
+      "type": "object"
+    },
+    "DetectSilenceInput": {
+      "additionalProperties": false,
+      "description": "Input contract for read-only silence detection.",
+      "properties": {
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "min_silence_duration_seconds": {
+          "default": 0.1,
+          "description": "Minimum silence interval to detect",
+          "minimum": 0.01,
+          "title": "Min Silence Duration Seconds",
+          "type": "number"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "threshold_db": {
+          "default": -40.0,
+          "description": "Silence threshold in dBFS",
+          "maximum": 0.0,
+          "title": "Threshold Db",
+          "type": "number"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key"
+      ],
+      "title": "DetectSilenceInput",
+      "type": "object"
+    },
+    "DetectSilenceOutput": {
+      "$defs": {
+        "SilenceIntervalItem": {
+          "additionalProperties": false,
+          "description": "Detected silence interval item.",
+          "properties": {
+            "duration_seconds": {
+              "description": "Interval duration in seconds",
+              "minimum": 0.0,
+              "title": "Duration Seconds",
+              "type": "number"
+            },
+            "end_seconds": {
+              "description": "Silence end timestamp in seconds",
+              "minimum": 0.0,
+              "title": "End Seconds",
+              "type": "number"
+            },
+            "start_seconds": {
+              "description": "Silence start timestamp in seconds",
+              "minimum": 0.0,
+              "title": "Start Seconds",
+              "type": "number"
+            }
+          },
+          "required": [
+            "start_seconds",
+            "end_seconds",
+            "duration_seconds"
+          ],
+          "title": "SilenceIntervalItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Output contract for read-only silence detection.",
+      "properties": {
+        "audio_duration_seconds": {
+          "description": "Total audio duration probed",
+          "minimum": 0.0,
+          "title": "Audio Duration Seconds",
+          "type": "number"
+        },
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "silence_intervals": {
+          "description": "Detected silence intervals",
+          "items": {
+            "$ref": "#/$defs/SilenceIntervalItem"
+          },
+          "title": "Silence Intervals",
+          "type": "array"
+        },
+        "silence_ratio": {
+          "description": "Ratio of silence to total audio duration",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Silence Ratio",
+          "type": "number"
+        },
+        "threshold_used_db": {
+          "description": "Threshold used for detection",
+          "title": "Threshold Used Db",
+          "type": "number"
+        },
+        "total_silence_duration_seconds": {
+          "description": "Total cumulative silence duration",
+          "minimum": 0.0,
+          "title": "Total Silence Duration Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key",
+        "total_silence_duration_seconds",
+        "audio_duration_seconds",
+        "silence_ratio",
+        "threshold_used_db"
+      ],
+      "title": "DetectSilenceOutput",
       "type": "object"
     },
     "DownloadIconInput": {
@@ -7091,10 +8274,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -7102,9 +8291,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -11351,10 +12552,16 @@
             "TRIM_AUDIO",
             "EXTEND_AUDIO",
             "NORMALIZE_AUDIO_LOUDNESS",
+            "NORMALIZE_AUDIO",
             "TRIM_AUDIO_SILENCE",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
             "SEGMENT_SPEECH_AUDIO",
             "GENERATE_SPEECH_MANIFEST",
             "BUILD_SPEECH_TIMELINE",
+            "SPLIT_SPEECH_TEXT",
+            "PREPARE_VO_SEGMENTS",
+            "ALIGN_AUDIO_METADATA",
             "TRIM_VIDEO",
             "EXTEND_VIDEO",
             "RESIZE_VIDEO",
@@ -11362,9 +12569,21 @@
             "CHANGE_VIDEO_SPEED",
             "ENFORCE_KEYFRAME_INTERVAL",
             "CONCATENATE_VIDEOS",
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
             "RESIZE_IMAGE",
             "CROP_IMAGE_TO_RATIO",
             "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
             "DOWNLOAD_REMOTE_MEDIA",
             "EXTRACT_MEDIA_PAGE",
             "SEARCH_ICONS",
@@ -11814,6 +13033,110 @@
       "title": "MutateAssetStatusOutput",
       "type": "object"
     },
+    "NormalizeAudioInput": {
+      "additionalProperties": false,
+      "description": "Input contract for audio loudness normalization (canonical S28-M07 alias).",
+      "properties": {
+        "audio_storage_key": {
+          "description": "StorageService key for source audio",
+          "minLength": 1,
+          "title": "Audio Storage Key",
+          "type": "string"
+        },
+        "loudness_range": {
+          "default": 11.0,
+          "description": "Target loudness range (LRA)",
+          "exclusiveMinimum": 0.0,
+          "title": "Loudness Range",
+          "type": "number"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "sample_rate": {
+          "default": 44100,
+          "description": "Target sample rate in Hz",
+          "maximum": 192000,
+          "minimum": 8000,
+          "title": "Sample Rate",
+          "type": "integer"
+        },
+        "target_lufs": {
+          "default": -16.0,
+          "description": "Target integrated loudness in LUFS",
+          "maximum": 0.0,
+          "minimum": -70.0,
+          "title": "Target Lufs",
+          "type": "number"
+        },
+        "true_peak_db": {
+          "default": -1.5,
+          "description": "True peak limit in dBFS",
+          "maximum": 0.0,
+          "title": "True Peak Db",
+          "type": "number"
+        }
+      },
+      "required": [
+        "project_id",
+        "audio_storage_key"
+      ],
+      "title": "NormalizeAudioInput",
+      "type": "object"
+    },
+    "NormalizeAudioOutput": {
+      "additionalProperties": false,
+      "description": "Output contract for normalized audio (canonical S28-M07 alias).",
+      "properties": {
+        "duration_seconds": {
+          "description": "Final audio duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "file_size_bytes": {
+          "description": "Output file size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "measured_lufs": {
+          "description": "Measured integrated loudness after normalization",
+          "title": "Measured Lufs",
+          "type": "number"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for normalized audio",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "target_lufs": {
+          "description": "Requested target LUFS",
+          "title": "Target Lufs",
+          "type": "number"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "target_lufs",
+        "measured_lufs",
+        "duration_seconds",
+        "file_size_bytes"
+      ],
+      "title": "NormalizeAudioOutput",
+      "type": "object"
+    },
     "NormalizeLoudnessInput": {
       "additionalProperties": false,
       "description": "Input contract for audio loudness normalization.",
@@ -11887,6 +13210,140 @@
         "measured_lufs"
       ],
       "title": "NormalizeLoudnessOutput",
+      "type": "object"
+    },
+    "OptimizeImageRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for recompressing and optimizing an image.",
+      "properties": {
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "max_height": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional bounding height constraint",
+          "title": "Max Height"
+        },
+        "max_width": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional bounding width constraint",
+          "title": "Max Width"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 85,
+          "description": "Target quality factor (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "strip_metadata": {
+          "default": true,
+          "description": "Whether to strip GPS, camera, and comments metadata",
+          "title": "Strip Metadata",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "OptimizeImageRequest",
+      "type": "object"
+    },
+    "OptimizeImageResult": {
+      "additionalProperties": false,
+      "description": "Result contract for optimized image with size reduction metrics.",
+      "properties": {
+        "compression_ratio": {
+          "description": "Ratio of output_bytes / input_bytes",
+          "minimum": 0.0,
+          "title": "Compression Ratio",
+          "type": "number"
+        },
+        "format": {
+          "description": "Image format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "description": "Final image height",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "input_bytes": {
+          "description": "Original image file size in bytes",
+          "minimum": 0,
+          "title": "Input Bytes",
+          "type": "integer"
+        },
+        "output_bytes": {
+          "description": "Optimized image file size in bytes",
+          "minimum": 0,
+          "title": "Output Bytes",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for optimized image",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "width": {
+          "description": "Final image width",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "input_bytes",
+        "output_bytes",
+        "compression_ratio",
+        "format",
+        "width",
+        "height"
+      ],
+      "title": "OptimizeImageResult",
       "type": "object"
     },
     "PersonSegmentationRequest": {
@@ -12063,6 +13520,407 @@
       "title": "PersonSegmentationResult",
       "type": "object"
     },
+    "PrepareImageAssetRequest": {
+      "additionalProperties": false,
+      "description": "Request contract orchestrating full asset ingestion: orientation normalization,\noptional resizing, optimization, storage persistence, and Manifest v2 registration.",
+      "properties": {
+        "asset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional canonical asset ID to assign",
+          "title": "Asset Id"
+        },
+        "generate_thumbnail": {
+          "default": true,
+          "description": "Whether to generate companion thumbnail",
+          "title": "Generate Thumbnail",
+          "type": "boolean"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "max_height": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Max height bound",
+          "title": "Max Height"
+        },
+        "max_width": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Max width bound",
+          "title": "Max Width"
+        },
+        "normalize_orientation": {
+          "default": true,
+          "description": "Whether to transpose image based on EXIF orientation",
+          "title": "Normalize Orientation",
+          "type": "boolean"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 90,
+          "description": "Output quality",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "target_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional format conversion (PNG, JPEG, WEBP)",
+          "title": "Target Format"
+        },
+        "thumbnail_size": {
+          "default": 256,
+          "description": "Thumbnail square dimension bound",
+          "maximum": 1024,
+          "minimum": 32,
+          "title": "Thumbnail Size",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "PrepareImageAssetRequest",
+      "type": "object"
+    },
+    "PrepareImageAssetResult": {
+      "additionalProperties": false,
+      "description": "Result contract for prepared and registered image asset.",
+      "properties": {
+        "asset_id": {
+          "description": "Registered canonical asset ID",
+          "minLength": 1,
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "description": "Primary asset file size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Primary asset format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "description": "Primary asset height",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "manifest_registered": {
+          "default": true,
+          "description": "Whether registered into 02_asset_manifest.json",
+          "title": "Manifest Registered",
+          "type": "boolean"
+        },
+        "primary_storage_key": {
+          "description": "StorageService key for primary asset",
+          "minLength": 1,
+          "title": "Primary Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "thumbnail_storage_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "StorageService key for thumbnail",
+          "title": "Thumbnail Storage Key"
+        },
+        "width": {
+          "description": "Primary asset width",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "asset_id",
+        "primary_storage_key",
+        "width",
+        "height",
+        "format",
+        "file_size_bytes"
+      ],
+      "title": "PrepareImageAssetResult",
+      "type": "object"
+    },
+    "PrepareVoSegmentsInput": {
+      "additionalProperties": false,
+      "description": "Input contract for preparing voiceover segment plan.",
+      "properties": {
+        "audio_mode": {
+          "default": "voiceover_primary",
+          "description": "Audio mode",
+          "title": "Audio Mode",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "speaking_rate": {
+          "default": 1.0,
+          "description": "Target speaking rate multiplier",
+          "maximum": 2.0,
+          "minimum": 0.5,
+          "title": "Speaking Rate",
+          "type": "number"
+        },
+        "text_segments": {
+          "description": "Text segments to prepare for voiceover",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Text Segments",
+          "type": "array"
+        },
+        "voice_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Voice identifier",
+          "title": "Voice Id"
+        }
+      },
+      "required": [
+        "project_id",
+        "text_segments"
+      ],
+      "title": "PrepareVoSegmentsInput",
+      "type": "object"
+    },
+    "PrepareVoSegmentsOutput": {
+      "$defs": {
+        "PreparedVoSegmentItem": {
+          "additionalProperties": false,
+          "description": "Individual prepared voiceover segment item.",
+          "properties": {
+            "audio_mode": {
+              "default": "voiceover_primary",
+              "description": "Audio presentation mode",
+              "title": "Audio Mode",
+              "type": "string"
+            },
+            "estimated_duration_seconds": {
+              "description": "Estimated duration in seconds",
+              "minimum": 0.0,
+              "title": "Estimated Duration Seconds",
+              "type": "number"
+            },
+            "index": {
+              "description": "1-indexed sequence position",
+              "minimum": 1,
+              "title": "Index",
+              "type": "integer"
+            },
+            "segment_id": {
+              "description": "Unique segment identifier",
+              "minLength": 1,
+              "title": "Segment Id",
+              "type": "string"
+            },
+            "text": {
+              "description": "Voiceover line text",
+              "minLength": 1,
+              "title": "Text",
+              "type": "string"
+            },
+            "voice_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Voice identifier",
+              "title": "Voice Id"
+            }
+          },
+          "required": [
+            "segment_id",
+            "index",
+            "text",
+            "estimated_duration_seconds"
+          ],
+          "title": "PreparedVoSegmentItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Output contract for prepared voiceover segment plan.",
+      "properties": {
+        "audio_mode": {
+          "description": "Selected audio mode",
+          "title": "Audio Mode",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "segments": {
+          "description": "Prepared voiceover segments",
+          "items": {
+            "$ref": "#/$defs/PreparedVoSegmentItem"
+          },
+          "title": "Segments",
+          "type": "array"
+        },
+        "total_estimated_duration_seconds": {
+          "description": "Total estimated duration",
+          "minimum": 0.0,
+          "title": "Total Estimated Duration Seconds",
+          "type": "number"
+        },
+        "total_segments": {
+          "description": "Total segment count",
+          "minimum": 0,
+          "title": "Total Segments",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "total_segments",
+        "total_estimated_duration_seconds",
+        "audio_mode"
+      ],
+      "title": "PrepareVoSegmentsOutput",
+      "type": "object"
+    },
+    "PreparedVoSegmentItem": {
+      "additionalProperties": false,
+      "description": "Individual prepared voiceover segment item.",
+      "properties": {
+        "audio_mode": {
+          "default": "voiceover_primary",
+          "description": "Audio presentation mode",
+          "title": "Audio Mode",
+          "type": "string"
+        },
+        "estimated_duration_seconds": {
+          "description": "Estimated duration in seconds",
+          "minimum": 0.0,
+          "title": "Estimated Duration Seconds",
+          "type": "number"
+        },
+        "index": {
+          "description": "1-indexed sequence position",
+          "minimum": 1,
+          "title": "Index",
+          "type": "integer"
+        },
+        "segment_id": {
+          "description": "Unique segment identifier",
+          "minLength": 1,
+          "title": "Segment Id",
+          "type": "string"
+        },
+        "text": {
+          "description": "Voiceover line text",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "voice_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Voice identifier",
+          "title": "Voice Id"
+        }
+      },
+      "required": [
+        "segment_id",
+        "index",
+        "text",
+        "estimated_duration_seconds"
+      ],
+      "title": "PreparedVoSegmentItem",
+      "type": "object"
+    },
     "PrivacyRequirement": {
       "description": "Data privacy and retention requirements for external AI processing.",
       "enum": [
@@ -12072,6 +13930,137 @@
       ],
       "title": "PrivacyRequirement",
       "type": "string"
+    },
+    "ProbeImageRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for probing image properties and technical metadata.",
+      "properties": {
+        "extract_metadata": {
+          "default": true,
+          "description": "Whether to parse EXIF and metadata summary",
+          "title": "Extract Metadata",
+          "type": "boolean"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for image to probe",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "ProbeImageRequest",
+      "type": "object"
+    },
+    "ProbeImageResult": {
+      "additionalProperties": false,
+      "description": "Result contract containing technical image probe properties.",
+      "properties": {
+        "file_size_bytes": {
+          "description": "Raw file payload size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Image format (PNG, JPEG, WEBP, GIF)",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "frame_count": {
+          "description": "Total frame count (1 for static images)",
+          "minimum": 1,
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "has_alpha": {
+          "description": "Whether the image contains an alpha channel",
+          "title": "Has Alpha",
+          "type": "boolean"
+        },
+        "height": {
+          "description": "Image pixel height",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "is_animated": {
+          "default": false,
+          "description": "Whether image contains multiple frames",
+          "title": "Is Animated",
+          "type": "boolean"
+        },
+        "metadata_summary": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Sanitized metadata summary",
+          "title": "Metadata Summary",
+          "type": "object"
+        },
+        "mode": {
+          "description": "Color mode (RGB, RGBA, L, P, CMYK)",
+          "minLength": 1,
+          "title": "Mode",
+          "type": "string"
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "maximum": 8,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "EXIF orientation tag if present",
+          "title": "Orientation"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "storage_key": {
+          "description": "Storage key of probed image",
+          "minLength": 1,
+          "title": "Storage Key",
+          "type": "string"
+        },
+        "width": {
+          "description": "Image pixel width",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "storage_key",
+        "format",
+        "width",
+        "height",
+        "mode",
+        "has_alpha",
+        "frame_count",
+        "file_size_bytes"
+      ],
+      "title": "ProbeImageResult",
+      "type": "object"
     },
     "PromptContract": {
       "$defs": {
@@ -12523,6 +14512,160 @@
       ],
       "title": "QualityTarget",
       "type": "string"
+    },
+    "ResizeImageRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for resizing or scaling an image.",
+      "properties": {
+        "fit_mode": {
+          "default": "contain",
+          "description": "Fit mode: contain, cover, stretch, exact",
+          "title": "Fit Mode",
+          "type": "string"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "maintain_aspect_ratio": {
+          "default": true,
+          "description": "Whether to preserve aspect ratio when one dimension provided",
+          "title": "Maintain Aspect Ratio",
+          "type": "boolean"
+        },
+        "output_format": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Target format: png, jpeg, webp",
+          "title": "Output Format"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 95,
+          "description": "Compression quality (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "scale_factor": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "maximum": 16.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional scaling multiplier",
+          "title": "Scale Factor"
+        },
+        "target_height": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Target pixel height",
+          "title": "Target Height"
+        },
+        "target_width": {
+          "anyOf": [
+            {
+              "maximum": 8192,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Target pixel width",
+          "title": "Target Width"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "ResizeImageRequest",
+      "type": "object"
+    },
+    "ResizeImageResult": {
+      "additionalProperties": false,
+      "description": "Result contract for resized image.",
+      "properties": {
+        "file_size_bytes": {
+          "description": "File size of output in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Output image format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "description": "Rendered image height in pixels",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for resized image",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "width": {
+          "description": "Rendered image width in pixels",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "width",
+        "height",
+        "format",
+        "file_size_bytes"
+      ],
+      "title": "ResizeImageResult",
+      "type": "object"
     },
     "ResizeVideoInput": {
       "additionalProperties": false,
@@ -13890,6 +16033,37 @@
       "title": "SideEffectClass",
       "type": "string"
     },
+    "SilenceIntervalItem": {
+      "additionalProperties": false,
+      "description": "Detected silence interval item.",
+      "properties": {
+        "duration_seconds": {
+          "description": "Interval duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "Silence end timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "start_seconds": {
+          "description": "Silence start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "SilenceIntervalItem",
+      "type": "object"
+    },
     "SpanType": {
       "description": "Categorical classification of AI execution spans.",
       "enum": [
@@ -14613,6 +16787,85 @@
       "title": "SpeechSpeaker",
       "type": "object"
     },
+    "SpeechTextSegmentItem": {
+      "additionalProperties": false,
+      "description": "Segment item produced by deterministic speech text splitting.",
+      "properties": {
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Segment duration in seconds",
+          "title": "Duration Seconds"
+        },
+        "end_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "End timestamp if word timestamps provided",
+          "title": "End Seconds"
+        },
+        "index": {
+          "description": "1-indexed segment position",
+          "minimum": 1,
+          "title": "Index",
+          "type": "integer"
+        },
+        "split_reason": {
+          "default": "punctuation",
+          "description": "Reason for boundary split ('punctuation', 'silence', 'duration_limit', 'end_of_text')",
+          "title": "Split Reason",
+          "type": "string"
+        },
+        "start_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Start timestamp if word timestamps provided",
+          "title": "Start Seconds"
+        },
+        "text": {
+          "description": "Segment text content",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "word_count": {
+          "description": "Number of words in segment",
+          "minimum": 0,
+          "title": "Word Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "index",
+        "text",
+        "word_count"
+      ],
+      "title": "SpeechTextSegmentItem",
+      "type": "object"
+    },
     "SpeechTimelineInput": {
       "additionalProperties": false,
       "description": "Input contract for building voiceover timeline.",
@@ -14808,6 +17061,182 @@
         "end"
       ],
       "title": "SpeechWord",
+      "type": "object"
+    },
+    "SplitSpeechTextInput": {
+      "additionalProperties": false,
+      "description": "Input contract for deterministic speech text splitting.",
+      "properties": {
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Language code (e.g. 'ar', 'en')",
+          "title": "Language"
+        },
+        "max_sentence_duration": {
+          "default": 10.0,
+          "description": "Maximum allowed duration before forced split",
+          "minimum": 0.5,
+          "title": "Max Sentence Duration",
+          "type": "number"
+        },
+        "min_sentence_duration": {
+          "default": 2.0,
+          "description": "Minimum target duration per sentence",
+          "minimum": 0.1,
+          "title": "Min Sentence Duration",
+          "type": "number"
+        },
+        "silence_threshold": {
+          "default": 0.3,
+          "description": "Inter-word silence threshold to trigger boundary",
+          "minimum": 0.05,
+          "title": "Silence Threshold",
+          "type": "number"
+        },
+        "text": {
+          "description": "Full input speech text to segment",
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "SplitSpeechTextInput",
+      "type": "object"
+    },
+    "SplitSpeechTextOutput": {
+      "$defs": {
+        "SpeechTextSegmentItem": {
+          "additionalProperties": false,
+          "description": "Segment item produced by deterministic speech text splitting.",
+          "properties": {
+            "duration_seconds": {
+              "anyOf": [
+                {
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Segment duration in seconds",
+              "title": "Duration Seconds"
+            },
+            "end_seconds": {
+              "anyOf": [
+                {
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "End timestamp if word timestamps provided",
+              "title": "End Seconds"
+            },
+            "index": {
+              "description": "1-indexed segment position",
+              "minimum": 1,
+              "title": "Index",
+              "type": "integer"
+            },
+            "split_reason": {
+              "default": "punctuation",
+              "description": "Reason for boundary split ('punctuation', 'silence', 'duration_limit', 'end_of_text')",
+              "title": "Split Reason",
+              "type": "string"
+            },
+            "start_seconds": {
+              "anyOf": [
+                {
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Start timestamp if word timestamps provided",
+              "title": "Start Seconds"
+            },
+            "text": {
+              "description": "Segment text content",
+              "minLength": 1,
+              "title": "Text",
+              "type": "string"
+            },
+            "word_count": {
+              "description": "Number of words in segment",
+              "minimum": 0,
+              "title": "Word Count",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "index",
+            "text",
+            "word_count"
+          ],
+          "title": "SpeechTextSegmentItem",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Output contract for split speech text segments.",
+      "properties": {
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detected or configured language",
+          "title": "Language"
+        },
+        "segments": {
+          "description": "Extracted sentence segments",
+          "items": {
+            "$ref": "#/$defs/SpeechTextSegmentItem"
+          },
+          "title": "Segments",
+          "type": "array"
+        },
+        "total_segments": {
+          "description": "Total number of segments extracted",
+          "minimum": 0,
+          "title": "Total Segments",
+          "type": "integer"
+        },
+        "total_words": {
+          "description": "Total word count processed",
+          "minimum": 0,
+          "title": "Total Words",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_segments",
+        "total_words"
+      ],
+      "title": "SplitSpeechTextOutput",
       "type": "object"
     },
     "StockMediaItem": {
@@ -15418,6 +17847,118 @@
       ],
       "title": "TenantScope",
       "type": "string"
+    },
+    "ThumbnailRequest": {
+      "additionalProperties": false,
+      "description": "Request contract for generating deterministic image thumbnails.",
+      "properties": {
+        "fit_mode": {
+          "default": "contain",
+          "description": "Fit mode: contain, cover, exact",
+          "title": "Fit Mode",
+          "type": "string"
+        },
+        "height": {
+          "default": 256,
+          "description": "Target thumbnail height",
+          "maximum": 1024,
+          "minimum": 16,
+          "title": "Height",
+          "type": "integer"
+        },
+        "image_storage_key": {
+          "description": "StorageService key for source image",
+          "minLength": 1,
+          "title": "Image Storage Key",
+          "type": "string"
+        },
+        "output_format": {
+          "default": "webp",
+          "description": "Output format: webp, png, jpeg",
+          "title": "Output Format",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": 85,
+          "description": "Quality factor (1-100)",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Quality",
+          "type": "integer"
+        },
+        "width": {
+          "default": 256,
+          "description": "Target thumbnail width",
+          "maximum": 1024,
+          "minimum": 16,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "image_storage_key"
+      ],
+      "title": "ThumbnailRequest",
+      "type": "object"
+    },
+    "ThumbnailResult": {
+      "additionalProperties": false,
+      "description": "Result contract for generated thumbnail.",
+      "properties": {
+        "file_size_bytes": {
+          "description": "Thumbnail file size in bytes",
+          "minimum": 0,
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Thumbnail image format",
+          "minLength": 1,
+          "title": "Format",
+          "type": "string"
+        },
+        "height": {
+          "description": "Thumbnail height in pixels",
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "output_storage_key": {
+          "description": "StorageService key for thumbnail",
+          "minLength": 1,
+          "title": "Output Storage Key",
+          "type": "string"
+        },
+        "project_id": {
+          "description": "Project context identifier",
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "width": {
+          "description": "Thumbnail width in pixels",
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project_id",
+        "output_storage_key",
+        "width",
+        "height",
+        "format",
+        "file_size_bytes"
+      ],
+      "title": "ThumbnailResult",
+      "type": "object"
     },
     "TimeRange": {
       "additionalProperties": false,

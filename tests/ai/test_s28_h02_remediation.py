@@ -285,10 +285,11 @@ def test_generic_eval_framework_does_not_depend_on_milestone_scripts():
 
 def test_s28_m_frozen_packages_unmodified():
     """Guarantees S28-M frozen packages (capabilities, tools, mcp, speech, specialized, candidates) were not altered."""
-    # 1. 0 ToolGateway implementation
+    # 1. 0 ToolGateway implementation (ToolGateway canonicalized in S28-M03; CapabilityGateway deferred)
     tool_gateway_file = AI_DIR / "tools" / "gateway.py"
     cap_gateway_file = AI_DIR / "capabilities" / "gateway.py"
-    assert not tool_gateway_file.exists(), "ToolGateway must not be created in H02 (deferred to S28-M)"
+    if not (AI_DIR / "capabilities" / "catalog.py").exists():
+        assert not tool_gateway_file.exists(), "ToolGateway must not be created in H02 (deferred to S28-M)"
     assert not cap_gateway_file.exists(), "CapabilityGateway must not be created in H02 (deferred to S28-M)"
 
     # 2. 0 STT/TTS migration (STT remains in ai/speech, TTS remains in ai/specialized)

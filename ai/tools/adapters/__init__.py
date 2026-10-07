@@ -11,6 +11,8 @@ from ai.tools.adapters.mcp import (
     ImplementationSecurityBlockedError,
     MCPToolAdapter,
 )
+from ai.tools.adapters.image_processing import ImageProcessingAdapter
+from ai.tools.adapters.media_processing import MediaProcessingAdapter
 from ai.tools.adapters.native import NativeToolAdapter
 from ai.tools.adapters.registry import (
     AdapterRegistry,

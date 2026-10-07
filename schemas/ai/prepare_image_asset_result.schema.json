@@ -1,0 +1,78 @@
+{
+  "additionalProperties": false,
+  "description": "Result contract for prepared and registered image asset.",
+  "properties": {
+    "asset_id": {
+      "description": "Registered canonical asset ID",
+      "minLength": 1,
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "file_size_bytes": {
+      "description": "Primary asset file size in bytes",
+      "minimum": 0,
+      "title": "File Size Bytes",
+      "type": "integer"
+    },
+    "format": {
+      "description": "Primary asset format",
+      "minLength": 1,
+      "title": "Format",
+      "type": "string"
+    },
+    "height": {
+      "description": "Primary asset height",
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "manifest_registered": {
+      "default": true,
+      "description": "Whether registered into 02_asset_manifest.json",
+      "title": "Manifest Registered",
+      "type": "boolean"
+    },
+    "primary_storage_key": {
+      "description": "StorageService key for primary asset",
+      "minLength": 1,
+      "title": "Primary Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "thumbnail_storage_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "StorageService key for thumbnail",
+      "title": "Thumbnail Storage Key"
+    },
+    "width": {
+      "description": "Primary asset width",
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "asset_id",
+    "primary_storage_key",
+    "width",
+    "height",
+    "format",
+    "file_size_bytes"
+  ],
+  "title": "PrepareImageAssetResult",
+  "type": "object"
+}

@@ -1,0 +1,70 @@
+{
+  "blueprint_version": "2.0.0",
+  "project_id": "prj_canon_14_nested_groups",
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "scene_id": "sc_groups_01",
+      "template": "ShowcaseWrapper",
+      "startFrame": 0,
+      "durationFrames": 60,
+      "layers": [
+        {
+          "layer_id": "grp_parent",
+          "kind": "group",
+          "children_ids": ["grp_child"],
+          "time_range": { "startFrame": 0, "durationFrames": 60, "endFrame": 60 },
+          "transform": {
+            "position": { "x": 500, "y": 300 },
+            "scale": { "x": 1.5, "y": 1.5 },
+            "rotation": 15,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 0.9
+          },
+          "opacity": 0.9,
+          "visible": true,
+          "z_index": 0
+        },
+        {
+          "layer_id": "grp_child",
+          "kind": "group",
+          "parent_id": "grp_parent",
+          "children_ids": ["layer_item"],
+          "time_range": { "startFrame": 0, "durationFrames": 60, "endFrame": 60 },
+          "transform": {
+            "position": { "x": 50, "y": 50 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0.5, "y": 0.5 },
+            "opacity": 1
+          },
+          "opacity": 1,
+          "visible": true,
+          "z_index": 1
+        },
+        {
+          "layer_id": "layer_item",
+          "kind": "text",
+          "parent_id": "grp_child",
+          "text": "Nested Group Item",
+          "typography": {
+            "fontFamily": "Cairo",
+            "fontSize": 32
+          },
+          "time_range": { "startFrame": 0, "durationFrames": 60, "endFrame": 60 },
+          "transform": {
+            "position": { "x": 10, "y": 10 },
+            "scale": { "x": 1, "y": 1 },
+            "rotation": 0,
+            "anchor": { "x": 0, "y": 0 },
+            "opacity": 1
+          },
+          "opacity": 1,
+          "visible": true,
+          "z_index": 2
+        }
+      ]
+    }
+  ]
+}

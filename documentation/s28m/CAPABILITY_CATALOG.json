@@ -4,10 +4,10 @@
     "milestone": "S28-M02",
     "title": "Canonical Product Capability Catalog",
     "version": "1.1.0",
-    "total_capabilities": 32,
+    "total_capabilities": 43,
     "categories_summary": {
       "MODEL": 1,
-      "TOOL": 24,
+      "TOOL": 35,
       "DOMAIN_SERVICE": 7
     },
     "families_summary": {
@@ -110,8 +110,19 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_speech_preparation_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/preparation.py",
+          "provider_or_engine": "SpeechPreparationService",
+          "constraints": [
+            "Deterministic sentence and word segmentation",
+            "Multilingual punctuation and duration limit enforcement"
+          ]
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_split_voiceover_sentences",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/sentence_splitter.py",
           "provider_or_engine": "FFmpeg CLI (asyncio subprocess)",
@@ -156,8 +167,19 @@
       "latency_class": "INTERACTIVE",
       "implementations": [
         {
+          "implementation_id": "canonical_speech_manifest_builder",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/manifest.py",
+          "provider_or_engine": "SpeechManifestBuilder / DomainServiceAdapter",
+          "constraints": [
+            "Conforms strictly to Voiceover Manifest 1.0 schema",
+            "Full word coverage validation and timeline bounds enforcement"
+          ]
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_get_voiceover_manifest",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/manifest_builder.py",
           "provider_or_engine": "Python Standard Library (pure calculation)",
@@ -201,8 +223,19 @@
       "latency_class": "INTERACTIVE",
       "implementations": [
         {
+          "implementation_id": "canonical_speech_timeline_builder",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/timeline.py",
+          "provider_or_engine": "SpeechTimelineBuilder / DomainServiceAdapter",
+          "constraints": [
+            "Strict chronological order, zero-start, no gaps, no overlaps",
+            "Consumable directly by Remotion captions and preview sync"
+          ]
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_build_voiceover_timeline",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/timeline_builder.py",
           "provider_or_engine": "Python Standard Library (pure calculation)",
@@ -245,8 +278,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_trim_audio",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (-c copy)",
@@ -260,7 +307,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Audio Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -289,8 +336,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_extend_audio",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (-stream_loop)",
@@ -304,7 +365,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Audio Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -333,8 +394,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_normalize_loudness",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (loudnorm filter)",
@@ -348,7 +423,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Audio Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -377,8 +452,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_audio_tools_mcp_detect_and_trim_silence",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/audio-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (silencedetect filter)",
@@ -392,7 +481,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Audio Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -422,7 +511,7 @@
       "implementations": [
         {
           "implementation_id": "legacy_video_tools_mcp_trim_video",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (-c copy)",
@@ -433,10 +522,24 @@
             "Keyframe boundary snapping when streamcopying without re-encode"
           ],
           "legacy_storage_behavior": "Reads source video path; writes trimmed MP4 to local path via FFmpeg streamcopy"
+        },
+        {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -465,8 +568,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_video_tools_mcp_extend_video",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (-stream_loop / tpad)",
@@ -480,7 +597,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -509,8 +626,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_video_tools_mcp_resize_video",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (scale and pad filters)",
@@ -524,7 +655,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -553,8 +684,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_video_tools_mcp_detect_and_trim_black_frames",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "PARTIALLY_WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/video-tools-mcp/utils/ffmpeg_ops.py",
           "provider_or_engine": "FFmpeg CLI (blackdetect filter)",
@@ -569,7 +714,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -598,8 +743,22 @@
       "latency_class": "LONG_RUNNING",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_ffmpeg_mcp_server_speed_up_video",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "PARTIALLY_WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/server.js",
           "provider_or_engine": "FFmpeg CLI (setpts filter via Node.js spawn)",
@@ -614,7 +773,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS",
@@ -644,8 +803,22 @@
       "latency_class": "LONG_RUNNING",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_ffmpeg_mcp_server_increase_keyframes",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "PARTIALLY_WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/server.js",
           "provider_or_engine": "FFmpeg CLI (-g <gop_value> via Node.js spawn)",
@@ -660,7 +833,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -689,8 +862,22 @@
       "latency_class": "SHORT",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_ffmpeg_mcp_server_concatenate_videos",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "PARTIALLY_WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/server.js",
           "provider_or_engine": "FFmpeg CLI (concat demuxer via Node.js execAsync)",
@@ -705,7 +892,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Video Subsystem)",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE",
         "SUBPROCESS"
@@ -719,8 +906,8 @@
       "description": "Resizes an image using high-quality classical Lanczos sinc filtering without neural hallucinations.",
       "category": "TOOL",
       "family": "IMAGE_PROCESSING",
-      "input_contract": "UpscaleImageInput",
-      "output_contract": "UpscaleImageOutput",
+      "input_contract": "ResizeImageRequest",
+      "output_contract": "ResizeImageResult",
       "side_effect_class": "PERSISTENT_WRITE",
       "required_permissions": [
         "editor"
@@ -733,6 +920,19 @@
       "cost_class": "LOW",
       "latency_class": "SHORT",
       "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_resize_image",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.resize)",
+          "constraints": [
+            "Bounded dimensions (8192 max)",
+            "Decompression bomb protected"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService with content-addressed cache"
+        },
         {
           "implementation_id": "legacy_image_tools_mcp_upscale_image",
           "implementation_kind": "LEGACY_MCP",
@@ -749,7 +949,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Image Subsystem)",
+      "owner": "ImageProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE"
       ],
@@ -762,8 +962,8 @@
       "description": "Performs center cropping on an image to match canonical aspect ratios (e.g. 9:16, 16:9, 1:1).",
       "category": "TOOL",
       "family": "IMAGE_PROCESSING",
-      "input_contract": "CropRatioInput",
-      "output_contract": "CropRatioOutput",
+      "input_contract": "CropImageRatioRequest",
+      "output_contract": "CropImageRatioResult",
       "side_effect_class": "PERSISTENT_WRITE",
       "required_permissions": [
         "editor"
@@ -776,6 +976,19 @@
       "cost_class": "LOW",
       "latency_class": "SHORT",
       "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_crop_image_ratio",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.crop_to_ratio)",
+          "constraints": [
+            "Aspect ratio preservation",
+            "Safe color composite"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService with content-addressed cache"
+        },
         {
           "implementation_id": "legacy_image_tools_mcp_crop_to_ratio",
           "implementation_kind": "LEGACY_MCP",
@@ -792,7 +1005,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Image Subsystem)",
+      "owner": "ImageProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE"
       ],
@@ -805,8 +1018,8 @@
       "description": "Automatically detects and strips solid or transparent outer borders from an image bounding box.",
       "category": "TOOL",
       "family": "IMAGE_PROCESSING",
-      "input_contract": "AutoCropInput",
-      "output_contract": "AutoCropOutput",
+      "input_contract": "AutoCropImageRequest",
+      "output_contract": "AutoCropImageResult",
       "side_effect_class": "PERSISTENT_WRITE",
       "required_permissions": [
         "editor"
@@ -819,6 +1032,19 @@
       "cost_class": "LOW",
       "latency_class": "SHORT",
       "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_auto_crop_image",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.auto_crop_content)",
+          "constraints": [
+            "Alpha and solid border detection",
+            "Configurable threshold"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService with content-addressed cache"
+        },
         {
           "implementation_id": "legacy_image_tools_mcp_auto_crop_content",
           "implementation_kind": "LEGACY_MCP",
@@ -835,7 +1061,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService (Image Subsystem)",
+      "owner": "ImageProcessingService",
       "side_effects": [
         "PERSISTENT_WRITE"
       ],
@@ -1331,8 +1557,22 @@
       "latency_class": "INTERACTIVE",
       "implementations": [
         {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace",
+            "Validates output stream sanity and duration",
+            "Publishes via StorageService"
+          ],
+          "known_issues": []
+        },
+        {
           "implementation_id": "legacy_ffmpeg_mcp_server_get_files_info",
-          "implementation_kind": "LEGACY_MCP",
+          "implementation_kind": "COMPATIBILITY_ONLY",
           "current_status": "WORKING",
           "source": ".agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server/server.js",
           "provider_or_engine": "Node.js fs.stat",
@@ -1346,7 +1586,7 @@
         }
       ],
       "status": "ACTIVE",
-      "owner": "MediaProcessingService / StorageService",
+      "owner": "MediaProcessingService",
       "side_effects": [
         "READ_ONLY",
         "SUBPROCESS"
@@ -1578,6 +1818,465 @@
         "SUBPROCESS"
       ],
       "target_storage_boundary": "RunService / Durable Job Record"
+    },
+    {
+      "capability_id": "NORMALIZE_AUDIO",
+      "version": "1.0.0",
+      "name": "Normalize Audio",
+      "description": "Normalizes integrated audio loudness to an authoritative LUFS target (EBU R128 dual-pass) via MediaProcessingService.",
+      "category": "TOOL",
+      "family": "AUDIO_PROCESSING",
+      "input_contract": "NormalizeAudioInput",
+      "output_contract": "NormalizeAudioOutput",
+      "side_effect_class": "PERSISTENT_WRITE",
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 30.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "implementations": [
+        {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries",
+            "Operates within isolated worker scratch workspace"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "MediaProcessingService",
+      "side_effects": [
+        "PERSISTENT_WRITE",
+        "SUBPROCESS"
+      ],
+      "target_storage_boundary": "StorageService / Project Audio"
+    },
+    {
+      "capability_id": "ANALYZE_LOUDNESS",
+      "version": "1.0.0",
+      "name": "Analyze Audio Loudness",
+      "description": "Measures integrated LUFS, loudness range, true peak, and threshold according to EBU R128 standard without mutating media.",
+      "category": "TOOL",
+      "family": "AUDIO_PROCESSING",
+      "input_contract": "AnalyzeLoudnessInput",
+      "output_contract": "AnalyzeLoudnessOutput",
+      "side_effect_class": "READ_ONLY",
+      "required_permissions": [
+        "viewer",
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 30.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "NEGLIGIBLE",
+      "latency_class": "SHORT",
+      "implementations": [
+        {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "MediaProcessingService",
+      "side_effects": [
+        "READ_ONLY",
+        "SUBPROCESS"
+      ],
+      "target_storage_boundary": "In-Memory (Read-Only Analysis)"
+    },
+    {
+      "capability_id": "DETECT_SILENCE",
+      "version": "1.0.0",
+      "name": "Detect Audio Silence",
+      "description": "Detects silence intervals, silence ratio, and durations in audio without trimming or mutating media.",
+      "category": "TOOL",
+      "family": "AUDIO_PROCESSING",
+      "input_contract": "DetectSilenceInput",
+      "output_contract": "DetectSilenceOutput",
+      "side_effect_class": "READ_ONLY",
+      "required_permissions": [
+        "viewer",
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 30.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "NEGLIGIBLE",
+      "latency_class": "SHORT",
+      "implementations": [
+        {
+          "implementation_id": "canonical_media_processing_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/media_processing/service.py",
+          "provider_or_engine": "MediaProcessingService + FFmpegAdapter",
+          "constraints": [
+            "Requires local FFmpeg and ffprobe binaries"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "MediaProcessingService",
+      "side_effects": [
+        "READ_ONLY",
+        "SUBPROCESS"
+      ],
+      "target_storage_boundary": "In-Memory (Read-Only Analysis)"
+    },
+    {
+      "capability_id": "SPLIT_SPEECH_TEXT",
+      "version": "1.0.0",
+      "name": "Split Speech Text",
+      "description": "Deterministically segments speech text into sentence units with duration bounds and multilingual punctuation.",
+      "category": "TOOL",
+      "family": "SPEECH_INTELLIGENCE",
+      "input_contract": "SplitSpeechTextInput",
+      "output_contract": "SplitSpeechTextOutput",
+      "side_effect_class": "READ_ONLY",
+      "required_permissions": [
+        "viewer",
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 15.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "NEGLIGIBLE",
+      "latency_class": "INTERACTIVE",
+      "implementations": [
+        {
+          "implementation_id": "canonical_speech_preparation_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/preparation.py",
+          "provider_or_engine": "SpeechPreparationService",
+          "constraints": [
+            "Deterministic calculation without model or network dependency"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "SpeechPreparationService",
+      "side_effects": [
+        "READ_ONLY"
+      ],
+      "target_storage_boundary": "None (Pure In-Memory Computation)"
+    },
+    {
+      "capability_id": "PREPARE_VO_SEGMENTS",
+      "version": "1.0.0",
+      "name": "Prepare Voiceover Segments",
+      "description": "Prepares structured voiceover segment plan with audio presentation mode and target speaking rate.",
+      "category": "TOOL",
+      "family": "SPEECH_INTELLIGENCE",
+      "input_contract": "PrepareVoSegmentsInput",
+      "output_contract": "PrepareVoSegmentsOutput",
+      "side_effect_class": "READ_ONLY",
+      "required_permissions": [
+        "viewer",
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 15.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "NEGLIGIBLE",
+      "latency_class": "INTERACTIVE",
+      "implementations": [
+        {
+          "implementation_id": "canonical_speech_preparation_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/preparation.py",
+          "provider_or_engine": "SpeechPreparationService",
+          "constraints": [
+            "Deterministic calculation without model or network dependency"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "SpeechPreparationService",
+      "side_effects": [
+        "READ_ONLY"
+      ],
+      "target_storage_boundary": "None (Pure In-Memory Computation)"
+    },
+    {
+      "capability_id": "ALIGN_AUDIO_METADATA",
+      "version": "1.0.0",
+      "name": "Align Audio Metadata",
+      "description": "Validates and aligns timestamped transcription words with source audio duration and boundary constraints.",
+      "category": "TOOL",
+      "family": "SPEECH_INTELLIGENCE",
+      "input_contract": "AlignAudioMetadataInput",
+      "output_contract": "AlignAudioMetadataOutput",
+      "side_effect_class": "READ_ONLY",
+      "required_permissions": [
+        "viewer",
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 15.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "NEGLIGIBLE",
+      "latency_class": "INTERACTIVE",
+      "implementations": [
+        {
+          "implementation_id": "canonical_speech_preparation_service",
+          "implementation_kind": "NATIVE_PRIMARY",
+          "current_status": "WORKING",
+          "source": "ai/speech/preparation.py",
+          "provider_or_engine": "SpeechPreparationService",
+          "constraints": [
+            "Validates monotonic chronology and coverage ratio"
+          ],
+          "known_issues": []
+        }
+      ],
+      "status": "ACTIVE",
+      "owner": "SpeechPreparationService",
+      "side_effects": [
+        "READ_ONLY"
+      ],
+      "target_storage_boundary": "None (Pure In-Memory Computation)"
+    },
+    {
+      "capability_id": "PROBE_IMAGE",
+      "version": "1.0.0",
+      "name": "Probe Image Metadata and Properties",
+      "description": "Extracts technical metadata, format, color mode, dimensions, and EXIF orientation in a strictly read-only manner.",
+      "category": "TOOL",
+      "family": "IMAGE_PROCESSING",
+      "input_contract": "ProbeImageRequest",
+      "output_contract": "ProbeImageResult",
+      "side_effect_class": "READ_ONLY",
+      "side_effects": [
+        "READ_ONLY"
+      ],
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 15.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "owner": "ImageProcessingService",
+      "status": "ACTIVE",
+      "target_storage_boundary": "StorageService / Read Only",
+      "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_probe_image",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.probe)",
+          "constraints": [
+            "Read-only",
+            "Decompression bomb protected"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "In-memory safe decode without disk writes"
+        }
+      ]
+    },
+    {
+      "capability_id": "CONVERT_IMAGE",
+      "version": "1.0.0",
+      "name": "Convert Image Format",
+      "description": "Converts image between supported formats (PNG, JPEG, WEBP) with safe alpha compositing onto configurable background.",
+      "category": "TOOL",
+      "family": "IMAGE_PROCESSING",
+      "input_contract": "ConvertImageRequest",
+      "output_contract": "ConvertImageResult",
+      "side_effect_class": "PERSISTENT_WRITE",
+      "side_effects": [
+        "PERSISTENT_WRITE"
+      ],
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 20.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "owner": "ImageProcessingService",
+      "status": "ACTIVE",
+      "target_storage_boundary": "StorageService / Project Images",
+      "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_convert_image",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.convert)",
+          "constraints": [
+            "Format allowlist (PNG, JPEG, WEBP)",
+            "Safe alpha handling"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService with content-addressed cache"
+        }
+      ]
+    },
+    {
+      "capability_id": "OPTIMIZE_IMAGE",
+      "version": "1.0.0",
+      "name": "Optimize Image Payload",
+      "description": "Recompresses image and strips privacy-sensitive EXIF/GPS metadata, providing compression ratio metrics.",
+      "category": "TOOL",
+      "family": "IMAGE_PROCESSING",
+      "input_contract": "OptimizeImageRequest",
+      "output_contract": "OptimizeImageResult",
+      "side_effect_class": "PERSISTENT_WRITE",
+      "side_effects": [
+        "PERSISTENT_WRITE"
+      ],
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 20.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "owner": "ImageProcessingService",
+      "status": "ACTIVE",
+      "target_storage_boundary": "StorageService / Project Images",
+      "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_optimize_image",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.optimize)",
+          "constraints": [
+            "Privacy metadata stripping",
+            "Bounded dimensions"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService with content-addressed cache"
+        }
+      ]
+    },
+    {
+      "capability_id": "PREPARE_IMAGE_ASSET",
+      "version": "1.0.0",
+      "name": "Prepare and Register Image Asset",
+      "description": "Full asset ingestion pipeline: orientation normalization, bounding, optimization, StorageService persistence, thumbnail generation, and AssetService Manifest v2 registration.",
+      "category": "TOOL",
+      "family": "IMAGE_PROCESSING",
+      "input_contract": "PrepareImageAssetRequest",
+      "output_contract": "PrepareImageAssetResult",
+      "side_effect_class": "PERSISTENT_WRITE",
+      "side_effects": [
+        "PERSISTENT_WRITE",
+        "DOMAIN_MUTATION"
+      ],
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 30.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "owner": "ImageProcessingService",
+      "status": "ACTIVE",
+      "target_storage_boundary": "StorageService / AssetService Manifest v2",
+      "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_prepare_image_asset",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService.prepare_image_asset",
+          "constraints": [
+            "Transactional registration",
+            "Automatic companion thumbnail"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Registers asset atomically into Manifest v2 and publishes to StorageService"
+        }
+      ]
+    },
+    {
+      "capability_id": "THUMBNAIL",
+      "version": "1.0.0",
+      "name": "Generate Image Thumbnail",
+      "description": "Generates deterministic preview thumbnails with aspect ratio preservation and format control.",
+      "category": "TOOL",
+      "family": "IMAGE_PROCESSING",
+      "input_contract": "ThumbnailRequest",
+      "output_contract": "ThumbnailResult",
+      "side_effect_class": "PERSISTENT_WRITE",
+      "side_effects": [
+        "PERSISTENT_WRITE"
+      ],
+      "required_permissions": [
+        "editor"
+      ],
+      "tenant_scope": "PROJECT",
+      "execution_mode": "LOCAL",
+      "timeout_seconds": 15.0,
+      "retry_policy": "SAFE_TRANSIENT",
+      "idempotency_policy": "IDEMPOTENT",
+      "cost_class": "LOW",
+      "latency_class": "SHORT",
+      "owner": "ImageProcessingService",
+      "status": "ACTIVE",
+      "target_storage_boundary": "StorageService / Project Cache",
+      "implementations": [
+        {
+          "implementation_id": "canonical_image_processing_service_generate_thumbnail",
+          "implementation_kind": "NATIVE_SERVICE",
+          "current_status": "WORKING",
+          "source": "ai/image_processing/service.py",
+          "provider_or_engine": "ImageProcessingService (PillowImageAdapter.generate_thumbnail)",
+          "constraints": [
+            "Deterministic content-addressed caching"
+          ],
+          "known_issues": [],
+          "legacy_storage_behavior": "Persists to StorageService cache"
+        }
+      ]
     }
   ]
 }

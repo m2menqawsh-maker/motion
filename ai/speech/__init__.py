@@ -45,6 +45,13 @@ from ai.speech.lifecycle import WhisperLifecycleManager
 from ai.speech.local_provider import LocalSTTProvider
 from ai.speech.storage_resolver import resolve_and_materialize_audio
 from ai.speech.cache import STTCacheManager, get_stt_cache_manager
+from ai.speech.preparation import (
+    SpeechPreparationService,
+    get_punctuation_strength,
+    detect_dominant_language,
+)
+from ai.speech.manifest import SpeechManifestBuilder
+from ai.speech.timeline import SpeechTimelineBuilder
 
 __all__ = [
     # S27
@@ -85,4 +92,10 @@ __all__ = [
     "resolve_and_materialize_audio",
     "STTCacheManager",
     "get_stt_cache_manager",
+    # S28-M07
+    "SpeechPreparationService",
+    "SpeechManifestBuilder",
+    "SpeechTimelineBuilder",
+    "get_punctuation_strength",
+    "detect_dominant_language",
 ]

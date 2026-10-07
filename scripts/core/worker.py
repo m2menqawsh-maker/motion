@@ -100,6 +100,24 @@ class PipelineWorker:
                     meta_out = storage.put(out_key, f_out, content_type="video/mp4")
                     ref["output_storage_key"] = out_key
                     ref["output_size_bytes"] = meta_out.size_bytes
+                    try:
+                        import hashlib
+                        from datetime import datetime, timezone
+                        from scripts.core.database import get_database_engine
+                        with open(out_file, "rb") as f_hash:
+                            out_sha = hashlib.sha256(f_hash.read()).hexdigest()
+                        db_eng = get_database_engine()
+                        art_id = f"art_out_{run.project_id}_{run.run_id}"
+                        now_iso = datetime.now(timezone.utc).isoformat()
+                        with db_eng.transaction("IMMEDIATE") as conn:
+                            conn.execute("""
+                                INSERT OR REPLACE INTO project_artifact_versions (
+                                    id, workspace_id, project_id, artifact_kind, revision,
+                                    content_hash, storage_key, created_by, created_at
+                                ) VALUES (?, ?, ?, 'output_video', ?, ?, ?, ?, ?)
+                            """, (art_id, ws_id, run.project_id, run.input_revision or 1, out_sha, out_key, run.worker_id, now_iso))
+                    except Exception as art_err:
+                        logger.warning(f"Failed to record artifact version: {art_err}")
             qc_file = proj_dir / "final_qc_report.json"
             if qc_file.exists():
                 qc_key = f"workspaces/{ws_id}/projects/{run.project_id}/outputs/{run.run_id}/final_qc_report.json"
@@ -262,6 +280,7 @@ class PipelineWorker:
         env["AGY_WORKER_ID"] = self.worker_id
         env["AGY_IS_MANAGED"] = "1"
         env["AGY_WORKSPACE_ID"] = ws_id
+        env["AGY_INPUT_REVISION"] = str(run.input_revision or 1)
         env["AGY_EPHEMERAL_WORKSPACE"] = str(ephemeral_dir)
         workspace_dir = str(Path(__file__).resolve().parent.parent.parent)
         existing_pythonpath = env.get("PYTHONPATH", "")
@@ -330,6 +349,19 @@ class PipelineWorker:
                             elif "[STAGE_FINISH]" in cleaned:
                                 stg = cleaned.split("[STAGE_FINISH]")[-1].strip()
                                 self.repo.record_event(run.run_id, run.project_id, "STAGE_COMPLETED", stage=stg, workspace_id=ws_id)
+                            elif cleaned.startswith('{"_event":'):
+                                try:
+                                    evt_dict = json.loads(cleaned)
+                                    evt_type = evt_dict.pop("_event")
+                                    self.repo.record_event(
+                                        run_id=run.run_id,
+                                        project_id=run.project_id,
+                                        event_type=evt_type,
+                                        payload=evt_dict,
+                                        workspace_id=ws_id,
+                                    )
+                                except Exception:
+                                    pass
                 except Exception:
                     pass
 

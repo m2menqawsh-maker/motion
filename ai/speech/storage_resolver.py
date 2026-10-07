@@ -34,6 +34,7 @@ from scripts.core.storage.storage_service import (
     StorageNotFoundError,
     StorageSecurityError,
     StorageService,
+    get_storage_service,
     validate_storage_key,
 )
 
@@ -103,56 +104,61 @@ async def resolve_and_materialize_audio(
 
         if audio_bytes_override is not None:
             audio_data = audio_bytes_override
-        elif storage_service is not None:
-            try:
-                # Look up via StorageService
-                clean_key = validate_storage_key(audio_storage_key)
-                if not storage_service.exists(clean_key):
-                    # Also try project-scoped storage key
-                    proj_scoped_key = f"{'projects'}/{project_id}/{clean_key}"
-                    if storage_service.exists(proj_scoped_key):
-                        clean_key = proj_scoped_key
-                    else:
-                        raise StorageReadError(
-                            f"Audio asset '{audio_storage_key}' not found in StorageService.",
-                            details={"key": clean_key, "project_id": project_id},
-                        )
-                audio_data = storage_service.get(clean_key)
-            except (StorageNotFoundError, StorageSecurityError) as se:
-                raise StorageReadError(f"Storage error reading audio: {se}", details={"error": str(se)})
         else:
-            # Fallback to local project directory resolution
-            candidate_paths = [
-                Path("projects") / project_id / audio_storage_key,
-                Path("assets/incoming/tests") / audio_storage_key,
-                Path(audio_storage_key),
-            ]
-            found_path: Optional[Path] = None
-            for cp in candidate_paths:
-                if cp.exists() and cp.is_file():
-                    # Ensure cp is inside permitted project or test directories
-                    resolved = cp.resolve()
-                    base_proj = (Path("projects") / project_id).resolve()
-                    base_assets = Path("assets").resolve()
-                    base_tests = Path("tests").resolve()
-                    if (
-                        str(resolved).startswith(str(base_proj))
-                        or str(resolved).startswith(str(base_assets))
-                        or str(resolved).startswith(str(base_tests))
-                    ):
-                        found_path = cp
-                        break
+            storage = storage_service
+            if storage is None:
+                try:
+                    storage = get_storage_service()
+                except Exception:
+                    storage = None
 
-            if found_path is None:
-                raise StorageReadError(
-                    f"Audio asset '{audio_storage_key}' not found for project '{project_id}'.",
-                    details={"project_id": project_id, "audio_storage_key": audio_storage_key},
-                )
+            audio_data: Optional[bytes] = None
+            if storage is not None:
+                try:
+                    # Look up via StorageService
+                    clean_key = validate_storage_key(audio_storage_key)
+                    if storage.exists(clean_key):
+                        audio_data = storage.get(clean_key)
+                    else:
+                        proj_scoped_key = f"{'projects'}/{project_id}/{clean_key}"
+                        if storage.exists(proj_scoped_key):
+                            audio_data = storage.get(proj_scoped_key)
+                except (StorageNotFoundError, StorageSecurityError):
+                    pass
 
-            try:
-                audio_data = found_path.read_bytes()
-            except Exception as e:
-                raise StorageReadError(f"Failed to read audio file '{found_path}': {e}")
+            if audio_data is None:
+                # Fallback to local project directory resolution
+                candidate_paths = [
+                    Path("projects") / project_id / audio_storage_key,
+                    Path("assets/incoming/tests") / audio_storage_key,
+                    Path(audio_storage_key),
+                ]
+                found_path: Optional[Path] = None
+                for cp in candidate_paths:
+                    if cp.exists() and cp.is_file():
+                        # Ensure cp is inside permitted project or test directories
+                        resolved = cp.resolve()
+                        base_proj = (Path("projects") / project_id).resolve()
+                        base_assets = Path("assets").resolve()
+                        base_tests = Path("tests").resolve()
+                        if (
+                            str(resolved).startswith(str(base_proj))
+                            or str(resolved).startswith(str(base_assets))
+                            or str(resolved).startswith(str(base_tests))
+                        ):
+                            found_path = cp
+                            break
+
+                if found_path is not None:
+                    try:
+                        audio_data = found_path.read_bytes()
+                    except Exception as e:
+                        raise StorageReadError(f"Failed to read audio file '{found_path}': {e}")
+                else:
+                    raise StorageReadError(
+                        f"Audio asset '{audio_storage_key}' not found in StorageService or project directory.",
+                        details={"key": audio_storage_key, "project_id": project_id},
+                    )
 
         # 4. Check Non-Empty Content
         if len(audio_data) == 0:

@@ -47,9 +47,9 @@ def router() -> CapabilityRouter:
 class TestCapabilityRouterResolution:
     """Verifies that all 32 capabilities are recognized and dispatched correctly by category."""
 
-    def test_all_32_capabilities_known_to_router(self, router: CapabilityRouter):
+    def test_all_capabilities_known_to_router(self, router: CapabilityRouter):
         catalog = router.catalog
-        assert catalog.total_count == 32
+        assert catalog.total_count == 43
 
         categories = {
             CapabilityCategory.MODEL.value: 0,
@@ -61,7 +61,7 @@ class TestCapabilityRouterResolution:
             categories[cat] += 1
 
         assert categories[CapabilityCategory.MODEL.value] == 1
-        assert categories[CapabilityCategory.TOOL.value] == 24
+        assert categories[CapabilityCategory.TOOL.value] == 35
         assert categories[CapabilityCategory.DOMAIN_SERVICE.value] == 7
 
     @pytest.mark.asyncio

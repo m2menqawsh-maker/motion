@@ -230,6 +230,23 @@ from ai.contracts.media_ops import (
     SpeechManifestOutput,
     SpeechTimelineInput,
     SpeechTimelineOutput,
+    SpeechTextSegmentItem,
+    SplitSpeechTextInput,
+    SplitSpeechTextOutput,
+    PreparedVoSegmentItem,
+    PrepareVoSegmentsInput,
+    PrepareVoSegmentsOutput,
+    AlignedWordItem,
+    AlignedSegmentItem,
+    AlignAudioMetadataInput,
+    AlignAudioMetadataOutput,
+    SilenceIntervalItem,
+    DetectSilenceInput,
+    DetectSilenceOutput,
+    AnalyzeLoudnessInput,
+    AnalyzeLoudnessOutput,
+    NormalizeAudioInput,
+    NormalizeAudioOutput,
     TrimAudioInput,
     TrimAudioOutput,
     ExtendAudioInput,
@@ -287,6 +304,55 @@ from ai.contracts.media_ops import (
     CancelJobInput,
     CancelJobOutput,
 )
+try:
+    from ai.image_processing.contracts import (
+        AutoCropImageRequest,
+        AutoCropImageResult,
+        ConvertImageRequest,
+        ConvertImageResult,
+        CropImageRatioRequest,
+        CropImageRatioResult,
+        OptimizeImageRequest,
+        OptimizeImageResult,
+        PrepareImageAssetRequest,
+        PrepareImageAssetResult,
+        ProbeImageRequest,
+        ProbeImageResult,
+        ResizeImageRequest,
+        ResizeImageResult,
+        ThumbnailRequest,
+        ThumbnailResult,
+    )
+except ImportError:
+    pass
+
+_IMAGE_PROCESSING_EXPORTS = {
+    "AutoCropImageRequest",
+    "AutoCropImageResult",
+    "ConvertImageRequest",
+    "ConvertImageResult",
+    "CropImageRatioRequest",
+    "CropImageRatioResult",
+    "OptimizeImageRequest",
+    "OptimizeImageResult",
+    "PrepareImageAssetRequest",
+    "PrepareImageAssetResult",
+    "ProbeImageRequest",
+    "ProbeImageResult",
+    "ResizeImageRequest",
+    "ResizeImageResult",
+    "ThumbnailRequest",
+    "ThumbnailResult",
+}
+
+
+def __getattr__(name: str):
+    if name in _IMAGE_PROCESSING_EXPORTS:
+        import ai.image_processing.contracts as _ipc
+        return getattr(_ipc, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
 
 __all__ = [
     # Base primitives
@@ -479,6 +545,23 @@ __all__ = [
     "SpeechManifestOutput",
     "SpeechTimelineInput",
     "SpeechTimelineOutput",
+    "SpeechTextSegmentItem",
+    "SplitSpeechTextInput",
+    "SplitSpeechTextOutput",
+    "PreparedVoSegmentItem",
+    "PrepareVoSegmentsInput",
+    "PrepareVoSegmentsOutput",
+    "AlignedWordItem",
+    "AlignedSegmentItem",
+    "AlignAudioMetadataInput",
+    "AlignAudioMetadataOutput",
+    "SilenceIntervalItem",
+    "DetectSilenceInput",
+    "DetectSilenceOutput",
+    "AnalyzeLoudnessInput",
+    "AnalyzeLoudnessOutput",
+    "NormalizeAudioInput",
+    "NormalizeAudioOutput",
     "TrimAudioInput",
     "TrimAudioOutput",
     "ExtendAudioInput",
@@ -535,5 +618,21 @@ __all__ = [
     "GetJobStatusOutput",
     "CancelJobInput",
     "CancelJobOutput",
+    "AutoCropImageRequest",
+    "AutoCropImageResult",
+    "ConvertImageRequest",
+    "ConvertImageResult",
+    "CropImageRatioRequest",
+    "CropImageRatioResult",
+    "OptimizeImageRequest",
+    "OptimizeImageResult",
+    "PrepareImageAssetRequest",
+    "PrepareImageAssetResult",
+    "ProbeImageRequest",
+    "ProbeImageResult",
+    "ResizeImageRequest",
+    "ResizeImageResult",
+    "ThumbnailRequest",
+    "ThumbnailResult",
 ]
 

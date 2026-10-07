@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for probing image properties and technical metadata.",
+  "properties": {
+    "extract_metadata": {
+      "default": true,
+      "description": "Whether to parse EXIF and metadata summary",
+      "title": "Extract Metadata",
+      "type": "boolean"
+    },
+    "image_storage_key": {
+      "description": "StorageService key for image to probe",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "ProbeImageRequest",
+  "type": "object"
+}

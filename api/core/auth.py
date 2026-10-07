@@ -37,6 +37,7 @@ from scripts.core.security.settings import (
     EnvironmentType,
 )
 from scripts.security.path_security import validate_project_id
+from scripts.core.tenant_model import TenantContext
 
 
 def get_auth_secret(is_production: bool = False) -> str:
@@ -358,7 +359,6 @@ def require_tenant_context(action: Action):
         # Derive tenant context when no project_id is in the path
         workspace_id = request.headers.get("X-Workspace-ID")
         from scripts.core.database import get_database_engine, TenantRepository
-        from scripts.core.tenant_model import TenantContext
         engine = get_database_engine()
         repo = TenantRepository(engine)
 

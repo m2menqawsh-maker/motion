@@ -25,7 +25,9 @@ from ai.contracts import (
 from ai.tools.adapters.acquisition import AssetAcquisitionAdapter
 from ai.tools.adapters.base import CapabilityAdapter
 from ai.tools.adapters.domain_service import DomainServiceAdapter
+from ai.tools.adapters.image_processing import ImageProcessingAdapter
 from ai.tools.adapters.mcp import ImplementationSecurityBlockedError, MCPToolAdapter
+from ai.tools.adapters.media_processing import MediaProcessingAdapter
 from ai.tools.adapters.native import NativeToolAdapter
 from ai.tools.adapters.remote import RemoteAPIAdapter
 from ai.tools.adapters.worker import WorkerToolAdapter
@@ -59,12 +61,16 @@ class AdapterRegistry:
         # Canonical adapter priority order:
         # 1. DomainServiceAdapter (governs DOMAIN_SERVICE category)
         # 2. AssetAcquisitionAdapter (governs MEDIA_ACQUISITION capabilities)
-        # 3. NativeToolAdapter (in-process verified python)
-        # 4. RemoteAPIAdapter (external stock providers)
-        # 5. WorkerToolAdapter (asynchronous batch queue)
-        # 6. MCPToolAdapter (bounded legacy MCP tools)
+        # 3. MediaProcessingAdapter (governs canonical media processing)
+        # 3.5 ImageProcessingAdapter (governs canonical image processing)
+        # 4. NativeToolAdapter (in-process verified python)
+        # 5. RemoteAPIAdapter (external stock providers)
+        # 6. WorkerToolAdapter (asynchronous batch queue)
+        # 7. MCPToolAdapter (bounded legacy MCP tools)
         self.register_adapter(DomainServiceAdapter())
         self.register_adapter(AssetAcquisitionAdapter())
+        self.register_adapter(MediaProcessingAdapter())
+        self.register_adapter(ImageProcessingAdapter())
         self.register_adapter(NativeToolAdapter())
         self.register_adapter(RemoteAPIAdapter())
         self.register_adapter(WorkerToolAdapter())
@@ -118,6 +124,58 @@ class AdapterRegistry:
             if isinstance(ad, AssetAcquisitionAdapter) and ad.can_handle(capability):
                 impl = capability.implementations[0] if capability.implementations else None
                 return ad, impl
+
+        # 2.5. CANONICAL MEDIA_PROCESSING capabilities -> MediaProcessingAdapter
+        canonical_media_caps = {
+            "PROBE_MEDIA",
+            "TRANSCODE_VIDEO",
+            "EXTRACT_AUDIO",
+            "EXTRACT_FRAMES",
+            "CONCAT_MEDIA",
+            "CHANGE_CONTAINER",
+            "NORMALIZE_MEDIA",
+            "NORMALIZE_AUDIO",
+            "ANALYZE_LOUDNESS",
+            "DETECT_SILENCE",
+            "TRIM_AUDIO",
+            "EXTEND_AUDIO",
+            "NORMALIZE_AUDIO_LOUDNESS",
+            "TRIM_AUDIO_SILENCE",
+            "TRIM_VIDEO",
+            "EXTEND_VIDEO",
+            "RESIZE_VIDEO",
+            "TRIM_BLACK_FRAMES",
+            "CHANGE_VIDEO_SPEED",
+            "ENFORCE_KEYFRAME_INTERVAL",
+            "CONCATENATE_VIDEOS",
+            "INSPECT_MEDIA",
+        }
+        if cap_id in canonical_media_caps:
+            for ad in self._adapters:
+                if isinstance(ad, MediaProcessingAdapter) and ad.can_handle(capability):
+                    canonical_impl = next(
+                        (i for i in capability.implementations if "canonical" in i.implementation_id or getattr(i, "implementation_kind", None) == "NATIVE_PRIMARY"),
+                        None,
+                    )
+                    impl = canonical_impl or (capability.implementations[0] if capability.implementations else None)
+                    return ad, impl
+
+        # 2.6. CANONICAL IMAGE_PROCESSING capabilities -> ImageProcessingAdapter
+        canonical_image_caps = {
+            "RESIZE_IMAGE",
+            "CROP_IMAGE_TO_RATIO",
+            "AUTO_CROP_IMAGE",
+            "CONVERT_IMAGE",
+            "OPTIMIZE_IMAGE",
+            "PROBE_IMAGE",
+            "PREPARE_IMAGE_ASSET",
+            "THUMBNAIL",
+        }
+        if cap_id in canonical_image_caps:
+            for ad in self._adapters:
+                if isinstance(ad, ImageProcessingAdapter) and ad.can_handle(capability):
+                    impl = capability.implementations[0] if capability.implementations else None
+                    return ad, impl
 
         # 3. Check registered implementations
         implementations = capability.implementations

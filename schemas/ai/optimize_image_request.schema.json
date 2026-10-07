@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "description": "Request contract for recompressing and optimizing an image.",
+  "properties": {
+    "image_storage_key": {
+      "description": "StorageService key for source image",
+      "minLength": 1,
+      "title": "Image Storage Key",
+      "type": "string"
+    },
+    "max_height": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional bounding height constraint",
+      "title": "Max Height"
+    },
+    "max_width": {
+      "anyOf": [
+        {
+          "maximum": 8192,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional bounding width constraint",
+      "title": "Max Width"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "quality": {
+      "default": 85,
+      "description": "Target quality factor (1-100)",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Quality",
+      "type": "integer"
+    },
+    "strip_metadata": {
+      "default": true,
+      "description": "Whether to strip GPS, camera, and comments metadata",
+      "title": "Strip Metadata",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_storage_key"
+  ],
+  "title": "OptimizeImageRequest",
+  "type": "object"
+}

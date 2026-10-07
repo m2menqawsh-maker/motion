@@ -51,9 +51,9 @@ class AcquisitionError(Exception):
     def to_ai_error(self) -> AIError:
         """Converts domain acquisition error to client-safe AIError contract."""
         mapping = {
-            AcquisitionErrorCode.PROVIDER_UNAVAILABLE: AIErrorCode.UPSTREAM_UNAVAILABLE,
+            AcquisitionErrorCode.PROVIDER_UNAVAILABLE: AIErrorCode.PROVIDER_UNAVAILABLE,
             AcquisitionErrorCode.PROVIDER_AUTH_FAILED: AIErrorCode.POLICY_DENIED,
-            AcquisitionErrorCode.PROVIDER_RATE_LIMITED: AIErrorCode.RESOURCE_EXHAUSTED,
+            AcquisitionErrorCode.PROVIDER_RATE_LIMITED: AIErrorCode.RATE_LIMITED,
             AcquisitionErrorCode.INVALID_PROVIDER_RESPONSE: AIErrorCode.INVALID_MODEL_OUTPUT,
             AcquisitionErrorCode.NO_ELIGIBLE_RESULTS: AIErrorCode.CAPABILITY_UNAVAILABLE,
             AcquisitionErrorCode.UNSAFE_DOWNLOAD_SOURCE: AIErrorCode.POLICY_DENIED,

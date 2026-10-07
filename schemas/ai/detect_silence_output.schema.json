@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "SilenceIntervalItem": {
+      "additionalProperties": false,
+      "description": "Detected silence interval item.",
+      "properties": {
+        "duration_seconds": {
+          "description": "Interval duration in seconds",
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "Silence end timestamp in seconds",
+          "minimum": 0.0,
+          "title": "End Seconds",
+          "type": "number"
+        },
+        "start_seconds": {
+          "description": "Silence start timestamp in seconds",
+          "minimum": 0.0,
+          "title": "Start Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start_seconds",
+        "end_seconds",
+        "duration_seconds"
+      ],
+      "title": "SilenceIntervalItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Output contract for read-only silence detection.",
+  "properties": {
+    "audio_duration_seconds": {
+      "description": "Total audio duration probed",
+      "minimum": 0.0,
+      "title": "Audio Duration Seconds",
+      "type": "number"
+    },
+    "audio_storage_key": {
+      "description": "StorageService key for source audio",
+      "minLength": 1,
+      "title": "Audio Storage Key",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "silence_intervals": {
+      "description": "Detected silence intervals",
+      "items": {
+        "$ref": "#/$defs/SilenceIntervalItem"
+      },
+      "title": "Silence Intervals",
+      "type": "array"
+    },
+    "silence_ratio": {
+      "description": "Ratio of silence to total audio duration",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Silence Ratio",
+      "type": "number"
+    },
+    "threshold_used_db": {
+      "description": "Threshold used for detection",
+      "title": "Threshold Used Db",
+      "type": "number"
+    },
+    "total_silence_duration_seconds": {
+      "description": "Total cumulative silence duration",
+      "minimum": 0.0,
+      "title": "Total Silence Duration Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "project_id",
+    "audio_storage_key",
+    "total_silence_duration_seconds",
+    "audio_duration_seconds",
+    "silence_ratio",
+    "threshold_used_db"
+  ],
+  "title": "DetectSilenceOutput",
+  "type": "object"
+}

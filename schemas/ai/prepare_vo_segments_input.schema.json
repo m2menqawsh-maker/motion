@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "description": "Input contract for preparing voiceover segment plan.",
+  "properties": {
+    "audio_mode": {
+      "default": "voiceover_primary",
+      "description": "Audio mode",
+      "title": "Audio Mode",
+      "type": "string"
+    },
+    "project_id": {
+      "description": "Project context identifier",
+      "minLength": 1,
+      "title": "Project Id",
+      "type": "string"
+    },
+    "speaking_rate": {
+      "default": 1.0,
+      "description": "Target speaking rate multiplier",
+      "maximum": 2.0,
+      "minimum": 0.5,
+      "title": "Speaking Rate",
+      "type": "number"
+    },
+    "text_segments": {
+      "description": "Text segments to prepare for voiceover",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Text Segments",
+      "type": "array"
+    },
+    "voice_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Voice identifier",
+      "title": "Voice Id"
+    }
+  },
+  "required": [
+    "project_id",
+    "text_segments"
+  ],
+  "title": "PrepareVoSegmentsInput",
+  "type": "object"
+}

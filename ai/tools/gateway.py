@@ -675,3 +675,14 @@ class ToolGateway:
     def _compute_payload_hash(payload: Dict[str, Any]) -> str:
         serialized = json.dumps(payload or {}, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+
+_default_tool_gateway: Optional[ToolGateway] = None
+
+def get_tool_gateway() -> ToolGateway:
+    """Authoritative singleton accessor for ToolGateway."""
+    global _default_tool_gateway
+    if _default_tool_gateway is None:
+        _default_tool_gateway = ToolGateway()
+    return _default_tool_gateway
+

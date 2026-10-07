@@ -28,21 +28,18 @@ from creative_governance.candidates.errors import (
     PromotionSecurityError,
     PromotionTamperedError,
 )
-from creative_governance.candidates.promotion_service import PromotionService
-from api.core.auth import require_tenant_context, Action
-from scripts.core.tenant_model import TenantContext
+from creative_governance.candidates.promotion_service import (
+    PromotionService,
+    create_promotion_service,
+)
+from api.core.auth import require_tenant_context, Action, TenantContext
 
 router = APIRouter()
 
 
 def get_promotion_service() -> PromotionService:
     """Dependency provider for PromotionService."""
-    from scripts.core.database import get_database_engine
-    from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
-    from scripts.core.storage import get_storage_service
-    repo = SqlTemplateCandidateRepository(get_database_engine())
-    storage = get_storage_service()
-    return PromotionService(repository=repo, storage_service=storage)
+    return create_promotion_service()
 
 
 class PromoteCandidateRequest(BaseModel):
