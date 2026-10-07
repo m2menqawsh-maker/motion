@@ -1,107 +1,110 @@
-# Renderer Capability Model Specification (S28-R08)
+# Renderer Capability Model Specification (S28-R10)
 
-## 1. Overview
-
-The Renderer Capability Model provides a fine-grained, deterministic taxonomy of platform rendering features. It enables rendering adapters to declare what features they natively support and allows the system to derive exact technical requirements from any `BlueprintV2` document.
+**Status**: Verified Reality Specification  
+**Governing Authority**: `contracts/renderer.ts` (`CANONICAL_CAPABILITIES`, `deriveRequiredCapabilities`)  
 
 ---
 
-## 2. Canonical Capability Taxonomy
+## 1. Executive Summary
+
+Milestone **S28-R10** formalizes the system-wide Renderer Capability Model. The model prevents hardcoded engine dependencies and guarantees deterministic engine dispatch across heterogeneous rendering runtimes.
+
+Rendering requests declare or dynamically derive a required capability set. `RendererRegistry` matches these requirements against the declared capabilities of all registered adapters using strict fail-closed logic.
+
+---
+
+## 2. Capability Taxonomy
+
+The canonical taxonomy is partitioned into five distinct operational domains:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│                      Renderer Capability Taxonomy                      │
-├────────────────────────────────┬───────────────────────────────────────┤
-│ Core Visual Primitives         │ text, image, video, shapes, groups   │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Temporal & Motion              │ keyframes, transitions, alpha         │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Advanced Graphics / Hardware   │ webgl, 3d, particles, map,            │
-│ Acceleration                   │ custom_shaders                        │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Audio Subsystem (R07)          │ audio, audio_voiceover, audio_music,  │
-│                                │ audio_sfx, audio_mixing,              │
-│                                │ audio_ducking, audio_timing           │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Pipeline Execution Modes       │ frame_rendering, sequence_rendering,  │
-│                                │ export_video, live_preview            │
-└────────────────────────────────┴───────────────────────────────────────┘
+│                        CANONICAL CAPABILITIES                          │
+├─────────────────┬─────────────────┬──────────────────┬─────────────────┤
+│ Core Visual     │ Temporal/Motion │ Advanced Graphic │ Audio Subsystem │
+├─────────────────┼─────────────────┼──────────────────┼─────────────────┤
+│ text            │ keyframes       │ map              │ audio           │
+│ image           │ transitions     │ 3d               │ audio_voiceover │
+│ video           │ alpha           │ particles        │ audio_music     │
+│ shapes          │                 │ custom_shaders   │ audio_sfx       │
+│ groups          │                 │ webgl            │ audio_mixing    │
+│                 │                 │                  │ audio_ducking   │
+│                 │                 │                  │ audio_timing    │
+├─────────────────┴─────────────────┴──────────────────┴─────────────────┤
+│ Execution Pipeline Modes: frame_rendering | sequence_rendering | export_video | live_preview │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.1 Capability Catalog Details
+---
 
-| Capability | Category | Semantics & Triggers |
-| :--- | :--- | :--- |
-| `text` | Visual Primitive | Rendering formatted text nodes, fonts, and typography. |
-| `image` | Visual Primitive | Static bitmap decoding, aspect ratio preservation, object-fit. |
-| `video` | Visual Primitive | Frame-accurate embedded video clip decoding and synchronization. |
-| `shapes` | Visual Primitive | Geometric shapes (rectangles, circles, pills, borders, shadows). |
-| `groups` | Visual Primitive | Layer hierarchy, nested coordinates, and container transforms. |
-| `keyframes` | Temporal | Interpolating animated channels (bezier, spring, linear, hold). |
-| `transitions` | Temporal | Cross-scene transitions and visual blends. |
-| `alpha` | Temporal | Transparency, RGBA blending, layer opacity < 1.0. |
-| `webgl` | Advanced Hardware | WebGL rendering context required for hardware shaders / 3D. |
-| `3d` | Advanced Hardware | Perspective camera, 3D meshes, lighting, transformations. |
-| `particles` | Advanced Hardware | Physics particle spawners, emitter lifecycles, velocities. |
-| `map` | Advanced Hardware | Geospatial vector tile rendering, projection, map animations. |
-| `custom_shaders` | Advanced Hardware | GLSL fragment/vertex shaders (e.g. ripple, crosswarp, film-burn). |
-| `audio` | Audio | General audio decoding and playback capability. |
-| `audio_voiceover` | Audio | Spoken audio timing, speech segment alignment. |
-| `audio_music` | Audio | Background music playback and looping. |
-| `audio_sfx` | Audio | Spot sound effects with exact start offsets. |
-| `audio_mixing` | Audio | Concurrent multi-track audio bus mixing. |
-| `audio_ducking` | Audio | Dynamic volume attenuation of music when voiceover is active. |
-| `audio_timing` | Audio | Frame-accurate sample synchronization and seeking. |
-| `frame_rendering` | Execution Mode | Rendering a single isolated frame into an image buffer. |
-| `sequence_rendering`| Execution Mode | Batch rendering an interval of consecutive frames. |
-| `export_video` | Execution Mode | Headless multiplexed video container export (MP4, WebM). |
-| `live_preview` | Execution Mode | Low-latency interactive rendering for browser playhead. |
+## 3. Concrete Engine Capability Matrix
+
+| Capability Identifier | Domain | `CanvasRendererAdapter` (S28-R10) | `RemotionRendererAdapter` (S28-R09) | `BrowserPreviewAdapter` (S28-R08) |
+| :--- | :--- | :---: | :---: | :---: |
+| `text` | Core Visual | **YES** | **YES** | **YES** |
+| `image` | Core Visual | **YES** | **YES** | **YES** |
+| `shapes` | Core Visual | **YES** | **YES** | **YES** |
+| `groups` | Core Visual | **YES** | **YES** | **YES** |
+| `video` | Core Visual | **NO** (Rejected) | **YES** | **NO** |
+| `keyframes` | Temporal | **YES** | **YES** | **YES** |
+| `transitions` | Temporal | **YES** | **YES** | **NO** |
+| `alpha` | Temporal | **YES** | **YES** | **YES** |
+| `frame_rendering` | Execution Target | **YES** | **YES** | **YES** |
+| `sequence_rendering` | Execution Target | **YES** | **YES** | **NO** (Rejected) |
+| `export_video` | Execution Target | **YES** (MP4) | **YES** (MP4/WebM) | **NO** (Rejected) |
+| `live_preview` | Execution Target | **NO** | **NO** | **YES** |
+| `audio` | Audio | **NO** | **YES** | **YES** |
+| `audio_voiceover` | Audio | **NO** | **YES** | **YES** |
+| `audio_music` | Audio | **NO** | **YES** | **YES** |
+| `audio_ducking` | Audio | **NO** (Rejected) | **YES** | **NO** |
+| `audio_mixing` | Audio | **NO** (Rejected) | **YES** | **NO** |
+| `audio_timing` | Audio | **NO** | **YES** | **YES** |
+| `map` | Advanced Graphics | **NO** (Fail-Closed) | **NO** (Fail-Closed) | **NO** (Fail-Closed) |
+| `3d` | Advanced Graphics | **NO** (Fail-Closed) | **NO** (Fail-Closed) | **NO** (Fail-Closed) |
+| `particles` | Advanced Graphics | **NO** (Fail-Closed) | **NO** (Fail-Closed) | **NO** (Fail-Closed) |
+| `custom_shaders` | Advanced Graphics | **NO** (Fail-Closed) | **NO** (Fail-Closed) | **NO** (Fail-Closed) |
+| `webgl` | Advanced Graphics | **NO** (Fail-Closed) | **NO** (Fail-Closed) | **NO** (Fail-Closed) |
 
 ---
 
-## 3. R05 Template Classification & Engine-Backed Mapping
+## 4. Automatic Derivation Engine (`deriveRequiredCapabilities`)
 
-The capability derivation engine (`deriveRequiredCapabilities`) inspects scene templates and cross-references `TemplateSpec` definitions from `registry/semantic-registry.ts`:
+When a `RenderRequest` does not specify explicit capabilities, `deriveRequiredCapabilities(document, type)` derives the exact minimal set:
 
-| Template / Entity | Template Classification | Derived Capabilities |
-| :--- | :--- | :--- |
-| `rui-title-card` | `NATIVE` | `text`, `shapes` |
-| `rui-quote-card` | `NATIVE` | `text`, `shapes`, `alpha` |
-| `rui-media-frame` | `NATIVE` | `image`, `shapes`, `groups` |
-| `rui-map-flight` | `ENGINE_BACKED` | `map`, `webgl` |
-| `scene3d-element` | `ENGINE_BACKED` | `3d`, `webgl` |
-| `particlesystem-element` | `ENGINE_BACKED` | `particles` |
-| GL Transitions (`ripple`, `clock-wipe`, `crosswarp`, etc.) | `HYBRID` | `transitions`, `custom_shaders`, `webgl` |
+1. **Pipeline Mode**: Adds `frame_rendering`, `sequence_rendering`, or `export_video`.
+2. **Scenes & Layer Inspection**:
+   - `text` layer -> requires `text`
+   - `image` layer -> requires `image`
+   - `video` layer -> requires `video`
+   - `shape` layer / `scene.surface` -> requires `shapes`
+   - `group` layer / `parent_id` -> requires `groups`
+   - channels with keyframes -> requires `keyframes`
+   - layer opacity $< 1.0$ -> requires `alpha`
+   - scene transition -> requires `transitions` (if GL shader transition, adds `custom_shaders` and `webgl`)
+3. **TemplateSpec Requirements**:
+   - `rui-map-flight` -> requires `map`, `webgl`
+   - `scene3d-element` -> requires `3d`, `webgl`
+   - `particlesystem-element` -> requires `particles`
+4. **Audio Subsystem Requirements**:
+   - `voiceover` present -> requires `audio`, `audio_voiceover`, `audio_timing`
+   - `music` present -> requires `audio`, `audio_music`, `audio_timing`
+   - `music.ducking.enabled` -> requires `audio_ducking`, `audio_mixing`
+   - Multiple audio streams $\ge 2$ -> requires `audio_mixing`
 
 ---
 
-## 4. R07 Audio Subsystem Integration
+## 5. Multi-Renderer Deterministic Dispatch Rules
 
-Audio capability derivation extracts requirements directly from `doc.audio`:
-1. `doc.audio.voiceover` present $\implies$ `audio`, `audio_voiceover`, `audio_timing`.
-2. `doc.audio.music` present $\implies$ `audio`, `audio_music`, `audio_timing`.
-3. `doc.audio.global_sfx` present $\implies$ `audio`, `audio_sfx`, `audio_timing`.
-4. `doc.audio.music.ducking.enabled !== false` $\implies$ `audio_ducking`, `audio_mixing`.
-5. Number of concurrent audio streams $\ge 2$ $\implies$ `audio_mixing`.
+Selection operates through `CANONICAL_RENDERER_REGISTRY.selectRenderer(request)`:
 
----
-
-## 5. Alias Normalization Table
-
-The system transparently normalizes common developer aliases into canonical capability keys:
-
-```typescript
-CAPABILITY_ALIASES:
-  "custom shaders"   -> "custom_shaders"
-  "shaders"          -> "custom_shaders"
-  "audio mixing"     -> "audio_mixing"
-  "mixing"           -> "audio_mixing"
-  "audio ducking"    -> "audio_ducking"
-  "ducking"          -> "audio_ducking"
-  "audio timing"     -> "audio_timing"
-  "timing"           -> "audio_timing"
-  "maplibre-gl"      -> "map"
-  "three.js"         -> "3d"
-  "three"            -> "3d"
-  "remotion-bits"    -> "particles"
-```
+1. **Compatibility Gate**:
+   Each registered adapter evaluates `adapter.canRender(request)`. If `missingCapabilities.length > 0`, the adapter is eliminated.
+2. **Deterministic Tie-Breaking**:
+   - **Priority Descending**:
+     - `CanvasRendererAdapter`: `110` (Preferred for lightweight 2D frame and sequence captures)
+     - `RemotionRendererAdapter`: `100` (Production standard for full video and complex DOM)
+     - `BrowserPreviewAdapter`: `50` (Preview interactive adapter)
+   - **Supported Capability Count Descending**: Favor engines with wider capability sets when priorities match.
+   - **Renderer ID Lexicographical Ascending**: Deterministic tie-breaker for identical priorities and capability counts.
+3. **Fail-Closed Resolution**:
+   If no adapter satisfies all requirements, throws `NoCompatibleRendererError` (`NO_COMPATIBLE_RENDERER`).
