@@ -47,6 +47,7 @@ import {
   type NormalizedAudio,
   type CanonicalVideoInput,
   normalizeCanonicalVideo,
+  normalizeBlueprint,
   normalizeScene,
   framesToMs,
   msToFrames,
@@ -93,6 +94,7 @@ export {
   type NormalizedAudio,
   type CanonicalVideoInput,
   normalizeCanonicalVideo,
+  normalizeBlueprint,
   normalizeScene,
   // Timing Model
   framesToMs,

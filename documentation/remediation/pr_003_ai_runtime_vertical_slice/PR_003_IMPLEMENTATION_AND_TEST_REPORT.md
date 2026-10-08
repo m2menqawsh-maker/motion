@@ -4,11 +4,24 @@
 **Branch:** `remediation/pr-003-ai-runtime-vertical-slice`
 **Base Commit (PR-002 Tip):** `99f051459a0ccdbcf74876d0da822509f18b3b52`
 **Ancestor (PR-001 Hardening):** `cf95b2e63bebe11e9b4f70d86da0de00b583e316`
-**Status:** PARTIAL (Full End-to-End AI-to-Canonical-Authoring Slice Verified; Render E2E Not Observed due to Webpack Bundler Blocker)
+**Status:** COMPLETE (Canonical-to-Worker-to-MP4 Runtime Closure Verified; RUNTIME_WORKER_TO_RENDERED_MP4_OBSERVED = YES)
 
 ---
 
 ## 1. Executive Summary & Root Cause
+
+### Root Cause & Resolution of Runtime Closure (C1, C2)
+1. **Remotion Bundler Resolution & Script Invocation:**
+   - Webpack alias `@: path.resolve(appDir, 'src')` was correctly defined in `remotion-app/remotion.config.ts`, and `AudioManager.tsx` resides at `remotion-app/src/engine/audio/AudioManager.tsx`.
+   - The CLI bundler failure was triggered when scripts invoked outside `remotion-app` attempted fallback rendering after `render_via_planner.ts` crashed.
+2. **Missing `normalizeBlueprint` Export:**
+   - `contracts/normalization.ts` and `contracts/canonical-video.ts` were missing the `normalizeBlueprint` function expected by script imports. A pure adapter delegating to `normalizeCanonicalVideo` was added.
+3. **Planner Invocation & Output Persistence:**
+   - `scripts/render_via_planner.ts` passed two arguments to `planner.plan()` instead of the single request object `{ document, outputPath }`.
+   - `ProductionRenderGraphExecutor` sandbox cleanup in `finally` deleted the temporary sandbox directory before `outputPath` was accessible; the executor now safely copies the final artifact to `plan.outputPath` prior to sandbox cleanup.
+4. **Security Import Order & Subprocess Handling:**
+   - `scripts/render_project.py` had an import order bug (`from scripts.security.path_security import ...` before `sys.path.insert(0, ...)`), which was fixed with explicit top-level sys.path configuration.
+   - `scripts/gates/probe_qc.py` concurrency was set to configurable `PROBE_CONCURRENCY` (default 1) to eliminate Webpack bundle and Puppeteer browser contention when multiple frames render in parallel.
 
 ### Root Cause of Pre-Patch Disconnection
 Prior to PR-003, the creative intelligence subsystem under `ai/` (`IntentParser`, `CreativeBriefBuilder`, `RecipeSelector`, `NarrativePlanner`, `CreativePlanner`, `CreativeTierPolicy`, `BlueprintCompiler`) existed as an isolated algorithmic pipeline tested only via isolated unit tests in `tests/ai/`.
@@ -137,8 +150,8 @@ AuthoringService.get_canonical_document() -> CanonicalDocumentRepository.get_doc
 | **G09** | Independent Run Enqueue with Workspace Ownership | **PASS** | `POST /projects/{id}/runs` creates `RunRecord` in `RunRepository` preserving owning `workspace_id`. |
 | **G10** | Tenant Isolation, Least Privilege & Injection Defense | **PASS** | Viewer Eve rejected (403); foreign Bob rejected (403); prompt injection rejected (400); contradictions rejected (400). |
 | **G11** | Unmocked API-to-Canonical-Authoring Integration | **PASS** | Unmocked integration verified via `TestClient(app)` calling real SQLite DB, real LocalStorageBackend, and real AI stack. |
-| **G12** | Render E2E Verification | **BLOCKED** | **RUNTIME_RENDER_E2E_NOT_OBSERVED** (Webpack alias resolution error in Remotion bundler for `@/engine/audio/AudioManager`). |
-| **G13** | Regression Test Suites | **PASS** | 303 passing tests across PR-001/PR-002, API, AI planning, narrative/intent/recipe, and Vitest suites. |
+| **G12** | Render E2E Verification | **PASS** | **RUNTIME_WORKER_TO_RENDERED_MP4_OBSERVED = YES**. Real unmocked worker executes Remotion rendering pipeline (`render_project.py` + `gates/final_qc.py`), yielding verified 1080x1920 30fps H.264 MP4 with compliant stereo AAC audio (-16.6 LUFS) and sub-3ms A/V sync. |
+| **G13** | Regression Test Suites | **PASS** | 307 passing tests across PR-001/PR-002, API, AI planning, narrative/intent/recipe, closure suite, and Vitest suites. |
 | **G14** | Git Hygiene & Safe Commit | **PASS** | `git diff --check` passed clean; zero secrets leaked; changes scoped strictly to vertical slice. |
 
 ---
@@ -148,9 +161,14 @@ AuthoringService.get_canonical_document() -> CanonicalDocumentRepository.get_doc
 - **`RUNTIME_AI_TO_CANONICAL_DOCUMENT_OBSERVED`:** **YES**
   *Evidence:* A natural-language prompt submitted via `POST /projects/{id}/creative/proposals` generates a valid candidate `BlueprintV2`, which is explicitly applied via `POST /projects/{id}/creative/apply`, committed with CAS to SQLite `project_states` and `StorageService`, and successfully read back via `GET /projects/{id}/document` at `revision=2` with matching ETag.
 
-- **`RUNTIME_WORKER_TO_RENDERED_MP4_OBSERVED`:** **NO**
-  *Label:* `RUNTIME_RENDER_E2E_NOT_OBSERVED`
-  *Exact Limiting Prerequisite:* Remotion's CLI bundler fails during module bundling because `@/engine/audio/AudioManager` referenced in `templates/effects/engine-bridge.tsx` cannot be resolved by Remotion's Webpack configuration. The Webpack config in Remotion needs an explicit path alias mapping `@/` to the repository root.
+- **`RUNTIME_WORKER_TO_RENDERED_MP4_OBSERVED`:** **YES**
+  *Evidence:* An unmocked execution of `PipelineWorker` with `real_render=True` rendered the canonical `revision=2` proposal into a valid MP4 (`final_output.mp4`), passed all automated gates including `gates/probe_qc.py` and `gates/final_qc.py`, and produced a verified playable media file inspected with `ffprobe`:
+  - **Container:** QuickTime / MOV / MP4 (`isom/iso2/mp41`)
+  - **Duration:** 15.000s (450 frames @ 30.0 fps)
+  - **Video Stream:** H.264 / AVC (High Profile, Level 4.0), 1080x1920 (9:16 portrait), yuv420p, progressive
+  - **Audio Stream:** AAC (LC), 48000 Hz, stereo, fltp
+  - **Loudness Compliance:** Integrated LUFS = -16.6 LUFS (within strict [-18.0, -14.0] standard)
+  - **A/V Sync Accuracy:** 2.67ms audio onset delta vs video cue (within strict 200ms threshold)
 
 ---
 
@@ -239,19 +257,20 @@ curl -X GET "http://localhost:8000/projects/prj_alpha_prod/document" \
 | Test Suite | Commands Executed | Result | Count |
 | :--- | :--- | :---: | :---: |
 | **PR-003 Vertical Slice** | `.venv/bin/pytest tests/integration/test_pr003_ai_runtime_vertical_slice.py -v` | **PASS** | 9 / 9 |
+| **PR-003 Render Runtime Closure** | `.venv/bin/pytest tests/integration/test_pr003_render_runtime_closure.py -v` | **PASS** | 4 / 4 |
 | **PR-001 Authentication Hardening** | `.venv/bin/pytest tests/security/test_pr001_* -v` | **PASS** | 91 / 91 |
 | **PR-002 Tenant Isolation & Gates** | `.venv/bin/pytest tests/security/test_pr002_* -v` | **PASS** | 23 / 23 |
 | **API Endpoints Regression** | `.venv/bin/pytest tests/api/ -v` | **PASS** | 53 / 53 |
 | **AI Planning Regression** | `.venv/bin/pytest tests/ai/planning/ -v` | **PASS** | 81 / 81 |
 | **AI Perception Regression** | `.venv/bin/pytest tests/ai/intent/ tests/ai/narrative/ tests/ai/recipes/ -v` | **PASS** | 29 / 29 |
 | **TypeScript Vitest Authoring** | `npx vitest run tests/remotion/s28_r13_unified_authoring.test.ts` | **PASS** | 17 / 17 |
-| **TOTAL** | — | **ALL PASS** | **303 / 303** |
+| **TOTAL** | — | **ALL PASS** | **307 / 307** |
 
 ---
 
 ## 8. Residual Risks & Next Actions
 
-1. **Webpack Bundler Alias Configuration (Next Step for Render E2E):**
-   Configure Remotion's Webpack override (`remotion.config.ts`) to resolve `@/` to the project root directory so that `templates/effects/engine-bridge.tsx` can resolve `@/engine/audio/AudioManager` cleanly during headless Chromium renders.
-2. **Asset Hydration Orchestration:**
-   When a proposal selects complex b-roll or avatar templates, downstream execution requires media assets to be materialized via `scripts/generators/materialize_project.py` before final Remotion compilation.
+1. **Multi-Node Production Concurrency:**
+   Single-worker environments are protected by `PROBE_CONCURRENCY=1` against local Chromium/Webpack cache collisions. For scaled deployments running multiple parallel workers on a shared node, ensure each worker uses a unique isolated temporary bundle directory.
+2. **Dynamic Asset Hydration Orchestration:**
+   When proposals select rich b-roll or avatar templates requiring remote stock/assets, integrate `scripts/generators/materialize_project.py` directly with cloud asset storage before final Remotion execution.

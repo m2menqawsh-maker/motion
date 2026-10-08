@@ -126,9 +126,9 @@ async function main(): Promise<void> {
   });
 
   const finalOutPath = options.outputPath || path.join(projectDir, "out.mp4");
-  const planResult = planner.plan(normalizedDoc, {
+  const planResult = planner.plan({
+    document: blueprint,
     outputPath: finalOutPath,
-    allowMultiEngine: true,
   });
 
   if (!planResult.ok || !planResult.plan) {
@@ -168,8 +168,16 @@ async function main(): Promise<void> {
   }
 
   // Copy final output to expected outputPath if needed
-  if (execResult.outputPath && execResult.outputPath !== finalOutPath && fs.existsSync(execResult.outputPath)) {
-    fs.copyFileSync(execResult.outputPath, finalOutPath);
+  if (!fs.existsSync(finalOutPath)) {
+    if (execResult.outputPath && fs.existsSync(execResult.outputPath)) {
+      fs.copyFileSync(execResult.outputPath, finalOutPath);
+    } else if (execResult.outputStorageKey) {
+      const stored = await storage.get(execResult.outputStorageKey);
+      if (stored) {
+        fs.mkdirSync(path.dirname(finalOutPath), { recursive: true });
+        fs.writeFileSync(finalOutPath, stored);
+      }
+    }
   }
 
   console.log(JSON.stringify({

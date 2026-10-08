@@ -634,3 +634,10 @@ export function normalizeCanonicalVideo(
   result.timeline = buildCanonicalTimeline(result);
   return result;
 }
+
+/**
+ * Convenience helper to normalize a raw BlueprintV2 into NormalizedVideo.
+ */
+export function normalizeBlueprint(blueprint: BlueprintV2, options?: any): NormalizedVideo {
+  return normalizeCanonicalVideo({ blueprint }, options);
+}

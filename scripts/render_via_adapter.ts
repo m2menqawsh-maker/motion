@@ -63,16 +63,19 @@ async function run(): Promise<void> {
 
   // Load blueprint
   let blueprint: BlueprintV2;
-  const bpPath = path.join(projectDir, "blueprint.json");
+  const bpPath = path.join(projectDir, "05_blueprint.json");
+  const fallbackBpPath = path.join(projectDir, "blueprint.json");
   const propsPath = path.join(projectDir, "render_props.json");
 
-  if (fs.existsSync(propsPath)) {
+  if (fs.existsSync(bpPath)) {
+    blueprint = JSON.parse(fs.readFileSync(bpPath, "utf-8"));
+  } else if (fs.existsSync(propsPath)) {
     const rawProps = JSON.parse(fs.readFileSync(propsPath, "utf-8"));
     blueprint = rawProps.blueprint || rawProps.projectData?.blueprint || rawProps;
-  } else if (fs.existsSync(bpPath)) {
-    blueprint = JSON.parse(fs.readFileSync(bpPath, "utf-8"));
+  } else if (fs.existsSync(fallbackBpPath)) {
+    blueprint = JSON.parse(fs.readFileSync(fallbackBpPath, "utf-8"));
   } else {
-    console.error(`No blueprint.json or render_props.json found in ${projectDir}`);
+    console.error(`No 05_blueprint.json, render_props.json, or blueprint.json found in ${projectDir}`);
     process.exit(1);
   }
 

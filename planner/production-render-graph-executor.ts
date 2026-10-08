@@ -232,7 +232,15 @@ export class ProductionRenderGraphExecutor {
       const finalArtifact = finalNodeRes?.artifact;
 
       let outputStorageKey: string | undefined;
+      let finalDiskPath = finalArtifact?.filePath;
       if (finalArtifact?.filePath && fs.existsSync(finalArtifact.filePath)) {
+        // If plan has an explicit outputPath, copy it there before cleaning up sandbox
+        if (plan.outputPath && plan.outputPath !== finalArtifact.filePath) {
+          fs.mkdirSync(path.dirname(plan.outputPath), { recursive: true });
+          fs.copyFileSync(finalArtifact.filePath, plan.outputPath);
+          finalDiskPath = plan.outputPath;
+        }
+
         // Upload final artifact to StorageService
         const finalKey = buildStorageKey(
           ctx.workspaceId,
@@ -269,7 +277,7 @@ export class ProductionRenderGraphExecutor {
         ok: true,
         planId: plan.id,
         runId,
-        outputPath: finalArtifact?.filePath,
+        outputPath: finalDiskPath,
         outputStorageKey,
         finalArtifact,
         nodeResults,

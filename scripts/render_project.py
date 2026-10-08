@@ -4,10 +4,10 @@
 render_project.py — سكريبت وسيط لرندر المشروع بأمان وفي المسار الصحيح
 """
 import sys
-from scripts.security.path_security import validate_project_id, safe_resolve
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-# Fix python path
+from scripts.security.path_security import validate_project_id, safe_resolve
 import asyncio
 import json
 import os
@@ -154,7 +154,8 @@ def main():
                     print(res.stdout)
                     render_success = True
                 except Exception as ex:
-                    print(f"⚠️ فشل مسار Multi-Engine Planner ({ex}) — تجربة مسار Adapter الفردي...")
+                    detail = getattr(ex, "stderr", None) or getattr(ex, "output", None) or str(ex)
+                    print(f"⚠️ فشل مسار Multi-Engine Planner ({detail}) — تجربة مسار Adapter الفردي...")
 
             if not render_success and not use_legacy and adapter_script.exists():
                 print(f"🎥 جاري الرندر عبر RemotionRendererAdapter (S28-R09)...")
@@ -170,7 +171,8 @@ def main():
                     print(res.stdout)
                     render_success = True
                 except Exception as ex:
-                    print(f"⚠️ فشل مسار Adapter ({ex}) — تفعيل جسر التوافق (Legacy Remotion CLI)...")
+                    detail = getattr(ex, "stderr", None) or getattr(ex, "output", None) or str(ex)
+                    print(f"⚠️ فشل مسار Adapter ({detail}) — تفعيل جسر التوافق (Legacy Remotion CLI)...")
 
             if not render_success:
                 print(f"🎥 جاري الرندر عبر مسار التوافق (Remotion CLI)...")
