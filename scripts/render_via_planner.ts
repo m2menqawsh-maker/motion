@@ -107,7 +107,24 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const normalizedDoc = normalizeBlueprint(blueprint);
+  // Load media map if available
+  const mediaMapPath = path.join(projectDir, "media_map.json");
+  let mediaMap: Record<string, string> = {};
+  if (fs.existsSync(mediaMapPath)) {
+    try {
+      mediaMap = JSON.parse(fs.readFileSync(mediaMapPath, "utf-8"));
+    } catch {}
+  } else if (fs.existsSync(propsPath)) {
+    try {
+      const rawProps = JSON.parse(fs.readFileSync(propsPath, "utf-8"));
+      mediaMap = rawProps.media_map || rawProps.projectData?.media_map || {};
+    } catch {}
+  }
+
+  const docToPlan = JSON.parse(JSON.stringify(blueprint));
+  (docToPlan as any).media_map = mediaMap;
+
+  const normalizedDoc = normalizeBlueprint(blueprint, { mediaMap });
   const docRevision = options.revision ?? normalizedDoc.revision ?? 1;
 
   // Register production renderers in registry
@@ -127,8 +144,11 @@ async function main(): Promise<void> {
 
   const finalOutPath = options.outputPath || path.join(projectDir, "out.mp4");
   const planResult = planner.plan({
-    document: blueprint,
+    document: docToPlan,
     outputPath: finalOutPath,
+    policy: {
+      preferredRendererId: REMOTION_RENDERER_ID,
+    },
   });
 
   if (!planResult.ok || !planResult.plan) {
@@ -145,6 +165,8 @@ async function main(): Promise<void> {
     registry: CANONICAL_RENDERER_REGISTRY,
     storageService: storage,
     baseTempDir: path.join(rootDir, "scratch"),
+    defaultNodeTimeoutMs: 240_000,
+    maxConcurrency: 2,
     eventPublisher: (eventType, payload) => {
       // Stream structured JSON event to stdout
       console.log(JSON.stringify({ _event: eventType, ...payload }));
@@ -156,6 +178,7 @@ async function main(): Promise<void> {
     projectId: options.projectId,
     runId: options.runId,
     canonicalRevision: docRevision,
+    nodeTimeoutMs: 240_000,
   });
 
   if (!execResult.ok) {

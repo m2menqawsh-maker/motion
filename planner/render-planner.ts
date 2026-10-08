@@ -509,6 +509,7 @@ export class RenderPlanner {
         createdTimestamp: Date.now(),
         planFingerprint: planFp,
       };
+      (plan as any).document = doc;
 
       return {
         ok: true,

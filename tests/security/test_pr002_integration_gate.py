@@ -350,6 +350,77 @@ def test_database_url_not_in_subprocess_environment():
     assert "DATABASE_URL" not in env, "SECURITY VIOLATION: DATABASE_URL leaked into subprocess environment!"
 
 
+def test_unauthorized_subprocesses_strictly_denied_database_credentials():
+    """
+    Negative test (PR-003 Security Regression Closure):
+    Verify unauthorized subprocesses (FFmpeg, Remotion, Scaffolding, Gates, Pipeline)
+    are strictly denied access to DATABASE_URL, RUNS_DB_PATH, and AUTH_SECRET_KEY.
+    """
+    import sys
+    from scripts.core.security.command_policy import CommandPolicy, DATABASE_CREDENTIAL_ENV_VARS
+
+    sensitive_env = {
+        "DATABASE_URL": "sqlite:///production_secret.db",
+        "RUNS_DB_PATH": "/secrets/runs.db",
+        "AUTH_SECRET_KEY": "super-secret-jwt-signing-key",
+        "MOTION_DATABASE_URL": "postgres://user:pass@db/prod",
+        "PATH": "/usr/bin",
+    }
+
+    # 1. FFmpeg
+    ffmpeg_val = CommandPolicy.validate_command(["ffmpeg", "-version"], is_production=True)
+    for cred_key in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred_key not in ffmpeg_val.sanitized_env, f"SECURITY VIOLATION: {cred_key} leaked to ffmpeg!"
+
+    # 2. Remotion / Node
+    remotion_val = CommandPolicy.validate_command(["npx", "remotion"], is_production=True)
+    for cred_key in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred_key not in remotion_val.sanitized_env, f"SECURITY VIOLATION: {cred_key} leaked to remotion!"
+
+    # 3. Pipeline / Scaffold / Gates
+    for script in ["scripts/pipeline.py", "scripts/scaffold_project.py", "scripts/gates/final_qc.py", "scripts/render_project.py"]:
+        py_val = CommandPolicy.validate_command([sys.executable, script, "prj_test"], is_production=True)
+        for cred_key in DATABASE_CREDENTIAL_ENV_VARS:
+            assert cred_key not in py_val.sanitized_env, f"SECURITY VIOLATION: {cred_key} leaked to {script}!"
+
+    # 4. Direct sanitize_environment call with sensitive_env for unauthorized target
+    clean = CommandPolicy.sanitize_environment(sensitive_env, is_production=True, target_script="scripts/pipeline.py")
+    for cred_key in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred_key not in clean, f"SECURITY VIOLATION: {cred_key} present in sanitized environment for unauthorized target!"
+
+
+def test_authorized_component_explicitly_granted_database_credentials():
+    """
+    Positive test (PR-003 Security Regression Closure):
+    Verify that only authorized database components (e.g. explicitly flagged or in DATABASE_AUTHORIZED_SCRIPTS)
+    are granted DATABASE_URL and related credentials.
+    """
+    from scripts.core.security.command_policy import CommandPolicy
+
+    sensitive_env = {
+        "DATABASE_URL": "sqlite:///production_secret.db",
+        "RUNS_DB_PATH": "/secrets/runs.db",
+        "AUTH_SECRET_KEY": "super-secret-jwt-signing-key",
+        "PATH": "/usr/bin",
+    }
+
+    # 1. Authorized via explicit allow_database_env flag
+    clean_explicit = CommandPolicy.sanitize_environment(
+        sensitive_env, is_production=True, allow_database_env=True
+    )
+    assert clean_explicit.get("DATABASE_URL") == "sqlite:///production_secret.db"
+    assert clean_explicit.get("RUNS_DB_PATH") == "/secrets/runs.db"
+    assert clean_explicit.get("AUTH_SECRET_KEY") == "super-secret-jwt-signing-key"
+
+    # 2. Authorized via target_script in DATABASE_AUTHORIZED_SCRIPTS
+    clean_script = CommandPolicy.sanitize_environment(
+        sensitive_env, is_production=True, target_script="scripts/run_creative_cost_audit.py"
+    )
+    assert clean_script.get("DATABASE_URL") == "sqlite:///production_secret.db"
+    assert clean_script.get("RUNS_DB_PATH") == "/secrets/runs.db"
+    assert clean_script.get("AUTH_SECRET_KEY") == "super-secret-jwt-signing-key"
+
+
 def test_multi_workspace_creator_requires_explicit_header(gate_env):
     """
     Requirement 4:

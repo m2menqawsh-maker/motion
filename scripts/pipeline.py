@@ -215,6 +215,8 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
         if current_attempt_ctx.attempt > 1:
             child_logger.event("retry.success", status="success", stage=stage, component=component)
             
+        if result.stdout:
+            print(result.stdout.strip())
         print(f"   ✅ نجاح: {script_name} (بعد {current_attempt_ctx.attempt} محاولات)" if current_attempt_ctx.attempt > 1 else f"   ✅ نجاح: {script_name}")
         return True
 

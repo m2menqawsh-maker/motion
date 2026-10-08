@@ -64,6 +64,12 @@ ALLOWED_PYTHON_SCRIPTS: Set[str] = {
     "scripts/open_studio.py",
 }
 
+# Allowed registered TypeScript entrypoint scripts invoked via 'npx tsx'
+ALLOWED_NPX_TS_SCRIPTS: Set[str] = {
+    "scripts/render_via_planner.ts",
+    "scripts/render_via_adapter.ts",
+}
+
 # In Development/Test, only approved test runners are permitted via '-m'
 ALLOWED_DEV_TEST_PYTHON_MODULES: Set[str] = {
     "pytest",
@@ -84,6 +90,26 @@ UNIVERSAL_DANGEROUS_FLAGS: Set[str] = {
 NODE_DANGEROUS_FLAGS: Set[str] = {
     "-e",
     "--eval",
+}
+
+# Sensitive database and auth credentials strictly excluded from default environment sanitization (PR-002 ADR)
+DATABASE_CREDENTIAL_ENV_VARS: Set[str] = {
+    "DATABASE_URL",
+    "RUNS_DB_PATH",
+    "AUTH_SECRET_KEY",
+    "MOTION_DATABASE_URL",
+    "MOTION_RUNS_DB_PATH",
+}
+
+# Whitelist of trusted scripts authorized to receive database credentials when explicitly requested
+DATABASE_AUTHORIZED_SCRIPTS: Set[str] = {
+    "scripts/worker/worker.py",
+    "scripts/core/worker.py",
+    "scripts/run_creative_cost_audit.py",
+    "scripts/run_creative_e2e.py",
+    "scripts/run_real_cost_performance_benchmark.py",
+    "scripts/smoke_openrouter.py",
+    "scripts/testing/s28_r15_soak_and_load_runner.py",
 }
 
 # Environment variables prohibited from passing into production child processes
@@ -116,25 +142,41 @@ class CommandPolicy:
         cls,
         base_env: Optional[Dict[str, str]] = None,
         workspace_root: Optional[Path] = None,
-        is_production: bool = True
+        is_production: bool = True,
+        target_script: Optional[str] = None,
+        allow_database_env: bool = False,
     ) -> Dict[str, str]:
         """Construct a sanitized environment dict for child processes."""
         raw = os.environ.copy() if base_env is None else base_env.copy()
         clean: Dict[str, str] = {}
 
-        # Allowlist of safe runtime environment keys
+        # Allowlist of safe runtime environment keys (DATABASE_URL and auth secrets excluded)
         safe_keys = {
             "PATH", "SYSTEMROOT", "HOME", "USER", "LANG", "LC_ALL",
             "PYTHONPATH", "TMPDIR", "TEMP", "TMP", "NODE_ENV", "VIRTUAL_ENV",
             "AGY_RUN_ID", "AGY_SPAN_ID", "AGY_ATTEMPT", "AGY_PROJECT_ID", "AGY_IS_MANAGED",
+            "AGY_WORKSPACE_ID", "AGY_INPUT_REVISION", "PROJECT_ID",
             "DISPLAY", "SVM_DATA_DIR", "SVM_PLUGIN_ROOT", "WHISPER_DEVICE",
         }
+
+        # Targeted, explicit grant for authorized database components only
+        is_db_authorized = allow_database_env or (
+            target_script is not None and any(
+                target_script == s or target_script.endswith("/" + s) or Path(target_script).name == Path(s).name
+                for s in DATABASE_AUTHORIZED_SCRIPTS
+            )
+        )
+        if is_db_authorized:
+            safe_keys.update(DATABASE_CREDENTIAL_ENV_VARS)
 
         if not is_production:
             safe_keys.update({"SKIP_STRICT_QC", "DEBUG_SECURITY"})
 
         for k, v in raw.items():
             if k in safe_keys or k.endswith("_API_KEY") or k.endswith("_TOKEN") or k.startswith("MOTION_"):
+                # Prohibit database/auth credentials from leaking via generic patterns unless explicitly authorized
+                if not is_db_authorized and k in DATABASE_CREDENTIAL_ENV_VARS:
+                    continue
                 if is_production and k in FORBIDDEN_PRODUCTION_ENV_VARS:
                     # Strip bypass flags in production
                     continue
@@ -272,9 +314,18 @@ class CommandPolicy:
                     violations.append(f"NPM only allows 'npm run build'. Received: {' '.join(cmd_list)}")
                 subcommand = "run build"
             elif exe_name in ("npx", "npx.cmd"):
-                if len(cmd_list) < 2 or cmd_list[1] != "remotion":
-                    violations.append(f"NPX only allows 'npx remotion'. Received: {' '.join(cmd_list)}")
-                subcommand = "remotion"
+                if len(cmd_list) >= 2 and cmd_list[1] == "remotion":
+                    subcommand = "remotion"
+                elif (
+                    len(cmd_list) >= 3
+                    and cmd_list[1] == "tsx"
+                    and any(Path(cmd_list[2]).as_posix().endswith(s) for s in ALLOWED_NPX_TS_SCRIPTS)
+                ):
+                    subcommand = f"tsx {Path(cmd_list[2]).name}"
+                else:
+                    violations.append(
+                        f"NPX only allows 'npx remotion' or registered scripts via 'npx tsx'. Received: {' '.join(cmd_list)}"
+                    )
             elif exe_name in ("node", "node.exe"):
                 violations.append("Direct 'node' execution is not permitted; use npm or npx remotion.")
 
@@ -305,7 +356,7 @@ class CommandPolicy:
         else:
             violations.append(f"Executable '{raw_exe}' is not in the allowed executables registry.")
 
-        sanitized_env = cls.sanitize_environment(workspace_root=root, is_production=is_production)
+        sanitized_env = cls.sanitize_environment(workspace_root=root, is_production=is_production, target_script=subcommand)
 
         is_allowed = len(violations) == 0
         return CommandValidationResult(

@@ -381,8 +381,8 @@ export function evaluateVideoAtFrame(
       const content = (scene as any).content ?? {};
 
       // 1. Text Layer if text present
-      if (surface.text || content.lines || content.words) {
-        const textVal = surface.text || (content.lines ? content.lines.join(" ") : "");
+      if (surface.text || content.text || content.lines || content.words) {
+        const textVal = surface.text || content.text || (content.lines ? content.lines.join(" ") : "");
         evaluatedLayers.push({
           layer_id: `layer_${scene.scene_id}_text`,
           scene_id: scene.scene_id,

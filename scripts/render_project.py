@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.security.path_security import validate_project_id, safe_resolve
 import asyncio
+from datetime import datetime, timezone
 import json
 import os
 from api.services.pipeline_service import PipelineService
@@ -133,6 +134,7 @@ def main():
             ws_id = os.environ.get("AGY_WORKSPACE_ID", "ws_default")
             input_rev = os.environ.get("AGY_INPUT_REVISION", "1")
 
+            active_render_path = "legacy_cli"
             if not use_legacy and planner_script.exists():
                 print(f"🎥 جاري الرندر عبر Multi-Engine RenderPlanner & MasterCompositor (S28-R14)...")
                 try:
@@ -153,8 +155,13 @@ def main():
                     )
                     print(res.stdout)
                     render_success = True
+                    active_render_path = "Multi-Engine RenderPlanner & MasterCompositor"
                 except Exception as ex:
                     detail = getattr(ex, "stderr", None) or getattr(ex, "output", None) or str(ex)
+                    sys.stderr.write(f"\n[DIAGNOSTIC] Planner execution failed:\n{detail}\n")
+                    sys.stderr.flush()
+                    with open("/tmp/render_planner_err.log", "w", encoding="utf-8") as f_err:
+                        f_err.write(f"Planner failed:\nEX: {ex}\nSTDERR: {getattr(ex, 'stderr', None)}\nSTDOUT: {getattr(ex, 'stdout', None)}\n")
                     print(f"⚠️ فشل مسار Multi-Engine Planner ({detail}) — تجربة مسار Adapter الفردي...")
 
             if not render_success and not use_legacy and adapter_script.exists():
@@ -193,8 +200,17 @@ def main():
             else:
                 raise FileNotFoundError("Render finished but tmp_out_file not found")
                 
+            receipt_file = project_dir / "render_receipt.json"
+            receipt_data = {
+                "project_id": project_id,
+                "active_render_path": active_render_path,
+                "rendered_at": datetime.now(timezone.utc).isoformat(),
+                "duration_ms": duration_ms,
+            }
+            receipt_file.write_text(json.dumps(receipt_data, indent=2), encoding="utf-8")
+
             logger.event("render.execution", status="success", stage="render", component="remotion", duration_ms=duration_ms)
-            print(f"✅ نجاح الرندر! تم حفظ الفيديو في: {final_out_file}")
+            print(f"✅ نجاح الرندر ({active_render_path})! تم حفظ الفيديو في: {final_out_file}")
         else:
             if not is_docker_running():
                 print("❌ [Docker Error] محرك Docker غير يعمل أو غير مثبت في النظام. الرجاء تشغيله أولاً.")

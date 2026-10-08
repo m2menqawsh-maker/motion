@@ -73,7 +73,7 @@ const DELTA_GLYPH = { up: "↑", down: "↓", flat: "" } as const;
  * that the eye lands on each card in reading order.
  */
 export const MetricTicker: React.FC<MetricTickerProps> = ({
-  metrics,
+  metrics = [],
   title,
   eyebrow,
   valueFormatter = formatCompactNumber,
@@ -87,7 +87,10 @@ export const MetricTicker: React.FC<MetricTickerProps> = ({
   const safe = getSafeAreaPadding({ width, height });
   const isPortrait = height > width;
 
-  const cards = metrics.slice(0, maxCards);
+  const safeMetrics = Array.isArray(metrics) && metrics.length > 0
+    ? metrics
+    : [{ label: "Metric", value: 100, suffix: "%" }];
+  const cards = safeMetrics.slice(0, maxCards);
   const columns = isPortrait ? 1 : Math.max(1, cards.length);
   const gap = scaleFont(20, width);
   const cardPadding = scaleFont(28, width);

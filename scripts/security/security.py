@@ -53,11 +53,16 @@ def safe_subprocess(cmd_list: Union[str, List[str]], **kwargs):
     # Use sanitized command (e.g. sys.executable instead of bare python)
     exec_cmd = validation.sanitized_cmd
 
+    allow_db_env = kwargs.pop("allow_database_env", False)
+    target_script = validation.subcommand
+
     # Ensure environment is sanitized
     kwargs["env"] = CommandPolicy.sanitize_environment(
         base_env=kwargs.get("env"),
         workspace_root=Path(cwd) if cwd else None,
-        is_production=is_prod
+        is_production=is_prod,
+        target_script=target_script,
+        allow_database_env=allow_db_env,
     )
 
     return subprocess.run(exec_cmd, **kwargs)

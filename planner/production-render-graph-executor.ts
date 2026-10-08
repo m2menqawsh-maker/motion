@@ -147,8 +147,8 @@ export class ProductionRenderGraphExecutor {
     this.compositor = options?.compositor ?? new MasterCompositor();
     this.storage = options?.storageService ?? new LocalStorageService();
     this.baseTempDir = options?.baseTempDir ?? os.tmpdir();
-    this.defaultNodeTimeoutMs = options?.defaultNodeTimeoutMs ?? 60_000;
-    this.maxConcurrency = options?.maxConcurrency ?? 4;
+    this.defaultNodeTimeoutMs = options?.defaultNodeTimeoutMs ?? 240_000;
+    this.maxConcurrency = options?.maxConcurrency ?? 2;
     this.publishEvent = options?.eventPublisher ?? (() => {});
     this.budgetChecker = options?.budgetChecker;
   }
@@ -474,6 +474,8 @@ export class ProductionRenderGraphExecutor {
               durationFrames: n.timeRange.durationFrames,
             };
           }),
+          audio: (plan as any).document?.audio,
+          media_map: (plan as any).document?.media_map,
         };
 
         const compPromise = this.compositor.composite({
