@@ -71,12 +71,12 @@ class PipelineService:
         return res
 
     @classmethod
-    async def scaffold_project(cls, project_id: str) -> dict:
+    async def scaffold_project(cls, project_id: str, workspace_id: Optional[str] = None) -> dict:
         validate_project_id(project_id)
         project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
         if not state:
-            state = StateStore.create(project_dir, project_id)
+            state = StateStore.create(project_dir, project_id, workspace_id=workspace_id)
         
         res = cls._format_legacy_state(state)
         return {"status": "success", "message": f"Project {project_id} pipeline initialized", "state": res}

@@ -196,6 +196,11 @@ class StateStore:
                         "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, 'ws_default', 'usr_system', ?, ?, ?)",
                         (state.project_id, state.project_id, state.created_at, state.updated_at)
                     )
+                elif not row:
+                    conn.execute(
+                        "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, ?, 'usr_system', ?, ?, ?)",
+                        (state.project_id, ws_id, state.project_id, state.created_at, state.updated_at)
+                    )
 
                 state.workspace_id = ws_id
                 state_json = state.model_dump_json()
@@ -417,6 +422,7 @@ class StateStore:
         project_id: str,
         initial_lifecycle: LifecycleState = LifecycleState.DRAFT,
         timeout: Optional[float] = 10.0,
+        workspace_id: Optional[str] = None,
     ) -> ProjectState:
         """
         Atomically creates a new ProjectState record in project_dir.
@@ -437,6 +443,7 @@ class StateStore:
 
             state = ProjectState(
                 project_id=project_id,
+                workspace_id=workspace_id,
                 revision=1,
                 lifecycle_state=initial_lifecycle,
             )

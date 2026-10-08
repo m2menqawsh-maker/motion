@@ -65,6 +65,19 @@ def make_test_auth_headers(
 def setup_test_env():
     os.environ['TESTING'] = '1'
     os.environ.setdefault('AUTH_SECRET_KEY', TEST_PYTEST_AUTH_SECRET)
+    try:
+        from scripts.core.database import get_database_engine, TenantRepository, Role
+        repo = TenantRepository(get_database_engine())
+        for uid in ("test_admin", "usr_admin_legit", "gui_client_user", "usr_test_admin"):
+            if not repo.get_user(uid):
+                repo.create_user(uid, f"{uid}@motion.local")
+        if not repo.get_workspace("ws_default"):
+            repo.create_workspace("ws_default", "Default Workspace", created_by="test_admin")
+        for uid in ("test_admin", "usr_admin_legit", "gui_client_user", "usr_test_admin"):
+            if not repo.get_membership("ws_default", uid):
+                repo.add_member("ws_default", uid, Role.ADMIN)
+    except Exception:
+        pass
     yield
     os.environ.pop('TESTING', None)
 

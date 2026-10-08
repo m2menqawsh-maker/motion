@@ -36,13 +36,22 @@ class ProjectService:
         return proj_dir
 
     @classmethod
-    async def create_project_async(cls, name: str, language: str) -> str:
+    async def create_project_async(
+        cls,
+        name: str,
+        language: str,
+        workspace_id: Optional[str] = None,
+        created_by: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> str:
         """
         Creates a new project without blocking the asyncio event loop (LED-070).
         """
         # Execute synchronous scaffolding subprocess in worker thread pool
-        project_id = await asyncio.to_thread(sync_scaffold_create, name, language)
-        return project_id
+        res_project_id = await asyncio.to_thread(
+            sync_scaffold_create, name, language, workspace_id, created_by, project_id
+        )
+        return res_project_id
 
     @classmethod
     def list_projects(cls, principal: Principal, workspace_id: Optional[str] = None) -> List[str]:

@@ -544,6 +544,12 @@ class TenantRepository:
                 updated_at=now,
             )
 
+    def delete_project(self, project_id: str) -> None:
+        """Deletes a project record and its associated states (for rollback / cleanup)."""
+        with self.engine.transaction() as conn:
+            conn.execute("DELETE FROM project_states WHERE project_id = ?", (project_id,))
+            conn.execute("DELETE FROM projects WHERE id = ?", (project_id,))
+
     def get_project(self, project_id: str) -> Optional[ProjectRecord]:
         conn = self.engine.get_connection()
         try:
