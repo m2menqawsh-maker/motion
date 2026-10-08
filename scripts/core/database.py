@@ -514,6 +514,11 @@ class TenantRepository:
                 """
                 INSERT INTO projects (id, workspace_id, created_by, name, created_at, updated_at)
                 VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    workspace_id = excluded.workspace_id,
+                    created_by = excluded.created_by,
+                    name = excluded.name,
+                    updated_at = excluded.updated_at
                 """,
                 (project_id, workspace_id, created_by, name, now, now)
             )
@@ -521,6 +526,7 @@ class TenantRepository:
             # Initialize project state record in DB with revision 1
             state = ProjectState(
                 project_id=project_id,
+                workspace_id=workspace_id,
                 revision=1,
                 lifecycle_state=initial_lifecycle,
                 created_at=now,
@@ -531,6 +537,9 @@ class TenantRepository:
                 """
                 INSERT INTO project_states (project_id, workspace_id, revision, lifecycle_state, state_json, updated_at)
                 VALUES (?, ?, 1, ?, ?, ?)
+                ON CONFLICT(project_id) DO UPDATE SET
+                    workspace_id = excluded.workspace_id,
+                    updated_at = excluded.updated_at
                 """,
                 (project_id, workspace_id, initial_lifecycle.value, state_json, now)
             )

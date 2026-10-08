@@ -29,6 +29,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core.database import DatabaseEngine, TenantRepository
+from scripts.security.security import safe_subprocess
 from scripts.core.canonical_document_repository import (
     CanonicalDocumentRepository,
     RevisionConflictError,
@@ -264,7 +265,7 @@ class SoakLoadRunner:
             "-c:a", "aac",
             str(out_path),
         ]
-        proc = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        proc = safe_subprocess(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         if proc.returncode != 0 or not out_path.exists():
             # Fallback to direct bytes if ffmpeg fails
             out_path.write_bytes(b"SYNTHETIC_MP4_PAYLOAD_FALLBACK_" + uuid.uuid4().bytes)

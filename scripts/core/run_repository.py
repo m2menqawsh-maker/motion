@@ -173,6 +173,7 @@ class RunRepository:
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_status ON runs(status)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_idempotency ON runs(project_id, idempotency_key)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_created_at ON runs(created_at)")
+        conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL")
 
     @staticmethod
     def _row_to_record(row: sqlite3.Row) -> RunRecord:
@@ -193,6 +194,27 @@ class RunRepository:
         """Atomically persists a new RunRecord with status QUEUED."""
         ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
         with self._transaction("IMMEDIATE") as conn:
+            # Atomic idempotency guard within the write transaction
+            if run.idempotency_key:
+                cur_existing = conn.execute(
+                    "SELECT * FROM runs WHERE workspace_id = ? AND project_id = ? AND idempotency_key = ?",
+                    (ws_id, run.project_id, run.idempotency_key)
+                )
+                row = cur_existing.fetchone()
+                if row:
+                    existing = self._row_to_record(row)
+                    if (
+                        run.request_payload_hash
+                        and existing.request_payload_hash
+                        and existing.request_payload_hash != run.request_payload_hash
+                    ):
+                        from api.core.errors import IdempotencyConflictError
+                        raise IdempotencyConflictError(
+                            idempotency_key=run.idempotency_key,
+                            message=f"Idempotency conflict: Key '{run.idempotency_key}' was previously used with a different request payload."
+                        )
+                    return existing
+
             conn.execute(
                 """
                 INSERT INTO runs (
@@ -254,14 +276,20 @@ class RunRepository:
         finally:
             conn.close()
 
-    def find_by_idempotency(self, project_id: str, idempotency_key: str) -> Optional[RunRecord]:
-        """Finds an existing run by project_id and idempotency_key."""
+    def find_by_idempotency(self, project_id: str, idempotency_key: str, workspace_id: Optional[str] = None) -> Optional[RunRecord]:
+        """Finds an existing run by project_id and idempotency_key, optionally scoped by workspace_id."""
         conn = self._get_connection()
         try:
-            cur = conn.execute(
-                "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ?",
-                (project_id, idempotency_key)
-            )
+            if workspace_id:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ? AND workspace_id = ?",
+                    (project_id, idempotency_key, workspace_id)
+                )
+            else:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ?",
+                    (project_id, idempotency_key)
+                )
             row = cur.fetchone()
             if not row:
                 return None
@@ -374,7 +402,8 @@ class RunRepository:
         if status not in (RunStatus.SUCCEEDED, RunStatus.FAILED, RunStatus.CANCELLED):
             raise InvalidRunTransitionError(f"finish_run target must be a terminal status, got {status.value}")
 
-        now = datetime.now(timezone.utc).isoformat()
+        now_dt = datetime.now(timezone.utc)
+        now = now_dt.isoformat()
 
         with self._transaction("IMMEDIATE") as conn:
             cur = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
@@ -390,6 +419,40 @@ class RunRepository:
                     f"Stale worker fencing violation: Worker '{worker_id}' is not the current leaseholder of run '{run_id}' (owned by '{record.worker_id}')."
                 )
 
+            # Strict worker fencing: worker lease must not be expired
+            if worker_id and record.lease_expires_at:
+                try:
+                    exp_dt = datetime.fromisoformat(record.lease_expires_at)
+                    if exp_dt.tzinfo is None:
+                        exp_dt = exp_dt.replace(tzinfo=timezone.utc)
+                    if exp_dt < now_dt:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Worker '{worker_id}' lease expired at {record.lease_expires_at} (current time {now})."
+                        )
+                except ValueError:
+                    if record.lease_expires_at < now:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Worker '{worker_id}' lease expired at {record.lease_expires_at}."
+                        )
+
+            # Also check project_execution_leases if worker_id is provided
+            if worker_id:
+                cur_lease = conn.execute(
+                    "SELECT worker_id, expires_at FROM project_execution_leases WHERE run_id = ?",
+                    (run_id,)
+                )
+                lease_row = cur_lease.fetchone()
+                if lease_row:
+                    lease_worker, lease_exp = lease_row[0], lease_row[1]
+                    if lease_worker != worker_id:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Project execution lease held by '{lease_worker}', not '{worker_id}'."
+                        )
+                    if lease_exp and lease_exp < now:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Project execution lease expired at {lease_exp}."
+                        )
+
             record.assert_can_transition_to(status)
 
             cur_update = conn.execute(
@@ -404,6 +467,7 @@ class RunRepository:
                     failure_code = ?,
                     failure_detail = ?
                 WHERE run_id = ? AND (worker_id = ? OR worker_id IS NULL)
+                  AND (lease_expires_at IS NULL OR lease_expires_at >= ?)
                 """,
                 (
                     status.value,
@@ -415,6 +479,7 @@ class RunRepository:
                     json.dumps(failure_detail) if failure_detail else None,
                     run_id,
                     worker_id,
+                    now,
                 )
             )
 

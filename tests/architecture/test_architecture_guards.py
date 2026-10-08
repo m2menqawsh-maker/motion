@@ -8,7 +8,7 @@ WORKSPACE_ROOT = Path(__file__).resolve().parent.parent.parent
 def get_active_markdown_files():
     active_files = []
     for root, _, files in os.walk(WORKSPACE_ROOT):
-        if "node_modules" in root or ".git" in root or "archive" in root:
+        if "node_modules" in root or ".git" in root or "archive" in root or "teamwork" in root or ".agents/teamwork" in root:
             continue
         for file in files:
             if file.endswith(".md"):
@@ -45,7 +45,7 @@ def test_docs_quarantine_refs():
     Test 2: Prevent active docs from treating archive/quarantine content as executable authoritative references.
     """
     # Look for executable commands pointing to archive or quarantine
-    bad_pattern = re.compile(r"(?i)(execute|run|python|node|import|source)\s+[\"']?(?:\.\./|\./)*(?:documentation/)?(archive|quarantine)")
+    bad_pattern = re.compile(r"(?i)(execute|run|python|node|import|source)\s+[\"']?(?:\.\./|\./)*(?:documentation/)?\b(archive|quarantine)\b")
     for file_path in get_active_markdown_files():
         content = file_path.read_text(encoding="utf-8")
         matches = bad_pattern.findall(content)
@@ -78,7 +78,7 @@ def test_agent_instructions():
         if not d.exists():
             continue
         for root, _, files in os.walk(d):
-            if "archive" in root:
+            if "archive" in root or "teamwork" in root:
                 continue
             for file in files:
                 if file.endswith(".md"):

@@ -66,3 +66,39 @@ def safe_subprocess(cmd_list: Union[str, List[str]], **kwargs):
     )
 
     return subprocess.run(exec_cmd, **kwargs)
+
+
+def safe_popen(cmd_list: Union[str, List[str]], **kwargs) -> subprocess.Popen:
+    """Safely start an asynchronous subprocess, enforced by CommandPolicy."""
+    if isinstance(cmd_list, str):
+        cmd_list = cmd_list.split()
+
+    if not cmd_list:
+        raise PermissionError("Empty command")
+
+    cwd = kwargs.get("cwd")
+    is_prod = os.environ.get("MOTION_ENV", "development").lower() == "production"
+
+    validation = CommandPolicy.validate_command(
+        cmd=list(cmd_list),
+        cwd=cwd,
+        is_production=is_prod
+    )
+
+    if not validation.is_allowed:
+        raise PermissionError(f"Command not allowed: {'; '.join(validation.violations)}")
+
+    kwargs["shell"] = False
+    exec_cmd = validation.sanitized_cmd
+    allow_db_env = kwargs.pop("allow_database_env", False)
+    target_script = validation.subcommand
+
+    kwargs["env"] = CommandPolicy.sanitize_environment(
+        base_env=kwargs.get("env"),
+        workspace_root=Path(cwd) if cwd else None,
+        is_production=is_prod,
+        target_script=target_script,
+        allow_database_env=allow_db_env,
+    )
+
+    return subprocess.Popen(exec_cmd, **kwargs)

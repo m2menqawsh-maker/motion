@@ -23,6 +23,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -100,7 +101,21 @@ class CanonicalDocumentRepository:
                     f"Cross-tenant access rejected: Project belongs to '{db_ws}', not '{workspace_id}'."
                 )
 
-            target_rev = revision if revision is not None else curr_rev
+            if revision is None:
+                cur = conn.execute(
+                    """
+                    SELECT revision FROM project_artifact_versions
+                    WHERE workspace_id = ? AND project_id = ? AND artifact_kind = 'blueprint'
+                    ORDER BY revision DESC LIMIT 1
+                    """,
+                    (workspace_id, project_id),
+                )
+                latest_art = cur.fetchone()
+                target_rev = latest_art[0] if latest_art else curr_rev
+            else:
+                target_rev = revision
+
+            is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
 
             # 2. Lookup pointer in project_artifact_versions
             cur = conn.execute(
@@ -113,10 +128,26 @@ class CanonicalDocumentRepository:
             )
             art_row = cur.fetchone()
 
-            if art_row and self.storage.exists(art_row[0]):
-                raw_bytes = self.storage.get(art_row[0])
-                doc = json.loads(raw_bytes.decode("utf-8"))
-                return doc, target_rev
+            if art_row:
+                storage_key, expected_hash = art_row[0], art_row[1]
+                if self.storage.exists(storage_key):
+                    raw_bytes = self.storage.get(storage_key)
+                    actual_hash = hashlib.sha256(raw_bytes).hexdigest()
+                    if expected_hash and actual_hash != expected_hash:
+                        raise StateNotFoundError(
+                            f"Canonical document integrity error: hash mismatch for revision {target_rev}. "
+                            f"Expected {expected_hash}, got {actual_hash}"
+                        )
+                    doc = json.loads(raw_bytes.decode("utf-8"))
+                    return doc, target_rev
+                elif is_managed:
+                    raise StateNotFoundError(
+                        f"Canonical document object for revision {target_rev} not found in storage (key: '{storage_key}')."
+                    )
+            elif is_managed and revision is not None:
+                raise StateNotFoundError(
+                    f"Canonical document revision {revision} not found in repository for project '{project_id}'."
+                )
 
             # 3. Fallback: check local disk if exists (dev / migration fallback)
             disk_path = Path("projects") / project_id / "05_blueprint.json"
@@ -124,8 +155,20 @@ class CanonicalDocumentRepository:
                 disk_path = Path("projects") / project_id / "blueprint.json"
 
             if disk_path.exists():
-                doc = json.loads(disk_path.read_text(encoding="utf-8"))
-                return doc, curr_rev
+                disk_bytes = disk_path.read_bytes()
+                doc = json.loads(disk_bytes.decode("utf-8"))
+                disk_rev = doc.get("revision", 1)
+                if revision is not None and disk_rev != revision:
+                    raise StateNotFoundError(
+                        f"Local disk document revision {disk_rev} does not match requested revision {revision}."
+                    )
+                if art_row and art_row[1]:
+                    disk_hash = hashlib.sha256(disk_bytes).hexdigest()
+                    if disk_hash != art_row[1]:
+                        raise StateNotFoundError(
+                            f"Local disk document hash {disk_hash} does not match expected hash {art_row[1]}."
+                        )
+                return doc, disk_rev
 
             raise StateNotFoundError(
                 f"Canonical document not found for project '{project_id}' at revision {target_rev}."
@@ -191,7 +234,7 @@ class CanonicalDocumentRepository:
 
         # 3. Transactional CAS in SQL
         with self.db.transaction("IMMEDIATE") as conn:
-            # Check current revision
+            # Check current project state and tenant
             cur = conn.execute(
                 "SELECT revision, workspace_id FROM project_states WHERE project_id = ?",
                 (project_id,),
@@ -200,59 +243,72 @@ class CanonicalDocumentRepository:
             if not row:
                 raise StateNotFoundError(f"Project state '{project_id}' not found.")
 
-            curr_rev, db_ws = row[0], row[1]
+            curr_state_rev, db_ws = row[0], row[1]
             if db_ws != workspace_id:
                 raise TenantSecurityError(
                     f"Cross-tenant mutation rejected: Project belongs to '{db_ws}', not '{workspace_id}'."
                 )
 
-            if curr_rev != expected_revision:
+            # Query latest blueprint revision from project_artifact_versions
+            cur = conn.execute(
+                """
+                SELECT revision
+                FROM project_artifact_versions
+                WHERE workspace_id = ? AND project_id = ? AND artifact_kind = 'blueprint'
+                ORDER BY revision DESC LIMIT 1
+                """,
+                (workspace_id, project_id),
+            )
+            art_latest = cur.fetchone()
+            current_bp_rev = art_latest[0] if art_latest else curr_state_rev
+
+            if current_bp_rev != expected_revision:
                 raise RevisionConflictError(
                     expected_revision=expected_revision,
-                    actual_revision=curr_rev,
+                    actual_revision=current_bp_rev,
                     message=(
                         f"REVISION_CONFLICT: Expected revision {expected_revision}, "
-                        f"but persistent canonical revision is currently {curr_rev}."
+                        f"but persistent canonical revision is currently {current_bp_rev}."
                     ),
                 )
 
-            # Atomic CAS update of project_states
-            cur = conn.execute(
+            # Atomic update of project_states updated_at under state revision check
+            conn.execute(
                 """
                 UPDATE project_states
-                SET revision = ?, updated_at = ?
+                SET updated_at = ?
                 WHERE project_id = ? AND revision = ?
                 """,
-                (next_revision, now_iso, project_id, expected_revision),
+                (now_iso, project_id, curr_state_rev),
             )
-
-            if cur.rowcount == 0:
-                raise RevisionConflictError(
-                    expected_revision=expected_revision,
-                    actual_revision=None,
-                    message=f"Concurrent CAS race committing revision on project '{project_id}'.",
-                )
 
             # Insert immutable artifact version pointer
             art_version_id = f"art_bp_{project_id}_{next_revision}_{hash_short}"
-            conn.execute(
-                """
-                INSERT INTO project_artifact_versions (
-                    id, workspace_id, project_id, artifact_kind, revision,
-                    content_hash, storage_key, created_by, created_at
-                ) VALUES (?, ?, ?, 'blueprint', ?, ?, ?, ?, ?)
-                """,
-                (
-                    art_version_id,
-                    workspace_id,
-                    project_id,
-                    next_revision,
-                    content_hash,
-                    candidate_key,
-                    actor_id,
-                    now_iso,
-                ),
-            )
+            try:
+                conn.execute(
+                    """
+                    INSERT INTO project_artifact_versions (
+                        id, workspace_id, project_id, artifact_kind, revision,
+                        content_hash, storage_key, created_by, created_at
+                    ) VALUES (?, ?, ?, 'blueprint', ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        art_version_id,
+                        workspace_id,
+                        project_id,
+                        next_revision,
+                        content_hash,
+                        candidate_key,
+                        actor_id,
+                        now_iso,
+                    ),
+                )
+            except Exception as insert_err:
+                raise RevisionConflictError(
+                    expected_revision=expected_revision,
+                    actual_revision=None,
+                    message=f"Concurrent CAS race committing revision on project '{project_id}': {insert_err}",
+                ) from insert_err
 
             # Update project timestamp
             conn.execute("UPDATE projects SET updated_at = ? WHERE id = ?", (now_iso, project_id))
@@ -311,6 +367,16 @@ class CanonicalDocumentRepository:
                 disk_file.write_text(json.dumps(doc_dict, indent=2, ensure_ascii=False), encoding="utf-8")
             except Exception as e:
                 logger.warning(f"Failed to sync disk file {disk_file}: {e}")
+
+            # S09: Invalidate downstream review decisions upon canonical mutation
+            try:
+                from scripts.core.review_service import ReviewService
+                ReviewService.invalidate_review(
+                    proj_dir,
+                    reason=f"Canonical blueprint mutated to revision {next_revision} by {actor_id}",
+                )
+            except Exception as inv_err:
+                logger.warning(f"Failed to invalidate downstream review: {inv_err}")
 
         logger.info(
             f"Committed revision {next_revision} for project {project_id} under key {candidate_key}"

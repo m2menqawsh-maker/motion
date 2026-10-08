@@ -68,14 +68,32 @@ def setup_test_env():
     try:
         from scripts.core.database import get_database_engine, TenantRepository, Role
         repo = TenantRepository(get_database_engine())
-        for uid in ("test_admin", "usr_admin_legit", "gui_client_user", "usr_test_admin"):
+        for uid, role in (
+            ("test_admin", Role.ADMIN),
+            ("usr_admin_legit", Role.ADMIN),
+            ("gui_client_user", Role.ADMIN),
+            ("usr_test_admin", Role.ADMIN),
+            ("editor_user", Role.EDITOR),
+            ("rev_user", Role.REVIEWER),
+            ("reviewer_alice", Role.REVIEWER),
+            ("viewer_bob", Role.VIEWER),
+        ):
             if not repo.get_user(uid):
                 repo.create_user(uid, f"{uid}@motion.local")
         if not repo.get_workspace("ws_default"):
             repo.create_workspace("ws_default", "Default Workspace", created_by="test_admin")
-        for uid in ("test_admin", "usr_admin_legit", "gui_client_user", "usr_test_admin"):
+        for uid, role in (
+            ("test_admin", Role.ADMIN),
+            ("usr_admin_legit", Role.ADMIN),
+            ("gui_client_user", Role.ADMIN),
+            ("usr_test_admin", Role.ADMIN),
+            ("editor_user", Role.EDITOR),
+            ("rev_user", Role.REVIEWER),
+            ("reviewer_alice", Role.REVIEWER),
+            ("viewer_bob", Role.VIEWER),
+        ):
             if not repo.get_membership("ws_default", uid):
-                repo.add_member("ws_default", uid, Role.ADMIN)
+                repo.add_member("ws_default", uid, role)
     except Exception:
         pass
     yield

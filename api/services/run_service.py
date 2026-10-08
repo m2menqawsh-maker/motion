@@ -57,23 +57,11 @@ class RunService:
         repo = RunRepository(db_path=db_path)
         payload_hash = cls._compute_payload_hash(payload)
 
-        # 1. Idempotency Check
-        if idempotency_key:
-            existing = repo.find_by_idempotency(project_id, idempotency_key)
-            if existing:
-                if existing.request_payload_hash and existing.request_payload_hash != payload_hash:
-                    raise IdempotencyConflictError(
-                        idempotency_key=idempotency_key,
-                        message=f"Idempotency conflict: Key '{idempotency_key}' was previously used with a different request payload."
-                    )
-                return existing, False
-
-        # 2. Capture baseline project state revision
+        # Determine workspace_id
+        actual_ws_id = workspace_id
         state = StateStore.load(proj_dir)
         input_revision = state.revision if state else 1
 
-        # Determine workspace_id
-        actual_ws_id = workspace_id
         if not actual_ws_id and state and getattr(state, "workspace_id", None):
             actual_ws_id = state.workspace_id
         if not actual_ws_id:
@@ -87,7 +75,18 @@ class RunService:
                 pass
         actual_ws_id = actual_ws_id or "ws_default"
 
-        # 3. Create durable Run record
+        # 1. Idempotency Check
+        if idempotency_key:
+            existing = repo.find_by_idempotency(project_id, idempotency_key, workspace_id=actual_ws_id)
+            if existing:
+                if existing.request_payload_hash and existing.request_payload_hash != payload_hash:
+                    raise IdempotencyConflictError(
+                        idempotency_key=idempotency_key,
+                        message=f"Idempotency conflict: Key '{idempotency_key}' was previously used with a different request payload."
+                    )
+                return existing, False
+
+        # 2. Create durable Run record
         run_id = f"run_{uuid.uuid4().hex}"
         record = RunRecord(
             run_id=run_id,
@@ -100,17 +99,19 @@ class RunService:
         )
 
         persisted = repo.create_run(record)
+        is_created = (persisted.run_id == record.run_id)
 
-        # 4. Emit durable RUN_QUEUED event
-        repo.record_event(
-            run_id=persisted.run_id,
-            project_id=project_id,
-            event_type="RUN_QUEUED",
-            payload={"attempt": persisted.attempt, "input_revision": persisted.input_revision},
-            workspace_id=actual_ws_id,
-        )
+        # 3. Emit durable RUN_QUEUED event only if newly created
+        if is_created:
+            repo.record_event(
+                run_id=persisted.run_id,
+                project_id=project_id,
+                event_type="RUN_QUEUED",
+                payload={"attempt": persisted.attempt, "input_revision": persisted.input_revision},
+                workspace_id=actual_ws_id,
+            )
 
-        return persisted, True
+        return persisted, is_created
 
     @classmethod
     def cancel_run(

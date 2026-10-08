@@ -324,9 +324,10 @@ class HealthService:
                 "code": "FFMPEG_MISSING",
             }
 
+        from scripts.security.security import safe_subprocess
         start = time.perf_counter()
         try:
-            res = subprocess.run(
+            res = safe_subprocess(
                 [ffmpeg_bin, "-version"],
                 capture_output=True,
                 text=True,
@@ -352,9 +353,10 @@ class HealthService:
                 "code": "NODE_MISSING",
             }
 
+        from scripts.security.security import safe_subprocess
         start = time.perf_counter()
         try:
-            res = subprocess.run(
+            res = safe_subprocess(
                 [node_bin, "--version"],
                 capture_output=True,
                 text=True,

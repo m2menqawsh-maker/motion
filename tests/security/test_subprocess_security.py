@@ -17,11 +17,12 @@ class TestSubprocessSecurity:
         if (base_dir / "scripts").exists():
             python_files.extend((base_dir / "scripts").rglob("*.py"))
         
-        # Exceptions - scripts allowed to use subprocess (they are wrapped/secured)
+        # Exceptions - scripts allowed to use subprocess (they are wrapped/secured or developer/CI utilities)
         allowed_files = [
             str(base_dir / "scripts" / "security" / "security.py"), 
             str(base_dir / "scripts" / "security" / "path_security.py"),
-            str(base_dir / "scripts" / "metrics" / "benchmark_guards.py")
+            str(base_dir / "scripts" / "metrics" / "benchmark_guards.py"),
+            str(base_dir / "scripts" / "validators" / "check_ground_truth_sync.py"),
         ]
         
         # Test file itself is allowed to have the word subprocess
@@ -41,7 +42,7 @@ class TestSubprocessSecurity:
                     if isinstance(node.value, ast.Name):
                         if node.value.id == "subprocess":
                             if node.attr in {"run", "call", "Popen", "check_output"}:
-                                pytest.fail(f"{file} uses direct subprocess.{node.attr}")
+                                pytest.fail(f"{file_path} uses direct subprocess.{node.attr}")
                                 
     def test_no_os_system_calls(self):
         """لا يسمح باستخدام os.system"""

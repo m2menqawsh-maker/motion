@@ -138,6 +138,26 @@ def test_trusted_reviewer_vs_editor_separation(client, monkeypatch):
     """Editors cannot approve review gates; Reviewers can."""
     monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
     from api.services.pipeline_service import PipelineService
+    from scripts.core.database import get_database_engine, TenantRepository
+    engine = get_database_engine()
+    repo = TenantRepository(engine)
+    try:
+        repo.create_user("usr_editor", "editor@example.com")
+    except Exception:
+        pass
+    try:
+        repo.add_member("ws_default", "usr_editor", Role.EDITOR)
+    except Exception:
+        pass
+    try:
+        repo.create_user("usr_reviewer", "reviewer@example.com")
+    except Exception:
+        pass
+    try:
+        repo.add_member("ws_default", "usr_reviewer", Role.REVIEWER)
+    except Exception:
+        pass
+
     proj_id = "prj_review_test"
     proj_dir = PipelineService._get_project_dir(proj_id)
     proj_dir.mkdir(parents=True, exist_ok=True)
@@ -354,6 +374,18 @@ def test_production_auth_valid_authentic_credential_accepted(client, monkeypatch
     """In production, a valid cryptographically signed bearer token must be accepted."""
     monkeypatch.setenv("MOTION_ENV", "production")
     monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+
+    from scripts.core.database import get_database_engine, TenantRepository
+    engine = get_database_engine()
+    repo = TenantRepository(engine)
+    try:
+        repo.create_user("usr_editor101", "editor101@example.com")
+    except Exception:
+        pass
+    try:
+        repo.add_member("ws_default", "usr_editor101", Role.EDITOR)
+    except Exception:
+        pass
 
     principal = Principal(
         principal_id="usr_editor101",

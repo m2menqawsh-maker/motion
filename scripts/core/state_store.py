@@ -2,9 +2,12 @@ import os
 import json
 import uuid
 import hashlib
+import logging
 from pathlib import Path
 from typing import Optional, Callable
 from datetime import datetime, timezone
+
+logger = logging.getLogger("clean_video.state_store")
 
 from scripts.core.state_model import ProjectState, ArtifactRecord, ValidationLevel, LifecycleState
 from scripts.core.state_lock import StateLock, StateLockError, StateLockTimeoutError
@@ -122,7 +125,12 @@ class StateStore:
         return record
 
     @classmethod
-    def _persist_atomic(cls, project_dir: Path, state: ProjectState) -> None:
+    def _persist_atomic(
+        cls,
+        project_dir: Path,
+        state: ProjectState,
+        expected_revision: Optional[int] = None,
+    ) -> None:
         """
         Internal: Atomically persists state to project_dir using a unique temp file in the same directory.
         Performs full serialization validation before os.replace.
@@ -137,6 +145,13 @@ class StateStore:
         serialized = json.dumps(data, ensure_ascii=False, indent=2)
 
         state_file = project_dir / cls.STATE_FILE
+        prev_content: Optional[str] = None
+        if state_file.exists():
+            try:
+                prev_content = state_file.read_text(encoding="utf-8")
+            except OSError:
+                pass
+
         unique_suffix = f"{os.getpid()}.{uuid.uuid4().hex}"
         tmp_file = project_dir / f".pipeline_state.{unique_suffix}.tmp"
 
@@ -165,12 +180,27 @@ class StateStore:
                 except OSError:
                     pass
 
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+
         # Sync state to relational database (PostgreSQL / SQLite) (S24.5)
-        cls._sync_to_db(state)
+        try:
+            cls._sync_to_db(state, expected_revision=expected_revision)
+        except Exception as sync_err:
+            if is_managed:
+                # Rollback on-disk state to prevent split-brain between disk and database
+                try:
+                    if prev_content is not None:
+                        state_file.write_text(prev_content, encoding="utf-8")
+                    elif state_file.exists():
+                        state_file.unlink()
+                except Exception as rb_err:
+                    logger.error(f"Failed to rollback disk state during sync failure: {rb_err}")
+                raise
 
     @classmethod
     def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
         """Internal helper to reflect ProjectState into the relational database engine."""
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
         try:
             from scripts.core.database import get_database_engine
             engine = get_database_engine()
@@ -207,10 +237,11 @@ class StateStore:
 
                 cur = conn.execute("SELECT revision FROM project_states WHERE project_id = ?", (state.project_id,))
                 state_row = cur.fetchone()
+                lc_str = state.lifecycle_state.value if hasattr(state.lifecycle_state, "value") else str(state.lifecycle_state)
                 if not state_row:
                     conn.execute(
                         "INSERT INTO project_states (project_id, workspace_id, revision, lifecycle_state, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-                        (state.project_id, ws_id, state.revision, state.lifecycle_state.value, state_json, state.updated_at)
+                        (state.project_id, ws_id, state.revision, lc_str, state_json, state.updated_at)
                     )
                 else:
                     curr_rev = state_row[0]
@@ -218,11 +249,14 @@ class StateStore:
                         raise StateConflictError(expected_revision, curr_rev, f"DB CAS mismatch for project '{state.project_id}'")
                     conn.execute(
                         "UPDATE project_states SET revision = ?, lifecycle_state = ?, state_json = ?, updated_at = ? WHERE project_id = ?",
-                        (state.revision, state.lifecycle_state.value, state_json, state.updated_at, state.project_id)
+                        (state.revision, lc_str, state_json, state.updated_at, state.project_id)
                     )
         except Exception as e:
             if isinstance(e, StateConflictError):
                 raise
+            if is_managed:
+                logger.error(f"Failed to sync state to database in managed mode for project '{state.project_id}': {e}")
+                raise StateStoreError(f"Database state synchronization failed: {e}") from e
             # Non-fatal if database is unconfigured during low-level isolated unit tests
             pass
 
@@ -283,7 +317,7 @@ class StateStore:
             working_copy.updated_at = datetime.now(timezone.utc).isoformat()
 
             # Atomic persistence
-            cls._persist_atomic(pdir, working_copy)
+            cls._persist_atomic(pdir, working_copy, expected_revision=current_state.revision)
             working_copy._loaded_revision = working_copy.revision
             return working_copy
 
@@ -342,7 +376,7 @@ class StateStore:
             state.revision = current_disk.revision + 1
 
             state.updated_at = datetime.now(timezone.utc).isoformat()
-            cls._persist_atomic(pdir, state)
+            cls._persist_atomic(pdir, state, expected_revision=current_disk.revision)
             state._loaded_revision = state.revision
 
     @classmethod

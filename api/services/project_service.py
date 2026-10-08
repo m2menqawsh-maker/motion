@@ -54,6 +54,138 @@ class ProjectService:
         return res_project_id
 
     @classmethod
+    async def create_managed_project(
+        cls,
+        name: str,
+        language: str,
+        principal: Principal,
+        requested_workspace_id: Optional[str] = None,
+    ) -> str:
+        """
+        Manages end-to-end multi-tenant project creation, filesystem scaffolding,
+        relational database registration, and state synchronization.
+        """
+        from fastapi import HTTPException, status
+        import uuid
+        import shutil
+        from scripts.core.database import get_database_engine, TenantRepository
+        from scripts.core.security.permissions import ROLE_PERMISSIONS_MATRIX, AccessDeniedError, Action
+
+        try:
+            repo = TenantRepository(get_database_engine())
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable."
+            )
+
+        if requested_workspace_id:
+            try:
+                membership = repo.get_membership(requested_workspace_id, principal.principal_id)
+            except Exception:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during workspace verification."
+                )
+            if not membership and not (principal.is_admin and principal.auth_method == "INTERNAL_SYSTEM"):
+                raise AccessDeniedError(
+                    principal_id=principal.principal_id,
+                    action=Action.PROJECT_CREATE,
+                    project_id=None,
+                    reason=f"Principal '{principal.principal_id}' is not an active member of workspace '{requested_workspace_id}'."
+                )
+            if membership and Action.PROJECT_CREATE not in ROLE_PERMISSIONS_MATRIX.get(membership.role, set()):
+                raise AccessDeniedError(
+                    principal_id=principal.principal_id,
+                    action=Action.PROJECT_CREATE,
+                    project_id=None,
+                    reason=f"Role '{membership.role.value}' does not grant 'project:create'."
+                )
+            target_workspace_id = requested_workspace_id
+        else:
+            # Resolve from user's active workspaces
+            try:
+                user_workspaces = repo.list_user_workspaces(principal.principal_id)
+            except Exception:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during workspace lookup."
+                )
+            valid_workspaces = [
+                (ws, role) for ws, role in user_workspaces
+                if Action.PROJECT_CREATE in ROLE_PERMISSIONS_MATRIX.get(role, set())
+            ]
+            if len(valid_workspaces) == 1:
+                target_workspace_id = valid_workspaces[0][0].id
+            elif len(valid_workspaces) > 1:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Ambiguous workspace selection. Multiple eligible workspaces found; please specify 'X-Workspace-ID' header."
+                )
+            else:
+                raise AccessDeniedError(
+                    principal_id=principal.principal_id,
+                    action=Action.PROJECT_CREATE,
+                    project_id=None,
+                    reason=f"Principal '{principal.principal_id}' is not an active member of any workspace with project creation permissions. Unmanaged project creation via HTTP API is prohibited."
+                )
+
+        project_id = f"prj_{uuid.uuid4().hex[:8]}"
+        project_dir = Path(f"projects/{project_id}")
+
+        # 1. Scaffolding project filesystem
+        try:
+            await cls.create_project_async(
+                name,
+                language,
+                workspace_id=target_workspace_id,
+                created_by=principal.principal_id,
+                project_id=project_id,
+            )
+        except Exception as scaffold_exc:
+            if project_dir.exists() and project_dir.name == project_id and project_id.startswith("prj_"):
+                shutil.rmtree(project_dir, ignore_errors=True)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to scaffold project filesystem: {scaffold_exc}"
+            )
+
+        # 2. Database registration in parent process
+        try:
+            repo.create_project(
+                project_id=project_id,
+                workspace_id=target_workspace_id,
+                name=name,
+                created_by=principal.principal_id,
+            )
+        except Exception:
+            if project_dir.exists() and project_dir.name == project_id and project_id.startswith("prj_"):
+                shutil.rmtree(project_dir, ignore_errors=True)
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable during project registration."
+            )
+
+        # 3. State sync in parent process
+        try:
+            state = StateStore.load(project_dir)
+            if state:
+                StateStore._sync_to_db(state)
+        except Exception:
+            try:
+                repo.delete_project(project_id)
+            except Exception:
+                pass
+            if project_dir.exists() and project_dir.name == project_id and project_id.startswith("prj_"):
+                shutil.rmtree(project_dir, ignore_errors=True)
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable during project state synchronization."
+            )
+
+        return project_id
+
+    @classmethod
     def list_projects(cls, principal: Principal, workspace_id: Optional[str] = None) -> List[str]:
         """Lists projects accessible to the given principal under tenant confinement."""
         user_workspace_ids = set()

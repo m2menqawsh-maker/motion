@@ -298,6 +298,9 @@ class PipelineWorker:
                 result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8", env=env)
                 self._stop_heartbeat_loop()
                 if result.returncode == 0:
+                    if not self.repo.is_lease_active(run.run_id, self.worker_id):
+                        logger.warning(f"Worker {self.worker_id} lease expired/lost for run {run.run_id}; skipping terminal success.")
+                        return False
                     ref = {
                         "return_code": 0,
                         "stdout_tail": result.stdout[-2000:] if getattr(result, "stdout", None) else "",
@@ -327,7 +330,8 @@ class PipelineWorker:
                 return True
 
             import subprocess
-            proc = subprocess.Popen(
+            from scripts.security.security import safe_popen
+            proc = safe_popen(
                 cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -434,6 +438,9 @@ class PipelineWorker:
                 )
                 logger.info(f"Run {run.run_id} finished CANCELLED.")
             elif proc.returncode == 0:
+                if not self.repo.is_lease_active(run.run_id, self.worker_id):
+                    logger.warning(f"Worker {self.worker_id} lease expired/lost for run {run.run_id}; skipping terminal success.")
+                    return False
                 ref = {
                     "return_code": 0,
                     "stdout_tail": "\n".join(stdout_lines[-50:]),
