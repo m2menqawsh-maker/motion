@@ -150,27 +150,59 @@ class AuthorizationPolicy:
 
         # Check database multi-tenant ownership if project_id is provided (S24.5)
         if project_id:
+            db_failed = False
+            project_record = None
             try:
                 from scripts.core.database import get_database_engine, TenantRepository
                 from scripts.core.security.principal import PrincipalType
                 engine = get_database_engine()
                 repo = TenantRepository(engine)
                 project_record = repo.get_project(project_id)
-                if project_record is not None:
-                    # System workers and platform service accounts retain system authority
-                    if principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER):
-                        return True
-                    # Multi-tenant project registered in DB: evaluate workspace membership
-                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
-                    if membership is None:
-                        # User is NOT a member of the workspace owning this project -> Fail Closed
-                        return False
-                    granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
-                    return action in granted_actions
             except Exception:
-                pass
+                db_failed = True
 
-        # Global admin authorized for unmanaged/standalone operations
+            if db_failed:
+                # Operational error / DB failure -> Fail closed! Never fallback to token admin
+                return False
+
+            if project_record is not None:
+                # Internal system workers retain system authority
+                if (
+                    principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER)
+                    and principal.auth_method == "INTERNAL_SYSTEM"
+                ):
+                    return True
+
+                # Multi-tenant project registered in DB: evaluate workspace membership
+                try:
+                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
+                except Exception:
+                    # DB error during membership check -> Fail closed
+                    return False
+
+                if membership is None:
+                    # User is NOT a member of the workspace owning this project -> Fail Closed
+                    return False
+                granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
+                return action in granted_actions
+
+            # Check if project exists on disk with a workspace_id in its state
+            try:
+                from pathlib import Path
+                from scripts.core.state_store import StateStore
+                proj_dir = Path(f"projects/{project_id}")
+                if proj_dir.exists():
+                    state = StateStore.load(proj_dir)
+                    if state and getattr(state, "workspace_id", None):
+                        membership = repo.get_membership(state.workspace_id, principal.principal_id)
+                        if membership is None:
+                            return False
+                        granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
+                        return action in granted_actions
+            except Exception:
+                return False
+
+        # Unmanaged / standalone operations (no DB or on-disk workspace binding)
         if principal.is_admin:
             return True
 
@@ -199,8 +231,7 @@ class AuthorizationPolicy:
             raise AuthenticationRequiredError(action=action, project_id=project_id)
 
         if not cls.is_authorized(principal, action, project_id):
-            effective_roles = [r.value for r in principal.get_roles_for_project(project_id)]
-            reason = f"Effective roles {effective_roles} do not grant '{action.value}'"
+            reason = f"Principal '{principal.principal_id}' lacks required permission for action '{action.value}'"
             raise AccessDeniedError(
                 principal_id=principal.principal_id,
                 action=action,

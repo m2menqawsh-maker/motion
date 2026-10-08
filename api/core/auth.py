@@ -294,23 +294,84 @@ def require_permission(action: Action):
 
         # Attach TenantContext if project_id is present (S24.5)
         if project_id:
+            db_failed = False
+            project_record = None
             try:
                 from scripts.core.database import get_database_engine, TenantRepository
                 from scripts.core.tenant_model import TenantContext
                 engine = get_database_engine()
                 repo = TenantRepository(engine)
                 project_record = repo.get_project(project_id)
-                if project_record:
-                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
-                    effective_role = Role.ADMIN if principal.is_admin else (membership.role if membership else Role.VIEWER)
-                    request.state.tenant_context = TenantContext(
-                        workspace_id=project_record.workspace_id,
-                        user_id=principal.principal_id,
-                        role=effective_role,
-                        principal=principal,
-                    )
             except Exception:
-                pass
+                db_failed = True
+
+            if db_failed:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during authorization."
+                )
+
+            if project_record:
+                is_internal_worker = (
+                    principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER)
+                    and principal.auth_method == "INTERNAL_SYSTEM"
+                )
+
+                if is_internal_worker:
+                    effective_role = Role.ADMIN
+                else:
+                    try:
+                        membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
+                    except Exception:
+                        raise HTTPException(
+                            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                            detail="Database service temporarily unavailable during membership lookup."
+                        )
+
+                    if membership is None:
+                        raise AccessDeniedError(
+                            principal_id=principal.principal_id,
+                            action=action,
+                            project_id=project_id,
+                            reason="No active membership in project workspace."
+                        )
+                    effective_role = membership.role
+
+                request.state.tenant_context = TenantContext(
+                    workspace_id=project_record.workspace_id,
+                    user_id=principal.principal_id,
+                    role=effective_role,
+                    principal=principal,
+                )
+            else:
+                # Check on-disk state
+                try:
+                    from pathlib import Path
+                    from scripts.core.state_store import StateStore
+                    from scripts.core.tenant_model import TenantContext
+                    proj_dir = Path(f"projects/{project_id}")
+                    if proj_dir.exists():
+                        state = StateStore.load(proj_dir)
+                        if state and getattr(state, "workspace_id", None):
+                            membership = repo.get_membership(state.workspace_id, principal.principal_id)
+                            if membership is None and principal.auth_method != "INTERNAL_SYSTEM":
+                                raise AccessDeniedError(
+                                    principal_id=principal.principal_id,
+                                    action=action,
+                                    project_id=project_id,
+                                    reason="No active membership in project workspace."
+                                )
+                            effective_role = membership.role if membership else Role.ADMIN
+                            request.state.tenant_context = TenantContext(
+                                workspace_id=state.workspace_id,
+                                user_id=principal.principal_id,
+                                role=effective_role,
+                                principal=principal,
+                            )
+                except AccessDeniedError:
+                    raise
+                except Exception:
+                    pass
 
         return principal
 
@@ -324,17 +385,49 @@ def require_tenant_context(action: Action):
         principal: Principal = Depends(require_permission(action)),
     ) -> Any:
         ctx = getattr(request.state, "tenant_context", None)
+        project_id = request.path_params.get("project_id")
+
         if ctx is not None:
+            if project_id:
+                return ctx
+            requested_ws = request.headers.get("X-Workspace-ID")
+            if requested_ws and requested_ws != ctx.workspace_id:
+                raise AccessDeniedError(
+                    principal_id=principal.principal_id,
+                    action=action,
+                    project_id=None,
+                    reason="Requested workspace does not match authorized context."
+                )
             return ctx
+
+        if project_id:
+            raise AccessDeniedError(
+                principal_id=principal.principal_id,
+                action=action,
+                project_id=project_id,
+                reason="Project tenant context could not be verified."
+            )
 
         # Derive tenant context when no project_id is in the path
         workspace_id = request.headers.get("X-Workspace-ID")
         from scripts.core.database import get_database_engine, TenantRepository
-        engine = get_database_engine()
-        repo = TenantRepository(engine)
+        try:
+            engine = get_database_engine()
+            repo = TenantRepository(engine)
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable."
+            )
 
         if not workspace_id:
-            workspaces = repo.list_user_workspaces(principal.principal_id)
+            try:
+                workspaces = repo.list_user_workspaces(principal.principal_id)
+            except Exception:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during workspace lookup."
+                )
             if workspaces:
                 workspace_id = workspaces[0][0].id
 
@@ -345,16 +438,39 @@ def require_tenant_context(action: Action):
             except Exception:
                 pass
 
-        membership = repo.get_membership(workspace_id, principal.principal_id)
-        if membership is None and principal.principal_type not in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER):
+        try:
+            membership = repo.get_membership(workspace_id, principal.principal_id)
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable during membership check."
+            )
+
+        is_internal_worker = (
+            principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER)
+            and principal.auth_method == "INTERNAL_SYSTEM"
+        )
+
+        if membership is None and not is_internal_worker:
             raise AccessDeniedError(
                 principal_id=principal.principal_id,
                 action=action,
                 project_id=None,
-                reason=f"Principal '{principal.principal_id}' is not a member of workspace '{workspace_id}'"
+                reason=f"Principal '{principal.principal_id}' is not an active member of workspace '{workspace_id}'"
             )
 
-        effective_role = membership.role if membership else (Role.ADMIN if principal.is_admin else Role.VIEWER)
+        effective_role = membership.role if membership else Role.ADMIN
+
+        # Verify that effective_role grants action
+        from scripts.core.security.permissions import ROLE_PERMISSIONS_MATRIX
+        granted = ROLE_PERMISSIONS_MATRIX.get(effective_role, set())
+        if action not in granted and not is_internal_worker:
+            raise AccessDeniedError(
+                principal_id=principal.principal_id,
+                action=action,
+                project_id=None,
+                reason=f"Role '{effective_role.value}' does not grant action '{action.value}'"
+            )
 
         ctx = TenantContext(
             workspace_id=workspace_id,

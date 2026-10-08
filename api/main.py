@@ -13,6 +13,7 @@ from api.core.errors import (
     global_exception_handler,
     authentication_required_handler,
     access_denied_handler,
+    tenant_security_error_handler,
     lifecycle_error_handler,
     state_conflict_handler,
     state_lock_timeout_handler,
@@ -20,6 +21,7 @@ from api.core.errors import (
 from scripts.core.lifecycle_service import LifecycleError
 from scripts.core.state_store import StateConflictError, StateLockTimeoutError
 from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
+from scripts.core.database import TenantSecurityError
 from scripts.core.security.env_policy import EnvironmentPolicyAuditor
 
 logger = logging.getLogger("api.main")
@@ -75,5 +77,6 @@ app.add_exception_handler(StateLockTimeoutError, state_lock_timeout_handler)
 app.add_exception_handler(LifecycleError, lifecycle_error_handler)
 app.add_exception_handler(AuthenticationRequiredError, authentication_required_handler)
 app.add_exception_handler(AccessDeniedError, access_denied_handler)
+app.add_exception_handler(TenantSecurityError, tenant_security_error_handler)
 app.add_exception_handler(APIError, api_error_handler)
 app.add_exception_handler(Exception, global_exception_handler)

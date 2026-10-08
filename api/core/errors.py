@@ -1,9 +1,11 @@
 from typing import Optional, List, Any, Dict
+import re
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 import logging
 from scripts.core.security.permissions import AccessDeniedError, AuthenticationRequiredError
+from scripts.core.database import TenantSecurityError
 from scripts.core.lifecycle_service import (
     LifecycleError,
     InvalidLifecycleTransitionError,
@@ -12,6 +14,14 @@ from scripts.core.lifecycle_service import (
 from scripts.core.state_store import StateConflictError, StateLockTimeoutError
 
 logger = logging.getLogger("api.errors")
+
+_WORKSPACE_ID_RE = re.compile(r"ws_[a-zA-Z0-9_\-]+")
+
+def sanitize_denial_text(text: Optional[str]) -> Optional[str]:
+    """Redacts internal workspace IDs from user-facing error details."""
+    if not text:
+        return text
+    return _WORKSPACE_ID_RE.sub("[REDACTED_WORKSPACE]", text)
 
 class APIError(Exception):
     """Base class for all API errors."""
@@ -149,17 +159,33 @@ async def authentication_required_handler(request: Request, exc: AuthenticationR
     )
 
 async def access_denied_handler(request: Request, exc: AccessDeniedError):
+    safe_msg = sanitize_denial_text(str(exc))
+    safe_reason = sanitize_denial_text(exc.reason)
     return JSONResponse(
         status_code=403,
         content={
             "status": "error",
             "error": "AccessDenied",
-            "message": str(exc),
+            "message": safe_msg,
             "details": {
                 "principal_id": exc.principal_id,
                 "action": exc.action.value,
                 "project_id": exc.project_id,
-                "reason": exc.reason
+                "reason": safe_reason
+            }
+        }
+    )
+
+async def tenant_security_error_handler(request: Request, exc: TenantSecurityError):
+    safe_reason = sanitize_denial_text(str(exc))
+    return JSONResponse(
+        status_code=403,
+        content={
+            "status": "error",
+            "error": "AccessDenied",
+            "message": "Access denied across tenant boundary.",
+            "details": {
+                "reason": safe_reason
             }
         }
     )
@@ -240,6 +266,6 @@ async def global_exception_handler(request: Request, exc: Exception):
             "status": "error",
             "error": "InternalServerError",
             "message": "An unexpected error occurred on the server.",
-            "details": {"reason": str(exc)}
+            "details": {}
         }
     )
