@@ -26,6 +26,7 @@ import time
 from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
+from tests.conftest import make_test_auth_headers
 
 ROOT = Path(__file__).resolve().parent.parent.parent.parent
 if str(ROOT) not in sys.path:
@@ -62,7 +63,7 @@ def test_green_led_060_durable_events_persistence_and_reconnect(tmp_path, monkey
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Create run -> emits RUN_QUEUED
         resp_create = client.post(f"/projects/{project_id}/runs", json={}, headers=auth_headers)
@@ -131,7 +132,7 @@ def test_green_led_062_cancellation_queued_and_running(tmp_path, monkeypatch):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Cancel QUEUED run
         resp_q = client.post(f"/projects/{project_id}/runs", json={}, headers=auth_headers)
@@ -200,7 +201,7 @@ def test_green_led_063_asset_upload_and_management(tmp_path):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Upload valid image
         dummy_png = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDRdummy_data"
@@ -262,7 +263,7 @@ def test_green_led_064_artifact_inventory_and_canonical_readers(tmp_path):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Inventory
         resp_inv = client.get(f"/projects/{project_id}/artifacts", headers=auth_headers)
@@ -308,7 +309,7 @@ def test_green_led_065_video_delivery_range_requests(tmp_path):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Full content delivery (HTTP 200)
         resp_full = client.get(f"/projects/{project_id}/outputs/out.mp4", headers=auth_headers)
@@ -357,7 +358,7 @@ def test_green_led_066_brand_contract_validation_and_atomic_write():
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Invalid payload rejected
         invalid_payload = {"brandName": "TestBrand"}  # missing colors and fonts
@@ -408,7 +409,7 @@ def test_green_led_067_overrides_schema_and_style_validation():
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Malicious / Dangerous payload rejected
         dangerous_payload = {
@@ -479,7 +480,7 @@ def test_green_led_068_optimistic_concurrency_stale_writer_409():
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. GET returns ETag: "1"
         resp_get = client.get(f"/brand/{project_id}", headers=auth_headers)
@@ -592,7 +593,7 @@ def test_green_led_071_canonical_lifecycle_dto_projection(tmp_path):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         resp = client.get(f"/projects/{project_id}/state", headers=auth_headers)
         assert resp.status_code == 200

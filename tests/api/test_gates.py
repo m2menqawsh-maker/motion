@@ -1,7 +1,8 @@
 from fastapi.testclient import TestClient
 from api.main import app
+from tests.conftest import make_test_auth_headers
 
-client = TestClient(app, headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin,reviewer,editor"})
+client = TestClient(app, headers=make_test_auth_headers(principal_id="test_admin", roles=["admin", "reviewer", "editor"]))
 
 from scripts.core.state_store import StateStore
 from api.services.pipeline_service import PipelineService

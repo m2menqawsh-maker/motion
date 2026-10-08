@@ -3,13 +3,11 @@ from api.main import app
 from unittest.mock import patch
 from fastapi.websockets import WebSocketDisconnect
 
+from tests.conftest import make_test_auth_headers
+
 client = TestClient(app)
 
-AUTH_HEADERS = {
-    "Authorization": "Bearer admin",
-    "X-Principal-ID": "test_admin",
-    "X-Principal-Roles": "admin",
-}
+AUTH_HEADERS = make_test_auth_headers(principal_id="usr_test_admin", roles=["admin"], project_scopes={"*": ["admin"]})
 
 def test_render_endpoint():
     res_proj = client.post("/projects/", headers=AUTH_HEADERS, json={"name": "RenderTest", "language": "ar"})

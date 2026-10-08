@@ -43,6 +43,7 @@ from scripts.core.canonical_document_repository import (
 )
 from scripts.core.tenant_model import TenantContext
 from scripts.core.security.principal import Role, Principal, PrincipalType
+from tests.conftest import make_test_auth_headers
 from scripts.core.security.permissions import Action, AccessDeniedError
 from scripts.core.failure_model import FailureCode, get_failure_metadata
 from scripts.core.budget_service import BudgetService, BudgetExceededError
@@ -315,8 +316,7 @@ def test_authoring_api_endpoints_and_etag(test_env):
 
     # 1. GET /projects/{id}/authoring/document
     headers_editor = {
-        "X-Principal-ID": "usr_editor",
-        "X-Principal-Roles": "editor",
+        **make_test_auth_headers(principal_id="usr_editor", roles=["editor"]),
         "X-Workspace-ID": "ws_prod",
     }
 
@@ -346,8 +346,7 @@ def test_authoring_api_endpoints_and_etag(test_env):
 
     # 3. Cross-tenant access blocked (403 Forbidden)
     headers_other = {
-        "X-Principal-ID": "usr_other",
-        "X-Principal-Roles": "editor",
+        **make_test_auth_headers(principal_id="usr_other", roles=["editor"]),
         "X-Workspace-ID": "ws_other",
     }
     cross_res = CLIENT.get(f"/projects/{proj_id}/document", headers=headers_other)
@@ -764,8 +763,7 @@ def test_r14_29_cross_tenant_render_access_fails_closed(test_env):
     """R14-29: Cross-tenant render/output access fails closed."""
     # Tenant in ws_other tries to get document or mutation of ws_prod
     headers_other = {
-        "X-Principal-ID": "usr_other",
-        "X-Principal-Roles": "editor",
+        **make_test_auth_headers(principal_id="usr_other", roles=["editor"]),
         "X-Workspace-ID": "ws_other",
     }
     res = CLIENT.get("/projects/prj_r14/document", headers=headers_other)

@@ -22,6 +22,7 @@ from scripts.core.run_repository import RunRepository
 from scripts.core.run_model import RunStatus
 from scripts.core.storage import set_storage_service, LocalStorageBackend
 from api.main import app
+from tests.conftest import make_test_auth_headers
 
 
 @pytest.fixture
@@ -81,8 +82,7 @@ def test_fi09_identical_requests_return_same_run_without_duplicate(fi09_env):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
     payload = {"idempotency_key": "idemp-test-duplicate-001", "parameters": {"quality": "1080p"}}
@@ -121,8 +121,7 @@ def test_fi09_idempotency_key_payload_conflict(fi09_env):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
 
@@ -154,8 +153,7 @@ def test_fi09_request_without_idempotency_key_creates_distinct_runs(fi09_env):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
 
@@ -185,8 +183,7 @@ def test_fi09_duplicate_on_completed_run_returns_terminal_state(fi09_env):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
     payload = {"idempotency_key": "completed-key-100", "parameters": {}}

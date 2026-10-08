@@ -36,6 +36,7 @@ from scripts.core.storage import (
 )
 from scripts.core.tenant_model import Role
 from api.main import app
+from tests.conftest import make_test_auth_headers
 
 
 @pytest.fixture
@@ -115,13 +116,11 @@ def test_fi20_end_to_end_destructive_cascade_and_cross_tenant_isolation(fi20_env
     user_b = fi20_env["user_b"]
 
     headers_a = {
-        "X-Principal-ID": user_a,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_a, roles=["admin"]),
         "X-Workspace-ID": ws_a,
     }
     headers_b = {
-        "X-Principal-ID": user_b,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_b, roles=["admin"]),
         "X-Workspace-ID": ws_b,
     }
 

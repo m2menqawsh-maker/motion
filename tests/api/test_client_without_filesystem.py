@@ -22,10 +22,8 @@ def test_client_api_only_workflow():
     Client never touches the filesystem or internal paths.
     """
     client = TestClient(app)
-    auth_headers = {
-        "X-Principal-ID": "gui_client_user",
-        "X-Principal-Roles": "admin",
-    }
+    from tests.conftest import make_test_auth_headers
+    auth_headers = make_test_auth_headers(principal_id="gui_client_user", roles=["admin"])
 
     try:
         # -------------------------------------------------------------

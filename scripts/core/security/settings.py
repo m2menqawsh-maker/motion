@@ -115,7 +115,7 @@ def get_security_settings() -> SecuritySettings:
     return _global_settings
 
 
-def set_security_settings(settings: SecuritySettings) -> None:
+def set_security_settings(settings: Optional[SecuritySettings]) -> None:
     """Explicitly override global security settings (useful for tests)."""
     global _global_settings
     _global_settings = settings

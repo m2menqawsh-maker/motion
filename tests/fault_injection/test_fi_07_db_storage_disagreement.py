@@ -139,12 +139,12 @@ def test_fi07_case_b_storage_has_unindexed_orphan_object(fi07_env):
     assert storage.exists(orphan_key)
 
     # API query for the run must return 404 because DB has no record
-    client = TestClient(app)
+    from tests.conftest import make_test_auth_headers
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
+    client = TestClient(app)
     resp = client.get(f"/projects/{project_id}/runs/run_unindexed", headers=headers)
     assert resp.status_code == 404
 

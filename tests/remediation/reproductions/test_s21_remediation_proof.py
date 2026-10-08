@@ -25,6 +25,7 @@ from scripts.core.run_model import RunRecord, RunStatus, InvalidRunTransitionErr
 from scripts.core.run_repository import RunRepository
 from scripts.core.state_store import StateStore
 from scripts.core.worker import PipelineWorker
+from tests.conftest import make_test_auth_headers
 
 
 @pytest.fixture
@@ -61,7 +62,7 @@ def test_green_led_058_canonical_run_api_contract(clean_project):
     """
     project_id, _, db_file = clean_project
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
     # 1. Trigger run via canonical endpoint
     resp = client.post(
@@ -101,7 +102,7 @@ def test_green_led_058_legacy_render_deprecated_adapter(clean_project):
     """
     project_id, _, db_file = clean_project
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
     resp = client.post(f"/render/{project_id}", headers=auth_headers)
     assert resp.status_code == 200
@@ -128,7 +129,7 @@ def test_green_led_059_durability_across_api_process_death(clean_project):
     3. New process queries the run from persistent storage — record is completely intact.
     """
     project_id, _, db_file = clean_project
-    auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
     # Process A enqueues
     client_a = TestClient(app)
@@ -157,7 +158,7 @@ def test_green_led_059_idempotency_semantics(clean_project):
     """
     project_id, _, db_file = clean_project
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
     idem_key = "idemp_test_key_123"
 
     # First request

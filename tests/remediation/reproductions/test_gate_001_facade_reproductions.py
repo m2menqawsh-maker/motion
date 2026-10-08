@@ -42,11 +42,14 @@ def test_project():
         shutil.rmtree(pdir)
 
 
+from tests.conftest import make_test_auth_headers
+
+
 @pytest.fixture
 def auth_client():
     return TestClient(
         app,
-        headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin,reviewer,editor"}
+        headers=make_test_auth_headers(principal_id="usr_test_admin", roles=["admin"], project_scopes={"*": ["admin"]})
     )
 
 

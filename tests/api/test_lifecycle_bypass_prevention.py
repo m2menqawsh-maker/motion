@@ -49,9 +49,10 @@ def test_api_finish_stage_returns_422_and_does_not_mutate_state(api_project):
     """Calling POST /gates/{project_id}/finish/asset_gate must return 422 and leave state unchanged."""
     project_id, proj_dir = api_project
 
+    from tests.conftest import make_test_auth_headers
     client = TestClient(
         app,
-        headers={"X-Principal-ID": "editor_user", "X-Principal-Roles": "editor"},
+        headers=make_test_auth_headers(principal_id="editor_user", roles=["editor"]),
     )
 
     response = client.post(f"/gates/{project_id}/finish/asset_gate")
@@ -69,9 +70,10 @@ def test_api_approve_gate_does_not_advance_lifecycle(api_project):
     """Calling POST /gates/{project_id}/approve/asset_gate fails closed with 422 and does NOT advance lifecycle or mutate metadata."""
     project_id, proj_dir = api_project
 
+    from tests.conftest import make_test_auth_headers
     client = TestClient(
         app,
-        headers={"X-Principal-ID": "rev_user", "X-Principal-Roles": "reviewer"},
+        headers=make_test_auth_headers(principal_id="rev_user", roles=["reviewer"]),
     )
 
     response = client.post(f"/gates/{project_id}/approve/asset_gate")

@@ -23,6 +23,7 @@ from api.main import app
 from api.services.pipeline_service import PipelineService
 from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
 from scripts.core.run_repository import RunRepository
+from tests.conftest import make_test_auth_headers
 
 
 def test_reproduce_led_058_canonical_run_endpoint_and_deprecated_render(tmp_path, monkeypatch):
@@ -43,7 +44,7 @@ def test_reproduce_led_058_canonical_run_endpoint_and_deprecated_render(tmp_path
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         # 1. Canonical run API exists and returns 202 with real Run resource
         resp_runs = client.post(f"/projects/{project_id}/runs", json={}, headers=auth_headers)
@@ -87,7 +88,7 @@ def test_reproduce_led_059_durable_run_persisted_before_response(tmp_path, monke
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_operator", "X-Principal-Roles": "operator,admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_operator", roles=["operator", "admin"], project_scopes={"*": ["operator", "admin"]})
 
         resp = client.post(f"/projects/{project_id}/runs", json={}, headers=auth_headers)
         assert resp.status_code == 202

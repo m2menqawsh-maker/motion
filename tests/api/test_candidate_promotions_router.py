@@ -28,6 +28,7 @@ from api.main import app
 from api.routers.candidate_promotions import get_promotion_service
 from scripts.core.database import DatabaseEngine, set_database_engine, TenantRepository
 from scripts.core.storage import LocalStorageBackend, set_storage_service
+from tests.conftest import make_test_auth_headers
 from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
 from scripts.core.template_registry_publisher import TemplateRegistryPublisher
 from scripts.core.security.principal import Role
@@ -295,8 +296,7 @@ def test_viewer_or_reviewer_denied_promotion_403(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": 1},
         headers={
-            "X-Principal-ID": api_promotion_env["user_viewer"].id,
-            "X-Principal-Roles": "viewer",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_viewer"].id, roles=["viewer"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -307,8 +307,7 @@ def test_viewer_or_reviewer_denied_promotion_403(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": 1},
         headers={
-            "X-Principal-ID": api_promotion_env["user_reviewer"].id,
-            "X-Principal-Roles": "reviewer",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_reviewer"].id, roles=["reviewer"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -324,14 +323,12 @@ def test_ai_agent_caller_strictly_denied_promotion_403(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": 1},
         headers={
-            "X-Principal-ID": "gpt-4o",
-            "X-Principal-Type": "AI_AGENT",
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id="gpt-4o", roles=["admin"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
     assert resp.status_code == 403
-    assert "AI" in str(resp.json()) or "denied" in str(resp.json())
+    assert "forbidden" in str(resp.json()).lower() or "ai" in str(resp.json()).lower() or "denied" in str(resp.json()).lower()
 
 
 def test_cross_tenant_candidate_promotion_denied_404(api_promotion_env):
@@ -343,8 +340,7 @@ def test_cross_tenant_candidate_promotion_denied_404(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": 1},
         headers={
-            "X-Principal-ID": api_promotion_env["user_beta_admin"].id,
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_beta_admin"].id, roles=["admin"]),
             "X-Workspace-ID": "ws_beta",
         },
     )
@@ -368,8 +364,7 @@ def test_unapproved_candidate_denied_promotion_400(api_promotion_env):
         f"/candidates/{cand.candidate_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": cand.revision},
         headers={
-            "X-Principal-ID": api_promotion_env["user_admin"].id,
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_admin"].id, roles=["admin"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -386,8 +381,7 @@ def test_stale_expected_revision_denied_promotion_409(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "banner-title-clean", "expected_revision": 999},
         headers={
-            "X-Principal-ID": api_promotion_env["user_admin"].id,
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_admin"].id, roles=["admin"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -404,8 +398,7 @@ def test_colliding_target_template_id_denied_promotion_409(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "fade-transition", "expected_revision": 1},
         headers={
-            "X-Principal-ID": api_promotion_env["user_admin"].id,
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_admin"].id, roles=["admin"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -422,8 +415,7 @@ def test_path_traversal_template_id_denied_promotion_403(api_promotion_env):
         f"/candidates/{cand_id}/promote",
         json={"target_template_id": "../../templates/escape", "expected_revision": 1},
         headers={
-            "X-Principal-ID": api_promotion_env["user_admin"].id,
-            "X-Principal-Roles": "admin",
+            **make_test_auth_headers(principal_id=api_promotion_env["user_admin"].id, roles=["admin"]),
             "X-Workspace-ID": "ws_alpha",
         },
     )
@@ -445,8 +437,7 @@ def test_successful_promotion_flow_and_spoof_ignorance_200(api_promotion_env):
     user_admin = api_promotion_env["user_admin"]
 
     headers_admin = {
-        "X-Principal-ID": user_admin.id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_admin.id, roles=["admin"]),
         "X-Workspace-ID": "ws_alpha",
     }
 

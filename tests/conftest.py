@@ -4,9 +4,67 @@ import shutil
 import asyncio
 from pathlib import Path
 
+from typing import Optional, Set, Dict, Union, Iterable
+from scripts.core.security.principal import Principal, PrincipalType, Role
+from api.core.auth import create_signed_token
+
+TEST_PYTEST_AUTH_SECRET = "test-signing-secret-for-pytest-harness-32-chars!"
+
+
+def make_test_auth_headers(
+    principal_id: str = "usr_test_viewer",
+    roles: Optional[Iterable[Union[Role, str]]] = None,
+    project_scopes: Optional[Dict[str, Iterable[Union[Role, str]]]] = None,
+    secret: Optional[str] = None,
+    principal_type: PrincipalType = PrincipalType.HUMAN,
+) -> Dict[str, str]:
+    """Helper to generate authentic signed Authorization headers for test suites.
+
+    Defaults to least-privilege:
+    - Default identity: 'usr_test_viewer'
+    - Default roles: {Role.VIEWER}
+    - Default project_scopes: {} (no global wildcard admin)
+
+    Test callers requiring elevated roles (e.g. Role.ADMIN, Role.OPERATOR, Role.EDITOR)
+    or project scopes MUST declare them explicitly.
+    """
+    if roles is None:
+        roles_set: Set[Role] = {Role.VIEWER}
+    else:
+        roles_set = {
+            r if isinstance(r, Role) else Role(str(r).lower().strip())
+            for r in roles
+        }
+
+    if project_scopes is None:
+        project_scopes_dict: Dict[str, Set[Role]] = {}
+    else:
+        project_scopes_dict = {
+            p_id: {
+                r if isinstance(r, Role) else Role(str(r).lower().strip())
+                for r in r_list
+            }
+            for p_id, r_list in project_scopes.items()
+        }
+
+    if secret is None:
+        secret = os.environ.get("AUTH_SECRET_KEY", TEST_PYTEST_AUTH_SECRET)
+
+    principal = Principal(
+        principal_id=principal_id,
+        principal_type=principal_type,
+        roles=roles_set,
+        project_scopes=project_scopes_dict,
+    )
+    token = create_signed_token(principal, secret=secret)
+    return {"Authorization": f"Bearer {token}"}
+
+
+
 @pytest.fixture(autouse=True)
 def setup_test_env():
     os.environ['TESTING'] = '1'
+    os.environ.setdefault('AUTH_SECRET_KEY', TEST_PYTEST_AUTH_SECRET)
     yield
     os.environ.pop('TESTING', None)
 

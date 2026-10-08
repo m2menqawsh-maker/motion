@@ -85,9 +85,9 @@ def test_fi04_api_hard_death_after_submission_and_restart(fi04_env):
     user_id = fi04_env["user_id"]
     db_file = fi04_env["db_file"]
 
+    from tests.conftest import make_test_auth_headers
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"], project_scopes={"*": ["admin"]}),
         "X-Workspace-ID": ws_id,
     }
 

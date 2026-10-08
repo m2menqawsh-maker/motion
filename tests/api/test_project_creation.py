@@ -2,8 +2,9 @@ from fastapi.testclient import TestClient
 from api.main import app
 import pytest
 from pathlib import Path
+from tests.conftest import make_test_auth_headers
 
-client = TestClient(app, headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin"})
+client = TestClient(app, headers=make_test_auth_headers(principal_id="test_admin", roles=["admin"]))
 
 def test_project_creation_endpoint():
     response = client.post("/projects/", json={

@@ -25,6 +25,7 @@ from api.main import app
 from scripts.core.database import DatabaseEngine, set_database_engine, TenantRepository, TenantStateRepository
 from scripts.core.storage import LocalStorageBackend, set_storage_service, build_storage_key
 from scripts.core.security.principal import Principal, Role, PrincipalType
+from tests.conftest import make_test_auth_headers
 from scripts.core.state_model import LifecycleState, ProjectState, ReviewBundle
 from scripts.core.state_store import StateStore, StateConflictError
 from scripts.core.run_model import RunRecord, RunStatus
@@ -144,14 +145,14 @@ def test_scenario_1_complete_tenant_isolation(saas_environment):
     """
     client = saas_environment["client"]
     prj_a = saas_environment["prj_a"].id
-    headers_b = {
-        "X-Principal-ID": saas_environment["users"]["b_editor"].id,
-        "X-Principal-Roles": "editor",
-    }
-    headers_b_rev = {
-        "X-Principal-ID": saas_environment["users"]["b_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
-    }
+    headers_b = make_test_auth_headers(
+        principal_id=saas_environment["users"]["b_editor"].id,
+        roles=["editor"],
+    )
+    headers_b_rev = make_test_auth_headers(
+        principal_id=saas_environment["users"]["b_reviewer"].id,
+        roles=["reviewer"],
+    )
 
     # 1. User B tries to read artifacts of Project A -> 403
     r_art = client.get(f"/projects/{prj_a}/artifacts", headers=headers_b)
@@ -339,10 +340,10 @@ def test_scenario_5_ephemeral_worker_cleanup_and_storage_truth(saas_environment,
     assert not out_file.exists()
 
     # User A downloads output: OutputService fetches from StorageService!
-    headers_a = {
-        "X-Principal-ID": saas_environment["users"]["a_editor"].id,
-        "X-Principal-Roles": "editor",
-    }
+    headers_a = make_test_auth_headers(
+        principal_id=saas_environment["users"]["a_editor"].id,
+        roles=["editor"],
+    )
     resp = client.get(f"/projects/{prj_a}/outputs/out.mp4", headers=headers_a)
     assert resp.status_code == 200
     assert resp.content == b"ACME_FINAL_MP4_PAYLOAD"
@@ -394,18 +395,18 @@ def test_scenario_7_rbac_matrix_end_to_end(saas_environment):
     client = saas_environment["client"]
     prj_a = saas_environment["prj_a"].id
 
-    headers_viewer = {
-        "X-Principal-ID": saas_environment["users"]["a_viewer"].id,
-        "X-Principal-Roles": "viewer",
-    }
-    headers_editor = {
-        "X-Principal-ID": saas_environment["users"]["a_editor"].id,
-        "X-Principal-Roles": "editor",
-    }
-    headers_reviewer = {
-        "X-Principal-ID": saas_environment["users"]["a_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
-    }
+    headers_viewer = make_test_auth_headers(
+        principal_id=saas_environment["users"]["a_viewer"].id,
+        roles=["viewer"],
+    )
+    headers_editor = make_test_auth_headers(
+        principal_id=saas_environment["users"]["a_editor"].id,
+        roles=["editor"],
+    )
+    headers_reviewer = make_test_auth_headers(
+        principal_id=saas_environment["users"]["a_reviewer"].id,
+        roles=["reviewer"],
+    )
 
     # 1. Viewer attempts run -> 403
     r_v_run = client.post(f"/projects/{prj_a}/runs", json={}, headers=headers_viewer)

@@ -33,8 +33,9 @@ def test_principal_without_target_project_scope_must_be_forbidden():
     # 2. API level enforcement contract:
     # A request carrying scoped_user credentials to proj_forbidden must return 403 Forbidden
     client = TestClient(app)
-    # Simulate authenticated request context (via test header / dependency override when S02 is implemented)
-    headers = {"X-Principal-ID": scoped_user.principal_id, "X-Principal-Scope": "proj_allowed"}
+    from api.core.auth import create_signed_token
+    token = create_signed_token(scoped_user)
+    headers = {"Authorization": f"Bearer {token}"}
     
     # In current main, no scope check exists, returning 404 (if not found) or 200 rather than 403
     response = client.get("/projects/proj_forbidden", headers=headers)

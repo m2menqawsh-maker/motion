@@ -50,6 +50,9 @@ from scripts.security.security import safe_subprocess
 from scripts.core.state_store import StateStore
 
 
+TEST_AUTH_SECRET = "production-test-secret-must-be-at-least-32-chars-long!"
+
+
 @pytest.fixture
 def client():
     return TestClient(app)
@@ -80,29 +83,40 @@ def test_expired_principal_rejection():
     assert not AuthorizationPolicy.is_authorized(expired_principal, Action.PROJECT_READ)
 
 
-def test_unknown_role_rejection(client):
-    """Principals with unknown/unauthorized roles cannot perform restricted actions."""
-    headers = {"X-Principal-ID": "usr_unknown_role", "X-Principal-Roles": "intruder,guest"}
-    # PROJECT_CREATE requires EDITOR or ADMIN
+def test_unknown_role_rejection(client, monkeypatch):
+    """Principals with unauthorized roles cannot perform restricted actions."""
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
+    viewer = Principal(
+        principal_id="usr_viewer_only",
+        principal_type=PrincipalType.HUMAN,
+        roles={Role.VIEWER},
+    )
+    token = create_signed_token(viewer, secret=TEST_AUTH_SECRET)
+    headers = {"Authorization": f"Bearer {token}"}
+    # PROJECT_CREATE requires EDITOR or ADMIN -> returns 403
     resp = client.post("/projects/", json={"name": "P", "language": "en"}, headers=headers)
     assert resp.status_code == 403
 
 
 # ─── 2. AUTHORIZATION & SCOPE ISOLATION ───
 
-def test_project_scope_isolation_read_and_mutation(client, tmp_path):
+def test_project_scope_isolation_read_and_mutation(client, tmp_path, monkeypatch):
     """Principal with scope only for project A cannot read, edit, or approve project B."""
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
     proj_b = "prj_forbidden_target"
     proj_dir = Path("projects") / proj_b
     proj_dir.mkdir(parents=True, exist_ok=True)
     try:
         StateStore.create(proj_dir, proj_b)
 
-        headers = {
-            "X-Principal-ID": "usr_isolated",
-            "X-Principal-Roles": "editor,reviewer",
-            "X-Principal-Scope": "prj_allowed_only"
-        }
+        isolated_user = Principal(
+            principal_id="usr_isolated",
+            principal_type=PrincipalType.HUMAN,
+            roles=set(),
+            project_scopes={"prj_allowed_only": {Role.EDITOR, Role.REVIEWER}}
+        )
+        token = create_signed_token(isolated_user, secret=TEST_AUTH_SECRET)
+        headers = {"Authorization": f"Bearer {token}"}
 
         # Attempt to read project B
         resp_read = client.get(f"/projects/{proj_b}", headers=headers)
@@ -120,8 +134,9 @@ def test_project_scope_isolation_read_and_mutation(client, tmp_path):
             shutil.rmtree(proj_dir)
 
 
-def test_trusted_reviewer_vs_editor_separation(client):
+def test_trusted_reviewer_vs_editor_separation(client, monkeypatch):
     """Editors cannot approve review gates; Reviewers can."""
+    monkeypatch.setenv("AUTH_SECRET_KEY", TEST_AUTH_SECRET)
     from api.services.pipeline_service import PipelineService
     proj_id = "prj_review_test"
     proj_dir = PipelineService._get_project_dir(proj_id)
@@ -130,12 +145,26 @@ def test_trusted_reviewer_vs_editor_separation(client):
         StateStore.create(proj_dir, proj_id)
 
         # Editor attempt -> 403
-        editor_headers = {"X-Principal-ID": "usr_editor", "X-Principal-Roles": "editor", "X-Principal-Scope": proj_id}
+        editor_principal = Principal(
+            principal_id="usr_editor",
+            principal_type=PrincipalType.HUMAN,
+            roles=set(),
+            project_scopes={proj_id: {Role.EDITOR}}
+        )
+        editor_token = create_signed_token(editor_principal, secret=TEST_AUTH_SECRET)
+        editor_headers = {"Authorization": f"Bearer {editor_token}"}
         resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=editor_headers)
         assert resp.status_code == 403
 
         # Reviewer attempt -> authorized (bypasses 403), but legacy gate approval fails closed (422) pending ReviewService (S09)
-        reviewer_headers = {"X-Principal-ID": "usr_reviewer", "X-Principal-Roles": "reviewer", "X-Principal-Scope": proj_id}
+        reviewer_principal = Principal(
+            principal_id="usr_reviewer",
+            principal_type=PrincipalType.HUMAN,
+            roles=set(),
+            project_scopes={proj_id: {Role.REVIEWER}}
+        )
+        reviewer_token = create_signed_token(reviewer_principal, secret=TEST_AUTH_SECRET)
+        reviewer_headers = {"Authorization": f"Bearer {reviewer_token}"}
         resp = client.post(f"/gates/{proj_id}/approve/taste_gate", headers=reviewer_headers)
         assert resp.status_code == 422
         assert resp.json()["error"] == "UnsupportedGateOperationError"
@@ -306,8 +335,6 @@ def test_sanitized_environment_strips_forbidden_vars_in_production():
 
 
 # ─── 6. PRODUCTION AUTHENTICATION & CRYPTOGRAPHIC TOKEN VERIFICATION ───
-
-TEST_AUTH_SECRET = "production-test-secret-must-be-at-least-32-chars-long!"
 
 
 def _tamper_token_payload(token: str, mutate_fn) -> str:

@@ -156,7 +156,8 @@ def test_api_returns_none_not_empty_dict_on_missing_manifest(tmp_path):
     from fastapi.testclient import TestClient
     from api.main import app
 
-    client = TestClient(app, headers={"X-Principal-ID": "test_admin", "X-Principal-Roles": "admin"})
+    from tests.conftest import make_test_auth_headers
+    client = TestClient(app, headers=make_test_auth_headers(principal_id="usr_test_admin", roles=["admin"], project_scopes={"*": ["admin"]}))
     # Create project
     res = client.post("/projects/", json={"name": "ApiManifestCheck", "language": "ar"})
     assert res.status_code == 200

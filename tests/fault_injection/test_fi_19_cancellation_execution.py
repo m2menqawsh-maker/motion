@@ -29,6 +29,7 @@ from scripts.core.run_model import RunRecord, RunStatus
 from scripts.core.worker import PipelineWorker
 from scripts.core.storage import set_storage_service, LocalStorageBackend
 from api.main import app
+from tests.conftest import make_test_auth_headers
 
 
 @pytest.fixture
@@ -95,8 +96,7 @@ def test_fi19_cancel_active_worker_execution(fi19_env, monkeypatch):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"]),
         "X-Workspace-ID": ws_id,
     }
 
@@ -164,8 +164,7 @@ def test_fi19_cancel_terminal_run_fails_with_409_conflict(fi19_env):
 
     client = TestClient(app)
     headers = {
-        "X-Principal-ID": user_id,
-        "X-Principal-Roles": "admin",
+        **make_test_auth_headers(principal_id=user_id, roles=["admin"]),
         "X-Workspace-ID": ws_id,
     }
 
