@@ -215,35 +215,57 @@ class RunRepository:
                         )
                     return existing
 
-            conn.execute(
-                """
-                INSERT INTO runs (
-                    run_id, workspace_id, project_id, status, created_at, updated_at,
-                    started_at, finished_at, attempt, worker_id, lease_expires_at,
-                    input_revision, idempotency_key, request_payload_hash,
-                    failure_code, failure_detail, result_reference
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    run.run_id,
-                    ws_id,
-                    run.project_id,
-                    run.status.value,
-                    run.created_at,
-                    run.updated_at,
-                    run.started_at,
-                    run.finished_at,
-                    run.attempt,
-                    run.worker_id,
-                    run.lease_expires_at,
-                    run.input_revision,
-                    run.idempotency_key,
-                    run.request_payload_hash,
-                    run.failure_code,
-                    json.dumps(run.failure_detail) if run.failure_detail else None,
-                    json.dumps(run.result_reference) if run.result_reference else None,
+            try:
+                conn.execute(
+                    """
+                    INSERT INTO runs (
+                        run_id, workspace_id, project_id, status, created_at, updated_at,
+                        started_at, finished_at, attempt, worker_id, lease_expires_at,
+                        input_revision, idempotency_key, request_payload_hash,
+                        failure_code, failure_detail, result_reference
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        run.run_id,
+                        ws_id,
+                        run.project_id,
+                        run.status.value,
+                        run.created_at,
+                        run.updated_at,
+                        run.started_at,
+                        run.finished_at,
+                        run.attempt,
+                        run.worker_id,
+                        run.lease_expires_at,
+                        run.input_revision,
+                        run.idempotency_key,
+                        run.request_payload_hash,
+                        run.failure_code,
+                        json.dumps(run.failure_detail) if run.failure_detail else None,
+                        json.dumps(run.result_reference) if run.result_reference else None,
+                    )
                 )
-            )
+            except Exception as insert_err:
+                if run.idempotency_key and ("UNIQUE" in str(insert_err) or "constraint" in str(insert_err).lower()):
+                    cur_existing = conn.execute(
+                        "SELECT * FROM runs WHERE workspace_id = ? AND project_id = ? AND idempotency_key = ?",
+                        (ws_id, run.project_id, run.idempotency_key)
+                    )
+                    row = cur_existing.fetchone()
+                    if row:
+                        existing = self._row_to_record(row)
+                        if (
+                            run.request_payload_hash
+                            and existing.request_payload_hash
+                            and existing.request_payload_hash != run.request_payload_hash
+                        ):
+                            from api.core.errors import IdempotencyConflictError
+                            raise IdempotencyConflictError(
+                                idempotency_key=run.idempotency_key,
+                                message=f"Idempotency conflict: Key '{run.idempotency_key}' was previously used with a different request payload."
+                            )
+                        return existing
+                raise
             return run
 
     def get_run(self, run_id: str) -> Optional[RunRecord]:

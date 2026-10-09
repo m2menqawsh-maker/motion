@@ -422,6 +422,38 @@ class StateStore:
             raise StateCorruptedError(pdir, f"Schema validation failed for state file: {e}", raw_content=content)
 
         state._loaded_revision = state.revision
+
+        # In managed mode, ensure disk state matches authoritative SQL state
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+        if is_managed and getattr(state, "project_id", None):
+            try:
+                from scripts.core.database import get_database_engine
+                engine = get_database_engine()
+                if engine:
+                    with engine.get_connection() as conn:
+                        cur = conn.execute(
+                            "SELECT revision, lifecycle_state, state_json FROM project_states WHERE project_id = ?",
+                            (state.project_id,)
+                        )
+                        row = cur.fetchone()
+                        if row:
+                            db_rev, db_lc, db_state_json = row[0], row[1], row[2]
+                            if db_rev != state.revision:
+                                logger.warning(
+                                    f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "
+                                    f"conflicts with authoritative SQL revision {db_rev}."
+                                )
+                                if db_state_json:
+                                    db_data = json.loads(db_state_json)
+                                    state = ProjectState.model_validate(db_data)
+                                    state._loaded_revision = state.revision
+                                    try:
+                                        state_file.write_text(json.dumps(db_data, indent=2, ensure_ascii=False), encoding="utf-8")
+                                    except Exception as write_err:
+                                        logger.warning(f"Could not heal disk state file during load reconciliation: {write_err}")
+            except Exception as db_err:
+                logger.debug(f"Could not verify DB state during StateStore.load: {db_err}")
+
         return state
 
     @classmethod

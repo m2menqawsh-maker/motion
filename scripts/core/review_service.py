@@ -13,7 +13,10 @@ Architecture Rules (S09):
 
 import hashlib
 import json
+import logging
 import uuid
+
+logger = logging.getLogger("review_service")
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
@@ -681,6 +684,39 @@ class ReviewService:
                 code=FailureCode.REVIEW_BUNDLE_STALE,
                 message="05_blueprint.json has changed since review approval was granted. Re-review required."
             )
+
+        # Check canonical database version to guard against crash between commit and review invalidation
+        try:
+            from scripts.core.database import get_database_engine
+            engine = get_database_engine()
+            if engine:
+                with engine.get_connection() as conn:
+                    cur = conn.execute(
+                        """
+                        SELECT revision, content_hash
+                        FROM project_artifact_versions
+                        WHERE project_id = ? AND artifact_kind = 'blueprint'
+                        ORDER BY revision DESC LIMIT 1
+                        """,
+                        (state.project_id,),
+                    )
+                    art_row = cur.fetchone()
+                    if art_row:
+                        latest_canonical_rev, latest_canonical_hash = art_row[0], art_row[1]
+                        if latest_canonical_hash and latest_canonical_hash != active_bundle.blueprint_sha256:
+                            cls._invalidate_bundle_and_decision(
+                                pdir,
+                                active_bundle.review_bundle_id,
+                                f"CANONICAL_BLUEPRINT_MUTATED_AFTER_REVIEW: database has revision {latest_canonical_rev} ({latest_canonical_hash[:8]}) vs bundle ({active_bundle.blueprint_sha256[:8]})"
+                            )
+                            raise RenderNotAuthorizedError(
+                                code=FailureCode.REVIEW_BUNDLE_STALE,
+                                message=f"Canonical blueprint in database (revision {latest_canonical_rev}) was updated after review approval was granted. Re-review required."
+                            )
+        except RenderNotAuthorizedError:
+            raise
+        except Exception as db_err:
+            logger.debug(f"Could not check canonical DB artifact version during render authorization: {db_err}")
 
         mm_path = pdir / "media_map.json"
         if not mm_path.exists():

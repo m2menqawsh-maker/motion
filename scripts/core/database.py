@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS runs (
 CREATE INDEX IF NOT EXISTS idx_runs_tenant_project ON runs(workspace_id, project_id);
 CREATE INDEX IF NOT EXISTS idx_runs_status ON runs(status);
 CREATE INDEX IF NOT EXISTS idx_runs_idempotency ON runs(workspace_id, project_id, idempotency_key);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS project_execution_leases (
     project_id TEXT PRIMARY KEY,

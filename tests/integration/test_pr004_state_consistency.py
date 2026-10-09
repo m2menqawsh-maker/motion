@@ -34,7 +34,7 @@ from scripts.core.state_store import (
     StateConflictError,
     StateStoreError,
 )
-from scripts.core.state_model import LifecycleState, ProjectState, ValidationLevel
+from scripts.core.state_model import LifecycleState, ProjectState, ValidationLevel, ReviewDecisionType
 from scripts.core.run_model import RunRecord, RunStatus
 from scripts.core.run_repository import RunRepository, RunRepositoryError
 from scripts.core.review_service import (
@@ -383,3 +383,327 @@ def test_red_h3_canonical_apply_invalidates_downstream_review_decision(test_env)
     # 3. Render authorization MUST now fail closed!
     with pytest.raises(RenderNotAuthorizedError):
         ReviewService.assert_render_authorized(proj_dir)
+
+
+# ─── FINAL CRASH BOUNDARY 1: Blueprint Commit vs Review Invalidation ───
+
+def test_crash_boundary_blueprint_commit_vs_review_invalidation(test_env, monkeypatch):
+    """
+    Crash Boundary 1: Inject a failure after new canonical blueprint is committed
+    to SQL, but before review invalidation finishes (or before disk is updated).
+    Verify that stale approval CANNOT authorize rendering after process restart.
+    """
+    ws_id = test_env["workspace_id"]
+    project_id = "prj_cb1_review_invalidation"
+    test_env["tenant_repo"].create_project(project_id, ws_id, name="CB1 Project", created_by=test_env["user_id"])
+
+    proj_dir = Path("projects") / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1. Setup project with Blueprint Rev 1 and get it REVIEW_APPROVED
+    StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
+    doc_repo = CanonicalDocumentRepository(test_env["db_engine"], test_env["storage"])
+
+    bp_v1 = _create_minimal_blueprint(project_id, 1)
+    doc_repo.commit_candidate(
+        workspace_id=ws_id,
+        project_id=project_id,
+        expected_revision=1,
+        candidate_doc=bp_v1,
+        actor_id=test_env["user_id"],
+        operation_id="op_cb1_init",
+    )
+
+    (proj_dir / "media_map.json").write_text("{}", encoding="utf-8")
+    (proj_dir / "probe_qc_report.json").write_text('{"status": "PASSED"}', encoding="utf-8")
+
+    st = StateStore.load(proj_dir)
+    StateStore.atomic_update(
+        proj_dir,
+        expected_revision=st.revision,
+        mutator=lambda s: setattr(s, "lifecycle_state", LifecycleState.AWAITING_REVIEW),
+    )
+
+    bundle = ReviewService.create_review_bundle(proj_dir)
+    principal = create_local_trusted_principal("reviewer_cb1")
+    ReviewService.approve(proj_dir, bundle.review_bundle_id, principal=principal, reason="Approved Rev 1")
+
+    # Verify initially authorized
+    assert ReviewService.assert_render_authorized(proj_dir).is_authorized is True
+
+    # 2. Inject failure during commit_candidate:
+    # SQL transaction commits, but ReviewService.invalidate_review raises a crash exception
+    orig_invalidate = ReviewService.invalidate_review
+    def crashing_invalidate(*args, **kwargs):
+        raise RuntimeError("SIMULATED CRASH: process killed before review invalidation finishes")
+
+    monkeypatch.setattr(ReviewService, "invalidate_review", crashing_invalidate)
+
+    bp_v2 = _create_minimal_blueprint(project_id, 2)
+    bp_v2["scenes"][0]["props"]["title"] = "Title Mutated in Rev 2"
+
+    # commit_candidate catches invalidation error and logs warning, or raises
+    doc_repo.commit_candidate(
+        workspace_id=ws_id,
+        project_id=project_id,
+        expected_revision=2,
+        candidate_doc=bp_v2,
+        actor_id=test_env["user_id"],
+        operation_id="op_cb1_mut",
+    )
+
+    # 3. Simulate process restart:
+    # Restore original ReviewService.invalidate_review without wiping fixture environment
+    monkeypatch.setattr(ReviewService, "invalidate_review", orig_invalidate)
+
+    # Re-verify persistent state: SQL has Rev 3, active bundle in state was for Rev 1
+    # Check that stale approval CANNOT authorize rendering!
+    with pytest.raises(RenderNotAuthorizedError) as exc_info:
+        ReviewService.assert_render_authorized(proj_dir)
+    assert "REVIEW_BUNDLE_STALE" in str(exc_info.value) or "CANONICAL_BLUEPRINT" in str(exc_info.value)
+
+    # 4. Check persistent state after restart:
+    # Bundle and decision must now be permanently invalidated on disk
+    reloaded_state = StateStore.load(proj_dir)
+    assert reloaded_state.review_bundles[0].status == "INVALIDATED"
+    assert reloaded_state.review_decisions[0].decision == ReviewDecisionType.INVALIDATED
+    assert not (proj_dir / ".studio_approved").exists()
+
+
+# ─── FINAL CRASH BOUNDARY 2: Filesystem vs. SQL Crash ───
+
+def test_crash_boundary_filesystem_vs_sql_crash(test_env):
+    """
+    Crash Boundary 2: Simulate hard process termination between writing
+    .pipeline_state.json and completing the SQL state update.
+    Restart process and verify safe recovery without conflicting authoritative
+    revisions or unauthorized workflow progression.
+    """
+    ws_id = test_env["workspace_id"]
+    project_id = "prj_cb2_fs_sql_crash"
+    test_env["tenant_repo"].create_project(project_id, ws_id, name="CB2 Project", created_by=test_env["user_id"])
+
+    proj_dir = Path("projects") / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1. Normal state: Revision 2, PLAN_READY in both disk and SQL
+    StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
+    cur = StateStore.load(proj_dir)
+    StateStore.atomic_update(
+        proj_dir,
+        expected_revision=cur.revision,
+        mutator=lambda s: setattr(s, "lifecycle_state", LifecycleState.PLAN_READY),
+    )
+
+    # Both disk and SQL are currently at revision 2, PLAN_READY
+    state_disk = StateStore.load(proj_dir)
+    assert state_disk.revision == 2
+    assert state_disk.lifecycle_state == LifecycleState.PLAN_READY
+
+    # 2. Simulate crash: disk writes revision 3 (MATERIALIZED), but process was killed before SQL sync
+    state_file = proj_dir / StateStore.STATE_FILE
+    raw_disk_data = json.loads(state_file.read_text(encoding="utf-8"))
+    raw_disk_data["revision"] = 3
+    raw_disk_data["lifecycle_state"] = LifecycleState.MATERIALIZED.value
+    state_file.write_text(json.dumps(raw_disk_data, indent=2), encoding="utf-8")
+
+    # At this moment: disk has rev 3 (MATERIALIZED), SQL has rev 2 (PLAN_READY)
+
+    # 3. Simulate process restart and reload
+    # In managed mode, StateStore.load authoritatively reconciles from SQL
+    reloaded = StateStore.load(proj_dir)
+
+    # Assert: Safe recovery to authoritative SQL revision (rev 2, PLAN_READY)
+    assert reloaded.revision == 2
+    assert reloaded.lifecycle_state == LifecycleState.PLAN_READY
+
+    # Assert: Disk was healed to match authoritative SQL (no unauthorized MATERIALIZED state)
+    healed_disk = json.loads(state_file.read_text(encoding="utf-8"))
+    assert healed_disk["revision"] == 2
+    assert healed_disk["lifecycle_state"] == LifecycleState.PLAN_READY.value
+
+    # 4. Assert: Next legitimate workflow update from rev 2 succeeds cleanly
+    updated = StateStore.atomic_update(
+        proj_dir,
+        expected_revision=2,
+        mutator=lambda s: setattr(s, "lifecycle_state", LifecycleState.MATERIALIZED),
+    )
+    assert updated.revision == 3
+    assert updated.lifecycle_state == LifecycleState.MATERIALIZED
+
+
+# ─── FINAL CRASH BOUNDARY 3: Revision-Domain Consistency ───
+
+def test_crash_boundary_revision_domain_consistency(test_env):
+    """
+    Crash Boundary 3: Execute Blueprint commit -> lifecycle transition -> Blueprint commit.
+    Verify that document, lifecycle, and run input revisions retain their correct
+    independent meanings, with no lost writes or wrong-version rendering.
+    """
+    ws_id = test_env["workspace_id"]
+    project_id = "prj_cb3_rev_domain"
+    test_env["tenant_repo"].create_project(project_id, ws_id, name="CB3 Project", created_by=test_env["user_id"])
+
+    proj_dir = Path("projects") / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
+
+    # Step 0: Initial state - Lifecycle Rev 1 (DRAFT)
+    StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
+    doc_repo = CanonicalDocumentRepository(test_env["db_engine"], test_env["storage"])
+
+    # Step 1: Blueprint commit 1 -> Document Rev 2
+    bp_v1 = _create_minimal_blueprint(project_id, 1)
+    doc_dict1, bp_rev1, key1 = doc_repo.commit_candidate(
+        workspace_id=ws_id,
+        project_id=project_id,
+        expected_revision=1,
+        candidate_doc=bp_v1,
+        actor_id=test_env["user_id"],
+        operation_id="op_bp_1",
+    )
+    assert bp_rev1 == 2
+    hash_v2 = hashlib.sha256(json.dumps(doc_dict1, indent=2, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+    # Invalidation hook upon blueprint commit advanced lifecycle state revision to 2
+    st_after_bp1 = StateStore.load(proj_dir)
+    assert st_after_bp1.revision == 2
+
+    # Step 2: Lifecycle transition -> Lifecycle Rev 3 (ASSETS_READY)
+    st_updated = StateStore.atomic_update(
+        proj_dir,
+        expected_revision=2,
+        mutator=lambda s: setattr(s, "lifecycle_state", LifecycleState.ASSETS_READY),
+    )
+    assert st_updated.revision == 3
+    assert st_updated.lifecycle_state == LifecycleState.ASSETS_READY
+
+    # Document revision is STILL 2
+    _, current_bp_rev = doc_repo.get_document(workspace_id=ws_id, project_id=project_id)
+    assert current_bp_rev == 2
+
+    # Step 3: Blueprint commit 2 -> Document Rev 3
+    bp_v2 = _create_minimal_blueprint(project_id, 2)
+    bp_v2["scenes"][0]["props"]["title"] = "Updated Title for Rev 3"
+    doc_dict2, bp_rev2, key2 = doc_repo.commit_candidate(
+        workspace_id=ws_id,
+        project_id=project_id,
+        expected_revision=2,
+        candidate_doc=bp_v2,
+        actor_id=test_env["user_id"],
+        operation_id="op_bp_2",
+    )
+    assert bp_rev2 == 3
+    hash_v3 = hashlib.sha256(json.dumps(doc_dict2, indent=2, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+    # Invalidation hook upon blueprint commit advanced lifecycle state revision to 4
+    st_after_bp2 = StateStore.load(proj_dir)
+    assert st_after_bp2.revision == 4
+
+    # Step 4: Verify independent domain retrieval without cross-contamination
+    # Document retrieval for Rev 3
+    doc_r3, rev3 = doc_repo.get_document(workspace_id=ws_id, project_id=project_id, revision=3)
+    assert rev3 == 3
+    assert doc_r3["scenes"][0]["props"]["title"] == "Updated Title for Rev 3"
+
+    # Document retrieval for Rev 2
+    doc_r2, rev2 = doc_repo.get_document(workspace_id=ws_id, project_id=project_id, revision=2)
+    assert rev2 == 2
+    assert doc_r2["scenes"][0]["props"]["title"] == "Hello Rev 1"
+
+    # Create run with lifecycle input_revision=4 and verified blueprint hash of Rev 3
+    run_repo = RunRepository(db_path=test_env["tmp_path"] / "pr004_test.db")
+    run_rec = RunRecord(
+        run_id=f"run_cb3_{uuid.uuid4().hex[:8]}",
+        workspace_id=ws_id,
+        project_id=project_id,
+        status=RunStatus.QUEUED,
+        input_revision=4,  # Refers to lifecycle state revision
+        request_payload_hash=hash_v3,  # Pinned blueprint hash
+    )
+    persisted_run = run_repo.create_run(run_rec)
+    assert persisted_run.input_revision == 4
+    assert persisted_run.request_payload_hash == hash_v3
+
+
+# ─── FINAL CRASH BOUNDARY 4: Run Idempotency & Database Constraint ───
+
+def test_crash_boundary_run_idempotency_concurrency(test_env):
+    """
+    Crash Boundary 4: Verify that uniqueness constraint exists in the actual
+    RunRepository database schema and survives concurrent submissions from
+    independent connections/processes.
+    """
+    ws_id = test_env["workspace_id"]
+    project_id = "prj_cb4_idempotency"
+    test_env["tenant_repo"].create_project(project_id, ws_id, name="CB4 Project", created_by=test_env["user_id"])
+
+    db_path = test_env["tmp_path"] / "pr004_test.db"
+
+    # 1. Verify that the unique index exists in sqlite_master
+    with test_env["db_engine"].get_connection() as conn:
+        cur = conn.execute(
+            "SELECT name, sql FROM sqlite_master WHERE type = 'index' AND name = 'uq_runs_workspace_project_idempotency'"
+        )
+        row = cur.fetchone()
+        assert row is not None, "Unique index 'uq_runs_workspace_project_idempotency' missing from database schema!"
+        assert "UNIQUE" in row[1].upper(), f"Index definition is not UNIQUE: {row[1]}"
+
+    # 2. Concurrency test: 10 concurrent threads simulating independent workers/processes
+    shared_idempotency_key = f"idem_key_cb4_{uuid.uuid4().hex}"
+    payload_hash = hashlib.sha256(b"request_payload_content").hexdigest()
+
+    results = []
+    errors = []
+
+    def concurrent_submission():
+        try:
+            # Each thread uses its own RunRepository instance and connection
+            thread_repo = RunRepository(db_path=db_path)
+            record = RunRecord(
+                run_id=f"run_thread_{uuid.uuid4().hex[:8]}",
+                workspace_id=ws_id,
+                project_id=project_id,
+                status=RunStatus.QUEUED,
+                idempotency_key=shared_idempotency_key,
+                request_payload_hash=payload_hash,
+            )
+            persisted = thread_repo.create_run(record)
+            results.append(persisted)
+        except Exception as e:
+            errors.append(e)
+
+    threads = [threading.Thread(target=concurrent_submission) for _ in range(10)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert len(errors) == 0, f"Unexpected errors in concurrent submissions: {errors}"
+    assert len(results) == 10
+
+    # Exactly 1 run_id across all 10 submissions
+    unique_run_ids = {r.run_id for r in results}
+    assert len(unique_run_ids) == 1, f"Expected exactly 1 run_id, got: {unique_run_ids}"
+
+    # Verify database table has exactly 1 row for this key
+    with test_env["db_engine"].get_connection() as conn:
+        cur = conn.execute(
+            "SELECT COUNT(*) FROM runs WHERE workspace_id = ? AND project_id = ? AND idempotency_key = ?",
+            (ws_id, project_id, shared_idempotency_key)
+        )
+        count = cur.fetchone()[0]
+        assert count == 1, f"Expected exactly 1 row in database, got {count}"
+
+    # 3. Payload mismatch: calling with same key but different payload hash must raise IdempotencyConflictError
+    from api.core.errors import IdempotencyConflictError
+    conflicting_repo = RunRepository(db_path=db_path)
+    conflicting_record = RunRecord(
+        run_id=f"run_conflict_{uuid.uuid4().hex[:8]}",
+        workspace_id=ws_id,
+        project_id=project_id,
+        status=RunStatus.QUEUED,
+        idempotency_key=shared_idempotency_key,
+        request_payload_hash=hashlib.sha256(b"DIFFERENT_PAYLOAD").hexdigest(),
+    )
+    with pytest.raises(IdempotencyConflictError):
+        conflicting_repo.create_run(conflicting_record)
