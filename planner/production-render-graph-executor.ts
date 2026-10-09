@@ -147,8 +147,8 @@ export class ProductionRenderGraphExecutor {
     this.compositor = options?.compositor ?? new MasterCompositor();
     this.storage = options?.storageService ?? new LocalStorageService();
     this.baseTempDir = options?.baseTempDir ?? os.tmpdir();
-    this.defaultNodeTimeoutMs = options?.defaultNodeTimeoutMs ?? 60_000;
-    this.maxConcurrency = options?.maxConcurrency ?? 4;
+    this.defaultNodeTimeoutMs = options?.defaultNodeTimeoutMs ?? 240_000;
+    this.maxConcurrency = options?.maxConcurrency ?? 2;
     this.publishEvent = options?.eventPublisher ?? (() => {});
     this.budgetChecker = options?.budgetChecker;
   }
@@ -232,7 +232,15 @@ export class ProductionRenderGraphExecutor {
       const finalArtifact = finalNodeRes?.artifact;
 
       let outputStorageKey: string | undefined;
+      let finalDiskPath = finalArtifact?.filePath;
       if (finalArtifact?.filePath && fs.existsSync(finalArtifact.filePath)) {
+        // If plan has an explicit outputPath, copy it there before cleaning up sandbox
+        if (plan.outputPath && plan.outputPath !== finalArtifact.filePath) {
+          fs.mkdirSync(path.dirname(plan.outputPath), { recursive: true });
+          fs.copyFileSync(finalArtifact.filePath, plan.outputPath);
+          finalDiskPath = plan.outputPath;
+        }
+
         // Upload final artifact to StorageService
         const finalKey = buildStorageKey(
           ctx.workspaceId,
@@ -269,7 +277,7 @@ export class ProductionRenderGraphExecutor {
         ok: true,
         planId: plan.id,
         runId,
-        outputPath: finalArtifact?.filePath,
+        outputPath: finalDiskPath,
         outputStorageKey,
         finalArtifact,
         nodeResults,
@@ -466,6 +474,8 @@ export class ProductionRenderGraphExecutor {
               durationFrames: n.timeRange.durationFrames,
             };
           }),
+          audio: (plan as any).document?.audio,
+          media_map: (plan as any).document?.media_map,
         };
 
         const compPromise = this.compositor.composite({

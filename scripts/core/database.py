@@ -140,12 +140,18 @@ CREATE TABLE IF NOT EXISTS runs (
     failure_code TEXT,
     failure_detail TEXT,
     result_reference TEXT,
+    canonical_document_revision INTEGER,
+    canonical_blueprint_sha256 TEXT,
+    immutable_storage_key TEXT,
+    approved_review_bundle_id TEXT,
+    lifecycle_state_revision INTEGER,
     FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
     FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_runs_tenant_project ON runs(workspace_id, project_id);
 CREATE INDEX IF NOT EXISTS idx_runs_status ON runs(status);
 CREATE INDEX IF NOT EXISTS idx_runs_idempotency ON runs(workspace_id, project_id, idempotency_key);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS project_execution_leases (
     project_id TEXT PRIMARY KEY,
@@ -379,6 +385,32 @@ class DatabaseEngine:
                         """)
                         conn.execute("DROP TABLE canonical_assets_old")
 
+                cur_runs = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='runs'")
+                if cur_runs.fetchone():
+                    col_cur = conn.execute("PRAGMA table_info(runs)")
+                    cols = {r[1] for r in col_cur.fetchall()}
+                    for col_name, col_type in [
+                        ("canonical_document_revision", "INTEGER"),
+                        ("canonical_blueprint_sha256", "TEXT"),
+                        ("immutable_storage_key", "TEXT"),
+                        ("approved_review_bundle_id", "TEXT"),
+                        ("lifecycle_state_revision", "INTEGER"),
+                    ]:
+                        if col_name not in cols:
+                            conn.execute(f"ALTER TABLE runs ADD COLUMN {col_name} {col_type}")
+            else:
+                for col_name, col_type in [
+                    ("canonical_document_revision", "INTEGER"),
+                    ("canonical_blueprint_sha256", "TEXT"),
+                    ("immutable_storage_key", "TEXT"),
+                    ("approved_review_bundle_id", "TEXT"),
+                    ("lifecycle_state_revision", "INTEGER"),
+                ]:
+                    try:
+                        conn.execute(f"ALTER TABLE runs ADD COLUMN IF NOT EXISTS {col_name} {col_type}")
+                    except Exception:
+                        pass
+
             for statement in SCHEMA_SQL.strip().split(";"):
                 stmt = statement.strip()
                 if stmt:
@@ -514,6 +546,11 @@ class TenantRepository:
                 """
                 INSERT INTO projects (id, workspace_id, created_by, name, created_at, updated_at)
                 VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    workspace_id = excluded.workspace_id,
+                    created_by = excluded.created_by,
+                    name = excluded.name,
+                    updated_at = excluded.updated_at
                 """,
                 (project_id, workspace_id, created_by, name, now, now)
             )
@@ -521,6 +558,7 @@ class TenantRepository:
             # Initialize project state record in DB with revision 1
             state = ProjectState(
                 project_id=project_id,
+                workspace_id=workspace_id,
                 revision=1,
                 lifecycle_state=initial_lifecycle,
                 created_at=now,
@@ -531,6 +569,9 @@ class TenantRepository:
                 """
                 INSERT INTO project_states (project_id, workspace_id, revision, lifecycle_state, state_json, updated_at)
                 VALUES (?, ?, 1, ?, ?, ?)
+                ON CONFLICT(project_id) DO UPDATE SET
+                    workspace_id = excluded.workspace_id,
+                    updated_at = excluded.updated_at
                 """,
                 (project_id, workspace_id, initial_lifecycle.value, state_json, now)
             )
@@ -543,6 +584,12 @@ class TenantRepository:
                 created_at=now,
                 updated_at=now,
             )
+
+    def delete_project(self, project_id: str) -> None:
+        """Deletes a project record and its associated states (for rollback / cleanup)."""
+        with self.engine.transaction() as conn:
+            conn.execute("DELETE FROM project_states WHERE project_id = ?", (project_id,))
+            conn.execute("DELETE FROM projects WHERE id = ?", (project_id,))
 
     def get_project(self, project_id: str) -> Optional[ProjectRecord]:
         conn = self.engine.get_connection()

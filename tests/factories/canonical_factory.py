@@ -34,17 +34,32 @@ def generate_calibrated_tone_wav(
     out_path: Path,
     duration_seconds: float = 3.0,
     target_lufs: float = -16.0,
+    with_chime_onsets: bool = False,
 ) -> Path:
     """Generates a calibrated sine tone normalized to target LUFS (-16 LUFS) for audio-aware E2E."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    cmd = [
-        "ffmpeg",
-        "-y",
-        "-f", "lavfi",
-        "-i", f"sine=frequency=440:duration={duration_seconds}",
-        "-af", f"loudnorm=I={target_lufs}:TP=-1.5:LRA=11",
-        str(out_path),
-    ]
+    if with_chime_onsets:
+        cmd = [
+            "ffmpeg",
+            "-y",
+            "-f", "lavfi",
+            "-i", "sine=frequency=880:duration=0.13",
+            "-f", "lavfi",
+            "-i", "sine=frequency=1320:duration=0.26",
+            "-filter_complex",
+            f"[0:a]adelay=200|200[a0];[1:a]adelay=340|340[a1];[a0][a1]amix=inputs=2:duration=longest,loudnorm=I={target_lufs}:TP=-1.5:LRA=11[out]",
+            "-map", "[out]",
+            str(out_path),
+        ]
+    else:
+        cmd = [
+            "ffmpeg",
+            "-y",
+            "-f", "lavfi",
+            "-i", f"sine=frequency=440:duration={duration_seconds}",
+            "-af", f"loudnorm=I={target_lufs}:TP=-1.5:LRA=11",
+            str(out_path),
+        ]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode != 0:
         raise RuntimeError(f"Failed to generate calibrated audio tone:\n{res.stderr}")

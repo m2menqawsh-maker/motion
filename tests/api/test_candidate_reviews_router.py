@@ -20,6 +20,7 @@ from scripts.core.database import DatabaseEngine, set_database_engine, TenantRep
 from scripts.core.storage import LocalStorageBackend, set_storage_service
 from scripts.core.template_candidate_repository import SqlTemplateCandidateRepository
 from scripts.core.security.principal import Role
+from tests.conftest import make_test_auth_headers
 from ai.contracts.common import ProvenanceRecord
 from ai.contracts.creative.plan import CreativeTier
 from ai.contracts.creative.template_candidate import (
@@ -165,8 +166,7 @@ def test_api_open_review_and_authorization(api_candidate_env):
 
     # 1. Viewer attempts to open review -> 403 Forbidden
     headers_viewer = {
-        "X-Principal-ID": api_candidate_env["user_viewer"].id,
-        "X-Principal-Roles": "viewer",
+        **make_test_auth_headers(principal_id=api_candidate_env["user_viewer"].id, roles=["viewer"]),
         "X-Workspace-ID": "ws_alpha",
     }
     resp_viewer = client.post(
@@ -178,8 +178,7 @@ def test_api_open_review_and_authorization(api_candidate_env):
 
     # 2. Reviewer opens review -> 201 Created
     headers_reviewer = {
-        "X-Principal-ID": api_candidate_env["user_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
+        **make_test_auth_headers(principal_id=api_candidate_env["user_reviewer"].id, roles=["reviewer"]),
         "X-Workspace-ID": "ws_alpha",
     }
     resp_open = client.post(
@@ -202,8 +201,7 @@ def test_api_approve_ignores_spoofed_reviewer_identity(api_candidate_env):
     cand_id = api_candidate_env["cand"].candidate_id
 
     headers_reviewer = {
-        "X-Principal-ID": api_candidate_env["user_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
+        **make_test_auth_headers(principal_id=api_candidate_env["user_reviewer"].id, roles=["reviewer"]),
         "X-Workspace-ID": "ws_alpha",
     }
 
@@ -243,8 +241,7 @@ def test_api_cross_tenant_isolation(api_candidate_env):
     cand_id = api_candidate_env["cand"].candidate_id
 
     headers_reviewer = {
-        "X-Principal-ID": api_candidate_env["user_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
+        **make_test_auth_headers(principal_id=api_candidate_env["user_reviewer"].id, roles=["reviewer"]),
         "X-Workspace-ID": "ws_alpha",
     }
     resp_open = client.post(
@@ -257,8 +254,7 @@ def test_api_cross_tenant_isolation(api_candidate_env):
 
     # Beta reviewer attempts to get bundle or approve candidate
     headers_beta = {
-        "X-Principal-ID": api_candidate_env["user_beta_reviewer"].id,
-        "X-Principal-Roles": "reviewer",
+        **make_test_auth_headers(principal_id=api_candidate_env["user_beta_reviewer"].id, roles=["reviewer"]),
         "X-Workspace-ID": "ws_beta",
     }
     resp_beta_get = client.get(

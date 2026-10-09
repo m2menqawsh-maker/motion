@@ -127,7 +127,13 @@ async def get_review_bundle(
     review_service: CandidateReviewService = Depends(get_candidate_review_service),
 ) -> CandidateReviewBundle:
     try:
-        return review_service.get_review_bundle(tenant_context, review_bundle_id)
+        bundle = review_service.get_review_bundle(tenant_context, review_bundle_id)
+        if bundle.candidate_id != candidate_id:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Review bundle '{review_bundle_id}' does not belong to candidate '{candidate_id}'",
+            )
+        return bundle
     except CandidateNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     except CandidateReviewTamperedError as e:
@@ -225,6 +231,12 @@ async def get_decision(
     review_service: CandidateReviewService = Depends(get_candidate_review_service),
 ) -> CandidateReviewDecision:
     try:
-        return review_service.get_decision(tenant_context, decision_id)
+        decision = review_service.get_decision(tenant_context, decision_id)
+        if decision.candidate_id != candidate_id:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Decision '{decision_id}' does not belong to candidate '{candidate_id}'",
+            )
+        return decision
     except CandidateNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))

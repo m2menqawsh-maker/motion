@@ -26,6 +26,11 @@ class RunResponse(BaseModel):
     worker_id: Optional[str] = None
     lease_expires_at: Optional[str] = None
     input_revision: Optional[int] = None
+    canonical_document_revision: Optional[int] = None
+    canonical_blueprint_sha256: Optional[str] = None
+    immutable_storage_key: Optional[str] = None
+    approved_review_bundle_id: Optional[str] = None
+    lifecycle_state_revision: Optional[int] = None
     idempotency_key: Optional[str] = None
     failure_code: Optional[str] = None
     failure_detail: Optional[Dict[str, Any]] = None
@@ -45,6 +50,11 @@ class RunResponse(BaseModel):
             worker_id=record.worker_id,
             lease_expires_at=record.lease_expires_at,
             input_revision=record.input_revision,
+            canonical_document_revision=record.canonical_document_revision,
+            canonical_blueprint_sha256=record.canonical_blueprint_sha256,
+            immutable_storage_key=record.immutable_storage_key,
+            approved_review_bundle_id=record.approved_review_bundle_id,
+            lifecycle_state_revision=record.lifecycle_state_revision,
             idempotency_key=record.idempotency_key,
             failure_code=record.failure_code,
             failure_detail=record.failure_detail,

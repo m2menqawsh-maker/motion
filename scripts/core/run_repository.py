@@ -37,7 +37,7 @@ def get_default_db_path() -> Path:
 class RunRepository:
     """Canonical persistent authority for Pipeline Runs and Execution Leases."""
 
-    CURRENT_SCHEMA_VERSION = 3
+    CURRENT_SCHEMA_VERSION = 4
 
     def __init__(self, db_path: Optional[Path | str] = None):
         self.db_path = Path(db_path) if db_path else get_default_db_path()
@@ -101,6 +101,26 @@ class RunRepository:
                     "INSERT INTO _schema_migrations (version, applied_at) VALUES (3, ?)",
                     (datetime.now(timezone.utc).isoformat(),)
                 )
+            if current_v < 4:
+                self._migrate_v4(conn)
+                conn.execute(
+                    "INSERT INTO _schema_migrations (version, applied_at) VALUES (4, ?)",
+                    (datetime.now(timezone.utc).isoformat(),)
+                )
+
+    def _migrate_v4(self, conn: sqlite3.Connection) -> None:
+        columns = [
+            ("canonical_document_revision", "INTEGER"),
+            ("canonical_blueprint_sha256", "TEXT"),
+            ("immutable_storage_key", "TEXT"),
+            ("approved_review_bundle_id", "TEXT"),
+            ("lifecycle_state_revision", "INTEGER"),
+        ]
+        for col_name, col_type in columns:
+            try:
+                conn.execute(f"ALTER TABLE runs ADD COLUMN {col_name} {col_type}")
+            except sqlite3.OperationalError:
+                pass
 
     def _migrate_v3(self, conn: sqlite3.Connection) -> None:
         try:
@@ -120,6 +140,7 @@ class RunRepository:
 
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_tenant_project ON runs(workspace_id, project_id)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_run_events_tenant ON run_events(workspace_id, project_id, run_id)")
+        conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL")
 
     def _migrate_v2(self, conn: sqlite3.Connection) -> None:
         conn.execute("""
@@ -142,6 +163,7 @@ class RunRepository:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS runs (
                 run_id TEXT PRIMARY KEY,
+                workspace_id TEXT NOT NULL DEFAULT 'ws_default',
                 project_id TEXT NOT NULL,
                 status TEXT NOT NULL,
                 created_at TEXT NOT NULL,
@@ -152,6 +174,11 @@ class RunRepository:
                 worker_id TEXT,
                 lease_expires_at TEXT,
                 input_revision INTEGER,
+                canonical_document_revision INTEGER,
+                canonical_blueprint_sha256 TEXT,
+                immutable_storage_key TEXT,
+                approved_review_bundle_id TEXT,
+                lifecycle_state_revision INTEGER,
                 idempotency_key TEXT,
                 request_payload_hash TEXT,
                 failure_code TEXT,
@@ -193,35 +220,85 @@ class RunRepository:
         """Atomically persists a new RunRecord with status QUEUED."""
         ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
         with self._transaction("IMMEDIATE") as conn:
-            conn.execute(
-                """
-                INSERT INTO runs (
-                    run_id, workspace_id, project_id, status, created_at, updated_at,
-                    started_at, finished_at, attempt, worker_id, lease_expires_at,
-                    input_revision, idempotency_key, request_payload_hash,
-                    failure_code, failure_detail, result_reference
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    run.run_id,
-                    ws_id,
-                    run.project_id,
-                    run.status.value,
-                    run.created_at,
-                    run.updated_at,
-                    run.started_at,
-                    run.finished_at,
-                    run.attempt,
-                    run.worker_id,
-                    run.lease_expires_at,
-                    run.input_revision,
-                    run.idempotency_key,
-                    run.request_payload_hash,
-                    run.failure_code,
-                    json.dumps(run.failure_detail) if run.failure_detail else None,
-                    json.dumps(run.result_reference) if run.result_reference else None,
+            # Atomic idempotency guard within the write transaction
+            if run.idempotency_key:
+                cur_existing = conn.execute(
+                    "SELECT * FROM runs WHERE workspace_id = ? AND project_id = ? AND idempotency_key = ?",
+                    (ws_id, run.project_id, run.idempotency_key)
                 )
-            )
+                row = cur_existing.fetchone()
+                if row:
+                    existing = self._row_to_record(row)
+                    if (
+                        run.request_payload_hash
+                        and existing.request_payload_hash
+                        and existing.request_payload_hash != run.request_payload_hash
+                    ):
+                        from api.core.errors import IdempotencyConflictError
+                        raise IdempotencyConflictError(
+                            idempotency_key=run.idempotency_key,
+                            message=f"Idempotency conflict: Key '{run.idempotency_key}' was previously used with a different request payload."
+                        )
+                    return existing
+
+            try:
+                conn.execute(
+                    """
+                    INSERT INTO runs (
+                        run_id, workspace_id, project_id, status, created_at, updated_at,
+                        started_at, finished_at, attempt, worker_id, lease_expires_at,
+                        input_revision, canonical_document_revision, canonical_blueprint_sha256,
+                        immutable_storage_key, approved_review_bundle_id, lifecycle_state_revision,
+                        idempotency_key, request_payload_hash,
+                        failure_code, failure_detail, result_reference
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        run.run_id,
+                        ws_id,
+                        run.project_id,
+                        run.status.value,
+                        run.created_at,
+                        run.updated_at,
+                        run.started_at,
+                        run.finished_at,
+                        run.attempt,
+                        run.worker_id,
+                        run.lease_expires_at,
+                        run.input_revision,
+                        run.canonical_document_revision,
+                        run.canonical_blueprint_sha256,
+                        run.immutable_storage_key,
+                        run.approved_review_bundle_id,
+                        run.lifecycle_state_revision,
+                        run.idempotency_key,
+                        run.request_payload_hash,
+                        run.failure_code,
+                        json.dumps(run.failure_detail) if run.failure_detail else None,
+                        json.dumps(run.result_reference) if run.result_reference else None,
+                    )
+                )
+            except Exception as insert_err:
+                if run.idempotency_key and ("UNIQUE" in str(insert_err) or "constraint" in str(insert_err).lower()):
+                    cur_existing = conn.execute(
+                        "SELECT * FROM runs WHERE workspace_id = ? AND project_id = ? AND idempotency_key = ?",
+                        (ws_id, run.project_id, run.idempotency_key)
+                    )
+                    row = cur_existing.fetchone()
+                    if row:
+                        existing = self._row_to_record(row)
+                        if (
+                            run.request_payload_hash
+                            and existing.request_payload_hash
+                            and existing.request_payload_hash != run.request_payload_hash
+                        ):
+                            from api.core.errors import IdempotencyConflictError
+                            raise IdempotencyConflictError(
+                                idempotency_key=run.idempotency_key,
+                                message=f"Idempotency conflict: Key '{run.idempotency_key}' was previously used with a different request payload."
+                            )
+                        return existing
+                raise
             return run
 
     def get_run(self, run_id: str) -> Optional[RunRecord]:
@@ -254,14 +331,20 @@ class RunRepository:
         finally:
             conn.close()
 
-    def find_by_idempotency(self, project_id: str, idempotency_key: str) -> Optional[RunRecord]:
-        """Finds an existing run by project_id and idempotency_key."""
+    def find_by_idempotency(self, project_id: str, idempotency_key: str, workspace_id: Optional[str] = None) -> Optional[RunRecord]:
+        """Finds an existing run by project_id and idempotency_key, optionally scoped by workspace_id."""
         conn = self._get_connection()
         try:
-            cur = conn.execute(
-                "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ?",
-                (project_id, idempotency_key)
-            )
+            if workspace_id:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ? AND workspace_id = ?",
+                    (project_id, idempotency_key, workspace_id)
+                )
+            else:
+                cur = conn.execute(
+                    "SELECT * FROM runs WHERE project_id = ? AND idempotency_key = ?",
+                    (project_id, idempotency_key)
+                )
             row = cur.fetchone()
             if not row:
                 return None
@@ -374,7 +457,8 @@ class RunRepository:
         if status not in (RunStatus.SUCCEEDED, RunStatus.FAILED, RunStatus.CANCELLED):
             raise InvalidRunTransitionError(f"finish_run target must be a terminal status, got {status.value}")
 
-        now = datetime.now(timezone.utc).isoformat()
+        now_dt = datetime.now(timezone.utc)
+        now = now_dt.isoformat()
 
         with self._transaction("IMMEDIATE") as conn:
             cur = conn.execute("SELECT * FROM runs WHERE run_id = ?", (run_id,))
@@ -390,6 +474,40 @@ class RunRepository:
                     f"Stale worker fencing violation: Worker '{worker_id}' is not the current leaseholder of run '{run_id}' (owned by '{record.worker_id}')."
                 )
 
+            # Strict worker fencing: worker lease must not be expired
+            if worker_id and record.lease_expires_at:
+                try:
+                    exp_dt = datetime.fromisoformat(record.lease_expires_at)
+                    if exp_dt.tzinfo is None:
+                        exp_dt = exp_dt.replace(tzinfo=timezone.utc)
+                    if exp_dt < now_dt:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Worker '{worker_id}' lease expired at {record.lease_expires_at} (current time {now})."
+                        )
+                except ValueError:
+                    if record.lease_expires_at < now:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Worker '{worker_id}' lease expired at {record.lease_expires_at}."
+                        )
+
+            # Also check project_execution_leases if worker_id is provided
+            if worker_id:
+                cur_lease = conn.execute(
+                    "SELECT worker_id, expires_at FROM project_execution_leases WHERE run_id = ?",
+                    (run_id,)
+                )
+                lease_row = cur_lease.fetchone()
+                if lease_row:
+                    lease_worker, lease_exp = lease_row[0], lease_row[1]
+                    if lease_worker != worker_id:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Project execution lease held by '{lease_worker}', not '{worker_id}'."
+                        )
+                    if lease_exp and lease_exp < now:
+                        raise RunRepositoryError(
+                            f"Stale worker fencing violation: Project execution lease expired at {lease_exp}."
+                        )
+
             record.assert_can_transition_to(status)
 
             cur_update = conn.execute(
@@ -404,6 +522,7 @@ class RunRepository:
                     failure_code = ?,
                     failure_detail = ?
                 WHERE run_id = ? AND (worker_id = ? OR worker_id IS NULL)
+                  AND (lease_expires_at IS NULL OR lease_expires_at >= ?)
                 """,
                 (
                     status.value,
@@ -415,6 +534,7 @@ class RunRepository:
                     json.dumps(failure_detail) if failure_detail else None,
                     run_id,
                     worker_id,
+                    now,
                 )
             )
 

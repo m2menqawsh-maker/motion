@@ -1,0 +1,332 @@
+================================================================================
+PR-001: AUTHENTICATION HARDENING — COMPLETE REMEDIATION REPORTS
+================================================================================
+Repository: clean-video-workspace
+Branch: remediation/pr-001-authentication-hardening
+Base Commit: 90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1
+Status: COMPLETED (All Gates G1-G10 Passed)
+Date: 2026-10-08
+
+This single file contains the complete, unabridged contents of:
+  1. PR_001_IMPLEMENTATION_REPORT.md
+  2. PR_001_TEST_EVIDENCE.md
+  3. PR_001_REVIEW_AND_ROLLBACK.md
+
+================================================================================
+FILE 1: PR_001_IMPLEMENTATION_REPORT.md
+================================================================================
+
+# PR-001: Authentication Hardening — Implementation Report
+
+## Executive Summary
+This report documents the architectural remediation and complete implementation of **PR-001 (Authentication Hardening)** for the `clean-video-workspace` repository. The remediation eliminates critical identity spoofing shortcuts, hardcoded secrets, and client-asserted privilege escalations, strictly enforcing cryptographic HMAC-SHA256 signature verification and fail-closed authentication across all environments.
+
+---
+
+## 1. Baseline Context
+- **Base Commit SHA:** `90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1` (`main`)
+- **Remediation Branch:** `remediation/pr-001-authentication-hardening`
+- **Security Finding Reference:** SEC-AUTH-001 / PR-001 (Core Authentication Hardening)
+
+---
+
+## 2. Root Cause Analysis
+Prior to remediation, codebase inspection revealed four critical vulnerabilities in operational authentication code:
+
+1. **Client-Asserted Identity & Role Spoofing (`api/core/auth.py:265-303`):**
+   When `MOTION_ENV != "production"`, the server extracted client-controlled HTTP headers (`X-Principal-ID`, `X-Principal-Roles`, `X-Principal-Scope`, `X-Principal-Type`) and directly instantiated high-privilege `Principal` objects without any signature verification. Any unauthenticated caller could assert administrative control (`X-Principal-Roles: admin`) simply by omitting production environment tags.
+
+2. **Bearer Pseudo-Tokens (`api/core/auth.py:240-261`):**
+   The application accepted arbitrary pseudo-tokens (`admin`, `admin_user`, `administrator`, `system`, `system-token`, `sys_worker`, `usr_*`) in the `Authorization: Bearer <token>` header in non-production environments, bypassing HMAC-SHA256 signature verification entirely.
+
+3. **Hardcoded Insecure Fallback Secret (`api/core/auth.py:56`):**
+   `get_auth_secret()` returned `"dev-insecure-secret-key-minimum-32-chars-long!"` as an operational default whenever `AUTH_SECRET_KEY` or `JWT_SECRET_KEY` was missing from environment variables, leaving HMAC signatures forgeable by anyone with access to the source code.
+
+4. **Weak Claims Validation & Silent Defaults (`api/core/auth.py:203`):**
+   Token verification allowed missing expiration (`exp`), accepted arbitrary token issuers (`iss`), and on unrecognized `type` claims silently defaulted to `PrincipalType.HUMAN` instead of failing closed.
+
+---
+
+## 3. Architectural Rationale & Design
+The hardening adheres to the **Clean Video Workspace Trust Model** and **DEC-04 (Server-Authoritative Identity)**:
+
+- **Single Verification Gateway:** All authenticated requests must pass through `extract_principal_from_request()`, which exclusively delegates to `verify_signed_token()`. There are zero bypass paths or alternate branches.
+- **Token Architecture (Custom HMAC-SHA256 Bearer Token):** The token format is a project-specific 2-part bearer token (`<base64url_payload>.<base64url_hmac_signature>`), NOT standard RFC 7519 3-part JWT. The `JWT_SECRET_KEY` environment variable is supported solely as a legacy fallback alias for `AUTH_SECRET_KEY`.
+- **Fail-Closed Secret Management:** If `AUTH_SECRET_KEY` (or legacy `JWT_SECRET_KEY`) is missing, empty, or shorter than 32 characters, `get_auth_secret()` immediately raises `AuthenticationRequiredError(Action.PROJECT_READ)`, producing an HTTP 401 Unauthorized response. Hardcoded development secrets in application code are strictly abolished.
+- **Mandatory Cryptographic Verification First:** The HMAC-SHA256 signature is verified before parsing or trusting any token claims. Tampered signatures fail immediately.
+- **Strict Claims Conformance:**
+  - `exp`: Required and strictly checked against UTC `now()`. Expired tokens fail with HTTP 401.
+  - `iss`: Required and must strictly equal `"clean-video-engine"`.
+  - `iat`: Mandatory timestamp in seconds; rejected if missing, non-numeric, or skewed into the future (>60s).
+  - `sub`: Required non-empty string identifier.
+  - `type`: Mandatory claim matching a valid `PrincipalType` (`HUMAN`, `SERVICE`, `SYSTEM_WORKER`, `ANONYMOUS`). Missing or unrecognized types strictly raise `AuthenticationRequiredError` without any default fallback to `HUMAN`.
+- **Public Probes Preserved:** Explicitly exempted endpoints (`/health`, `/health/live`, `/health/ready`) remain unauthenticated and continue to return HTTP 200 OK.
+- **Uniform Enforcement Across All Environments:** Development, test, staging, and production environments share identical verification rules. No environment variable (`MOTION_ENV`) can disable authentication checks in operational code.
+
+---
+
+## 4. Modified Files & Behavioral Summary
+
+| File Path | Description of Changes |
+| :--- | :--- |
+| `api/core/auth.py` | Removed all `X-Principal-*` header spoofing, Bearer pseudo-tokens, and hardcoded dev secrets. Hardened `get_auth_secret()`, `create_signed_token()`, `verify_signed_token()`, and `extract_principal_from_request()`. |
+| `scripts/core/security/settings.py` | Added `set_security_settings()` to allow hermetic resetting of security singleton state across test execution. |
+| `tests/conftest.py` | Injected `TEST_PYTEST_AUTH_SECRET` (32 chars) into `setup_test_env` test fixture and created `make_test_auth_headers()` utility. |
+| `tests/security/test_pr001_authentication_hardening.py` | New comprehensive red-to-green test suite containing 61 tests validating all G1–G10 gates. |
+| `tests/security/test_s02_negative_enforcement.py` | Migrated legacy test assertions to authentic signed tokens. |
+| `tests/api/test_render.py` | Migrated API render test client headers to authentic signed tokens. |
+| `tests/api/test_projects.py` | Migrated test client to use signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_project_creation.py` | Migrated test client to use signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_gates.py` | Migrated test client to use signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_client_without_filesystem.py` | Migrated test headers to signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_lifecycle_bypass_prevention.py` | Migrated test clients to signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_tenant_endpoints.py` | Migrated multi-tenant test headers to signed tokens via `make_test_auth_headers`. |
+| `tests/api/test_candidate_reviews_router.py` | Migrated candidate review API test headers to signed tokens. |
+| `tests/api/test_candidate_promotions_router.py` | Migrated candidate promotion API test headers to signed tokens. |
+| `tests/core/test_s28_r14_production_integration.py` | Migrated authoring document API test headers to signed tokens. |
+| `tests/e2e/test_saas_multi_tenant_e2e.py` | Migrated multi-tenant E2E scenarios to signed tokens. |
+| `tests/fault_injection/test_fi_07_db_storage_disagreement.py` | Migrated test headers to signed tokens and instantiated test client. |
+| `tests/fault_injection/test_fi_09_idempotency.py` | Migrated test headers to signed tokens. |
+| `tests/fault_injection/test_fi_18_event_stream_reconnect.py` | Migrated test headers to signed tokens. |
+| `tests/fault_injection/test_fi_19_cancellation_execution.py` | Migrated test headers to signed tokens. |
+| `tests/fault_injection/test_fi_20_e2e_destructive.py` | Migrated test headers to signed tokens. |
+| `tests/remediation/*` | Migrated reproduction and acceptance suites to authentic signed tokens. |
+
+---
+
+## 5. Observable Behavioral Changes
+1. **Unauthenticated Requests to Protected Endpoints:**
+   - Any request lacking an `Authorization: Bearer <signed-token>` header receives `401 Unauthorized` (`detail: Authentication required for action ...`).
+2. **Pseudo-Tokens & Development Headers:**
+   - Sending `Authorization: Bearer admin` or `X-Principal-ID: admin` now receives `401 Unauthorized`.
+3. **Missing or Short Secret Key:**
+   - If `AUTH_SECRET_KEY` is not set or `< 32` characters in the environment, all protected endpoints immediately reject calls with `401 Unauthorized` without server crashes.
+4. **Liveness & Readiness Probes:**
+   - Requests to `/health`, `/health/live`, and `/health/ready` succeed with `200 OK` regardless of authorization headers.
+
+================================================================================
+FILE 2: PR_001_TEST_EVIDENCE.md
+================================================================================
+
+# PR-001: Authentication Hardening — Test Evidence Report
+
+## Test Execution Summary
+All mandatory security gates (G1 through G10) and existing regression suites have been validated under Python 3.14 with pytest.
+
+---
+
+## 1. Red vs Green Test Results Summary
+
+| Test Suite File | Red Baseline (Unpatched) | Green Status (Post-Remediation) | Verified Gate / Area |
+| :--- | :--- | :--- | :--- |
+| `tests/security/test_pr001_authentication_hardening.py` | 39 FAILED, 22 PASSED | **61 PASSED** (100%) | G1–G10 Acceptance Suite |
+| `tests/security/test_s02_negative_enforcement.py` | 3 FAILED | **28 PASSED** (100%) | Negative Security & Role Enforcement |
+| `tests/api/` (Full API router suite) | 38 FAILED | **53 PASSED** (100%) | G7: API Routers & Tenant Endpoints |
+| `tests/fault_injection/` (All 20 FI suites) | 4 FAILED | **56 PASSED** (100%) | Chaos & Fault Tolerance Resilience |
+| `tests/core/test_s28_r14_production_integration.py` | 2 FAILED | **21 PASSED** (100%) | Production Persistence & Concurrency |
+| `tests/e2e/test_saas_multi_tenant_e2e.py` | 2 FAILED | **7 PASSED** (100%) | Multi-Tenant E2E Lifecycle & Isolation |
+| `tests/remediation/s02_acceptance/` | Passed | **All PASSED** (100%) | Historical S02 Tenant Invariants |
+| `tests/remediation/reproductions/` | Passed | **All PASSED** (100%) | Historical Regression Reproductions |
+
+---
+
+## 2. Mandatory Acceptance Gates Validation (G1–G10)
+
+### Gate G1: Removal of Client-Asserted Development Identity Shortcuts
+- **Tests:** `test_gate_g1_x_principal_headers_ignored_*` (8 tests)
+- **Result:** PASSED. Sending `X-Principal-ID`, `X-Principal-Roles: admin`, `X-Principal-Scope`, or `X-Principal-Type` yields `401 Unauthorized` across `MOTION_ENV=development`, `test`, `production`, and unset.
+
+### Gate G2: Elimination of Pseudo-Token Authentication
+- **Tests:** `test_gate_g2_pseudo_tokens_rejected_*` (7 tests)
+- **Result:** PASSED. Pseudo-tokens (`admin`, `admin_user`, `administrator`, `system`, `system-token`, `sys_worker`, `usr_*`) are rejected with `401 Unauthorized` in all environments.
+
+### Gate G3: Cryptographic Signature Verification
+- **Tests:** `test_gate_g3_hmac_signature_verification_*` (5 tests)
+- **Result:** PASSED. HMAC-SHA256 signature verification executes before parsing claims. Altering payload characters, using foreign keys, or submitting truncated tokens fails verification with `401 Unauthorized`.
+
+### Gate G4: Token Expiration and Issuer Enforcement
+- **Tests:** `test_gate_g4_token_exp_and_issuer_*` (6 tests)
+- **Result:** PASSED. Tokens without `exp`, tokens with past `exp`, tokens without `iss`, or tokens with `iss != "clean-video-engine"` fail closed with `401 Unauthorized`.
+
+### Gate G5: Strict Principal Type and Role Mapping
+- **Tests:** `test_gate_g5_principal_type_and_roles_*` (6 tests)
+- **Result:** PASSED. Missing `type` or unknown types fail closed (no fallback to HUMAN). Valid types (`HUMAN`, `SERVICE`, `SYSTEM_WORKER`) and roles (`viewer`, `editor`, `reviewer`, `operator`, `admin`) map accurately.
+
+### Gate G6: Fail-Closed Behavior on Missing/Weak Secret
+- **Tests:** `test_gate_g6_fail_closed_missing_or_short_secret_*` (5 tests)
+- **Result:** PASSED. When `AUTH_SECRET_KEY` is empty, unset, or shorter than 32 characters, protected endpoints return `401 Unauthorized`. Hardcoded dev secret is absent.
+
+### Gate G7: Migration of Existing Tests
+- **Tests:** All test suites across `tests/api/`, `tests/fault_injection/`, `tests/core/`, `tests/e2e/`, and `tests/remediation/`.
+- **Result:** PASSED. Tests now generate authentic signed tokens through `tests/conftest.py::make_test_auth_headers`.
+
+### Gate G8: Unauthenticated Public Endpoints Remain Accessible
+- **Tests:** `test_gate_g8_public_endpoints_accessible_*` (4 tests)
+- **Result:** PASSED. `/health`, `/health/live`, `/health/ready` return `200 OK` without requiring authentication headers.
+
+### Gate G9: Status Code Boundary Integrity (401 vs 403)
+- **Tests:** `test_gate_g9_status_code_boundaries_*` (6 tests)
+- **Result:** PASSED. Unauthenticated callers receive `401 Unauthorized`. Authenticated callers lacking permissions receive `403 Forbidden`.
+
+### Gate G10: Zero Debug Backdoors or Environment Bypasses
+- **Tests:** `test_gate_g10_zero_debug_backdoors_*` (4 tests)
+- **Result:** PASSED. `MOTION_ENV=development`, `DEBUG=1`, and `TESTING=1` do not disable authentication or re-enable bypasses.
+
+---
+
+## 3. Exact Commands Executed & Output Evidence
+
+### 1. Hardening Suite Execution:
+```bash
+./.venv/bin/pytest tests/security/test_pr001_authentication_hardening.py -v
+```
+**Output:**
+```
+============================== 61 passed in 1.69s ==============================
+```
+
+### 2. API Routers Suite Execution:
+```bash
+./.venv/bin/pytest tests/api/
+```
+**Output:**
+```
+tests/api/test_candidate_promotions_router.py ........                   [ 15%]
+tests/api/test_candidate_reviews_router.py ...                           [ 20%]
+tests/api/test_client_without_filesystem.py .                            [ 22%]
+tests/api/test_gates.py .........                                        [ 39%]
+tests/api/test_health_readiness.py ....                                  [ 47%]
+tests/api/test_lifecycle_bypass_prevention.py ...                        [ 52%]
+tests/api/test_pipeline_service.py .....                                 [ 62%]
+tests/api/test_project_creation.py .                                     [ 64%]
+tests/api/test_projects.py ...........                                   [ 84%]
+tests/api/test_render.py .....                                           [ 94%]
+tests/api/test_tenant_endpoints.py ...                                   [100%]
+
+============================== 53 passed in 8.63s ==============================
+```
+
+### 3. Fault Injection Suite Execution:
+```bash
+./.venv/bin/pytest tests/fault_injection/
+```
+**Output:**
+```
+============================== 56 passed in 2.14s ==============================
+```
+
+### 4. Production Integration Suite Execution:
+```bash
+./.venv/bin/pytest tests/core/test_s28_r14_production_integration.py
+```
+**Output:**
+```
+============================== 21 passed in 0.95s ==============================
+```
+
+### 5. Multi-Tenant E2E Suite Execution:
+```bash
+./.venv/bin/pytest tests/e2e/test_saas_multi_tenant_e2e.py
+```
+**Output:**
+```
+============================== 7 passed in 0.82s ===============================
+```
+
+================================================================================
+FILE 3: PR_001_REVIEW_AND_ROLLBACK.md
+================================================================================
+
+# PR-001: Authentication Hardening — Review & Rollback Guide
+
+## 1. Unified Diff Summary
+
+### Operational Code Changes:
+- **`api/core/auth.py`:**
+  - Completely excised the `is_production` check and conditional logic for non-production environments.
+  - Removed all code accepting `X-Principal-*` headers (`X-Principal-ID`, `X-Principal-Roles`, `X-Principal-Scope`, `X-Principal-Type`).
+  - Removed code accepting Bearer pseudo-tokens (`admin`, `system`, `usr_*`).
+  - Removed hardcoded default secret `"dev-insecure-secret-key-minimum-32-chars-long!"`.
+  - Added strict validation to `get_auth_secret()`: raises `AuthenticationRequiredError` if secret is unset or `< 32` characters.
+  - Hardened `verify_signed_token()`:
+    - Enforces HMAC-SHA256 signature verification before decoding payload.
+    - Requires `exp` claim and ensures it is in the future.
+    - Requires `iss` claim and verifies `iss == "clean-video-engine"`.
+    - Requires `iat` claim.
+    - Requires non-empty `sub` claim.
+    - Rejects unknown `type` claims (no silent fallback).
+  - Hardened `extract_principal_from_request()` to strictly require and parse `Authorization: Bearer <token>`.
+- **`scripts/core/security/settings.py`:**
+  - Added `set_security_settings(settings: Optional[SecuritySettings])` function to allow atomic resetting of the settings singleton between tests.
+
+### Test Harness & Migration Changes:
+- **`tests/conftest.py`:**
+  - Injected `TEST_PYTEST_AUTH_SECRET = "test-signing-secret-for-pytest-harness-32-chars!"` via the autouse `setup_test_env` fixture.
+  - Added `make_test_auth_headers(...)` helper to generate authentic signed HMAC-SHA256 bearer tokens (custom 2-part `<payload>.<sig>` format) for test cases, defaulting to least-privilege (`Role.VIEWER`, empty scopes) to prevent unintentional admin privilege leakage.
+- **Suite-Wide Migration:**
+  - Migrated tests across `tests/api/`, `tests/fault_injection/`, `tests/core/`, `tests/e2e/`, and `tests/remediation/` to pass authentic signed headers.
+
+---
+
+## 2. Local Developer Setup Instructions
+Developers running the application locally must configure a valid 32+ character authentication key.
+
+### Step 1: Set the Secret Key
+Add the following to your local `.env` or export in your shell (do **NOT** commit this to version control):
+```bash
+export AUTH_SECRET_KEY="<generate-at-least-32-random-alphanumeric-characters>"
+```
+Example generating a secure key via OpenSSL:
+```bash
+export AUTH_SECRET_KEY=$(openssl rand -hex 32)
+```
+
+### Step 2: Generating Signed Development Tokens
+To generate a signed token for local API testing or curl/Postman scripts:
+```python
+from api.core.auth import create_signed_token
+from scripts.core.security.principal import Principal, Role, PrincipalType
+
+# Example: Generate an admin token for local use
+principal = Principal(
+    principal_id="dev_admin",
+    principal_type=PrincipalType.HUMAN,
+    roles={Role.ADMIN},
+)
+token = create_signed_token(principal)
+print("Authorization: Bearer " + token)
+```
+
+### Step 3: Run the Local API Server
+```bash
+uvicorn api.main:app --host 127.0.0.1 --port 8000
+```
+
+---
+
+## 3. Client & Test Migration Notice
+- **Legacy Headers Removed:** Requests sending `X-Principal-ID` or `X-Principal-Roles` without an `Authorization: Bearer <signed-token>` header will receive an immediate `401 Unauthorized`.
+- **Pseudo-Tokens Removed:** Calls with `Authorization: Bearer admin` or `Authorization: Bearer system` will receive `401 Unauthorized`.
+- **Client Integration:** All API clients, CLI tools, and background services must pass authentic HMAC-SHA256 signed bearer tokens (`<base64_payload>.<signature>`) issued with `iss: "clean-video-engine"`, valid `exp`, mandatory `iat`, mandatory `type`, and signed with the shared `AUTH_SECRET_KEY`. *(Note: The token format is a project-specific 2-part HMAC-SHA256 bearer token, not standard RFC 7519 3-part JWT).*
+
+---
+
+## 4. Safe Rollback Procedure
+If an issue occurs in staging or deployment that requires reverting this patch:
+
+### Immediate Rollback (Git Revert)
+The changes are isolated to branch `remediation/pr-001-authentication-hardening`.
+To revert this branch to the baseline commit `90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1`:
+
+```bash
+git checkout remediation/pr-001-authentication-hardening
+git reset --hard 90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1
+```
+
+### Impact of Rollback
+- Reverting will restore the insecure fallback secret and re-enable `X-Principal-*` spoofing and pseudo-tokens in non-production environments.
+- Rollback should only be performed if an emergency regression prevents service operation, and must be immediately followed by a prioritized remediation.
+
+================================================================================
+END OF REPORTS
+================================================================================

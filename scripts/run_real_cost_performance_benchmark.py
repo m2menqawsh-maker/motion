@@ -225,7 +225,8 @@ async def main():
     print("=================================================================")
 
     # Write results to output file
-    out_file = Path("benchmark_real_performance_results.json")
+    out_file = Path(__file__).resolve().parent.parent / "documentation" / "audits" / "benchmark_real_performance_results.json"
+    out_file.parent.mkdir(parents=True, exist_ok=True)
     out_file.write_text(json.dumps(results, indent=2))
     print(f"Results saved to {out_file.resolve()}")
 

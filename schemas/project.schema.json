@@ -50,6 +50,14 @@
       "format": "date-time",
       "description": "تاريخ ووقت إنشاء المشروع بصيغة ISO 8601"
     },
+    "workspace_id": {
+      "type": ["string", "null"],
+      "description": "معرّف مساحة العمل (اختياري)"
+    },
+    "created_by": {
+      "type": ["string", "null"],
+      "description": "معرّف المستخدم المنشئ (اختياري)"
+    },
     "voiceover": {
       "type": "object",
       "required": ["mode"],

@@ -96,11 +96,22 @@ The unified response structure:
 - **Decoupling**: Remotion does NOT govern canonical document schemas, editor session state, mutations, timeline math, or waveform calculations.
 - **Production Implementation (S28-R09)**: `RemotionRendererAdapter` replaces `RemotionRendererAdapterStub`. It consumes canonical documents via `CanonicalVideo.tsx` using `evaluateVideoAtFrame()` to evaluate all layer types, keyframes, transitions, and dynamic audio ducking. It declares production capabilities strictly (`REMOTION_SUPPORTED_CAPABILITIES`) and fails closed on unsupported engine capabilities.
 
-### 4.2 Browser Live Preview Relationship (R06/R07)
-- `BrowserPreviewRuntime` is the single authority for interactive visual playback and timeline playhead synchronization in the editor.
-- Audio preview is handled by `AudioPreviewRuntime` with parity to Remotion audio export.
-- It is **NOT** a rendering authority.
-- In S28-R08, a bridge adapter (`BrowserPreviewAdapter`) exposes the preview runtime as a preview-capable adapter supporting `frame_rendering` and `live_preview`, while explicitly rejecting `export_video` and sequence renders.
+### 4.3 Canvas Headless Renderer Adapter (S28-R10)
+- **Role**: Lightweight, high-speed 2D vector canvas engine (`CanvasRendererAdapter`).
+- **Use Case**: Sub-second frame previews, discrete sequence captures, and lightweight video exports.
+- **Capabilities**: Full 2D visual primitives (`text`, `image`, `shapes`, `groups`, `alpha`, `keyframes`, `transitions`), frame rendering, sequence rendering, video export.
+- **Exclusions**: Strictly excludes `video`, `map`, `3d`, `particles`, `custom_shaders`.
+- **Authority**: Subordinated entirely to canonical `BlueprintV2` and `evaluateVideoAtFrame()`.
+
+### 4.4 Multi-Renderer Selection & Deterministic Dispatch (S28-R10)
+When multiple real rendering engines are registered in `CANONICAL_RENDERER_REGISTRY`, selection is deterministic and capability-driven:
+1. `canRender()` filters out all adapters that lack required capabilities.
+2. If multiple adapters qualify, tie-breaking sorts by:
+   - Priority descending (`CanvasRendererAdapter` = 110, `RemotionRendererAdapter` = 100).
+   - Supported capability count descending.
+   - Renderer ID lexicographical ascending.
+3. If no registered renderer satisfies all requirements, throws `NoCompatibleRendererError` (`NO_COMPATIBLE_RENDERER`).
+4. Silent degradation or engine branching outside `RendererRegistry` is strictly prohibited.
 
 ---
 

@@ -103,7 +103,7 @@ def render_single_frame(
         cmd.extend(["--props", str(props_file_abs)])
 
     print(f"📸 توليد اللقطة {frame_index:02d} (إطار {frame_number})...")
-    res = safe_subprocess(cmd, cwd=exec_cwd, shell=False, capture_output=True)
+    res = safe_subprocess(cmd, cwd=exec_cwd, shell=False, capture_output=True, timeout=120)
 
     if res.returncode != 0:
         err_msg = res.stderr.decode("utf-8", errors="ignore") if res.stderr else "Unknown Remotion error"
@@ -311,8 +311,8 @@ def run_probe_qc(
                     "message": err or "Mock render failed",
                 })
     else:
-        print("🚀 تشغيل المعالجة المتوازية (Multi-threading) لتسريع الفحص...")
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        concurrency = max(1, int(os.environ.get("PROBE_CONCURRENCY", "1")))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=concurrency) as executor:
             future_to_frame = {
                 executor.submit(
                     render_single_frame,

@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [main, "feature/*"]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   python-quality:
@@ -123,7 +126,7 @@ jobs:
           TESTING: '1'
         run: |
           pytest --cov=api --cov=scripts/core --cov-report=xml --cov-report=term --cov-fail-under=48 \
-            tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/fault_injection tests/e2e/test_pipeline_integration.py
+            tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/fault_injection tests/security tests/api tests/integration/test_pr003_ai_runtime_vertical_slice.py tests/integration/test_pr004_state_consistency.py tests/integration/test_pr005_process_hard_death_recovery.py tests/integration/test_pr005_run_blueprint_provenance.py tests/e2e/test_pipeline_integration.py
 
       - name: Upload Python Coverage Artifact
         if: always()
@@ -172,12 +175,16 @@ jobs:
         run: |
           python tests/e2e/true_e2e_suite.py
 
-      - name: Upload E2E Test Artifacts
+      - name: Upload E2E Test Artifacts (QC Reports and Logs)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: strict-e2e-artifacts
-          path: projects/
+          path: |
+            projects/**/final_qc_report.json
+            projects/**/run.log
+            projects/**/05_blueprint.json
+          retention-days: 7
 
   docker-render:
     name: docker-render
@@ -255,7 +262,7 @@ jobs:
           python scripts/validators/check_secrets.py
 
       - name: Run Trivy Container Security Scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: 'fs'
           ignore-unfixed: true

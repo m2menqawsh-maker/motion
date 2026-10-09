@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-root = Path(r"c:\video\clean-video-workspace")
-output_path = root / "PROJECT_STRUCTURE.md"
+root = Path(__file__).resolve().parent.parent.parent
+output_path = root / "documentation" / "architecture" / "PROJECT_STRUCTURE.md"
 
 media_exts = {
     ".mp4", ".mov", ".avi", ".mkv", ".webm",

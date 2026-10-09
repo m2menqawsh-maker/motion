@@ -20,6 +20,7 @@ from scripts.core.storage import LocalStorageBackend, set_storage_service
 from scripts.core.security.principal import Role
 from scripts.core.state_model import LifecycleState, ProjectState, ReviewBundle
 from scripts.core.state_store import StateStore
+from tests.conftest import make_test_auth_headers
 
 
 @pytest.fixture
@@ -92,14 +93,8 @@ def test_runs_api_cross_tenant_isolation(saas_env):
     client = saas_env["client"]
     prj_a_id = saas_env["prj_a"].id
 
-    headers_user_a = {
-        "X-Principal-ID": saas_env["user_a"].id,
-        "X-Principal-Roles": "editor",
-    }
-    headers_user_b = {
-        "X-Principal-ID": saas_env["user_b"].id,
-        "X-Principal-Roles": "editor",
-    }
+    headers_user_a = make_test_auth_headers(principal_id=saas_env["user_a"].id, roles=["editor"])
+    headers_user_b = make_test_auth_headers(principal_id=saas_env["user_b"].id, roles=["editor"])
 
     # 1. User A triggers run on Project A -> 202 Accepted
     resp_create = client.post(f"/projects/{prj_a_id}/runs", json={}, headers=headers_user_a)
@@ -148,14 +143,8 @@ def test_review_approval_cross_tenant_isolation(saas_env):
     )
     bundle_id = bundle.review_bundle_id
 
-    headers_user_a_rev = {
-        "X-Principal-ID": saas_env["user_a_rev"].id,
-        "X-Principal-Roles": "reviewer",
-    }
-    headers_user_b_rev = {
-        "X-Principal-ID": saas_env["user_b_rev"].id,
-        "X-Principal-Roles": "reviewer",
-    }
+    headers_user_a_rev = make_test_auth_headers(principal_id=saas_env["user_a_rev"].id, roles=["reviewer"])
+    headers_user_b_rev = make_test_auth_headers(principal_id=saas_env["user_b_rev"].id, roles=["reviewer"])
 
     # 1. User B (reviewer in Workspace B) tries to approve Project A -> 403 Forbidden
     resp_b_approve = client.post(
@@ -191,14 +180,8 @@ def test_output_streaming_cross_tenant_isolation(saas_env):
     client = saas_env["client"]
     prj_a_id = saas_env["prj_a"].id
 
-    headers_user_a = {
-        "X-Principal-ID": saas_env["user_a"].id,
-        "X-Principal-Roles": "editor",
-    }
-    headers_user_b = {
-        "X-Principal-ID": saas_env["user_b"].id,
-        "X-Principal-Roles": "editor",
-    }
+    headers_user_a = make_test_auth_headers(principal_id=saas_env["user_a"].id, roles=["editor"])
+    headers_user_b = make_test_auth_headers(principal_id=saas_env["user_b"].id, roles=["editor"])
 
     # 1. User A downloads output -> 200 OK
     resp_a = client.get(f"/projects/{prj_a_id}/outputs/out.mp4", headers=headers_user_a)

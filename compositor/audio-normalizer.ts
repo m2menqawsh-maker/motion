@@ -51,6 +51,15 @@ export function extractAudioPlans(
       const resolved = resolver(ref);
       if (resolved && fs.existsSync(resolved)) return resolved;
     }
+    const mediaMap = (doc as any).media_map || (doc as any).mediaMap;
+    if (mediaMap && mediaMap[ref]) {
+      const mapped = mediaMap[ref];
+      if (fs.existsSync(mapped)) return mapped;
+      const mappedResolved = path.resolve(process.cwd(), mapped);
+      if (fs.existsSync(mappedResolved)) return mappedResolved;
+      const mappedPub = path.resolve(process.cwd(), "remotion-app/public", mapped);
+      if (fs.existsSync(mappedPub)) return mappedPub;
+    }
     // Check known test asset directories
     const testCandidates = [
       path.resolve(process.cwd(), ref),

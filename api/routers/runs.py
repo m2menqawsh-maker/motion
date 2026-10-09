@@ -175,7 +175,7 @@ async def get_run_events(
                         terminal_seen = True
             else:
                 empty_polls += 1
-                run_rec = RunService.get_run(project_id=project_id, run_id=run_id)
+                run_rec = RunService.get_run(project_id=project_id, run_id=run_id, workspace_id=ws_id)
                 if run_rec.is_terminal and empty_polls >= 2:
                     break
 

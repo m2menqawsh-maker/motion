@@ -40,9 +40,10 @@ def test_editor_cannot_approve_review_gates():
             "Policy invariant broken: Role.EDITOR must not have REVIEW_APPROVE permission."
         )
 
-        # 2. Endpoint enforcement contract
         client = TestClient(app)
-        headers = {"X-Principal-Roles": "editor", "X-Principal-ID": editor.principal_id}
+        from api.core.auth import create_signed_token
+        token = create_signed_token(editor)
+        headers = {"Authorization": f"Bearer {token}"}
         response = client.post(f"/gates/{project_id}/approve/gate_3", headers=headers)
 
         assert response.status_code == 403, (

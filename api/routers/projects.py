@@ -7,7 +7,7 @@ HTTP transport layer for project lifecycle, creation, listing, and state query:
 - Zero raw file reads or subprocess invocations inside router functions
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from api.core.auth import require_permission, Principal, Action
 from api.schemas import (
     ProjectCreateRequest,
@@ -25,18 +25,27 @@ router = APIRouter()
 
 @router.post("/", response_model=ProjectCreateResponse, status_code=status.HTTP_200_OK, summary="Create a new project")
 async def create(
+    request: Request,
     req: ProjectCreateRequest,
     principal: Principal = Depends(require_permission(Action.PROJECT_CREATE)),
 ):
-    project_id = await ProjectService.create_project_async(req.name, req.language)
+    ws_id = request.headers.get("X-Workspace-ID")
+    project_id = await ProjectService.create_managed_project(
+        name=req.name,
+        language=req.language,
+        principal=principal,
+        requested_workspace_id=ws_id,
+    )
     return ProjectCreateResponse(project_id=project_id)
 
 
 @router.get("/", response_model=ProjectListResponse, summary="List accessible projects")
 async def list_projects(
+    request: Request,
     principal: Principal = Depends(require_permission(Action.PROJECT_READ)),
 ):
-    projects_list = ProjectService.list_projects(principal)
+    ws_id = request.headers.get("X-Workspace-ID")
+    projects_list = ProjectService.list_projects(principal, workspace_id=ws_id)
     return ProjectListResponse(projects=projects_list)
 
 

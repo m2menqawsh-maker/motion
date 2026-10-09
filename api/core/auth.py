@@ -11,6 +11,7 @@ In accordance with TRUST_MODEL.md, DEC-04, and S02 Security Enforcement:
 """
 
 import os
+import math
 import base64
 import hmac
 import hashlib
@@ -41,19 +42,23 @@ from scripts.core.tenant_model import TenantContext
 
 
 def get_auth_secret(is_production: bool = False) -> str:
-    """Retrieve canonical secret key for HMAC token signing."""
+    """Retrieve canonical secret key for HMAC token signing.
+
+    Fail-closed across ALL environments:
+    - Requires AUTH_SECRET_KEY (or JWT_SECRET_KEY) of at least 32 characters.
+    - If absent or shorter than 32 characters, raises AuthenticationRequiredError.
+    - Hardcoded fallback secrets are strictly prohibited.
+    """
     settings = get_security_settings()
     secret = (
-        settings.auth_secret_key
-        or os.environ.get("AUTH_SECRET_KEY")
-        or settings.jwt_secret_key
+        os.environ.get("AUTH_SECRET_KEY")
+        or settings.auth_secret_key
         or os.environ.get("JWT_SECRET_KEY")
+        or settings.jwt_secret_key
     )
-    if is_production:
-        if not secret or len(secret) < 32:
-            raise AuthenticationRequiredError(Action.PROJECT_READ)
-        return secret
-    return secret or "dev-insecure-secret-key-minimum-32-chars-long!"
+    if not secret or len(secret) < 32:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    return secret
 
 
 def create_signed_token(
@@ -86,6 +91,8 @@ def create_signed_token(
         payload["exp"] = int(exp.timestamp())
     elif principal.expires_at is not None:
         payload["exp"] = int(principal.expires_at.timestamp())
+    else:
+        payload["exp"] = int((now + timedelta(seconds=3600)).timestamp())
 
     payload_json = json.dumps(payload, separators=(',', ':'), sort_keys=True).encode("utf-8")
     payload_b64 = base64.urlsafe_b64encode(payload_json).decode("ascii").rstrip("=")
@@ -105,7 +112,7 @@ def verify_signed_token(
     
     In accordance with TRUST_MODEL:
     1. Signature is cryptographically verified before any claim is parsed or trusted.
-    2. Expiration, sub format, roles, and project scopes are validated.
+    2. Expiration, issuer, sub format, roles, and project scopes are strictly validated.
     """
     if not token or not isinstance(token, str) or token.count(".") != 1:
         raise AuthenticationRequiredError(Action.PROJECT_READ)
@@ -140,26 +147,53 @@ def verify_signed_token(
     except Exception:
         raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-    # 3. Expiration validation
-    exp_dt = None
-    if "exp" in claims:
-        try:
-            exp_ts = float(claims["exp"])
-            exp_dt = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
-            if datetime.now(timezone.utc) > exp_dt:
-                raise AuthenticationRequiredError(Action.PROJECT_READ)
-        except Exception:
-            raise AuthenticationRequiredError(Action.PROJECT_READ)
+    # 3. Issuer validation
+    iss = claims.get("iss")
+    if iss != "clean-video-engine":
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-    # 4. Identity validation (sub)
+    # 4. Expiration validation (mandatory claim)
+    if "exp" not in claims:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    exp_raw = claims["exp"]
+    if isinstance(exp_raw, bool) or not isinstance(exp_raw, (int, float)):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    try:
+        exp_ts = float(exp_raw)
+        if math.isnan(exp_ts) or math.isinf(exp_ts) or exp_ts <= 0:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        exp_dt = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
+        if datetime.now(timezone.utc) > exp_dt:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+    except Exception:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 5. Issued-at (iat) validation (mandatory claim)
+    if "iat" not in claims:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    iat_raw = claims["iat"]
+    if isinstance(iat_raw, bool) or not isinstance(iat_raw, (int, float)):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    try:
+        iat_ts = float(iat_raw)
+        if math.isnan(iat_ts) or math.isinf(iat_ts) or iat_ts <= 0:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        if iat_ts > (datetime.now(timezone.utc).timestamp() + 60):
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+        if iat_ts > exp_ts:
+            raise AuthenticationRequiredError(Action.PROJECT_READ)
+    except Exception:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+
+    # 6. Identity validation (sub)
     sub = claims.get("sub")
     if not isinstance(sub, str) or not sub.strip():
         raise AuthenticationRequiredError(Action.PROJECT_READ)
     sub = sub.strip()
-    if is_production and not (sub.startswith("usr_") or sub.startswith("sys_")):
+    if is_production and not (sub.startswith("usr_") or sub.startswith("sys_") or sub.startswith("svc_")):
         raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-    # 5. Roles validation
+    # 7. Roles validation
     roles_raw = claims.get("roles", [])
     if not isinstance(roles_raw, list):
         raise AuthenticationRequiredError(Action.PROJECT_READ)
@@ -172,7 +206,7 @@ def verify_signed_token(
         except ValueError:
             raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-    # 6. Scopes validation
+    # 8. Scopes validation
     scopes_raw = claims.get("scopes", {})
     if not isinstance(scopes_raw, dict):
         raise AuthenticationRequiredError(Action.PROJECT_READ)
@@ -195,12 +229,16 @@ def verify_signed_token(
                 raise AuthenticationRequiredError(Action.PROJECT_READ)
         project_scopes[p_id] = parsed_scope_roles
 
-    # 7. Principal Type validation
-    p_type_raw = claims.get("type", "HUMAN")
+    # 9. Principal Type validation (mandatory claim, fail closed on missing or unknown types)
+    if "type" not in claims:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
+    p_type_raw = claims["type"]
+    if not isinstance(p_type_raw, str):
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
     try:
         p_type = PrincipalType(p_type_raw)
     except ValueError:
-        p_type = PrincipalType.HUMAN
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
 
     return Principal(
         principal_id=sub,
@@ -213,97 +251,30 @@ def verify_signed_token(
 
 
 def extract_principal_from_request(request: Request) -> Principal:
-    """Extract and authenticate Principal from incoming request."""
-    motion_env = os.environ.get("MOTION_ENV", "development").lower()
+    """Extract and authenticate Principal from incoming request.
+
+    Fail-closed across ALL environments:
+    - Authentication is strictly derived from a cryptographically verified
+      HMAC-SHA256 signed Bearer token.
+    - Pseudo-tokens ('admin', 'system', 'usr_*') are strictly rejected.
+    - Client-asserted headers ('X-Principal-*') are strictly ignored and rejected.
+    - No client-controlled input can grant identity, roles, or project scopes.
+    """
     settings = get_security_settings()
+    motion_env = os.environ.get("MOTION_ENV", "development").lower()
     is_production = settings.env == EnvironmentType.PRODUCTION or motion_env in ("production", "prod")
 
     auth_header = request.headers.get("Authorization")
-
-    # 1. Bearer Token Verification
-    if auth_header and auth_header.startswith("Bearer "):
-        token = auth_header.split(" ", 1)[1].strip()
-        if not token:
-            raise AuthenticationRequiredError(Action.PROJECT_READ)
-
-        # In production: ALL Bearer tokens MUST be cryptographically verified signed tokens.
-        # Absolutely NO client-asserted claim strings or hardcoded token values are accepted.
-        if is_production:
-            return verify_signed_token(token, is_production=True)
-
-        # Non-production (dev/test):
-        # First attempt signed token verification if token contains '.'
-        if "." in token:
-            return verify_signed_token(token, is_production=False)
-
-        # Development/Test convenience fallbacks (non-production only)
-        if token in ("system", "system-token", "sys_worker"):
-            return create_system_principal("api-worker")
-
-        if token.startswith("admin"):
-            return Principal(
-                principal_id="admin_user",
-                principal_type=PrincipalType.HUMAN,
-                roles={Role.ADMIN},
-                project_scopes={"*": {Role.ADMIN}},
-                auth_method="BEARER_TOKEN"
-            )
-
-        if token.startswith("usr_"):
-            return Principal(
-                principal_id=token[:32],
-                principal_type=PrincipalType.HUMAN,
-                roles={Role.EDITOR, Role.VIEWER},
-                project_scopes={},
-                auth_method="BEARER_TOKEN"
-            )
-
+    if not auth_header or not auth_header.startswith("Bearer "):
         raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-    # 2. Test / Development Header Support
-    # In production, custom unsigned headers are strictly rejected
-    if not is_production:
-        principal_id = request.headers.get("X-Principal-ID")
-        if principal_id:
-            roles_header = request.headers.get("X-Principal-Roles", "")
-            scope_header = request.headers.get("X-Principal-Scope", "")
-            principal_type_header = request.headers.get("X-Principal-Type", "HUMAN")
+    token = auth_header.split(" ", 1)[1].strip()
+    if not token:
+        raise AuthenticationRequiredError(Action.PROJECT_READ)
 
-            roles: Set[Role] = set()
-            if roles_header:
-                for r_str in roles_header.split(","):
-                    r_str = r_str.strip().lower()
-                    if r_str:
-                        try:
-                            roles.add(Role(r_str))
-                        except ValueError:
-                            pass
-
-            project_scopes: Dict[str, Set[Role]] = {}
-            if scope_header:
-                scoped_roles = set(roles) if roles else {Role.EDITOR}
-                for s in scope_header.split(","):
-                    s = s.strip()
-                    if s:
-                        project_scopes[s] = set(scoped_roles)
-                if Role.ADMIN not in roles:
-                    roles = set()
-
-            try:
-                p_type = PrincipalType(principal_type_header)
-            except ValueError:
-                p_type = PrincipalType.HUMAN
-
-            return Principal(
-                principal_id=principal_id,
-                principal_type=p_type,
-                roles=roles,
-                project_scopes=project_scopes,
-                auth_method="TEST_HEADER"
-            )
-
-    # Unauthenticated
-    raise AuthenticationRequiredError(Action.PROJECT_READ)
+    # In ALL environments: ALL Bearer tokens MUST be cryptographically verified signed tokens.
+    # Absolutely NO client-asserted claim strings or hardcoded token values are accepted.
+    return verify_signed_token(token, is_production=is_production)
 
 
 def require_permission(action: Action):
@@ -323,23 +294,84 @@ def require_permission(action: Action):
 
         # Attach TenantContext if project_id is present (S24.5)
         if project_id:
+            db_failed = False
+            project_record = None
             try:
                 from scripts.core.database import get_database_engine, TenantRepository
                 from scripts.core.tenant_model import TenantContext
                 engine = get_database_engine()
                 repo = TenantRepository(engine)
                 project_record = repo.get_project(project_id)
-                if project_record:
-                    membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
-                    effective_role = Role.ADMIN if principal.is_admin else (membership.role if membership else Role.VIEWER)
-                    request.state.tenant_context = TenantContext(
-                        workspace_id=project_record.workspace_id,
-                        user_id=principal.principal_id,
-                        role=effective_role,
-                        principal=principal,
-                    )
             except Exception:
-                pass
+                db_failed = True
+
+            if db_failed:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during authorization."
+                )
+
+            if project_record:
+                is_internal_worker = (
+                    principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER)
+                    and principal.auth_method == "INTERNAL_SYSTEM"
+                )
+
+                if is_internal_worker:
+                    effective_role = Role.ADMIN
+                else:
+                    try:
+                        membership = repo.get_membership(project_record.workspace_id, principal.principal_id)
+                    except Exception:
+                        raise HTTPException(
+                            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                            detail="Database service temporarily unavailable during membership lookup."
+                        )
+
+                    if membership is None:
+                        raise AccessDeniedError(
+                            principal_id=principal.principal_id,
+                            action=action,
+                            project_id=project_id,
+                            reason="No active membership in project workspace."
+                        )
+                    effective_role = membership.role
+
+                request.state.tenant_context = TenantContext(
+                    workspace_id=project_record.workspace_id,
+                    user_id=principal.principal_id,
+                    role=effective_role,
+                    principal=principal,
+                )
+            else:
+                # Check on-disk state
+                try:
+                    from pathlib import Path
+                    from scripts.core.state_store import StateStore
+                    from scripts.core.tenant_model import TenantContext
+                    proj_dir = Path(f"projects/{project_id}")
+                    if proj_dir.exists():
+                        state = StateStore.load(proj_dir)
+                        if state and getattr(state, "workspace_id", None):
+                            membership = repo.get_membership(state.workspace_id, principal.principal_id)
+                            if membership is None and principal.auth_method != "INTERNAL_SYSTEM":
+                                raise AccessDeniedError(
+                                    principal_id=principal.principal_id,
+                                    action=action,
+                                    project_id=project_id,
+                                    reason="No active membership in project workspace."
+                                )
+                            effective_role = membership.role if membership else Role.ADMIN
+                            request.state.tenant_context = TenantContext(
+                                workspace_id=state.workspace_id,
+                                user_id=principal.principal_id,
+                                role=effective_role,
+                                principal=principal,
+                            )
+                except AccessDeniedError:
+                    raise
+                except Exception:
+                    pass
 
         return principal
 
@@ -353,17 +385,49 @@ def require_tenant_context(action: Action):
         principal: Principal = Depends(require_permission(action)),
     ) -> Any:
         ctx = getattr(request.state, "tenant_context", None)
+        project_id = request.path_params.get("project_id")
+
         if ctx is not None:
+            if project_id:
+                return ctx
+            requested_ws = request.headers.get("X-Workspace-ID")
+            if requested_ws and requested_ws != ctx.workspace_id:
+                raise AccessDeniedError(
+                    principal_id=principal.principal_id,
+                    action=action,
+                    project_id=None,
+                    reason="Requested workspace does not match authorized context."
+                )
             return ctx
+
+        if project_id:
+            raise AccessDeniedError(
+                principal_id=principal.principal_id,
+                action=action,
+                project_id=project_id,
+                reason="Project tenant context could not be verified."
+            )
 
         # Derive tenant context when no project_id is in the path
         workspace_id = request.headers.get("X-Workspace-ID")
         from scripts.core.database import get_database_engine, TenantRepository
-        engine = get_database_engine()
-        repo = TenantRepository(engine)
+        try:
+            engine = get_database_engine()
+            repo = TenantRepository(engine)
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable."
+            )
 
         if not workspace_id:
-            workspaces = repo.list_user_workspaces(principal.principal_id)
+            try:
+                workspaces = repo.list_user_workspaces(principal.principal_id)
+            except Exception:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Database service temporarily unavailable during workspace lookup."
+                )
             if workspaces:
                 workspace_id = workspaces[0][0].id
 
@@ -374,16 +438,39 @@ def require_tenant_context(action: Action):
             except Exception:
                 pass
 
-        membership = repo.get_membership(workspace_id, principal.principal_id)
-        if membership is None and principal.principal_type not in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER):
+        try:
+            membership = repo.get_membership(workspace_id, principal.principal_id)
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Database service temporarily unavailable during membership check."
+            )
+
+        is_internal_worker = (
+            principal.principal_type in (PrincipalType.SERVICE, PrincipalType.SYSTEM_WORKER)
+            and principal.auth_method == "INTERNAL_SYSTEM"
+        )
+
+        if membership is None and not is_internal_worker:
             raise AccessDeniedError(
                 principal_id=principal.principal_id,
                 action=action,
                 project_id=None,
-                reason=f"Principal '{principal.principal_id}' is not a member of workspace '{workspace_id}'"
+                reason=f"Principal '{principal.principal_id}' is not an active member of workspace '{workspace_id}'"
             )
 
-        effective_role = membership.role if membership else (Role.ADMIN if principal.is_admin else Role.VIEWER)
+        effective_role = membership.role if membership else Role.ADMIN
+
+        # Verify that effective_role grants action
+        from scripts.core.security.permissions import ROLE_PERMISSIONS_MATRIX
+        granted = ROLE_PERMISSIONS_MATRIX.get(effective_role, set())
+        if action not in granted and not is_internal_worker:
+            raise AccessDeniedError(
+                principal_id=principal.principal_id,
+                action=action,
+                project_id=None,
+                reason=f"Role '{effective_role.value}' does not grant action '{action.value}'"
+            )
 
         ctx = TenantContext(
             workspace_id=workspace_id,

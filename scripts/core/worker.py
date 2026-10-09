@@ -5,6 +5,7 @@ Polls the persistent RunRepository, performs atomic CAS claims,
 maintains heartbeats, invokes the canonical pipeline, and reconciles results.
 """
 
+import hashlib
 import json
 import logging
 import os
@@ -40,6 +41,7 @@ class PipelineWorker:
     ):
         self.worker_id = worker_id or f"worker_{uuid.uuid4().hex[:8]}"
         self.repo = RunRepository(db_path=db_path)
+        self.db_path = self.repo.db_path
         self.poll_interval = poll_interval
         self.lease_duration = lease_duration
         self.heartbeat_interval = heartbeat_interval
@@ -267,6 +269,218 @@ class PipelineWorker:
                     self._runs_processed += 1
                     return True
 
+        # Check Run-to-Blueprint Provenance (PR-005 Section 3)
+        if run.immutable_storage_key:
+            # 1. Tenant storage prefix validation
+            expected_prefix = f"workspaces/{ws_id}/"
+            if not run.immutable_storage_key.startswith(expected_prefix) and "workspaces/" in run.immutable_storage_key:
+                logger.error(
+                    f"Cross-tenant storage key violation for run {run.run_id}: "
+                    f"key '{run.immutable_storage_key}' does not belong to workspace '{ws_id}'."
+                )
+                failure_detail = {"error": f"Cross-tenant storage key rejected: '{run.immutable_storage_key}'"}
+                self.repo.finish_run(
+                    run_id=run.run_id,
+                    worker_id=self.worker_id,
+                    status=RunStatus.FAILED,
+                    failure_code="CROSS_TENANT_STORAGE_VIOLATION",
+                    failure_detail=failure_detail,
+                )
+                self.repo.record_event(
+                    run_id=run.run_id,
+                    project_id=run.project_id,
+                    event_type="RUN_FAILED",
+                    payload=failure_detail,
+                    workspace_id=ws_id,
+                )
+                self._active_run = None
+                self._runs_processed += 1
+                return True
+
+            # 2. Immutable storage object existence & hash verification
+            try:
+                from scripts.core.storage import get_storage_service
+                storage = get_storage_service()
+                if not storage.exists(run.immutable_storage_key):
+                    logger.error(f"Immutable storage key '{run.immutable_storage_key}' missing for run {run.run_id}.")
+                    failure_detail = {"error": f"Storage object missing: '{run.immutable_storage_key}'"}
+                    self.repo.finish_run(
+                        run_id=run.run_id,
+                        worker_id=self.worker_id,
+                        status=RunStatus.FAILED,
+                        failure_code="STORAGE_OBJECT_MISSING",
+                        failure_detail=failure_detail,
+                    )
+                    self.repo.record_event(
+                        run_id=run.run_id,
+                        project_id=run.project_id,
+                        event_type="RUN_FAILED",
+                        payload=failure_detail,
+                        workspace_id=ws_id,
+                    )
+                    self._active_run = None
+                    self._runs_processed += 1
+                    return True
+
+                raw_bytes = storage.get(run.immutable_storage_key)
+                actual_sha = hashlib.sha256(raw_bytes).hexdigest()
+                if run.canonical_blueprint_sha256 and actual_sha != run.canonical_blueprint_sha256:
+                    logger.error(
+                        f"Storage object hash mismatch for run {run.run_id}: "
+                        f"expected {run.canonical_blueprint_sha256}, got {actual_sha}"
+                    )
+                    failure_detail = {
+                        "error": "Storage object corrupted or tampered.",
+                        "expected_hash": run.canonical_blueprint_sha256,
+                        "actual_hash": actual_sha,
+                    }
+                    self.repo.finish_run(
+                        run_id=run.run_id,
+                        worker_id=self.worker_id,
+                        status=RunStatus.FAILED,
+                        failure_code="STORAGE_OBJECT_CORRUPTED",
+                        failure_detail=failure_detail,
+                    )
+                    self.repo.record_event(
+                        run_id=run.run_id,
+                        project_id=run.project_id,
+                        event_type="RUN_FAILED",
+                        payload=failure_detail,
+                        workspace_id=ws_id,
+                    )
+                    self._active_run = None
+                    self._runs_processed += 1
+                    return True
+
+                # Materialize exact pinned bytes to local disk, preventing silent retargeting
+                proj_dir.mkdir(parents=True, exist_ok=True)
+                (proj_dir / "05_blueprint.json").write_bytes(raw_bytes)
+            except Exception as se:
+                logger.error(f"Error accessing storage for run {run.run_id}: {se}")
+
+        elif run.canonical_blueprint_sha256:
+            # Check local 05_blueprint.json matches pinned hash
+            bp_path = proj_dir / "05_blueprint.json"
+            if not bp_path.exists():
+                failure_detail = {"error": "Local 05_blueprint.json missing and no storage key provided."}
+                self.repo.finish_run(
+                    run_id=run.run_id,
+                    worker_id=self.worker_id,
+                    status=RunStatus.FAILED,
+                    failure_code="STORAGE_OBJECT_MISSING",
+                    failure_detail=failure_detail,
+                )
+                self.repo.record_event(
+                    run_id=run.run_id,
+                    project_id=run.project_id,
+                    event_type="RUN_FAILED",
+                    payload=failure_detail,
+                    workspace_id=ws_id,
+                )
+                self._active_run = None
+                self._runs_processed += 1
+                return True
+            actual_bp_sha = hashlib.sha256(bp_path.read_bytes()).hexdigest()
+            if actual_bp_sha != run.canonical_blueprint_sha256:
+                failure_detail = {
+                    "error": "Blueprint hash mismatch: disk file does not match pinned hash.",
+                    "expected": run.canonical_blueprint_sha256,
+                    "actual": actual_bp_sha,
+                }
+                self.repo.finish_run(
+                    run_id=run.run_id,
+                    worker_id=self.worker_id,
+                    status=RunStatus.FAILED,
+                    failure_code="BLUEPRINT_HASH_MISMATCH",
+                    failure_detail=failure_detail,
+                )
+                self.repo.record_event(
+                    run_id=run.run_id,
+                    project_id=run.project_id,
+                    event_type="RUN_FAILED",
+                    payload=failure_detail,
+                    workspace_id=ws_id,
+                )
+                self._active_run = None
+                self._runs_processed += 1
+                return True
+
+        # 3. Review approval verification if pinned
+        if run.approved_review_bundle_id:
+            try:
+                from scripts.core.state_store import StateStore
+                curr_state = StateStore.load(proj_dir)
+                if curr_state:
+                    bundle = next((b for b in curr_state.review_bundles if b.review_bundle_id == run.approved_review_bundle_id), None)
+                    if not bundle or getattr(bundle, "status", "ACTIVE") != "ACTIVE":
+                        failure_detail = {
+                            "error": f"Review bundle '{run.approved_review_bundle_id}' is no longer active or was invalidated.",
+                        }
+                        self.repo.finish_run(
+                            run_id=run.run_id,
+                            worker_id=self.worker_id,
+                            status=RunStatus.FAILED,
+                            failure_code="STALE_REVIEW_APPROVAL",
+                            failure_detail=failure_detail,
+                        )
+                        self.repo.record_event(
+                            run_id=run.run_id,
+                            project_id=run.project_id,
+                            event_type="RUN_FAILED",
+                            payload=failure_detail,
+                            workspace_id=ws_id,
+                        )
+                        self._active_run = None
+                        self._runs_processed += 1
+                        return True
+
+                    if run.canonical_blueprint_sha256 and bundle.blueprint_sha256 != run.canonical_blueprint_sha256:
+                        failure_detail = {
+                            "error": f"Review bundle blueprint hash ({bundle.blueprint_sha256}) does not match pinned run blueprint hash ({run.canonical_blueprint_sha256}).",
+                        }
+                        self.repo.finish_run(
+                            run_id=run.run_id,
+                            worker_id=self.worker_id,
+                            status=RunStatus.FAILED,
+                            failure_code="RENDER_NOT_AUTHORIZED",
+                            failure_detail=failure_detail,
+                        )
+                        self.repo.record_event(
+                            run_id=run.run_id,
+                            project_id=run.project_id,
+                            event_type="RUN_FAILED",
+                            payload=failure_detail,
+                            workspace_id=ws_id,
+                        )
+                        self._active_run = None
+                        self._runs_processed += 1
+                        return True
+
+                    decision = next((d for d in curr_state.review_decisions if d.review_bundle_id == run.approved_review_bundle_id), None)
+                    if not decision or getattr(decision, "decision", "").upper() != "APPROVED":
+                        failure_detail = {
+                            "error": f"Review bundle '{run.approved_review_bundle_id}' is not in APPROVED state.",
+                        }
+                        self.repo.finish_run(
+                            run_id=run.run_id,
+                            worker_id=self.worker_id,
+                            status=RunStatus.FAILED,
+                            failure_code="RENDER_NOT_AUTHORIZED",
+                            failure_detail=failure_detail,
+                        )
+                        self.repo.record_event(
+                            run_id=run.run_id,
+                            project_id=run.project_id,
+                            event_type="RUN_FAILED",
+                            payload=failure_detail,
+                            workspace_id=ws_id,
+                        )
+                        self._active_run = None
+                        self._runs_processed += 1
+                        return True
+            except Exception as rbe:
+                logger.warning(f"Error checking review approval for run {run.run_id}: {rbe}")
+
         # 5. Start Heartbeat
         self._start_heartbeat(run)
 
@@ -282,6 +496,10 @@ class PipelineWorker:
         env["AGY_WORKSPACE_ID"] = ws_id
         env["AGY_INPUT_REVISION"] = str(run.input_revision or 1)
         env["AGY_EPHEMERAL_WORKSPACE"] = str(ephemeral_dir)
+        if self.db_path:
+            env["RUNS_DB_PATH"] = str(self.db_path)
+            env["MOTION_RUNS_DB_PATH"] = str(self.db_path)
+            env["DATABASE_URL"] = f"sqlite:///{self.db_path}"
         workspace_dir = str(Path(__file__).resolve().parent.parent.parent)
         existing_pythonpath = env.get("PYTHONPATH", "")
         env["PYTHONPATH"] = f"{workspace_dir}{os.pathsep}{existing_pythonpath}" if existing_pythonpath else workspace_dir
@@ -295,9 +513,12 @@ class PipelineWorker:
         try:
             from scripts.security.security import safe_subprocess as real_safe_subprocess
             if safe_subprocess is not real_safe_subprocess:
-                result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8", env=env)
+                result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8", env=env, allow_database_env=True)
                 self._stop_heartbeat_loop()
                 if result.returncode == 0:
+                    if not self.repo.is_lease_active(run.run_id, self.worker_id):
+                        logger.warning(f"Worker {self.worker_id} lease expired/lost for run {run.run_id}; skipping terminal success.")
+                        return False
                     ref = {
                         "return_code": 0,
                         "stdout_tail": result.stdout[-2000:] if getattr(result, "stdout", None) else "",
@@ -327,7 +548,8 @@ class PipelineWorker:
                 return True
 
             import subprocess
-            proc = subprocess.Popen(
+            from scripts.security.security import safe_popen
+            proc = safe_popen(
                 cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -335,6 +557,7 @@ class PipelineWorker:
                 bufsize=1,
                 env=env,
                 start_new_session=True,  # Creates a new process group for clean tree termination
+                allow_database_env=True,
             )
 
             def stdout_reader():
@@ -434,6 +657,9 @@ class PipelineWorker:
                 )
                 logger.info(f"Run {run.run_id} finished CANCELLED.")
             elif proc.returncode == 0:
+                if not self.repo.is_lease_active(run.run_id, self.worker_id):
+                    logger.warning(f"Worker {self.worker_id} lease expired/lost for run {run.run_id}; skipping terminal success.")
+                    return False
                 ref = {
                     "return_code": 0,
                     "stdout_tail": "\n".join(stdout_lines[-50:]),

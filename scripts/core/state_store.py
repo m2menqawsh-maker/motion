@@ -2,9 +2,12 @@ import os
 import json
 import uuid
 import hashlib
+import logging
 from pathlib import Path
 from typing import Optional, Callable
 from datetime import datetime, timezone
+
+logger = logging.getLogger("clean_video.state_store")
 
 from scripts.core.state_model import ProjectState, ArtifactRecord, ValidationLevel, LifecycleState
 from scripts.core.state_lock import StateLock, StateLockError, StateLockTimeoutError
@@ -122,7 +125,12 @@ class StateStore:
         return record
 
     @classmethod
-    def _persist_atomic(cls, project_dir: Path, state: ProjectState) -> None:
+    def _persist_atomic(
+        cls,
+        project_dir: Path,
+        state: ProjectState,
+        expected_revision: Optional[int] = None,
+    ) -> None:
         """
         Internal: Atomically persists state to project_dir using a unique temp file in the same directory.
         Performs full serialization validation before os.replace.
@@ -137,6 +145,13 @@ class StateStore:
         serialized = json.dumps(data, ensure_ascii=False, indent=2)
 
         state_file = project_dir / cls.STATE_FILE
+        prev_content: Optional[str] = None
+        if state_file.exists():
+            try:
+                prev_content = state_file.read_text(encoding="utf-8")
+            except OSError:
+                pass
+
         unique_suffix = f"{os.getpid()}.{uuid.uuid4().hex}"
         tmp_file = project_dir / f".pipeline_state.{unique_suffix}.tmp"
 
@@ -165,12 +180,27 @@ class StateStore:
                 except OSError:
                     pass
 
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+
         # Sync state to relational database (PostgreSQL / SQLite) (S24.5)
-        cls._sync_to_db(state)
+        try:
+            cls._sync_to_db(state, expected_revision=expected_revision)
+        except Exception:
+            if is_managed:
+                # Rollback on-disk state to prevent split-brain between disk and database
+                try:
+                    if prev_content is not None:
+                        state_file.write_text(prev_content, encoding="utf-8")
+                    elif state_file.exists():
+                        state_file.unlink()
+                except Exception as rb_err:
+                    logger.error(f"Failed to rollback disk state during sync failure: {rb_err}")
+                raise
 
     @classmethod
     def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
         """Internal helper to reflect ProjectState into the relational database engine."""
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
         try:
             from scripts.core.database import get_database_engine
             engine = get_database_engine()
@@ -180,21 +210,23 @@ class StateStore:
                 ws_id = row[0] if row else state.workspace_id
                 if not ws_id:
                     ws_id = "ws_default"
+
+                if not row:
                     conn.execute(
                         "INSERT OR IGNORE INTO users (id, email, status, created_at) VALUES ('usr_system', 'system@motion.local', 'active', ?)",
                         (state.created_at,)
                     )
                     conn.execute(
-                        "INSERT OR IGNORE INTO workspaces (id, name, created_by, created_at) VALUES ('ws_default', 'Default Workspace', 'usr_system', ?)",
-                        (state.created_at,)
+                        "INSERT OR IGNORE INTO workspaces (id, name, created_by, created_at) VALUES (?, ?, 'usr_system', ?)",
+                        (ws_id, f"Workspace {ws_id}", state.created_at)
                     )
                     conn.execute(
-                        "INSERT OR IGNORE INTO workspace_members (workspace_id, user_id, role, created_at) VALUES ('ws_default', 'usr_system', 'admin', ?)",
-                        (state.created_at,)
+                        "INSERT OR IGNORE INTO workspace_members (workspace_id, user_id, role, created_at) VALUES (?, 'usr_system', 'admin', ?)",
+                        (ws_id, state.created_at)
                     )
                     conn.execute(
-                        "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, 'ws_default', 'usr_system', ?, ?, ?)",
-                        (state.project_id, state.project_id, state.created_at, state.updated_at)
+                        "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, ?, 'usr_system', ?, ?, ?)",
+                        (state.project_id, ws_id, state.project_id, state.created_at, state.updated_at)
                     )
 
                 state.workspace_id = ws_id
@@ -202,10 +234,11 @@ class StateStore:
 
                 cur = conn.execute("SELECT revision FROM project_states WHERE project_id = ?", (state.project_id,))
                 state_row = cur.fetchone()
+                lc_str = state.lifecycle_state.value if hasattr(state.lifecycle_state, "value") else str(state.lifecycle_state)
                 if not state_row:
                     conn.execute(
                         "INSERT INTO project_states (project_id, workspace_id, revision, lifecycle_state, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-                        (state.project_id, ws_id, state.revision, state.lifecycle_state.value, state_json, state.updated_at)
+                        (state.project_id, ws_id, state.revision, lc_str, state_json, state.updated_at)
                     )
                 else:
                     curr_rev = state_row[0]
@@ -213,11 +246,14 @@ class StateStore:
                         raise StateConflictError(expected_revision, curr_rev, f"DB CAS mismatch for project '{state.project_id}'")
                     conn.execute(
                         "UPDATE project_states SET revision = ?, lifecycle_state = ?, state_json = ?, updated_at = ? WHERE project_id = ?",
-                        (state.revision, state.lifecycle_state.value, state_json, state.updated_at, state.project_id)
+                        (state.revision, lc_str, state_json, state.updated_at, state.project_id)
                     )
         except Exception as e:
             if isinstance(e, StateConflictError):
                 raise
+            if is_managed:
+                logger.error(f"Failed to sync state to database in managed mode for project '{state.project_id}': {e}")
+                raise StateStoreError(f"Database state synchronization failed: {e}") from e
             # Non-fatal if database is unconfigured during low-level isolated unit tests
             pass
 
@@ -278,7 +314,7 @@ class StateStore:
             working_copy.updated_at = datetime.now(timezone.utc).isoformat()
 
             # Atomic persistence
-            cls._persist_atomic(pdir, working_copy)
+            cls._persist_atomic(pdir, working_copy, expected_revision=current_state.revision)
             working_copy._loaded_revision = working_copy.revision
             return working_copy
 
@@ -337,7 +373,7 @@ class StateStore:
             state.revision = current_disk.revision + 1
 
             state.updated_at = datetime.now(timezone.utc).isoformat()
-            cls._persist_atomic(pdir, state)
+            cls._persist_atomic(pdir, state, expected_revision=current_disk.revision)
             state._loaded_revision = state.revision
 
     @classmethod
@@ -383,6 +419,38 @@ class StateStore:
             raise StateCorruptedError(pdir, f"Schema validation failed for state file: {e}", raw_content=content)
 
         state._loaded_revision = state.revision
+
+        # In managed mode, ensure disk state matches authoritative SQL state
+        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+        if is_managed and getattr(state, "project_id", None):
+            try:
+                from scripts.core.database import get_database_engine
+                engine = get_database_engine()
+                if engine:
+                    with engine.get_connection() as conn:
+                        cur = conn.execute(
+                            "SELECT revision, lifecycle_state, state_json FROM project_states WHERE project_id = ?",
+                            (state.project_id,)
+                        )
+                        row = cur.fetchone()
+                        if row:
+                            db_rev, _, db_state_json = row[0], row[1], row[2]
+                            if db_rev != state.revision:
+                                logger.warning(
+                                    f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "
+                                    f"conflicts with authoritative SQL revision {db_rev}."
+                                )
+                                if db_state_json:
+                                    db_data = json.loads(db_state_json)
+                                    state = ProjectState.model_validate(db_data)
+                                    state._loaded_revision = state.revision
+                                    try:
+                                        state_file.write_text(json.dumps(db_data, indent=2, ensure_ascii=False), encoding="utf-8")
+                                    except Exception as write_err:
+                                        logger.warning(f"Could not heal disk state file during load reconciliation: {write_err}")
+            except Exception as db_err:
+                logger.debug(f"Could not verify DB state during StateStore.load: {db_err}")
+
         return state
 
     @classmethod
@@ -417,6 +485,7 @@ class StateStore:
         project_id: str,
         initial_lifecycle: LifecycleState = LifecycleState.DRAFT,
         timeout: Optional[float] = 10.0,
+        workspace_id: Optional[str] = None,
     ) -> ProjectState:
         """
         Atomically creates a new ProjectState record in project_dir.
@@ -437,6 +506,7 @@ class StateStore:
 
             state = ProjectState(
                 project_id=project_id,
+                workspace_id=workspace_id,
                 revision=1,
                 lifecycle_state=initial_lifecycle,
             )

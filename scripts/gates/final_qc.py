@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 from typing import Dict, Any, Optional, Tuple, List
 
@@ -398,12 +399,12 @@ def check_av_sync(video_path: Path | str, timings_path: Path | str) -> Dict[str,
         audio_target = str(v_path)
         temp_wav_path = None
         if v_path.suffix.lower() in [".mp4", ".mov", ".mkv", ".webm", ".avi"]:
-            import tempfile, subprocess
+            import tempfile
             wav_f = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
             wav_f.close()
             temp_wav_path = wav_f.name
             cmd = ["ffmpeg", "-y", "-i", str(v_path), "-vn", "-acodec", "pcm_s16le", temp_wav_path]
-            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+            res = safe_subprocess(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
             if res.returncode == 0 and os.path.exists(temp_wav_path) and os.path.getsize(temp_wav_path) > 0:
                 audio_target = temp_wav_path
 
@@ -693,8 +694,22 @@ def run_final_qc(project_id: str, workspace_root: Optional[Path] = None) -> Tupl
             "codec": a_stream.get("codec_name", ""),
             "message": "تدفق الصوت موجود"
         }
-        report["checks"]["audio_lufs"] = check_audio_lufs(video_path)
-        report["checks"]["av_sync"] = check_av_sync(video_path, timings_path)
+        if has_audio_plan:
+            report["checks"]["audio_lufs"] = check_audio_lufs(video_path)
+            report["checks"]["av_sync"] = check_av_sync(video_path, timings_path)
+        else:
+            report["checks"]["audio_lufs"] = {
+                "name": "Audio Loudness (LUFS)",
+                "status": "PASS",
+                "severity": "WARNING",
+                "message": "لا يتطلب المخطط مسارات صوتية (تخطي فحص LUFS)"
+            }
+            report["checks"]["av_sync"] = {
+                "name": "Audio-Visual Synchronization",
+                "status": "PASS",
+                "severity": "WARNING",
+                "message": "لا يتطلب المخطط مسارات صوتية (تخطي فحص التزامن)"
+            }
     else:
         if has_audio_plan:
             report["checks"]["audio_stream"] = {

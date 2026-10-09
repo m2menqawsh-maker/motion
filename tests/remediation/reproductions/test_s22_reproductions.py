@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
+from tests.conftest import make_test_auth_headers
 
 ROOT = Path(__file__).resolve().parent.parent.parent.parent
 if str(ROOT) not in sys.path:
@@ -64,7 +65,7 @@ def test_reproduce_led_060_events_not_live_or_durable(tmp_path, monkeypatch):
         assert not table_exists, "run_events table already exists before S22 patch"
 
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
         resp = client.get(f"/projects/{project_id}/runs/run_fake123/events", headers=auth_headers)
         # On main before S22, returns 404
         assert resp.status_code == 404
@@ -92,7 +93,7 @@ def test_reproduce_led_062_cancellation_endpoint_missing(tmp_path, monkeypatch):
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
         resp = client.post(f"/projects/{project_id}/runs/run_dummy/cancel", headers=auth_headers)
         assert resp.status_code == 404
     finally:
@@ -111,7 +112,7 @@ def test_reproduce_led_063_media_upload_management_api_missing():
     POST /projects/{project_id}/assets and GET /projects/{project_id}/assets return 404.
     """
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
     resp_get = client.get("/projects/prj_dummy/assets", headers=auth_headers)
     assert resp_get.status_code == 404
 
@@ -130,7 +131,7 @@ def test_reproduce_led_064_artifact_reports_api_missing():
     GET /projects/{project_id}/artifacts returns 404.
     """
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
     resp = client.get("/projects/prj_dummy/artifacts", headers=auth_headers)
     assert resp.status_code == 404
 
@@ -146,7 +147,7 @@ def test_reproduce_led_065_video_delivery_api_missing():
     GET /projects/{project_id}/outputs/out.mp4 returns 404.
     """
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
     resp = client.get("/projects/prj_dummy/outputs/out.mp4", headers=auth_headers)
     assert resp.status_code == 404
 
@@ -169,7 +170,7 @@ def test_reproduce_led_066_brand_api_without_contract():
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
         # Ensure brand.json exists initially
         brand_file.write_text("{}", encoding="utf-8")
         # Invalid payload according to brand.schema.json (missing brandName, colors, fonts)
@@ -203,7 +204,7 @@ def test_reproduce_led_067_overrides_api_without_schema():
 
     try:
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
         # Dangerous payload containing script injection and invalid structure
         dangerous_payload = {"malicious_key": "javascript:alert('xss')"}
 
@@ -235,7 +236,7 @@ def test_reproduce_led_068_lost_update_no_optimistic_concurrency():
     try:
         (proj_dir / "brand.json").write_text("{}", encoding="utf-8")
         client = TestClient(app)
-        auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+        auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
 
         # Write A
         client.post(f"/brand/{project_id}", json={"brandName": "BrandA"}, headers=auth_headers)
@@ -309,7 +310,7 @@ def test_reproduce_led_071_legacy_lifecycle_facade_and_missing_state_dto():
     and existing get_status formats state into legacy gate names.
     """
     client = TestClient(app)
-    auth_headers = {"X-Principal-ID": "test_user", "X-Principal-Roles": "admin"}
+    auth_headers = make_test_auth_headers(principal_id="usr_test_user", roles=["admin"], project_scopes={"*": ["admin"]})
     resp = client.get("/projects/prj_dummy/state", headers=auth_headers)
     assert resp.status_code == 404
 
