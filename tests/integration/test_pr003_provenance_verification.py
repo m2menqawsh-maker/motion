@@ -103,6 +103,7 @@ def env_provenance(tmp_path, monkeypatch):
         ),
         "client": client,
         "pdir_alpha": pdir_alpha,
+        "tmp_path": tmp_path,
     }
 
     if pdir_alpha.exists():
@@ -246,16 +247,41 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
     # STEP 3: Legitimate Render Approvals Without Bypass
     # -------------------------------------------------------------
     print("\n[STEP 3] Running official Probe-QC and executing human review approval...")
-    # Prepare normalized audio asset at -16 LUFS
+    # Prepare normalized audio asset at -16 LUFS from hermetic synthetic source
     public_audio_dir = Path("remotion-app/public/projects") / pid
     public_audio_dir.mkdir(parents=True, exist_ok=True)
-    audio_src = Path("remotion-app/public/accent_chime.mp3")
     target_norm_audio = public_audio_dir / "accent_chime.mp3"
+
+    # 1-3. Generate deterministic synthetic WAV in isolated test-owned temporary location
+    from tests.factories.canonical_factory import generate_calibrated_tone_wav
+    audio_tmp_dir = env_provenance["tmp_path"] / "audio_fixture"
+    audio_tmp_dir.mkdir(parents=True, exist_ok=True)
+    synth_wav = audio_tmp_dir / "synthetic_accent_chime.wav"
+    generate_calibrated_tone_wav(synth_wav, duration_seconds=3.0, target_lufs=-16.0, with_chime_onsets=True)
+
+    # 4. Validate synthetic WAV exists, is nonempty, and decodable via ffprobe
+    assert synth_wav.exists() and synth_wav.stat().st_size > 0, "Synthetic WAV was not generated"
+    ffprobe_bin = find_ffprobe() or "ffprobe"
+    wav_probe = subprocess.run(
+        [
+            ffprobe_bin, "-v", "error",
+            "-show_entries", "stream=codec_type,codec_name",
+            "-of", "json",
+            str(synth_wav),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    wav_info = json.loads(wav_probe.stdout)
+    assert any(s.get("codec_type") == "audio" for s in wav_info.get("streams", [])), "Synthetic WAV lacks audio stream"
+
+    # 5-6. Feed WAV into existing FFmpeg normalization command producing target_norm_audio
     subprocess.run(
         [
             "ffmpeg", "-y",
             "-stream_loop", "-1",
-            "-i", str(audio_src),
+            "-i", str(synth_wav),
             "-t", "15",
             "-filter:a", "loudnorm=I=-16:TP=-1.5:LRA=11",
             str(target_norm_audio),
@@ -263,6 +289,24 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
         check=True,
         capture_output=True,
     )
+
+    # 7. Verify normalized MP3 is valid, decodable, and contains audio stream
+    assert target_norm_audio.exists() and target_norm_audio.stat().st_size > 0, "Normalized MP3 was not generated"
+    mp3_probe = subprocess.run(
+        [
+            ffprobe_bin, "-v", "error",
+            "-show_entries", "format=duration:stream=codec_type,codec_name",
+            "-of", "json",
+            str(target_norm_audio),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    mp3_info = json.loads(mp3_probe.stdout)
+    assert any(s.get("codec_type") == "audio" for s in mp3_info.get("streams", [])), "Normalized MP3 lacks audio stream"
+    assert float(mp3_info.get("format", {}).get("duration", 0)) >= 14.5, "Normalized MP3 duration is less than 14.5s"
+
     media_rel_path = f"projects/{pid}/accent_chime.mp3"
 
     # Create supporting manifests
