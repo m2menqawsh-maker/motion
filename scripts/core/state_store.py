@@ -185,7 +185,7 @@ class StateStore:
         # Sync state to relational database (PostgreSQL / SQLite) (S24.5)
         try:
             cls._sync_to_db(state, expected_revision=expected_revision)
-        except Exception as sync_err:
+        except Exception:
             if is_managed:
                 # Rollback on-disk state to prevent split-brain between disk and database
                 try:
@@ -434,7 +434,7 @@ class StateStore:
                         )
                         row = cur.fetchone()
                         if row:
-                            db_rev, db_lc, db_state_json = row[0], row[1], row[2]
+                            db_rev, _, db_state_json = row[0], row[1], row[2]
                             if db_rev != state.revision:
                                 logger.warning(
                                     f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "

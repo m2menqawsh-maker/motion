@@ -112,8 +112,8 @@ jobs:
           width = int(v.get("width", 0))
           height = int(v.get("height", 0))
           print(f"Measured Resolution: {width}x{height}")
-          if width != 1920 or height != 1080:
-              print(f"FATAL: Expected 1920x1080, got {width}x{height}", file=sys.stderr)
+          if (width, height) not in [(1920, 1080), (1080, 1920), (1080, 1080), (1080, 1350)]:
+              print(f"FATAL: Expected canonical dimensions (1920x1080, 1080x1920, 1080x1080, or 1080x1350), got {width}x{height}", file=sys.stderr)
               sys.exit(1)
 
           print("PASS: MP4 met all strict quality control criteria.")

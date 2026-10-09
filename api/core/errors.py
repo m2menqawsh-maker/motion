@@ -106,6 +106,15 @@ class RevisionConflictError(APIError):
             details={"code": "REVISION_CONFLICT", "expected_revision": expected_revision, "actual_revision": actual_revision}
         )
 
+class ProvenanceConflictError(APIError):
+    def __init__(self, field: str, expected: Any, actual: Any, message: Optional[str] = None):
+        msg = message or f"Provenance conflict on field '{field}': client provided '{actual}' does not match authoritative server truth '{expected}'"
+        super().__init__(
+            message=msg,
+            status_code=409,
+            details={"code": "PROVENANCE_CONFLICT", "field": field, "expected": expected, "actual": actual}
+        )
+
 class AssetNotFoundError(APIError):
     def __init__(self, asset_id: str, project_id: Optional[str] = None):
         super().__init__(

