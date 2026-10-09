@@ -327,7 +327,10 @@ class CommandPolicy:
                         f"NPX only allows 'npx remotion' or registered scripts via 'npx tsx'. Received: {' '.join(cmd_list)}"
                     )
             elif exe_name in ("node", "node.exe"):
-                violations.append("Direct 'node' execution is not permitted; use npm or npx remotion.")
+                if len(cmd_list) == 2 and cmd_list[1] in ("--version", "-v"):
+                    subcommand = "--version"
+                else:
+                    violations.append("Direct 'node' execution is not permitted; use npm or npx remotion.")
 
         # 3. FFMPEG / FFPROBE POLICY
         elif exe_name in ("ffmpeg", "ffprobe"):

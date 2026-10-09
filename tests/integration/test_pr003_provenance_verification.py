@@ -78,6 +78,8 @@ def env_provenance(tmp_path, monkeypatch):
 
     # Setup on-disk project directory
     pdir_alpha = Path(f"projects/{prj_alpha.id}")
+    if pdir_alpha.exists():
+        shutil.rmtree(pdir_alpha, ignore_errors=True)
     pdir_alpha.mkdir(parents=True, exist_ok=True)
 
     client = TestClient(app)

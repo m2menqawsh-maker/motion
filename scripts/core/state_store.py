@@ -210,23 +210,20 @@ class StateStore:
                 ws_id = row[0] if row else state.workspace_id
                 if not ws_id:
                     ws_id = "ws_default"
+
+                if not row:
                     conn.execute(
                         "INSERT OR IGNORE INTO users (id, email, status, created_at) VALUES ('usr_system', 'system@motion.local', 'active', ?)",
                         (state.created_at,)
                     )
                     conn.execute(
-                        "INSERT OR IGNORE INTO workspaces (id, name, created_by, created_at) VALUES ('ws_default', 'Default Workspace', 'usr_system', ?)",
-                        (state.created_at,)
+                        "INSERT OR IGNORE INTO workspaces (id, name, created_by, created_at) VALUES (?, ?, 'usr_system', ?)",
+                        (ws_id, f"Workspace {ws_id}", state.created_at)
                     )
                     conn.execute(
-                        "INSERT OR IGNORE INTO workspace_members (workspace_id, user_id, role, created_at) VALUES ('ws_default', 'usr_system', 'admin', ?)",
-                        (state.created_at,)
+                        "INSERT OR IGNORE INTO workspace_members (workspace_id, user_id, role, created_at) VALUES (?, 'usr_system', 'admin', ?)",
+                        (ws_id, state.created_at)
                     )
-                    conn.execute(
-                        "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, 'ws_default', 'usr_system', ?, ?, ?)",
-                        (state.project_id, state.project_id, state.created_at, state.updated_at)
-                    )
-                elif not row:
                     conn.execute(
                         "INSERT OR IGNORE INTO projects (id, workspace_id, created_by, name, created_at, updated_at) VALUES (?, ?, 'usr_system', ?, ?, ?)",
                         (state.project_id, ws_id, state.project_id, state.created_at, state.updated_at)

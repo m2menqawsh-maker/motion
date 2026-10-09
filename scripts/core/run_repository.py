@@ -37,7 +37,7 @@ def get_default_db_path() -> Path:
 class RunRepository:
     """Canonical persistent authority for Pipeline Runs and Execution Leases."""
 
-    CURRENT_SCHEMA_VERSION = 3
+    CURRENT_SCHEMA_VERSION = 4
 
     def __init__(self, db_path: Optional[Path | str] = None):
         self.db_path = Path(db_path) if db_path else get_default_db_path()
@@ -101,6 +101,26 @@ class RunRepository:
                     "INSERT INTO _schema_migrations (version, applied_at) VALUES (3, ?)",
                     (datetime.now(timezone.utc).isoformat(),)
                 )
+            if current_v < 4:
+                self._migrate_v4(conn)
+                conn.execute(
+                    "INSERT INTO _schema_migrations (version, applied_at) VALUES (4, ?)",
+                    (datetime.now(timezone.utc).isoformat(),)
+                )
+
+    def _migrate_v4(self, conn: sqlite3.Connection) -> None:
+        columns = [
+            ("canonical_document_revision", "INTEGER"),
+            ("canonical_blueprint_sha256", "TEXT"),
+            ("immutable_storage_key", "TEXT"),
+            ("approved_review_bundle_id", "TEXT"),
+            ("lifecycle_state_revision", "INTEGER"),
+        ]
+        for col_name, col_type in columns:
+            try:
+                conn.execute(f"ALTER TABLE runs ADD COLUMN {col_name} {col_type}")
+            except sqlite3.OperationalError:
+                pass
 
     def _migrate_v3(self, conn: sqlite3.Connection) -> None:
         try:
@@ -152,6 +172,11 @@ class RunRepository:
                 worker_id TEXT,
                 lease_expires_at TEXT,
                 input_revision INTEGER,
+                canonical_document_revision INTEGER,
+                canonical_blueprint_sha256 TEXT,
+                immutable_storage_key TEXT,
+                approved_review_bundle_id TEXT,
+                lifecycle_state_revision INTEGER,
                 idempotency_key TEXT,
                 request_payload_hash TEXT,
                 failure_code TEXT,
@@ -221,9 +246,11 @@ class RunRepository:
                     INSERT INTO runs (
                         run_id, workspace_id, project_id, status, created_at, updated_at,
                         started_at, finished_at, attempt, worker_id, lease_expires_at,
-                        input_revision, idempotency_key, request_payload_hash,
+                        input_revision, canonical_document_revision, canonical_blueprint_sha256,
+                        immutable_storage_key, approved_review_bundle_id, lifecycle_state_revision,
+                        idempotency_key, request_payload_hash,
                         failure_code, failure_detail, result_reference
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         run.run_id,
@@ -238,6 +265,11 @@ class RunRepository:
                         run.worker_id,
                         run.lease_expires_at,
                         run.input_revision,
+                        run.canonical_document_revision,
+                        run.canonical_blueprint_sha256,
+                        run.immutable_storage_key,
+                        run.approved_review_bundle_id,
+                        run.lifecycle_state_revision,
                         run.idempotency_key,
                         run.request_payload_hash,
                         run.failure_code,

@@ -42,6 +42,11 @@ class RunRecord(BaseModel):
     worker_id: Optional[str] = None
     lease_expires_at: Optional[str] = None
     input_revision: Optional[int] = None
+    canonical_document_revision: Optional[int] = None
+    canonical_blueprint_sha256: Optional[str] = None
+    immutable_storage_key: Optional[str] = None
+    approved_review_bundle_id: Optional[str] = None
+    lifecycle_state_revision: Optional[int] = None
     idempotency_key: Optional[str] = None
     request_payload_hash: Optional[str] = None
     failure_code: Optional[str] = None

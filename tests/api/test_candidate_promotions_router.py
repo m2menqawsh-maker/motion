@@ -280,6 +280,8 @@ def api_promotion_env(tmp_path: Path):
 
     # Teardown dependency override
     app.dependency_overrides.pop(get_promotion_service, None)
+    from scripts.core.template_contract import invalidate_template_contract_cache
+    invalidate_template_contract_cache()
 
 
 # =============================================================================

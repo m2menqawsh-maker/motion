@@ -98,6 +98,11 @@ def setup_test_env():
         pass
     yield
     os.environ.pop('TESTING', None)
+    try:
+        from scripts.core.template_contract import invalidate_template_contract_cache
+        invalidate_template_contract_cache()
+    except Exception:
+        pass
 
 @pytest.fixture(autouse=True)
 def setup_tmpdir(monkeypatch, tmp_path):

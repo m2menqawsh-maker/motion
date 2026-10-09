@@ -266,8 +266,13 @@ class HealthService:
                 cursor = conn.cursor()
                 # Check for active non-expired worker leases
                 now_iso = datetime.now(timezone.utc).isoformat()
+                table_name = "project_execution_leases"
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('project_execution_leases', 'worker_leases')")
+                t_row = cursor.fetchone()
+                if t_row:
+                    table_name = t_row[0]
                 cursor.execute(
-                    "SELECT worker_id, heartbeat_at, expires_at FROM worker_leases WHERE expires_at > ?",
+                    f"SELECT worker_id, heartbeat_at, expires_at FROM {table_name} WHERE expires_at > ?",
                     (now_iso,),
                 )
                 rows = cursor.fetchall()
@@ -281,7 +286,7 @@ class HealthService:
                     }
 
                 # If no active lease, check if any lease updated heartbeat recently
-                cursor.execute("SELECT MAX(heartbeat_at) FROM worker_leases")
+                cursor.execute(f"SELECT MAX(heartbeat_at) FROM {table_name}")
                 latest_heartbeat = cursor.fetchone()[0]
 
                 if latest_heartbeat:
@@ -327,11 +332,12 @@ class HealthService:
         from scripts.security.security import safe_subprocess
         start = time.perf_counter()
         try:
+            cmd_timeout = max(5.0, timeout)
             res = safe_subprocess(
                 [ffmpeg_bin, "-version"],
                 capture_output=True,
                 text=True,
-                timeout=timeout,
+                timeout=cmd_timeout,
             )
             latency = round((time.perf_counter() - start) * 1000, 2)
             if res.returncode == 0:
@@ -356,11 +362,12 @@ class HealthService:
         from scripts.security.security import safe_subprocess
         start = time.perf_counter()
         try:
+            cmd_timeout = max(5.0, timeout)
             res = safe_subprocess(
                 [node_bin, "--version"],
                 capture_output=True,
                 text=True,
-                timeout=timeout,
+                timeout=cmd_timeout,
             )
             latency = round((time.perf_counter() - start) * 1000, 2)
             if res.returncode == 0:

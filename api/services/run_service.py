@@ -86,7 +86,66 @@ class RunService:
                     )
                 return existing, False
 
-        # 2. Create durable Run record
+        # 2. Resolve Canonical Blueprint Provenance
+        canonical_doc_rev = payload.get("canonical_document_revision") if payload else None
+        canonical_bp_sha = payload.get("canonical_blueprint_sha256") if payload else None
+        immutable_storage_key = payload.get("immutable_storage_key") if payload else None
+        approved_review_bundle_id = payload.get("approved_review_bundle_id") if payload else None
+        lifecycle_state_rev = payload.get("lifecycle_state_revision") if payload else None
+
+        if lifecycle_state_rev is None and state:
+            lifecycle_state_rev = state.revision
+
+        if approved_review_bundle_id is None and state:
+            active_b = state.get_active_review_bundle()
+            if active_b:
+                approved_review_bundle_id = active_b.review_bundle_id
+
+        if canonical_doc_rev is None or canonical_bp_sha is None or immutable_storage_key is None:
+            try:
+                from scripts.core.database import get_database_engine
+                db_engine = get_database_engine()
+                conn = db_engine.get_connection()
+                try:
+                    if canonical_doc_rev is not None:
+                        cur = conn.execute(
+                            """
+                            SELECT revision, content_hash, storage_key
+                            FROM project_artifact_versions
+                            WHERE workspace_id = ? AND project_id = ? AND artifact_kind = 'blueprint' AND revision = ?
+                            """,
+                            (actual_ws_id, project_id, canonical_doc_rev),
+                        )
+                    else:
+                        cur = conn.execute(
+                            """
+                            SELECT revision, content_hash, storage_key
+                            FROM project_artifact_versions
+                            WHERE workspace_id = ? AND project_id = ? AND artifact_kind = 'blueprint'
+                            ORDER BY revision DESC LIMIT 1
+                            """,
+                            (actual_ws_id, project_id),
+                        )
+                    row_art = cur.fetchone()
+                    if row_art:
+                        if canonical_doc_rev is None:
+                            canonical_doc_rev = row_art[0]
+                        if canonical_bp_sha is None:
+                            canonical_bp_sha = row_art[1]
+                        if immutable_storage_key is None:
+                            immutable_storage_key = row_art[2]
+                finally:
+                    conn.close()
+            except Exception:
+                pass
+
+        if canonical_bp_sha is None:
+            bp_file = proj_dir / "05_blueprint.json"
+            if bp_file.exists():
+                import hashlib
+                canonical_bp_sha = hashlib.sha256(bp_file.read_bytes()).hexdigest()
+
+        # 3. Create durable Run record
         run_id = f"run_{uuid.uuid4().hex}"
         record = RunRecord(
             run_id=run_id,
@@ -94,6 +153,11 @@ class RunService:
             project_id=project_id,
             status=RunStatus.QUEUED,
             input_revision=input_revision,
+            canonical_document_revision=canonical_doc_rev,
+            canonical_blueprint_sha256=canonical_bp_sha,
+            immutable_storage_key=immutable_storage_key,
+            approved_review_bundle_id=approved_review_bundle_id,
+            lifecycle_state_revision=lifecycle_state_rev,
             idempotency_key=idempotency_key,
             request_payload_hash=payload_hash,
         )
@@ -101,13 +165,21 @@ class RunService:
         persisted = repo.create_run(record)
         is_created = (persisted.run_id == record.run_id)
 
-        # 3. Emit durable RUN_QUEUED event only if newly created
+        # 4. Emit durable RUN_QUEUED event only if newly created
         if is_created:
             repo.record_event(
                 run_id=persisted.run_id,
                 project_id=project_id,
                 event_type="RUN_QUEUED",
-                payload={"attempt": persisted.attempt, "input_revision": persisted.input_revision},
+                payload={
+                    "attempt": persisted.attempt,
+                    "input_revision": persisted.input_revision,
+                    "canonical_document_revision": persisted.canonical_document_revision,
+                    "canonical_blueprint_sha256": persisted.canonical_blueprint_sha256,
+                    "immutable_storage_key": persisted.immutable_storage_key,
+                    "approved_review_bundle_id": persisted.approved_review_bundle_id,
+                    "lifecycle_state_revision": persisted.lifecycle_state_revision,
+                },
                 workspace_id=actual_ws_id,
             )
 

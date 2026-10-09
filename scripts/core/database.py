@@ -140,6 +140,11 @@ CREATE TABLE IF NOT EXISTS runs (
     failure_code TEXT,
     failure_detail TEXT,
     result_reference TEXT,
+    canonical_document_revision INTEGER,
+    canonical_blueprint_sha256 TEXT,
+    immutable_storage_key TEXT,
+    approved_review_bundle_id TEXT,
+    lifecycle_state_revision INTEGER,
     FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
     FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
 );
@@ -379,6 +384,32 @@ class DatabaseEngine:
                             FROM canonical_assets_old
                         """)
                         conn.execute("DROP TABLE canonical_assets_old")
+
+                cur_runs = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='runs'")
+                if cur_runs.fetchone():
+                    col_cur = conn.execute("PRAGMA table_info(runs)")
+                    cols = {r[1] for r in col_cur.fetchall()}
+                    for col_name, col_type in [
+                        ("canonical_document_revision", "INTEGER"),
+                        ("canonical_blueprint_sha256", "TEXT"),
+                        ("immutable_storage_key", "TEXT"),
+                        ("approved_review_bundle_id", "TEXT"),
+                        ("lifecycle_state_revision", "INTEGER"),
+                    ]:
+                        if col_name not in cols:
+                            conn.execute(f"ALTER TABLE runs ADD COLUMN {col_name} {col_type}")
+            else:
+                for col_name, col_type in [
+                    ("canonical_document_revision", "INTEGER"),
+                    ("canonical_blueprint_sha256", "TEXT"),
+                    ("immutable_storage_key", "TEXT"),
+                    ("approved_review_bundle_id", "TEXT"),
+                    ("lifecycle_state_revision", "INTEGER"),
+                ]:
+                    try:
+                        conn.execute(f"ALTER TABLE runs ADD COLUMN IF NOT EXISTS {col_name} {col_type}")
+                    except Exception:
+                        pass
 
             for statement in SCHEMA_SQL.strip().split(";"):
                 stmt = statement.strip()

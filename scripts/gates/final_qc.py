@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 from typing import Dict, Any, Optional, Tuple, List
 
@@ -693,8 +694,22 @@ def run_final_qc(project_id: str, workspace_root: Optional[Path] = None) -> Tupl
             "codec": a_stream.get("codec_name", ""),
             "message": "تدفق الصوت موجود"
         }
-        report["checks"]["audio_lufs"] = check_audio_lufs(video_path)
-        report["checks"]["av_sync"] = check_av_sync(video_path, timings_path)
+        if has_audio_plan:
+            report["checks"]["audio_lufs"] = check_audio_lufs(video_path)
+            report["checks"]["av_sync"] = check_av_sync(video_path, timings_path)
+        else:
+            report["checks"]["audio_lufs"] = {
+                "name": "Audio Loudness (LUFS)",
+                "status": "PASS",
+                "severity": "WARNING",
+                "message": "لا يتطلب المخطط مسارات صوتية (تخطي فحص LUFS)"
+            }
+            report["checks"]["av_sync"] = {
+                "name": "Audio-Visual Synchronization",
+                "status": "PASS",
+                "severity": "WARNING",
+                "message": "لا يتطلب المخطط مسارات صوتية (تخطي فحص التزامن)"
+            }
     else:
         if has_audio_plan:
             report["checks"]["audio_stream"] = {
