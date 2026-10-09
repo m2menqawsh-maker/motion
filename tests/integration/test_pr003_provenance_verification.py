@@ -417,10 +417,10 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
     finally:
         conn.close()
 
-    print(f"   ✅ Provenance Verified:")
+    print("   ✅ Provenance Verified:")
     print(f"      - project_id:   {pid}")
     print(f"      - workspace_id: {ws_id}")
-    print(f"      - bp_revision:  2")
+    print("      - bp_revision:  2")
     print(f"      - run_revision: {finished_run.input_revision}")
     print(f"      - content_hash: {disk_bp_sha}")
     print(f"      - storage_key:  {storage_key}")
@@ -485,7 +485,7 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
     else:
         active_path = "Legacy Remotion CLI Bridge"
 
-    print(f"   ✅ Playable MP4 Verified:")
+    print("   ✅ Playable MP4 Verified:")
     print(f"      - Format:      {format_info.get('format_name')}")
     print(f"      - Duration:    {duration_sec:.2f}s (expected: {expected_duration:.2f}s, diff: {duration_diff:.2f}s)")
     print(f"      - Video:       {video_stream.get('codec_name')} ({video_stream.get('width')}x{video_stream.get('height')})")
@@ -527,6 +527,70 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
     assert len(unique_frame_shas) == 3, f"Expected 3 distinct frames across 3 scenes, got {len(unique_frame_shas)}"
     print("   ✅ Visual fidelity verified: non-black, non-empty, distinct frames across all 3 scenes.")
 
+    # -------------------------------------------------------------
+    # STEP 8: Optional Deterministic Provenance Artifact Preservation
+    # -------------------------------------------------------------
+    preserve_dir_env = os.environ.get("PRESERVE_PROVENANCE_OUTPUT_DIR")
+    if preserve_dir_env:
+        print(f"\n[STEP 8] Preserving provenance evidence to: {preserve_dir_env}")
+        target_dir = Path(preserve_dir_env).resolve()
+        target_dir.mkdir(parents=True, exist_ok=True)
+
+        target_mp4 = target_dir / "out.mp4"
+        if not out_file.exists():
+            raise AssertionError(f"Cannot preserve provenance: out.mp4 does not exist at {out_file}")
+        shutil.copy2(out_file, target_mp4)
+        if not target_mp4.exists() or target_mp4.stat().st_size == 0:
+            raise AssertionError(f"Failed to copy rendered MP4 to deterministic destination: {target_mp4}")
+
+        # Preserve authoritative blueprint
+        target_bp = target_dir / "05_blueprint.json"
+        if not bp_disk_file.exists():
+            raise AssertionError(f"Cannot preserve blueprint: 05_blueprint.json does not exist at {bp_disk_file}")
+        shutil.copy2(bp_disk_file, target_bp)
+
+        # Preserve strict final QC report
+        final_qc_file = pdir / "final_qc_report.json"
+        if not final_qc_file.exists():
+            from scripts.gates.final_qc import run_final_qc
+            qc_ok, _ = run_final_qc(pid)
+            if not qc_ok or not final_qc_file.exists():
+                raise AssertionError(f"Strict Final QC failed or report not generated for {pid}")
+
+        target_qc = target_dir / "final_qc_report.json"
+        shutil.copy2(final_qc_file, target_qc)
+
+        # Preserve run log if present
+        run_log_file = pdir / "run.log"
+        if run_log_file.exists():
+            shutil.copy2(run_log_file, target_dir / "run.log")
+
+        # Produce sanitized provenance manifest (safe for public CI repository)
+        provenance_manifest = {
+            "project_id": pid,
+            "workspace_id": ws_id,
+            "run_id": finished_run.run_id,
+            "canonical_revision": 2,
+            "blueprint_sha256": disk_bp_sha,
+            "storage_key": storage_key,
+            "review_bundle_id": active_bundle.review_bundle_id,
+            "review_decision": decision_val,
+            "run_status": finished_run.status.value if hasattr(finished_run.status, "value") else str(finished_run.status),
+            "render_path": active_path,
+            "total_scenes": len(candidate_bp["scenes"]),
+            "total_duration_frames": candidate_bp.get("totalDurationFrames", 450),
+            "measured_duration_sec": duration_sec,
+            "measured_resolution": f"{video_stream.get('width')}x{video_stream.get('height')}",
+            "video_codec": video_stream.get("codec_name"),
+            "audio_codec": audio_stream.get("codec_name"),
+            "mp4_sha256": hashlib.sha256(target_mp4.read_bytes()).hexdigest(),
+            "mp4_size_bytes": target_mp4.stat().st_size,
+        }
+        (target_dir / "provenance_manifest.json").write_text(
+            json.dumps(provenance_manifest, indent=2), encoding="utf-8"
+        )
+        print(f"   ✅ Successfully preserved 15-second MP4 and provenance evidence to {target_dir}")
+
 
 def test_stale_revision_rejection_prevents_silent_render(env_provenance):
     """
@@ -535,7 +599,6 @@ def test_stale_revision_rejection_prevents_silent_render(env_provenance):
     with REVIEW_BUNDLE_STALE, and PipelineWorker fails closed rather than rendering
     a stale revision silently.
     """
-    token_alice = env_provenance["token_alice"]
     pid = env_provenance["prj_alpha_id"]
     ws_id = env_provenance["ws_alpha"]
     pdir = env_provenance["pdir_alpha"]

@@ -10,6 +10,12 @@ on:
         description: 'Rendering mode to exercise (remotion/docker)'
         required: false
         default: 'remotion'
+  push:
+    branches:
+      - remediation/pr-005-comprehensive-ci-real-e2e-hardening
+    paths:
+      - '.github/workflows/real-e2e-nightly.yml'
+      - 'tests/integration/test_pr003_provenance_verification.py'
 
 permissions:
   contents: read
@@ -60,10 +66,11 @@ jobs:
         env:
           PYTHONPATH: .
           TESTING: '1'
+          PRESERVE_PROVENANCE_OUTPUT_DIR: artifacts/real_e2e_15s
         run: |
           pytest tests/integration/test_pr003_provenance_verification.py -v -s
 
-      - name: Run Full Real E2E Pipeline Render (15-Second Multi-Scene)
+      - name: Run Multi-Family Matrix True E2E Suite
         env:
           PYTHONPATH: .
           TESTING: '1'
@@ -73,59 +80,190 @@ jobs:
       - name: Strict MP4 QC Probing & Specification Invariants
         run: |
           python - << 'EOF'
+          import hashlib
           import json
           import subprocess
           import sys
           from pathlib import Path
 
-          mp4_candidates = list(Path("projects").glob("**/out.mp4"))
-          if not mp4_candidates:
-              print("FATAL: No output out.mp4 rendered across projects/", file=sys.stderr)
+          artifact_dir = Path("artifacts/real_e2e_15s").resolve()
+          mp4_path = artifact_dir / "out.mp4"
+          bp_path = artifact_dir / "05_blueprint.json"
+          manifest_path = artifact_dir / "provenance_manifest.json"
+          qc_path = artifact_dir / "final_qc_report.json"
+
+          # 1. Existence and integrity checks
+          if not mp4_path.exists() or mp4_path.stat().st_size == 0:
+              print(f"FATAL: Preserved MP4 missing or empty at {mp4_path}", file=sys.stderr)
               sys.exit(1)
 
-          mp4_path = mp4_candidates[0]
-          print(f"Inspecting rendered output: {mp4_path}")
+          if not bp_path.exists():
+              print(f"FATAL: Preserved 05_blueprint.json missing at {bp_path}", file=sys.stderr)
+              sys.exit(1)
 
-          # Run ffprobe
+          if not manifest_path.exists():
+              print(f"FATAL: Preserved provenance_manifest.json missing at {manifest_path}", file=sys.stderr)
+              sys.exit(1)
+
+          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          blueprint = json.loads(bp_path.read_text(encoding="utf-8"))
+
+          # 2. Verify provenance manifest fields
+          print("=== VERIFYING PROVENANCE MANIFEST ===")
+          required_fields = [
+              "workspace_id", "project_id", "run_id", "canonical_revision",
+              "blueprint_sha256", "storage_key", "review_bundle_id",
+              "review_decision", "run_status"
+          ]
+          for rf in required_fields:
+              val = manifest.get(rf)
+              if not val:
+                  print(f"FATAL: Missing or empty provenance field '{rf}': {val}", file=sys.stderr)
+                  sys.exit(1)
+              print(f"  • {rf}: {val}")
+
+          if manifest["run_status"] != "SUCCEEDED":
+              print(f"FATAL: Run status is not SUCCEEDED: {manifest['run_status']}", file=sys.stderr)
+              sys.exit(1)
+
+          if manifest["review_decision"] != "APPROVED":
+              print(f"FATAL: Review decision is not APPROVED: {manifest['review_decision']}", file=sys.stderr)
+              sys.exit(1)
+
+          # Verify blueprint SHA matches manifest
+          computed_bp_sha = hashlib.sha256(bp_path.read_bytes()).hexdigest()
+          if computed_bp_sha != manifest["blueprint_sha256"]:
+              print(f"FATAL: Blueprint hash mismatch: computed {computed_bp_sha} != manifest {manifest['blueprint_sha256']}", file=sys.stderr)
+              sys.exit(1)
+
+          # Verify blueprint scene count and duration
+          scenes = blueprint.get("scenes", [])
+          if len(scenes) != 3:
+              print(f"FATAL: Expected exactly 3 scenes, got {len(scenes)}", file=sys.stderr)
+              sys.exit(1)
+
+          total_frames = sum(s.get("durationFrames", 0) for s in scenes)
+          if total_frames != 450:
+              print(f"FATAL: Expected total duration of 450 frames (15s @ 30fps), got {total_frames}", file=sys.stderr)
+              sys.exit(1)
+          print(f"  • Verified Blueprint: 3 scenes totaling {total_frames} frames (450 frames @ 30fps = 15.0s)")
+
+          # 3. Verify Final QC status
+          if qc_path.exists():
+              qc_data = json.loads(qc_path.read_text(encoding="utf-8"))
+              qc_status = qc_data.get("status")
+              if qc_status != "PASS":
+                  print(f"FATAL: Final QC status is not PASS: {qc_status}", file=sys.stderr)
+                  sys.exit(1)
+              print(f"  • Verified Strict Final QC: PASS")
+          else:
+              print(f"FATAL: final_qc_report.json missing at {qc_path}", file=sys.stderr)
+              sys.exit(1)
+
+          # 4. Strict ffprobe Inspection
+          print("\n=== RUNNING FFPROBE PROBE ===")
           cmd = [
               "ffprobe", "-v", "error",
-              "-show_entries", "format=duration:stream=codec_type,codec_name,width,height,r_frame_rate,nb_frames",
-              "-of", "json", str(mp4_path)
+              "-show_format",
+              "-show_streams",
+              "-of", "json",
+              str(mp4_path)
           ]
           res = subprocess.run(cmd, capture_output=True, text=True, check=True)
           probe_data = json.loads(res.stdout)
 
-          # Validate duration >= 14.5s
+          # Save machine-readable ffprobe.json
+          ffprobe_json_path = artifact_dir / "ffprobe.json"
+          ffprobe_json_path.write_text(json.dumps(probe_data, indent=2), encoding="utf-8")
+
+          # Validate duration 15.0s +- 0.5s
           duration = float(probe_data.get("format", {}).get("duration", 0))
-          print(f"Measured MP4 Duration: {duration:.2f}s")
-          if duration < 14.5:
-              print(f"FATAL: Output duration ({duration:.2f}s) is shorter than required 15s threshold", file=sys.stderr)
+          print(f"  • Measured MP4 Duration: {duration:.3f}s (required: 15.0s ± 0.5s)")
+          if not (14.5 <= duration <= 15.5):
+              print(f"FATAL: Duration {duration:.3f}s outside acceptable range [14.5, 15.5]", file=sys.stderr)
               sys.exit(1)
 
-          # Validate video stream
+          # Validate video stream: h264, 1080x1920, 30fps
           video_streams = [s for s in probe_data.get("streams", []) if s.get("codec_type") == "video"]
           if not video_streams:
-              print("FATAL: No video stream found in out.mp4", file=sys.stderr)
+              print("FATAL: No video stream found in MP4", file=sys.stderr)
               sys.exit(1)
-
           v = video_streams[0]
+          codec = v.get("codec_name")
           width = int(v.get("width", 0))
           height = int(v.get("height", 0))
-          print(f"Measured Resolution: {width}x{height}")
-          if (width, height) not in [(1920, 1080), (1080, 1920), (1080, 1080), (1080, 1350)]:
-              print(f"FATAL: Expected canonical dimensions (1920x1080, 1080x1920, 1080x1080, or 1080x1350), got {width}x{height}", file=sys.stderr)
+          fps_str = v.get("r_frame_rate", "0/1")
+          num, den = map(int, fps_str.split("/"))
+          fps = num / den if den else 0.0
+
+          print(f"  • Video Stream: codec={codec}, resolution={width}x{height}, fps={fps:.2f}")
+          if codec != "h264":
+              print(f"FATAL: Video codec is {codec}, expected h264", file=sys.stderr)
+              sys.exit(1)
+          if (width, height) != (1080, 1920):
+              print(f"FATAL: Resolution is {width}x{height}, expected 1080x1920 (9:16)", file=sys.stderr)
+              sys.exit(1)
+          if not (29.5 <= fps <= 30.5):
+              print(f"FATAL: Frame rate {fps:.2f} deviates from 30fps", file=sys.stderr)
               sys.exit(1)
 
-          print("PASS: MP4 met all strict quality control criteria.")
+          # Validate audio stream: aac, 2 channels
+          audio_streams = [s for s in probe_data.get("streams", []) if s.get("codec_type") == "audio"]
+          if not audio_streams:
+              print("FATAL: No audio stream found in MP4", file=sys.stderr)
+              sys.exit(1)
+          a = audio_streams[0]
+          a_codec = a.get("codec_name")
+          channels = int(a.get("channels", 0))
+          print(f"  • Audio Stream: codec={a_codec}, channels={channels}")
+          if a_codec != "aac":
+              print(f"FATAL: Audio codec is {a_codec}, expected aac", file=sys.stderr)
+              sys.exit(1)
+          if channels != 2:
+              print(f"FATAL: Audio channels is {channels}, expected stereo (2)", file=sys.stderr)
+              sys.exit(1)
+
+          # Write sanitized e2e summary report
+          sanitized_report = {
+              "verdict": "PASS",
+              "workspace_id": manifest["workspace_id"],
+              "project_id": manifest["project_id"],
+              "run_id": manifest["run_id"],
+              "canonical_revision": manifest["canonical_revision"],
+              "blueprint_sha256": manifest["blueprint_sha256"],
+              "review_bundle_id": manifest["review_bundle_id"],
+              "final_qc_status": "PASS",
+              "render_path": manifest.get("render_path"),
+              "video_metrics": {
+                  "duration_seconds": round(duration, 3),
+                  "width": width,
+                  "height": height,
+                  "fps": round(fps, 2),
+                  "video_codec": codec,
+                  "audio_codec": a_codec,
+                  "channels": channels,
+                  "mp4_sha256": manifest.get("mp4_sha256"),
+                  "mp4_size_bytes": manifest.get("mp4_size_bytes"),
+              },
+              "scenes_count": len(scenes),
+              "total_duration_frames": total_frames,
+          }
+          (artifact_dir / "sanitized_e2e_report.json").write_text(
+              json.dumps(sanitized_report, indent=2), encoding="utf-8"
+          )
+          print("\n🎉 PASS: Preserved 15-second MP4 met all strict quality control criteria.")
           EOF
 
-      - name: Upload Sanitized QC & Pipeline Artifacts
+      - name: Upload Verified Real E2E Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nightly-real-e2e-qc-reports
+          name: real-e2e-verified-artifacts
           path: |
-            projects/**/final_qc_report.json
-            projects/**/05_blueprint.json
-            projects/**/run.log
+            artifacts/real_e2e_15s/out.mp4
+            artifacts/real_e2e_15s/ffprobe.json
+            artifacts/real_e2e_15s/05_blueprint.json
+            artifacts/real_e2e_15s/final_qc_report.json
+            artifacts/real_e2e_15s/provenance_manifest.json
+            artifacts/real_e2e_15s/sanitized_e2e_report.json
           retention-days: 7
