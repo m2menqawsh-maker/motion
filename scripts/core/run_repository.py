@@ -140,6 +140,7 @@ class RunRepository:
 
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_tenant_project ON runs(workspace_id, project_id)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_run_events_tenant ON run_events(workspace_id, project_id, run_id)")
+        conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL")
 
     def _migrate_v2(self, conn: sqlite3.Connection) -> None:
         conn.execute("""
@@ -162,6 +163,7 @@ class RunRepository:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS runs (
                 run_id TEXT PRIMARY KEY,
+                workspace_id TEXT NOT NULL DEFAULT 'ws_default',
                 project_id TEXT NOT NULL,
                 status TEXT NOT NULL,
                 created_at TEXT NOT NULL,
@@ -198,7 +200,6 @@ class RunRepository:
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_status ON runs(status)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_idempotency ON runs(project_id, idempotency_key)")
         conn.execute("CREATE INDEX IF NOT EXISTS idx_runs_created_at ON runs(created_at)")
-        conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS uq_runs_workspace_project_idempotency ON runs(workspace_id, project_id, idempotency_key) WHERE idempotency_key IS NOT NULL")
 
     @staticmethod
     def _row_to_record(row: sqlite3.Row) -> RunRecord:
