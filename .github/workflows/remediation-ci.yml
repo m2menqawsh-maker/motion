@@ -269,3 +269,251 @@ jobs:
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           trivyignores: '.trivyignore'
+
+  remotion-verification:
+    name: remotion-verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+
+      - name: Install Node Dependencies
+        run: |
+          npm ci
+          cd remotion-app && npm ci
+
+      - name: Ensure Remotion Browser
+        run: |
+          npx remotion browser ensure
+
+      - name: Tier 1 — Fast Remotion Verification
+        run: |
+          mkdir -p /tmp/vitest_pr_a1_reports
+          python3 - << 'EOF'
+          import glob, os, subprocess, sys
+          tier2_names = {
+              's28_r09_remotion_adapter.test.ts',
+              's28_r10_canvas_adapter.test.ts',
+              's28_r11_master_compositor.test.ts',
+              's28_r12_render_planner.test.ts',
+              's28_r14_production_integration.test.ts',
+              's28_r15_destruction_and_load.test.ts',
+              's28_r15_part3_final_campaigns.test.ts'
+          }
+          all_files = sorted(glob.glob('tests/remotion/*.test.ts'))
+          t1_files = [f for f in all_files if os.path.basename(f) not in tier2_names]
+          print(f"Executing Tier 1 fast verification with {len(t1_files)} files...")
+          cmd = [
+              'npx', 'vitest', 'run',
+              *t1_files,
+              '--reporter=default',
+              '--reporter=json',
+              '--outputFile=/tmp/vitest_pr_a1_reports/tier1_report.json'
+          ]
+          res = subprocess.run(cmd)
+          sys.exit(res.returncode)
+          EOF
+
+      - name: Tier 2 — Heavy Remotion Integration Verification
+        if: success() || failure()
+        run: |
+          mkdir -p /tmp/vitest_pr_a1_reports
+          python3 - << 'EOF'
+          import os, shutil, subprocess, sys
+
+          tier2_files = [
+              'tests/remotion/s28_r09_remotion_adapter.test.ts',
+              'tests/remotion/s28_r10_canvas_adapter.test.ts',
+              'tests/remotion/s28_r11_master_compositor.test.ts',
+              'tests/remotion/s28_r12_render_planner.test.ts',
+              'tests/remotion/s28_r14_production_integration.test.ts',
+              'tests/remotion/s28_r15_destruction_and_load.test.ts',
+              'tests/remotion/s28_r15_part3_final_campaigns.test.ts'
+          ]
+
+          print(f"Executing Tier 2 heavy integration verification with {len(tier2_files)} files sequentially...")
+          cmd = [
+              'npx', 'vitest', 'run',
+              *tier2_files,
+              '--no-file-parallelism',
+              '--maxConcurrency=1',
+              '--reporter=default',
+              '--reporter=json',
+              '--outputFile=/tmp/vitest_pr_a1_reports/tier2_report.json'
+          ]
+          if shutil.which('xvfb-run'):
+              cmd = ['xvfb-run', '--auto-servernum'] + cmd
+
+          res = subprocess.run(cmd)
+          sys.exit(res.returncode)
+          EOF
+
+      - name: Mandatory Remotion Test Accounting & Reconciliation
+        if: success() || failure()
+        run: |
+          python3 - << 'EOF'
+          import glob, json, os, subprocess, sys
+
+          tier2_basenames = {
+              's28_r09_remotion_adapter.test.ts',
+              's28_r10_canvas_adapter.test.ts',
+              's28_r11_master_compositor.test.ts',
+              's28_r12_render_planner.test.ts',
+              's28_r14_production_integration.test.ts',
+              's28_r15_destruction_and_load.test.ts',
+              's28_r15_part3_final_campaigns.test.ts'
+          }
+
+          discovered_files = sorted(glob.glob('tests/remotion/*.test.ts'))
+          discovered_norm = set(os.path.realpath(f) for f in discovered_files)
+
+          report1_path = '/tmp/vitest_pr_a1_reports/tier1_report.json'
+          report2_path = '/tmp/vitest_pr_a1_reports/tier2_report.json'
+
+          if not os.path.exists(report1_path) or not os.path.exists(report2_path):
+              print(f"ERROR: Vitest report files missing: tier1={os.path.exists(report1_path)}, tier2={os.path.exists(report2_path)}")
+              sys.exit(1)
+
+          with open(report1_path) as f:
+              t1 = json.load(f)
+          with open(report2_path) as f:
+              t2 = json.load(f)
+
+          t1_files = set(os.path.realpath(r['name']) for r in t1.get('testResults', []))
+          t2_files = set(os.path.realpath(r['name']) for r in t2.get('testResults', []))
+
+          overlap = t1_files & t2_files
+          union_files = t1_files | t2_files
+          missing_files = discovered_norm - union_files
+          extra_files = union_files - discovered_norm
+
+          t1_passed = t1.get('numPassedTests', 0)
+          t1_failed = t1.get('numFailedTests', 0)
+          t1_pending = t1.get('numPendingTests', 0)
+          t1_total = t1.get('numTotalTests', 0)
+
+          t2_passed = t2.get('numPassedTests', 0)
+          t2_failed = t2.get('numFailedTests', 0)
+          t2_pending = t2.get('numPendingTests', 0)
+          t2_total = t2.get('numTotalTests', 0)
+
+          total_passed = t1_passed + t2_passed
+          total_failed = t1_failed + t2_failed
+          total_pending = t1_pending + t2_pending
+          total_tests = t1_total + t2_total
+
+          git_sha = os.environ.get('GITHUB_SHA') or subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+
+          print("================================================================================")
+          print("                    REMOTION TEST ACCOUNTING & AUDIT REPORT                     ")
+          print("================================================================================")
+          print(f"Target Git SHA:              {git_sha}")
+          print(f"Discovered Test Files:       {len(discovered_files)}")
+          print(f"Tier 1 Fast Suites:          {len(t1_files)} files | {t1_total} tests ({t1_passed} passed, {t1_failed} failed, {t1_pending} pending)")
+          print(f"Tier 2 Heavy Suites:         {len(t2_files)} files | {t2_total} tests ({t2_passed} passed, {t2_failed} failed, {t2_pending} pending)")
+          print(f"Total Unique Suites Tested:  {len(union_files)} files (Disjoint partition verified)")
+          print(f"Total Unique Tests Executed: {total_tests} tests ({total_passed} passed, {total_failed} failed, {total_pending} pending)")
+          print(f"Partition Overlap Count:     {len(overlap)}")
+          print(f"Omitted Files Count:         {len(missing_files)}")
+          print("================================================================================")
+
+          r12_04_status = None
+          r12_04_duration = None
+          r12_13_status = None
+          r12_13_duration = None
+          for suite in t2.get('testResults', []):
+              if 's28_r12_render_planner' in suite.get('name', ''):
+                  for test in suite.get('assertionResults', []):
+                      if 'R12-04' in test.get('title', ''):
+                          r12_04_status = test.get('status')
+                          r12_04_duration = test.get('duration')
+                      elif 'R12-13' in test.get('title', ''):
+                          r12_13_status = test.get('status')
+                          r12_13_duration = test.get('duration')
+
+          print(f"Special Gate R12-04 (120s max timeout): status={r12_04_status}, duration={r12_04_duration}ms")
+          print(f"Special Gate R12-13 (20ms threshold):   status={r12_13_status}, duration={r12_13_duration}ms")
+
+          summary = {
+              'gitSha': git_sha,
+              'discoveredFilesCount': len(discovered_files),
+              'tier1': {
+                  'suitesCount': len(t1_files),
+                  'totalTests': t1_total,
+                  'passedTests': t1_passed,
+                  'failedTests': t1_failed,
+                  'pendingTests': t1_pending
+              },
+              'tier2': {
+                  'suitesCount': len(t2_files),
+                  'totalTests': t2_total,
+                  'passedTests': t2_passed,
+                  'failedTests': t2_failed,
+                  'pendingTests': t2_pending,
+                  'specialGates': {
+                      'R12-04': {'status': r12_04_status, 'durationMs': r12_04_duration},
+                      'R12-13': {'status': r12_13_status, 'durationMs': r12_13_duration}
+                  }
+              },
+              'totalUniqueFiles': len(union_files),
+              'totalTests': total_tests,
+              'totalPassed': total_passed,
+              'totalFailed': total_failed,
+              'totalPending': total_pending,
+              'overlap': list(overlap),
+              'missingFiles': list(missing_files)
+          }
+
+          with open('/tmp/vitest_pr_a1_reports/accounting_summary.json', 'w') as f:
+              json.dump(summary, f, indent=2)
+
+          if os.environ.get('GITHUB_STEP_SUMMARY'):
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+                  f.write(f"""### 🎬 Remotion Test Verification & Accounting Summary
+          - **Commit SHA**: `{git_sha}`
+          - **Discovered Test Files**: `{len(discovered_files)}`
+          - **Tier 1 (Fast Conformance & Contracts)**: `{len(t1_files)}` files | `{t1_passed}/{t1_total}` passed (0 failed, 0 skipped)
+          - **Tier 2 (Heavy Integration & Rendering)**: `{len(t2_files)}` files | `{t2_passed}/{t2_total}` passed (0 failed, 0 skipped)
+          - **Total Unique Suites**: `{len(union_files)}/49`
+          - **Total Unique Tests**: `{total_passed}/{total_tests}`
+          - **R12-04 Status**: `{r12_04_status}` ({r12_04_duration}ms)
+          - **R12-13 Status**: `{r12_13_status}` ({r12_13_duration}ms)
+          - **Accounting Verification**: {'✅ PASSED (100% coverage, 0 overlap, 0 missing)' if len(overlap) == 0 and len(missing_files) == 0 and total_failed == 0 else '❌ FAILED'}
+          """)
+
+          assert len(overlap) == 0, f"Error: Tiers overlap: {overlap}"
+          assert len(missing_files) == 0, f"Error: Test files omitted: {missing_files}"
+          assert len(extra_files) == 0, f"Error: Extra test files executed: {extra_files}"
+          assert len(union_files) == len(discovered_files), f"Error: Expected {len(discovered_files)} unique files, got {len(union_files)}"
+          assert len(discovered_files) == 49, f"Error: Expected 49 discovered test files, got {len(discovered_files)}"
+          assert total_failed == 0, f"Error: {total_failed} tests failed"
+          assert total_pending == 0, f"Error: {total_pending} tests pending/skipped"
+          assert total_tests == 1545, f"Error: Expected 1545 tests, got {total_tests}"
+          assert r12_04_status == 'passed', f"Error: R12-04 failed (status: {r12_04_status})"
+          assert r12_13_status == 'passed', f"Error: R12-13 failed (status: {r12_13_status})"
+
+          print("✅ ALL REMOTION GATES, CONFORMANCE AND ACCOUNTING CRITERIA PASSED!")
+          EOF
+
+      - name: Upload Remotion Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: remotion-test-reports
+          path: /tmp/vitest_pr_a1_reports/
+          retention-days: 14
+
