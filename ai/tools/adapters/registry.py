@@ -13,7 +13,7 @@ Invariants:
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from ai.contracts import (
     CapabilityCategory,
@@ -137,18 +137,6 @@ class AdapterRegistry:
             "NORMALIZE_AUDIO",
             "ANALYZE_LOUDNESS",
             "DETECT_SILENCE",
-            "TRIM_AUDIO",
-            "EXTEND_AUDIO",
-            "NORMALIZE_AUDIO_LOUDNESS",
-            "TRIM_AUDIO_SILENCE",
-            "TRIM_VIDEO",
-            "EXTEND_VIDEO",
-            "RESIZE_VIDEO",
-            "TRIM_BLACK_FRAMES",
-            "CHANGE_VIDEO_SPEED",
-            "ENFORCE_KEYFRAME_INTERVAL",
-            "CONCATENATE_VIDEOS",
-            "INSPECT_MEDIA",
         }
         if cap_id in canonical_media_caps:
             for ad in self._adapters:

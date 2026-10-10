@@ -499,6 +499,7 @@ _default_image_service: Optional[ImageProcessingService] = None
 def get_image_processing_service() -> ImageProcessingService:
     """Returns singleton canonical ImageProcessingService instance."""
     global _default_image_service
-    if _default_image_service is None:
-        _default_image_service = ImageProcessingService()
+    curr_storage = get_storage_service()
+    if _default_image_service is None or (_default_image_service.storage is not curr_storage and curr_storage is not None):
+        _default_image_service = ImageProcessingService(storage=curr_storage)
     return _default_image_service

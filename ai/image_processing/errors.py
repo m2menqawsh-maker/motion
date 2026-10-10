@@ -26,7 +26,7 @@ class ImageProcessingError(Exception):
     def to_ai_error(self) -> AIError:
         """Converts domain exception to canonical AIError."""
         return AIError(
-            code=AIErrorCode.MEDIA_PROCESSING_FAILED,
+            code=AIErrorCode.INTERNAL_ERROR,
             message=self.message,
             category="IMAGE_PROCESSING",
             retryable=False,
@@ -138,7 +138,7 @@ class OutputValidationError(ImageProcessingError):
 
     def to_ai_error(self) -> AIError:
         return AIError(
-            code=AIErrorCode.MEDIA_PROCESSING_FAILED,
+            code=AIErrorCode.INTERNAL_ERROR,
             message=self.message,
             category="IMAGE_PROCESSING",
             retryable=False,

@@ -74,7 +74,13 @@ class ImageProcessingAdapter(CapabilityAdapter):
 
     def __init__(self, service: Optional[ImageProcessingService] = None) -> None:
         super().__init__(name="canonical_image_processing_adapter", adapter_kind="IMAGE_PROCESSING")
-        self.service: ImageProcessingService = service or get_image_processing_service()
+        self._service: Optional[ImageProcessingService] = service
+
+    @property
+    def service(self) -> ImageProcessingService:
+        if self._service is not None:
+            return self._service
+        return get_image_processing_service()
 
     def can_handle(
         self,
@@ -120,7 +126,7 @@ class ImageProcessingAdapter(CapabilityAdapter):
         except Exception as e:
             logger.error(f"ImageProcessingAdapter execution failed: {e}", exc_info=True)
             raise AIError(
-                code=AIErrorCode.MEDIA_PROCESSING_FAILED,
+                code=AIErrorCode.INTERNAL_ERROR,
                 message=f"Image operation failed: {e}",
                 category="IMAGE_PROCESSING",
                 retryable=False,

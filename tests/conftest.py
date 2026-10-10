@@ -68,32 +68,71 @@ def setup_test_env():
     try:
         from scripts.core.database import get_database_engine, TenantRepository, Role
         repo = TenantRepository(get_database_engine())
-        for uid, role in (
-            ("test_admin", Role.ADMIN),
-            ("usr_admin_legit", Role.ADMIN),
-            ("gui_client_user", Role.ADMIN),
-            ("usr_test_admin", Role.ADMIN),
-            ("editor_user", Role.EDITOR),
-            ("rev_user", Role.REVIEWER),
-            ("reviewer_alice", Role.REVIEWER),
-            ("viewer_bob", Role.VIEWER),
-        ):
-            if not repo.get_user(uid):
-                repo.create_user(uid, f"{uid}@motion.local")
-        if not repo.get_workspace("ws_default"):
-            repo.create_workspace("ws_default", "Default Workspace", created_by="test_admin")
-        for uid, role in (
-            ("test_admin", Role.ADMIN),
-            ("usr_admin_legit", Role.ADMIN),
-            ("gui_client_user", Role.ADMIN),
-            ("usr_test_admin", Role.ADMIN),
-            ("editor_user", Role.EDITOR),
-            ("rev_user", Role.REVIEWER),
-            ("reviewer_alice", Role.REVIEWER),
-            ("viewer_bob", Role.VIEWER),
-        ):
-            if not repo.get_membership("ws_default", uid):
-                repo.add_member("ws_default", uid, role)
+        test_workspaces_config = [
+            ("ws_default", [
+                ("test_admin", Role.ADMIN),
+                ("usr_admin_legit", Role.ADMIN),
+                ("gui_client_user", Role.ADMIN),
+                ("usr_test_admin", Role.ADMIN),
+                ("editor_user", Role.EDITOR),
+                ("rev_user", Role.REVIEWER),
+                ("reviewer_alice", Role.REVIEWER),
+                ("viewer_bob", Role.VIEWER),
+            ], []),
+            ("ws_1", [
+                ("usr_1", Role.VIEWER),
+                ("usr_admin", Role.ADMIN),
+                ("usr_scoped", Role.EDITOR),
+                ("usr_viewer", Role.VIEWER),
+            ], ["prj_1", "prj_allowed"]),
+            ("ws_dispatcher_test", [
+                ("usr_tester", Role.EDITOR),
+            ], ["prj_test", "prj_async"]),
+            ("ws_e2e_tool", [
+                ("usr_e2e", Role.EDITOR),
+            ], ["prj_start_run_1"]),
+            ("ws_e2e_test", [
+                ("usr_operator", Role.OPERATOR),
+            ], ["prj_e2e_target"]),
+            ("ws_timeout_test", [
+                ("usr_tester", Role.EDITOR),
+            ], ["prj_safe"]),
+            ("ws_parity_test", [
+                ("user_parity_tester", Role.EDITOR),
+            ], ["prj_parity_001"]),
+            ("ws_test_alpha", [
+                ("usr_editor_1", Role.EDITOR),
+                ("usr_viewer_1", Role.VIEWER),
+                ("user_editor_1", Role.EDITOR),
+                ("user_director_1", Role.EDITOR),
+                ("user_parity_tester", Role.EDITOR),
+            ], ["prj_alpha_1"]),
+            ("workspace_alpha", [
+                ("actor_a", Role.EDITOR),
+                ("alice", Role.ADMIN),
+            ], ["prj_alpha_100"]),
+            ("workspace_beta", [
+                ("actor_b", Role.EDITOR),
+                ("bob", Role.ADMIN),
+            ], ["prj_beta_200"]),
+        ]
+        for ws_id, users, projs in test_workspaces_config:
+            primary_user = users[0][0]
+            for uid, role in users:
+                if not repo.get_user(uid):
+                    repo.create_user(uid, f"{uid}@motion.local")
+            if not repo.get_workspace(ws_id):
+                repo.create_workspace(ws_id, f"Workspace {ws_id}", created_by=primary_user)
+            for uid, role in users:
+                if not repo.get_membership(ws_id, uid):
+                    repo.add_member(ws_id, uid, role)
+            for pid in projs:
+                p = repo.get_project(pid)
+                if not p:
+                    repo.create_project(pid, ws_id, f"Project {pid}", created_by=primary_user)
+                elif p.workspace_id != ws_id:
+                    with repo.engine.transaction() as conn:
+                        conn.execute("UPDATE projects SET workspace_id = ? WHERE id = ?", (ws_id, pid))
     except Exception:
         pass
     yield
