@@ -100,10 +100,13 @@ class KnowledgeLoader:
 
         if verify_hash and descriptor.content_hash:
             if actual_hash != descriptor.content_hash:
-                raise KnowledgeHashMismatchError(
-                    f"Content hash mismatch for '{descriptor.knowledge_id}': "
-                    f"expected '{descriptor.content_hash}', got '{actual_hash}'"
-                )
+                alt_hash = self.compute_hash(raw_bytes.replace(b"\r\n", b"\n"))
+                alt_crlf_hash = self.compute_hash(raw_bytes.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+                if descriptor.content_hash not in (alt_hash, alt_crlf_hash):
+                    raise KnowledgeHashMismatchError(
+                        f"Content hash mismatch for '{descriptor.knowledge_id}': "
+                        f"expected '{descriptor.content_hash}', got '{actual_hash}'"
+                    )
 
         content_text = raw_bytes.decode("utf-8")
         return LoadedKnowledgeDocument(

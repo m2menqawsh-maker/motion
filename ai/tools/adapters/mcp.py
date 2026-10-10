@@ -133,8 +133,7 @@ class MCPToolAdapter(CapabilityAdapter):
                 from scripts.core.storage.storage_service import get_storage_service
                 storage = get_storage_service()
                 if storage and storage.exists(storage_key):
-                    local_path.parent.mkdir(parents=True, exist_ok=True)
-                    local_path.write_bytes(storage.get(storage_key))
+                    storage.download_to_file(storage_key, local_path)
             except Exception as e:
                 logger.debug(f"Could not sync source from storage '{storage_key}': {e}")
 

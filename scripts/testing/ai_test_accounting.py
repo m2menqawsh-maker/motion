@@ -29,7 +29,6 @@ import glob
 import json
 import os
 from pathlib import Path
-import subprocess
 import sys
 from typing import Any, Dict, List, Optional, Set, Tuple
 import xml.etree.ElementTree as ET
@@ -202,9 +201,21 @@ def reconcile_accounting(
 
     sha = git_sha or os.environ.get("GITHUB_SHA")
     if not sha:
-        try:
-            sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-        except Exception:
+        head_path = REPO_ROOT / ".git" / "HEAD"
+        if head_path.exists():
+            try:
+                ref_content = head_path.read_text(encoding="utf-8").strip()
+                if ref_content.startswith("ref: "):
+                    ref_file = REPO_ROOT / ".git" / ref_content[5:]
+                    if ref_file.exists():
+                        sha = ref_file.read_text(encoding="utf-8").strip()
+                    else:
+                        sha = ref_content[5:]
+                else:
+                    sha = ref_content
+            except Exception:
+                sha = "unknown"
+        else:
             sha = "unknown"
 
     accounting_summary: Dict[str, Any] = {
