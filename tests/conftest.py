@@ -68,32 +68,71 @@ def setup_test_env():
     try:
         from scripts.core.database import get_database_engine, TenantRepository, Role
         repo = TenantRepository(get_database_engine())
-        for uid, role in (
-            ("test_admin", Role.ADMIN),
-            ("usr_admin_legit", Role.ADMIN),
-            ("gui_client_user", Role.ADMIN),
-            ("usr_test_admin", Role.ADMIN),
-            ("editor_user", Role.EDITOR),
-            ("rev_user", Role.REVIEWER),
-            ("reviewer_alice", Role.REVIEWER),
-            ("viewer_bob", Role.VIEWER),
-        ):
-            if not repo.get_user(uid):
-                repo.create_user(uid, f"{uid}@motion.local")
-        if not repo.get_workspace("ws_default"):
-            repo.create_workspace("ws_default", "Default Workspace", created_by="test_admin")
-        for uid, role in (
-            ("test_admin", Role.ADMIN),
-            ("usr_admin_legit", Role.ADMIN),
-            ("gui_client_user", Role.ADMIN),
-            ("usr_test_admin", Role.ADMIN),
-            ("editor_user", Role.EDITOR),
-            ("rev_user", Role.REVIEWER),
-            ("reviewer_alice", Role.REVIEWER),
-            ("viewer_bob", Role.VIEWER),
-        ):
-            if not repo.get_membership("ws_default", uid):
-                repo.add_member("ws_default", uid, role)
+        test_workspaces_config = [
+            ("ws_default", [
+                ("test_admin", Role.ADMIN),
+                ("usr_admin_legit", Role.ADMIN),
+                ("gui_client_user", Role.ADMIN),
+                ("usr_test_admin", Role.ADMIN),
+                ("editor_user", Role.EDITOR),
+                ("rev_user", Role.REVIEWER),
+                ("reviewer_alice", Role.REVIEWER),
+                ("viewer_bob", Role.VIEWER),
+            ], []),
+            ("ws_1", [
+                ("usr_1", Role.VIEWER),
+                ("usr_admin", Role.ADMIN),
+                ("usr_scoped", Role.EDITOR),
+                ("usr_viewer", Role.VIEWER),
+            ], ["prj_1", "prj_allowed"]),
+            ("ws_dispatcher_test", [
+                ("usr_tester", Role.EDITOR),
+            ], ["prj_test", "prj_async"]),
+            ("ws_e2e_tool", [
+                ("usr_e2e", Role.EDITOR),
+            ], ["prj_start_run_1"]),
+            ("ws_e2e_test", [
+                ("usr_operator", Role.OPERATOR),
+            ], ["prj_e2e_target"]),
+            ("ws_timeout_test", [
+                ("usr_tester", Role.EDITOR),
+            ], ["prj_safe"]),
+            ("ws_parity_test", [
+                ("user_parity_tester", Role.EDITOR),
+            ], ["prj_parity_001"]),
+            ("ws_test_alpha", [
+                ("usr_editor_1", Role.EDITOR),
+                ("usr_viewer_1", Role.VIEWER),
+                ("user_editor_1", Role.EDITOR),
+                ("user_director_1", Role.EDITOR),
+                ("user_parity_tester", Role.EDITOR),
+            ], ["prj_alpha_1"]),
+            ("workspace_alpha", [
+                ("actor_a", Role.EDITOR),
+                ("alice", Role.ADMIN),
+            ], ["prj_alpha_100"]),
+            ("workspace_beta", [
+                ("actor_b", Role.EDITOR),
+                ("bob", Role.ADMIN),
+            ], ["prj_beta_200"]),
+        ]
+        for ws_id, users, projs in test_workspaces_config:
+            primary_user = users[0][0]
+            for uid, role in users:
+                if not repo.get_user(uid):
+                    repo.create_user(uid, f"{uid}@motion.local")
+            if not repo.get_workspace(ws_id):
+                repo.create_workspace(ws_id, f"Workspace {ws_id}", created_by=primary_user)
+            for uid, role in users:
+                if not repo.get_membership(ws_id, uid):
+                    repo.add_member(ws_id, uid, role)
+            for pid in projs:
+                p = repo.get_project(pid)
+                if not p:
+                    repo.create_project(pid, ws_id, f"Project {pid}", created_by=primary_user)
+                elif p.workspace_id != ws_id:
+                    with repo.engine.transaction() as conn:
+                        conn.execute("UPDATE projects SET workspace_id = ? WHERE id = ?", (ws_id, pid))
     except Exception:
         pass
     yield
@@ -149,3 +188,42 @@ def mock_subprocess(monkeypatch):
     
     import api.services.pipeline_service as ps
     monkeypatch.setattr(ps, "safe_subprocess", fake_sync_run)
+
+
+# PyAV >= 14/19 compatibility patch for faster_whisper
+try:
+    import faster_whisper.audio as _fwa
+    _orig_fwa_decode = _fwa.decode_audio
+
+    def _safe_fwa_decode(input_file, sampling_rate=16000, split_stereo=False):
+        try:
+            return _orig_fwa_decode(input_file, sampling_rate=sampling_rate, split_stereo=split_stereo)
+        except TypeError as te:
+            if "metadata_errors" in str(te):
+                import av
+                import io
+                import gc
+                import numpy as np
+                resampler = av.audio.resampler.AudioResampler(
+                    format="s16",
+                    layout="mono" if not split_stereo else "stereo",
+                    rate=sampling_rate,
+                )
+                raw_buffer = io.BytesIO()
+                with av.open(str(input_file), mode="r") as container:
+                    for frame in container.decode(audio=0):
+                        for r_frame in resampler.resample(frame):
+                            raw_buffer.write(r_frame.to_ndarray())
+                    for r_frame in resampler.resample(None):
+                        raw_buffer.write(r_frame.to_ndarray())
+                del resampler
+                gc.collect()
+                audio = np.frombuffer(raw_buffer.getbuffer(), dtype=np.int16).astype(np.float32) / 32768.0
+                if split_stereo:
+                    return audio[0::2], audio[1::2]
+                return audio
+            raise
+
+    _fwa.decode_audio = _safe_fwa_decode
+except Exception:
+    pass

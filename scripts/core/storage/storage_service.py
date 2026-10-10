@@ -14,6 +14,7 @@ from __future__ import annotations
 import io
 import os
 import re
+import shutil
 import hmac
 import hashlib
 import time
@@ -155,6 +156,14 @@ class StorageService(ABC):
         """Generates a secure, time-bounded URL for reading/downloading."""
         pass
 
+    def download_to_file(self, key: str, target_path: Path) -> Path:
+        """Materializes stored object bytes to target local file."""
+        data = self.get(key)
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(target_path, "wb") as f:
+            f.write(data)
+        return target_path
+
 
 class LocalStorageBackend(StorageService):
     """
@@ -273,6 +282,15 @@ class LocalStorageBackend(StorageService):
         sig_payload = f"{clean_key}:{expires_at}".encode("utf-8")
         signature = hmac.new(self.secret_key.encode("utf-8"), sig_payload, hashlib.sha256).hexdigest()
         return f"/api/storage/download?key={clean_key}&expires={expires_at}&signature={signature}"
+
+    def download_to_file(self, key: str, target_path: Path) -> Path:
+        src = self._resolve_path(key)
+        if not src.exists():
+            raise StorageNotFoundError(f"Object not found: '{key}'")
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        if src.resolve() != target_path.resolve():
+            shutil.copyfile(src, target_path)
+        return target_path
 
 
 class S3CompatibleStorageBackend(StorageService):

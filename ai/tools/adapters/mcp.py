@@ -110,7 +110,10 @@ class MCPToolAdapter(CapabilityAdapter):
 
         clean_key = storage_key.strip().lstrip("/")
         parts = clean_key.split("/")
-        if len(parts) > 1 and parts[0] in ("projects", "workspaces", "storage"):
+        if project_id in parts:
+            idx = parts.index(project_id)
+            clean_key = "/".join(parts[idx + 1:])
+        elif len(parts) > 1 and parts[0] in ("projects", "workspaces", "storage"):
             if parts[1] == project_id:
                 clean_key = "/".join(parts[2:])
 
@@ -122,6 +125,35 @@ class MCPToolAdapter(CapabilityAdapter):
 
         target.parent.mkdir(parents=True, exist_ok=True)
         return target
+
+    @classmethod
+    def _sync_source_from_storage(cls, storage_key: str, local_path: Path) -> None:
+        if not local_path.exists():
+            try:
+                from scripts.core.storage.storage_service import get_storage_service
+                storage = get_storage_service()
+                if storage and storage.exists(storage_key):
+                    storage.download_to_file(storage_key, local_path)
+            except Exception as e:
+                logger.debug(f"Could not sync source from storage '{storage_key}': {e}")
+
+    @classmethod
+    def _sync_destination_to_storage(cls, storage_key: str, local_path: Path) -> None:
+        if local_path.exists():
+            try:
+                from scripts.core.storage.storage_service import get_storage_service
+                storage = get_storage_service()
+                if storage:
+                    storage.put(storage_key, local_path.read_bytes())
+            except Exception as e:
+                logger.debug(f"Could not sync destination to storage '{storage_key}': {e}")
+
+    @classmethod
+    def _derive_out_key(cls, src_key: str, src_path: Path, label: str, default_folder: str = "video") -> str:
+        parent = str(Path(src_key).parent)
+        if parent and parent != ".":
+            return f"{parent}/{src_path.stem}_{label}{src_path.suffix}"
+        return f"{default_folder}/{src_path.stem}_{label}{src_path.suffix}"
 
     async def execute(
         self,
@@ -190,7 +222,8 @@ class MCPToolAdapter(CapabilityAdapter):
     async def _execute_trim_video(self, inp: AIContractModel, ctx: TrustedToolExecutionContext) -> Dict[str, Any]:
         assert isinstance(inp, TrimVideoInput)
         src = self._resolve_project_path(inp.project_id, inp.video_storage_key)
-        out_key = getattr(inp, "output_storage_key", None) or f"video/{src.stem}_trimmed{src.suffix}"
+        self._sync_source_from_storage(inp.video_storage_key, src)
+        out_key = getattr(inp, "output_storage_key", None) or self._derive_out_key(inp.video_storage_key, src, "trimmed")
         dst = self._resolve_project_path(inp.project_id, out_key)
 
         duration = inp.duration_seconds if inp.duration_seconds is not None else 5.0
@@ -208,6 +241,8 @@ class MCPToolAdapter(CapabilityAdapter):
         else:
             await run_safe_subprocess(cmd, output_path=dst)
 
+        self._sync_destination_to_storage(out_key, dst)
+
         return {
             "project_id": inp.project_id,
             "output_storage_key": out_key,
@@ -217,7 +252,8 @@ class MCPToolAdapter(CapabilityAdapter):
     async def _execute_extend_video(self, inp: AIContractModel, ctx: TrustedToolExecutionContext) -> Dict[str, Any]:
         assert isinstance(inp, ExtendVideoInput)
         src = self._resolve_project_path(inp.project_id, inp.video_storage_key)
-        out_key = getattr(inp, "output_storage_key", None) or f"video/{src.stem}_extended{src.suffix}"
+        self._sync_source_from_storage(inp.video_storage_key, src)
+        out_key = getattr(inp, "output_storage_key", None) or self._derive_out_key(inp.video_storage_key, src, "extended")
         dst = self._resolve_project_path(inp.project_id, out_key)
 
         if not src.exists():
@@ -225,6 +261,8 @@ class MCPToolAdapter(CapabilityAdapter):
         else:
             cmd = ["ffmpeg", "-y", "-stream_loop", "-1", "-i", str(src), "-t", str(inp.target_duration_seconds), "-c", "copy", str(dst)]
             await run_safe_subprocess(cmd, output_path=dst)
+
+        self._sync_destination_to_storage(out_key, dst)
 
         return {
             "project_id": inp.project_id,
@@ -236,7 +274,8 @@ class MCPToolAdapter(CapabilityAdapter):
     async def _execute_resize_video(self, inp: AIContractModel, ctx: TrustedToolExecutionContext) -> Dict[str, Any]:
         assert isinstance(inp, ResizeVideoInput)
         src = self._resolve_project_path(inp.project_id, inp.video_storage_key)
-        out_key = getattr(inp, "output_storage_key", None) or f"video/{src.stem}_resized{src.suffix}"
+        self._sync_source_from_storage(inp.video_storage_key, src)
+        out_key = getattr(inp, "output_storage_key", None) or self._derive_out_key(inp.video_storage_key, src, "resized")
         dst = self._resolve_project_path(inp.project_id, out_key)
 
         if not src.exists():
@@ -245,6 +284,8 @@ class MCPToolAdapter(CapabilityAdapter):
             scale_filter = f"scale={inp.width}:{inp.height}"
             cmd = ["ffmpeg", "-y", "-i", str(src), "-vf", scale_filter, "-c:a", "copy", str(dst)]
             await run_safe_subprocess(cmd, output_path=dst)
+
+        self._sync_destination_to_storage(out_key, dst)
 
         return {
             "project_id": inp.project_id,

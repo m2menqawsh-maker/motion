@@ -540,3 +540,76 @@ jobs:
           path: /tmp/vitest_pr_a1_reports/
           retention-days: 14
 
+  ai-verification:
+    name: ai-verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+
+      - name: Install Node Dependencies
+        run: |
+          npm ci
+          cd remotion-app && npm ci
+
+      - name: Ensure Remotion Browser
+        run: |
+          npx remotion browser ensure
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-asyncio "av<14" faster-whisper psycopg[binary]
+
+      - name: Tier 1 — Fast AI Platform Verification
+        env:
+          PYTHONPATH: .
+          TESTING: '1'
+        run: |
+          mkdir -p /tmp/ai_test_reports
+          pytest tests/ai/ --ignore=tests/ai/candidates -o junit_family=xunit2 --junitxml=/tmp/ai_test_reports/tier1_junit.xml
+
+      - name: Tier 2 — Heavy Candidates Lifecycle & Rendering Verification
+        if: success() || failure()
+        env:
+          PYTHONPATH: .
+          TESTING: '1'
+        run: |
+          mkdir -p /tmp/ai_test_reports
+          xvfb-run --auto-servernum pytest tests/ai/candidates/ -o junit_family=xunit2 --junitxml=/tmp/ai_test_reports/tier2_junit.xml
+
+      - name: Mandatory AI Test Accounting & Reconciliation
+        if: success() || failure()
+        run: |
+          python3 scripts/testing/ai_test_accounting.py \
+            --tier1-report /tmp/ai_test_reports/tier1_junit.xml \
+            --tier2-report /tmp/ai_test_reports/tier2_junit.xml \
+            --output /tmp/ai_test_reports/accounting_summary.json \
+            --strict
+
+      - name: Upload AI Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-test-reports
+          path: /tmp/ai_test_reports/
+          retention-days: 14
+
+
