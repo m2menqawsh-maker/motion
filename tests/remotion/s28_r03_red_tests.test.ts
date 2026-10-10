@@ -362,10 +362,16 @@ describe("S28-R03 RED Tests: Canonical Timeline, Layers, Keyframes & Animation M
       });
     `;
 
-    const result = execFileSync("npx", ["tsx", "-e", isolationScript], {
-      cwd: rootDir,
-      encoding: "utf-8",
-    });
+    const tsxBin = path.resolve(rootDir, "node_modules/.bin/tsx");
+    const result = fs.existsSync(tsxBin)
+      ? execFileSync(process.execPath, [tsxBin, "-e", isolationScript], {
+          cwd: rootDir,
+          encoding: "utf-8",
+        })
+      : execFileSync("npx", ["--no-install", "tsx", "-e", isolationScript], {
+          cwd: rootDir,
+          encoding: "utf-8",
+        });
 
     const parsedOutput = JSON.parse(result);
     expect(parsedOutput.status).toBe("PASS");

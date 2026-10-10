@@ -8,6 +8,7 @@ import type { TemplateEntry } from "../../registry/types";
 const SNAPCN_DIR = path.resolve(__dirname, "../../.agents/plugins/super-video-maker-plugin/skills/snapcn/references/components");
 const REMOCN_DIR = path.resolve(__dirname, "../../.agents/plugins/super-video-maker-plugin/skills/remocn/references/archetypes");
 const AUTO_GENERATED_PATH = path.resolve(__dirname, "../../registry/auto-generated-entries.ts");
+const RUNTIME_CONTRACT_PATH = path.resolve(__dirname, "../../contracts/template-runtime-contract.json");
 
 describe("Template Registry Conformance", () => {
   const entries = Object.values(TEMPLATE_REGISTRY) as TemplateEntry[];
@@ -65,19 +66,38 @@ describe("Template Registry Conformance", () => {
     expect(entries.length).toBeGreaterThanOrEqual(6);
   });
 
-  it("9. Each id in the registry has a corresponding .md file in references", () => {
+  it("9. Each id in the registry has corresponding canonical contract documentation or reference .md", async () => {
+    expect(fs.existsSync(RUNTIME_CONTRACT_PATH)).toBe(true);
+    const contract = JSON.parse(fs.readFileSync(RUNTIME_CONTRACT_PATH, "utf-8"));
+
+    // 1. Verify every registry entry is documented in authoritative contract or in skill references
     entries.forEach((entry) => {
-      if (entry.origin === "docs") return; // skip for docs origin
-      const inSnapcn = fs.existsSync(path.join(SNAPCN_DIR, `${entry.id}.md`));
-      const inRemocn = fs.existsSync(path.join(REMOCN_DIR, `${entry.id}.md`));
-      if (!inSnapcn && !inRemocn) console.error("MISSING MD FOR:", entry.id);
+      if (entry.origin === "snapcn") {
+        const inSnapcn = fs.existsSync(path.join(SNAPCN_DIR, `${entry.id}.md`));
+        const inRemocn = fs.existsSync(path.join(REMOCN_DIR, `${entry.id}.md`));
+        expect(inSnapcn || inRemocn).toBe(true);
+      } else {
+        // Canonical system templates must be defined and documented in the authoritative runtime contract
+        expect(contract.templates).toHaveProperty(entry.id);
+        expect(entry.label?.ar?.length).toBeGreaterThan(0);
+        expect(entry.label?.en?.length).toBeGreaterThan(0);
+        expect(entry.description?.ar?.length).toBeGreaterThan(0);
+        expect(entry.description?.en?.length).toBeGreaterThan(0);
+      }
+    });
+
+    // 2. Verify all extracted skill templates have matching .md reference documentation
+    const { AUTO_GENERATED_TEMPLATES } = await import("../../registry/auto-generated-entries");
+    AUTO_GENERATED_TEMPLATES.forEach((tpl: any) => {
+      const inSnapcn = fs.existsSync(path.join(SNAPCN_DIR, `${tpl.id}.md`));
+      const inRemocn = fs.existsSync(path.join(REMOCN_DIR, `${tpl.id}.md`));
       expect(inSnapcn || inRemocn).toBe(true);
     });
   });
 
   it("10. docs-extractor.ts generates a valid file (can be parsed)", async () => {
     expect(fs.existsSync(AUTO_GENERATED_PATH)).toBe(true);
-    const { AUTO_GENERATED_TEMPLATES } = await import(`file://${AUTO_GENERATED_PATH}`);
+    const { AUTO_GENERATED_TEMPLATES } = await import("../../registry/auto-generated-entries");
     expect(Array.isArray(AUTO_GENERATED_TEMPLATES)).toBe(true);
     expect(AUTO_GENERATED_TEMPLATES.length).toBeGreaterThan(0);
   });

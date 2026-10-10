@@ -375,10 +375,16 @@ describe("S28-R03 Canonical Parity, Properties & Performance", () => {
       });
     `;
 
-    const result = execFileSync("npx", ["tsx", "-e", isolationProofScript], {
-      cwd: rootDir,
-      encoding: "utf-8",
-    });
+    const tsxBin = path.resolve(rootDir, "node_modules/.bin/tsx");
+    const result = fs.existsSync(tsxBin)
+      ? execFileSync(process.execPath, [tsxBin, "-e", isolationProofScript], {
+          cwd: rootDir,
+          encoding: "utf-8",
+        })
+      : execFileSync("npx", ["--no-install", "tsx", "-e", isolationProofScript], {
+          cwd: rootDir,
+          encoding: "utf-8",
+        });
 
     const parsedRes = JSON.parse(result);
     expect(parsedRes.status).toBe("PASS");

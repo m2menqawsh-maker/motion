@@ -17,10 +17,12 @@
  *   - Legacy compatibility bridge
  */
 
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
+import { execFileSync } from "child_process";
+import { bundle } from "@remotion/bundler";
 
 import {
   RendererRegistry,
@@ -36,7 +38,6 @@ import {
   createRemotionRendererAdapter,
   registerRemotionRenderer,
   REMOTION_SUPPORTED_CAPABILITIES,
-  getOrCreateRemotionBundle,
 } from "../../remotion/remotion-renderer-adapter";
 import type { BlueprintV2 } from "../../contracts/blueprint";
 import { instantiateTemplate } from "../../contracts/template-instantiator";
@@ -48,14 +49,175 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
   let bundleLocation: string;
   let adapter: RemotionRendererAdapter;
   let localRegistry: RendererRegistry;
+  let testWorkspaceDir: string | null = null;
 
   beforeAll(async () => {
-    // Acquire or compile Remotion bundle once for all execution tests
-    bundleLocation = await getOrCreateRemotionBundle();
+    const rootDir = process.cwd();
+    const appDir = path.resolve(rootDir, "remotion-app");
+    const entryPoint = path.resolve(appDir, "src/index.ts");
+    const repoPublicDir = path.resolve(appDir, "public");
+    const trackedFixturesDir = path.resolve(rootDir, "tests/fixtures/clean_room_project/assets/ready/audio");
+
+    // 1. Create a fully isolated, test-scoped public directory in os.tmpdir()
+    // This guarantees 100% hermetic execution: zero mutations to remotion-app/public,
+    // zero shared state between concurrent test runners, zero locking needed, and zero risk to user files.
+    testWorkspaceDir = fs.mkdtempSync(path.join(os.tmpdir(), "motion_r09_isolated_"));
+    const isolatedPublicDir = path.join(testWorkspaceDir, "public");
+    fs.mkdirSync(isolatedPublicDir, { recursive: true });
+
+    // Copy only tracked base static assets required by templates (logo, warning, icons)
+    // Never copy untracked, user-owned, or ignored directories (such as projects/, media/audio/, etc.)
+    const staticFilesToCopy: string[] = [
+      "logo.svg",
+      "warning.svg",
+      "render-props.json",
+    ];
+
+    for (const rel of staticFilesToCopy) {
+      const src = path.resolve(repoPublicDir, rel);
+      if (fs.existsSync(src)) {
+        const dest = path.resolve(isolatedPublicDir, rel);
+        fs.mkdirSync(path.dirname(dest), { recursive: true });
+        fs.copyFileSync(src, dest);
+      }
+    }
+
+    const iconsSrcDir = path.resolve(repoPublicDir, "media/icons");
+    if (fs.existsSync(iconsSrcDir)) {
+      const iconsDestDir = path.resolve(isolatedPublicDir, "media/icons");
+      fs.mkdirSync(iconsDestDir, { recursive: true });
+      for (const file of fs.readdirSync(iconsSrcDir)) {
+        if (file.endsWith(".svg")) {
+          fs.copyFileSync(path.join(iconsSrcDir, file), path.join(iconsDestDir, file));
+        }
+      }
+    }
+
+    // 2. Stage required audio fixtures directly inside the isolated public directory
+    const requiredAudio: Array<{ targetRel: string; sourceRel: string }> = [
+      { targetRel: "media/audio/pop_norm.wav", sourceRel: "pop_norm.wav" },
+      { targetRel: "media/audio/whoosh_norm.wav", sourceRel: "whoosh_norm.wav" },
+      { targetRel: "media/sfx/digital.mp3", sourceRel: "digital_norm.wav" },
+      { targetRel: "accent_chime.mp3", sourceRel: "notification_norm.wav" },
+      { targetRel: "whoosh_cinematic.mp3", sourceRel: "whoosh_norm.wav" },
+    ];
+
+    for (const item of requiredAudio) {
+      const sourcePath = path.resolve(trackedFixturesDir, item.sourceRel);
+      if (!fs.existsSync(sourcePath)) {
+        throw new Error(`Required source audio fixture missing at ${sourcePath}`);
+      }
+
+      const targetPath = path.resolve(isolatedPublicDir, item.targetRel);
+      fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+
+      if (item.targetRel.endsWith(".mp3")) {
+        // Transcode directly into isolated workspace target (no format substitution fallback)
+        execFileSync("ffmpeg", ["-y", "-i", sourcePath, "-c:a", "libmp3lame", targetPath], {
+          stdio: "pipe",
+        });
+        const codec = execFileSync("ffprobe", [
+          "-v", "error",
+          "-select_streams", "a:0",
+          "-show_entries", "stream=codec_name",
+          "-of", "default=noprint_wrappers=1:nokey=1",
+          targetPath,
+        ], { encoding: "utf-8" }).trim();
+        if (codec !== "mp3") {
+          throw new Error(`Transcoding verification failed for ${item.targetRel}: expected mp3 stream, got ${codec}`);
+        }
+      } else {
+        const codec = execFileSync("ffprobe", [
+          "-v", "error",
+          "-select_streams", "a:0",
+          "-show_entries", "stream=codec_name",
+          "-of", "default=noprint_wrappers=1:nokey=1",
+          sourcePath,
+        ], { encoding: "utf-8" }).trim();
+        if (!codec.startsWith("pcm")) {
+          throw new Error(`Source audio fixture verification failed for ${sourcePath}: expected pcm stream, got ${codec}`);
+        }
+        fs.copyFileSync(sourcePath, targetPath);
+      }
+
+      // Verify staged target in isolatedPublicDir
+      const targetCodec = execFileSync("ffprobe", [
+        "-v", "error",
+        "-select_streams", "a:0",
+        "-show_entries", "stream=codec_name",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        targetPath,
+      ], { encoding: "utf-8" }).trim();
+      if (item.targetRel.endsWith(".mp3") && targetCodec !== "mp3") {
+        throw new Error(`Staged target ${targetPath} has invalid codec: ${targetCodec}`);
+      } else if (item.targetRel.endsWith(".wav") && !targetCodec.startsWith("pcm")) {
+        throw new Error(`Staged target ${targetPath} has invalid codec: ${targetCodec}`);
+      }
+    }
+
+    // 3. Compile hermetic Remotion bundle pointing exclusively to the isolated publicDir
+    bundleLocation = await bundle({
+      entryPoint,
+      publicDir: isolatedPublicDir,
+      webpackOverride: (config) => ({
+        ...config,
+        resolve: {
+          ...config.resolve,
+          modules: [
+            path.resolve(appDir, "node_modules"),
+            path.resolve(rootDir, "node_modules"),
+            ...(config.resolve?.modules || ["node_modules"]),
+          ],
+          alias: {
+            ...(config.resolve?.alias ?? {}),
+            "@": path.resolve(appDir, "src"),
+            "@registry": path.resolve(rootDir, "registry"),
+            "@contracts": path.resolve(rootDir, "contracts"),
+            react: path.resolve(appDir, "node_modules", "react"),
+            "react-dom": path.resolve(appDir, "node_modules", "react-dom"),
+          },
+        },
+      }),
+    });
+
+    // 4. Assert Remotion bundler faithfully copied each required fixture from publicDir (NO REPAIR FALLBACK)
+    for (const item of requiredAudio) {
+      const bundlePublicPath = path.resolve(bundleLocation, "public", item.targetRel);
+      if (!fs.existsSync(bundlePublicPath)) {
+        throw new Error(`Remotion bundling failed to include required public fixture: ${bundlePublicPath}`);
+      }
+
+      const bundleCodec = execFileSync("ffprobe", [
+        "-v", "error",
+        "-select_streams", "a:0",
+        "-show_entries", "stream=codec_name",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        bundlePublicPath,
+      ], { encoding: "utf-8" }).trim();
+      if (item.targetRel.endsWith(".mp3") && bundleCodec !== "mp3") {
+        throw new Error(`Bundle fixture ${bundlePublicPath} has invalid codec: ${bundleCodec}`);
+      } else if (item.targetRel.endsWith(".wav") && !bundleCodec.startsWith("pcm")) {
+        throw new Error(`Bundle fixture ${bundlePublicPath} has invalid codec: ${bundleCodec}`);
+      }
+    }
+
     adapter = createRemotionRendererAdapter({ bundleLocation });
     localRegistry = new RendererRegistry();
     localRegistry.register(adapter);
   }, 60000);
+
+  afterAll(() => {
+    if (testWorkspaceDir && fs.existsSync(testWorkspaceDir)) {
+      try {
+        fs.rmSync(testWorkspaceDir, { recursive: true, force: true });
+      } catch {}
+    }
+    if (bundleLocation && fs.existsSync(bundleLocation)) {
+      try {
+        fs.rmSync(bundleLocation, { recursive: true, force: true });
+      } catch {}
+    }
+  });
 
   // ─── 1. Registry Management & Stub Replacement ──────────────────────────────
 
@@ -310,7 +472,7 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
       ],
     };
 
-    const outPath = path.join(os.tmpdir(), "s28_r09_frame_test.png");
+    const outPath = path.join(testWorkspaceDir!, "s28_r09_frame_test.png");
     const req: RenderRequest = {
       id: "req-still-test",
       document: doc,
@@ -373,7 +535,7 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
       ],
     };
 
-    const outDir = path.join(os.tmpdir(), "s28_r09_seq_test");
+    const outDir = path.join(testWorkspaceDir!, "s28_r09_seq_test");
     const req: RenderRequest = {
       id: "req-seq-test",
       document: doc,
@@ -467,7 +629,7 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
       },
     };
 
-    const outPath = path.join(os.tmpdir(), "s28_r09_audio_export_test.mp4");
+    const outPath = path.join(testWorkspaceDir!, "s28_r09_audio_export_test.mp4");
     const req: RenderRequest = {
       id: "req-export-audio-test",
       document: doc,
@@ -485,6 +647,25 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
     expect(result.output?.frameCount).toBe(30);
     expect(result.output?.durationMs).toBe(1000);
     expect(result.metrics?.renderTimeMs).toBeGreaterThan(0);
+
+    // Verify exported MP4 contains valid h264 video and aac audio streams
+    const vCodec = execFileSync("ffprobe", [
+      "-v", "error",
+      "-select_streams", "v:0",
+      "-show_entries", "stream=codec_name",
+      "-of", "default=noprint_wrappers=1:nokey=1",
+      outPath,
+    ], { encoding: "utf-8" }).trim();
+    expect(vCodec).toBe("h264");
+
+    const aCodec = execFileSync("ffprobe", [
+      "-v", "error",
+      "-select_streams", "a:0",
+      "-show_entries", "stream=codec_name",
+      "-of", "default=noprint_wrappers=1:nokey=1",
+      outPath,
+    ], { encoding: "utf-8" }).trim();
+    expect(aCodec).toBe("aac");
   }, 45000);
 
   // ─── 8. Native Template Coverage (R05 Native Templates) ────────────────────
@@ -573,7 +754,7 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
     const finalDoc = finalRes.blueprint;
 
     // 3. Construct RenderRequest
-    const outVideoPath = path.join(os.tmpdir(), "s28_r09_e2e_export.mp4");
+    const outVideoPath = path.join(testWorkspaceDir!, "s28_r09_e2e_export.mp4");
     const request: RenderRequest = {
       id: "e2e-render-req-1",
       document: finalDoc,
@@ -595,6 +776,25 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
     expect(result.type).toBe("export");
     expect(fs.existsSync(outVideoPath)).toBe(true);
     expect(result.metrics?.evaluatedFrames).toBe(30);
+
+    // Verify exported MP4 contains valid h264 video and aac audio streams
+    const vCodec = execFileSync("ffprobe", [
+      "-v", "error",
+      "-select_streams", "v:0",
+      "-show_entries", "stream=codec_name",
+      "-of", "default=noprint_wrappers=1:nokey=1",
+      outVideoPath,
+    ], { encoding: "utf-8" }).trim();
+    expect(vCodec).toBe("h264");
+
+    const aCodec = execFileSync("ffprobe", [
+      "-v", "error",
+      "-select_streams", "a:0",
+      "-show_entries", "stream=codec_name",
+      "-of", "default=noprint_wrappers=1:nokey=1",
+      outVideoPath,
+    ], { encoding: "utf-8" }).trim();
+    expect(aCodec).toBe("aac");
   }, 45000);
 
   // ─── 10. Semantic Parity Verification (Evaluator vs Preview vs Remotion) ────

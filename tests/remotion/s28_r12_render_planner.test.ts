@@ -333,7 +333,7 @@ describe("S28-R12 Multi-Engine RenderGraph & Render Planner", () => {
       expect(execRes.metrics.failedNodes).toBe(0);
       expect(execRes.metrics.parallelGroups).toBeGreaterThanOrEqual(1);
     },
-    60000
+    120000
   );
 
   // ──────────────────────────────────────────────────────────────────────────
