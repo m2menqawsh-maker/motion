@@ -17,10 +17,11 @@
  *   - Legacy compatibility bridge
  */
 
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
+import { execFileSync } from "child_process";
 
 import {
   RendererRegistry,
@@ -48,14 +49,135 @@ describe("S28-R09 Remotion Renderer Adapter & Engine Abstraction", () => {
   let bundleLocation: string;
   let adapter: RemotionRendererAdapter;
   let localRegistry: RendererRegistry;
+  const stagedFixtureFiles: string[] = [];
+
+  function safeCleanupStaged(): void {
+    while (stagedFixtureFiles.length > 0) {
+      const file = stagedFixtureFiles.pop();
+      if (file && fs.existsSync(file)) {
+        try {
+          fs.unlinkSync(file);
+        } catch {}
+      }
+    }
+  }
 
   beforeAll(async () => {
-    // Acquire or compile Remotion bundle once for all execution tests
-    bundleLocation = await getOrCreateRemotionBundle();
-    adapter = createRemotionRendererAdapter({ bundleLocation });
-    localRegistry = new RendererRegistry();
-    localRegistry.register(adapter);
+    try {
+      // 0. Stage deterministic audio fixtures required for R09-10 & R09-12 before Remotion bundles publicDir
+      const rootDir = process.cwd();
+      const publicDir = path.resolve(rootDir, "remotion-app/public");
+      const trackedFixturesDir = path.resolve(rootDir, "tests/fixtures/clean_room_project/assets/ready/audio");
+
+      const requiredAudio: Array<{ targetRel: string; sourceRel: string }> = [
+        { targetRel: "media/audio/pop_norm.wav", sourceRel: "pop_norm.wav" },
+        { targetRel: "media/audio/whoosh_norm.wav", sourceRel: "whoosh_norm.wav" },
+        { targetRel: "media/sfx/digital.mp3", sourceRel: "digital_norm.wav" },
+        { targetRel: "accent_chime.mp3", sourceRel: "notification_norm.wav" },
+        { targetRel: "whoosh_cinematic.mp3", sourceRel: "whoosh_norm.wav" },
+      ];
+
+      for (const item of requiredAudio) {
+        const sourcePath = path.resolve(trackedFixturesDir, item.sourceRel);
+        if (!fs.existsSync(sourcePath)) {
+          throw new Error(`Required source audio fixture missing at ${sourcePath}`);
+        }
+
+        const targetPath = path.resolve(publicDir, item.targetRel);
+        if (!fs.existsSync(targetPath)) {
+          fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+          if (item.targetRel.endsWith(".mp3")) {
+            // Transcode to temporary file first, probe, then stage atomically
+            const tempMp3 = path.resolve(os.tmpdir(), `stage_${Date.now()}_${path.basename(item.targetRel)}`);
+            execFileSync("ffmpeg", ["-y", "-i", sourcePath, "-c:a", "libmp3lame", tempMp3], {
+              stdio: "pipe",
+            });
+            const codec = execFileSync("ffprobe", [
+              "-v", "error",
+              "-select_streams", "a:0",
+              "-show_entries", "stream=codec_name",
+              "-of", "default=noprint_wrappers=1:nokey=1",
+              tempMp3,
+            ], { encoding: "utf-8" }).trim();
+            if (codec !== "mp3") {
+              fs.unlinkSync(tempMp3);
+              throw new Error(`Transcoding verification failed for ${item.targetRel}: expected mp3 stream, got ${codec}`);
+            }
+            fs.copyFileSync(tempMp3, targetPath);
+            fs.unlinkSync(tempMp3);
+          } else {
+            const codec = execFileSync("ffprobe", [
+              "-v", "error",
+              "-select_streams", "a:0",
+              "-show_entries", "stream=codec_name",
+              "-of", "default=noprint_wrappers=1:nokey=1",
+              sourcePath,
+            ], { encoding: "utf-8" }).trim();
+            if (!codec.startsWith("pcm")) {
+              throw new Error(`Source audio fixture verification failed for ${sourcePath}: expected pcm stream, got ${codec}`);
+            }
+            fs.copyFileSync(sourcePath, targetPath);
+          }
+          stagedFixtureFiles.push(targetPath);
+        }
+
+        // Verify staged target in publicDir
+        const targetCodec = execFileSync("ffprobe", [
+          "-v", "error",
+          "-select_streams", "a:0",
+          "-show_entries", "stream=codec_name",
+          "-of", "default=noprint_wrappers=1:nokey=1",
+          targetPath,
+        ], { encoding: "utf-8" }).trim();
+        if (item.targetRel.endsWith(".mp3") && targetCodec !== "mp3") {
+          throw new Error(`Staged target ${targetPath} has invalid codec: ${targetCodec}`);
+        } else if (item.targetRel.endsWith(".wav") && !targetCodec.startsWith("pcm")) {
+          throw new Error(`Staged target ${targetPath} has invalid codec: ${targetCodec}`);
+        }
+      }
+
+      // Compile fresh bundle to guarantee staged fixtures are copied into the bundle
+      bundleLocation = await getOrCreateRemotionBundle({ forceFresh: true });
+
+      // Guarantee fixture presence inside the compiled bundle's public directory
+      for (const item of requiredAudio) {
+        const bundlePublicPath = path.resolve(bundleLocation, "public", item.targetRel);
+        if (!fs.existsSync(bundlePublicPath)) {
+          fs.mkdirSync(path.dirname(bundlePublicPath), { recursive: true });
+          const sourceStaged = path.resolve(publicDir, item.targetRel);
+          fs.copyFileSync(sourceStaged, bundlePublicPath);
+        }
+        if (!fs.existsSync(bundlePublicPath)) {
+          throw new Error(`Required audio fixture missing from compiled bundle at ${bundlePublicPath}`);
+        }
+
+        // Verify bundle public fixture format with ffprobe
+        const bundleCodec = execFileSync("ffprobe", [
+          "-v", "error",
+          "-select_streams", "a:0",
+          "-show_entries", "stream=codec_name",
+          "-of", "default=noprint_wrappers=1:nokey=1",
+          bundlePublicPath,
+        ], { encoding: "utf-8" }).trim();
+        if (item.targetRel.endsWith(".mp3") && bundleCodec !== "mp3") {
+          throw new Error(`Bundle fixture ${bundlePublicPath} has invalid codec: ${bundleCodec}`);
+        } else if (item.targetRel.endsWith(".wav") && !bundleCodec.startsWith("pcm")) {
+          throw new Error(`Bundle fixture ${bundlePublicPath} has invalid codec: ${bundleCodec}`);
+        }
+      }
+
+      adapter = createRemotionRendererAdapter({ bundleLocation });
+      localRegistry = new RendererRegistry();
+      localRegistry.register(adapter);
+    } catch (err) {
+      safeCleanupStaged();
+      throw err;
+    }
   }, 60000);
+
+  afterAll(() => {
+    safeCleanupStaged();
+  });
 
   // ─── 1. Registry Management & Stub Replacement ──────────────────────────────
 

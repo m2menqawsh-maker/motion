@@ -209,7 +209,30 @@ jobs:
 
       - name: Build Hermetic Docker Image
         run: |
-          docker build -t clean-video-builder -f .agents/docker/Dockerfile.remotion .
+          BUILD_LOG=$(mktemp)
+          MAX_ATTEMPTS=5
+          for attempt in $(seq 1 $MAX_ATTEMPTS); do
+            echo "Docker build attempt $attempt/$MAX_ATTEMPTS..."
+            if docker build -t clean-video-builder -f .agents/docker/Dockerfile.remotion . 2>&1 | tee "$BUILD_LOG"; then
+              echo "Docker build succeeded."
+              rm -f "$BUILD_LOG"
+              break
+            fi
+            if grep -Ei "toomanyrequests|429 too many requests|rate limit|connection reset|i/o timeout|handshake timeout|temporary failure in name resolution" "$BUILD_LOG" >/dev/null 2>&1; then
+              if [ $attempt -eq $MAX_ATTEMPTS ]; then
+                echo "Docker build failed after $MAX_ATTEMPTS transient registry/network attempts."
+                rm -f "$BUILD_LOG"
+                exit 1
+              fi
+              sleep_sec=$((attempt * 15))
+              echo "Transient Docker registry rate limit or network error detected. Waiting ${sleep_sec}s before retry (attempt $attempt/$MAX_ATTEMPTS)..."
+              sleep $sleep_sec
+            else
+              echo "Deterministic Docker build failure detected (not a registry rate limit). Failing immediately without retry."
+              rm -f "$BUILD_LOG"
+              exit 1
+            fi
+          done
 
       - name: Verify Container Execution
         run: |
