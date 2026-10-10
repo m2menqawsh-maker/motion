@@ -188,3 +188,42 @@ def mock_subprocess(monkeypatch):
     
     import api.services.pipeline_service as ps
     monkeypatch.setattr(ps, "safe_subprocess", fake_sync_run)
+
+
+# PyAV >= 14/19 compatibility patch for faster_whisper
+try:
+    import faster_whisper.audio as _fwa
+    _orig_fwa_decode = _fwa.decode_audio
+
+    def _safe_fwa_decode(input_file, sampling_rate=16000, split_stereo=False):
+        try:
+            return _orig_fwa_decode(input_file, sampling_rate=sampling_rate, split_stereo=split_stereo)
+        except TypeError as te:
+            if "metadata_errors" in str(te):
+                import av
+                import io
+                import gc
+                import numpy as np
+                resampler = av.audio.resampler.AudioResampler(
+                    format="s16",
+                    layout="mono" if not split_stereo else "stereo",
+                    rate=sampling_rate,
+                )
+                raw_buffer = io.BytesIO()
+                with av.open(str(input_file), mode="r") as container:
+                    for frame in container.decode(audio=0):
+                        for r_frame in resampler.resample(frame):
+                            raw_buffer.write(r_frame.to_ndarray())
+                    for r_frame in resampler.resample(None):
+                        raw_buffer.write(r_frame.to_ndarray())
+                del resampler
+                gc.collect()
+                audio = np.frombuffer(raw_buffer.getbuffer(), dtype=np.int16).astype(np.float32) / 32768.0
+                if split_stereo:
+                    return audio[0::2], audio[1::2]
+                return audio
+            raise
+
+    _fwa.decode_audio = _safe_fwa_decode
+except Exception:
+    pass
