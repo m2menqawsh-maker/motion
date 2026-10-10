@@ -201,6 +201,7 @@ async def test_cost_and_performance_benchmark(tmp_path):
             )
             latencies.append((time.perf_counter() - t0) * 1000.0)
 
+    assert len(latencies) > 0, "Expected benchmark latencies to be recorded from audio/video inputs"
     percentiles = compute_percentiles(latencies)
     assert percentiles["p50"] > 0.0
     assert percentiles["p95"] >= percentiles["p50"]

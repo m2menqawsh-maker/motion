@@ -116,6 +116,29 @@ class LocalSTTProvider(STTProvider):
             languages=["*"],
         )
 
+    @staticmethod
+    def _decode_audio_fallback(audio_path: str, sampling_rate: int = 16000) -> np.ndarray:
+        """Fallback audio decoder for PyAV versions where metadata_errors was removed."""
+        import av
+        import io
+        import gc
+        resampler = av.audio.resampler.AudioResampler(
+            format="s16",
+            layout="mono",
+            rate=sampling_rate,
+        )
+        raw_buffer = io.BytesIO()
+        with av.open(audio_path, mode="r") as container:
+            for frame in container.decode(audio=0):
+                for r_frame in resampler.resample(frame):
+                    raw_buffer.write(r_frame.to_ndarray())
+            for r_frame in resampler.resample(None):
+                raw_buffer.write(r_frame.to_ndarray())
+        del resampler
+        gc.collect()
+        audio = np.frombuffer(raw_buffer.getbuffer(), dtype=np.int16).astype(np.float32) / 32768.0
+        return audio
+
     def _decode_audio_file(self, audio_path: str) -> Tuple[np.ndarray, float]:
         """Decodes audio file into 16 kHz mono float32 numpy array."""
         p = Path(audio_path)
@@ -128,10 +151,18 @@ class LocalSTTProvider(STTProvider):
         try:
             from faster_whisper.audio import decode_audio
             sampling_rate = 16000
-            audio_array = decode_audio(str(p), sampling_rate=sampling_rate)
+            try:
+                audio_array = decode_audio(str(p), sampling_rate=sampling_rate)
+            except TypeError as te:
+                if "metadata_errors" in str(te):
+                    audio_array = self._decode_audio_fallback(str(p), sampling_rate=sampling_rate)
+                else:
+                    raise
             duration = len(audio_array) / float(sampling_rate)
             return audio_array, duration
         except Exception as e:
+            if isinstance(e, (InvalidAudioError, AudioDecodeError)):
+                raise
             raise AudioDecodeError(
                 f"Failed to decode audio file '{audio_path}': {e}",
                 details={"audio_path": audio_path, "error": str(e)},
