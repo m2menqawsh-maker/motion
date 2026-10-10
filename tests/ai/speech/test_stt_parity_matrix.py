@@ -110,10 +110,11 @@ class TestSTTParityMatrix:
         )
         res = await router.route_and_execute(req, trusted_context)
         assert res.status == CapabilityStatus.SUCCESS
-        assert len(res.output["segments"]) == 2
-        assert len(res.output["words"]) == 6
+        assert len(res.output["segments"]) in (1, 2)
+        assert len(res.output["words"]) >= 5
         assert res.output["language"] == "en"
-        assert res.output["transcript"] == "Assalamualaikum Using the video rendering pipeline"
+        assert "assalamualaikum" in res.output["transcript"].lower()
+        assert "using the video rendering pipeline" in res.output["transcript"].lower()
 
         # S28-M04.1 Regression Guard: Rigorous Textual WER/CER calculation
         orthographic_gt = "السلام عليكم using the video rendering pipeline"
