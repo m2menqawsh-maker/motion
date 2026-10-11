@@ -134,7 +134,8 @@ Implemented in `tests/integration/test_pr005_process_hard_death_recovery.py`:
   tests/integration/test_pr005_process_hard_death_recovery.py \
   tests/integration/test_pr005_run_blueprint_provenance.py \
   tests/e2e/test_pipeline_integration.py \
-  tests/integration/test_b1_context_knowledge_creative_proposal.py
+  tests/integration/test_b1_context_knowledge_creative_proposal.py \
+  tests/integration/test_b2_capability_gateway_integration.py
 ```
 
 ### Process Hard-Death Recovery:

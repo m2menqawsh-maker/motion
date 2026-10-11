@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from scripts.security.path_security import validate_project_id
 from scripts.security.security import safe_subprocess
 from fastapi import FastAPI
-from api.routers import projects, gates, render, brand, blueprint, runs, assets, artifacts, outputs, health, candidate_reviews, candidate_promotions, authoring
+from api.routers import projects, gates, render, brand, blueprint, runs, assets, artifacts, outputs, health, candidate_reviews, candidate_promotions, authoring, capabilities
 from fastapi.exceptions import RequestValidationError
 from api.core.errors import (
     APIError,
@@ -75,6 +75,7 @@ app.include_router(render.router, prefix="/render", tags=["render"])
 app.include_router(brand.router, prefix="/brand", tags=["brand"])
 app.include_router(blueprint.router, prefix="/blueprint", tags=["blueprint"])
 app.include_router(authoring.router, prefix="/projects", tags=["authoring"])
+app.include_router(capabilities.router, prefix="/projects", tags=["capabilities"])
 app.include_router(candidate_reviews.router, prefix="/candidates", tags=["candidates", "review"])
 app.include_router(candidate_promotions.router, prefix="/candidates", tags=["candidates", "promotion"])
 app.include_router(health.router)
