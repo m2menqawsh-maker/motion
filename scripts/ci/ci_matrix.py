@@ -118,7 +118,8 @@ CI_GATES: List[CIGate] = [
             "tests/integration/test_pr004_state_consistency.py "
             "tests/integration/test_pr005_process_hard_death_recovery.py "
             "tests/integration/test_pr005_run_blueprint_provenance.py "
-            "tests/e2e/test_pipeline_integration.py",
+            "tests/e2e/test_pipeline_integration.py "
+            "tests/integration/test_b1_context_knowledge_creative_proposal.py",
         ],
         env_vars={"PYTHONPATH": ".", "TESTING": "1"},
         coverage_threshold=48.0,

@@ -112,6 +112,12 @@ class HealthService:
         if not remotion_pass:
             all_passed = False
 
+        # 9. Knowledge Catalog Probe (REALITY-008)
+        catalog_pass, catalog_info = cls._probe_knowledge_catalog()
+        checks["knowledge_catalog"] = catalog_info
+        if not catalog_pass and getattr(settings, "require_knowledge_catalog", False):
+            all_passed = False
+
         result = {
             "status": "ready" if all_passed else "not_ready",
             "role": settings.role,
@@ -119,6 +125,16 @@ class HealthService:
             "checks": checks,
         }
         return all_passed, result
+
+    @classmethod
+    def _probe_knowledge_catalog(cls) -> Tuple[bool, Dict[str, Any]]:
+        """Probes runtime readiness of the canonical knowledge catalog."""
+        try:
+            from ai.knowledge.catalog_service import get_knowledge_catalog_service
+            svc = get_knowledge_catalog_service()
+            return svc.get_readiness()
+        except Exception as exc:
+            return False, {"status": "ERROR", "error": str(exc), "total_chunks": 0}
 
     @classmethod
     def _probe_runs_db(

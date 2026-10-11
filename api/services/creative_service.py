@@ -21,6 +21,8 @@ import json
 import logging
 import re
 import uuid
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from api.core.errors import (
@@ -45,16 +47,23 @@ from ai.planning.reuse_engine import ReuseEngine
 from ai.planning.tier_policy import CreativeTierPolicy
 from ai.recipes.registry import RecipeRegistry
 from ai.recipes.selector import RecipeSelector
+from api.services.brand_service import BrandService
 from scripts.core.authoring_idempotency_repository import AuthoringIdempotencyRepository
 from scripts.core.blueprint_validator import validate_blueprint_v2
 from scripts.core.canonical_document_repository import (
     CanonicalDocumentRepository,
     DocumentValidationError,
 )
-from scripts.core.state_store import StateConflictError, StateNotFoundError
+from scripts.core.state_store import StateConflictError, StateNotFoundError, StateStore
 from scripts.core.template_contract import TemplateRegistryContract
 from scripts.core.tenant_model import TenantContext
 from scripts.security.path_security import validate_project_id
+from ai.context.adapters.knowledge_router_adapter import KnowledgeRouterAdapter
+from ai.context.builder import ContextBuilder
+from ai.context.types import ContextRequest
+from ai.contracts.common import CapabilityType
+from ai.memory.models import TrustedTenantContext
+from api.services.project_service import ProjectService
 
 logger = logging.getLogger("clean_video.creative_service")
 
@@ -93,6 +102,10 @@ class CreativeService:
     _compose_engine = ComposeEngine(template_contract=_template_registry)
     _tier_policy = CreativeTierPolicy(reuse_engine=_reuse_engine, compose_engine=_compose_engine)
     _compiler = BlueprintCompiler()
+    _context_builder = ContextBuilder(
+        project_service=ProjectService,
+        knowledge_retriever=KnowledgeRouterAdapter(),
+    )
 
     @classmethod
     def _compute_payload_hash(cls, payload: Any) -> str:
@@ -147,7 +160,28 @@ class CreativeService:
         finally:
             conn.close()
 
-        # 3. Detect prompt contradictions (e.g., silent mode + voiceover request)
+        # 3. Assemble bounded, deterministic context via ContextBuilder & KnowledgeRouterAdapter
+        trusted_ctx = TrustedTenantContext(
+            workspace_id=ws_id,
+            user_id=tenant_context.principal.principal_id if tenant_context.principal else None,
+            roles=[r.value if hasattr(r, "value") else str(r) for r in (tenant_context.principal.roles if tenant_context.principal else [])],
+            is_admin=tenant_context.principal.is_admin if tenant_context.principal else False,
+            accessible_projects=list(tenant_context.principal.project_scopes) if (tenant_context.principal and tenant_context.principal.project_scopes and "*" not in tenant_context.principal.project_scopes) else None,
+        )
+        ctx_request = ContextRequest(
+            request_id=f"ctx_{uuid.uuid4().hex[:12]}",
+            trusted_context=trusted_ctx,
+            capability=CapabilityType.PLANNING,
+            intent="creative_proposal",
+            project_id=project_id,
+            query_text=cleaned_prompt,
+            created_at=datetime.now(timezone.utc),
+        )
+        context_pkg = cls._context_builder.build(ctx_request)
+        context_hash = context_pkg.context_hash
+        context_diagnostics = context_pkg.diagnostics.model_dump(mode="json")
+
+        # 4. Detect prompt contradictions (e.g., silent mode + voiceover request)
         contradictions = cls._intent_parser._detect_contradictions(cleaned_prompt)
         if contradictions:
             logger.info(f"Contradictory creative prompt detected: {contradictions}")
@@ -158,10 +192,60 @@ class CreativeService:
 
         # 4. Synthesize CreativeBrief using real parser with authoritative project context
         workspace_constraints: Dict[str, Any] = {}
+
+        # 4a. Authoritative brand kit constraints
+        try:
+            brand_data, _ = BrandService.get_brand(project_id)
+            if brand_data and isinstance(brand_data, dict):
+                colors = brand_data.get("colors", {})
+                if isinstance(colors, dict):
+                    hex_colors = [colors[k] for k in ("primary", "accent", "background", "text") if k in colors]
+                    if hex_colors:
+                        workspace_constraints["brand_colors"] = hex_colors
+        except Exception:
+            pass
+
+        # 4b. Authoritative project state metadata
+        proj_dir = Path(f"projects/{project_id}")
+        project_state_dict: Optional[Dict[str, Any]] = None
+        if proj_dir.exists():
+            state = StateStore.load(proj_dir)
+            if state:
+                project_state_dict = state.model_dump(mode="json")
+                if state.run_metadata and isinstance(state.run_metadata, dict):
+                    if "excluded_templates" in state.run_metadata and isinstance(state.run_metadata["excluded_templates"], list):
+                        workspace_constraints["excluded_templates"] = list(state.run_metadata["excluded_templates"])
+                    if "forbidden_words" in state.run_metadata and isinstance(state.run_metadata["forbidden_words"], list):
+                        workspace_constraints["forbidden_words"] = list(state.run_metadata["forbidden_words"])
+                    if "safe_zone_margin_px" in state.run_metadata:
+                        workspace_constraints["safe_zone_margin_px"] = state.run_metadata["safe_zone_margin_px"]
+                    if "brand_colors" in state.run_metadata and "brand_colors" not in workspace_constraints:
+                        workspace_constraints["brand_colors"] = list(state.run_metadata["brand_colors"])
+
+        # 4c. Extract constraints from assembled ContextPackage items
+        for item in context_pkg.all_items():
+            if item.metadata and isinstance(item.metadata, dict):
+                if "excluded_templates" in item.metadata and isinstance(item.metadata["excluded_templates"], list):
+                    existing_excl = workspace_constraints.setdefault("excluded_templates", [])
+                    for t in item.metadata["excluded_templates"]:
+                        if t not in existing_excl:
+                            existing_excl.append(t)
+                if "brand_colors" in item.metadata and isinstance(item.metadata["brand_colors"], list):
+                    existing_colors = workspace_constraints.setdefault("brand_colors", [])
+                    for c in item.metadata["brand_colors"]:
+                        if c not in existing_colors:
+                            existing_colors.append(c)
+                if "forbidden_words" in item.metadata and isinstance(item.metadata["forbidden_words"], list):
+                    existing_words = workspace_constraints.setdefault("forbidden_words", [])
+                    for w in item.metadata["forbidden_words"]:
+                        if w not in existing_words:
+                            existing_words.append(w)
+
         brief: CreativeBrief = cls._brief_builder.build_brief(
             user_request=cleaned_prompt,
             project_id=project_id,
             workspace_id=ws_id,
+            project_state=project_state_dict,
             workspace_constraints=workspace_constraints,
         )
 
@@ -204,8 +288,26 @@ class CreativeService:
 
         # 8. Deterministic Template Resolution via Tier Policy & Canonical Registry
         target_aspect = req.aspect_ratio or (brief.constraints.aspect_ratios[0] if brief.constraints.aspect_ratios else "9:16")
-        template_decisions: Dict[str, str] = {}
+        template_decisions: Dict[str, ResolvedTemplateDecision] = {}
         diagnostics: List[Dict[str, Any]] = []
+
+        # Record knowledge retrieval in diagnostics
+        retrieved_knowledge = [
+            {
+                "id": it.id,
+                "document_id": (it.metadata or {}).get("document_id"),
+                "section": (it.metadata or {}).get("section"),
+                "canonical_key": it.canonical_key,
+            }
+            for it in context_pkg.knowledge_context.items
+        ]
+        context_diagnostics["retrieved_knowledge"] = retrieved_knowledge
+        if retrieved_knowledge:
+            diagnostics.append({
+                "type": "KNOWLEDGE_RETRIEVAL",
+                "total_chunks": len(retrieved_knowledge),
+                "documents": sorted(list(set(str(k["document_id"]) for k in retrieved_knowledge if k["document_id"]))),
+            })
 
         for idx, scene in enumerate(creative_plan.scenes):
             intent_label = scene.intent_label.lower()
@@ -218,7 +320,7 @@ class CreativeService:
             if not candidate_reqs:
                 candidate_reqs = ["hook" if idx == 0 else "cards"]
 
-            # Evaluate registered candidates with tier policy
+            # Evaluate registered candidates with tier policy (respecting excluded_templates)
             selected_template: Optional[str] = None
             for req_tag in candidate_reqs:
                 scene_with_req = scene.model_copy(update={"template_requirements": [req_tag]})
@@ -228,25 +330,33 @@ class CreativeService:
                     audio_mode=brief.constraints.audio_mode,
                 )
                 if decision.template_ref and cls._template_registry.is_valid(decision.template_ref):
-                    selected_template = decision.template_ref
-                    break
+                    if decision.template_ref not in brief.constraints.excluded_templates:
+                        selected_template = decision.template_ref
+                        break
 
             if not selected_template:
                 # Fallback to general canonical template if tier evaluation was inconclusive
-                if idx == 0:
-                    selected_template = "rui-intro"
-                elif idx == len(creative_plan.scenes) - 1:
-                    selected_template = "rui-end-card"
-                else:
-                    selected_template = "rui-bento-pan"
+                fallback_candidates = (
+                    ["rui-intro", "rui-title-card"] if idx == 0
+                    else ["rui-end-card", "rui-title-card"] if idx == len(creative_plan.scenes) - 1
+                    else ["rui-bento-pan", "rui-title-card"]
+                )
+                for cand in fallback_candidates:
+                    if cand not in brief.constraints.excluded_templates and cls._template_registry.is_valid(cand):
+                        selected_template = cand
+                        break
 
-            if not cls._template_registry.is_valid(selected_template):
+            if not selected_template or not cls._template_registry.is_valid(selected_template):
                 raise APIError(
-                    message=f"NEEDS_TEMPLATE_DECISION: Template '{selected_template}' is not registered in canonical contract.",
+                    message=f"NEEDS_TEMPLATE_DECISION: No valid template available for scene '{scene.scene_id}' under excluded_templates: {brief.constraints.excluded_templates}",
                     status_code=422,
                 )
 
-            template_decisions[scene.scene_id] = selected_template
+            template_decisions[scene.scene_id] = ResolvedTemplateDecision(
+                scene_id=scene.scene_id,
+                template_id=selected_template,
+                template_props={"brand_colors": brief.constraints.brand_colors} if brief.constraints.brand_colors else {},
+            )
 
         # 9. Deterministic Blueprint Compilation
         try:
@@ -294,6 +404,8 @@ class CreativeService:
             creative_plan=creative_plan.model_dump(),
             candidate_blueprint=candidate_blueprint,
             diagnostics=diagnostics,
+            context_hash=context_hash,
+            context_diagnostics=context_diagnostics,
             approval_required=True,
             can_apply=True,
         )

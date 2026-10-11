@@ -133,6 +133,7 @@ class TestCIParity:
             "tests/integration/test_pr005_process_hard_death_recovery.py",
             "tests/integration/test_pr005_run_blueprint_provenance.py",
             "tests/e2e/test_pipeline_integration.py",
+            "tests/integration/test_b1_context_knowledge_creative_proposal.py",
         ]
 
         local_cmd = ci_matrix.CI_GATES_BY_NAME["python-tests"].commands[0]

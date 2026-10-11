@@ -9,18 +9,22 @@ Provides:
 
 import asyncio
 import json
+import logging
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
-from api.core.errors import ProjectNotFoundError
+logger = logging.getLogger("clean_video.api.project_service")
+
+from api.core.errors import APIError, ProjectNotFoundError
 from api.schemas.lifecycle import LifecycleDTO
 from api.schemas.run import RunResponse
 from api.services.scaffold_service import create_project as sync_scaffold_create
+from scripts.core.database import TenantSecurityError
 from scripts.core.review_service import ReviewService
 from scripts.core.run_repository import RunRepository
 from scripts.core.security.principal import Principal
-from scripts.core.state_model import LifecycleState
-from scripts.core.state_store import StateStore
+from scripts.core.state_model import LifecycleState, ProjectState
+from scripts.core.state_store import StateCorruptedError, StateStore
 from scripts.security.path_security import validate_project_id
 
 
@@ -305,8 +309,67 @@ class ProjectService:
         """
         Derives the canonical, un-degraded LifecycleDTO projection (LED-071).
         """
-        proj_dir = cls._get_project_dir(project_id)
-        state = StateStore.load(proj_dir)
+        validate_project_id(project_id)
+        proj_dir = Path(f"projects/{project_id}")
+        state: Optional[ProjectState] = None
+        if proj_dir.exists():
+            state = StateStore.load(proj_dir)
+
+        # In multi-tenant environments, check database for authoritative state
+        try:
+            from scripts.core.database import get_database_engine
+            engine = get_database_engine()
+            if engine:
+                with engine.get_connection() as conn:
+                    cur = conn.execute(
+                        "SELECT revision, lifecycle_state, state_json, workspace_id FROM project_states WHERE project_id = ?",
+                        (project_id,)
+                    )
+                    row = cur.fetchone()
+                    if row:
+                        db_rev, db_lc, db_state_json, db_ws_id = row[0], row[1], row[2], row[3]
+                        # Security: If disk state has a workspace_id, DB workspace_id must match to prevent cross-tenant state pollution
+                        if state and getattr(state, "workspace_id", None) and db_ws_id and state.workspace_id != db_ws_id:
+                            logger.error(
+                                f"Tenant mismatch for project '{project_id}': disk={state.workspace_id}, db={db_ws_id}"
+                            )
+                            raise TenantSecurityError(
+                                f"Tenant mismatch for project '{project_id}': disk='{state.workspace_id}', db='{db_ws_id}'"
+                            )
+
+                        if not state or db_rev > state.revision:
+                            db_state: Optional[ProjectState] = None
+                            if db_state_json:
+                                try:
+                                    db_data = json.loads(db_state_json)
+                                    db_data["revision"] = db_rev
+                                    db_data["lifecycle_state"] = db_lc
+                                    if db_ws_id and not db_data.get("workspace_id"):
+                                        db_data["workspace_id"] = db_ws_id
+                                    db_state = ProjectState.model_validate(db_data)
+                                except Exception as val_err:
+                                    logger.error(f"Failed to parse DB state_json for project '{project_id}': {val_err}")
+                                    if not state:
+                                        raise StateCorruptedError(
+                                            proj_dir,
+                                            reason=f"Authoritative database state is corrupted: {val_err}"
+                                        ) from val_err
+                            if db_state:
+                                state = db_state
+                            elif not state:
+                                state = ProjectState(
+                                    project_id=project_id,
+                                    revision=db_rev,
+                                    lifecycle_state=LifecycleState(db_lc),
+                                    workspace_id=db_ws_id,
+                                )
+        except (TenantSecurityError, StateCorruptedError):
+            raise
+        except Exception as exc:
+            logger.error(f"Database error in get_lifecycle_dto for project '{project_id}': {exc}")
+            if not state:
+                raise APIError(f"Database error loading project '{project_id}': {exc}", status_code=500) from exc
+
         if not state:
             raise ProjectNotFoundError(project_id)
 
