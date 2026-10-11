@@ -14,6 +14,7 @@ Integration test suite for Workstream B2:
 """
 
 from pathlib import Path
+import uuid
 import pytest
 from fastapi.testclient import TestClient
 
@@ -328,3 +329,159 @@ def test_storage_confinement_prevents_directory_traversal(b2_env):
     )
     # Invalid project ID fails with 400 or 404
     assert resp.status_code in (400, 404)
+
+
+@pytest.mark.parametrize("mutating_cap", [
+    "MUTATE_ASSET_STATUS",
+    "STORE_MEDIA_CACHE",
+    "CANCEL_PROCESSING_JOB",
+    "TRIM_VIDEO",
+    "RESIZE_VIDEO",
+    "EXTEND_VIDEO",
+    "TRIM_AUDIO",
+    "NORMALIZE_AUDIO_LOUDNESS",
+    "RESIZE_IMAGE",
+    "CROP_IMAGE_TO_RATIO",
+])
+def test_unauthorized_viewer_rejected_for_all_mutating_capabilities(b2_env, mutating_cap):
+    """
+    Issue 4 verification: Parameterized negative authorization matrix.
+    Confirms that a caller with Role.VIEWER is strictly denied across ALL 10 mutating capabilities
+    defined in MUTATING_CAPABILITIES, receiving HTTP 403 Forbidden with AccessDenied.
+    """
+    client = b2_env["client"]
+    token_charlie = b2_env["tokens"]["charlie"]  # Role.VIEWER
+    pid = b2_env["prj_alpha_id"]
+
+    resp = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_charlie}"},
+        json={
+            "capability_id": mutating_cap,
+            "input": {},
+        },
+    )
+    assert resp.status_code == 403, f"Expected 403 for mutating cap {mutating_cap}; got {resp.status_code}"
+    assert "accessdenied" in resp.text.lower() or "denied" in resp.text.lower() or "permission" in resp.text.lower()
+
+
+@pytest.mark.parametrize("readonly_cap,input_payload", [
+    ("GENERATE_SPEECH_MANIFEST", {"audio_storage_key": "audio/alpha_voiceover.wav"}),
+    ("CHECK_MEDIA_CACHE", {"asset_id": "ast_test_123", "transformation_hash": "hash_12345678"}),
+])
+def test_viewer_permitted_for_readonly_capabilities(b2_env, readonly_cap, input_payload):
+    """
+    Issue 4 verification: Read-only capability accessibility.
+    Confirms that a caller with Role.VIEWER is permitted to execute non-mutating capabilities
+    within their authorized workspace.
+    """
+    client = b2_env["client"]
+    token_charlie = b2_env["tokens"]["charlie"]  # Role.VIEWER
+    pid = b2_env["prj_alpha_id"]
+
+    resp = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_charlie}"},
+        json={
+            "capability_id": readonly_cap,
+            "input": input_payload,
+        },
+    )
+    assert resp.status_code == 200, f"Expected 200 for readonly cap {readonly_cap}; got {resp.status_code}: {resp.text}"
+    data = resp.json()
+    assert data["status"] == "SUCCESS"
+
+
+def test_capability_idempotency_replay_and_conflict_protection(b2_env):
+    """
+    Issue 4 verification: True idempotency execution replay vs conflict detection.
+    1. Initial execution executes and caches the result.
+    2. Repeated execution with identical key + payload returns the replayed result with idempotency_hit=True.
+    3. Conflicting execution with identical key BUT different payload fails closed.
+    """
+    client = b2_env["client"]
+    token_alice = b2_env["tokens"]["alice"]
+    pid = b2_env["prj_alpha_id"]
+    idem_key = f"idem-replay-{uuid.uuid4().hex}"
+
+    # Execution 1: Initial call
+    resp_1 = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_alice}"},
+        json={
+            "capability_id": "GENERATE_SPEECH_MANIFEST",
+            "input": {"audio_storage_key": "audio/alpha_voiceover.wav"},
+            "idempotency_key": idem_key,
+        },
+    )
+    assert resp_1.status_code == 200
+    data_1 = resp_1.json()
+    assert data_1["status"] == "SUCCESS"
+    assert data_1["execution_metadata"].get("idempotency_hit") is not True
+
+    # Execution 2: Replay identical call with same key
+    resp_2 = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_alice}"},
+        json={
+            "capability_id": "GENERATE_SPEECH_MANIFEST",
+            "input": {"audio_storage_key": "audio/alpha_voiceover.wav"},
+            "idempotency_key": idem_key,
+        },
+    )
+    assert resp_2.status_code == 200
+    data_2 = resp_2.json()
+    assert data_2["status"] == "SUCCESS"
+    assert data_2["execution_metadata"].get("idempotency_hit") is True
+    assert data_2["output"] == data_1["output"]
+
+    # Execution 3: Conflicting payload with same idempotency key
+    resp_3 = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_alice}"},
+        json={
+            "capability_id": "GENERATE_SPEECH_MANIFEST",
+            "input": {"audio_storage_key": "audio/different_conflicting_audio.wav"},
+            "idempotency_key": idem_key,
+        },
+    )
+    assert resp_3.status_code == 200
+    data_3 = resp_3.json()
+    assert data_3["status"] == "FAILED"
+    assert "conflict" in (data_3["error"]["message"] if data_3.get("error") else "").lower()
+
+
+def test_runtime_timeout_enforced_during_execution(b2_env, monkeypatch):
+    """
+    Issue 4 verification: Distinguishing runtime cancellation from schema validation.
+    When execution exceeds requested timeout, asyncio.wait_for aborts execution,
+    returning a structured FAILED result with error code TIMEOUT.
+    """
+    import asyncio
+    from ai.tools.adapters.domain_service import DomainServiceAdapter
+
+    # Patch adapter execute to simulate a slow execution (2.0s)
+    async def slow_execute(self, request, validated_input, context):
+        await asyncio.sleep(2.0)
+        return {"project_id": request.project_id}
+
+    monkeypatch.setattr(DomainServiceAdapter, "execute", slow_execute)
+
+    client = b2_env["client"]
+    token_alice = b2_env["tokens"]["alice"]
+    pid = b2_env["prj_alpha_id"]
+
+    resp = client.post(
+        f"/projects/{pid}/capabilities/execute",
+        headers={"Authorization": f"Bearer {token_alice}"},
+        json={
+            "capability_id": "GENERATE_SPEECH_MANIFEST",
+            "input": {"audio_storage_key": "audio/test.wav"},
+            "requested_timeout": 1.0,  # Valid schema bound, but runtime exceeds 1.0s
+        },
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "FAILED"
+    assert data["error"] is not None
+    assert "TIMEOUT" in data["error"]["code"]
