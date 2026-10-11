@@ -51,6 +51,8 @@ class CreativeProposalResponse(BaseModel):
     creative_plan: Dict[str, Any] = Field(description="Canonical CreativePlan (scenes and intents)")
     candidate_blueprint: Dict[str, Any] = Field(description="Compiled canonical BlueprintV2 dictionary")
     diagnostics: List[Dict[str, Any]] = Field(default_factory=list, description="Diagnostic messages or warnings")
+    context_hash: Optional[str] = Field(default=None, description="Cryptographic SHA-256 digest of assembled project context")
+    context_diagnostics: Optional[Dict[str, Any]] = Field(default=None, description="Diagnostics of assembled context including item counts and budget usage")
     approval_required: bool = Field(default=True, description="Strict requirement for explicit human approval")
     can_apply: bool = Field(default=True, description="Whether the proposal can be explicitly applied")
 

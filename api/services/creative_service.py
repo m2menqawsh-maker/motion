@@ -21,6 +21,7 @@ import json
 import logging
 import re
 import uuid
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 from api.core.errors import (
@@ -55,6 +56,12 @@ from scripts.core.state_store import StateConflictError, StateNotFoundError
 from scripts.core.template_contract import TemplateRegistryContract
 from scripts.core.tenant_model import TenantContext
 from scripts.security.path_security import validate_project_id
+from ai.context.adapters.knowledge_router_adapter import KnowledgeRouterAdapter
+from ai.context.builder import ContextBuilder
+from ai.context.types import ContextRequest
+from ai.contracts.common import CapabilityType
+from ai.memory.models import TrustedTenantContext
+from api.services.project_service import ProjectService
 
 logger = logging.getLogger("clean_video.creative_service")
 
@@ -93,6 +100,10 @@ class CreativeService:
     _compose_engine = ComposeEngine(template_contract=_template_registry)
     _tier_policy = CreativeTierPolicy(reuse_engine=_reuse_engine, compose_engine=_compose_engine)
     _compiler = BlueprintCompiler()
+    _context_builder = ContextBuilder(
+        project_service=ProjectService,
+        knowledge_retriever=KnowledgeRouterAdapter(),
+    )
 
     @classmethod
     def _compute_payload_hash(cls, payload: Any) -> str:
@@ -147,7 +158,28 @@ class CreativeService:
         finally:
             conn.close()
 
-        # 3. Detect prompt contradictions (e.g., silent mode + voiceover request)
+        # 3. Assemble bounded, deterministic context via ContextBuilder & KnowledgeRouterAdapter
+        trusted_ctx = TrustedTenantContext(
+            workspace_id=ws_id,
+            user_id=tenant_context.principal.principal_id if tenant_context.principal else None,
+            roles=[r.value if hasattr(r, "value") else str(r) for r in (tenant_context.principal.roles if tenant_context.principal else [])],
+            is_admin=tenant_context.principal.is_admin if tenant_context.principal else False,
+            accessible_projects=list(tenant_context.principal.project_scopes) if (tenant_context.principal and tenant_context.principal.project_scopes and "*" not in tenant_context.principal.project_scopes) else None,
+        )
+        ctx_request = ContextRequest(
+            request_id=f"ctx_{uuid.uuid4().hex[:12]}",
+            trusted_context=trusted_ctx,
+            capability=CapabilityType.PLANNING,
+            intent="creative_proposal",
+            project_id=project_id,
+            query_text=cleaned_prompt,
+            created_at=datetime.now(timezone.utc),
+        )
+        context_pkg = cls._context_builder.build(ctx_request)
+        context_hash = context_pkg.context_hash
+        context_diagnostics = context_pkg.diagnostics.model_dump(mode="json")
+
+        # 4. Detect prompt contradictions (e.g., silent mode + voiceover request)
         contradictions = cls._intent_parser._detect_contradictions(cleaned_prompt)
         if contradictions:
             logger.info(f"Contradictory creative prompt detected: {contradictions}")
@@ -294,6 +326,8 @@ class CreativeService:
             creative_plan=creative_plan.model_dump(),
             candidate_blueprint=candidate_blueprint,
             diagnostics=diagnostics,
+            context_hash=context_hash,
+            context_diagnostics=context_diagnostics,
             approval_required=True,
             can_apply=True,
         )

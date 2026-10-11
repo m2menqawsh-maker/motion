@@ -128,7 +128,7 @@ for gate in "${GATES_TO_RUN[@]}"; do
     exit 1
   fi
 
-  CATEGORY=$(python3 -c "import json, sys; print(json.loads('''$GATE_INFO''')['category'])")
+  CATEGORY=$(GATE_INFO="$GATE_INFO" python3 -c "import json, os; print(json.loads(os.environ['GATE_INFO'])['category'])")
   GATE_CATEGORY["$gate"]="$CATEGORY"
 
   echo ""
@@ -160,10 +160,10 @@ for gate in "${GATES_TO_RUN[@]}"; do
   GATE_FAILED=0
 
   # Extract commands and run
-  NUM_CMDS=$(python3 -c "import json; print(len(json.loads('''$GATE_INFO''')['commands']))")
+  NUM_CMDS=$(GATE_INFO="$GATE_INFO" python3 -c "import json, os; print(len(json.loads(os.environ['GATE_INFO'])['commands']))")
 
   for ((i=0; i<NUM_CMDS; i++)); do
-    CMD=$(python3 -c "import json; print(json.loads('''$GATE_INFO''')['commands'][$i])")
+    CMD=$(GATE_INFO="$GATE_INFO" CMD_IDX="$i" python3 -c "import json, os; print(json.loads(os.environ['GATE_INFO'])['commands'][int(os.environ['CMD_IDX'])])")
     echo -e "    ${CYAN}\$ ${CMD}${NC}"
     
     if ! eval "$CMD"; then

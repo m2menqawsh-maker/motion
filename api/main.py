@@ -39,6 +39,15 @@ async def lifespan(app: FastAPI):
             )
         else:
             logger.warning("Environment audit violations in non-production mode: %s", violations)
+
+    # Initialize canonical knowledge catalog at startup (REALITY-008)
+    try:
+        from ai.knowledge.catalog_service import get_knowledge_catalog_service
+        catalog_svc = get_knowledge_catalog_service()
+        catalog_svc.initialize_catalog(verify_hash=True)
+    except Exception as exc:
+        logger.warning("Knowledge catalog initialization deferred or degraded: %s", exc)
+
     yield
 
 

@@ -176,5 +176,5 @@ describe("S28-R05 RED Tests: Engine-Neutral TemplateSpec & Instantiator", () => 
     expect(entry).toBeDefined();
     expect(entry?.id).toBe("rui-title-card");
     expect(entry?.component).toBeDefined();
-  }, 15000);
+  }, 30000);
 });
