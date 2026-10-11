@@ -2,9 +2,9 @@ name: Remediation Fortress CI
 
 on:
   push:
-    branches: [main, "remediation/*", "feature/*"]
+    branches: [main, "remediation/*", "feature/*", "feat/*"]
   pull_request:
-    branches: [main, "feature/*"]
+    branches: [main, "feature/*", "feat/*"]
 
 permissions:
   contents: read
