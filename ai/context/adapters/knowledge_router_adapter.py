@@ -40,11 +40,17 @@ class KnowledgeRouterAdapter:
     """
 
     def __init__(self, router: Optional[KnowledgeRouter] = None) -> None:
-        self._router = router or KnowledgeRouter()
+        self._explicit_router = router
 
     @property
     def router(self) -> KnowledgeRouter:
-        return self._router
+        if self._explicit_router is not None:
+            return self._explicit_router
+        try:
+            from ai.knowledge.catalog_service import get_knowledge_catalog_service
+            return get_knowledge_catalog_service().router
+        except Exception:
+            return KnowledgeRouter()
 
     def retrieve_knowledge(
         self,
@@ -72,7 +78,7 @@ class KnowledgeRouterAdapter:
         )
 
         try:
-            result: KnowledgeRetrievalResult = self._router.retrieve(retrieval_query)
+            result: KnowledgeRetrievalResult = self.router.retrieve(retrieval_query)
         except Exception as exc:
             logger.warning("KnowledgeRouter query failed: %s", exc)
             return []

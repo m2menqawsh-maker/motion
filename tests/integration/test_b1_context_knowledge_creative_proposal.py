@@ -219,9 +219,10 @@ def test_project_service_lifecycle_dto_rejects_cross_tenant_state_pollution(b1_e
                 (b1_env["ws_beta"], pid),
             )
 
-        # Call get_lifecycle_dto: must reject the mismatched foreign DB state and maintain revision 5
-        dto = ProjectService.get_lifecycle_dto(pid)
-        assert dto.revision == 5, f"Expected disk revision 5 to be preserved; got {dto.revision}"
+        # Call get_lifecycle_dto: must raise TenantSecurityError due to inconsistent tenant ownership
+        from scripts.core.database import TenantSecurityError
+        with pytest.raises(TenantSecurityError, match="Tenant mismatch"):
+            ProjectService.get_lifecycle_dto(pid)
     finally:
         (pdir / StateStore.STATE_FILE).unlink(missing_ok=True)
 
@@ -287,3 +288,199 @@ def test_sensitive_data_not_leaked_into_context_diagnostics(b1_env):
     # Diagnostics and response must NOT contain the raw secret key
     assert secret_key not in str(data.get("context_diagnostics", {})), "Secret key leaked in context_diagnostics"
     assert secret_key not in str(data.get("diagnostics", [])), "Secret key leaked in proposal diagnostics"
+
+
+def test_project_service_lifecycle_dto_missing_disk_loads_db(b1_env):
+    """
+    Verifies that when on-disk state is absent, ProjectService.get_lifecycle_dto
+    safely falls back to the authoritative database state.
+    """
+    from api.services.project_service import ProjectService
+    from scripts.core.state_store import StateStore
+    import json
+
+    pid = b1_env["prj_alpha_id"]
+    pdir = b1_env["pdir_alpha"]
+    engine = b1_env["engine"]
+
+    # Ensure no disk state exists
+    (pdir / StateStore.STATE_FILE).unlink(missing_ok=True)
+
+    # Set DB state with revision = 7 and valid JSON
+    state_payload = {
+        "project_id": pid,
+        "workspace_id": b1_env["ws_alpha"],
+        "revision": 7,
+        "lifecycle_state": "DRAFT",
+    }
+    with engine.transaction() as conn:
+        conn.execute(
+            "UPDATE project_states SET revision = 7, lifecycle_state = 'DRAFT', state_json = ? WHERE project_id = ?",
+            (json.dumps(state_payload), pid),
+        )
+
+    dto = ProjectService.get_lifecycle_dto(pid)
+    assert dto.revision == 7
+    assert dto.lifecycle_state == "DRAFT"
+
+
+def test_project_service_lifecycle_dto_missing_disk_fails_closed_on_corrupt_db(b1_env):
+    """
+    Verifies that when on-disk state is absent and the database state_json is corrupted,
+    ProjectService.get_lifecycle_dto fails closed and raises StateCorruptedError.
+    """
+    from api.services.project_service import ProjectService
+    from scripts.core.state_store import StateStore, StateCorruptedError
+
+    pid = b1_env["prj_alpha_id"]
+    pdir = b1_env["pdir_alpha"]
+    engine = b1_env["engine"]
+
+    # Ensure no disk state exists
+    (pdir / StateStore.STATE_FILE).unlink(missing_ok=True)
+
+    # Set DB state with corrupt JSON
+    with engine.transaction() as conn:
+        conn.execute(
+            "UPDATE project_states SET revision = 9, state_json = '{malformed: true, missing_quotes' WHERE project_id = ?",
+            (pid,),
+        )
+
+    with pytest.raises(StateCorruptedError, match="corrupted"):
+        ProjectService.get_lifecycle_dto(pid)
+
+
+def test_different_project_contexts_produce_different_planning_decisions(b1_env):
+    """
+    Issue 1 verification:
+    Proves that two authorized projects with meaningfully different context constraints
+    (e.g., excluded templates and brand colors) produce appropriately different creative
+    planning and compilation decisions under otherwise identical user prompts.
+    """
+    import shutil
+    from scripts.core.state_store import StateStore
+    from scripts.core.state_model import ProjectState, LifecycleState
+
+    client = b1_env["client"]
+    token_alice = b1_env["tokens"]["alice"]
+    ws_alpha = b1_env["ws_alpha"]
+    repo = b1_env["repo"]
+
+    # Project 1: Standard / Default Project
+    prj_1 = repo.create_project("prj_diff_default", ws_alpha, "Default Project", created_by="usr_alice")
+    pdir_1 = Path(f"projects/{prj_1.id}")
+    pdir_1.mkdir(parents=True, exist_ok=True)
+    state_1 = ProjectState(
+        project_id=prj_1.id,
+        workspace_id=ws_alpha,
+        revision=1,
+        lifecycle_state=LifecycleState.DRAFT,
+        run_metadata={},
+    )
+    StateStore._persist_atomic(pdir_1, state_1)
+
+    # Project 2: Constrained Project with excluded "rui-intro" and explicit brand colors
+    prj_2 = repo.create_project("prj_diff_constrained", ws_alpha, "Constrained Project", created_by="usr_alice")
+    pdir_2 = Path(f"projects/{prj_2.id}")
+    pdir_2.mkdir(parents=True, exist_ok=True)
+    state_2 = ProjectState(
+        project_id=prj_2.id,
+        workspace_id=ws_alpha,
+        revision=1,
+        lifecycle_state=LifecycleState.DRAFT,
+        run_metadata={
+            "excluded_templates": ["rui-intro"],
+            "brand_colors": ["#112233", "#445566"],
+        },
+    )
+    StateStore._persist_atomic(pdir_2, state_2)
+
+    prompt = "Create a modern fast-paced technical product showcase video"
+
+    try:
+        # Request for Project 1
+        resp_1 = client.post(
+            f"/projects/{prj_1.id}/creative/proposals",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={"prompt": prompt, "aspect_ratio": "9:16"},
+        )
+        assert resp_1.status_code == 200, f"Error: {resp_1.text}"
+        data_1 = resp_1.json()
+
+        # Request for Project 2 with identical prompt
+        resp_2 = client.post(
+            f"/projects/{prj_2.id}/creative/proposals",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={"prompt": prompt, "aspect_ratio": "9:16"},
+        )
+        assert resp_2.status_code == 200, f"Error: {resp_2.text}"
+        data_2 = resp_2.json()
+
+        # 1. First scene template selection decision must differ!
+        scene_1_template = data_1["candidate_blueprint"]["scenes"][0]["template"]
+        scene_2_template = data_2["candidate_blueprint"]["scenes"][0]["template"]
+
+        # Default project should select "rui-intro"
+        assert scene_1_template == "rui-intro", f"Expected rui-intro, got {scene_1_template}"
+        # Constrained project MUST NOT select "rui-intro" (it is excluded) and should fallback to "rui-title-card"
+        assert scene_2_template == "rui-title-card", f"Expected rui-title-card, got {scene_2_template}"
+        assert scene_1_template != scene_2_template, "Template decision must differ based on authorized context!"
+
+        # 2. Brief constraints must reflect project context
+        assert "rui-intro" in data_2["brief"]["constraints"]["excluded_templates"]
+        assert "rui-intro" not in data_1["brief"]["constraints"]["excluded_templates"]
+        assert data_2["brief"]["constraints"]["brand_colors"] == ["#112233", "#445566"]
+
+        # 3. Candidate blueprint scene props in Project 2 must include brand colors
+        scene_2_props = data_2["candidate_blueprint"]["scenes"][0].get("template_props", {})
+        assert scene_2_props.get("brand_colors") == ["#112233", "#445566"]
+
+    finally:
+        shutil.rmtree(pdir_1, ignore_errors=True)
+        shutil.rmtree(pdir_2, ignore_errors=True)
+
+
+def test_startup_to_authenticated_api_retrieves_canonical_knowledge(b1_env):
+    """
+    Issue 2 verification:
+    Proves that canonical knowledge catalog initialized at startup is genuinely
+    retrieved and utilized during authenticated creative proposal requests.
+    """
+    from ai.knowledge.catalog_service import get_knowledge_catalog_service
+
+    # Ensure catalog is initialized as it would be at FastAPI startup
+    catalog_svc = get_knowledge_catalog_service()
+    indexed_count = catalog_svc.initialize_catalog(verify_hash=True)
+    assert indexed_count > 0, "Canonical knowledge catalog must index chunks"
+
+    client = b1_env["client"]
+    token_alice = b1_env["tokens"]["alice"]
+    pid = b1_env["prj_alpha_id"]
+
+    resp = client.post(
+        f"/projects/{pid}/creative/proposals",
+        headers={"Authorization": f"Bearer {token_alice}"},
+        json={
+            "prompt": "Explainer video about video editing with sound effects and motion personality",
+            "aspect_ratio": "9:16",
+        },
+    )
+
+    assert resp.status_code == 200, f"Error: {resp.text}"
+    data = resp.json()
+
+    # Verify context_diagnostics contains retrieved knowledge
+    assert "context_diagnostics" in data
+    retrieved = data["context_diagnostics"].get("retrieved_knowledge", [])
+    assert len(retrieved) > 0, "Production request must retrieve canonical knowledge chunks"
+
+    # Verify canonical knowledge documents are retrieved
+    doc_ids = {k.get("document_id") for k in retrieved if k.get("document_id")}
+    assert any(
+        doc in doc_ids
+        for doc in ("know_taste_motion_personality", "know_taste_sfx_matrix", "know_playbook_video_copy", "know_playbook_motion_collage")
+    ), f"Expected canonical documents in retrieved knowledge; got {doc_ids}"
+
+    # Verify diagnostics also contains KNOWLEDGE_RETRIEVAL record
+    diag_types = [d.get("type") for d in data.get("diagnostics", [])]
+    assert "KNOWLEDGE_RETRIEVAL" in diag_types
