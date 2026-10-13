@@ -1,4 +1,4 @@
-﻿> [!NOTE]
+> [!NOTE]
 > **Source of Truth Hierarchy:**
 > This is a Reference Document (Level 5).
 > Current Architectural Authority: `ARCHITECTURE_TRUTH.md`
@@ -18,28 +18,30 @@ Validation (هل الطلب مهمة فيديو؟) → Recipe Match → Skill De
 6. Verify: scripts/verify/ (seek-shot.sh → contact-sheet.sh → probe-mp4.sh).
 7. QC: probe_qc.py + final_qc.py حسب نوع الفيديو.
 
-## §2 جدول الـ MCPs السبعة (التفاصيل الكاملة: ground-truth/MCP_INDEX.md)
-| الخادم | متى يُستخدم (إلزامي) | أبرز الأدوات |
-|---|---|---|
-| audio-tools-mcp | أول خطوة تقنية عند وجود صوت/VO | analyze_voiceover → timings، detect_and_trim_silence، trim_audio، extend_audio، normalize_loudness (-16 LUFS)، split_voiceover_sentences، build_voiceover_timeline |
-| media-sources-mcp | أي أصل حي: stock/أيقونة/SFX/رابط مباشر | pixabay_search_*، pexels_search_*، freesound_search، iconify_search، download_iconify_icon، download_direct_file، change_asset_status |
-| video-tools-mcp | قص/تمديد/أبعاد/إطارات سوداء للفيديو | trim_video، extend_video، resize_video، detect_and_trim_black_frames |
-| image-tools-mcp | ترقية صور/قص نسب/حذف هوامش | upscale_image، crop_to_ratio، auto_crop_content |
-| common-tools-mcp | قبل أي معالجة (check_cache) وبعدها (save_to_cache) | check_cache، save_to_cache |
-| ffmpeg-mcp-server | مهام FFmpeg طويلة بالخلفية + حالة/إلغاء/دمج | jobs API |
+## §2 جدول القدرات وبوابة الأدوات (ToolGateway / CapabilityRouter)
+> **توجيه معماري صارم (REALITY-014 / Batch 2):**  
+> جميع استدعاءات الأدوات المذكورة أدناه تمر حتماً عبر `CapabilityRouter` و`ToolGateway` (`scripts/core/routing/` أو `ai/tools/gateway.py`). يُحظر الاستدعاء المباشر لعملاء MCP الخام دون وساطة البوابة الأمنية وسياق المستأجر.
 
-### مصفوفة القرار السريع (أي خادم؟ أي أداة أولى؟)
-| المهمة | الخادم الإلزامي | الأداة الأولى |
+| القدرة / المجال | متى تُستخدم (إلزامي) | أبرز الأدوات والوظائف |
 |---|---|---|
-| تحليل VO ومواقع الكلمات | audio-tools-mcp | analyze_voiceover |
-| جهارة -16 LUFS | audio-tools-mcp | normalize_loudness |
-| بحث B-Roll/صور/أيقونات | media-sources-mcp | pexels_search_videos / iconify_search |
-| تنزيل SVG ملون | media-sources-mcp | download_iconify_icon |
-| قص نسب/ترقية صور | image-tools-mcp | crop_to_ratio / upscale_image |
-| أبعاد فيديو/إطارات سوداء | video-tools-mcp | resize_video / detect_and_trim_black_frames |
-| فحص معالج مسبقاً | common-tools-mcp | check_cache |
-| رندر خلفية/دمج | ffmpeg | concatenate_videos / check_processing_status |
-| أمر FFmpeg حر | video-editor | execute_command |
+| audio-tools | أول خطوة تقنية عند وجود صوت/VO | analyze_voiceover → timings، detect_and_trim_silence، trim_audio، extend_audio، normalize_loudness (-16 LUFS)، split_voiceover_sentences، build_voiceover_timeline |
+| media-sources | أي أصل حي: stock/أيقونة/SFX/رابط مباشر | pixabay_search_*، pexels_search_*، freesound_search، iconify_search، download_iconify_icon، download_direct_file، change_asset_status |
+| video-tools | قص/تمديد/أبعاد/إطارات سوداء للفيديو | trim_video، extend_video، resize_video، detect_and_trim_black_frames |
+| image-tools | ترقية صور/قص نسب/حذف هوامش | upscale_image، crop_to_ratio، auto_crop_content |
+| common-tools | قبل أي معالجة (check_cache) وبعدها (save_to_cache) | check_cache، save_to_cache |
+| ffmpeg-jobs | مهام FFmpeg طويلة بالخلفية + حالة/إلغاء/دمج | jobs API / concatenate_videos |
+
+### مصفوفة القرار السريع (أي قدرة؟ أي أداة أولى؟)
+| المهمة | البوابة المعمارية | الأداة الأولى |
+|---|---|---|
+| تحليل VO ومواقع الكلمات | audio-tools via ToolGateway | analyze_voiceover |
+| جهارة -16 LUFS | audio-tools via ToolGateway | normalize_loudness |
+| بحث B-Roll/صور/أيقونات | media-sources via ToolGateway | pexels_search_videos / iconify_search |
+| تنزيل SVG ملون | media-sources via ToolGateway | download_iconify_icon |
+| قص نسب/ترقية صور | image-tools via ToolGateway | crop_to_ratio / upscale_image |
+| أبعاد فيديو/إطارات سوداء | video-tools via ToolGateway | resize_video / detect_and_trim_black_frames |
+| فحص معالج مسبقاً | common-tools via ToolGateway | check_cache |
+| رندر خلفية/دمج | ffmpeg-jobs via ToolGateway | concatenate_videos / check_processing_status |
 > أمثلة JSON الكاملة: `reference/mcp-toolbook.md` • أولوية المصادر: مرفوع المستخدم → كاش → بوابة (ROUTER §10)
 
 ## §3 جدول أدوات Python الـ19 (التفاصيل: ground-truth/TOOLS_INDEX.md)
