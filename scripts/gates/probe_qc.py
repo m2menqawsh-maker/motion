@@ -154,13 +154,28 @@ def run_probe_qc(
     try:
         from scripts.security.path_security import resolve_project_dir
         proj_dir = resolve_project_dir(str(proj_dir_or_id), base_dir=ws / "projects" if workspace_root else None)
-    except Exception:
-        if (Path("projects") / target_path).exists():
-            proj_dir = (Path("projects") / target_path).resolve()
-        elif target_path.exists():
+    except Exception as exc:
+        if target_path.is_dir() and (target_path / "05_blueprint.json").exists():
+            from scripts.security.path_security import check_confinement_and_symlink
+            check_confinement_and_symlink(target_path, ws / "projects" if workspace_root else Path("projects"))
             proj_dir = target_path.resolve()
         else:
-            proj_dir = (ws / "projects" / str(proj_dir_or_id)).resolve()
+            return {
+                "status": "EXECUTION_FAILURE",
+                "legacy_status": "fail",
+                "errors": [{
+                    "rule": "TENANT_PATH_RESOLUTION",
+                    "message": f"Tenant path resolution failed (Fail-closed): {exc}",
+                    "severity": "CRITICAL"
+                }],
+                "checks": {
+                    "path_resolution": {
+                        "status": "FAIL",
+                        "severity": "CRITICAL",
+                        "message": f"Tenant path resolution failed (Fail-closed): {exc}",
+                    }
+                }
+            }
 
     bp_path = proj_dir / "05_blueprint.json"
     build_dir = proj_dir / "06_build"

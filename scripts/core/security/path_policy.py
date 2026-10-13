@@ -156,6 +156,8 @@ def get_canonical_project_dir(
     base = Path(base_dir or "projects").resolve()
     ws_dir = base / v_ws
     target = ws_dir / v_proj
+    check_confinement_and_symlink(ws_dir, base)
+    check_confinement_and_symlink(target, base)
     check_confinement_and_symlink(target, ws_dir)
     return target
 
@@ -196,17 +198,12 @@ def resolve_project_dir(
                 prec = repo.get_project(v_proj)
                 if prec and prec.workspace_id and prec.workspace_id != "ws_default":
                     v_ws = validate_workspace_id(prec.workspace_id)
-            except Exception:
-                pass
+            except Exception as e:
+                raise TenantSecurityError(
+                    f"Database lookup failed during workspace identity discovery for project '{v_proj}': {e}"
+                ) from e
 
     if not v_ws:
-        # Check if project exists as a standalone unmanaged project on local disk
-        base = Path(base_dir or "projects").resolve()
-        unmanaged = base / v_proj
-        if unmanaged.exists() and unmanaged.is_dir():
-            check_confinement_and_symlink(unmanaged, base)
-            return unmanaged
-
         raise TenantSecurityError(
             f"workspace_id is strictly required for tenant path resolution of project '{v_proj}'"
         )
@@ -215,7 +212,10 @@ def resolve_project_dir(
     ws_dir = base / v_ws
     target = ws_dir / v_proj
 
-    # Strict confinement check: target must be confined within the tenant's workspace
+    # Strict confinement check: ensure workspace directory does not escape base boundary
+    check_confinement_and_symlink(ws_dir, base)
+    # Ensure target does not escape base or workspace via symlink or traversal
+    check_confinement_and_symlink(target, base)
     check_confinement_and_symlink(target, ws_dir)
 
     # Cross-tenant access validation
@@ -233,8 +233,10 @@ def resolve_project_dir(
                             )
         except TenantSecurityError:
             raise
-        except Exception:
-            pass
+        except Exception as fs_err:
+            raise TenantSecurityError(
+                f"Filesystem cross-tenant check failed for project '{v_proj}': {fs_err}"
+            ) from fs_err
 
         # 2. Relational database check: project must not be registered under another workspace
         try:
@@ -249,8 +251,10 @@ def resolve_project_dir(
                 )
         except TenantSecurityError:
             raise
-        except Exception:
-            pass
+        except Exception as exc:
+            raise TenantSecurityError(
+                f"Database lookup failed during tenant authorization verification for project '{v_proj}': {exc}"
+            ) from exc
 
     if create:
         target.mkdir(parents=True, exist_ok=True)

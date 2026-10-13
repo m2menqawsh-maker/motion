@@ -130,7 +130,7 @@ def main():
             adapter_script = workspace_root / "scripts" / "render_via_adapter.ts"
             render_success = False
 
-            ws_id = os.environ.get("AGY_WORKSPACE_ID") or (project_dir.parent.name if project_dir.parent.name.startswith("ws_") else "ws_default")
+            ws_id = os.environ.get("AGY_WORKSPACE_ID") or project_dir.parent.name
             input_rev = os.environ.get("AGY_INPUT_REVISION", "1")
 
             active_render_path = "legacy_cli"

@@ -89,7 +89,14 @@ class PipelineWorker:
             logger.warning(f"Worker {self.worker_id} lease expired or lost for run {run.run_id}; skipping upload.")
             return
 
-        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
+        ws_id = getattr(run, "workspace_id", None)
+        if not ws_id or ws_id == "ws_default":
+            try:
+                prec = self.repo.get_project(run.project_id)
+                if prec and prec.workspace_id:
+                    ws_id = prec.workspace_id
+            except Exception:
+                pass
         from scripts.security.path_security import resolve_project_dir
         proj_dir = resolve_project_dir(run.project_id, workspace_id=ws_id)
 
@@ -202,7 +209,14 @@ class PipelineWorker:
             return False
 
         self._active_run = run
-        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
+        ws_id = getattr(run, "workspace_id", None)
+        if not ws_id or ws_id == "ws_default":
+            try:
+                prec = self.repo.get_project(run.project_id)
+                if prec and prec.workspace_id:
+                    ws_id = prec.workspace_id
+            except Exception:
+                pass
         logger.info(
             f"Worker {self.worker_id} successfully claimed run {run.run_id} for project {run.project_id} (workspace {ws_id}) "
             f"(attempt {run.attempt})"

@@ -33,10 +33,12 @@ def run_gate(manifest_path_str):
             manifest_file = p
             project_id = p.parent.name if p.parent.name.startswith("prj_") else None
     except Exception:
-        if (Path("projects") / p / "02_asset_manifest.json").exists() or (Path("projects") / p).is_dir():
-            manifest_file = Path("projects") / p / "02_asset_manifest.json"
-            project_id = p.name if p.name.startswith("prj_") else None
+        if p.is_file():
+            manifest_file = p
+            project_id = p.parent.name if p.parent.name.startswith("prj_") else None
         elif p.is_dir():
+            from scripts.security.path_security import check_confinement_and_symlink
+            check_confinement_and_symlink(p, Path("projects"))
             manifest_file = p / "02_asset_manifest.json"
             project_id = p.name if p.name.startswith("prj_") else None
         else:

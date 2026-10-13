@@ -118,11 +118,6 @@ class ReviewService:
         p = Path(project_dir_or_id)
         if p.is_dir() and (p / StateStore.STATE_FILE).exists():
             return p.resolve()
-        
-        # Check projects/ relative
-        candidate = Path.cwd().resolve() / "projects" / str(project_dir_or_id)
-        if candidate.is_dir() and (candidate / StateStore.STATE_FILE).exists():
-            return candidate
 
         try:
             from scripts.security.path_security import resolve_project_dir

@@ -196,3 +196,93 @@ def test_new_project_lifecycle_under_pure_tenant_layout(tmp_path: Path):
     with pytest.raises(TenantSecurityError):
         resolve_project_dir(proj_id, workspace_id="ws_foreign_intruder", base_dir=base_dir)
 
+
+def test_workspace_level_symlink_escape_rejected(tmp_path: Path):
+    """Verifies that if a workspace directory itself is a symlink pointing outside canonical projects root, it is rejected."""
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    outside_dir = tmp_path / "host_secrets"
+    outside_dir.mkdir()
+
+    evil_ws_symlink = base_dir / "ws_evil_symlink"
+    try:
+        os.symlink(outside_dir, evil_ws_symlink)
+    except OSError:
+        pytest.skip("Symlinks not supported in this test environment")
+
+    # 1. get_canonical_project_dir must reject workspace-level symlink escape
+    with pytest.raises((PathSecurityViolation, TenantSecurityError)):
+        get_canonical_project_dir("prj_victim", "ws_evil_symlink", base_dir=base_dir)
+
+    # 2. resolve_project_dir must reject workspace-level symlink escape
+    with pytest.raises((PathSecurityViolation, TenantSecurityError)):
+        resolve_project_dir("prj_victim", workspace_id="ws_evil_symlink", base_dir=base_dir)
+
+
+def test_missing_identity_rejects_filesystem_access(tmp_path: Path, monkeypatch):
+    """Verifies that missing or unverifiable workspace identity strictly denies filesystem access."""
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    # Create unmanaged project directory directly under projects/
+    unmanaged = base_dir / "prj_orphan"
+    unmanaged.mkdir()
+
+    monkeypatch.delenv("AGY_WORKSPACE_ID", raising=False)
+
+    with pytest.raises(TenantSecurityError, match="workspace_id is strictly required"):
+        resolve_project_dir("prj_orphan", workspace_id=None, base_dir=base_dir)
+
+
+def test_database_lookup_failure_fails_closed(tmp_path: Path, monkeypatch):
+    """Verifies that database operational failures during authorization verification fail closed."""
+    from unittest.mock import MagicMock
+    import scripts.core.database as db_mod
+
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    mock_repo = MagicMock()
+    mock_repo.get_project.side_effect = RuntimeError("Database connection pool exhausted")
+
+    monkeypatch.setattr(db_mod, "TenantRepository", lambda engine: mock_repo)
+
+    # Failing DB during cross-tenant boundary verification must raise TenantSecurityError (fail closed)
+    with pytest.raises(TenantSecurityError, match="Database lookup failed"):
+        resolve_project_dir("prj_any", workspace_id="ws_test", base_dir=base_dir, enforce_tenant_boundary=True)
+
+
+def test_legacy_flat_directory_access_rejected(tmp_path: Path, monkeypatch):
+    """Verifies that legacy flat directories cannot be accessed as standalone unmanaged projects."""
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    legacy_flat = base_dir / "prj_legacy_standalone"
+    legacy_flat.mkdir()
+    (legacy_flat / "master_plan.md").write_text("# Plan", encoding="utf-8")
+
+    monkeypatch.delenv("AGY_WORKSPACE_ID", raising=False)
+
+    # 1. Without workspace_id -> Strictly rejected, never returns flat path
+    with pytest.raises(TenantSecurityError, match="workspace_id is strictly required"):
+        resolve_project_dir("prj_legacy_standalone", workspace_id=None, base_dir=base_dir)
+
+    # 2. With workspace_id -> Resolved under tenant workspace directory, NOT flat path
+    resolved = resolve_project_dir("prj_legacy_standalone", workspace_id="ws_legit", base_dir=base_dir)
+    assert resolved == (base_dir / "ws_legit" / "prj_legacy_standalone").resolve()
+    assert str(resolved) != str(legacy_flat.resolve())
+
+
+def test_final_qc_fails_closed_on_resolution_error(tmp_path: Path, monkeypatch):
+    """Verifies that run_final_qc fails closed with structured reporting if tenant path resolution fails."""
+    from scripts.gates.final_qc import run_final_qc
+
+    monkeypatch.delenv("AGY_WORKSPACE_ID", raising=False)
+    ok, report = run_final_qc("prj_unresolvable_qc", workspace_root=tmp_path)
+
+    assert ok is False
+    assert report["status"] == "FAIL"
+    assert "path_resolution" in report["checks"]
+    assert report["checks"]["path_resolution"]["status"] == "FAIL"
+    assert "Fail-closed" in report["checks"]["path_resolution"]["message"]
+
+

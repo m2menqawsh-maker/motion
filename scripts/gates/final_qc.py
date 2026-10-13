@@ -532,8 +532,32 @@ def run_final_qc(
             workspace_id=ws_id,
             base_dir=root / "projects" if workspace_root else None,
         )
-    except Exception:
-        project_dir = root / "projects" / clean_id
+    except Exception as exc:
+        report: Dict[str, Any] = {
+            "project_id": clean_id,
+            "status": "FAIL",
+            "target_video": "",
+            "blueprint_path": "",
+            "timings_path": "",
+            "summary": {
+                "decision_reason": f"Tenant path resolution failed (Fail-closed): {exc}",
+                "total_checks": 1,
+                "passed_checks": 0,
+                "failed_checks": 1,
+                "execution_failed_checks": 0,
+                "warnings": 0,
+            },
+            "checks": {
+                "path_resolution": {
+                    "name": "Tenant Path Resolution",
+                    "status": "FAIL",
+                    "severity": "CRITICAL",
+                    "error": str(exc),
+                    "message": f"Tenant path resolution failed (Fail-closed): {exc}",
+                }
+            }
+        }
+        return False, report
 
     report: Dict[str, Any] = {
         "project_id": clean_id,
