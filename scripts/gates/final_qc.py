@@ -236,10 +236,12 @@ def check_black_frames(video_path: Path | str) -> Dict[str, Any]:
     """Detects continuous black frames using ffmpeg blackdetect filter."""
     try:
         import ffmpeg
+        import os
+        pix_th = float(os.environ.get("QC_BLACK_PIX_TH", "0.03"))
         out, err = (
             ffmpeg
             .input(str(video_path))
-            .filter("blackdetect", d=0.5, pix_th=0.10)
+            .filter("blackdetect", d=0.5, pix_th=pix_th)
             .output("pipe:", format="null")
             .run(capture_stdout=True, capture_stderr=True)
         )
