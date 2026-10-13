@@ -56,7 +56,6 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
         ws_id = os.environ.get("AGY_WORKSPACE_ID")
         if not ws_id and current_attempt_ctx.project_id:
             try:
-                from scripts.security.path_security import resolve_project_dir
                 pdir = resolve_project_dir(current_attempt_ctx.project_id)
                 from scripts.core.state_store import StateStore
                 st = StateStore.load(pdir)
