@@ -78,9 +78,20 @@ class OverrideService:
     """Domain authority for scene overrides and style overrides."""
 
     @classmethod
-    def _get_project_dir(cls, project_id: str) -> Path:
-        validate_project_id(project_id)
-        proj_dir = Path(f"projects/{project_id}")
+    def _get_project_dir(cls, project_id: str, workspace_id: Optional[str] = None) -> Path:
+        from scripts.security.path_security import resolve_project_dir, TenantSecurityError
+        if not workspace_id:
+            try:
+                from api.services.project_service import ProjectService
+                workspace_id = ProjectService.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+        except TenantSecurityError as e:
+            if "workspace_id is strictly required" in str(e):
+                raise ProjectNotFoundError(project_id)
+            raise
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
         return proj_dir

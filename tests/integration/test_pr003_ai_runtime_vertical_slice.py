@@ -70,8 +70,8 @@ def env_pr003(tmp_path, monkeypatch):
     prj_alpha = repo.create_project("prj_alpha_prod", ws_alpha.id, "Alpha Production Video", created_by=user_alice.id)
 
     # Project on disk
-    pdir_alpha = Path(f"projects/{prj_alpha.id}")
-    pdir_alpha.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    pdir_alpha = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id, create=True)
 
     client = TestClient(app)
 
@@ -107,6 +107,7 @@ def env_pr003(tmp_path, monkeypatch):
 
     if pdir_alpha.exists():
         shutil.rmtree(pdir_alpha, ignore_errors=True)
+        shutil.rmtree(Path("projects") / ws_alpha.id, ignore_errors=True)
 
 
 def test_red_reproducer_ai_creative_proposal_endpoint_disconnected(env_pr003):

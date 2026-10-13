@@ -49,11 +49,10 @@ class ArtifactService:
     @classmethod
     def _resolve_project_dir(cls, project_dir_or_id: Union[Path, str]) -> Path:
         p = Path(project_dir_or_id)
-        if not p.is_dir() and not p.exists() and not str(p).startswith("projects/"):
-            cand = Path("projects") / str(project_dir_or_id)
-            if cand.exists():
-                return cand
-        return p
+        if p.is_dir() and p.exists():
+            return p.resolve()
+        from scripts.security.path_security import resolve_project_dir
+        return resolve_project_dir(str(project_dir_or_id))
 
     @classmethod
     def apply_invalidation_plan(

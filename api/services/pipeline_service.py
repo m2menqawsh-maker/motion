@@ -27,8 +27,20 @@ class PipelineService:
     VALID_STAGES = {"asset_gate", "plan_gate", "taste_gate", "qc_gate"}
 
     @classmethod
-    def _get_project_dir(cls, project_id: str) -> Path:
-        return Path(f"projects/{project_id}")
+    def _get_project_dir(cls, project_id: str, workspace_id: Optional[str] = None) -> Path:
+        from scripts.security.path_security import resolve_project_dir, TenantSecurityError
+        if not workspace_id:
+            try:
+                from api.services.project_service import ProjectService
+                workspace_id = ProjectService.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+        try:
+            return resolve_project_dir(project_id, workspace_id=workspace_id)
+        except TenantSecurityError as e:
+            if "workspace_id is strictly required" in str(e):
+                raise ProjectNotFoundError(project_id)
+            raise
     
     @classmethod
     def _format_legacy_state(cls, state: ProjectState) -> dict:
@@ -73,7 +85,13 @@ class PipelineService:
     @classmethod
     async def scaffold_project(cls, project_id: str, workspace_id: Optional[str] = None) -> dict:
         validate_project_id(project_id)
-        project_dir = cls._get_project_dir(project_id)
+        if workspace_id:
+            try:
+                project_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
+            except TypeError:
+                project_dir = cls._get_project_dir(project_id)
+        else:
+            project_dir = cls._get_project_dir(project_id)
         state = StateStore.load(project_dir)
         if not state:
             state = StateStore.create(project_dir, project_id, workspace_id=workspace_id)
@@ -239,6 +257,9 @@ class PipelineService:
                 env = os.environ.copy()
                 env["AGY_RUN_ID"] = run_id
                 env["AGY_IS_MANAGED"] = "1"
+                ws_name = project_dir.parent.name
+                if ws_name.startswith("ws_"):
+                    env["AGY_WORKSPACE_ID"] = ws_name
 
                 func = functools.partial(
                     safe_subprocess,
@@ -283,9 +304,7 @@ class PipelineService:
 
     @classmethod
     def mutate_blueprint(cls, project_id: str, payload: dict, actor_id: str = "api_user") -> None:
-        project_dir = Path(f"projects/{project_id}")
-        if not project_dir.exists():
-            project_dir = cls._get_project_dir(project_id)
+        project_dir = cls._get_project_dir(project_id)
         if not project_dir.exists():
             raise ProjectNotFoundError(project_id)
 
@@ -319,9 +338,7 @@ class PipelineService:
 
     @classmethod
     def get_blueprint(cls, project_id: str) -> Optional[Dict[str, Any]]:
-        project_dir = Path(f"projects/{project_id}")
-        if not project_dir.exists():
-            project_dir = cls._get_project_dir(project_id)
+        project_dir = cls._get_project_dir(project_id)
         if not project_dir.exists():
             raise ProjectNotFoundError(project_id)
         blueprint_path = project_dir / "05_blueprint.json"
@@ -333,9 +350,7 @@ class PipelineService:
 
     @classmethod
     def validate_blueprint_payload(cls, project_id: str, payload: dict) -> tuple[bool, list[str]]:
-        project_dir = Path(f"projects/{project_id}")
-        if not project_dir.exists():
-            project_dir = cls._get_project_dir(project_id)
+        project_dir = cls._get_project_dir(project_id)
         if not project_dir.exists():
             raise ProjectNotFoundError(project_id)
         from scripts.core.blueprint_validator import validate_blueprint_v2

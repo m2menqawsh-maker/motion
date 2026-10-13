@@ -67,9 +67,20 @@ class AssetService:
     """Domain authority for project media and asset lifecycle."""
 
     @classmethod
-    def _get_project_dir(cls, project_id: str) -> Path:
-        validate_project_id(project_id)
-        proj_dir = Path(f"projects/{project_id}")
+    def _get_project_dir(cls, project_id: str, workspace_id: Optional[str] = None) -> Path:
+        from scripts.security.path_security import resolve_project_dir, TenantSecurityError
+        if not workspace_id:
+            try:
+                from api.services.project_service import ProjectService
+                workspace_id = ProjectService.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+        except TenantSecurityError as e:
+            if "workspace_id is strictly required" in str(e):
+                raise ProjectNotFoundError(project_id)
+            raise
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
         return proj_dir
@@ -85,16 +96,16 @@ class AssetService:
         return manifest
 
     @classmethod
-    def list_assets(cls, project_id: str) -> List[Dict[str, Any]]:
+    def list_assets(cls, project_id: str, workspace_id: Optional[str] = None) -> List[Dict[str, Any]]:
         """Lists all registered assets for a project."""
-        proj_dir = cls._get_project_dir(project_id)
+        proj_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
         manifest = cls._get_or_create_manifest(proj_dir, project_id)
         return [a.model_dump() for a in manifest.assets]
 
     @classmethod
-    def get_asset(cls, project_id: str, asset_id: str) -> Dict[str, Any]:
+    def get_asset(cls, project_id: str, asset_id: str, workspace_id: Optional[str] = None) -> Dict[str, Any]:
         """Retrieves details of a specific asset."""
-        proj_dir = cls._get_project_dir(project_id)
+        proj_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
         validate_asset_id(asset_id)
         manifest = cls._get_or_create_manifest(proj_dir, project_id)
         asset = manifest.get_asset(asset_id)
@@ -111,11 +122,12 @@ class AssetService:
         asset_id: Optional[str] = None,
         kind: Optional[str] = None,
         status: Optional[str] = None,
+        workspace_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Securely uploads and registers an asset into Manifest v2 with downstream invalidation.
         """
-        proj_dir = cls._get_project_dir(project_id)
+        proj_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
 
         # 1. Size limit enforcement
         actual_size = len(content)

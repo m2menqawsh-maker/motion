@@ -39,6 +39,7 @@ from scripts.core.state_model import (
 from scripts.core.state_store import StateStore
 from scripts.core.storage import get_storage_service, set_storage_service, LocalStorageBackend
 from scripts.core.worker import PipelineWorker
+from scripts.security.path_security import resolve_project_dir
 
 
 @pytest.fixture
@@ -82,8 +83,7 @@ def test_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     tenant_repo.create_project(proj_id, ws_id, "Test Project", user.id)
 
     # Setup project directory on disk
-    proj_dir = projects_dir / proj_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(proj_id, workspace_id=ws_id, create=True)
 
     try:
         yield {

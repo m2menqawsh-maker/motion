@@ -409,6 +409,7 @@ class AssetAcquisitionService:
             filename=filename,
             asset_id=deterministic_asset_id,
             kind=m_type.value,
+            workspace_id=workspace_id,
         )
 
         return AcquiredAssetResult(

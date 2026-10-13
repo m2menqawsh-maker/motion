@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, Header, Response, status, Body
 from api.core.auth import require_permission, Principal, Action
 from api.schemas.artifact import ArtifactItem, ArtifactInventoryResponse, ArtifactContentResponse
 from api.services.domain_artifact_service import DomainArtifactService
+from api.services.project_service import ProjectService
 from scripts.core.review_service import ReviewService
 from scripts.core.state_model import ReviewDecisionType
 
@@ -101,8 +102,9 @@ async def approve_review(
         bundle_id = active.review_bundle_id
 
     reason = payload.get("reason", "Approved via GUI")
+    proj_dir = ProjectService._get_project_dir(project_id)
     decision = ReviewService.approve(
-        project_dir=f"projects/{project_id}",
+        project_dir=proj_dir,
         bundle_id=bundle_id,
         principal=principal,
         reason=reason,
@@ -132,8 +134,9 @@ async def reject_review(
         bundle_id = active.review_bundle_id
 
     reason = payload.get("reason", payload.get("note", "Rejected via GUI"))
+    proj_dir = ProjectService._get_project_dir(project_id)
     decision = ReviewService.reject(
-        project_dir=f"projects/{project_id}",
+        project_dir=proj_dir,
         bundle_id=bundle_id,
         principal=principal,
         reason=reason,

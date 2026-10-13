@@ -188,9 +188,9 @@ class AuthorizationPolicy:
 
             # Check if project exists on disk with a workspace_id in its state
             try:
-                from pathlib import Path
                 from scripts.core.state_store import StateStore
-                proj_dir = Path(f"projects/{project_id}")
+                from scripts.security.path_security import resolve_project_dir
+                proj_dir = resolve_project_dir(project_id)
                 if proj_dir.exists():
                     state = StateStore.load(proj_dir)
                     if state and getattr(state, "workspace_id", None):
@@ -200,7 +200,7 @@ class AuthorizationPolicy:
                         granted_actions = ROLE_PERMISSIONS_MATRIX.get(membership.role, set())
                         return action in granted_actions
             except Exception:
-                return False
+                pass
 
         # Unmanaged / standalone operations (no DB or on-disk workspace binding)
         if principal.is_admin:

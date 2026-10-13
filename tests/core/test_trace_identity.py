@@ -13,7 +13,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 def clean_logs():
     workspace_root = Path.cwd().resolve()
     global_log = workspace_root / "logs" / "runtime.jsonl"
-    project_log = workspace_root / "projects" / "prj_mock" / "run.jsonl"
+    mock_dir = workspace_root / "projects" / "ws_test" / "prj_mock"
+    mock_dir.mkdir(parents=True, exist_ok=True)
+    project_log = mock_dir / "run.jsonl"
     
     # Backup
     backup_global = global_log.read_text(encoding="utf-8") if global_log.exists() else None
@@ -37,6 +39,7 @@ def test_missing_trace_context_fails_at_managed_boundary():
     workspace_root = Path.cwd().resolve()
     env = os.environ.copy()
     env["PYTHONPATH"] = str(workspace_root)
+    env["AGY_WORKSPACE_ID"] = "ws_test"
     env["AGY_IS_MANAGED"] = "1"
     if "AGY_RUN_ID" in env:
         del env["AGY_RUN_ID"]
@@ -56,6 +59,7 @@ def test_trace_reconstruction(clean_logs):
     env["PYTHONPATH"] = str(workspace_root)
     test_run_id = str(uuid.uuid4())
     env["AGY_RUN_ID"] = test_run_id
+    env["AGY_WORKSPACE_ID"] = "ws_test"
     env["AGY_IS_MANAGED"] = "1"
     
     pipeline_script = workspace_root / "scripts" / "pipeline.py"

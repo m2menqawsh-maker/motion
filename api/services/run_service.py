@@ -23,8 +23,20 @@ class RunService:
     """Domain service for managing pipeline runs."""
 
     @classmethod
-    def _get_project_dir(cls, project_id: str) -> Path:
-        return Path(f"projects/{project_id}")
+    def _get_project_dir(cls, project_id: str, workspace_id: Optional[str] = None) -> Path:
+        from scripts.security.path_security import resolve_project_dir, TenantSecurityError
+        if not workspace_id:
+            try:
+                from api.services.project_service import ProjectService
+                workspace_id = ProjectService.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+        try:
+            return resolve_project_dir(project_id, workspace_id=workspace_id)
+        except TenantSecurityError as e:
+            if "workspace_id is strictly required" in str(e):
+                raise ProjectNotFoundError(project_id)
+            raise
 
     @classmethod
     def _compute_payload_hash(cls, payload: Optional[Dict[str, Any]]) -> str:
@@ -51,7 +63,7 @@ class RunService:
             IdempotencyConflictError: If idempotency_key was used with a different payload.
         """
         validate_project_id(project_id)
-        proj_dir = cls._get_project_dir(project_id)
+        proj_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
 
@@ -273,7 +285,7 @@ class RunService:
     ) -> List[RunRecord]:
         """Lists runs for a specific project."""
         validate_project_id(project_id)
-        proj_dir = cls._get_project_dir(project_id)
+        proj_dir = cls._get_project_dir(project_id, workspace_id=workspace_id)
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
         repo = RunRepository(db_path=db_path)

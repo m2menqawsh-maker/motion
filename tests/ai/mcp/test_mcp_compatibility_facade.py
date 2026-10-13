@@ -46,10 +46,11 @@ from scripts.core.manifest_loader import save_manifest
 
 
 @pytest.fixture
-def mock_project(tmp_path):
+def mock_project(tmp_path, monkeypatch):
     """Sets up an isolated mock project with valid Manifest v2."""
+    monkeypatch.setenv("AGY_WORKSPACE_ID", "ws_compat")
     proj_id = "prj_mcp_compat_test"
-    proj_dir = Path("projects") / proj_id
+    proj_dir = Path("projects/ws_compat") / proj_id
     proj_dir.mkdir(parents=True, exist_ok=True)
 
     manifest_path = proj_dir / "02_asset_manifest.json"
@@ -77,7 +78,7 @@ def mock_project(tmp_path):
     yield proj_id, proj_dir
 
     import shutil
-    shutil.rmtree(proj_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects/ws_compat"), ignore_errors=True)
 
 
 @pytest.fixture
@@ -178,7 +179,7 @@ async def test_case_b_internal_direct_path_without_mcp(mock_project):
     gateway = get_tool_gateway()
     context = TrustedToolExecutionContext(
         actor_id="usr_internal_planner",
-        workspace_id="ws_internal",
+        workspace_id="ws_compat",
         correlation_id="corr_internal_123",
         roles=["EDITOR"],
         permissions=["viewer", "editor", "asset:read"],
@@ -186,7 +187,7 @@ async def test_case_b_internal_direct_path_without_mcp(mock_project):
 
     cap_req = CapabilityRequest(
         capability_id=CapabilityType.CHECK_MEDIA_CACHE,
-        workspace_id="ws_internal",
+        workspace_id="ws_compat",
         project_id=proj_id,
         actor_id="usr_internal_planner",
         input={

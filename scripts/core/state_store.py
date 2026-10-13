@@ -209,7 +209,8 @@ class StateStore:
                 row = cur.fetchone()
                 ws_id = row[0] if row else state.workspace_id
                 if not ws_id:
-                    ws_id = "ws_default"
+                    # Unmanaged project without workspace identity: skip database sync to avoid inventing unsafe ws_default
+                    return
 
                 if not row:
                     conn.execute(
@@ -539,7 +540,7 @@ class StateStore:
         repo = TenantStateRepository(engine)
         current = repo.load_state(project_id)
         if current is None:
-            raise StateNotFoundError(Path(f"projects/{project_id}"))
+            raise StateNotFoundError(Path(f"projects/{workspace_id}/{project_id}"))
         if current.revision != expected_revision:
             raise StateConflictError(expected_revision, current.revision)
 

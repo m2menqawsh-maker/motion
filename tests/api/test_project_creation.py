@@ -17,7 +17,8 @@ def test_project_creation_endpoint():
     assert "project_id" in data
     
     project_id = data["project_id"]
-    project_dir = Path(f"projects/{project_id}")
+    from api.services.project_service import ProjectService
+    project_dir = ProjectService._get_project_dir(project_id)
     
     # Assert physical directories and files were created
     assert project_dir.exists()

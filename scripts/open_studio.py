@@ -38,12 +38,9 @@ def main():
     project_id = validate_project_id(project_id)
     
     workspace_root = Path.cwd()
-    if (workspace_root / "projects" / project_id).exists():
-        proj_dir = workspace_root / "projects" / project_id
-    elif (workspace_root.parent / "projects" / project_id).exists():
-        proj_dir = workspace_root.parent / "projects" / project_id
-    else:
-        proj_dir = Path(f"projects/{project_id}").resolve()
+    from scripts.security.path_security import resolve_project_dir
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
 
     engine_dir = workspace_root / "remotion-app"
     unlock_file = proj_dir / ".studio_unlocked"

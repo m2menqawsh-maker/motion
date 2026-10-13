@@ -73,8 +73,10 @@ def main():
     
     try:
         from scripts.core.review_service import assert_render_authorized, RenderNotAuthorizedError
+        from scripts.security.path_security import resolve_project_dir
+        ws_id = os.environ.get("AGY_WORKSPACE_ID")
+        project_dir = resolve_project_dir(project_id, workspace_id=ws_id)
         workspace_root = Path.cwd().resolve()
-        project_dir = workspace_root / "projects" / project_id
         
         try:
             auth_result = assert_render_authorized(project_dir)
@@ -93,9 +95,6 @@ def main():
             print(f"{'='*60}")
             print(f"لم يتم إصدار موافقة بشرية على المشروع (gate_3 != APPROVED) - السبب: {e.message}")
             sys.exit(1)
-            
-        workspace_root = Path.cwd().resolve()
-        project_dir = workspace_root / "projects" / project_id
 
         from scripts.core.render_input import build_render_input, get_render_props_path, RenderInputError
         try:
@@ -131,7 +130,7 @@ def main():
             adapter_script = workspace_root / "scripts" / "render_via_adapter.ts"
             render_success = False
 
-            ws_id = os.environ.get("AGY_WORKSPACE_ID", "ws_default")
+            ws_id = os.environ.get("AGY_WORKSPACE_ID") or project_dir.parent.name
             input_rev = os.environ.get("AGY_INPUT_REVISION", "1")
 
             active_render_path = "legacy_cli"
@@ -168,7 +167,7 @@ def main():
                 print(f"🎥 جاري الرندر عبر RemotionRendererAdapter (S28-R09)...")
                 try:
                     res = safe_subprocess(
-                        [npx_cmd, "tsx", str(adapter_script), project_id, "--out", str(tmp_out_file)],
+                        [npx_cmd, "tsx", str(adapter_script), project_id, "--out", str(tmp_out_file), "--workspace", ws_id],
                         env=env,
                         cwd=str(workspace_root),
                         check=True,

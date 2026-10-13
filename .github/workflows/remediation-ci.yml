@@ -405,6 +405,20 @@ jobs:
   ai-verification:
     name: ai-verification
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_memory
+        ports:
+          - 54329:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -444,6 +458,7 @@ jobs:
         env:
           PYTHONPATH: .
           TESTING: '1'
+          POSTGRES_TEST_URL: postgresql://postgres:postgres@127.0.0.1:54329/test_memory
         run: |
           mkdir -p /tmp/ai_test_reports
           pytest tests/ai/ --ignore=tests/ai/candidates -o junit_family=xunit2 --junitxml=/tmp/ai_test_reports/tier1_junit.xml
@@ -453,6 +468,7 @@ jobs:
         env:
           PYTHONPATH: .
           TESTING: '1'
+          POSTGRES_TEST_URL: postgresql://postgres:postgres@127.0.0.1:54329/test_memory
         run: |
           mkdir -p /tmp/ai_test_reports
           xvfb-run --auto-servernum pytest tests/ai/candidates/ -o junit_family=xunit2 --junitxml=/tmp/ai_test_reports/tier2_junit.xml

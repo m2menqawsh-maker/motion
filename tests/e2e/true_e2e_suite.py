@@ -29,11 +29,15 @@ from scripts.core.state_store import StateStore
 from tests.factories.canonical_factory import create_canonical_e2e_project
 
 
+E2E_WORKSPACE_ID = "ws_e2e"
+
+
 def run_pipeline(project_id: str) -> subprocess.CompletedProcess:
     """Executes the canonical orchestrator in strict production QC mode."""
     # Ensure no QC bypass flags exist in execution environment
     env = {k: v for k, v in os.environ.items() if not k.startswith("SKIP_")}
     env["MOTION_ENV"] = "test"
+    env["AGY_WORKSPACE_ID"] = E2E_WORKSPACE_ID
     proc = subprocess.run(
         [sys.executable, "scripts/pipeline.py", project_id],
         cwd=str(workspace_root),
@@ -56,7 +60,7 @@ def run_positive_scenario(
 ) -> bool:
     print(f"\n{'='*60}\nStarting E2E Scenario: {name} (Template: {template}, Aspect: {aspect})\n{'='*60}")
     project_id = f"e2e_{name.lower()}_{int(time.time())}"
-    project_dir = workspace_root / "projects" / project_id
+    project_dir = workspace_root / "projects" / E2E_WORKSPACE_ID / project_id
 
     if project_dir.exists():
         shutil.rmtree(project_dir)
@@ -145,7 +149,7 @@ def run_negative_qc_scenario() -> bool:
     """
     print(f"\n{'='*60}\nStarting E2E Negative Scenario: Defect Detection Proof\n{'='*60}")
     project_id = f"e2e_neg_qc_{int(time.time())}"
-    project_dir = workspace_root / "projects" / project_id
+    project_dir = workspace_root / "projects" / E2E_WORKSPACE_ID / project_id
 
     if project_dir.exists():
         shutil.rmtree(project_dir)
@@ -174,7 +178,7 @@ def run_negative_qc_scenario() -> bool:
         ReviewService.approve(project_dir, bundle.review_bundle_id, principal=principal)
 
         # Render valid 16:9 output
-        sub_env = dict(os.environ, PYTHONPATH=str(workspace_root))
+        sub_env = dict(os.environ, PYTHONPATH=str(workspace_root), AGY_WORKSPACE_ID=E2E_WORKSPACE_ID)
         res_render = subprocess.run(
             [sys.executable, "scripts/render_project.py", project_id],
             cwd=str(workspace_root),
@@ -223,7 +227,7 @@ def run_unknown_template_negative_scenario() -> bool:
     """LED-076: Proves unknown template is rejected fail-closed during pipeline validation."""
     print(f"\n{'='*60}\nStarting E2E Negative Scenario: Unknown Template Rejection\n{'='*60}")
     project_id = f"e2e_neg_tpl_{int(time.time())}"
-    project_dir = workspace_root / "projects" / project_id
+    project_dir = workspace_root / "projects" / E2E_WORKSPACE_ID / project_id
 
     if project_dir.exists():
         shutil.rmtree(project_dir)

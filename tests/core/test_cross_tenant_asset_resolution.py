@@ -51,7 +51,7 @@ def multi_tenant_fixture(tmp_path: Path):
 
 def test_asset_upload_stores_in_storage_service_and_manifest(multi_tenant_fixture, monkeypatch):
     engine, repo, p_a, _ = multi_tenant_fixture
-    monkeypatch.setattr(AssetService, "_get_project_dir", classmethod(lambda cls, pid: p_a))
+    monkeypatch.setattr(AssetService, "_get_project_dir", classmethod(lambda cls, pid, *args, **kwargs: p_a))
 
     uploaded = AssetService.upload_asset(
         project_id="prj_a",
@@ -79,7 +79,7 @@ def test_cross_reference_attack_rejected_fail_closed(multi_tenant_fixture, monke
     engine, repo, p_a, p_b = multi_tenant_fixture
 
     # 1. Bob uploads asset into Project B
-    monkeypatch.setattr(AssetService, "_get_project_dir", classmethod(lambda cls, pid: p_b))
+    monkeypatch.setattr(AssetService, "_get_project_dir", classmethod(lambda cls, pid, *args, **kwargs: p_b))
     uploaded_b = AssetService.upload_asset(
         project_id="prj_b",
         content=b"\x89PNG\r\n\x1a\nbobsecret",

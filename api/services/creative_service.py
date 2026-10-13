@@ -206,9 +206,13 @@ class CreativeService:
             pass
 
         # 4b. Authoritative project state metadata
-        proj_dir = Path(f"projects/{project_id}")
+        from scripts.security.path_security import resolve_project_dir
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=trusted_ctx.workspace_id)
+        except Exception:
+            proj_dir = None
         project_state_dict: Optional[Dict[str, Any]] = None
-        if proj_dir.exists():
+        if proj_dir and proj_dir.exists():
             state = StateStore.load(proj_dir)
             if state:
                 project_state_dict = state.model_dump(mode="json")

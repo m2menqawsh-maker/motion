@@ -63,8 +63,8 @@ def b2_env(tmp_path, monkeypatch):
     prj_alpha = repo.create_project("prj_alpha_b2", ws_alpha.id, "Alpha B2 Video", created_by=user_alice.id)
 
     # Create project directory on disk
-    pdir_alpha = Path(f"projects/{prj_alpha.id}")
-    pdir_alpha.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    pdir_alpha = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id, create=True)
 
     client = TestClient(app)
 
@@ -96,6 +96,8 @@ def b2_env(tmp_path, monkeypatch):
     finally:
         import shutil
         shutil.rmtree(pdir_alpha, ignore_errors=True)
+        if pdir_alpha.parent.exists() and not any(pdir_alpha.parent.iterdir()):
+            shutil.rmtree(pdir_alpha.parent, ignore_errors=True)
 
 
 def test_list_capabilities_discovery(b2_env):

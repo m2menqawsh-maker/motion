@@ -55,6 +55,7 @@ from scripts.core.security.permissions import (
 from scripts.core.state_model import LifecycleState, ProjectState
 from scripts.core.state_store import StateStore
 from scripts.core.storage import LocalStorageBackend, set_storage_service
+from scripts.security.path_security import resolve_project_dir
 
 
 @pytest.fixture
@@ -99,7 +100,7 @@ def isolation_env(tmp_path: Path, monkeypatch):
     prj_beta = tenant_repo.create_project("prj_beta_main", "ws_beta", "Beta Main", created_by=u_bob.id)
 
     # On-disk scaffolds
-    p_alpha_dir = Path(f"projects/{prj_alpha.id}")
+    p_alpha_dir = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id)
     p_alpha_dir.mkdir(parents=True, exist_ok=True)
     state_alpha = ProjectState(
         project_id=prj_alpha.id,
@@ -111,7 +112,7 @@ def isolation_env(tmp_path: Path, monkeypatch):
     (p_alpha_dir / "05_blueprint.json").write_text("{}", encoding="utf-8")
     (p_alpha_dir / "out.mp4").write_bytes(b"ALPHA_OUTPUT_VIDEO_BYTES")
 
-    p_beta_dir = Path(f"projects/{prj_beta.id}")
+    p_beta_dir = resolve_project_dir(prj_beta.id, workspace_id=ws_beta.id)
     p_beta_dir.mkdir(parents=True, exist_ok=True)
     state_beta = ProjectState(
         project_id=prj_beta.id,
@@ -178,6 +179,10 @@ def isolation_env(tmp_path: Path, monkeypatch):
     import shutil
     shutil.rmtree(p_alpha_dir, ignore_errors=True)
     shutil.rmtree(p_beta_dir, ignore_errors=True)
+    if p_alpha_dir.parent.exists() and p_alpha_dir.parent.name == ws_alpha.id:
+        shutil.rmtree(p_alpha_dir.parent, ignore_errors=True)
+    if p_beta_dir.parent.exists() and p_beta_dir.parent.name == ws_beta.id:
+        shutil.rmtree(p_beta_dir.parent, ignore_errors=True)
     set_database_engine(None)
     set_storage_service(None)
 

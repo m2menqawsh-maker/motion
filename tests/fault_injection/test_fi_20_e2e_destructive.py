@@ -61,10 +61,9 @@ def fi20_env(tmp_path: Path, monkeypatch):
     prj_b = tenant_repo.create_project("prj_fi20_b", ws_b.id, "Tenant B Video", created_by=user_b.id)
     tenant_repo.add_member(ws_b.id, user_b.id, role=Role.ADMIN)
 
-    proj_dir_a = Path("projects") / prj_a.id
-    proj_dir_a.mkdir(parents=True, exist_ok=True)
-    proj_dir_b = Path("projects") / prj_b.id
-    proj_dir_b.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    proj_dir_a = resolve_project_dir(prj_a.id, workspace_id=ws_a.id, create=True)
+    proj_dir_b = resolve_project_dir(prj_b.id, workspace_id=ws_b.id, create=True)
 
     run_repo = RunRepository(db_path=db_file)
     storage_dir = tmp_path / "storage"
@@ -90,6 +89,8 @@ def fi20_env(tmp_path: Path, monkeypatch):
     set_storage_service(None)
     shutil.rmtree(proj_dir_a, ignore_errors=True)
     shutil.rmtree(proj_dir_b, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_a.id, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_b.id, ignore_errors=True)
 
 
 def test_fi20_end_to_end_destructive_cascade_and_cross_tenant_isolation(fi20_env, monkeypatch):

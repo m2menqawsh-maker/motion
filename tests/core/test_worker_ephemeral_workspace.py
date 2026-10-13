@@ -23,6 +23,8 @@ from scripts.core.storage import LocalStorageBackend, set_storage_service, get_s
 from scripts.core.database import DatabaseEngine, set_database_engine, UsageRepository
 from scripts.core.tenant_model import UsageEventType
 from scripts.core.database import TenantRepository
+from scripts.security.path_security import resolve_project_dir
+import shutil
 
 
 @pytest.fixture
@@ -121,8 +123,7 @@ def test_worker_cross_tenant_asset_rejection(test_env, monkeypatch):
     _setup_tenant_project(test_env, "ws_victim", "prj_victim")
 
     # Setup project directory with cross-tenant manifest
-    proj_dir = Path("projects") / proj_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(proj_id, workspace_id=ws_id, create=True)
     try:
         manifest_data = {
             "version": "2.0.0",
@@ -165,8 +166,9 @@ def test_worker_cross_tenant_asset_rejection(test_env, monkeypatch):
 
     finally:
         # Cleanup test project directory
-        import shutil
         shutil.rmtree(proj_dir, ignore_errors=True)
+        if proj_dir.parent.exists() and proj_dir.parent.name == ws_id:
+            shutil.rmtree(proj_dir.parent, ignore_errors=True)
 
 
 def test_worker_ephemeral_workspace_and_output_persistence(test_env, monkeypatch):
@@ -184,8 +186,7 @@ def test_worker_ephemeral_workspace_and_output_persistence(test_env, monkeypatch
 
     _setup_tenant_project(test_env, ws_id, proj_id)
 
-    proj_dir = Path("projects") / proj_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(proj_id, workspace_id=ws_id, create=True)
     try:
         # Create dummy project files
         dummy_mp4 = b"FAKE_MP4_HEADER_DATA_12345"
@@ -253,5 +254,6 @@ def test_worker_ephemeral_workspace_and_output_persistence(test_env, monkeypatch
         assert storage.get(out_storage_key) == dummy_mp4
 
     finally:
-        import shutil
         shutil.rmtree(proj_dir, ignore_errors=True)
+        if proj_dir.parent.exists() and proj_dir.parent.name == ws_id:
+            shutil.rmtree(proj_dir.parent, ignore_errors=True)

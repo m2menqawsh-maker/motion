@@ -32,9 +32,20 @@ class ProjectService:
     """Domain service for project creation, queries, and lifecycle projection."""
 
     @classmethod
-    def _get_project_dir(cls, project_id: str) -> Path:
-        validate_project_id(project_id)
-        proj_dir = Path(f"projects/{project_id}")
+    def _get_project_dir(cls, project_id: str, workspace_id: Optional[str] = None) -> Path:
+        from scripts.security.path_security import resolve_project_dir
+        if not workspace_id:
+            try:
+                workspace_id = cls.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+        from scripts.security.path_security import TenantSecurityError
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+        except TenantSecurityError as e:
+            if "workspace_id is strictly required" in str(e):
+                raise ProjectNotFoundError(project_id)
+            raise
         if not proj_dir.exists():
             raise ProjectNotFoundError(project_id)
         return proj_dir
@@ -134,8 +145,9 @@ class ProjectService:
                     reason=f"Principal '{principal.principal_id}' is not an active member of any workspace with project creation permissions. Unmanaged project creation via HTTP API is prohibited."
                 )
 
+        from scripts.security.path_security import resolve_project_dir
         project_id = f"prj_{uuid.uuid4().hex[:8]}"
-        project_dir = Path(f"projects/{project_id}")
+        project_dir = resolve_project_dir(project_id, workspace_id=target_workspace_id, create=False)
 
         # 1. Scaffolding project filesystem
         try:
@@ -219,22 +231,21 @@ class ProjectService:
             except Exception:
                 pass
 
-        # Also inspect on-disk projects
+        # Also inspect on-disk projects under tenant workspaces
         projects_dir = Path("projects")
         if projects_dir.exists():
-            for d in projects_dir.iterdir():
-                if d.is_dir() and d.name.startswith("prj_"):
-                    p_id = d.name
-                    owner_ws = cls.get_project_workspace_id(p_id)
-                    if owner_ws:
-                        if owner_ws in user_workspace_ids:
-                            accessible_projects.add(p_id)
-                    else:
-                        # Truly unmanaged standalone project
-                        if principal.is_admin:
-                            accessible_projects.add(p_id)
-                        elif principal.project_scopes and (p_id in principal.project_scopes or "*" in principal.project_scopes):
-                            accessible_projects.add(p_id)
+            for ws_id in user_workspace_ids:
+                ws_dir = projects_dir / ws_id
+                if ws_dir.exists() and ws_dir.is_dir():
+                    for d in ws_dir.iterdir():
+                        if d.is_dir() and d.name.startswith("prj_"):
+                            accessible_projects.add(d.name)
+            if principal.is_admin:
+                for ws_dir in projects_dir.iterdir():
+                    if ws_dir.is_dir() and not ws_dir.name.startswith("."):
+                        for d in ws_dir.iterdir():
+                            if d.is_dir() and d.name.startswith("prj_"):
+                                accessible_projects.add(d.name)
 
         # Filter by project_scopes if defined and not wildcard
         if principal.project_scopes and "*" not in principal.project_scopes:
@@ -256,14 +267,14 @@ class ProjectService:
         except Exception:
             pass
 
-        # Check local state store if project directory exists
-        try:
-            proj_dir = cls._get_project_dir(project_id)
-            state = StateStore.load(proj_dir)
-            if state and getattr(state, "workspace_id", None):
-                return state.workspace_id
-        except Exception:
-            pass
+        # Check tenant directories on disk
+        projects_dir = Path("projects")
+        if projects_dir.exists():
+            for ws_dir in projects_dir.iterdir():
+                if ws_dir.is_dir() and not ws_dir.name.startswith("."):
+                    cand = ws_dir / project_id
+                    if cand.exists() and cand.is_dir():
+                        return ws_dir.name
 
         return None
 
@@ -310,10 +321,19 @@ class ProjectService:
         Derives the canonical, un-degraded LifecycleDTO projection (LED-071).
         """
         validate_project_id(project_id)
-        proj_dir = Path(f"projects/{project_id}")
+        ws_id = cls.get_project_workspace_id(project_id)
+        proj_dir: Optional[Path] = None
         state: Optional[ProjectState] = None
-        if proj_dir.exists():
-            state = StateStore.load(proj_dir)
+        try:
+            if ws_id:
+                proj_dir = cls._get_project_dir(project_id, workspace_id=ws_id)
+            else:
+                proj_dir = cls._get_project_dir(project_id)
+            if proj_dir and proj_dir.exists():
+                state = StateStore.load(proj_dir)
+        except (ProjectNotFoundError, TenantSecurityError):
+            proj_dir = None
+            state = None
 
         # In multi-tenant environments, check database for authoritative state
         try:
@@ -386,7 +406,7 @@ class ProjectService:
         # 3. Artifact records mapping
         artifacts_status = {}
         for rec in state.artifact_records:
-            artifacts_status[rec.path] = rec.status.value
+            artifacts_status[rec.path] = rec.status.value if hasattr(rec.status, "value") else str(rec.status)
 
         # 4. Derivation of allowed actions
         lstate = state.lifecycle_state

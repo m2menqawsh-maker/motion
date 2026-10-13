@@ -89,8 +89,16 @@ class PipelineWorker:
             logger.warning(f"Worker {self.worker_id} lease expired or lost for run {run.run_id}; skipping upload.")
             return
 
-        proj_dir = Path("projects") / run.project_id
-        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
+        ws_id = getattr(run, "workspace_id", None)
+        if not ws_id or ws_id == "ws_default":
+            try:
+                prec = self.repo.get_project(run.project_id)
+                if prec and prec.workspace_id:
+                    ws_id = prec.workspace_id
+            except Exception:
+                pass
+        from scripts.security.path_security import resolve_project_dir
+        proj_dir = resolve_project_dir(run.project_id, workspace_id=ws_id)
 
         try:
             from scripts.core.storage import get_storage_service
@@ -150,7 +158,9 @@ class PipelineWorker:
             logger.warning(
                 f"Detected orphaned run {orphan.run_id} for project {orphan.project_id} (attempt {orphan.attempt})"
             )
-            proj_dir = Path(f"projects/{orphan.project_id}")
+            ws_id = getattr(orphan, "workspace_id", None)
+            from scripts.security.path_security import resolve_project_dir
+            proj_dir = resolve_project_dir(orphan.project_id, workspace_id=ws_id)
             # If attempts exceeded (max 3), mark permanently failed
             if orphan.attempt >= 3:
                 self.repo.mark_run_failed(
@@ -199,7 +209,14 @@ class PipelineWorker:
             return False
 
         self._active_run = run
-        ws_id = getattr(run, "workspace_id", "ws_default") or "ws_default"
+        ws_id = getattr(run, "workspace_id", None)
+        if not ws_id or ws_id == "ws_default":
+            try:
+                prec = self.repo.get_project(run.project_id)
+                if prec and prec.workspace_id:
+                    ws_id = prec.workspace_id
+            except Exception:
+                pass
         logger.info(
             f"Worker {self.worker_id} successfully claimed run {run.run_id} for project {run.project_id} (workspace {ws_id}) "
             f"(attempt {run.attempt})"
@@ -236,7 +253,8 @@ class PipelineWorker:
             return True
 
         # Check tenant asset isolation (Section 12)
-        proj_dir = Path("projects") / run.project_id
+        from scripts.security.path_security import resolve_project_dir
+        proj_dir = resolve_project_dir(run.project_id, workspace_id=ws_id)
         manifest_path = proj_dir / "01_manifest.json"
         if not manifest_path.exists():
             manifest_path = proj_dir / "manifest.json"

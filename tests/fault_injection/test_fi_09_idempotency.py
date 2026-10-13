@@ -39,8 +39,8 @@ def fi09_env(tmp_path: Path, monkeypatch):
     ws = tenant_repo.create_workspace("ws_fi09", "Workspace FI09", created_by=u.id)
     prj = tenant_repo.create_project("prj_fi09", ws.id, "FI09 Video", created_by=u.id)
 
-    proj_dir = Path("projects") / prj.id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    proj_dir = resolve_project_dir(prj.id, workspace_id=ws.id, create=True)
 
     from scripts.core.tenant_model import Role
     tenant_repo.add_member(ws.id, u.id, role=Role.ADMIN)
@@ -65,6 +65,7 @@ def fi09_env(tmp_path: Path, monkeypatch):
     set_storage_service(None)
     import shutil
     shutil.rmtree(proj_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws.id, ignore_errors=True)
 
 
 def test_fi09_identical_requests_return_same_run_without_duplicate(fi09_env):

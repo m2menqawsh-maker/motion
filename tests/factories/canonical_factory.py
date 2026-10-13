@@ -271,8 +271,10 @@ sentence_index: 1
     )
 
     # 5. project.json
+    ws_id = project_dir.parent.name if project_dir.parent.name.startswith("ws_") else None
     project_meta = {
         "project_id": project_id,
+        "workspace_id": ws_id,
         "name": f"E2E Test {project_id}",
         "language": "ar",
         "created_at": "2026-09-28T00:00:00Z",

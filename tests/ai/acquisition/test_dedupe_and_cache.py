@@ -126,6 +126,16 @@ class TestSearchCache:
 class TestConcurrentDeduplication:
     """Verifies that concurrent acquisition of identical content yields exactly one canonical asset via database CAS authority."""
 
+    @pytest.fixture(autouse=True)
+    def setup_tenant_workspace(self, monkeypatch):
+        import shutil
+        from pathlib import Path
+        monkeypatch.setenv("AGY_WORKSPACE_ID", "ws_test")
+        ws_dir = Path("projects") / "ws_test"
+        ws_dir.mkdir(parents=True, exist_ok=True)
+        yield
+        shutil.rmtree(ws_dir, ignore_errors=True)
+
     @pytest.mark.asyncio
     async def test_concurrent_acquisition_deduplicates_to_single_asset(self):
         import asyncio
@@ -139,7 +149,7 @@ class TestConcurrentDeduplication:
         from scripts.core.canonical_asset_repository import CanonicalAssetRepository
 
         project_id = "prj_concurrent_dedupe"
-        proj_dir = Path("projects") / project_id
+        proj_dir = Path("projects/ws_test") / project_id
         proj_dir.mkdir(parents=True, exist_ok=True)
         manifest_path = proj_dir / "02_asset_manifest.json"
         manifest_path.write_text('{"schema_version": "2.0.0", "project_id": "prj_concurrent_dedupe", "assets": []}', encoding="utf-8")
@@ -218,7 +228,7 @@ class TestConcurrentDeduplication:
         from scripts.core.canonical_asset_repository import CanonicalAssetRepository
 
         project_id = "prj_cas_uniqueness"
-        proj_dir = Path("projects") / project_id
+        proj_dir = Path("projects/ws_test") / project_id
         proj_dir.mkdir(parents=True, exist_ok=True)
         manifest_path = proj_dir / "02_asset_manifest.json"
         manifest_path.write_text('{"schema_version": "2.0.0", "project_id": "prj_cas_uniqueness", "assets": []}', encoding="utf-8")
@@ -279,7 +289,7 @@ class TestConcurrentDeduplication:
         from scripts.core.canonical_asset_repository import CanonicalAssetRepository
 
         project_id = "prj_same_hash_same_proj"
-        proj_dir = Path("projects") / project_id
+        proj_dir = Path("projects/ws_test") / project_id
         proj_dir.mkdir(parents=True, exist_ok=True)
         manifest_path = proj_dir / "02_asset_manifest.json"
         manifest_path.write_text(f'{{"schema_version": "2.0.0", "project_id": "{project_id}", "assets": []}}', encoding="utf-8")
@@ -343,11 +353,31 @@ class TestConcurrentDeduplication:
         from ai.acquisition.service import AssetAcquisitionService
         from api.services.asset_service import AssetService
         from scripts.core.canonical_asset_repository import CanonicalAssetRepository
+        from scripts.core.database import TenantRepository, UserStatus
 
+        ws_a = "ws_scope_alpha"
+        ws_b = "ws_scope_beta"
         project_a = "prj_scope_alpha"
         project_b = "prj_scope_beta"
-        for p_id in [project_a, project_b]:
-            p_dir = Path("projects") / p_id
+
+        canon_repo = CanonicalAssetRepository()
+        tenant_repo = TenantRepository(canon_repo.db)
+
+        with canon_repo.db.transaction("IMMEDIATE") as conn:
+            conn.execute("DELETE FROM canonical_assets WHERE project_id IN (?, ?)", (project_a, project_b))
+            conn.execute("DELETE FROM projects WHERE id IN (?, ?)", (project_a, project_b))
+            conn.execute("DELETE FROM workspaces WHERE id IN (?, ?)", (ws_a, ws_b))
+            conn.execute("DELETE FROM users WHERE id IN ('usr_scope_a', 'usr_scope_b')")
+
+        tenant_repo.create_user("usr_scope_a", "scope_a@example.com", UserStatus.ACTIVE)
+        tenant_repo.create_user("usr_scope_b", "scope_b@example.com", UserStatus.ACTIVE)
+        tenant_repo.create_workspace(ws_a, "Workspace Alpha", "usr_scope_a")
+        tenant_repo.create_workspace(ws_b, "Workspace Beta", "usr_scope_b")
+        tenant_repo.create_project(project_id=project_a, workspace_id=ws_a, name="Project Alpha", created_by="usr_scope_a")
+        tenant_repo.create_project(project_id=project_b, workspace_id=ws_b, name="Project Beta", created_by="usr_scope_b")
+
+        for ws_id, p_id in [(ws_a, project_a), (ws_b, project_b)]:
+            p_dir = Path("projects") / ws_id / p_id
             p_dir.mkdir(parents=True, exist_ok=True)
             m_path = p_dir / "02_asset_manifest.json"
             m_path.write_text(f'{{"schema_version": "2.0.0", "project_id": "{p_id}", "assets": []}}', encoding="utf-8")
@@ -366,7 +396,6 @@ class TestConcurrentDeduplication:
             suggested_extension=".mp4",
         )
 
-        canon_repo = CanonicalAssetRepository()
         try:
             with canon_repo.db.transaction("IMMEDIATE") as conn:
                 conn.execute("DELETE FROM canonical_assets WHERE project_id IN (?, ?)", (project_a, project_b))
@@ -401,10 +430,13 @@ class TestConcurrentDeduplication:
             try:
                 with canon_repo.db.transaction("IMMEDIATE") as conn:
                     conn.execute("DELETE FROM canonical_assets WHERE project_id IN (?, ?)", (project_a, project_b))
+                    conn.execute("DELETE FROM projects WHERE id IN (?, ?)", (project_a, project_b))
+                    conn.execute("DELETE FROM workspaces WHERE id IN (?, ?)", (ws_a, ws_b))
+                    conn.execute("DELETE FROM users WHERE id IN ('usr_scope_a', 'usr_scope_b')")
             except Exception:
                 pass
-            for p_id in [project_a, project_b]:
-                shutil.rmtree(Path("projects") / p_id, ignore_errors=True)
+            for ws_id, p_id in [(ws_a, project_a), (ws_b, project_b)]:
+                shutil.rmtree(Path("projects") / ws_id, ignore_errors=True)
 
     @pytest.mark.asyncio
     async def test_same_hash_different_workspace_tenant_no_collision_and_no_leak(self):
@@ -445,8 +477,8 @@ class TestConcurrentDeduplication:
         tenant_repo.create_project(project_id=prj_tenant_1, workspace_id=ws_tenant_1, name="Project T1", created_by="usr_t1")
         tenant_repo.create_project(project_id=prj_tenant_2, workspace_id=ws_tenant_2, name="Project T2", created_by="usr_t2")
 
-        for p_id in [prj_tenant_1, prj_tenant_2]:
-            p_dir = Path("projects") / p_id
+        for p_id, ws_id in [(prj_tenant_1, ws_tenant_1), (prj_tenant_2, ws_tenant_2)]:
+            p_dir = Path("projects") / ws_id / p_id
             p_dir.mkdir(parents=True, exist_ok=True)
             m_path = p_dir / "02_asset_manifest.json"
             m_path.write_text(f'{{"schema_version": "2.0.0", "project_id": "{p_id}", "assets": []}}', encoding="utf-8")
@@ -518,7 +550,8 @@ class TestConcurrentDeduplication:
                     conn.execute("DELETE FROM users WHERE id IN ('usr_t1', 'usr_t2')")
             except Exception:
                 pass
-            for p_id in [prj_tenant_1, prj_tenant_2]:
-                shutil.rmtree(Path("projects") / p_id, ignore_errors=True)
+            for p_id, ws_id in [(prj_tenant_1, ws_tenant_1), (prj_tenant_2, ws_tenant_2)]:
+                shutil.rmtree(Path("projects") / ws_id / p_id, ignore_errors=True)
+                shutil.rmtree(Path("projects") / ws_id, ignore_errors=True)
 
 

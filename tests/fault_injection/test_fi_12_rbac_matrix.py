@@ -70,9 +70,8 @@ def fi12_env(tmp_path: Path, monkeypatch):
 
     prj = repo.create_project("prj_rbac_01", ws.id, "RBAC Video Project", created_by=admin_u.id)
 
-    # Scaffolding
-    p_dir = Path(f"projects/{prj.id}")
-    p_dir.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    p_dir = resolve_project_dir(prj.id, workspace_id=ws.id, create=True)
     manifest = {
         "manifest_version": "2.0.0",
         "project_id": prj.id,
@@ -137,6 +136,7 @@ def fi12_env(tmp_path: Path, monkeypatch):
 
     import shutil
     shutil.rmtree(p_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws.id, ignore_errors=True)
     set_database_engine(None)
     set_storage_service(None)
 

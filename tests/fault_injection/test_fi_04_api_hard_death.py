@@ -43,8 +43,8 @@ def fi04_env(tmp_path: Path, monkeypatch):
     ws = tenant_repo.create_workspace("ws_fi04", "Workspace FI04", created_by=u.id)
     prj = tenant_repo.create_project("prj_fi04", ws.id, "FI04 Video", created_by=u.id)
 
-    proj_dir = Path("projects") / prj.id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    proj_dir = resolve_project_dir(prj.id, workspace_id=ws.id, create=True)
 
     # Set up tenant membership so principal can access workspace
     from scripts.core.tenant_model import Role
@@ -70,6 +70,7 @@ def fi04_env(tmp_path: Path, monkeypatch):
     set_database_engine(None)
     import shutil
     shutil.rmtree(proj_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws.id, ignore_errors=True)
 
 
 def test_fi04_api_hard_death_after_submission_and_restart(fi04_env):

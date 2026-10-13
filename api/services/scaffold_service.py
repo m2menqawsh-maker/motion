@@ -31,9 +31,13 @@ def create_project(
 
     result = safe_subprocess(cmd, capture_output=True, text=True, encoding="utf-8")
     if result.returncode != 0:
-        if project_id:
-            proj_dir = Path(f"projects/{project_id}")
-            if proj_dir.exists() and proj_dir.name == project_id and project_id.startswith("prj_"):
-                shutil.rmtree(proj_dir, ignore_errors=True)
+        if project_id and workspace_id:
+            from scripts.security.path_security import resolve_project_dir
+            try:
+                proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+                if proj_dir.exists() and proj_dir.name == project_id and project_id.startswith("prj_"):
+                    shutil.rmtree(proj_dir, ignore_errors=True)
+            except Exception:
+                pass
         raise RuntimeError(f"Failed to create project: {result.stderr}")
     return result.stdout.strip()
