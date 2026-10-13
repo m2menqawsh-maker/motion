@@ -85,8 +85,8 @@ def env_closure(tmp_path, monkeypatch):
     prj_alpha = repo.create_project("prj_alpha_closure", ws_alpha.id, "Alpha Closure Video", created_by=user_alice.id)
 
     # Setup on-disk project directory
-    pdir_alpha = Path(f"projects/{prj_alpha.id}")
-    pdir_alpha.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    pdir_alpha = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id, create=True)
 
     client = TestClient(app)
 
@@ -134,10 +134,14 @@ def env_closure(tmp_path, monkeypatch):
         },
         "client": client,
         "pdir_alpha": pdir_alpha,
+        "tmp_path": tmp_path,
     }
 
     if pdir_alpha.exists():
         shutil.rmtree(pdir_alpha, ignore_errors=True)
+    ws_dir = pdir_alpha.parent
+    if ws_dir.exists() and not any(ws_dir.iterdir()):
+        shutil.rmtree(ws_dir, ignore_errors=True)
     pub_pdir = Path("remotion-app/public/projects") / prj_alpha.id
     if pub_pdir.exists():
         shutil.rmtree(pub_pdir, ignore_errors=True)
@@ -411,10 +415,23 @@ def test_c5_c6_c7_unmocked_worker_to_mp4_render_e2e(env_closure):
     # Materialize audio asset in public root under projects/{pid}/ normalized to -16 LUFS
     public_audio_dir = Path("remotion-app/public/projects") / pid
     public_audio_dir.mkdir(parents=True, exist_ok=True)
-    audio_src = Path("remotion-app/public/accent_chime.mp3")
     target_norm_audio = public_audio_dir / "accent_chime.mp3"
+
+    from tests.factories.canonical_factory import generate_calibrated_tone_wav
+    audio_tmp_dir = env_closure["tmp_path"] / "audio_fixture"
+    audio_tmp_dir.mkdir(parents=True, exist_ok=True)
+    synth_wav = audio_tmp_dir / "synthetic_accent_chime.wav"
+    generate_calibrated_tone_wav(synth_wav, duration_seconds=3.0, target_lufs=-16.0, with_chime_onsets=True)
+
     subprocess.run(
-        ["ffmpeg", "-y", "-i", str(audio_src), "-filter:a", "loudnorm=I=-16:TP=-1.5:LRA=11", str(target_norm_audio)],
+        [
+            "ffmpeg", "-y",
+            "-stream_loop", "-1",
+            "-i", str(synth_wav),
+            "-t", "15",
+            "-filter:a", "loudnorm=I=-16:TP=-1.5:LRA=11",
+            str(target_norm_audio),
+        ],
         check=True,
         capture_output=True,
     )

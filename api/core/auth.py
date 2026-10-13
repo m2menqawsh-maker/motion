@@ -346,10 +346,11 @@ def require_permission(action: Action):
             else:
                 # Check on-disk state
                 try:
-                    from pathlib import Path
                     from scripts.core.state_store import StateStore
                     from scripts.core.tenant_model import TenantContext
-                    proj_dir = Path(f"projects/{project_id}")
+                    from scripts.security.path_security import resolve_project_dir
+                    ws_req = request.headers.get("X-Workspace-ID")
+                    proj_dir = resolve_project_dir(project_id, workspace_id=ws_req)
                     if proj_dir.exists():
                         state = StateStore.load(proj_dir)
                         if state and getattr(state, "workspace_id", None):

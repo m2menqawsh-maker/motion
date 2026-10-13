@@ -77,10 +77,8 @@ def env_provenance(tmp_path, monkeypatch):
     prj_alpha = repo.create_project("prj_provenance_test", ws_alpha.id, "Provenance Verification Video", created_by=user_alice.id)
 
     # Setup on-disk project directory
-    pdir_alpha = Path(f"projects/{prj_alpha.id}")
-    if pdir_alpha.exists():
-        shutil.rmtree(pdir_alpha, ignore_errors=True)
-    pdir_alpha.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    pdir_alpha = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id, create=True)
 
     client = TestClient(app)
 
@@ -108,6 +106,7 @@ def env_provenance(tmp_path, monkeypatch):
 
     if pdir_alpha.exists():
         shutil.rmtree(pdir_alpha, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_alpha.id, ignore_errors=True)
     pub_pdir = Path("remotion-app/public/projects") / prj_alpha.id
     if pub_pdir.exists():
         shutil.rmtree(pub_pdir, ignore_errors=True)

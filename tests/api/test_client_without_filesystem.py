@@ -37,7 +37,8 @@ def test_client_api_only_workflow():
         assert create_resp.status_code == 200, f"Failed: {create_resp.text}"
         project_data = create_resp.json()
         project_id = project_data["project_id"]
-        proj_dir = Path(f"projects/{project_id}")
+        from api.services.project_service import ProjectService
+        proj_dir = ProjectService._get_project_dir(project_id)
 
         # -------------------------------------------------------------
         # 2. Canonical Lifecycle DTO Projection
@@ -132,8 +133,8 @@ def test_client_api_only_workflow():
         assert stale_overrides_resp.status_code == 409
 
         # Valid update with latest revision
-        latest_state = StateStore.load(proj_dir)
-        current_rev = latest_state.revision if latest_state else 1
+        latest_state_dto = client.get(f"/projects/{project_id}/state", headers=auth_headers).json()
+        current_rev = latest_state_dto["revision"]
         valid_overrides_resp = client.post(
             f"/blueprint/{project_id}/overrides",
             json=overrides_payload,

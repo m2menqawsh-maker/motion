@@ -105,21 +105,14 @@ def resolve_project_dir(
     p = Path(project_dir_or_id)
     if p.is_dir() and p.exists():
         project_dir = p.resolve()
-        project_id = validate_project_id(project_dir.name)
+        validate_project_id(project_dir.name)
         return project_dir
 
     project_id = validate_project_id(str(project_dir_or_id))
-    candidates = [
-        ws / "projects" / project_id,
-        ws.parent / "projects" / project_id if ws.name == "remotion-app" else None,
-        Path(f"projects/{project_id}").resolve(),
-    ]
-    for cand in candidates:
-        if cand and cand.exists() and cand.is_dir():
-            return cand.resolve()
-
-    # Fallback to standard location under workspace root
-    return (ws / "projects" / project_id).resolve()
+    from scripts.security.path_security import resolve_project_dir as sec_resolve_project_dir
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    base = ws / "projects" if ws.name != "projects" else ws
+    return sec_resolve_project_dir(project_id, workspace_id=ws_id, base_dir=base)
 
 
 def get_render_props_path(

@@ -21,12 +21,13 @@ interface CliOptions {
   outputPath?: string;
   frame?: number;
   bundleLocation?: string;
+  workspaceId?: string;
 }
 
 function parseCliArgs(): CliOptions {
   const args = process.argv.slice(2);
   if (args.length === 0) {
-    console.error("Usage: npx tsx scripts/render_via_adapter.ts <project_id> [--out <path>] [--frame <num>] [--bundle <dir>]");
+    console.error("Usage: npx tsx scripts/render_via_adapter.ts <project_id> [--out <path>] [--frame <num>] [--bundle <dir>] [--workspace <id>]");
     process.exit(1);
   }
 
@@ -34,6 +35,7 @@ function parseCliArgs(): CliOptions {
   let outputPath: string | undefined;
   let frame: number | undefined;
   let bundleLocation: string | undefined;
+  let workspaceId: string | undefined;
 
   for (let i = 1; i < args.length; i++) {
     if (args[i] === "--out" && args[i + 1]) {
@@ -45,16 +47,28 @@ function parseCliArgs(): CliOptions {
     } else if (args[i] === "--bundle" && args[i + 1]) {
       bundleLocation = args[i + 1];
       i++;
+    } else if ((args[i] === "--workspace" || args[i] === "--workspace-id") && args[i + 1]) {
+      workspaceId = args[i + 1];
+      i++;
     }
   }
 
-  return { projectId, outputPath, frame, bundleLocation };
+  return { projectId, outputPath, frame, bundleLocation, workspaceId };
 }
 
 async function run(): Promise<void> {
   const options = parseCliArgs();
   const rootDir = process.cwd();
-  const projectDir = path.resolve(rootDir, "projects", options.projectId);
+  let projectDir = options.workspaceId
+    ? path.resolve(rootDir, "projects", options.workspaceId, options.projectId)
+    : path.resolve(rootDir, "projects", options.projectId);
+
+  if (!fs.existsSync(projectDir)) {
+    const fallbackDir = path.resolve(rootDir, "projects", options.projectId);
+    if (fs.existsSync(fallbackDir)) {
+      projectDir = fallbackDir;
+    }
+  }
 
   if (!fs.existsSync(projectDir)) {
     console.error(`Project directory not found: ${projectDir}`);

@@ -53,7 +53,8 @@ def saas_env(tmp_path):
     prj_b = tenant_repo.create_project("prj_beta_1", "ws_beta", "Beta Video 1", created_by=user_b.id)
 
     # Setup local project directory for Alpha
-    proj_dir_a = Path(f"projects/{prj_a.id}")
+    from scripts.security.path_security import resolve_project_dir
+    proj_dir_a = resolve_project_dir(prj_a.id, workspace_id=ws_a.id)
     proj_dir_a.mkdir(parents=True, exist_ok=True)
     state_a = ProjectState(
         project_id=prj_a.id,
@@ -86,6 +87,8 @@ def saas_env(tmp_path):
 
     import shutil
     shutil.rmtree(proj_dir_a, ignore_errors=True)
+    if proj_dir_a.parent.exists() and proj_dir_a.parent.name == ws_a.id:
+        shutil.rmtree(proj_dir_a.parent, ignore_errors=True)
 
 
 def test_runs_api_cross_tenant_isolation(saas_env):

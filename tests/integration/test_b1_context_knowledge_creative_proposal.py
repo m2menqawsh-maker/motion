@@ -54,8 +54,8 @@ def b1_env(tmp_path, monkeypatch):
     prj_alpha = repo.create_project("prj_alpha_b1", ws_alpha.id, "Alpha Context Video", created_by=user_alice.id)
 
     # Create project directory on disk
-    pdir_alpha = Path(f"projects/{prj_alpha.id}")
-    pdir_alpha.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    pdir_alpha = resolve_project_dir(prj_alpha.id, workspace_id=ws_alpha.id, create=True)
 
     client = TestClient(app)
 
@@ -83,6 +83,7 @@ def b1_env(tmp_path, monkeypatch):
     finally:
         import shutil
         shutil.rmtree(pdir_alpha, ignore_errors=True)
+        shutil.rmtree(Path("projects") / ws_alpha.id, ignore_errors=True)
 
 
 def test_authenticated_proposal_invokes_context_builder(b1_env):
@@ -366,10 +367,11 @@ def test_different_project_contexts_produce_different_planning_decisions(b1_env)
     ws_alpha = b1_env["ws_alpha"]
     repo = b1_env["repo"]
 
+    from scripts.security.path_security import resolve_project_dir
+
     # Project 1: Standard / Default Project
     prj_1 = repo.create_project("prj_diff_default", ws_alpha, "Default Project", created_by="usr_alice")
-    pdir_1 = Path(f"projects/{prj_1.id}")
-    pdir_1.mkdir(parents=True, exist_ok=True)
+    pdir_1 = resolve_project_dir(prj_1.id, workspace_id=ws_alpha, create=True)
     state_1 = ProjectState(
         project_id=prj_1.id,
         workspace_id=ws_alpha,
@@ -381,8 +383,7 @@ def test_different_project_contexts_produce_different_planning_decisions(b1_env)
 
     # Project 2: Constrained Project with excluded "rui-intro" and explicit brand colors
     prj_2 = repo.create_project("prj_diff_constrained", ws_alpha, "Constrained Project", created_by="usr_alice")
-    pdir_2 = Path(f"projects/{prj_2.id}")
-    pdir_2.mkdir(parents=True, exist_ok=True)
+    pdir_2 = resolve_project_dir(prj_2.id, workspace_id=ws_alpha, create=True)
     state_2 = ProjectState(
         project_id=prj_2.id,
         workspace_id=ws_alpha,
@@ -438,6 +439,7 @@ def test_different_project_contexts_produce_different_planning_decisions(b1_env)
     finally:
         shutil.rmtree(pdir_1, ignore_errors=True)
         shutil.rmtree(pdir_2, ignore_errors=True)
+        shutil.rmtree(Path("projects") / ws_alpha, ignore_errors=True)
 
 
 def test_startup_to_authenticated_api_retrieves_canonical_knowledge(b1_env):

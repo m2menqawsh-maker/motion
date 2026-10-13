@@ -40,6 +40,7 @@ from scripts.core.storage import LocalStorageBackend, set_storage_service
 from scripts.core.run_repository import RunRepository
 from scripts.core.run_model import RunRecord, RunStatus
 from scripts.core.worker import PipelineWorker
+from scripts.security.path_security import resolve_project_dir
 
 
 # =============================================================================
@@ -272,10 +273,7 @@ def test_real_process_death_statestore_fs_vs_sql_recovery(recovery_env):
     project_id = "prj_cb1_os_crash"
     recovery_env["tenant_repo"].create_project(project_id, ws_id, name="Crash Project 1", created_by=recovery_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    if proj_dir.exists():
-        shutil.rmtree(proj_dir, ignore_errors=True)
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
     barrier_file = recovery_env["tmp_path"] / "cb1_barrier.json"
 
     # Step 1: Initialize normal state: Rev 2, PLAN_READY in both disk and SQL
@@ -371,6 +369,8 @@ def test_real_process_death_statestore_fs_vs_sql_recovery(recovery_env):
         if proj_dir.exists():
             import shutil
             shutil.rmtree(proj_dir, ignore_errors=True)
+            if proj_dir.parent.exists() and not any(proj_dir.parent.iterdir()):
+                shutil.rmtree(proj_dir.parent, ignore_errors=True)
 
 
 # =============================================================================
@@ -393,10 +393,7 @@ def test_real_process_death_blueprint_commit_vs_review_invalidation(recovery_env
     project_id = "prj_cb2_bp_crash"
     recovery_env["tenant_repo"].create_project(project_id, ws_id, name="Crash Project 2", created_by=recovery_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    if proj_dir.exists():
-        shutil.rmtree(proj_dir, ignore_errors=True)
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
     barrier_file = recovery_env["tmp_path"] / "cb2_barrier.json"
 
     # Step 1: Initialize Project at Rev 1 with Canonical Blueprint and Approval
@@ -514,6 +511,8 @@ def test_real_process_death_blueprint_commit_vs_review_invalidation(recovery_env
         if proj_dir.exists():
             import shutil
             shutil.rmtree(proj_dir, ignore_errors=True)
+            if proj_dir.parent.exists() and not any(proj_dir.parent.iterdir()):
+                shutil.rmtree(proj_dir.parent, ignore_errors=True)
 
 
 # =============================================================================

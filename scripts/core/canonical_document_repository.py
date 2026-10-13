@@ -150,9 +150,14 @@ class CanonicalDocumentRepository:
                 )
 
             # 3. Fallback: check local disk if exists (dev / migration fallback)
-            disk_path = Path("projects") / project_id / "05_blueprint.json"
-            if not disk_path.exists():
-                disk_path = Path("projects") / project_id / "blueprint.json"
+            from scripts.security.path_security import resolve_project_dir
+            try:
+                proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+                disk_path = proj_dir / "05_blueprint.json"
+                if not disk_path.exists():
+                    disk_path = proj_dir / "blueprint.json"
+            except Exception:
+                disk_path = Path("projects") / workspace_id / project_id / "05_blueprint.json"
 
             if disk_path.exists():
                 disk_bytes = disk_path.read_bytes()
@@ -360,7 +365,11 @@ class CanonicalDocumentRepository:
             )
 
         # 4. Sync to local disk for dev / local tooling compatibility
-        proj_dir = Path("projects") / project_id
+        from scripts.security.path_security import resolve_project_dir
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
+        except Exception:
+            proj_dir = Path("projects") / workspace_id / project_id
         if proj_dir.exists():
             disk_file = proj_dir / "05_blueprint.json"
             try:

@@ -77,9 +77,10 @@ def saas_environment(tmp_path, monkeypatch):
 
     prj_b = tenant_repo.create_project("prj_globex_main", "ws_globex", "Globex Main Video", created_by=user_b_admin.id)
 
+    from scripts.security.path_security import resolve_project_dir
+
     # Setup on-disk project scaffolds
-    proj_dir_a = Path(f"projects/{prj_a.id}")
-    proj_dir_a.mkdir(parents=True, exist_ok=True)
+    proj_dir_a = resolve_project_dir(prj_a.id, workspace_id=ws_a.id, create=True)
     state_a = ProjectState(
         project_id=prj_a.id,
         workspace_id=ws_a.id,
@@ -92,8 +93,7 @@ def saas_environment(tmp_path, monkeypatch):
     (proj_dir_a / "probe_qc_report.json").write_text("{}", encoding="utf-8")
     (proj_dir_a / "out.mp4").write_bytes(b"ACME_FINAL_MP4_PAYLOAD")
 
-    proj_dir_b = Path(f"projects/{prj_b.id}")
-    proj_dir_b.mkdir(parents=True, exist_ok=True)
+    proj_dir_b = resolve_project_dir(prj_b.id, workspace_id=ws_b.id, create=True)
     state_b = ProjectState(
         project_id=prj_b.id,
         workspace_id=ws_b.id,
@@ -131,6 +131,8 @@ def saas_environment(tmp_path, monkeypatch):
 
     shutil.rmtree(proj_dir_a, ignore_errors=True)
     shutil.rmtree(proj_dir_b, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_a.id, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_b.id, ignore_errors=True)
 
 
 # ==============================================================================

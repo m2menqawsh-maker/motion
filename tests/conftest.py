@@ -148,7 +148,14 @@ def setup_tmpdir(monkeypatch, tmp_path):
     """Patch the current working directory or paths to avoid touching real projects"""
     from api.services.pipeline_service import PipelineService
     
-    def mock_get_project_dir(cls, project_id: str) -> Path:
+    def mock_get_project_dir(cls, project_id: str, *args, **kwargs) -> Path:
+        try:
+            from api.services.project_service import ProjectService
+            real_p = ProjectService._get_project_dir(project_id)
+            if real_p.exists():
+                return real_p
+        except Exception:
+            pass
         p = tmp_path / "projects" / project_id
         p.mkdir(parents=True, exist_ok=True)
         return p

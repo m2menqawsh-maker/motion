@@ -44,6 +44,7 @@ from scripts.core.review_service import (
 )
 from api.services.run_service import RunService
 from scripts.core.tenant_model import TenantContext
+from scripts.security.path_security import resolve_project_dir
 
 
 @pytest.fixture
@@ -136,8 +137,7 @@ def test_red_h2_canonical_repo_fails_closed_on_missing_storage_bytes(test_env):
 
     # Now current rev in DB is 2.
     # On disk, write an OLD revision 1 file
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
     disk_file = proj_dir / "05_blueprint.json"
     disk_v1_bytes = _create_minimal_blueprint(project_id, 1)
     disk_file.write_text(json.dumps(disk_v1_bytes), encoding="utf-8")
@@ -170,8 +170,7 @@ def test_red_h1_statestore_sync_to_db_fails_closed_in_managed_mode(test_env, mon
     """
     ws_id = test_env["workspace_id"]
     project_id = "prj_test_h1"
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
 
     test_env["tenant_repo"].create_project(project_id, ws_id, name="Test H1", created_by=test_env["user_id"])
 
@@ -261,8 +260,7 @@ def test_red_h5_concurrent_idempotency_creates_exactly_one_run(test_env, monkeyp
     project_id = "prj_test_h5"
     test_env["tenant_repo"].create_project(project_id, ws_id, name="Test H5", created_by=test_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
     StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
 
     db_path = test_env["db_engine"].db_url.replace("sqlite:///", "")
@@ -329,8 +327,7 @@ def test_red_h3_canonical_apply_invalidates_downstream_review_decision(test_env)
     project_id = "prj_test_h3"
     test_env["tenant_repo"].create_project(project_id, ws_id, name="Test H3", created_by=test_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
 
     # 1. Initialize StateStore and project files
     state = StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
@@ -397,8 +394,7 @@ def test_crash_boundary_blueprint_commit_vs_review_invalidation(test_env, monkey
     project_id = "prj_cb1_review_invalidation"
     test_env["tenant_repo"].create_project(project_id, ws_id, name="CB1 Project", created_by=test_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
 
     # 1. Setup project with Blueprint Rev 1 and get it REVIEW_APPROVED
     StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
@@ -483,8 +479,7 @@ def test_crash_boundary_filesystem_vs_sql_crash(test_env):
     project_id = "prj_cb2_fs_sql_crash"
     test_env["tenant_repo"].create_project(project_id, ws_id, name="CB2 Project", created_by=test_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
 
     # 1. Normal state: Revision 2, PLAN_READY in both disk and SQL
     StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)
@@ -544,8 +539,7 @@ def test_crash_boundary_revision_domain_consistency(test_env):
     project_id = "prj_cb3_rev_domain"
     test_env["tenant_repo"].create_project(project_id, ws_id, name="CB3 Project", created_by=test_env["user_id"])
 
-    proj_dir = Path("projects") / project_id
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
 
     # Step 0: Initial state - Lifecycle Rev 1 (DRAFT)
     StateStore.create(proj_dir, project_id, initial_lifecycle=LifecycleState.DRAFT, workspace_id=ws_id)

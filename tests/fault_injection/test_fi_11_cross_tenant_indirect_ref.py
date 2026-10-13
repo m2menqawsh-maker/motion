@@ -51,8 +51,8 @@ def fi11_env(tmp_path: Path):
     bob_asset_key = f"workspaces/{ws_b.id}/projects/{prj_b.id}/assets/ast_bob_patent/patent.pdf"
     storage.put(bob_asset_key, b"SECRET_PATENT_DOCUMENT_BYTES", content_type="application/pdf")
 
-    p_a_dir = Path(f"projects/{prj_a.id}")
-    p_a_dir.mkdir(parents=True, exist_ok=True)
+    from scripts.security.path_security import resolve_project_dir
+    p_a_dir = resolve_project_dir(prj_a.id, workspace_id=ws_a.id, create=True)
 
     yield {
         "engine": engine,
@@ -69,6 +69,8 @@ def fi11_env(tmp_path: Path):
 
     import shutil
     shutil.rmtree(p_a_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_a.id, ignore_errors=True)
+    shutil.rmtree(Path("projects") / ws_b.id, ignore_errors=True)
     set_database_engine(None)
     set_storage_service(None)
 

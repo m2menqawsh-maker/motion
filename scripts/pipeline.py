@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.security.path_security import validate_project_id, safe_resolve
+from scripts.security.path_security import validate_project_id, resolve_project_dir, safe_resolve
 import os
 import json
 import hashlib
@@ -53,6 +53,19 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
         if current_attempt_ctx.project_id:
             env["AGY_PROJECT_ID"] = current_attempt_ctx.project_id
         env["AGY_IS_MANAGED"] = "1"
+        ws_id = os.environ.get("AGY_WORKSPACE_ID")
+        if not ws_id and current_attempt_ctx.project_id:
+            try:
+                from scripts.security.path_security import resolve_project_dir
+                pdir = resolve_project_dir(current_attempt_ctx.project_id)
+                from scripts.core.state_store import StateStore
+                st = StateStore.load(pdir)
+                if st and st.workspace_id:
+                    ws_id = st.workspace_id
+            except Exception:
+                pass
+        if ws_id:
+            env["AGY_WORKSPACE_ID"] = ws_id
         workspace_dir = str(Path(__file__).resolve().parent.parent)
         existing_pythonpath = env.get("PYTHONPATH", "")
         env["PYTHONPATH"] = f"{workspace_dir}{os.pathsep}{existing_pythonpath}" if existing_pythonpath else workspace_dir
@@ -126,7 +139,8 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
             # Precondition validation for conditional retries
             is_valid = True
             if current_attempt_ctx.project_id:
-                proj_dir = Path("projects") / current_attempt_ctx.project_id
+                ws_id = os.environ.get("AGY_WORKSPACE_ID")
+                proj_dir = resolve_project_dir(current_attempt_ctx.project_id, workspace_id=ws_id)
                 state_file = proj_dir / StateStore.STATE_FILE
                 if state_file.is_file():
                     input_fps = {}
@@ -164,7 +178,8 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
 
             # Persist failure attempt into ProjectState
             if current_attempt_ctx.project_id:
-                proj_dir = Path("projects") / current_attempt_ctx.project_id
+                ws_id = os.environ.get("AGY_WORKSPACE_ID")
+                proj_dir = resolve_project_dir(current_attempt_ctx.project_id, workspace_id=ws_id)
                 state_file = proj_dir / StateStore.STATE_FILE
                 if state_file.is_file():
                     try:
@@ -227,7 +242,8 @@ def main():
         
     project_id = sys.argv[1]
     project_id = validate_project_id(project_id)
-    proj_dir = Path("projects") / project_id
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
     
     if not proj_dir.exists():
         print(f"❌ المشروع {project_id} غير موجود في المجلد projects/")

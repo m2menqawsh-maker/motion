@@ -151,12 +151,16 @@ def run_probe_qc(
     ws = Path(workspace_root).resolve() if workspace_root else Path.cwd().resolve()
 
     target_path = Path(proj_dir_or_id)
-    if (Path("projects") / target_path).exists():
-        proj_dir = (Path("projects") / target_path).resolve()
-    elif target_path.exists():
-        proj_dir = target_path.resolve()
-    else:
-        proj_dir = (ws / "projects" / str(proj_dir_or_id)).resolve()
+    try:
+        from scripts.security.path_security import resolve_project_dir
+        proj_dir = resolve_project_dir(str(proj_dir_or_id), base_dir=ws / "projects" if workspace_root else None)
+    except Exception:
+        if (Path("projects") / target_path).exists():
+            proj_dir = (Path("projects") / target_path).resolve()
+        elif target_path.exists():
+            proj_dir = target_path.resolve()
+        else:
+            proj_dir = (ws / "projects" / str(proj_dir_or_id)).resolve()
 
     bp_path = proj_dir / "05_blueprint.json"
     build_dir = proj_dir / "06_build"

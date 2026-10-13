@@ -219,7 +219,9 @@ def main():
         
     project_id = sys.argv[1]
     project_id = validate_project_id(project_id)
-    project_dir = Path(f"projects/{project_id}")
+    from scripts.security.path_security import resolve_project_dir
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    project_dir = resolve_project_dir(project_id, workspace_id=ws_id)
     plan_file = project_dir / "master_plan.md"
     timings_file = project_dir / "04_timings.json"
     

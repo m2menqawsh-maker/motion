@@ -512,7 +512,11 @@ def compute_qc_decision(checks: Dict[str, Dict[str, Any]]) -> Tuple[str, str, in
     return "PASS", "All critical checks passed successfully.", 0
 
 
-def run_final_qc(project_id: str, workspace_root: Optional[Path] = None) -> Tuple[bool, Dict[str, Any]]:
+def run_final_qc(
+    project_id: str,
+    workspace_root: Optional[Path] = None,
+    workspace_id: Optional[str] = None,
+) -> Tuple[bool, Dict[str, Any]]:
     """
     Authoritative Final QC Engine.
     Loads canonical blueprint, inspects out.mp4 and 04_timings.json, executes all checks,
@@ -520,7 +524,16 @@ def run_final_qc(project_id: str, workspace_root: Optional[Path] = None) -> Tupl
     """
     root = workspace_root or Path.cwd()
     clean_id = validate_project_id(project_id)
-    project_dir = root / "projects" / clean_id
+    ws_id = workspace_id or os.environ.get("AGY_WORKSPACE_ID")
+    try:
+        from scripts.security.path_security import resolve_project_dir
+        project_dir = resolve_project_dir(
+            clean_id,
+            workspace_id=ws_id,
+            base_dir=root / "projects" if workspace_root else None,
+        )
+    except Exception:
+        project_dir = root / "projects" / clean_id
 
     report: Dict[str, Any] = {
         "project_id": clean_id,
@@ -762,11 +775,12 @@ def run_final_qc(project_id: str, workspace_root: Optional[Path] = None) -> Tupl
 
 def main():
     if len(sys.argv) < 2:
-        print("الاستخدام: python final_qc.py <project_id>")
+        print("الاستخدام: python final_qc.py <project_id> [workspace_id]")
         sys.exit(1)
 
     project_id = sys.argv[1]
-    ok, report = run_final_qc(project_id)
+    ws_id = sys.argv[2] if len(sys.argv) > 2 else os.environ.get("AGY_WORKSPACE_ID")
+    ok, report = run_final_qc(project_id, workspace_id=ws_id)
 
     # Print structured human-readable breakdown
     for k, v in report.get("checks", {}).items():

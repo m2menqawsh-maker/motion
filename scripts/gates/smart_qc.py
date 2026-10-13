@@ -131,7 +131,10 @@ def detect_empty_space(frame_path):
 
 def extract_frames(project_id, comp_name):
     """يستخرج الإطارات باستخدام remotion still"""
-    project_dir = Path(f"projects/{project_id}/06_build")
+    from scripts.security.path_security import resolve_project_dir
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    base_proj = resolve_project_dir(project_id, workspace_id=ws_id)
+    project_dir = base_proj / "06_build"
     out_dir = project_dir / "qc_frames"
     out_dir.mkdir(exist_ok=True)
     
@@ -162,7 +165,9 @@ def main():
     project_id = validate_project_id(project_id)
     comp_name = sys.argv[2]
     
-    project_dir = Path(f"projects/{project_id}")
+    from scripts.security.path_security import resolve_project_dir
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    project_dir = resolve_project_dir(project_id, workspace_id=ws_id)
     report_path = project_dir / "smart_qc_report.json"
     
     if not project_dir.exists():

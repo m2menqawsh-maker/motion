@@ -35,7 +35,10 @@ def test_render_service_mock(mock_exec):
     mock_process.stderr.readline.side_effect = [b""]
     mock_exec.return_value = mock_process
     
-    res = client.post("/render/prj_mock", headers=AUTH_HEADERS)
+    res_proj = client.post("/projects/", headers=AUTH_HEADERS, json={"name": "MockRenderTest", "language": "ar"})
+    assert res_proj.status_code == 200
+    project_id = res_proj.json()["project_id"]
+    res = client.post(f"/render/{project_id}", headers=AUTH_HEADERS)
     assert res.status_code == 200
 
 def test_websocket_disconnect():

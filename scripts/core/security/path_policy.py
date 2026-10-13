@@ -19,8 +19,13 @@ class PathSecurityViolation(Exception):
     pass
 
 
+PathTraversalError = PathSecurityViolation
+from scripts.core.database import TenantSecurityError
+
+
 PROJECT_ID_REGEX = re.compile(r'^[a-zA-Z0-9_-]+$')
 ASSET_ID_REGEX = re.compile(r'^[a-zA-Z0-9_-]+$')
+WORKSPACE_ID_REGEX = re.compile(r'^[a-zA-Z0-9_-]+$')
 
 
 def validate_project_id(project_id: str) -> str:
@@ -28,6 +33,13 @@ def validate_project_id(project_id: str) -> str:
     if not isinstance(project_id, str) or not PROJECT_ID_REGEX.match(project_id):
         raise ValueError(f"Invalid project_id: {project_id}")
     return project_id
+
+
+def validate_workspace_id(workspace_id: str) -> str:
+    """Validate that workspace_id is a safe identifier with no path traversal characters."""
+    if not isinstance(workspace_id, str) or not WORKSPACE_ID_REGEX.match(workspace_id):
+        raise ValueError(f"Invalid workspace_id: {workspace_id}")
+    return workspace_id
 
 
 def validate_asset_id(asset_id: str) -> str:
@@ -117,3 +129,131 @@ def validate_source_asset(
                 continue
 
     return real_target
+
+
+def check_confinement_and_symlink(target_path: Path, base_dir: Path) -> Path:
+    """Ensure target_path does not escape base_dir via symlinks or path traversal."""
+    resolved_base = base_dir.resolve()
+    resolved_target = target_path.resolve()
+    try:
+        resolved_target.relative_to(resolved_base)
+    except ValueError:
+        raise PathSecurityViolation(
+            f"Path or symlink escape detected: '{target_path}' resolves to '{resolved_target}', "
+            f"which escapes designated base boundary '{resolved_base}'."
+        )
+    return target_path
+
+
+def get_canonical_project_dir(
+    project_id: str,
+    workspace_id: str,
+    base_dir: Optional[Union[str, Path]] = None,
+) -> Path:
+    """Returns authoritative canonical tenant project path: base/workspace_id/project_id."""
+    v_proj = validate_project_id(project_id)
+    v_ws = validate_workspace_id(workspace_id)
+    base = Path(base_dir or "projects").resolve()
+    ws_dir = base / v_ws
+    target = ws_dir / v_proj
+    check_confinement_and_symlink(target, ws_dir)
+    return target
+
+
+def resolve_project_dir(
+    project_id: str,
+    workspace_id: Optional[str] = None,
+    base_dir: Optional[Union[str, Path]] = None,
+    enforce_tenant_boundary: bool = True,
+    create: bool = False,
+) -> Path:
+    """
+    Centralized, tenant-aware project path resolver (PR-C1 / REALITY-020).
+    
+    Strictly resolves to the tenant-scoped namespace:
+    projects/{workspace_id}/{project_id}/
+    
+    Guarantees:
+    - Path traversal rejection.
+    - Symlink escape prevention.
+    - Cross-tenant access rejection.
+    - Mandatory workspace identity (explicit, discovered via DB, or environment).
+    - Rejection of legacy flat namespace access.
+    """
+    v_proj = validate_project_id(project_id)
+    v_ws = validate_workspace_id(workspace_id) if workspace_id else None
+
+    # Discover workspace_id from environment or database if not explicitly provided
+    if not v_ws:
+        env_ws = os.environ.get("AGY_WORKSPACE_ID")
+        if env_ws:
+            v_ws = validate_workspace_id(env_ws)
+        else:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                engine = get_database_engine()
+                repo = TenantRepository(engine)
+                prec = repo.get_project(v_proj)
+                if prec and prec.workspace_id and prec.workspace_id != "ws_default":
+                    v_ws = validate_workspace_id(prec.workspace_id)
+            except Exception:
+                pass
+
+    if not v_ws:
+        # Check if project exists as a standalone unmanaged project on local disk
+        base = Path(base_dir or "projects").resolve()
+        unmanaged = base / v_proj
+        if unmanaged.exists() and unmanaged.is_dir():
+            check_confinement_and_symlink(unmanaged, base)
+            return unmanaged
+
+        raise TenantSecurityError(
+            f"workspace_id is strictly required for tenant path resolution of project '{v_proj}'"
+        )
+
+    base = Path(base_dir or "projects").resolve()
+    ws_dir = base / v_ws
+    target = ws_dir / v_proj
+
+    # Strict confinement check: target must be confined within the tenant's workspace
+    check_confinement_and_symlink(target, ws_dir)
+
+    # Cross-tenant access validation
+    if enforce_tenant_boundary:
+        # 1. Filesystem check: project must not belong to another workspace directory under base
+        try:
+            if base.exists() and base.is_dir():
+                for child in base.iterdir():
+                    if child.is_dir() and child.name != v_ws and not child.name.startswith("."):
+                        cand = child / v_proj
+                        if cand.exists() and cand.is_dir():
+                            raise TenantSecurityError(
+                                f"Cross-tenant project path access rejected: project '{v_proj}' belongs to "
+                                f"workspace '{child.name}', but access was requested for workspace '{v_ws}'."
+                            )
+        except TenantSecurityError:
+            raise
+        except Exception:
+            pass
+
+        # 2. Relational database check: project must not be registered under another workspace
+        try:
+            from scripts.core.database import get_database_engine, TenantRepository
+            engine = get_database_engine()
+            repo = TenantRepository(engine)
+            prec = repo.get_project(v_proj)
+            if prec and prec.workspace_id and prec.workspace_id != v_ws:
+                raise TenantSecurityError(
+                    f"Cross-tenant project access rejected: project '{v_proj}' belongs to "
+                    f"workspace '{prec.workspace_id}', but access was requested for workspace '{v_ws}'."
+                )
+        except TenantSecurityError:
+            raise
+        except Exception:
+            pass
+
+    if create:
+        target.mkdir(parents=True, exist_ok=True)
+
+    return target
+

@@ -123,6 +123,16 @@ class ReviewService:
         candidate = Path.cwd().resolve() / "projects" / str(project_dir_or_id)
         if candidate.is_dir() and (candidate / StateStore.STATE_FILE).exists():
             return candidate
+
+        try:
+            from scripts.security.path_security import resolve_project_dir
+            raw_str = str(project_dir_or_id).replace("\\", "/").rstrip("/")
+            proj_id = raw_str.split("/")[-1]
+            resolved = resolve_project_dir(proj_id)
+            if resolved.is_dir() and (resolved / StateStore.STATE_FILE).exists():
+                return resolved
+        except Exception:
+            pass
             
         return p.resolve()
 

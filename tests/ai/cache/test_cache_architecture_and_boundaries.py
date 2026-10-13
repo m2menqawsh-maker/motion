@@ -72,7 +72,7 @@ def temp_project(tmp_path, monkeypatch):
 
     monkeypatch.setattr(
         "api.services.asset_service.AssetService._get_project_dir",
-        lambda pid: base_dir if pid == proj_id else tmp_path / "projects" / pid,
+        lambda pid, *args, **kwargs: base_dir if pid == proj_id else tmp_path / "projects" / pid,
     )
 
     return proj_id, base_dir

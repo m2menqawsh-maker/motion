@@ -120,12 +120,10 @@ def test_api_blueprint_update_invalidates_downstream_evidence():
     from scripts.core.state_model import ArtifactRecord, ValidationLevel, EvidenceStatus
     from pathlib import Path
 
-    from api.services.pipeline_service import PipelineService
+    from api.services.project_service import ProjectService
     res = client.post("/projects/", json={"name": "T", "language": "ar"})
     project_id = res.json()["project_id"]
-    project_dir = Path(f"projects/{project_id}")
-    if not project_dir.exists():
-        project_dir = PipelineService._get_project_dir(project_id)
+    project_dir = ProjectService._get_project_dir(project_id)
 
     # Add dummy probe evidence as VALID
     state = StateStore.load(project_dir)

@@ -23,15 +23,25 @@ from scripts.core.manifest_model import Provenance
 
 def run_gate(manifest_path_str):
     p = Path(manifest_path_str)
-    if (Path("projects") / p / "02_asset_manifest.json").exists() or (Path("projects") / p).is_dir():
-        manifest_file = Path("projects") / p / "02_asset_manifest.json"
-        project_id = p.name if p.name.startswith("prj_") else None
-    elif p.is_dir():
-        manifest_file = p / "02_asset_manifest.json"
-        project_id = p.name if p.name.startswith("prj_") else None
-    else:
-        manifest_file = p
-        project_id = p.parent.name if p.parent.name.startswith("prj_") else None
+    try:
+        from scripts.security.path_security import resolve_project_dir
+        proj_dir = resolve_project_dir(str(p))
+        if (proj_dir / "02_asset_manifest.json").exists() or proj_dir.is_dir():
+            manifest_file = proj_dir / "02_asset_manifest.json"
+            project_id = proj_dir.name if proj_dir.name.startswith("prj_") else None
+        else:
+            manifest_file = p
+            project_id = p.parent.name if p.parent.name.startswith("prj_") else None
+    except Exception:
+        if (Path("projects") / p / "02_asset_manifest.json").exists() or (Path("projects") / p).is_dir():
+            manifest_file = Path("projects") / p / "02_asset_manifest.json"
+            project_id = p.name if p.name.startswith("prj_") else None
+        elif p.is_dir():
+            manifest_file = p / "02_asset_manifest.json"
+            project_id = p.name if p.name.startswith("prj_") else None
+        else:
+            manifest_file = p
+            project_id = p.parent.name if p.parent.name.startswith("prj_") else None
 
     try:
         manifest = load_manifest(manifest_file, expected_project_id=project_id, allow_migrate=True)

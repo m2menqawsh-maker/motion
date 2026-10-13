@@ -1,3 +1,4 @@
+import os
 import subprocess
 import argparse
 import sys
@@ -5,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from scripts.security.security import safe_subprocess
-from scripts.security.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id, resolve_project_dir
 import uuid
 import json
 import datetime
@@ -27,12 +28,19 @@ def main():
     
     args = parser.parse_args()
 
+    ws_id = args.workspace_id or os.environ.get("AGY_WORKSPACE_ID")
+
     if args.project_id:
         validate_project_id(args.project_id)
         project_id = args.project_id
     else:
         project_id = f"prj_{uuid.uuid4().hex[:8]}"
-    project_dir = Path(f"projects/{project_id}")
+
+    if ws_id:
+        project_dir = resolve_project_dir(project_id, workspace_id=ws_id, create=True)
+    else:
+        project_dir = Path(f"projects/{project_id}")
+        project_dir.mkdir(parents=True, exist_ok=True)
     
     try:
         # Create directories

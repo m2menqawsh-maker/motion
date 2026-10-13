@@ -445,8 +445,8 @@ class TestConcurrentDeduplication:
         tenant_repo.create_project(project_id=prj_tenant_1, workspace_id=ws_tenant_1, name="Project T1", created_by="usr_t1")
         tenant_repo.create_project(project_id=prj_tenant_2, workspace_id=ws_tenant_2, name="Project T2", created_by="usr_t2")
 
-        for p_id in [prj_tenant_1, prj_tenant_2]:
-            p_dir = Path("projects") / p_id
+        for p_id, ws_id in [(prj_tenant_1, ws_tenant_1), (prj_tenant_2, ws_tenant_2)]:
+            p_dir = Path("projects") / ws_id / p_id
             p_dir.mkdir(parents=True, exist_ok=True)
             m_path = p_dir / "02_asset_manifest.json"
             m_path.write_text(f'{{"schema_version": "2.0.0", "project_id": "{p_id}", "assets": []}}', encoding="utf-8")
@@ -518,7 +518,8 @@ class TestConcurrentDeduplication:
                     conn.execute("DELETE FROM users WHERE id IN ('usr_t1', 'usr_t2')")
             except Exception:
                 pass
-            for p_id in [prj_tenant_1, prj_tenant_2]:
-                shutil.rmtree(Path("projects") / p_id, ignore_errors=True)
+            for p_id, ws_id in [(prj_tenant_1, ws_tenant_1), (prj_tenant_2, ws_tenant_2)]:
+                shutil.rmtree(Path("projects") / ws_id / p_id, ignore_errors=True)
+                shutil.rmtree(Path("projects") / ws_id, ignore_errors=True)
 
 

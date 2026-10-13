@@ -82,7 +82,16 @@ function parseArgs(): CliArgs {
 async function main(): Promise<void> {
   const options = parseArgs();
   const rootDir = process.cwd();
-  const projectDir = path.resolve(rootDir, "projects", options.projectId);
+  let projectDir = options.workspaceId
+    ? path.resolve(rootDir, "projects", options.workspaceId, options.projectId)
+    : path.resolve(rootDir, "projects", options.projectId);
+
+  if (!fs.existsSync(projectDir)) {
+    const fallbackDir = path.resolve(rootDir, "projects", options.projectId);
+    if (fs.existsSync(fallbackDir)) {
+      projectDir = fallbackDir;
+    }
+  }
 
   if (!fs.existsSync(projectDir)) {
     console.error(JSON.stringify({ ok: false, error: `Project directory not found: ${projectDir}` }));

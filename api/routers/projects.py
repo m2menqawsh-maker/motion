@@ -18,7 +18,7 @@ from api.schemas import (
 from api.schemas.lifecycle import LifecycleDTO
 from api.services.project_service import ProjectService
 from api.services.pipeline_service import PipelineService
-from scripts.security.path_security import validate_project_id
+from scripts.security.path_security import validate_project_id, TenantSecurityError
 
 router = APIRouter()
 
@@ -51,28 +51,59 @@ async def list_projects(
 
 @router.get("/{project_id}/state", response_model=LifecycleDTO, summary="Get canonical lifecycle state DTO")
 async def get_project_state(
+    request: Request,
     project_id: str,
     principal: Principal = Depends(require_permission(Action.PROJECT_READ)),
 ):
     """
     Returns the canonical, un-degraded LifecycleDTO projection (LED-071).
     """
+    validate_project_id(project_id)
+    ws_id = request.headers.get("X-Workspace-ID")
+    if hasattr(request.state, "tenant_context") and request.state.tenant_context:
+        ws_id = ws_id or getattr(request.state.tenant_context, "workspace_id", None)
+    
+    if ws_id:
+        is_acc, reason = ProjectService.is_project_accessible_by_tenant(
+            project_id=project_id,
+            workspace_id=ws_id,
+            is_admin=principal.is_admin,
+            actor_id=principal.principal_id,
+        )
+        if not is_acc and not (principal.is_admin and principal.auth_method == "INTERNAL_SYSTEM"):
+            raise TenantSecurityError(reason or "Cross-tenant access violation.")
+
     return ProjectService.get_lifecycle_dto(project_id)
 
 
 @router.get("/{project_id}", response_model=ProjectResponse, summary="Get project summary and legacy status")
 async def get_project(
+    request: Request,
     project_id: str,
     principal: Principal = Depends(require_permission(Action.PROJECT_READ)),
 ):
     validate_project_id(project_id)
+    ws_id = request.headers.get("X-Workspace-ID")
+    if hasattr(request.state, "tenant_context") and request.state.tenant_context:
+        ws_id = ws_id or getattr(request.state.tenant_context, "workspace_id", None)
+    
+    if ws_id:
+        is_acc, reason = ProjectService.is_project_accessible_by_tenant(
+            project_id=project_id,
+            workspace_id=ws_id,
+            is_admin=principal.is_admin,
+            actor_id=principal.principal_id,
+        )
+        if not is_acc and not (principal.is_admin and principal.auth_method == "INTERNAL_SYSTEM"):
+            raise TenantSecurityError(reason or "Cross-tenant access violation.")
+
     manifest_dict = PipelineService.get_manifest(project_id)
 
     # Use pipeline service get_status
     state_dict = await PipelineService.get_status(project_id)
 
     # Fetch project.json metadata safely
-    proj_dir = ProjectService._get_project_dir(project_id)
+    proj_dir = ProjectService._get_project_dir(project_id, workspace_id=ws_id)
     project_json_path = proj_dir / "project.json"
     project_dict = {}
     if project_json_path.exists():
