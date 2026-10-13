@@ -28,12 +28,12 @@ Every action you take must conform to the unified pipeline.
 ## 4. Planning Protocol
 - Ask the user deep, clarifying questions using the `ask_question` tool before writing any plan.
 - The plan must be meticulously constructed (`master_plan.md`) following the exact `04_timings.json` extracted.
-- Plans must not exceed 490 lines or fall below 480 lines (unless structurally necessary based on references).
+- The plan length must naturally reflect project scale, scene complexity, and extracted timings without artificial or arbitrary line count limits.
 - Adhere strictly to Taste Gates. Use modern typography, cinematic zooms, and precise symmetry. Texts must never overlap.
 
 ## 5. Asset Protocol
 - All heavy processing (normalization, transcode) is done via local Python scripts using FFmpeg.
-- Fetch media strictly through the approved MCPs (`media-sources-mcp`, `audio-tools-mcp`).
+- Fetch media strictly through the approved capabilities (`media-sources`, `audio-tools`) routed via the ToolGateway.
 - Normalization Rules: -16 LUFS for Voiceover, -24 LUFS for SFX.
 - Media enters the engine's public directory via `scripts/generators/materialize_project.py` ONLY.
 
@@ -41,7 +41,7 @@ Every action you take must conform to the unified pipeline.
 - Output a pristine `05_blueprint.json` (Level 2).
 - If custom code is needed (Level 1/0), strictly construct from `templates/elements` or `templates/scenes` and validate via `scripts/validators/template_lint.py`.
 - **FORBIDDEN:** Running `npx remotion` or `npm run` directly. Use `scripts/render_project.py` and `scripts/open_studio.py`.
-- No rendering is allowed before explicit `.studio_approved` is granted by the user.
+- No rendering is allowed before explicit `.studio_approved` is granted by the user or validated via ReviewService (`ReviewBundle` / `ReviewDecision`).
 
 ## 7. Engine Usage
 The engine is an **ACTIVE** production subsystem.
@@ -50,15 +50,11 @@ The engine is an **ACTIVE** production subsystem.
 - Do NOT recreate engine functionality ad-hoc inside templates.
 - **Rule:** Use the established engine integration path (`templates/effects/engine-bridge.tsx`).
 
-## 8. Allowed MCPs
-You may use the specific MCP servers defined in the plugin configuration:
-- `audio-tools-mcp`
-- `ffmpeg-mcp-server`
-- `media-sources-mcp`
-- `video-tools-mcp`
-- `image-tools-mcp`
-- `common-tools-mcp`
-Call tools directly via the MCP Client. Do NOT use `curl`, `wget`, or raw `yt-dlp` in bash.
+## 8. Capability Routing & Tool Governance
+In accordance with REALITY-014 and Batch 2 architecture guards:
+- All external tool and media capabilities MUST route through the canonical `CapabilityRouter` and `ToolGateway` (`scripts/core/routing/`, `ai/tools/gateway.py`).
+- Direct, unmediated invocation of raw MCP clients that bypasses architecture guards, audit logging, or lease fencing is strictly prohibited.
+- Do NOT use `curl`, `wget`, or raw `yt-dlp` in bash.
 
 ## 9. Forbidden Operations
 - ❌ **TOTAL BAN:** Do not write custom python scripts to generate, stitch, or patch `.tsx` files (e.g. `generate_react.py`).
