@@ -367,7 +367,7 @@ class TestToolGatewayIdempotency:
             assert recovery_run.output_data["asset_id"] == "ast_idemp_crashed"
 
     @pytest.mark.asyncio
-    async def test_crash_after_side_effect_recovers_without_duplicate_canonical_mutation(self, trusted_editor_ctx):
+    async def test_crash_after_side_effect_recovers_without_duplicate_canonical_mutation(self, trusted_editor_ctx, monkeypatch):
         """
         Simulates:
         1. Worker A executes side effect committed (writes to DB & AssetService manifest)
@@ -389,8 +389,9 @@ class TestToolGatewayIdempotency:
         from scripts.core.canonical_asset_repository import CanonicalAssetRepository
         from scripts.core.idempotency_repository import SQLIdempotencyRepository
 
+        monkeypatch.setenv("AGY_WORKSPACE_ID", "ws_test")
         project_id = "prj_crash_window_recovery"
-        proj_dir = Path("projects") / project_id
+        proj_dir = Path("projects/ws_test") / project_id
         proj_dir.mkdir(parents=True, exist_ok=True)
         manifest_path = proj_dir / "02_asset_manifest.json"
         manifest_path.write_text(f'{{"schema_version": "2.0.0", "project_id": "{project_id}", "assets": []}}', encoding="utf-8")

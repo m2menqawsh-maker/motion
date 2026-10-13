@@ -389,7 +389,7 @@ class TestS28M11ProductE2EMatrix:
 
         # 8. Render & Final QC Execution
         # Set up project workspace with rendered video and blueprint for run_final_qc
-        project_dir = self.workspace_root / "projects" / proj_id
+        project_dir = self.workspace_root / "projects" / ws_id / proj_id
         project_dir.mkdir(parents=True, exist_ok=True)
         (project_dir / "05_blueprint.json").write_text(json.dumps(bp, indent=2), encoding="utf-8")
         (project_dir / "04_timings.json").write_text(
@@ -404,7 +404,7 @@ class TestS28M11ProductE2EMatrix:
         output_video_path.write_bytes(resolved_video_bytes)
 
         # Run Final QC Gate
-        qc_ok, qc_report = run_final_qc(proj_id, workspace_root=self.workspace_root)
+        qc_ok, qc_report = run_final_qc(proj_id, workspace_root=self.workspace_root, workspace_id=ws_id)
         assert qc_ok is True, f"Final QC failed: {qc_report.get('summary', {}).get('decision_reason')}"
         assert qc_report["status"] == "PASS"
         assert qc_report["summary"]["actual_aspect"] == "9:16"
@@ -485,7 +485,7 @@ class TestS28M11ProductE2EMatrix:
         bp = compile_res.blueprint
         assert bp["aspect_ratio"] == "16:9"
 
-        project_dir = self.workspace_root / "projects" / proj_id
+        project_dir = self.workspace_root / "projects" / ws_id / proj_id
         project_dir.mkdir(parents=True, exist_ok=True)
         (project_dir / "05_blueprint.json").write_text(json.dumps(bp, indent=2), encoding="utf-8")
         (project_dir / "04_timings.json").write_text(
@@ -496,7 +496,7 @@ class TestS28M11ProductE2EMatrix:
         output_video_path = project_dir / "out.mp4"
         output_video_path.write_bytes(self.storage.get(stock_storage_key))
 
-        qc_ok, qc_report = run_final_qc(proj_id, workspace_root=self.workspace_root)
+        qc_ok, qc_report = run_final_qc(proj_id, workspace_root=self.workspace_root, workspace_id=ws_id)
         assert qc_ok is True
         assert qc_report["status"] == "PASS"
         assert qc_report["summary"]["actual_aspect"] == "16:9"

@@ -30,8 +30,9 @@ from ai.tools.types import TrustedToolExecutionContext
 @pytest.fixture
 def test_project(tmp_path, monkeypatch):
     """Sets up a mock project directory with valid Manifest v2."""
+    monkeypatch.setenv("AGY_WORKSPACE_ID", "ws_parity")
     proj_id = "proj_parity_test"
-    proj_dir = Path("projects") / proj_id
+    proj_dir = Path("projects/ws_parity") / proj_id
     proj_dir.mkdir(parents=True, exist_ok=True)
 
     manifest_path = proj_dir / "02_asset_manifest.json"
@@ -57,7 +58,7 @@ def test_project(tmp_path, monkeypatch):
 
     # Cleanup
     import shutil
-    shutil.rmtree(proj_dir, ignore_errors=True)
+    shutil.rmtree(Path("projects/ws_parity"), ignore_errors=True)
 
 
 @pytest.fixture
