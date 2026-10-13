@@ -175,6 +175,10 @@ def reconcile_accounting(
         else:
             sha = "unknown"
 
+    has_zod_parity = any(f.name == "zod_v3_v4_parity.test.ts" for f in discovered_files)
+    expected_files_count = 50 if has_zod_parity else 49
+    expected_test_count = 1558 if has_zod_parity else 1545
+
     accounting_summary: Dict[str, Any] = {
         "gitSha": sha,
         "discoveredFilesCount": len(discovered_norm),
@@ -207,7 +211,7 @@ def reconcile_accounting(
         "partitionOverlapCount": len(partition_overlap),
         "omittedFilesCount": len(missing_from_partition),
         "isDisjoint": len(partition_overlap) == 0,
-        "isComplete": len(missing_from_partition) == 0 and len(discovered_norm) == 49,
+        "isComplete": len(missing_from_partition) == 0 and len(discovered_norm) == expected_files_count,
     }
 
     if output_summary_path:
@@ -240,7 +244,7 @@ def reconcile_accounting(
 - **Discovered Test Files**: `{len(discovered_norm)}`
 - **Tier 1 (Fast Conformance & Contracts)**: `{len(t1_norm)}` files | `{t1_passed}/{t1_total}` passed (0 failed, 0 skipped)
 - **Tier 2 (Heavy Integration & Rendering)**: `{len(t2_norm)}` files | `{t2_passed}/{t2_total}` passed (0 failed, 0 skipped)
-- **Total Unique Suites**: `{len(total_exec_files)}/49`
+- **Total Unique Suites**: `{len(total_exec_files)}/{expected_files_count}`
 - **Total Unique Tests**: `{total_passed}/{total_tests}`
 - **R12-04 Status**: `{r12_04_status}` ({r12_04_duration}ms)
 - **R12-13 Status**: `{r12_13_status}` ({r12_13_duration}ms)
@@ -248,13 +252,13 @@ def reconcile_accounting(
 """)
 
     if strict:
-        assert len(discovered_norm) == 49, f"Expected 49 discovered files, got {len(discovered_norm)}"
+        assert len(discovered_norm) == expected_files_count, f"Expected {expected_files_count} discovered files, got {len(discovered_norm)}"
         assert len(partition_overlap) == 0, f"Partition overlap detected: {partition_overlap}"
         assert len(missing_from_partition) == 0, f"Omitted files detected: {missing_from_partition}"
         if tier1_report_path and tier2_report_path:
             assert total_failed == 0, f"{total_failed} tests failed in execution"
             assert total_pending == 0, f"{total_pending} tests pending/skipped in execution"
-            assert total_tests == 1545, f"Expected 1545 tests, got {total_tests}"
+            assert total_tests == expected_test_count, f"Expected {expected_test_count} tests, got {total_tests}"
             assert r12_04_status == "passed", f"R12-04 failed (status: {r12_04_status})"
             assert r12_13_status == "passed", f"R12-13 failed (status: {r12_13_status})"
         print("✅ ALL REMOTION GATES, CONFORMANCE AND ACCOUNTING CRITERIA PASSED!")
