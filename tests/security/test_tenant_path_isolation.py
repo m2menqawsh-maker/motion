@@ -286,3 +286,183 @@ def test_final_qc_fails_closed_on_resolution_error(tmp_path: Path, monkeypatch):
     assert "Fail-closed" in report["checks"]["path_resolution"]["message"]
 
 
+# ─── Probe QC Security & Boundary Hardening Tests ─────────────────────────────
+
+def test_probe_qc_untrusted_absolute_path_fails_closed(tmp_path: Path):
+    """
+    Verifies that run_probe_qc strictly rejects direct filesystem paths,
+    and that the mere presence of 05_blueprint.json does NOT grant authorization.
+    """
+    from scripts.gates.probe_qc import run_probe_qc
+
+    evil_dir = tmp_path / "untrusted_arbitrary_dir"
+    evil_dir.mkdir(parents=True, exist_ok=True)
+
+    # Place a valid blueprint and manifest inside evil_dir
+    bp = {
+        "blueprint_version": "2.0.0",
+        "project_id": "prj_evil",
+        "fps": 30,
+        "aspect_ratio": "16:9",
+        "scenes": [{"scene_id": "s1", "startFrame": 0, "durationFrames": 30}]
+    }
+    (evil_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
+    (evil_dir / "media_map.json").write_text("{}", encoding="utf-8")
+
+    # 1. Calling run_probe_qc with Path object
+    report_path = run_probe_qc(evil_dir)
+    assert report_path["status"] == "EXECUTION_FAILURE"
+    assert report_path["legacy_status"] == "fail"
+    assert any("Direct filesystem paths are not accepted" in e["message"] for e in report_path["errors"])
+
+    # 2. Calling run_probe_qc with string path
+    report_str = run_probe_qc(str(evil_dir))
+    assert report_str["status"] == "EXECUTION_FAILURE"
+    assert report_str["legacy_status"] == "fail"
+    assert any("Direct filesystem paths are not accepted" in e["message"] for e in report_str["errors"])
+
+    # 3. Assert NO artifacts or unlock files are generated
+    assert not (evil_dir / ".studio_unlocked").exists()
+    assert not (evil_dir / "03_probe_qc").exists()
+    assert not (evil_dir / "probe_qc_report.json").exists()
+
+
+def test_probe_qc_legacy_flat_directory_rejected(tmp_path: Path):
+    """
+    Verifies that legacy flat project directories lacking workspace namespace
+    are rejected by run_probe_qc_for_trusted_directory.
+    """
+    from scripts.gates.probe_qc import run_probe_qc_for_trusted_directory
+
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    flat_dir = base_dir / "prj_legacy_flat"
+    flat_dir.mkdir(parents=True, exist_ok=True)
+    bp = {
+        "blueprint_version": "2.0.0",
+        "project_id": "prj_legacy_flat",
+        "fps": 30,
+        "aspect_ratio": "16:9",
+        "scenes": [{"scene_id": "s1", "startFrame": 0, "durationFrames": 30}]
+    }
+    (flat_dir / "05_blueprint.json").write_text(json.dumps(bp), encoding="utf-8")
+
+    report = run_probe_qc_for_trusted_directory(
+        project_dir=flat_dir,
+        trusted_confinement_root=base_dir,
+        authorization_context={"workspace_id": "ws_legit"},
+    )
+
+    assert report["status"] == "EXECUTION_FAILURE"
+    assert any("Legacy flat project directory rejected" in e["message"] for e in report["errors"])
+    assert not (flat_dir / ".studio_unlocked").exists()
+
+
+def test_probe_qc_symlink_escape_rejected(tmp_path: Path):
+    """
+    Verifies that symlinked directories escaping trusted confinement root
+    are strictly rejected by run_probe_qc_for_trusted_directory.
+    """
+    from scripts.gates.probe_qc import run_probe_qc_for_trusted_directory
+
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    outside_dir = tmp_path / "outside_host_data" / "target_proj"
+    outside_dir.mkdir(parents=True, exist_ok=True)
+    (outside_dir / "05_blueprint.json").write_text("{}", encoding="utf-8")
+
+    ws_dir = base_dir / "ws_evil"
+    ws_dir.mkdir()
+    symlink_proj = ws_dir / "prj_symlink"
+    try:
+        os.symlink(outside_dir, symlink_proj)
+    except OSError:
+        pytest.skip("Symlinks not supported in environment")
+
+    report = run_probe_qc_for_trusted_directory(
+        project_dir=symlink_proj,
+        trusted_confinement_root=base_dir,
+        authorization_context={"workspace_id": "ws_evil"},
+    )
+
+    assert report["status"] == "EXECUTION_FAILURE"
+    assert any("escapes trusted confinement root" in e["message"] for e in report["errors"])
+    assert not (outside_dir / ".studio_unlocked").exists()
+
+
+def test_probe_qc_missing_workspace_identity_fails_closed(tmp_path: Path, monkeypatch):
+    """
+    Verifies that calling run_probe_qc without workspace identity strictly fails closed.
+    """
+    from scripts.gates.probe_qc import run_probe_qc
+
+    monkeypatch.delenv("AGY_WORKSPACE_ID", raising=False)
+
+    report = run_probe_qc("prj_any_id", workspace_root=tmp_path, workspace_id=None)
+    assert report["status"] == "EXECUTION_FAILURE"
+    assert any("workspace_id is strictly required" in e["message"] for e in report["errors"])
+
+
+def test_probe_qc_mismatched_tenant_ownership_rejected(tmp_path: Path):
+    """
+    Verifies that if ProjectState declares ownership by ws_victim, but
+    authorization_context declares ws_attacker, access is rejected.
+    """
+    from scripts.gates.probe_qc import run_probe_qc_for_trusted_directory
+    from scripts.core.state_store import StateStore
+
+    base_dir = tmp_path / "projects"
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    # Project directory located under ws_attacker
+    attacker_ws = base_dir / "ws_attacker"
+    attacker_ws.mkdir()
+    proj_dir = attacker_ws / "prj_hijack"
+    proj_dir.mkdir()
+
+    # But StateStore asserts ownership by ws_victim
+    st = StateStore.create(proj_dir, "prj_hijack", workspace_id="ws_victim")
+    StateStore.save(proj_dir, st)
+
+    report = run_probe_qc_for_trusted_directory(
+        project_dir=proj_dir,
+        trusted_confinement_root=base_dir,
+        authorization_context={"workspace_id": "ws_attacker"},
+    )
+
+    assert report["status"] == "EXECUTION_FAILURE"
+    assert any("Mismatched tenant ownership" in e["message"] for e in report["errors"])
+    assert not (proj_dir / ".studio_unlocked").exists()
+
+
+def test_probe_qc_failed_authorization_produces_no_approval_state(tmp_path: Path):
+    """
+    Verifies that failed authorization cannot produce ReviewBundle, .studio_unlocked,
+    probe reports, or frame plans.
+    """
+    from scripts.gates.probe_qc import run_probe_qc_for_trusted_directory
+
+    target_dir = tmp_path / "arbitrary_dir"
+    target_dir.mkdir()
+
+    # 1. Missing trusted_confinement_root
+    r1 = run_probe_qc_for_trusted_directory(target_dir, trusted_confinement_root=None, authorization_context={"workspace_id": "ws_1"})
+    assert r1["status"] == "EXECUTION_FAILURE"
+
+    # 2. Missing authorization_context
+    r2 = run_probe_qc_for_trusted_directory(target_dir, trusted_confinement_root=tmp_path, authorization_context=None)
+    assert r2["status"] == "EXECUTION_FAILURE"
+
+    # 3. Empty workspace_id
+    r3 = run_probe_qc_for_trusted_directory(target_dir, trusted_confinement_root=tmp_path, authorization_context={"workspace_id": ""})
+    assert r3["status"] == "EXECUTION_FAILURE"
+
+    # Assert no approval artifacts exist
+    assert not (target_dir / ".studio_unlocked").exists()
+    assert not (target_dir / "03_probe_qc").exists()
+    assert not (target_dir / "probe_qc_report.json").exists()
+
+
+

@@ -93,7 +93,7 @@ def test_green_led_048_fps_authority_and_fail_closed():
         derive_probe_frame_plan(bp_24, canonical_fps=30)
 
 
-def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path):
+def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path, monkeypatch):
     """
     GREEN PROOF for LED-049:
     Contact sheet is mandatory review evidence.
@@ -102,9 +102,11 @@ def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path):
     - Error code is PROBE_CONTACT_SHEET_FAILED
     - .studio_unlocked is NOT created
     """
-    proj_dir = tmp_path / "prj_green_049"
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    ws_id = "ws_green_049"
+    monkeypatch.setenv("AGY_WORKSPACE_ID", ws_id)
     project_id = "prj_green_049"
+    proj_dir = tmp_path / "projects" / ws_id / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
 
     # Setup valid project files
     bp = {
@@ -118,7 +120,7 @@ def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path):
     (proj_dir / "media_map.json").write_text("{}", encoding="utf-8")
     (proj_dir / "master_plan.md").write_text("# Plan", encoding="utf-8")
 
-    state = StateStore.create(proj_dir, project_id)
+    state = StateStore.create(proj_dir, project_id, workspace_id=ws_id)
     state.lifecycle_state = LifecycleState.MATERIALIZED
     StateStore.save(proj_dir, state)
 
@@ -142,7 +144,12 @@ def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path):
 
     probe_mod.safe_subprocess = failing_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render_ok)
+        report = run_probe_qc(
+            project_id,
+            workspace_root=tmp_path,
+            workspace_id=ws_id,
+            mock_render_fn=mock_render_ok,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -152,7 +159,7 @@ def test_green_led_049_contact_sheet_mandatory_evidence(tmp_path):
     assert not (proj_dir / ".studio_unlocked").exists()
 
 
-def test_green_led_050_review_evidence_bundle_bound(tmp_path):
+def test_green_led_050_review_evidence_bundle_bound(tmp_path, monkeypatch):
     """
     GREEN PROOF for LED-050:
     On probe success:
@@ -161,9 +168,11 @@ def test_green_led_050_review_evidence_bundle_bound(tmp_path):
     3. .studio_unlocked contains review_bundle_id and bundle_digest.
     4. Modifying blueprint after approval invalidates review and blocks render.
     """
-    proj_dir = tmp_path / "prj_green_050"
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    ws_id = "ws_green_050"
+    monkeypatch.setenv("AGY_WORKSPACE_ID", ws_id)
     project_id = "prj_green_050"
+    proj_dir = tmp_path / "projects" / ws_id / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
 
     bp = {
         "blueprint_version": "2.0.0",
@@ -179,7 +188,7 @@ def test_green_led_050_review_evidence_bundle_bound(tmp_path):
     (proj_dir / "media_map.json").write_text("{}", encoding="utf-8")
     (proj_dir / "master_plan.md").write_text("# Plan", encoding="utf-8")
 
-    state = StateStore.create(proj_dir, project_id)
+    state = StateStore.create(proj_dir, project_id, workspace_id=ws_id)
     state.lifecycle_state = LifecycleState.MATERIALIZED
     state.record_evidence(StateStore.create_artifact_record(proj_dir, "05_blueprint.json", ValidationLevel.SHA256))
     state.record_evidence(StateStore.create_artifact_record(proj_dir, "media_map.json", ValidationLevel.EXISTS))
@@ -207,7 +216,12 @@ def test_green_led_050_review_evidence_bundle_bound(tmp_path):
 
     probe_mod.safe_subprocess = mock_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render)
+        report = run_probe_qc(
+            project_id,
+            workspace_root=tmp_path,
+            workspace_id=ws_id,
+            mock_render_fn=mock_render,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 

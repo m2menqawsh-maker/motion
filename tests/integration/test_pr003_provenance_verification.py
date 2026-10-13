@@ -345,7 +345,7 @@ def test_ai_to_mp4_provenance_single_connected_scenario(env_provenance):
     StateStore.save(pdir, st)
 
     # Run Probe-QC
-    qc_res = run_probe_qc(pdir)
+    qc_res = run_probe_qc(pid, workspace_id=ws_id)
     assert qc_res.get("status") == "PASS", f"Probe-QC failed: {qc_res}"
     assert (pdir / ".studio_unlocked").exists()
     assert (pdir / "contact_sheet.png").exists()

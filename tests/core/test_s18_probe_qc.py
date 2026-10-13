@@ -36,11 +36,13 @@ from scripts.gates.probe_qc import run_probe_qc, verify_seal
 
 
 @pytest.fixture
-def probe_project(tmp_path):
+def probe_project(tmp_path, monkeypatch):
     """Sets up a canonical project directory ready for probe testing."""
-    proj_dir = tmp_path / "projects" / "test_probe_prj"
-    proj_dir.mkdir(parents=True, exist_ok=True)
+    ws_id = "ws_probe_test"
+    monkeypatch.setenv("AGY_WORKSPACE_ID", ws_id)
     project_id = "test_probe_prj"
+    proj_dir = tmp_path / "projects" / ws_id / project_id
+    proj_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. Blueprint (3 canonical scenes)
     bp = {
@@ -93,7 +95,7 @@ def probe_project(tmp_path):
     (proj_dir / "master_plan.md").write_text("# Plan\nCanonical test plan", encoding="utf-8")
 
     # 5. Pipeline State
-    state = StateStore.create(proj_dir, project_id)
+    state = StateStore.create(proj_dir, project_id, workspace_id=ws_id)
     state.lifecycle_state = LifecycleState.MATERIALIZED
     state.record_evidence(StateStore.create_artifact_record(proj_dir, "02_asset_manifest.json", ValidationLevel.SHA256))
     state.record_evidence(StateStore.create_artifact_record(proj_dir, "master_plan.md", ValidationLevel.SHA256))
@@ -104,6 +106,8 @@ def probe_project(tmp_path):
     return {
         "proj_dir": proj_dir,
         "project_id": project_id,
+        "workspace_root": tmp_path,
+        "workspace_id": ws_id,
         "blueprint": bp,
     }
 
@@ -361,7 +365,12 @@ def test_matrix_f_contact_sheet_failure_fails_closed(probe_project):
     probe_mod.safe_subprocess = failing_subprocess
 
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render)
+        report = run_probe_qc(
+            probe_project["project_id"],
+            workspace_root=probe_project["workspace_root"],
+            workspace_id=probe_project["workspace_id"],
+            mock_render_fn=mock_render,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -395,7 +404,12 @@ def test_matrix_g_missing_rendered_frame(probe_project):
         fpath.write_bytes(make_fake_png_bytes())
         return True, str(fpath.absolute()), "sha_dummy", None
 
-    report = run_probe_qc(proj_dir, mock_render_fn=mock_render_with_failure)
+    report = run_probe_qc(
+        probe_project["project_id"],
+        workspace_root=probe_project["workspace_root"],
+        workspace_id=probe_project["workspace_id"],
+        mock_render_fn=mock_render_with_failure,
+    )
 
     assert report["status"] == "EXECUTION_FAILURE"
     assert report["legacy_status"] == "fail"
@@ -415,7 +429,12 @@ def test_matrix_h_tool_crash_is_execution_failure(probe_project):
     def mock_render_crash(idx, frame, out_dir):
         return False, None, None, "SIGSEGV: Browser engine crashed"
 
-    report = run_probe_qc(proj_dir, mock_render_fn=mock_render_crash)
+    report = run_probe_qc(
+        probe_project["project_id"],
+        workspace_root=probe_project["workspace_root"],
+        workspace_id=probe_project["workspace_id"],
+        mock_render_fn=mock_render_crash,
+    )
 
     assert report["status"] == "EXECUTION_FAILURE"
     assert not (proj_dir / ".studio_unlocked").exists()
@@ -428,8 +447,6 @@ def test_matrix_i_content_defect_categorized_separately(probe_project):
     Test Matrix I:
     Content-level failures are differentiated from execution crashes.
     """
-    proj_dir = probe_project["proj_dir"]
-
     # When report has content defect
     def mock_render_ok(idx, frame, out_dir):
         fpath = out_dir / f"probe_{idx:02d}_f{frame}.png"
@@ -454,7 +471,12 @@ def test_matrix_i_content_defect_categorized_separately(probe_project):
 
     probe_mod.safe_subprocess = successful_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render_ok)
+        report = run_probe_qc(
+            probe_project["project_id"],
+            workspace_root=probe_project["workspace_root"],
+            workspace_id=probe_project["workspace_id"],
+            mock_render_fn=mock_render_ok,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -504,7 +526,12 @@ def test_matrix_j_review_bundle_integrity(probe_project):
 
     probe_mod.safe_subprocess = mock_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render)
+        report = run_probe_qc(
+            probe_project["project_id"],
+            workspace_root=probe_project["workspace_root"],
+            workspace_id=probe_project["workspace_id"],
+            mock_render_fn=mock_render,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -563,7 +590,12 @@ def test_matrix_k_stale_bundle_invalidation(probe_project):
 
     probe_mod.safe_subprocess = mock_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render)
+        report = run_probe_qc(
+            probe_project["project_id"],
+            workspace_root=probe_project["workspace_root"],
+            workspace_id=probe_project["workspace_id"],
+            mock_render_fn=mock_render,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -663,7 +695,12 @@ def test_cross_layer_end_to_end_probe_review_chain(probe_project):
 
     probe_mod.safe_subprocess = mock_cs
     try:
-        report = run_probe_qc(proj_dir, mock_render_fn=mock_render)
+        report = run_probe_qc(
+            probe_project["project_id"],
+            workspace_root=probe_project["workspace_root"],
+            workspace_id=probe_project["workspace_id"],
+            mock_render_fn=mock_render,
+        )
     finally:
         probe_mod.safe_subprocess = orig_sub
 
@@ -682,3 +719,50 @@ def test_cross_layer_end_to_end_probe_review_chain(probe_project):
     assert active_bundle.probe_report_sha256 == hashlib.sha256((proj_dir / "probe_qc_report.json").read_bytes()).hexdigest()
     assert active_bundle.contact_sheet_sha256 == hashlib.sha256((proj_dir / "contact_sheet.png").read_bytes()).hexdigest()
     assert active_bundle.probe_frame_plan_digest == plan.plan_digest
+
+
+def test_matrix_m_probe_qc_for_trusted_directory(probe_project):
+    """
+    Test Matrix M:
+    run_probe_qc_for_trusted_directory succeeds with independently supplied confinement root
+    and verified authorization context.
+    """
+    from scripts.gates.probe_qc import run_probe_qc_for_trusted_directory
+    proj_dir = probe_project["proj_dir"]
+    ws_root = probe_project["workspace_root"]
+    ws_id = probe_project["workspace_id"]
+
+    def mock_render(idx, frame, out_dir):
+        fpath = out_dir / f"probe_{idx:02d}_f{frame}.png"
+        b = make_fake_png_bytes(f"f_{frame}")
+        fpath.write_bytes(b)
+        import hashlib
+        return True, str(fpath.absolute()), hashlib.sha256(b).hexdigest(), None
+
+    import scripts.gates.probe_qc as probe_mod
+    orig_sub = probe_mod.safe_subprocess
+
+    def mock_cs(cmd, *args, **kwargs):
+        if "hstack" in str(cmd):
+            out_file = Path(cmd[-1])
+            out_file.write_bytes(make_fake_png_bytes("sheet"))
+            class DummyRes:
+                returncode = 0
+                stdout = b""
+                stderr = b""
+            return DummyRes()
+        return orig_sub(cmd, *args, **kwargs)
+
+    probe_mod.safe_subprocess = mock_cs
+    try:
+        report = run_probe_qc_for_trusted_directory(
+            proj_dir,
+            trusted_confinement_root=ws_root / "projects",
+            authorization_context={"workspace_id": ws_id},
+            mock_render_fn=mock_render,
+        )
+    finally:
+        probe_mod.safe_subprocess = orig_sub
+
+    assert report["status"] == "PASS"
+    assert report.get("review_bundle_id") is not None

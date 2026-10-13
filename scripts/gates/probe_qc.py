@@ -23,7 +23,7 @@ import os
 from pathlib import Path
 import secrets
 import sys
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, List, Optional, Any, Tuple, Union
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -131,59 +131,201 @@ def validate_image_header(file_path: Path) -> bool:
         return False
 
 
+def _probe_fail_closed_report(message: str) -> Dict[str, Any]:
+    """Generates a structured, critical fail-closed report without touching disk or creating artifacts."""
+    return {
+        "status": "EXECUTION_FAILURE",
+        "legacy_status": "fail",
+        "errors": [{
+            "code": FailureCode.SECURITY_POLICY_BLOCKED.value,
+            "rule": "TENANT_PATH_RESOLUTION",
+            "message": f"Tenant path resolution failed (Fail-closed): {message}",
+            "severity": "CRITICAL",
+        }],
+        "checks": {
+            "path_resolution": {
+                "status": "FAIL",
+                "severity": "CRITICAL",
+                "message": f"Tenant path resolution failed (Fail-closed): {message}",
+            }
+        },
+    }
+
+
 def run_probe_qc(
-    proj_dir_or_id: Path | str,
+    project_id: str,
     comp_id: str = "BlueprintVideo",
-    workspace_root: Optional[Path | str] = None,
+    workspace_root: Optional[Union[Path, str]] = None,
+    workspace_id: Optional[str] = None,
     mock_render_fn: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """
-    Executes Canonical Review Probe QC:
-    1. build_render_input(proj_dir)
-    2. derive_probe_frame_plan()
-    3. Render representative frames
-    4. Generate & validate contact sheet (mandatory)
-    5. Evaluate checks (execution vs content failures)
-    6. Write probe_qc_report.json + .seal
-    7. Create immutable ReviewBundle via ReviewService (if PASS)
-    8. Write .studio_unlocked (if PASS)
-    """
-    ws = Path(workspace_root).resolve() if workspace_root else Path.cwd().resolve()
+    Executes Canonical Review Probe QC for a verified tenant project ID (Production Gate).
 
-    target_path = Path(proj_dir_or_id)
+    Mandatory Tenant Authorization:
+    - Rejects path-like arguments (slashes, relative or absolute directory paths).
+    - Requires verified workspace identity (via argument, AGY_WORKSPACE_ID, or TenantRepository).
+    - Resolves strictly to projects/{workspace_id}/{project_id}/.
+    - Strictly fails closed upon any resolution failure.
+    - NEVER accepts unmanaged flat directories or direct filesystem paths.
+    - NEVER derives confinement from supplied directory paths.
+    """
+    raw_id = str(project_id).strip()
+    if "/" in raw_id or "\\" in raw_id or isinstance(project_id, Path):
+        return _probe_fail_closed_report(
+            f"Direct filesystem paths are not accepted by run_probe_qc: '{project_id}'. "
+            "For production calls, supply a clean project_id. For trusted internal tools or tests, "
+            "use run_probe_qc_for_trusted_directory() with an explicit confinement root and authorization context."
+        )
+
     try:
-        from scripts.security.path_security import resolve_project_dir
-        proj_dir = resolve_project_dir(str(proj_dir_or_id), base_dir=ws / "projects" if workspace_root else None)
+        from scripts.security.path_security import validate_project_id, resolve_project_dir
+        clean_id = validate_project_id(raw_id)
     except Exception as exc:
-        if target_path.is_dir() and (target_path / "05_blueprint.json").exists():
-            base_cand = (ws / "projects") if workspace_root else (
-                target_path.parent.parent if target_path.parent.name.startswith("ws_") else target_path.parent
-            )
-            from scripts.security.path_security import check_confinement_and_symlink
-            check_confinement_and_symlink(target_path, base_cand)
-            proj_dir = target_path.resolve()
-        else:
-            return {
-                "status": "EXECUTION_FAILURE",
-                "legacy_status": "fail",
-                "errors": [{
-                    "rule": "TENANT_PATH_RESOLUTION",
-                    "message": f"Tenant path resolution failed (Fail-closed): {exc}",
-                    "severity": "CRITICAL"
-                }],
-                "checks": {
-                    "path_resolution": {
-                        "status": "FAIL",
-                        "severity": "CRITICAL",
-                        "message": f"Tenant path resolution failed (Fail-closed): {exc}",
-                    }
-                }
-            }
+        return _probe_fail_closed_report(f"Invalid project_id: {exc}")
+
+    ws = Path(workspace_root).resolve() if workspace_root else Path.cwd().resolve()
+    ws_id = workspace_id or os.environ.get("AGY_WORKSPACE_ID")
+
+    try:
+        proj_dir = resolve_project_dir(
+            clean_id,
+            workspace_id=ws_id,
+            base_dir=ws / "projects" if workspace_root else None,
+        )
+    except Exception as exc:
+        return _probe_fail_closed_report(str(exc))
+
+    return _execute_probe_qc_core(
+        proj_dir=proj_dir,
+        ws=ws,
+        comp_id=comp_id,
+        mock_render_fn=mock_render_fn,
+    )
+
+
+def run_probe_qc_for_trusted_directory(
+    project_dir: Union[Path, str],
+    trusted_confinement_root: Union[Path, str],
+    authorization_context: Any,
+    comp_id: str = "BlueprintVideo",
+    mock_render_fn: Optional[Any] = None,
+) -> Dict[str, Any]:
+    """
+    Separately validated Probe QC interface for trusted internal tools and test suites.
+
+    Guarantees:
+    - Requires an independently supplied, existing trusted_confinement_root.
+    - Requires an explicit authorization_context with non-empty workspace_id.
+    - Rejects any derivation of confinement root from project_dir itself.
+    - Enforces confinement and symlink validation against trusted_confinement_root.
+    - Rejects legacy flat directory structures lacking tenant workspace scoping.
+    - Validates tenant ownership consistency between authorization_context and ProjectState.
+    - Strictly fails closed without creating ReviewBundle or .studio_unlocked if authorization fails.
+    """
+    if not trusted_confinement_root:
+        return _probe_fail_closed_report("trusted_confinement_root is strictly required for trusted directory execution")
+
+    conf_root = Path(trusted_confinement_root).resolve()
+    if not conf_root.is_dir():
+        return _probe_fail_closed_report(f"trusted_confinement_root does not exist or is not a directory: {conf_root}")
+
+    if not authorization_context:
+        return _probe_fail_closed_report("authorization_context is strictly required for trusted directory execution")
+
+    auth_ws = None
+    if isinstance(authorization_context, dict):
+        auth_ws = authorization_context.get("workspace_id")
+    else:
+        auth_ws = getattr(authorization_context, "workspace_id", None)
+
+    if not auth_ws:
+        return _probe_fail_closed_report("authorization_context must specify a non-empty workspace_id")
+
+    try:
+        from scripts.security.path_security import (
+            validate_project_id,
+            validate_workspace_id,
+            check_confinement_and_symlink,
+            TenantSecurityError,
+        )
+        v_auth_ws = validate_workspace_id(auth_ws)
+    except Exception as exc:
+        return _probe_fail_closed_report(f"Invalid workspace_id in authorization context: {exc}")
+
+    target_path = Path(project_dir).resolve()
+    if not target_path.is_dir():
+        return _probe_fail_closed_report(f"Target project directory does not exist: {target_path}")
+
+    # Strict confinement check against the independently supplied confinement root
+    try:
+        check_confinement_and_symlink(target_path, conf_root)
+    except Exception as exc:
+        return _probe_fail_closed_report(f"Target directory escapes trusted confinement root: {exc}")
+
+    # Project identifier validation from directory name
+    try:
+        validate_project_id(target_path.name)
+    except Exception as exc:
+        return _probe_fail_closed_report(f"Target directory name is not a valid project identifier: {exc}")
+
+    # Tenant scoping & ownership validation
+    # A legacy flat directory (conf_root / project_id) without workspace scoping is strictly rejected
+    if target_path.parent == conf_root:
+        return _probe_fail_closed_report(
+            f"Legacy flat project directory rejected: '{target_path.name}' is directly under '{conf_root.name}' "
+            f"without tenant workspace confinement. Expected path under '{conf_root / v_auth_ws}'."
+        )
+
+    # Ensure target is confined within the authorized workspace directory
+    expected_ws_dir = (conf_root / v_auth_ws).resolve()
+    try:
+        check_confinement_and_symlink(target_path, expected_ws_dir)
+    except Exception as exc:
+        return _probe_fail_closed_report(
+            f"Cross-tenant directory access rejected: target directory '{target_path}' is not confined "
+            f"within workspace '{v_auth_ws}': {exc}"
+        )
+
+    # If ProjectState exists on disk, verify tenant workspace consistency
+    state_file = target_path / StateStore.STATE_FILE
+    if state_file.is_file():
+        try:
+            st = StateStore.load(target_path)
+            if st and st.workspace_id and st.workspace_id != v_auth_ws:
+                return _probe_fail_closed_report(
+                    f"Mismatched tenant ownership: ProjectState declares workspace '{st.workspace_id}', "
+                    f"but authorization context provided '{v_auth_ws}'."
+                )
+        except Exception as exc:
+            return _probe_fail_closed_report(f"Failed to verify ProjectState tenant ownership: {exc}")
+
+    # Derive workspace_root for engine (remotion-app lookup)
+    ws = conf_root.parent if conf_root.name == "projects" else conf_root
+
+    return _execute_probe_qc_core(
+        proj_dir=target_path,
+        ws=ws,
+        comp_id=comp_id,
+        mock_render_fn=mock_render_fn,
+    )
+
+
+def _execute_probe_qc_core(
+    proj_dir: Path,
+    ws: Path,
+    comp_id: str = "BlueprintVideo",
+    mock_render_fn: Optional[Any] = None,
+) -> Dict[str, Any]:
 
     bp_path = proj_dir / "05_blueprint.json"
     build_dir = proj_dir / "06_build"
     probe_dir = proj_dir / "03_probe_qc"
     engine_dir = ws / "remotion-app"
+    if not (engine_dir / "src" / "index.ts").exists():
+        repo_engine = Path(__file__).resolve().parent.parent.parent / "remotion-app"
+        if (repo_engine / "src" / "index.ts").exists():
+            engine_dir = repo_engine
 
     if not bp_path.exists():
         print(f"❌ لم نجد 05_blueprint.json في {proj_dir}")
