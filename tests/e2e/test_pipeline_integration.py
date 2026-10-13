@@ -30,15 +30,15 @@ def run(cmd):
 def unmock_pipeline_service_project_dir(monkeypatch):
     """Ensure PipelineService uses the canonical workspace projects directory for real CLI integration."""
     from api.services.pipeline_service import PipelineService
-    monkeypatch.setattr(PipelineService, "_get_project_dir", classmethod(lambda cls, pid: Path(f"projects/{pid}")))
+    monkeypatch.setattr(PipelineService, "_get_project_dir", classmethod(lambda cls, pid: Path(f"projects/ws_integration/{pid}")))
 
 
 @pytest.fixture(scope="module")
 def project_setup():
-    code, stdout, stderr = run([sys.executable, "scripts/scaffold_project.py", "--name", "IntegrationTest", "--language", "ar"])
+    code, stdout, stderr = run([sys.executable, "scripts/scaffold_project.py", "--name", "IntegrationTest", "--language", "ar", "--workspace-id", "ws_integration"])
     assert code == 0
     project_id = stdout.strip()
-    project_dir = Path("projects") / project_id
+    project_dir = Path("projects/ws_integration") / project_id
 
     # Populate canonical structure via canonical factory
     create_canonical_e2e_project(
@@ -169,7 +169,7 @@ async def test_negative_tamper_after_approval_rejected():
     """LED-077: Tampering with blueprint after approval must invalidate gate and reject render."""
     import uuid
     tamper_id = f"prj_{uuid.uuid4().hex[:8]}"
-    tamper_dir = Path("projects") / tamper_id
+    tamper_dir = Path("projects/ws_integration") / tamper_id
     if tamper_dir.exists():
         shutil.rmtree(tamper_dir)
 

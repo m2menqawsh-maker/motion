@@ -137,48 +137,51 @@ def run_script(logger, stage: str, component: str, script_name: str, idempotency
             
             # Precondition validation for conditional retries
             is_valid = True
+            proj_dir = None
             if current_attempt_ctx.project_id:
                 ws_id = os.environ.get("AGY_WORKSPACE_ID")
-                proj_dir = resolve_project_dir(current_attempt_ctx.project_id, workspace_id=ws_id)
-                state_file = proj_dir / StateStore.STATE_FILE
-                if state_file.is_file():
-                    input_fps = {}
-                    for arg in args:
-                        if isinstance(arg, str):
-                            p = Path(arg)
-                            if p.is_file():
-                                try:
-                                    input_fps[p.name] = StateStore._compute_sha256(p)
-                                except Exception:
-                                    pass
-                    
-                    try:
-                        st = StateStore.load(proj_dir)
-                    except Exception:
-                        st = None
+                try:
+                    proj_dir = resolve_project_dir(current_attempt_ctx.project_id, workspace_id=ws_id)
+                except Exception:
+                    proj_dir = None
+                if proj_dir:
+                    state_file = proj_dir / StateStore.STATE_FILE
+                    if state_file.is_file():
+                        input_fps = {}
+                        for arg in args:
+                            if isinstance(arg, str):
+                                p = Path(arg)
+                                if p.is_file():
+                                    try:
+                                        input_fps[p.name] = StateStore._compute_sha256(p)
+                                    except Exception:
+                                        pass
+                        
+                        try:
+                            st = StateStore.load(proj_dir)
+                        except Exception:
+                            st = None
 
-                    if st:
-                        curr_rev = st.revision
-                        retry_ctx = RetryContext(
-                            project_id=current_attempt_ctx.project_id,
-                            stage=stage,
-                            operation=component,
-                            attempt=current_attempt_ctx.attempt,
-                            expected_revision=curr_rev,
-                            input_fingerprints=input_fps,
-                            evidence_paths=list(expected_artifacts) if expected_artifacts else [],
-                            idempotency=idempotency,
-                        )
-                        is_valid, val_reason = RetryPolicyEngine.validate_retry_preconditions(retry_ctx, proj_dir)
-                        if not is_valid:
-                            print(f"   ⚠️ شروط إعادة المحاولة غير مستوفاة: {val_reason}")
+                        if st:
+                            curr_rev = st.revision
+                            retry_ctx = RetryContext(
+                                project_id=current_attempt_ctx.project_id,
+                                stage=stage,
+                                operation=component,
+                                attempt=current_attempt_ctx.attempt,
+                                expected_revision=curr_rev,
+                                input_fingerprints=input_fps,
+                                evidence_paths=list(expected_artifacts) if expected_artifacts else [],
+                                idempotency=idempotency,
+                            )
+                            is_valid, val_reason = RetryPolicyEngine.validate_retry_preconditions(retry_ctx, proj_dir)
+                            if not is_valid:
+                                print(f"   ⚠️ شروط إعادة المحاولة غير مستوفاة: {val_reason}")
 
             decision = RetryPolicyEngine.evaluate(failure, idempotency, current_attempt_ctx.attempt, is_state_valid=is_valid)
 
             # Persist failure attempt into ProjectState
-            if current_attempt_ctx.project_id:
-                ws_id = os.environ.get("AGY_WORKSPACE_ID")
-                proj_dir = resolve_project_dir(current_attempt_ctx.project_id, workspace_id=ws_id)
+            if proj_dir:
                 state_file = proj_dir / StateStore.STATE_FILE
                 if state_file.is_file():
                     try:
@@ -241,13 +244,6 @@ def main():
         
     project_id = sys.argv[1]
     project_id = validate_project_id(project_id)
-    ws_id = os.environ.get("AGY_WORKSPACE_ID")
-    proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
-    
-    if not proj_dir.exists():
-        print(f"❌ المشروع {project_id} غير موجود في المجلد projects/")
-        sys.exit(1)
-        
     run_id = os.environ.get("AGY_RUN_ID")
     if not run_id:
         run_id = str(uuid.uuid4())
@@ -257,6 +253,19 @@ def main():
     ctx = RunContext(run_id=run_id, project_id=project_id, span_id=span_id, parent_span_id=parent_span_id)
     logger = RuntimeLogger(ctx)
     logger.event("pipeline.execution", status="started", component="pipeline", stage="pipeline")
+
+    ws_id = os.environ.get("AGY_WORKSPACE_ID")
+    try:
+        proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
+    except Exception as exc:
+        logger.event("pipeline.execution", status="failed", component="pipeline", stage="pipeline", error=str(exc))
+        print(f"❌ خطأ أمني في مسار المشروع {project_id}: {exc}")
+        sys.exit(1)
+    
+    if not proj_dir.exists():
+        logger.event("pipeline.execution", status="failed", component="pipeline", stage="pipeline", error=f"Project directory {proj_dir} does not exist")
+        print(f"❌ المشروع {project_id} غير موجود في المجلد projects/")
+        sys.exit(1)
 
     # ==========================================
     # Cross-Process Execution Lock (LED-061)

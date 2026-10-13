@@ -257,6 +257,9 @@ class PipelineService:
                 env = os.environ.copy()
                 env["AGY_RUN_ID"] = run_id
                 env["AGY_IS_MANAGED"] = "1"
+                ws_name = project_dir.parent.name
+                if ws_name.startswith("ws_"):
+                    env["AGY_WORKSPACE_ID"] = ws_name
 
                 func = functools.partial(
                     safe_subprocess,

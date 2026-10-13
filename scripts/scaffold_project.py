@@ -62,7 +62,8 @@ def main():
         (project_dir / "project.json").write_text(json.dumps(project_data, ensure_ascii=False, indent=2), encoding="utf-8")
 
         # .pipeline_state.json
-        asyncio.run(PipelineService.scaffold_project(project_id, workspace_id=args.workspace_id))
+        from scripts.core.state_store import StateStore
+        StateStore.create(project_dir, project_id, workspace_id=ws_id)
 
         # brand.json
         brand_data = {

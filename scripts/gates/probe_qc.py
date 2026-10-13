@@ -156,8 +156,11 @@ def run_probe_qc(
         proj_dir = resolve_project_dir(str(proj_dir_or_id), base_dir=ws / "projects" if workspace_root else None)
     except Exception as exc:
         if target_path.is_dir() and (target_path / "05_blueprint.json").exists():
+            base_cand = (ws / "projects") if workspace_root else (
+                target_path.parent.parent if target_path.parent.name.startswith("ws_") else target_path.parent
+            )
             from scripts.security.path_security import check_confinement_and_symlink
-            check_confinement_and_symlink(target_path, ws / "projects" if workspace_root else Path("projects"))
+            check_confinement_and_symlink(target_path, base_cand)
             proj_dir = target_path.resolve()
         else:
             return {
