@@ -250,7 +250,20 @@ class PipelineService:
             from scripts.core.project_lock import ProjectExecutionLock, ProjectExecutionConflictError
             
             run_id = str(uuid.uuid4())
-            execution_lock = ProjectExecutionLock(project_dir, owner_id="api", run_id=run_id)
+            ws_id = None
+            try:
+                from api.services.project_service import ProjectService
+                ws_id = ProjectService.get_project_workspace_id(project_id)
+            except Exception:
+                pass
+            if not ws_id and project_dir.parent.name not in ("projects", ".", "", "/"):
+                try:
+                    from scripts.security.path_security import validate_workspace_id
+                    ws_id = validate_workspace_id(project_dir.parent.name)
+                except Exception:
+                    pass
+
+            execution_lock = ProjectExecutionLock(project_dir, owner_id="api", run_id=run_id, workspace_id=ws_id)
             try:
                 execution_lock.acquire()
             except ProjectExecutionConflictError as exc:
@@ -261,16 +274,16 @@ class PipelineService:
                 env = os.environ.copy()
                 env["AGY_RUN_ID"] = run_id
                 env["AGY_IS_MANAGED"] = "1"
-                ws_name = project_dir.parent.name
-                if ws_name.startswith("ws_"):
-                    env["AGY_WORKSPACE_ID"] = ws_name
+                if execution_lock.workspace_id:
+                    env["AGY_WORKSPACE_ID"] = execution_lock.workspace_id
 
                 func = functools.partial(
                     safe_subprocess,
                     [sys.executable, "scripts/pipeline.py", project_id],
                     capture_output=True,
                     text=True,
-                    env=env
+                    env=env,
+                    allow_database_env=True,
                 )
                 result = await asyncio.to_thread(func)
 

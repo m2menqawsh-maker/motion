@@ -112,6 +112,11 @@ DATABASE_AUTHORIZED_SCRIPTS: Set[str] = {
     "scripts/testing/s28_r15_soak_and_load_runner.py",
 }
 
+# Allowed read-only subcommands for git development and maintenance utilities
+ALLOWED_GIT_READONLY_SUBCOMMANDS: Set[str] = {
+    "ls-files",
+}
+
 # Environment variables prohibited from passing into production child processes
 FORBIDDEN_PRODUCTION_ENV_VARS: Set[str] = {
     "SKIP_STRICT_QC",
@@ -355,6 +360,32 @@ class CommandPolicy:
                 if subcommand == "build":
                     if "--privileged" in cmd_list:
                         violations.append("Docker --privileged is forbidden.")
+
+        # 5. GIT POLICY (Read-only development/maintenance commands)
+        elif exe_name == "git":
+            # Extract subcommands, skipping git configuration/directory flags like -c or -C
+            non_flag_args: List[str] = []
+            skip_next = False
+            for arg in cmd_list[1:]:
+                if skip_next:
+                    skip_next = False
+                    continue
+                if arg in ("-c", "-C"):
+                    skip_next = True
+                    continue
+                if arg.startswith("-"):
+                    continue
+                non_flag_args.append(arg)
+
+            if not non_flag_args:
+                violations.append("Git command missing subcommand.")
+            else:
+                git_subcmd = non_flag_args[0]
+                subcommand = f"git {git_subcmd}"
+                if git_subcmd not in ALLOWED_GIT_READONLY_SUBCOMMANDS:
+                    violations.append(
+                        f"Git subcommand '{git_subcmd}' is forbidden. Allowed: {sorted(list(ALLOWED_GIT_READONLY_SUBCOMMANDS))}"
+                    )
 
         else:
             violations.append(f"Executable '{raw_exe}' is not in the allowed executables registry.")
