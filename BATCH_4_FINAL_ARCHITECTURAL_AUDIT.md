@@ -17,24 +17,24 @@ Our investigation confirms that MOTION is architecturally sound, robustly separa
 
 ## 2. Comprehensive Architectural Findings
 
-### Finding 1: Foreign Key Integrity Violation in Direct Project Leases
-- **Severity:** HIGH (Resolved in Batch 4)
-- **Affected Subsystem:** Durable Execution / Project Lock
-- **Affected Files:** [`scripts/core/project_lock.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/project_lock.py), [`scripts/core/run_repository.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/run_repository.py)
-- **Description:** When running with SQLite `PRAGMA foreign_keys = ON`, `project_leases` enforces `FOREIGN KEY (workspace_id) REFERENCES workspaces(id)`. In `project_lock.py`, direct project lease acquisition defaulted `workspace_id="ws_default"`. When a tenant executed a project in a custom workspace (e.g., `ws_test_e2e`), SQLite threw `sqlite3.IntegrityError`, causing the project lock to report false contention.
-- **Root Cause:** Default parameter bypassed project workspace resolution.
-- **Remediation Implemented:** Modified `ProjectExecutionLock` to resolve the actual project workspace ID from metadata/database and propagate it to `RunRepository.acquire_direct_project_lease`.
+### Finding 1: Unsafe Workspace Fallback and Prefix Assumption in Project Execution Lock
+- **Severity:** HIGH (Resolved in Batch 4 Review Corrections)
+- **Affected Subsystem:** Durable Execution / Project Lock & Tenancy
+- **Affected Files:** [`scripts/core/project_lock.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/project_lock.py), [`api/services/pipeline_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/pipeline_service.py)
+- **Description:** `ProjectExecutionLock` previously relied on directory names starting with `"ws_"` and fell back to `"ws_default"`. Valid workspace IDs (validated by canonical security policy) do not require a `"ws_"` prefix. Falling back to `"ws_default"` violated tenant boundary isolation and caused foreign key errors on unmanaged workspaces.
+- **Root Cause:** Prefix-based heuristic and default fallback rather than authoritative identity resolution.
+- **Remediation Implemented:** Replaced prefix check and fallback with authoritative resolution: checks database project registration and validated path. Valid workspace IDs without `"ws_"` prefix resolve cleanly. Missing, ambiguous, or mismatched ownership fails closed with `TenantSecurityError`. Verified by 5 security tests in `test_project_lock_and_credential_isolation.py`.
 - **Status:** **VERIFIED & RESOLVED**.
 
 ---
 
-### Finding 2: Process Environment Sanitization Stripping Database Credentials
-- **Severity:** HIGH (Resolved in Batch 4)
-- **Affected Subsystem:** Security Command Policy / Pipeline Orchestration
-- **Affected Files:** [`scripts/core/security/command_policy.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/security/command_policy.py), [`scripts/pipeline.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/pipeline.py)
-- **Description:** `CommandPolicy.sanitize_environment` strips unauthorized environment variables when launching subprocesses to prevent credential leakage. However, when `scripts/pipeline.py` invoked `scripts/render_project.py` under managed mode (`AGY_IS_MANAGED=1`), `DATABASE_URL` was stripped because `scripts/render_project.py` was missing from `DATABASE_AUTHORIZED_SCRIPTS`. As a result, `render_project.py` fell back to the default SQLite path, failing to locate the approved review decision.
-- **Root Cause:** Incomplete subprocess authorization list for internal rendering scripts.
-- **Remediation Implemented:** Added `"scripts/pipeline.py"` and `"scripts/render_project.py"` to `DATABASE_AUTHORIZED_SCRIPTS`, and ensured `pipeline.py` passes `allow_database_env=True` when database environment variables exist.
+### Finding 2: Scoped Subprocess Environment Database Credential Isolation
+- **Severity:** HIGH (Resolved in Batch 4 Review Corrections)
+- **Affected Subsystem:** Security Command Policy / Pipeline Execution
+- **Affected Files:** [`scripts/core/security/command_policy.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/security/command_policy.py), [`api/services/pipeline_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/pipeline_service.py)
+- **Description:** In managed mode, `PipelineService.run_pipeline()` invokes `scripts/pipeline.py` to orchestrate rendering. Under default environment sanitization, `DATABASE_URL` was stripped because `pipeline.py` was not explicitly granted access. However, adding rendering scripts (`render_project.py`, Remotion, FFmpeg) to `DATABASE_AUTHORIZED_SCRIPTS` leaked database credentials to untrusted render engines.
+- **Root Cause:** Need for surgical, scoped database credential access for the top-level pipeline orchestrator without leaking credentials to rendering workers or child tools.
+- **Remediation Implemented:** `PipelineService.run_pipeline()` explicitly grants `allow_database_env=True` when executing `scripts/pipeline.py`. Rendering processes (`render_project.py`, Remotion, FFmpeg) remain strictly stripped of all database credentials. Verified by negative leak tests across all renderers in `test_project_lock_and_credential_isolation.py`.
 - **Status:** **VERIFIED & RESOLVED**.
 
 ---

@@ -38,11 +38,11 @@ All changes have been partitioned into reviewable, focused feature branches and 
 
 ```
 +----------------------------------------------------------------------------------------------------------------------------------------+
-| Branch Identifier | Branch Name                   | Head Commit | GitHub Pull Request                                      | Status     |
-| :---------------- | :---------------------------- | :---------- | :------------------------------------------------------- | :--------- |
-| **Branch C4-A**   | `feat/c4-a-runtime-and-security` | `bf1f7f4`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
-| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`       | `9883908`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
-| **Branch C4-C**   | `feat/c4-c-architecture-atlas`    | `067ca4c`   | [PR #19](https://github.com/m2menqawsh-maker/motion/pull/19) | **GREEN**  |
+| Branch Identifier | Branch Name                     | Head Commit | GitHub Pull Request                                      | Status     |
+| :---------------- | :------------------------------ | :---------- | :------------------------------------------------------- | :--------- |
+| **Branch C4-A**   | `feat/c4-a-runtime-and-security`| `584d907`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
+| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`     | `5da526d`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
+| **Branch C4-C**   | `feat/c4-c-architecture-atlas`  | `HEAD`      | [PR #19](https://github.com/m2menqawsh-maker/motion/pull/19) | **PENDING**|
 +----------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
@@ -80,9 +80,10 @@ Verified via `tests/e2e/test_product_http_to_mp4_e2e.py` and `tests/e2e/test_pro
 `tests/e2e/test_process_loopback_smoke.py` proves MOTION operates as an independently deployed product:
 - **Operating System Subprocesses:** Uvicorn was spawned via `subprocess.Popen([sys.executable, "-m", "uvicorn", "api.main:app", ...])`.
 - **Real Loopback TCP Transport:** All API interactions traversed a physical TCP loopback socket on `http://127.0.0.1:<ephemeral_port>`.
-- **Worker Process Boundary & Restart:** Worker 1 was started and gracefully terminated via SIGTERM to verify lease recovery. Worker 2 was launched in a subsequent OS process, safely acquired the pending run lease, and executed the full pipeline to completion.
+- **Worker Crash Recovery & Fenced Lease Transfer:** Worker 1 was launched, actively claimed an exclusive lease (`claim_next_run(worker_id="w_crash_victim")`) verified in database, and was abruptly terminated via hard SIGKILL while holding the lease. After lease expiration (1.0s window), Worker 2 spawned in a fresh OS process, ran an orphan recovery sweep, safely recovered the abandoned run (`attempt=2`), acquired exclusive ownership (`worker_id="w_smoke_active"`), and executed the full pipeline to completion.
 - **HTTP 206 Streaming:** Retrieved media over loopback TCP using `Range: bytes=0-1023` and confirmed response code `206 Partial Content`.
-- **Duration & Pass Rate:** Executed in `37.47s` with 100% pass rate.
+- **Media Technical Inspection:** ffprobe verified genuine 1920x1080 @ 30fps H.264 video.
+- **Duration & Pass Rate:** Executed in `35.68s` with 100% pass rate.
 
 ### 2.3 Explicit Disclosure of Test Mocks, Fakes, and Shortcuts
 
@@ -206,3 +207,52 @@ The Release Engineer certifies that:
 2. No direct commits or pushes were made to `main`.
 3. No files inside `.agents/` or `references/` were deleted or modified.
 4. No paid external provider APIs were invoked; all integration tests were executed with deterministic fixtures.
+
+---
+
+## 9. Final Remote Review Corrections & Hardening (Findings A - E)
+
+Following owner review of Draft PRs #17, #18, and #19, five specific architectural and security findings were investigated, resolved, and verified.
+
+### 9.1 Summary of Findings & Implemented Resolutions
+
+| Finding | Area | Description of Issue | Implemented Resolution | Verification Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Finding A** | PR #19 CI Failure | `scripts/maintenance/generate_atlas_inventory.py` triggered a security test failure in `test_subprocess_security.py` due to direct `subprocess.run` usage. | Refactored to use `safe_subprocess(["git", "-c", "core.quotepath=false", "ls-files"])`. Narrowly authorized read-only `git ls-files` in `CommandPolicy` while maintaining strict bans on mutating git commands (`git commit`, `git push`, `git status`). Zero security tests weakened. | **VERIFIED** (4/4 security tests passed; 200/200 full security suite passed) |
+| **Finding B** | Unsafe Workspace Fallback | `scripts/core/project_lock.py` fell back to `ws_default` if a directory didn't start with `ws_`, violating workspace isolation invariants. | Replaced prefix heuristics with authoritative resolution via `TenantRepository(engine).get_project()` or strict path validation. Missing, ambiguous, or mismatched identities fail closed with `TenantSecurityError`. Removed `ws_` naming prefix assumption. | **VERIFIED** (8 comprehensive security tests added in `test_project_lock_and_credential_isolation.py`) |
+| **Finding C** | Database Environment Propagation | `PipelineService.run_pipeline()` strips credentials by default, but `scripts/pipeline.py` requires an authoritative DB connection for state sync. | Scoped database credentials specifically to `scripts/pipeline.py` invocations via `allow_database_env=True` in `PipelineService.run_pipeline()`. FFmpeg, Remotion, and external executables remain strictly stripped of database environment variables. | **VERIFIED** (Credential non-disclosure tests assert database credentials are scrubbed from rendering processes) |
+| **Finding D** | Genuine Worker Crash Recovery | Loopback test previously tested graceful lease transfer rather than an ungraceful crash (SIGKILL). | Updated `tests/e2e/test_process_loopback_smoke.py`: Worker 1 claims a durable lease and is abruptly terminated via SIGKILL (`kill()`). After the 1.0s lease expires, Worker 2 detects the expired lease, reclaims the run (`attempt=2`), and drives video generation to completion. Verified with real HTTP 206 streaming and `ffprobe`. | **VERIFIED** (Process loopback smoke test passed in 35.68s) |
+| **Finding E** | PR Dependency & Merge Sequencing | Dependency relationships and integration sequencing between the three PRs needed authoritative specification. | Formally defined forward-only dependency chain (#17 -> #18 -> #19), updated all branch heads without force-pushing, and reaffirmed the 3-step merge order for repository owner. | **VERIFIED** (Linear, clean merge path verified across all three branches) |
+
+### 9.2 Authoritative Branch Dependency & Merge Order
+
+The three PRs form a strict forward progression where each subsequent branch incorporates all prior hardening:
+
+```
+[dea7e42] main (Batch 3 Baseline)
+    │
+    ▼
+[584d907] PR #17 (feat/c4-a-runtime-and-security)
+    │     - Authoritative workspace resolution (Finding B)
+    │     - Scoped pipeline DB credentials & renderer isolation (Finding C)
+    │     - Comprehensive security test suite (200 tests)
+    │
+    ▼
+[5da526d] PR #18 (feat/c4-b-http-to-mp4-e2e)
+    │     - Merged PR #17
+    │     - 14-step Product HTTP-to-MP4 E2E suite
+    │     - Genuine worker SIGKILL crash recovery test (Finding D)
+    │
+    ▼
+[HEAD]    PR #19 (feat/c4-c-architecture-atlas)
+          - Merged PR #18
+          - Safe git file inventory generator (Finding A)
+          - 2,615-file reconciled Architecture Atlas
+          - Product reports & governance audits
+```
+
+#### Authoritative Merge Sequencing for Repository Owner:
+1. **Merge PR #17 First:** Establishes core security controls, workspace isolation invariants, and credential propagation.
+2. **Merge PR #18 Second:** Establishes the automated E2E product test suite and process loopback crash recovery validation.
+3. **Merge PR #19 Third:** Establishes the complete Architecture Atlas, file inventory, and governance reports.
+

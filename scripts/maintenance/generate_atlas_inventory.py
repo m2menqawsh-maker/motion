@@ -13,17 +13,20 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
+
+from scripts.security.security import safe_subprocess
 
 
 def get_git_tracked_files() -> List[str]:
-    result = subprocess.run(
+    result = safe_subprocess(
         ["git", "-c", "core.quotepath=false", "ls-files"],
         cwd=WORKSPACE_ROOT,
         capture_output=True,

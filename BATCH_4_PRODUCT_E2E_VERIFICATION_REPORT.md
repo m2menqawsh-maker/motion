@@ -89,6 +89,12 @@ The test suite [`tests/e2e/test_product_http_to_mp4_e2e.py`](file:///home/eng_Mo
 - **Attack:** A client creates a project and enqueues a run **without** obtaining review approval.
 - **Result:** Worker halts execution immediately with `PIPELINE_EXECUTION_FAILED` / `RENDER_NOT_AUTHORIZED`. The render engine refuses to start.
 
+### 3.5 Worker Crash Recovery & Durable Lease Transfer Proof
+- **Fault Scenario:** Worker 1 claims an exclusive durable lease (`claim_next_run(worker_id="w_crash_victim", lease_duration=1.0)`) on an enqueued pipeline run and suffers an abrupt operating system crash (SIGKILL) while actively holding the lease.
+- **Lease Fencing & Expiration:** During lease validity, no concurrent worker can hijack or corrupt the active run. Once the heartbeat window elapses (1.0s), the lease is marked expired.
+- **Orphan Recovery & Reclaim:** Worker 2 spawns in a fresh operating system process, initiates an orphan recovery sweep (`recover_orphans()`), detects the dead worker's expired lease, safely resets the run to `QUEUED` with incremented attempt counter (`attempt=2`), acquires exclusive lease ownership (`worker_id="w_smoke_active"`), and processes the pipeline through to technical media completion.
+- **Verification Evidence:** Executed and confirmed across independent operating system processes in [`tests/e2e/test_process_loopback_smoke.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/e2e/test_process_loopback_smoke.py).
+
 ---
 
 ## 4. Deterministic vs. Live External Provider Status

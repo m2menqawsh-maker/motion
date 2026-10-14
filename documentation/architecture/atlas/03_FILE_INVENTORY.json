@@ -1,5 +1,5 @@
 {
-  "total_tracked_files": 2600,
+  "total_tracked_files": 2615,
   "subsystems": {
     "agent_legacy": {
       "count": 179,
@@ -20,9 +20,9 @@
       "critical": 0
     },
     "documentation_knowledge": {
-      "count": 287,
-      "lines": 76049,
-      "bytes": 4498213,
+      "count": 298,
+      "lines": 108298,
+      "bytes": 6033173,
       "critical": 0
     },
     "context_knowledge_skills": {
@@ -63,8 +63,8 @@
     },
     "durable_execution": {
       "count": 6,
-      "lines": 2941,
-      "bytes": 134028,
+      "lines": 3023,
+      "bytes": 138176,
       "critical": 6
     },
     "canonical_documents": {
@@ -86,21 +86,21 @@
       "critical": 478
     },
     "tests_verification": {
-      "count": 625,
-      "lines": 126094,
-      "bytes": 29313988,
+      "count": 628,
+      "lines": 127204,
+      "bytes": 29363528,
       "critical": 0
     },
     "dev_maintenance": {
-      "count": 144,
-      "lines": 31917,
-      "bytes": 1280411,
+      "count": 145,
+      "lines": 32292,
+      "bytes": 1297599,
       "critical": 0
     },
     "auth_tenancy": {
       "count": 7,
-      "lines": 1422,
-      "bytes": 53586,
+      "lines": 1453,
+      "bytes": 54825,
       "critical": 7
     },
     "quality_control": {
@@ -122,18 +122,18 @@
       "critical": 0
     },
     "DEV_TOOLING": {
-      "count": 153,
-      "lines": 33584,
+      "count": 154,
+      "lines": 33959,
       "critical": 0
     },
     "ARCHIVAL_DOC": {
-      "count": 287,
-      "lines": 76049,
+      "count": 298,
+      "lines": 108298,
       "critical": 0
     },
     "ACTIVE_RUNTIME": {
       "count": 700,
-      "lines": 99217,
+      "lines": 99330,
       "critical": 674
     },
     "CONTRACT_SCHEMA": {
@@ -142,8 +142,8 @@
       "critical": 310
     },
     "TEST_SUITE": {
-      "count": 625,
-      "lines": 126094,
+      "count": 628,
+      "lines": 127204,
       "critical": 0
     }
   },
@@ -1867,6 +1867,46 @@
       "line_count": 0,
       "size_bytes": 124,
       "description": "Supporting asset or configuration file"
+    },
+    {
+      "path": "BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 147,
+      "size_bytes": 12792,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 99,
+      "size_bytes": 8759,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "BATCH_4_PRODUCT_E2E_VERIFICATION_REPORT.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 164,
+      "size_bytes": 12635,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "BATCH_4_REMOTE_VERIFICATION_AND_OWNER_REVIEW.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 258,
+      "size_bytes": 21054,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
       "path": "LICENSE",
@@ -5804,8 +5844,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 376,
-      "size_bytes": 16265,
+      "line_count": 389,
+      "size_bytes": 16873,
       "description": "Durable run management, worker lease fencing, and pipeline orchestration"
     },
     {
@@ -6936,6 +6976,76 @@
       "extension": "md",
       "line_count": 75,
       "size_bytes": 3818,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 181,
+      "size_bytes": 14758,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/02_SUBSYSTEM_ATLAS.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 462,
+      "size_bytes": 31345,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/03_FILE_INVENTORY.json",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "json",
+      "line_count": 26302,
+      "size_bytes": 891610,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/03_FILE_INVENTORY.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 3890,
+      "size_bytes": 505340,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/04_EXECUTION_GRAPHS.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 365,
+      "size_bytes": 14818,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/05_TROUBLESHOOTING_GUIDE.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 195,
+      "size_bytes": 9990,
+      "description": "Architectural specifications, user guides, playbooks, or learning logs"
+    },
+    {
+      "path": "documentation/architecture/atlas/06_LEARNING_ROADMAP.md",
+      "subsystem": "documentation_knowledge",
+      "role": "ARCHIVAL_DOC",
+      "is_production_critical": false,
+      "extension": "md",
+      "line_count": 186,
+      "size_bytes": 11859,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -17484,8 +17594,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 110,
-      "size_bytes": 4202,
+      "line_count": 179,
+      "size_bytes": 7742,
       "description": "Durable run management, worker lease fencing, and pipeline orchestration"
     },
     {
@@ -17574,8 +17684,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 375,
-      "size_bytes": 16120,
+      "line_count": 406,
+      "size_bytes": 17359,
       "description": "Authentication, tenant scoping, and cryptographic security guards"
     },
     {
@@ -18076,6 +18186,16 @@
       "extension": "py",
       "line_count": 80,
       "size_bytes": 2481,
+      "description": "Developer automation, repository maintenance, and CI helper scripts"
+    },
+    {
+      "path": "scripts/maintenance/generate_atlas_inventory.py",
+      "subsystem": "dev_maintenance",
+      "role": "DEV_TOOLING",
+      "is_production_critical": false,
+      "extension": "py",
+      "line_count": 375,
+      "size_bytes": 17188,
       "description": "Developer automation, repository maintenance, and CI helper scripts"
     },
     {
@@ -23364,8 +23484,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 236,
-      "size_bytes": 8792,
+      "line_count": 245,
+      "size_bytes": 9136,
       "description": "Automated test suite verification"
     },
     {
@@ -23756,6 +23876,26 @@
       "extension": "py",
       "line_count": 209,
       "size_bytes": 8313,
+      "description": "Automated test suite verification"
+    },
+    {
+      "path": "tests/e2e/test_process_loopback_smoke.py",
+      "subsystem": "tests_verification",
+      "role": "TEST_SUITE",
+      "is_production_critical": false,
+      "extension": "py",
+      "line_count": 342,
+      "size_bytes": 15965,
+      "description": "Automated test suite verification"
+    },
+    {
+      "path": "tests/e2e/test_product_http_to_mp4_e2e.py",
+      "subsystem": "tests_verification",
+      "role": "TEST_SUITE",
+      "is_production_critical": false,
+      "extension": "py",
+      "line_count": 514,
+      "size_bytes": 22241,
       "description": "Automated test suite verification"
     },
     {
@@ -25896,6 +26036,16 @@
       "extension": "py",
       "line_count": 579,
       "size_bytes": 24207,
+      "description": "Automated test suite verification"
+    },
+    {
+      "path": "tests/security/test_project_lock_and_credential_isolation.py",
+      "subsystem": "tests_verification",
+      "role": "TEST_SUITE",
+      "is_production_critical": false,
+      "extension": "py",
+      "line_count": 245,
+      "size_bytes": 10990,
       "description": "Automated test suite verification"
     },
     {
