@@ -146,6 +146,9 @@ def setup_test_env():
 @pytest.fixture(autouse=True)
 def setup_tmpdir(monkeypatch, tmp_path):
     """Patch the current working directory or paths to avoid touching real projects"""
+    projects_root = (tmp_path / "projects").resolve()
+    monkeypatch.setenv("MOTION_PROJECTS_ROOT", str(projects_root))
+    monkeypatch.setenv("AGY_PROJECTS_ROOT", str(projects_root))
     from api.services.pipeline_service import PipelineService
     
     def mock_get_project_dir(cls, project_id: str, *args, **kwargs) -> Path:
