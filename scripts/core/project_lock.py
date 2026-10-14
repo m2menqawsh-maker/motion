@@ -9,6 +9,11 @@ from pathlib import Path
 from typing import Optional
 from scripts.core.state_lock import StateLock, StateLockTimeoutError
 from scripts.core.run_repository import RunRepository
+from scripts.security.path_security import (
+    validate_project_id,
+    validate_workspace_id,
+    TenantSecurityError,
+)
 
 
 class ProjectExecutionConflictError(Exception):
@@ -37,18 +42,82 @@ class ProjectExecutionLock:
         workspace_id: Optional[str] = None,
     ):
         self.project_dir = Path(project_dir)
-        self.project_id = self.project_dir.name
+        self.project_id = validate_project_id(self.project_dir.name)
         self.owner_id = owner_id
         self.run_id = run_id or f"direct_{owner_id}"
         self.timeout = timeout
-        if workspace_id:
-            self.workspace_id = workspace_id
-        elif self.project_dir.parent.name.startswith("ws_"):
-            self.workspace_id = self.project_dir.parent.name
-        else:
-            self.workspace_id = "ws_default"
         self.repo = RunRepository(db_path=db_path)
         self._file_lock: Optional[StateLock] = None
+        self.workspace_id = self._resolve_workspace_id(workspace_id)
+
+    def _resolve_workspace_id(self, explicit_ws: Optional[str]) -> str:
+        """
+        Resolves workspace ownership authoritatively with strict fail-closed security:
+        1. Checks database project registration.
+        2. Inspects filesystem parent namespace if valid.
+        3. Validates explicit workspace against registration and filesystem.
+        4. Fails closed with TenantSecurityError on missing, ambiguous, or mismatched identity.
+        """
+        authoritative_ws: Optional[str] = None
+        try:
+            from scripts.core.database import DatabaseEngine, TenantRepository
+            engine = DatabaseEngine(f"sqlite:///{self.repo.db_path}")
+            tenant_repo = TenantRepository(engine)
+            proj_record = tenant_repo.get_project(self.project_id)
+            if proj_record and proj_record.workspace_id:
+                authoritative_ws = validate_workspace_id(proj_record.workspace_id)
+        except Exception:
+            try:
+                from scripts.core.database import get_database_engine, TenantRepository
+                engine = get_database_engine()
+                tenant_repo = TenantRepository(engine)
+                proj_record = tenant_repo.get_project(self.project_id)
+                if proj_record and proj_record.workspace_id:
+                    authoritative_ws = validate_workspace_id(proj_record.workspace_id)
+            except Exception:
+                pass
+
+        parent_ws: Optional[str] = None
+        parent_name = self.project_dir.parent.name
+        if parent_name and parent_name not in ("projects", ".", "", "/") and not parent_name.startswith("."):
+            try:
+                parent_ws = validate_workspace_id(parent_name)
+            except ValueError:
+                parent_ws = None
+
+        # Case 1: Caller provided explicit workspace identifier
+        if explicit_ws is not None:
+            validated_explicit = validate_workspace_id(explicit_ws)
+            if authoritative_ws and validated_explicit != authoritative_ws:
+                raise TenantSecurityError(
+                    f"Workspace ownership mismatch for project '{self.project_id}': "
+                    f"explicit workspace '{validated_explicit}' does not match authoritative registration '{authoritative_ws}'."
+                )
+            if parent_ws and validated_explicit != parent_ws:
+                raise TenantSecurityError(
+                    f"Workspace ownership mismatch for project '{self.project_id}': "
+                    f"explicit workspace '{validated_explicit}' conflicts with filesystem directory '{parent_ws}'."
+                )
+            return validated_explicit
+
+        # Case 2: Authoritative registration exists in database
+        if authoritative_ws:
+            if parent_ws and authoritative_ws != parent_ws:
+                raise TenantSecurityError(
+                    f"Conflicting workspace identity for project '{self.project_id}': "
+                    f"authoritative database registration '{authoritative_ws}' conflicts with filesystem directory '{parent_ws}'."
+                )
+            return authoritative_ws
+
+        # Case 3: Parent directory is a valid workspace identifier
+        if parent_ws:
+            return parent_ws
+
+        # Case 4: Missing or ambiguous identity must fail closed
+        raise TenantSecurityError(
+            f"Cannot acquire execution lock: missing or ambiguous workspace identity for project '{self.project_id}'. "
+            "Workspace ownership must be explicitly provided or registered authoritatively."
+        )
 
     def acquire(self) -> "ProjectExecutionLock":
         # 1. Check persistent database lease authority
