@@ -78,7 +78,7 @@ def setup_test_env():
                 ("rev_user", Role.REVIEWER),
                 ("reviewer_alice", Role.REVIEWER),
                 ("viewer_bob", Role.VIEWER),
-            ], []),
+            ], ["test-golden-001"]),
             ("ws_1", [
                 ("usr_1", Role.VIEWER),
                 ("usr_admin", Role.ADMIN),
@@ -146,6 +146,9 @@ def setup_test_env():
 @pytest.fixture(autouse=True)
 def setup_tmpdir(monkeypatch, tmp_path):
     """Patch the current working directory or paths to avoid touching real projects"""
+    projects_root = (tmp_path / "projects").resolve()
+    monkeypatch.setenv("MOTION_PROJECTS_ROOT", str(projects_root))
+    monkeypatch.setenv("AGY_PROJECTS_ROOT", str(projects_root))
     from api.services.pipeline_service import PipelineService
     
     def mock_get_project_dir(cls, project_id: str, *args, **kwargs) -> Path:
@@ -156,7 +159,15 @@ def setup_tmpdir(monkeypatch, tmp_path):
                 return real_p
         except Exception:
             pass
-        p = tmp_path / "projects" / project_id
+        ws_id = "ws_default"
+        try:
+            from api.services.project_service import ProjectService
+            found_ws = ProjectService.get_project_workspace_id(project_id)
+            if found_ws:
+                ws_id = found_ws
+        except Exception:
+            pass
+        p = tmp_path / "projects" / ws_id / project_id
         p.mkdir(parents=True, exist_ok=True)
         return p
         
@@ -166,7 +177,8 @@ def setup_tmpdir(monkeypatch, tmp_path):
 def test_project(tmp_path):
     """Test Project"""
     project_id = "test-golden-001"
-    project_dir = tmp_path / "projects" / project_id
+    ws_id = "ws_default"
+    project_dir = tmp_path / "projects" / ws_id / project_id
     project_dir.mkdir(parents=True, exist_ok=True)
     
     (project_dir / "master_plan.md").write_text("# Test Plan", encoding="utf-8")

@@ -422,8 +422,10 @@ class StateStore:
         state._loaded_revision = state.revision
 
         # In managed mode, ensure disk state matches authoritative SQL state
+        # Only reconcile if database credentials/URL are explicitly present in the environment
         is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
-        if is_managed and getattr(state, "project_id", None):
+        has_db_env = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+        if is_managed and has_db_env and getattr(state, "project_id", None):
             try:
                 from scripts.core.database import get_database_engine
                 engine = get_database_engine()

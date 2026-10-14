@@ -112,6 +112,37 @@ DATABASE_AUTHORIZED_SCRIPTS: Set[str] = {
     "scripts/testing/s28_r15_soak_and_load_runner.py",
 }
 
+# External AI provider credentials and API tokens strictly quarantined from general subprocesses
+AI_PROVIDER_SECRET_ENV_VARS: Set[str] = {
+    "OPENAI_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "ELEVENLABS_API_KEY",
+    "OPENROUTER_API_KEY",
+    "REPLICATE_API_TOKEN",
+    "GEMINI_API_KEY",
+    "GROQ_API_KEY",
+    "MISTRAL_API_KEY",
+    "FAL_KEY",
+    "RUNWAY_API_KEY",
+    "STABILITY_API_KEY",
+}
+
+# Whitelist of trusted scripts authorized to receive external AI provider credentials
+AI_AUTHORIZED_SCRIPTS: Set[str] = {
+    "scripts/smoke_openrouter.py",
+    "scripts/run_creative_e2e.py",
+    "scripts/run_creative_cost_audit.py",
+    "scripts/run_real_cost_performance_benchmark.py",
+    "scripts/testing/s28_r15_soak_and_load_runner.py",
+    "scripts/worker/worker.py",
+    "scripts/core/worker.py",
+}
+
+# Allowed read-only subcommands for git development and maintenance utilities
+ALLOWED_GIT_READONLY_SUBCOMMANDS: Set[str] = {
+    "ls-files",
+}
+
 # Environment variables prohibited from passing into production child processes
 FORBIDDEN_PRODUCTION_ENV_VARS: Set[str] = {
     "SKIP_STRICT_QC",
@@ -145,6 +176,7 @@ class CommandPolicy:
         is_production: bool = True,
         target_script: Optional[str] = None,
         allow_database_env: bool = False,
+        allow_ai_env: bool = False,
     ) -> Dict[str, str]:
         """Construct a sanitized environment dict for child processes."""
         raw = os.environ.copy() if base_env is None else base_env.copy()
@@ -169,17 +201,45 @@ class CommandPolicy:
         if is_db_authorized:
             safe_keys.update(DATABASE_CREDENTIAL_ENV_VARS)
 
+        # Targeted, explicit grant for authorized external AI provider components only
+        is_ai_authorized = allow_ai_env or (
+            target_script is not None and any(
+                target_script == s or target_script.endswith("/" + s) or Path(target_script).name == Path(s).name
+                for s in AI_AUTHORIZED_SCRIPTS
+            )
+        )
+
         if not is_production:
             safe_keys.update({"SKIP_STRICT_QC", "DEBUG_SECURITY"})
 
         for k, v in raw.items():
-            if k in safe_keys or k.endswith("_API_KEY") or k.endswith("_TOKEN") or k.startswith("MOTION_"):
-                # Prohibit database/auth credentials from leaking via generic patterns unless explicitly authorized
-                if not is_db_authorized and k in DATABASE_CREDENTIAL_ENV_VARS:
-                    continue
-                if is_production and k in FORBIDDEN_PRODUCTION_ENV_VARS:
-                    # Strip bypass flags in production
-                    continue
+            # Strip forbidden bypass flags in production
+            if is_production and k in FORBIDDEN_PRODUCTION_ENV_VARS:
+                continue
+
+            # Database / Auth credentials: only pass if database is authorized
+            if k in DATABASE_CREDENTIAL_ENV_VARS:
+                if is_db_authorized:
+                    clean[k] = v
+                continue
+
+            # Detect external provider secrets and sensitive tokens
+            is_provider_secret = (
+                k in AI_PROVIDER_SECRET_ENV_VARS
+                or k.endswith("_API_KEY")
+                or k.endswith("_TOKEN")
+                or k.endswith("_SECRET")
+                or (k.startswith("MOTION_") and any(term in k for term in ("SECRET", "KEY", "TOKEN", "PASSWORD")))
+            )
+
+            if is_provider_secret:
+                # Untrusted rendering, media, Git, and general subprocesses must never inherit provider secrets
+                if is_ai_authorized:
+                    clean[k] = v
+                continue
+
+            # Safe configuration keys and benign MOTION_ config variables
+            if k in safe_keys or k.startswith("MOTION_"):
                 clean[k] = v
 
         # Enforce canonical PYTHONPATH to workspace and active virtual environment packages
@@ -355,6 +415,32 @@ class CommandPolicy:
                 if subcommand == "build":
                     if "--privileged" in cmd_list:
                         violations.append("Docker --privileged is forbidden.")
+
+        # 5. GIT POLICY (Read-only development/maintenance commands)
+        elif exe_name == "git":
+            # Extract subcommands, skipping git configuration/directory flags like -c or -C
+            non_flag_args: List[str] = []
+            skip_next = False
+            for arg in cmd_list[1:]:
+                if skip_next:
+                    skip_next = False
+                    continue
+                if arg in ("-c", "-C"):
+                    skip_next = True
+                    continue
+                if arg.startswith("-"):
+                    continue
+                non_flag_args.append(arg)
+
+            if not non_flag_args:
+                violations.append("Git command missing subcommand.")
+            else:
+                git_subcmd = non_flag_args[0]
+                subcommand = f"git {git_subcmd}"
+                if git_subcmd not in ALLOWED_GIT_READONLY_SUBCOMMANDS:
+                    violations.append(
+                        f"Git subcommand '{git_subcmd}' is forbidden. Allowed: {sorted(list(ALLOWED_GIT_READONLY_SUBCOMMANDS))}"
+                    )
 
         else:
             violations.append(f"Executable '{raw_exe}' is not in the allowed executables registry.")
