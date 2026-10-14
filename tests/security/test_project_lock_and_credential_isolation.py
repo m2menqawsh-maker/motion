@@ -191,7 +191,7 @@ class TestProjectLockWorkspaceSecurity:
             )
 
         # Case B: Explicit workspace provided on unregistered project outside projects root -> rejected as non-canonical
-        with pytest.raises(TenantSecurityError, match="not verified to reside under a canonical projects root"):
+        with pytest.raises(TenantSecurityError, match="not verified to reside under.*canonical projects root"):
             ProjectExecutionLock(
                 project_dir=proj_dir,
                 owner_id="attacker_worker",
@@ -296,6 +296,86 @@ class TestDatabaseCredentialIsolation:
             for secret_var in DATABASE_CREDENTIAL_ENV_VARS:
                 assert secret_var not in clean, f"Security leak: '{secret_var}' leaked to untrusted target '{target}'"
 
+    def test_provider_secrets_strictly_stripped_from_untrusted_targets(self):
+        """Untrusted rendering, media, Git, and generic subprocesses must NEVER receive external provider secrets."""
+        from scripts.core.security.command_policy import AI_PROVIDER_SECRET_ENV_VARS
+
+        base_env = {
+            "PATH": "/bin:/usr/bin",
+            "OPENAI_API_KEY": "sk-proj-super-secret-openai-key",
+            "ANTHROPIC_API_KEY": "sk-ant-secret-anthropic-key",
+            "ELEVENLABS_API_KEY": "el_secret_elevenlabs_token",
+            "OPENROUTER_API_KEY": "sk-or-v1-secret-openrouter-key",
+            "REPLICATE_API_TOKEN": "r8_secret_replicate_token",
+            "MOTION_API_KEY": "motion-internal-service-key",
+            "MOTION_ADMIN_TOKEN": "motion-admin-jwt-token",
+            "MOTION_PROJECTS_ROOT": "/canonical/projects",
+        }
+
+        untrusted_targets = [
+            "scripts/render_project.py",
+            "remotion",
+            "npx remotion",
+            "ffmpeg",
+            "ffprobe",
+            "git",
+            "scripts/gates/taste_gate.py",
+            "scripts/gates/asset_gate.py",
+            "scripts/generators/materialize_project.py",
+            None,  # General default subprocess target
+        ]
+
+        for target in untrusted_targets:
+            clean = CommandPolicy.sanitize_environment(
+                base_env=base_env,
+                target_script=target,
+                allow_ai_env=False,
+                is_production=True,
+            )
+            for secret_var in AI_PROVIDER_SECRET_ENV_VARS:
+                assert secret_var not in clean, f"Leak: '{secret_var}' leaked to untrusted target '{target}'"
+            assert "MOTION_API_KEY" not in clean, f"Leak: MOTION_API_KEY leaked to '{target}'"
+            assert "MOTION_ADMIN_TOKEN" not in clean, f"Leak: MOTION_ADMIN_TOKEN leaked to '{target}'"
+            # Benign configuration variable MUST be preserved
+            assert clean.get("MOTION_PROJECTS_ROOT") == "/canonical/projects"
+
+    def test_provider_secrets_granted_to_authorized_ai_integrations(self):
+        """Explicitly authorized AI integration targets and allow_ai_env=True receive external provider secrets."""
+        base_env = {
+            "PATH": "/bin:/usr/bin",
+            "OPENAI_API_KEY": "sk-proj-authorized-key",
+            "ANTHROPIC_API_KEY": "sk-ant-authorized-key",
+            "OPENROUTER_API_KEY": "sk-or-authorized-key",
+            "REPLICATE_API_TOKEN": "r8_authorized_token",
+        }
+
+        authorized_scripts = [
+            "scripts/smoke_openrouter.py",
+            "scripts/run_creative_e2e.py",
+            "scripts/run_creative_cost_audit.py",
+            "scripts/run_real_cost_performance_benchmark.py",
+        ]
+
+        for target in authorized_scripts:
+            clean = CommandPolicy.sanitize_environment(
+                base_env=base_env,
+                target_script=target,
+                is_production=True,
+            )
+            assert clean.get("OPENROUTER_API_KEY") == "sk-or-authorized-key"
+            assert clean.get("OPENAI_API_KEY") == "sk-proj-authorized-key"
+            assert clean.get("ANTHROPIC_API_KEY") == "sk-ant-authorized-key"
+            assert clean.get("REPLICATE_API_TOKEN") == "r8_authorized_token"
+
+        # Explicit allow_ai_env=True override
+        clean_override = CommandPolicy.sanitize_environment(
+            base_env=base_env,
+            target_script="scripts/custom_ai_call.py",
+            allow_ai_env=True,
+            is_production=True,
+        )
+        assert clean_override.get("OPENROUTER_API_KEY") == "sk-or-authorized-key"
+
     def test_git_command_policy_validation(self):
         """Git read-only inventory enumeration allowed; git status and modifying subcommands strictly denied."""
         from scripts.security.security import safe_subprocess
@@ -320,3 +400,123 @@ class TestDatabaseCredentialIsolation:
         # safe_subprocess raises PermissionError on prohibited commands
         with pytest.raises(PermissionError, match="forbidden"):
             safe_subprocess(["git", "status"])
+
+
+class TestProjectLockCanonicalRootContainment:
+    """Finding A Security Tests: Trusted Project Root & Canonical Containment."""
+
+    def test_forged_projects_directory_outside_trusted_root_rejected(self, tmp_path: Path, isolated_db: dict):
+        """A path with grandparent named 'projects' outside trusted canonical root is strictly rejected."""
+        trusted_root = tmp_path / "projects"
+        trusted_root.mkdir(parents=True, exist_ok=True)
+
+        # Forged directory tree outside trusted root: /tmp/.../attacker/projects/ws_alpha/proj_forged
+        forged_root = tmp_path / "attacker_controlled" / "projects"
+        ws_id = "ws_alpha"
+        proj_id = "proj_forged_01"
+        forged_proj_dir = forged_root / ws_id / proj_id
+        forged_proj_dir.mkdir(parents=True, exist_ok=True)
+
+        # Register in database so caller claims registration
+        repo: TenantRepository = isolated_db["tenant_repo"]
+        repo.create_user("usr_victim", "victim@example.com")
+        repo.create_workspace(ws_id, "Alpha Org", created_by="usr_victim")
+        repo.create_project(proj_id, ws_id, "Forged Target", created_by="usr_victim")
+
+        # Even with registered project and explicit workspace, forged path outside trusted root MUST fail closed
+        with pytest.raises(TenantSecurityError, match="not verified to reside under trusted canonical projects root"):
+            ProjectExecutionLock(
+                project_dir=forged_proj_dir,
+                owner_id="attacker_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=ws_id,
+                base_dir=trusted_root,
+            )
+
+    def test_symlink_escape_outside_canonical_root_rejected(self, tmp_path: Path, isolated_db: dict):
+        """Symlink pointing outside canonical projects root is strictly rejected with TenantSecurityError."""
+        trusted_root = tmp_path / "projects"
+        ws_id = "ws_symlink_org"
+        proj_id = "proj_symlink_attack"
+
+        # Create outside payload directory
+        outside_dir = tmp_path / "outside_payload" / proj_id
+        outside_dir.mkdir(parents=True, exist_ok=True)
+
+        # Create symlink inside trusted root pointing to outside_dir
+        ws_dir = trusted_root / ws_id
+        ws_dir.mkdir(parents=True, exist_ok=True)
+        symlink_proj = ws_dir / proj_id
+        symlink_proj.symlink_to(outside_dir)
+
+        # Register project
+        repo: TenantRepository = isolated_db["tenant_repo"]
+        repo.create_user("usr_sym", "sym@example.com")
+        repo.create_workspace(ws_id, "Symlink Org", created_by="usr_sym")
+        repo.create_project(proj_id, ws_id, "Symlink Video", created_by="usr_sym")
+
+        with pytest.raises(TenantSecurityError, match="(escapes designated base boundary|Path confinement violation|not verified to reside under trusted canonical projects root)"):
+            ProjectExecutionLock(
+                project_dir=symlink_proj,
+                owner_id="test_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=ws_id,
+                base_dir=trusted_root,
+            )
+
+    def test_registered_project_at_noncanonical_location_rejected(self, tmp_path: Path, isolated_db: dict):
+        """A registered project presented at a non-canonical location under trusted root is strictly rejected."""
+        trusted_root = tmp_path / "projects"
+        registered_ws = "ws_legit"
+        wrong_ws = "ws_intruder"
+        proj_id = "proj_misplaced_01"
+
+        # Register in database under ws_legit
+        repo: TenantRepository = isolated_db["tenant_repo"]
+        repo.create_user("usr_legit", "legit@example.com")
+        repo.create_workspace(registered_ws, "Legit Org", created_by="usr_legit")
+        repo.create_workspace(wrong_ws, "Intruder Org", created_by="usr_legit")
+        repo.create_project(proj_id, registered_ws, "Misplaced Target", created_by="usr_legit")
+
+        # Create directory under wrong_ws
+        wrong_proj_dir = trusted_root / wrong_ws / proj_id
+        wrong_proj_dir.mkdir(parents=True, exist_ok=True)
+
+        # When caller does not specify workspace, DB resolves ws_legit, but path is under ws_intruder -> conflict
+        with pytest.raises(TenantSecurityError, match="Conflicting workspace identity"):
+            ProjectExecutionLock(
+                project_dir=wrong_proj_dir,
+                owner_id="test_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=None,
+                base_dir=trusted_root,
+            )
+
+    def test_authorized_test_workspace_operates_cleanly(self, tmp_path: Path, isolated_db: dict):
+        """An authorized project under trusted root acquires and releases execution lock cleanly."""
+        trusted_root = tmp_path / "projects"
+        ws_id = "ws_clean_tenant"
+        proj_id = "proj_clean_01"
+
+        repo: TenantRepository = isolated_db["tenant_repo"]
+        repo.create_user("usr_clean", "clean@example.com")
+        repo.create_workspace(ws_id, "Clean Org", created_by="usr_clean")
+        repo.create_project(proj_id, ws_id, "Clean Video", created_by="usr_clean")
+
+        proj_dir = trusted_root / ws_id / proj_id
+        proj_dir.mkdir(parents=True, exist_ok=True)
+
+        lock = ProjectExecutionLock(
+            project_dir=proj_dir,
+            owner_id="worker_clean",
+            run_id="run_clean_99",
+            db_path=isolated_db["db_path"],
+            workspace_id=ws_id,
+            base_dir=trusted_root,
+        )
+
+        with lock:
+            assert lock.workspace_id == ws_id
+            active_lease = lock.repo.get_active_project_lease(proj_id)
+            assert active_lease is not None
+            assert active_lease["workspace_id"] == ws_id

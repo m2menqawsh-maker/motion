@@ -13,7 +13,10 @@ from scripts.core.run_repository import RunRepository
 from scripts.security.path_security import (
     validate_project_id,
     validate_workspace_id,
+    get_canonical_project_dir,
+    check_confinement_and_symlink,
     TenantSecurityError,
+    PathSecurityViolation,
 )
 
 
@@ -41,6 +44,7 @@ class ProjectExecutionLock:
         db_path: Optional[Path | str] = None,
         timeout: float = 0.0,
         workspace_id: Optional[str] = None,
+        base_dir: Optional[Path | str] = None,
     ):
         self.project_dir = Path(project_dir)
         self.project_id = validate_project_id(self.project_dir.name)
@@ -49,7 +53,16 @@ class ProjectExecutionLock:
         self.timeout = timeout
         self.repo = RunRepository(db_path=db_path)
         self._file_lock: Optional[StateLock] = None
+
+        # Resolve trusted base directory (canonical projects root)
+        if base_dir:
+            self.base_dir = Path(base_dir).resolve()
+        else:
+            env_root = os.environ.get("MOTION_PROJECTS_ROOT") or os.environ.get("AGY_PROJECTS_ROOT")
+            self.base_dir = Path(env_root).resolve() if env_root else Path("projects").resolve()
+
         self.workspace_id = self._resolve_workspace_id(workspace_id)
+        self._verify_canonical_containment()
 
     def _resolve_workspace_id(self, explicit_ws: Optional[str]) -> str:
         """
@@ -57,7 +70,7 @@ class ProjectExecutionLock:
         1. Checks database project registration across configured engines:
            - self.repo.db_path (local / worker runs db)
            - get_database_engine() (primary authoritative database)
-        2. Verifies canonical projects root confinement.
+        2. Verifies canonical projects root confinement against trusted self.base_dir.
         3. Validates explicit workspace against registration and filesystem.
         4. Rejects trusting directory name alone for unregistered projects.
         5. Fails closed with TenantSecurityError on missing, ambiguous, or mismatched identity.
@@ -88,21 +101,21 @@ class ProjectExecutionLock:
             except Exception:
                 pass
 
-        # 3. Check canonical projects root confinement
-        # In a valid tenant layout, project_dir must be: <projects_root>/<workspace_id>/<project_id>
-        # where the parent's parent directory is named 'projects'.
+        # 3. Check canonical projects root confinement against trusted self.base_dir
         parent_ws: Optional[str] = None
         is_under_canonical_projects_root = False
         resolved_proj = self.project_dir.resolve()
 
-        if len(resolved_proj.parts) >= 3 and resolved_proj.parent.parent.name == "projects":
-            is_under_canonical_projects_root = True
-            parent_name = resolved_proj.parent.name
-            if parent_name and not parent_name.startswith("."):
+        try:
+            rel_path = resolved_proj.relative_to(self.base_dir)
+            if len(rel_path.parts) == 2 and rel_path.parts[1] == self.project_id:
+                is_under_canonical_projects_root = True
                 try:
-                    parent_ws = validate_workspace_id(parent_name)
+                    parent_ws = validate_workspace_id(rel_path.parts[0])
                 except ValueError:
                     parent_ws = None
+        except (ValueError, Exception):
+            is_under_canonical_projects_root = False
 
         # Fallback to AGY_WORKSPACE_ID environment if explicit_ws is not provided
         effective_explicit_ws = explicit_ws
@@ -127,15 +140,20 @@ class ProjectExecutionLock:
                     f"Workspace ownership mismatch for project '{self.project_id}': "
                     f"explicit workspace '{validated_explicit}' conflicts with filesystem directory '{parent_ws}'."
                 )
-            if not is_under_canonical_projects_root and not authoritative_ws:
+            if not is_under_canonical_projects_root:
                 raise TenantSecurityError(
                     f"Invalid project path for project '{self.project_id}': "
-                    f"path '{self.project_dir}' is not verified to reside under a canonical projects root."
+                    f"path '{self.project_dir}' is not verified to reside under trusted canonical projects root '{self.base_dir}'."
                 )
             return validated_explicit
 
         # Case 2: Authoritative registration exists in database
         if authoritative_ws:
+            if not is_under_canonical_projects_root:
+                raise TenantSecurityError(
+                    f"Invalid project path for registered project '{self.project_id}': "
+                    f"path '{self.project_dir}' is not verified to reside under trusted canonical projects root '{self.base_dir}'."
+                )
             if parent_ws and authoritative_ws != parent_ws:
                 raise TenantSecurityError(
                     f"Conflicting workspace identity for project '{self.project_id}': "
@@ -149,6 +167,27 @@ class ProjectExecutionLock:
             f"Cannot acquire execution lock: missing or ambiguous workspace identity for project '{self.project_id}'. "
             "Workspace identity cannot be trusted solely from a directory name and must be authoritatively registered in the database or explicitly provided."
         )
+
+    def _verify_canonical_containment(self) -> None:
+        """
+        Guarantees that self.project_dir is strictly contained within the trusted
+        projects root and matches the authoritative canonical path for (workspace_id, project_id).
+        """
+        canonical_dir = get_canonical_project_dir(
+            self.project_id, self.workspace_id, base_dir=self.base_dir
+        )
+        try:
+            check_confinement_and_symlink(self.project_dir, self.base_dir)
+        except Exception as e:
+            raise TenantSecurityError(
+                f"Path confinement violation for project '{self.project_id}': {e}"
+            ) from e
+
+        if self.project_dir.resolve() != canonical_dir.resolve():
+            raise TenantSecurityError(
+                f"Non-canonical project path for project '{self.project_id}': "
+                f"'{self.project_dir.resolve()}' does not match canonical location '{canonical_dir.resolve()}'."
+            )
 
     def acquire(self) -> "ProjectExecutionLock":
         # 1. Check persistent database lease authority

@@ -238,7 +238,11 @@ class TestCommandPolicy:
         assert "SKIP_STRICT_QC" not in clean
         assert "AGY_IS_MANAGED" not in clean
         assert "EVIL_INJECTED_VAR" not in clean
-        assert clean.get("OPENAI_API_KEY") == "sk-secret"
+        assert "OPENAI_API_KEY" not in clean
+
+        # When explicitly authorized for AI provider integrations, provider secrets are preserved
+        clean_ai = CommandPolicy.sanitize_environment(dirty_env, is_production=True, allow_ai_env=True)
+        assert clean_ai.get("OPENAI_API_KEY") == "sk-secret"
 
 
 class TestEnvironmentPolicyAuditor:
