@@ -21,8 +21,8 @@
     },
     "documentation_knowledge": {
       "count": 298,
-      "lines": 108288,
-      "bytes": 6034723,
+      "lines": 108327,
+      "bytes": 5972200,
       "critical": 0
     },
     "context_knowledge_skills": {
@@ -87,8 +87,8 @@
     },
     "tests_verification": {
       "count": 628,
-      "lines": 127488,
-      "bytes": 29376960,
+      "lines": 127489,
+      "bytes": 29377040,
       "critical": 0
     },
     "dev_maintenance": {
@@ -128,7 +128,7 @@
     },
     "ARCHIVAL_DOC": {
       "count": 298,
-      "lines": 108288,
+      "lines": 108327,
       "critical": 0
     },
     "ACTIVE_RUNTIME": {
@@ -143,7 +143,7 @@
     },
     "TEST_SUITE": {
       "count": 628,
-      "lines": 127488,
+      "lines": 127489,
       "critical": 0
     }
   },
@@ -1875,7 +1875,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 119,
-      "size_bytes": 12019,
+      "size_bytes": 11962,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -1885,7 +1885,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 99,
-      "size_bytes": 8759,
+      "size_bytes": 8951,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -1904,8 +1904,8 @@
       "role": "ARCHIVAL_DOC",
       "is_production_critical": false,
       "extension": "md",
-      "line_count": 276,
-      "size_bytes": 23328,
+      "line_count": 315,
+      "size_bytes": 27597,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -6995,7 +6995,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 462,
-      "size_bytes": 31345,
+      "size_bytes": 28531,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -7005,7 +7005,7 @@
       "is_production_critical": false,
       "extension": "json",
       "line_count": 26302,
-      "size_bytes": 891610,
+      "size_bytes": 891611,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -7015,7 +7015,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 3890,
-      "size_bytes": 505340,
+      "size_bytes": 442365,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -7045,7 +7045,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 186,
-      "size_bytes": 11859,
+      "size_bytes": 10720,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -23874,8 +23874,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 209,
-      "size_bytes": 8313,
+      "line_count": 210,
+      "size_bytes": 8393,
       "description": "Automated test suite verification"
     },
     {

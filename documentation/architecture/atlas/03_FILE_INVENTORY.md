@@ -3,18 +3,18 @@
 ## 1. Executive Summary & Repository Metrics
 
 - **Total Git-Tracked Files:** 2,615
-- **Total Lines of Tracked Code/Text:** 566,466
+- **Total Lines of Tracked Code/Text:** 566,506
 - **Production-Critical Files:** 984
 
 ### Metrics by Subsystem
 
 | Subsystem Key | Files | Lines of Code | Critical Files | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `tests_verification` | 628 | 127,488 | 0 | Test Suites & E2E Verification |
+| `tests_verification` | 628 | 127,489 | 0 | Test Suites & E2E Verification |
 | `rendering_engine` | 504 | 61,762 | 478 | Remotion & FFmpeg Video Renderer |
 | `miscellaneous` | 346 | 84,099 | 0 | Supporting Assets & Data |
 | `contracts_schemas` | 310 | 89,815 | 310 | Contracts & Pydantic Schemas |
-| `documentation_knowledge` | 298 | 108,288 | 0 | Architecture Documentation & ADRs |
+| `documentation_knowledge` | 298 | 108,327 | 0 | Architecture Documentation & ADRs |
 | `agent_legacy` | 179 | 23,362 | 0 | Agent Directives, Plugins & Legacy |
 | `dev_maintenance` | 145 | 32,292 | 0 | Developer & Maintenance Tooling |
 | `context_knowledge_skills` | 53 | 10,840 | 53 | Context, Knowledge, Skills & Tools |
@@ -35,12 +35,12 @@
 | :--- | :--- | :--- | :--- | :--- |
 | `ACTIVE_RUNTIME` | 700 | 99,455 | 674 | Code directly executed during HTTP requests, workers, or rendering |
 | `CONTRACT_SCHEMA` | 310 | 89,815 | 310 | Canonical schemas, Pydantic models, and strict interface contracts |
-| `TEST_SUITE` | 628 | 127,488 | 0 | Automated unit, integration, and E2E verification test suites |
+| `TEST_SUITE` | 628 | 127,489 | 0 | Automated unit, integration, and E2E verification test suites |
 | `DEV_TOOLING` | 154 | 33,959 | 0 | Maintenance scripts, migrations, code generators, and dev tooling |
-| `ARCHIVAL_DOC` | 298 | 108,288 | 0 | Technical documentation, ADRs, playbooks, and architecture atlas |
+| `ARCHIVAL_DOC` | 298 | 108,327 | 0 | Technical documentation, ADRs, playbooks, and architecture atlas |
 | `LEGACY_AGENT` | 179 | 23,362 | 0 | Legacy agent directives, MCP plugin configurations, and reference data |
 | `SUPPORTING` | 346 | 84,099 | 0 | Supporting media assets, icons, audio samples, and data fixtures |
-| **Total** | **2,615** | **566,466** | **984** | Fully reconciled repository file inventory |
+| **Total** | **2,615** | **566,506** | **984** | Fully reconciled repository file inventory |
 
 ---
 
@@ -1921,7 +1921,7 @@ Every file in this section represents an active, mission-critical component of M
 
 ### Subsystem: Architecture Documentation & ADRs (`documentation_knowledge`)
 - **File Count:** 298
-- **Lines of Code:** 108,288
+- **Lines of Code:** 108,327
 - **Critical Files:** 0
 
 <details>
@@ -1930,10 +1930,10 @@ Every file in this section represents an active, mission-critical component of M
 | Relative File Path | Role | Lines | Size (Bytes) |
 | :--- | :--- | :--- | :--- |
 | `.github/pull_request_template.md` | `ARCHIVAL_DOC` | 48 | 985 |
-| `BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md` | `ARCHIVAL_DOC` | 119 | 12,019 |
-| `BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md` | `ARCHIVAL_DOC` | 99 | 8,759 |
+| `BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md` | `ARCHIVAL_DOC` | 119 | 11,962 |
+| `BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md` | `ARCHIVAL_DOC` | 99 | 8,951 |
 | `BATCH_4_PRODUCT_E2E_VERIFICATION_REPORT.md` | `ARCHIVAL_DOC` | 164 | 12,684 |
-| `BATCH_4_REMOTE_VERIFICATION_AND_OWNER_REVIEW.md` | `ARCHIVAL_DOC` | 276 | 23,328 |
+| `BATCH_4_REMOTE_VERIFICATION_AND_OWNER_REVIEW.md` | `ARCHIVAL_DOC` | 315 | 27,597 |
 | `README.md` | `ARCHIVAL_DOC` | 69 | 3,090 |
 | `api/README.md` | `ARCHIVAL_DOC` | 56 | 1,615 |
 | `docs/CI_RELEASE_GATES.md` | `ARCHIVAL_DOC` | 165 | 12,381 |
@@ -1955,12 +1955,12 @@ Every file in this section represents an active, mission-critical component of M
 | `documentation/architecture/TRUST_MODEL.md` | `ARCHIVAL_DOC` | 403 | 26,606 |
 | `documentation/architecture/ai-contract-evolution-policy.md` | `ARCHIVAL_DOC` | 75 | 3,818 |
 | `documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md` | `ARCHIVAL_DOC` | 181 | 14,758 |
-| `documentation/architecture/atlas/02_SUBSYSTEM_ATLAS.md` | `ARCHIVAL_DOC` | 462 | 31,345 |
-| `documentation/architecture/atlas/03_FILE_INVENTORY.json` | `ARCHIVAL_DOC` | 26,302 | 891,610 |
-| `documentation/architecture/atlas/03_FILE_INVENTORY.md` | `ARCHIVAL_DOC` | 3,890 | 505,340 |
+| `documentation/architecture/atlas/02_SUBSYSTEM_ATLAS.md` | `ARCHIVAL_DOC` | 462 | 28,531 |
+| `documentation/architecture/atlas/03_FILE_INVENTORY.json` | `ARCHIVAL_DOC` | 26,302 | 891,611 |
+| `documentation/architecture/atlas/03_FILE_INVENTORY.md` | `ARCHIVAL_DOC` | 3,890 | 442,365 |
 | `documentation/architecture/atlas/04_EXECUTION_GRAPHS.md` | `ARCHIVAL_DOC` | 365 | 14,818 |
 | `documentation/architecture/atlas/05_TROUBLESHOOTING_GUIDE.md` | `ARCHIVAL_DOC` | 195 | 9,990 |
-| `documentation/architecture/atlas/06_LEARNING_ROADMAP.md` | `ARCHIVAL_DOC` | 186 | 11,859 |
+| `documentation/architecture/atlas/06_LEARNING_ROADMAP.md` | `ARCHIVAL_DOC` | 186 | 10,720 |
 | `documentation/architecture/decisions/ADR-001-single-host-api-worker.md` | `ARCHIVAL_DOC` | 114 | 8,888 |
 | `documentation/architecture/decisions/ADR-002-principal-and-authorization-model.md` | `ARCHIVAL_DOC` | 123 | 8,906 |
 | `documentation/architecture/decisions/ADR-003-multi-tenant-saas-foundation.md` | `ARCHIVAL_DOC` | 71 | 4,051 |
@@ -3249,7 +3249,7 @@ Every file in this section represents an active, mission-critical component of M
 
 ### Subsystem: Test Suites & E2E Verification (`tests_verification`)
 - **File Count:** 628
-- **Lines of Code:** 127,488
+- **Lines of Code:** 127,489
 - **Critical Files:** 0
 
 <details>
@@ -3653,7 +3653,7 @@ Every file in this section represents an active, mission-critical component of M
 | `tests/documentation/test_agents_md_accuracy.py` | `TEST_SUITE` | 87 | 4,904 |
 | `tests/documentation/test_architecture_truth.py` | `TEST_SUITE` | 51 | 2,881 |
 | `tests/documentation/test_references_validity.py` | `TEST_SUITE` | 65 | 3,097 |
-| `tests/e2e/test_pipeline_integration.py` | `TEST_SUITE` | 209 | 8,313 |
+| `tests/e2e/test_pipeline_integration.py` | `TEST_SUITE` | 210 | 8,393 |
 | `tests/e2e/test_process_loopback_smoke.py` | `TEST_SUITE` | 342 | 15,965 |
 | `tests/e2e/test_product_http_to_mp4_e2e.py` | `TEST_SUITE` | 514 | 22,241 |
 | `tests/e2e/test_saas_multi_tenant_e2e.py` | `TEST_SUITE` | 438 | 18,286 |
