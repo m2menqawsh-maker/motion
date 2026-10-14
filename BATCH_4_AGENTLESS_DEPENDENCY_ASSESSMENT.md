@@ -102,39 +102,13 @@ Every item in `.agents/` and `references/` is categorized into one of six strict
 
 ---
 
-## 5. Safe Future Decommissioning Roadmap (Post-Batch 4)
+## 5. Owner's Explicit Protection Constraint & Future Review Boundary
 
-To achieve a clean, pristine repository structure that completely separates active backend product code from developer agent tooling, execute the following 4-phase migration plan in a future batch:
-
-```mermaid
-flowchart LR
-    Phase1["Phase 1: Knowledge Migration<br>(references/ -> ai/knowledge/catalog/)"]
-    Phase2["Phase 2: Secrets & Docker Relocation<br>(.qc_salt -> env, Dockerfile -> docker/)"]
-    Phase3["Phase 3: Tools Refactoring<br>(plugin tools -> ai/capabilities/)"]
-    Phase4["Phase 4: Agent Isolation<br>(Retire .agents/ to local developer tools)"]
-
-    Phase1 --> Phase2 --> Phase3 --> Phase4
-```
-
-### Phase 1: Migrate Knowledge Catalog
-1. Move `references/` markdown files to `ai/knowledge/catalog/`.
-2. Update URI paths in `ai/knowledge/loader.py` canonical descriptors.
-3. Verify with `pytest tests/ai/unit/test_s28_02_skills_knowledge.py`.
-4. Delete `references/` from repository root.
-
-### Phase 2: Relocate Secrets & Container Configurations
-1. Move `.agents/docker/Dockerfile.remotion` to `docker/Dockerfile.remotion`.
-2. Update CI workflows and build scripts to reference `docker/`.
-3. Configure `ReviewService` and `probe_qc.py` to prioritize `os.environ["QC_HMAC_SALT"]`.
-4. Remove `.agents/secrets/` from git tracking.
-
-### Phase 3: Transition Plugin Tools to Domain Capabilities
-1. Extract any remaining active media helpers from `.agents/plugins/super-video-maker-plugin/tools/` into `ai/capabilities/` or `scripts/core/media/`.
-2. Delete the embedded virtual environments (`.venv/`) inside the plugin folder.
-
-### Phase 4: Final Agent Directory Cleanup
-1. Move `.agents/AGENTS.md` and rules to standard `.github/` contributor guides.
-2. The core repository becomes 100% agentless and standard for any backend engineer or CI/CD system.
+The project owner has established a strict architectural protection policy:
+- **Permanent Protection of `.agents/` and `references/`:** Both directories are protected core assets of the repository and must remain intact. All recommendations to relocate, quarantine, decommission, or delete either directory are explicitly withdrawn and superseded.
+- **Scope of Decommissioning:** The intended future decommissioning target is strictly the **OLD AI IMPLEMENTATION** (legacy resident agent harnesses and superseded code paths), NOT the `.agents/` or `references/` directories.
+- **Architectural Inventory Preserved:** The dependency inventory in Sections 1 through 4 is maintained as a descriptive factual record of how production components interface with domain knowledge and configurations.
+- **Future Review Protocol:** Any future evaluation or refactoring of the old AI implementation must be conducted as a separate, evidence-driven, non-destructive review with explicit owner authorization. Zero modifications or deletions to `.agents/` or `references/` are permitted.
 
 ---
 
@@ -142,6 +116,4 @@ flowchart LR
 
 > **Key Architectural Takeaway:**  
 > **MOTION's production runtime does NOT depend on a resident coding agent.**  
-> The backend operates as a fully autonomous Python/TypeScript appliance driven by deterministic algorithms and external API integrations. The files currently in `.agents/` and `references/` are either **authoritative domain knowledge** (which should simply live in `ai/knowledge/`), **DevOps build configs** (which belong in `docker/`), or **developer assistant hooks** (which are non-operational in production).  
-> 
-> The system is ready to operate independently.
+> The backend operates as a fully autonomous Python/TypeScript product driven by deterministic workflows and external AI provider APIs. The `.agents/` and `references/` directories remain preserved and intact as authoritative system assets, while the runtime executes independently through its unified HTTP routers, domain services, workers, and Remotion rendering pipeline.

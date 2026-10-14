@@ -21,8 +21,8 @@
     },
     "documentation_knowledge": {
       "count": 298,
-      "lines": 108298,
-      "bytes": 6033173,
+      "lines": 108288,
+      "bytes": 6034723,
       "critical": 0
     },
     "context_knowledge_skills": {
@@ -63,8 +63,8 @@
     },
     "durable_execution": {
       "count": 6,
-      "lines": 3023,
-      "bytes": 138176,
+      "lines": 3054,
+      "bytes": 139980,
       "critical": 6
     },
     "canonical_documents": {
@@ -87,8 +87,8 @@
     },
     "tests_verification": {
       "count": 628,
-      "lines": 127204,
-      "bytes": 29363528,
+      "lines": 127281,
+      "bytes": 29367476,
       "critical": 0
     },
     "dev_maintenance": {
@@ -128,12 +128,12 @@
     },
     "ARCHIVAL_DOC": {
       "count": 298,
-      "lines": 108298,
+      "lines": 108288,
       "critical": 0
     },
     "ACTIVE_RUNTIME": {
       "count": 700,
-      "lines": 99330,
+      "lines": 99361,
       "critical": 674
     },
     "CONTRACT_SCHEMA": {
@@ -143,7 +143,7 @@
     },
     "TEST_SUITE": {
       "count": 628,
-      "lines": 127204,
+      "lines": 127281,
       "critical": 0
     }
   },
@@ -1874,8 +1874,8 @@
       "role": "ARCHIVAL_DOC",
       "is_production_critical": false,
       "extension": "md",
-      "line_count": 147,
-      "size_bytes": 12792,
+      "line_count": 119,
+      "size_bytes": 12019,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -1895,7 +1895,7 @@
       "is_production_critical": false,
       "extension": "md",
       "line_count": 164,
-      "size_bytes": 12635,
+      "size_bytes": 12684,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -1904,8 +1904,8 @@
       "role": "ARCHIVAL_DOC",
       "is_production_critical": false,
       "extension": "md",
-      "line_count": 258,
-      "size_bytes": 21054,
+      "line_count": 276,
+      "size_bytes": 23328,
       "description": "Architectural specifications, user guides, playbooks, or learning logs"
     },
     {
@@ -17594,8 +17594,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 179,
-      "size_bytes": 7742,
+      "line_count": 210,
+      "size_bytes": 9546,
       "description": "Durable run management, worker lease fencing, and pipeline orchestration"
     },
     {
@@ -22915,7 +22915,7 @@
       "is_production_critical": false,
       "extension": "py",
       "line_count": 133,
-      "size_bytes": 5214,
+      "size_bytes": 5259,
       "description": "Automated test suite verification"
     },
     {
@@ -26044,8 +26044,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 245,
-      "size_bytes": 10990,
+      "line_count": 322,
+      "size_bytes": 14893,
       "description": "Automated test suite verification"
     },
     {

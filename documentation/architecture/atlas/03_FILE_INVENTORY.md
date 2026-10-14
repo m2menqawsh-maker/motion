@@ -3,18 +3,18 @@
 ## 1. Executive Summary & Repository Metrics
 
 - **Total Git-Tracked Files:** 2,615
-- **Total Lines of Tracked Code/Text:** 566,067
+- **Total Lines of Tracked Code/Text:** 566,165
 - **Production-Critical Files:** 984
 
 ### Metrics by Subsystem
 
 | Subsystem Key | Files | Lines of Code | Critical Files | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `tests_verification` | 628 | 127,204 | 0 | Test Suites & E2E Verification |
+| `tests_verification` | 628 | 127,281 | 0 | Test Suites & E2E Verification |
 | `rendering_engine` | 504 | 61,762 | 478 | Remotion & FFmpeg Video Renderer |
 | `miscellaneous` | 346 | 84,099 | 0 | Supporting Assets & Data |
 | `contracts_schemas` | 310 | 89,815 | 310 | Contracts & Pydantic Schemas |
-| `documentation_knowledge` | 298 | 108,298 | 0 | Architecture Documentation & ADRs |
+| `documentation_knowledge` | 298 | 108,288 | 0 | Architecture Documentation & ADRs |
 | `agent_legacy` | 179 | 23,362 | 0 | Agent Directives, Plugins & Legacy |
 | `dev_maintenance` | 145 | 32,292 | 0 | Developer & Maintenance Tooling |
 | `context_knowledge_skills` | 53 | 10,840 | 53 | Context, Knowledge, Skills & Tools |
@@ -25,7 +25,7 @@
 | `api_services` | 12 | 2,204 | 12 | Core Domain Services |
 | `configuration` | 9 | 1,667 | 0 | Root Build & Project Configuration |
 | `auth_tenancy` | 7 | 1,453 | 7 | Multi-Tenancy, Auth & Security |
-| `durable_execution` | 6 | 3,023 | 6 | Durable Execution & Worker Engine |
+| `durable_execution` | 6 | 3,054 | 6 | Durable Execution & Worker Engine |
 | `storage_distribution` | 1 | 387 | 1 | Storage & Artifact Distribution |
 | `canonical_documents` | 1 | 449 | 1 | Canonical Documents & Project State |
 
@@ -33,14 +33,14 @@
 
 | Role Classification | File Count | Lines of Code | Critical Files | Operational Purpose |
 | :--- | :--- | :--- | :--- | :--- |
-| `ACTIVE_RUNTIME` | 700 | 99,330 | 674 | Code directly executed during HTTP requests, workers, or rendering |
+| `ACTIVE_RUNTIME` | 700 | 99,361 | 674 | Code directly executed during HTTP requests, workers, or rendering |
 | `CONTRACT_SCHEMA` | 310 | 89,815 | 310 | Canonical schemas, Pydantic models, and strict interface contracts |
-| `TEST_SUITE` | 628 | 127,204 | 0 | Automated unit, integration, and E2E verification test suites |
+| `TEST_SUITE` | 628 | 127,281 | 0 | Automated unit, integration, and E2E verification test suites |
 | `DEV_TOOLING` | 154 | 33,959 | 0 | Maintenance scripts, migrations, code generators, and dev tooling |
-| `ARCHIVAL_DOC` | 298 | 108,298 | 0 | Technical documentation, ADRs, playbooks, and architecture atlas |
+| `ARCHIVAL_DOC` | 298 | 108,288 | 0 | Technical documentation, ADRs, playbooks, and architecture atlas |
 | `LEGACY_AGENT` | 179 | 23,362 | 0 | Legacy agent directives, MCP plugin configurations, and reference data |
 | `SUPPORTING` | 346 | 84,099 | 0 | Supporting media assets, icons, audio samples, and data fixtures |
-| **Total** | **2,615** | **566,067** | **984** | Fully reconciled repository file inventory |
+| **Total** | **2,615** | **566,165** | **984** | Fully reconciled repository file inventory |
 
 ---
 
@@ -482,7 +482,7 @@ Every file in this section represents an active, mission-critical component of M
 | [`schemas/template_proposal_schema.json`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/schemas/template_proposal_schema.json) | `contracts_schemas` | 94 | `CONTRACT_SCHEMA` | Pydantic models, JSON schemas, and architectural interface contracts |
 | [`api/services/pipeline_service.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/api/services/pipeline_service.py) | `durable_execution` | 389 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
 | [`api/services/run_service.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/api/services/run_service.py) | `durable_execution` | 292 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
-| [`scripts/core/project_lock.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/scripts/core/project_lock.py) | `durable_execution` | 179 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
+| [`scripts/core/project_lock.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/scripts/core/project_lock.py) | `durable_execution` | 210 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
 | [`scripts/core/run_repository.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/scripts/core/run_repository.py) | `durable_execution` | 852 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
 | [`scripts/core/worker.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/scripts/core/worker.py) | `durable_execution` | 766 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
 | [`scripts/pipeline.py`](file:////home/eng_Momen/Projects/المشروع الحالي/Video maker/scripts/pipeline.py) | `durable_execution` | 545 | `ACTIVE_RUNTIME` | Durable run management, worker lease fencing, and pipeline orchestration |
@@ -1921,7 +1921,7 @@ Every file in this section represents an active, mission-critical component of M
 
 ### Subsystem: Architecture Documentation & ADRs (`documentation_knowledge`)
 - **File Count:** 298
-- **Lines of Code:** 108,298
+- **Lines of Code:** 108,288
 - **Critical Files:** 0
 
 <details>
@@ -1930,10 +1930,10 @@ Every file in this section represents an active, mission-critical component of M
 | Relative File Path | Role | Lines | Size (Bytes) |
 | :--- | :--- | :--- | :--- |
 | `.github/pull_request_template.md` | `ARCHIVAL_DOC` | 48 | 985 |
-| `BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md` | `ARCHIVAL_DOC` | 147 | 12,792 |
+| `BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md` | `ARCHIVAL_DOC` | 119 | 12,019 |
 | `BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md` | `ARCHIVAL_DOC` | 99 | 8,759 |
-| `BATCH_4_PRODUCT_E2E_VERIFICATION_REPORT.md` | `ARCHIVAL_DOC` | 164 | 12,635 |
-| `BATCH_4_REMOTE_VERIFICATION_AND_OWNER_REVIEW.md` | `ARCHIVAL_DOC` | 258 | 21,054 |
+| `BATCH_4_PRODUCT_E2E_VERIFICATION_REPORT.md` | `ARCHIVAL_DOC` | 164 | 12,684 |
+| `BATCH_4_REMOTE_VERIFICATION_AND_OWNER_REVIEW.md` | `ARCHIVAL_DOC` | 276 | 23,328 |
 | `README.md` | `ARCHIVAL_DOC` | 69 | 3,090 |
 | `api/README.md` | `ARCHIVAL_DOC` | 56 | 1,615 |
 | `docs/CI_RELEASE_GATES.md` | `ARCHIVAL_DOC` | 165 | 12,381 |
@@ -2232,7 +2232,7 @@ Every file in this section represents an active, mission-critical component of M
 
 ### Subsystem: Durable Execution & Worker Engine (`durable_execution`)
 - **File Count:** 6
-- **Lines of Code:** 3,023
+- **Lines of Code:** 3,054
 - **Critical Files:** 6
 
 <details>
@@ -2242,7 +2242,7 @@ Every file in this section represents an active, mission-critical component of M
 | :--- | :--- | :--- | :--- |
 | `api/services/pipeline_service.py` | `ACTIVE_RUNTIME` | 389 | 16,873 |
 | `api/services/run_service.py` | `ACTIVE_RUNTIME` | 292 | 12,679 |
-| `scripts/core/project_lock.py` | `ACTIVE_RUNTIME` | 179 | 7,742 |
+| `scripts/core/project_lock.py` | `ACTIVE_RUNTIME` | 210 | 9,546 |
 | `scripts/core/run_repository.py` | `ACTIVE_RUNTIME` | 852 | 37,546 |
 | `scripts/core/worker.py` | `ACTIVE_RUNTIME` | 766 | 35,554 |
 | `scripts/pipeline.py` | `ACTIVE_RUNTIME` | 545 | 27,782 |
@@ -3249,7 +3249,7 @@ Every file in this section represents an active, mission-critical component of M
 
 ### Subsystem: Test Suites & E2E Verification (`tests_verification`)
 - **File Count:** 628
-- **Lines of Code:** 127,204
+- **Lines of Code:** 127,281
 - **Critical Files:** 0
 
 <details>
@@ -3557,7 +3557,7 @@ Every file in this section represents an active, mission-critical component of M
 | `tests/api/test_gates.py` | `TEST_SUITE` | 93 | 3,917 |
 | `tests/api/test_health_readiness.py` | `TEST_SUITE` | 93 | 3,399 |
 | `tests/api/test_lifecycle_bypass_prevention.py` | `TEST_SUITE` | 88 | 3,144 |
-| `tests/api/test_pipeline_service.py` | `TEST_SUITE` | 133 | 5,214 |
+| `tests/api/test_pipeline_service.py` | `TEST_SUITE` | 133 | 5,259 |
 | `tests/api/test_project_creation.py` | `TEST_SUITE` | 32 | 1,121 |
 | `tests/api/test_projects.py` | `TEST_SUITE` | 154 | 5,422 |
 | `tests/api/test_render.py` | `TEST_SUITE` | 50 | 1,924 |
@@ -3870,7 +3870,7 @@ Every file in this section represents an active, mission-critical component of M
 | `tests/security/test_pr001_authentication_hardening.py` | `TEST_SUITE` | 710 | 28,526 |
 | `tests/security/test_pr002_integration_gate.py` | `TEST_SUITE` | 530 | 23,839 |
 | `tests/security/test_pr002_tenant_isolation.py` | `TEST_SUITE` | 579 | 24,207 |
-| `tests/security/test_project_lock_and_credential_isolation.py` | `TEST_SUITE` | 245 | 10,990 |
+| `tests/security/test_project_lock_and_credential_isolation.py` | `TEST_SUITE` | 322 | 14,893 |
 | `tests/security/test_race_conditions.py` | `TEST_SUITE` | 85 | 4,476 |
 | `tests/security/test_s02_negative_enforcement.py` | `TEST_SUITE` | 626 | 24,676 |
 | `tests/security/test_security_path_traversal.py` | `TEST_SUITE` | 44 | 1,712 |

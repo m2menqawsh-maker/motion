@@ -144,7 +144,7 @@ All nine canonical CI quality gates were executed directly in the project worksp
 
 1. **`BATCH_4_PRODUCT_E2E_VERIFICATION_REPORT.md`** (This Document)
 2. **`BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md`** (Comprehensive audit with prioritized remediation register)
-3. **`BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md`** (Audit of `.agents/` and `references/` with 4-phase decommissioning roadmap)
+3. **`BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md`** (Audit of `.agents/` and `references/` dependencies confirming runtime agentlessness and owner permanent preservation policy)
 4. **`documentation/architecture/atlas/`**
    - `01_SYSTEM_OVERVIEW.md` (Executive overview and 14-step journey)
    - `02_SUBSYSTEM_ATLAS.md` (Comprehensive deep-dive into all 10 subsystems)

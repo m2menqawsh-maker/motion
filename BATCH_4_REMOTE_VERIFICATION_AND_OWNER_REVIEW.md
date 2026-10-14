@@ -40,8 +40,8 @@ All changes have been partitioned into reviewable, focused feature branches and 
 +----------------------------------------------------------------------------------------------------------------------------------------+
 | Branch Identifier | Branch Name                     | Head Commit | GitHub Pull Request                                      | Status     |
 | :---------------- | :------------------------------ | :---------- | :------------------------------------------------------- | :--------- |
-| **Branch C4-A**   | `feat/c4-a-runtime-and-security`| `f651aa4`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
-| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`     | `a679b1b`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
+| **Branch C4-A**   | `feat/c4-a-runtime-and-security`| `36c0c54`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
+| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`     | `17058b6`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
 | **Branch C4-C**   | `feat/c4-c-architecture-atlas`  | `HEAD`      | [PR #19](https://github.com/m2menqawsh-maker/motion/pull/19) | **PENDING**|
 +----------------------------------------------------------------------------------------------------------------------------------------+
 ```
@@ -167,18 +167,16 @@ The programmatic scanner (`scripts/maintenance/generate_atlas_inventory.py`) sca
 
 ---
 
-## 6. Agentless Dependency Assessment & Decommissioning Roadmap
+## 6. Agentless Assessment & Owner's Preservation Policy
 
 ### 6.1 Findings
 - **Zero Runtime Agent Dependency:** The MOTION backend runtime (`api/`, `scripts/core/`, `scripts/pipeline.py`, `remotion-app/`) contains **zero** runtime dependencies on resident coding agents, agent frameworks, or `.agents/` instructions.
 - **Zero Deletions Confirmed:** In accordance with explicit owner instructions, no files within `.agents/` or `references/` were modified or deleted during Batch 4.
 
-### 6.2 Safe 4-Phase Decommissioning Roadmap
-When the owner chooses to decommission legacy agent artifacts:
-1. **Phase 1 — Archival Snapshot (Non-Destructive):** Create git tag `archive/pre-agentless-decommission` and compress `.agents/` into cold storage.
-2. **Phase 2 — Build & CI Script Auditing:** Update Dockerfile and CI scripts referencing `.agents/docker/Dockerfile.remotion` to standard paths (`docker/Dockerfile.remotion`).
-3. **Phase 3 — Quarantine & Canary Testing:** Move `.agents/` to a quarantined local staging directory; execute full CI suite to confirm zero regressions.
-4. **Phase 4 — Deletion & Documentation Finalization:** Remove `.agents/` from repository tracking via a dedicated commit.
+### 6.2 Owner's Explicit Protection Policy
+- **Permanent Protection:** The directories `.agents/` and `references/` must remain permanently intact. All prior recommendations to relocate, quarantine, decommission, or delete either directory are explicitly withdrawn and superseded.
+- **Decommissioning Scope:** The intended future decommissioning target is strictly the **OLD AI IMPLEMENTATION** (legacy resident agent harnesses and superseded code paths), NOT the `.agents/` or `references/` directories.
+- **Future Reviews:** Any future review of the old AI implementation must be separate, evidence-driven, and non-destructive, with zero modifications or deletions to protected directories.
 
 ---
 
@@ -232,13 +230,14 @@ The three PRs form a strict forward progression where each subsequent branch inc
 [dea7e42] main (Batch 3 Baseline)
     │
     ▼
-[f651aa4] PR #17 (feat/c4-a-runtime-and-security)
-    │     - Authoritative workspace resolution (Finding B)
-    │     - Scoped pipeline DB credentials & renderer isolation (Finding C)
-    │     - Comprehensive security test suite (200 tests)
+[36c0c54] PR #17 (feat/c4-a-runtime-and-security)
+    │     - Authoritative workspace resolution & trust-boundary hardening
+    │     - Multi-DB fallback engine query (repo DB + primary DB)
+    │     - Scoped pipeline DB credentials & renderer isolation
+    │     - Comprehensive security test suite (203 tests)
     │
     ▼
-[a679b1b] PR #18 (feat/c4-b-http-to-mp4-e2e)
+[17058b6] PR #18 (feat/c4-b-http-to-mp4-e2e)
     │     - Merged PR #17
     │     - 14-step Product HTTP-to-MP4 E2E suite
     │     - Genuine worker SIGKILL crash recovery test (Finding D)
@@ -247,6 +246,7 @@ The three PRs form a strict forward progression where each subsequent branch inc
 [HEAD]    PR #19 (feat/c4-c-architecture-atlas)
           - Merged PR #18
           - Safe git file inventory generator (Finding A)
+          - Permanent preservation of .agents/ and references/ (Owner Constraint)
           - 2,615-file reconciled Architecture Atlas
           - Product reports & governance audits
 ```
@@ -255,4 +255,22 @@ The three PRs form a strict forward progression where each subsequent branch inc
 1. **Merge PR #17 First:** Establishes core security controls, workspace isolation invariants, and credential propagation.
 2. **Merge PR #18 Second:** Establishes the automated E2E product test suite and process loopback crash recovery validation.
 3. **Merge PR #19 Third:** Establishes the complete Architecture Atlas, file inventory, and governance reports.
+
+---
+
+### 9.3 Owner Protection Constraint & Final Security Acceptance
+
+#### 1. Permanent Protection of `.agents/` and `references/`
+- **Owner Directive:** The project owner confirmed that the decommissioning target is strictly the **OLD AI IMPLEMENTATION**, NOT the directories `.agents/` or `references/`.
+- **Policy Enforcement:** All proposals or roadmaps suggesting relocation, quarantine, decommissioning, or deletion of `.agents/` or `references/` have been removed. Both directories remain permanently intact.
+- **Future Audits:** Any future review of legacy AI code paths will be conducted as a separate, evidence-driven, non-destructive exercise with zero modifications or deletions to protected directories.
+
+#### 2. ProjectExecutionLock Trust-Boundary Verification
+- **Vulnerability Analyzed:** Can a workspace identity be trusted solely from a directory name for an unregistered project?
+- **Finding:** **NO.** Inferring tenant identity from a directory name violates tenant authorization policy, allowing arbitrary or unconfined paths (e.g., `/tmp/untrusted/ws_victim/proj`) to acquire execution locks in the name of a victim tenant.
+- **Implemented Hardening in PR #17 (`scripts/core/project_lock.py`):**
+  1. **Multi-DB Engine Fallback:** Sequentially queries `self.repo.db_path` and `get_database_engine()`. If the local run database has no registration, the primary authoritative database engine is queried before deciding registration status.
+  2. **Canonical Projects Root Confinement:** Verifies that `self.project_dir` resides under a canonical `projects` root (`projects/{workspace_id}/{project_id}`). Arbitrary paths outside the projects root are rejected.
+  3. **Fail-Closed on Directory Spoofing:** If a project is unregistered in the database and no explicit/env workspace identity was provided, `ProjectExecutionLock` fails closed with `TenantSecurityError`. Directory names alone are never trusted to grant tenant identity.
+- **Regression Verification:** Added 3 negative regression tests in `tests/security/test_project_lock_and_credential_isolation.py` (all 11 tests passing in file; 203 passing across full security suite).
 
