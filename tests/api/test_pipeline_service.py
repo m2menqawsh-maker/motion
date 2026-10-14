@@ -9,7 +9,7 @@ from api.core.errors import PipelineRunningError
 @pytest.fixture
 def project_id(tmp_path, monkeypatch):
     pid = "test_unified_123"
-    projects_dir = tmp_path / "projects"
+    projects_dir = tmp_path / "projects" / "ws_default"
     project_dir = projects_dir / pid
     project_dir.mkdir(parents=True, exist_ok=True)
     
@@ -21,7 +21,7 @@ def project_id(tmp_path, monkeypatch):
     # Mock Path to point to tmp_path for the service
     @classmethod
     def mock_get_project_dir(cls, p_id):
-        return tmp_path / "projects" / p_id
+        return tmp_path / "projects" / "ws_default" / p_id
     monkeypatch.setattr(PipelineService, "_get_project_dir", mock_get_project_dir)
     
     # Reset locks
@@ -35,7 +35,7 @@ def test_scaffold_project(project_id, tmp_path):
         assert result["status"] == "success"
         assert result["state"]["current_stage"] == "asset_gate"
         
-        state_file = tmp_path / "projects" / project_id / ".pipeline_state.json"
+        state_file = tmp_path / "projects" / "ws_default" / project_id / ".pipeline_state.json"
         assert state_file.exists()
         
     asyncio.run(run())
