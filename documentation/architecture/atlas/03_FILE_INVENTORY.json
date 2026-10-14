@@ -63,8 +63,8 @@
     },
     "durable_execution": {
       "count": 6,
-      "lines": 3054,
-      "bytes": 139980,
+      "lines": 3093,
+      "bytes": 141765,
       "critical": 6
     },
     "canonical_documents": {
@@ -87,20 +87,20 @@
     },
     "tests_verification": {
       "count": 628,
-      "lines": 127281,
-      "bytes": 29367476,
+      "lines": 127488,
+      "bytes": 29376960,
       "critical": 0
     },
     "dev_maintenance": {
       "count": 145,
       "lines": 32292,
-      "bytes": 1297599,
+      "bytes": 1297583,
       "critical": 0
     },
     "auth_tenancy": {
       "count": 7,
-      "lines": 1453,
-      "bytes": 54825,
+      "lines": 1508,
+      "bytes": 56697,
       "critical": 7
     },
     "quality_control": {
@@ -133,7 +133,7 @@
     },
     "ACTIVE_RUNTIME": {
       "count": 700,
-      "lines": 99361,
+      "lines": 99455,
       "critical": 674
     },
     "CONTRACT_SCHEMA": {
@@ -143,7 +143,7 @@
     },
     "TEST_SUITE": {
       "count": 628,
-      "lines": 127281,
+      "lines": 127488,
       "critical": 0
     }
   },
@@ -17594,8 +17594,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 210,
-      "size_bytes": 9546,
+      "line_count": 249,
+      "size_bytes": 11331,
       "description": "Durable run management, worker lease fencing, and pipeline orchestration"
     },
     {
@@ -17684,8 +17684,8 @@
       "role": "ACTIVE_RUNTIME",
       "is_production_critical": true,
       "extension": "py",
-      "line_count": 406,
-      "size_bytes": 17359,
+      "line_count": 461,
+      "size_bytes": 19231,
       "description": "Authentication, tenant scoping, and cryptographic security guards"
     },
     {
@@ -18195,7 +18195,7 @@
       "is_production_critical": false,
       "extension": "py",
       "line_count": 375,
-      "size_bytes": 17188,
+      "size_bytes": 17172,
       "description": "Developer automation, repository maintenance, and CI helper scripts"
     },
     {
@@ -23484,8 +23484,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 245,
-      "size_bytes": 9136,
+      "line_count": 248,
+      "size_bytes": 9321,
       "description": "Automated test suite verification"
     },
     {
@@ -23734,8 +23734,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 292,
-      "size_bytes": 12610,
+      "line_count": 296,
+      "size_bytes": 12569,
       "description": "Automated test suite verification"
     },
     {
@@ -26044,8 +26044,8 @@
       "role": "TEST_SUITE",
       "is_production_critical": false,
       "extension": "py",
-      "line_count": 322,
-      "size_bytes": 14893,
+      "line_count": 522,
+      "size_bytes": 24233,
       "description": "Automated test suite verification"
     },
     {

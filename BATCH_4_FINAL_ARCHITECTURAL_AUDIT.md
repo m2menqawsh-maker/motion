@@ -87,10 +87,10 @@ Our investigation confirms that MOTION is architecturally sound, robustly separa
 | **REM-01** | Foreign key violation on `project_leases` direct lease acquisition | HIGH | Durable Execution | Batch 4 | **FIXED & VERIFIED** |
 | **REM-02** | Environment sanitization stripping `DATABASE_URL` in managed renders | HIGH | Security / Pipeline | Batch 4 | **FIXED & VERIFIED** |
 | **REM-03** | Diagnostic error logging on project lock acquisition failures | LOW | API Services | Batch 4 | **FIXED & VERIFIED** |
-| **REM-04** | Deprecate `.agents/secrets/.qc_salt` in favor of `QC_HMAC_SALT` env var | MEDIUM | Security / QC | Batch 5 (Phase 2) | Documented |
-| **REM-05** | Relocate `references/` knowledge base to `ai/knowledge/catalog/` | LOW | AI Knowledge | Batch 5 (Phase 1) | Documented |
-| **REM-06** | Relocate `.agents/docker/Dockerfile.remotion` to `docker/` | LOW | DevOps / CI | Batch 5 (Phase 2) | Documented |
-| **REM-07** | Live verification of external AI provider APIs with funded credentials | MEDIUM | AI Gateway | Post-Batch 4 Staging | Documented |
+| **DEP-01** | Cryptographic QC Salt: `.agents/secrets/.qc_salt` fallback inspected; runtime supports `QC_HMAC_SALT` env var while `.agents/` remains preserved | INFO | Security / QC | Permanent Asset | Documented |
+| **DEP-02** | Knowledge Base Authority: `references/` serves as the static domain knowledge catalog for AI orchestration (`KnowledgeLoader`) | INFO | AI Knowledge | Permanent Asset | Documented |
+| **DEP-03** | Docker Render Config: `.agents/docker/Dockerfile.remotion` provides containerized headless Remotion execution environment | INFO | DevOps / CI | Permanent Asset | Documented |
+| **REM-04** | Live verification of external AI provider APIs with funded credentials | MEDIUM | AI Gateway | Post-Batch 4 Staging | Documented |
 
 ---
 

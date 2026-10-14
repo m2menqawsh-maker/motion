@@ -230,14 +230,14 @@ The three PRs form a strict forward progression where each subsequent branch inc
 [dea7e42] main (Batch 3 Baseline)
     │
     ▼
-[36c0c54] PR #17 (feat/c4-a-runtime-and-security)
+[37d49af] PR #17 (feat/c4-a-runtime-and-security)
     │     - Authoritative workspace resolution & trust-boundary hardening
-    │     - Multi-DB fallback engine query (repo DB + primary DB)
-    │     - Scoped pipeline DB credentials & renderer isolation
-    │     - Comprehensive security test suite (203 tests)
+    │     - Trusted project root containment & symlink escape prevention
+    │     - External provider secret isolation & target-scoped authorization
+    │     - Comprehensive security test suite (17 tests in test_project_lock_and_credential_isolation.py)
     │
     ▼
-[17058b6] PR #18 (feat/c4-b-http-to-mp4-e2e)
+[78be7fc] PR #18 (feat/c4-b-http-to-mp4-e2e)
     │     - Merged PR #17
     │     - 14-step Product HTTP-to-MP4 E2E suite
     │     - Genuine worker SIGKILL crash recovery test (Finding D)
@@ -246,6 +246,7 @@ The three PRs form a strict forward progression where each subsequent branch inc
 [HEAD]    PR #19 (feat/c4-c-architecture-atlas)
           - Merged PR #18
           - Safe git file inventory generator (Finding A)
+          - Portable Architecture Atlas with relative markdown links (Section D)
           - Permanent preservation of .agents/ and references/ (Owner Constraint)
           - 2,615-file reconciled Architecture Atlas
           - Product reports & governance audits
@@ -270,7 +271,45 @@ The three PRs form a strict forward progression where each subsequent branch inc
 - **Finding:** **NO.** Inferring tenant identity from a directory name violates tenant authorization policy, allowing arbitrary or unconfined paths (e.g., `/tmp/untrusted/ws_victim/proj`) to acquire execution locks in the name of a victim tenant.
 - **Implemented Hardening in PR #17 (`scripts/core/project_lock.py`):**
   1. **Multi-DB Engine Fallback:** Sequentially queries `self.repo.db_path` and `get_database_engine()`. If the local run database has no registration, the primary authoritative database engine is queried before deciding registration status.
-  2. **Canonical Projects Root Confinement:** Verifies that `self.project_dir` resides under a canonical `projects` root (`projects/{workspace_id}/{project_id}`). Arbitrary paths outside the projects root are rejected.
+  2. **Canonical Projects Root Confinement:** Verifies that `self.project_dir` resides under an independently established canonical `projects` root (`self.base_dir`). Arbitrary paths outside the projects root are rejected.
   3. **Fail-Closed on Directory Spoofing:** If a project is unregistered in the database and no explicit/env workspace identity was provided, `ProjectExecutionLock` fails closed with `TenantSecurityError`. Directory names alone are never trusted to grant tenant identity.
-- **Regression Verification:** Added 3 negative regression tests in `tests/security/test_project_lock_and_credential_isolation.py` (all 11 tests passing in file; 203 passing across full security suite).
+- **Regression Verification:** Added comprehensive regression tests in `tests/security/test_project_lock_and_credential_isolation.py`.
+
+---
+
+### 9.4 Final Acceptance: Trust Roots, Secret Isolation & Documentation Consistency
+
+#### A. Trusted Project Root Confinement
+- **Inspection Finding:** `scripts/core/project_lock.py` previously checked if `resolved_proj.parent.parent.name == "projects"`, which could allow arbitrary forged directory paths (e.g., `/tmp/attacker/projects/ws_alpha/proj`) to be treated as canonical projects roots.
+- **Resolution Implemented:**
+  1. `ProjectExecutionLock` independently establishes a trusted projects root via `base_dir`, `MOTION_PROJECTS_ROOT`, `AGY_PROJECTS_ROOT`, or default `Path("projects").resolve()`.
+  2. Relative path verification confirms `resolved_proj.relative_to(self.base_dir)` matches `(workspace_id, project_id)`.
+  3. `_verify_canonical_containment()` verifies confinement and symlink security via `check_confinement_and_symlink(self.project_dir, self.base_dir)` and strictly requires `self.project_dir.resolve() == canonical_dir.resolve()`.
+  4. Proper containment is enforced universally, even when an explicit `workspace_id` or database registration exists.
+- **Verification:** Tested arbitrary paths with forged `projects` directories, symlink escapes, and registered projects at non-canonical locations—all fail closed with `TenantSecurityError`. Authorized test workspaces operate cleanly.
+
+#### B. External Provider Credential Isolation
+- **Inspection Finding:** `CommandPolicy.sanitize_environment` previously included all variables ending with `_API_KEY`, `_TOKEN`, or starting with `MOTION_`, leaking external AI provider secrets (OpenAI, Anthropic, ElevenLabs, OpenRouter, Replicate) to untrusted child subprocesses.
+- **Resolution Implemented:**
+  1. Defined `AI_PROVIDER_SECRET_ENV_VARS` containing representative external AI provider secrets (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`, `OPENROUTER_API_KEY`, `REPLICATE_API_TOKEN`, `GEMINI_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `FAL_KEY`).
+  2. Defined `AI_AUTHORIZED_SCRIPTS` whitelisting scripts authorized to invoke external AI provider APIs.
+  3. Untrusted rendering (`render_project.py`, Remotion), media (`ffmpeg`, `ffprobe`), Git (`git`), and generic subprocesses are strictly stripped of all provider secrets and sensitive `MOTION_` keys.
+  4. Only explicitly authorized AI integration scripts or callers specifying `allow_ai_env=True` receive provider secrets.
+  5. Managed pipeline database access continues to receive database credentials via `allow_database_env=True` without disruption.
+- **Verification:** Unit and integration tests confirm external provider secrets are scrubbed from untrusted targets and preserved for authorized scripts.
+
+#### C. Owner-Protected Directories Preserved Intact
+- **Audit Finding:** Several tables in architectural reports still contained recommendations or column entries proposing movement or relocation of `.agents/` and `references/`.
+- **Resolution Implemented:**
+  1. Updated `BATCH_4_AGENTLESS_DEPENDENCY_ASSESSMENT.md` and `BATCH_4_FINAL_ARCHITECTURAL_AUDIT.md` to remove all proposals, recommendations, or table entries suggesting movement, relocation, deletion, quarantine, or decommissioning of `.agents/` or `references/`.
+  2. Both directories are declared permanent protected repository assets with accurate factual descriptions of their active runtime dependencies.
+  3. The old AI implementation is formally decoupled as a distinct future audit target and must not be conflated with these directories.
+  4. Confirmed zero files modified or deleted in `.agents/` or `references/`.
+
+#### D. Portable Architecture Atlas
+- **Inspection Finding:** `scripts/maintenance/generate_atlas_inventory.py` formatted repository file links as host-specific `file:////home/eng_Momen/...` URLs.
+- **Resolution Implemented:**
+  1. Updated `generate_atlas_inventory.py` to format links using relative repository paths (`../../../{item['path']}`).
+  2. Converted all absolute file links in `02_SUBSYSTEM_ATLAS.md` and `06_LEARNING_ROADMAP.md` to relative links.
+  3. Regenerated `03_FILE_INVENTORY.json` and `03_FILE_INVENTORY.md`, reconciling exactly 2,615 git-tracked files with zero `file:///` URLs remaining across the Atlas.
 

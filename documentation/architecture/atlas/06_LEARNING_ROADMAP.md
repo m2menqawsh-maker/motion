@@ -34,8 +34,8 @@ Most people think of video as a flat sequence of recorded pixels. MOTION thinks 
 - **Stems:** Individual isolated audio files (voiceover track, background music, sound effects) that are mixed during final rendering.
 
 ### Primary Files to Inspect
-1. [`documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md)
-2. [`tests/fixtures/sample_blueprint.json`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/tests/fixtures/sample_blueprint.json)
+1. [`documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md`](../../../documentation/architecture/atlas/01_SYSTEM_OVERVIEW.md)
+2. [`tests/fixtures/sample_blueprint.json`](../../../tests/fixtures/sample_blueprint.json)
 
 ### Hands-On Terminal Experiment
 Inspect an authentic blueprint to see what it actually looks like:
@@ -66,9 +66,9 @@ Instead of running complex and fragile command-line video editing tools, MOTION 
 - **FFmpeg:** The world's standard media encoding engine that converts raw picture frames and audio into compressed H.264/AAC MP4 files.
 
 ### Primary Files to Inspect
-1. [`scripts/render_project.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/render_project.py)
-2. [`remotion-app/src/index.ts`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/remotion-app/src/index.ts)
-3. [`templates/effects/engine-bridge.tsx`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/templates/effects/engine-bridge.tsx)
+1. [`scripts/render_project.py`](../../../scripts/render_project.py)
+2. [`remotion-app/src/index.ts`](../../../remotion-app/src/index.ts)
+3. [`templates/effects/engine-bridge.tsx`](../../../templates/effects/engine-bridge.tsx)
 
 ### Hands-On Terminal Experiment
 Run the frontend test suite to see Remotion components verified in under 10 seconds:
@@ -92,9 +92,9 @@ MOTION is built from the ground up for multi-tenant enterprise software. Differe
 - **Path Sanitizer & Jail:** A security guard that prevents file requests from sneaking out of their designated folder (e.g., blocking `../../etc/passwd`).
 
 ### Primary Files to Inspect
-1. [`api/main.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/main.py)
-2. [`api/dependencies.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/dependencies.py)
-3. [`scripts/core/security/path_sanitizer.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/security/path_sanitizer.py)
+1. [`api/main.py`](../../../api/main.py)
+2. [`api/dependencies.py`](../../../api/dependencies.py)
+3. [`scripts/core/security/path_sanitizer.py`](../../../scripts/core/security/path_sanitizer.py)
 
 ### Hands-On Terminal Experiment
 Test that cross-tenant access and path traversal attempts are rejected:
@@ -118,9 +118,9 @@ How does MOTION turn a prompt like *"Make an ad for my new running shoe"* into a
 - **Taste Engine:** An automated design critic that enforces typography pairing, color contrast standards, and sound effect timing so the video looks polished.
 
 ### Primary Files to Inspect
-1. [`ai/recipes/matcher.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/recipes/matcher.py)
-2. [`ai/narrative/planner.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/narrative/planner.py)
-3. [`ai/taste/engine.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/taste/engine.py)
+1. [`ai/recipes/matcher.py`](../../../ai/recipes/matcher.py)
+2. [`ai/narrative/planner.py`](../../../ai/narrative/planner.py)
+3. [`ai/taste/engine.py`](../../../ai/taste/engine.py)
 
 ### Hands-On Terminal Experiment
 Execute the AI Golden Journeys test matrix to see all 18 production recipes evaluated:
@@ -146,9 +146,9 @@ Rendering a video costs computing power and time. MOTION introduces a **Double-G
 - **LUFS:** The international scientific unit of audio loudness. MOTION enforces -16 LUFS for voiceover and -24 LUFS for sound effects.
 
 ### Primary Files to Inspect
-1. [`scripts/gates/probe_qc.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/gates/probe_qc.py)
-2. [`api/services/review_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/review_service.py)
-3. [`scripts/gates/final_qc.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/gates/final_qc.py)
+1. [`scripts/gates/probe_qc.py`](../../../scripts/gates/probe_qc.py)
+2. [`api/services/review_service.py`](../../../api/services/review_service.py)
+3. [`scripts/gates/final_qc.py`](../../../scripts/gates/final_qc.py)
 
 ### Hands-On Terminal Experiment
 Test that an unapproved video fails closed and cannot be rendered:
@@ -172,9 +172,9 @@ When multiple users request videos simultaneously, MOTION uses a **Durable Worke
 - **HTTP Range Streaming (206 Partial Content):** Allows users to click anywhere on the video scrub bar in their web browser and begin playing immediately without downloading the whole file.
 
 ### Primary Files to Inspect
-1. [`scripts/core/worker.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/worker.py)
-2. [`scripts/core/project_lock.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/project_lock.py)
-3. [`api/routers/artifacts.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/artifacts.py)
+1. [`scripts/core/worker.py`](../../../scripts/core/worker.py)
+2. [`scripts/core/project_lock.py`](../../../scripts/core/project_lock.py)
+3. [`api/routers/artifacts.py`](../../../api/routers/artifacts.py)
 
 ### Hands-On Terminal Experiment
 Run the complete, authentic HTTP-to-MP4 end-to-end verification journey:

@@ -327,7 +327,7 @@ def main():
 
     for item in critical_files:
         md_lines.append(
-            f"| [`{item['path']}`](file:///{WORKSPACE_ROOT / item['path']}) | `{item['subsystem']}` | {item['line_count']:,} | `{item['role']}` | {item['description']} |"
+            f"| [`{item['path']}`](../../../{item['path']}) | `{item['subsystem']}` | {item['line_count']:,} | `{item['role']}` | {item['description']} |"
         )
 
     md_lines.extend([

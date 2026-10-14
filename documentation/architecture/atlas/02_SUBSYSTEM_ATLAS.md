@@ -22,16 +22,16 @@ Prevents malformed data, unvalidated parameters, or unhandled exceptions from re
 - **Internal:** `api/dependencies.py`, `api/services/*`, `api/middleware/*`, `fastapi`, `pydantic`.
 
 ### 1.5 Entry Points & Source Files
-- Entrypoint: [`api/main.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/main.py) (`create_app()`).
+- Entrypoint: [`api/main.py`](../../../api/main.py) (`create_app()`).
 - Routers:
-  - [`api/routers/auth.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/auth.py): Authentication tokens and session verification.
-  - [`api/routers/projects.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/projects.py): Project lifecycle and state inspection.
-  - [`api/routers/creative.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/creative.py): Creative briefs, AI proposal generation, and proposal application.
-  - [`api/routers/review.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/review.py): Review bundles, contact sheet thumbnails, and approval decisions.
-  - [`api/routers/runs.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/runs.py): Render execution enqueueing and run status polling.
-  - [`api/routers/artifacts.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/artifacts.py): Media artifact metadata and HTTP 206 range streaming.
-  - [`api/routers/assets.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/assets.py): Asset uploading, hashing, and resolution.
-  - [`api/routers/health.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/health.py): Liveness and readiness probes.
+  - [`api/routers/auth.py`](../../../api/routers/auth.py): Authentication tokens and session verification.
+  - [`api/routers/projects.py`](../../../api/routers/projects.py): Project lifecycle and state inspection.
+  - [`api/routers/creative.py`](../../../api/routers/creative.py): Creative briefs, AI proposal generation, and proposal application.
+  - [`api/routers/review.py`](../../../api/routers/review.py): Review bundles, contact sheet thumbnails, and approval decisions.
+  - [`api/routers/runs.py`](../../../api/routers/runs.py): Render execution enqueueing and run status polling.
+  - [`api/routers/artifacts.py`](../../../api/routers/artifacts.py): Media artifact metadata and HTTP 206 range streaming.
+  - [`api/routers/assets.py`](../../../api/routers/assets.py): Asset uploading, hashing, and resolution.
+  - [`api/routers/health.py`](../../../api/routers/health.py): Liveness and readiness probes.
 
 ### 1.6 Internal Processing Stages
 1. Request Ingestion & Header Parsing (FastAPI/Starlette).
@@ -75,10 +75,10 @@ Prevents Tenant A from viewing, modifying, or executing projects, assets, or vid
 - **Internal:** `hashlib`, `hmac`, `secrets`, `scripts/core/security/command_policy.py`, `scripts/core/security/path_sanitizer.py`.
 
 ### 2.5 Entry Points & Source Files
-- [`api/auth/service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/auth/service.py): Authentication verification and token issuing.
-- [`api/middleware/auth.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/middleware/auth.py): Request authentication filter.
-- [`scripts/core/security/command_policy.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/security/command_policy.py): Shell command whitelisting and environment sanitization.
-- [`scripts/core/security/path_sanitizer.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/security/path_sanitizer.py): Jail-checking and canonical path resolution.
+- [`api/auth/service.py`](../../../api/auth/service.py): Authentication verification and token issuing.
+- [`api/middleware/auth.py`](../../../api/middleware/auth.py): Request authentication filter.
+- [`scripts/core/security/command_policy.py`](../../../scripts/core/security/command_policy.py): Shell command whitelisting and environment sanitization.
+- [`scripts/core/security/path_sanitizer.py`](../../../scripts/core/security/path_sanitizer.py): Jail-checking and canonical path resolution.
 
 ### 2.6 Internal Processing Stages
 1. **Signature Verification:** Validates request signature or bearer token against tenant secrets.
@@ -120,11 +120,11 @@ Replaces subjective, unpredictable video drafting with a deterministic creative 
 - **External (Optional/Advisory):** OpenAI, Anthropic, or local heuristic fallback planners.
 
 ### 3.5 Entry Points & Source Files
-- [`ai/orchestration/planner.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/orchestration/planner.py): High-level creative workflow coordinator.
-- [`ai/recipes/matcher.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/recipes/matcher.py): Recipe selection and suitability scoring.
-- [`ai/narrative/planner.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/narrative/planner.py): Scene breakdown, pacing, and word-budget calculations.
-- [`ai/composition/compiler.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/composition/compiler.py): Emits the final Remotion-compatible `05_blueprint.json`.
-- [`ai/taste/engine.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/taste/engine.py): Taste Gates and typographic constraint enforcement.
+- [`ai/orchestration/planner.py`](../../../ai/orchestration/planner.py): High-level creative workflow coordinator.
+- [`ai/recipes/matcher.py`](../../../ai/recipes/matcher.py): Recipe selection and suitability scoring.
+- [`ai/narrative/planner.py`](../../../ai/narrative/planner.py): Scene breakdown, pacing, and word-budget calculations.
+- [`ai/composition/compiler.py`](../../../ai/composition/compiler.py): Emits the final Remotion-compatible `05_blueprint.json`.
+- [`ai/taste/engine.py`](../../../ai/taste/engine.py): Taste Gates and typographic constraint enforcement.
 
 ### 3.6 Internal Processing Stages
 1. **Brief Ingestion & Intent Parsing:** Analyzes prompt keywords, duration bounds, and aspect ratio.
@@ -166,10 +166,10 @@ Prevents direct, unmonitored external network calls, vendor lock-in, and uncontr
 - **Internal:** `ai/contracts/creative/skills_knowledge.py`, `ai/knowledge/loader.py`, `ai/skills/loader.py`, `ai/tools/gateway.py`, `scripts/core/routing/capability_router.py`.
 
 ### 4.5 Entry Points & Source Files
-- [`ai/context/assembler.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/context/assembler.py): Builds unified context for creative generation.
-- [`ai/knowledge/loader.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/knowledge/loader.py): Ingests and SHA-256 verifies knowledge descriptors.
-- [`ai/skills/loader.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/skills/loader.py): Loads and validates operational skill definitions.
-- [`ai/tools/gateway.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/ai/tools/gateway.py): Mediates capability invocations and enforces rate limits.
+- [`ai/context/assembler.py`](../../../ai/context/assembler.py): Builds unified context for creative generation.
+- [`ai/knowledge/loader.py`](../../../ai/knowledge/loader.py): Ingests and SHA-256 verifies knowledge descriptors.
+- [`ai/skills/loader.py`](../../../ai/skills/loader.py): Loads and validates operational skill definitions.
+- [`ai/tools/gateway.py`](../../../ai/tools/gateway.py): Mediates capability invocations and enforces rate limits.
 
 ### 4.6 Internal Processing Stages
 1. Capability Request Received (e.g., synthesize voiceover).
@@ -210,9 +210,9 @@ Eliminates file desynchronization, concurrent write corruption, and "split-brain
 - **Internal:** Relational database (`projects`, `project_documents`, `project_state` tables), `api/services/canonical_document_service.py`, `api/services/project_service.py`.
 
 ### 5.5 Entry Points & Source Files
-- [`api/services/canonical_document_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/canonical_document_service.py): Document storage, hashing, and CAS versioning.
-- [`api/services/project_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/project_service.py): High-level project metadata and workspace mapping.
-- [`scripts/core/models/project.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/models/project.py): Database entity definitions.
+- [`api/services/canonical_document_service.py`](../../../api/services/canonical_document_service.py): Document storage, hashing, and CAS versioning.
+- [`api/services/project_service.py`](../../../api/services/project_service.py): High-level project metadata and workspace mapping.
+- [`scripts/core/models/project.py`](../../../scripts/core/models/project.py): Database entity definitions.
 
 ### 5.6 Internal Processing Stages
 1. Read Document Request: Fetches document content from database or disk cache, verifies SHA-256 hash.
@@ -253,9 +253,9 @@ Prevents runaway cloud rendering costs, accidental generation of unapproved draf
 - **Internal:** `api/services/review_service.py`, `scripts/gates/probe_qc.py`, `contracts/governance/*`, HMAC secrets.
 
 ### 6.5 Entry Points & Source Files
-- [`api/services/review_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/review_service.py): Bundle construction and signature verification.
-- [`api/routers/review.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/review.py): Review endpoints (`GET /review`, `POST /review/decision`).
-- [`creative_governance/`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/creative_governance/): Governance policy rules and taste guidelines.
+- [`api/services/review_service.py`](../../../api/services/review_service.py): Bundle construction and signature verification.
+- [`api/routers/review.py`](../../../api/routers/review.py): Review endpoints (`GET /review`, `POST /review/decision`).
+- [`creative_governance/`](../../../creative_governance/): Governance policy rules and taste guidelines.
 
 ### 6.6 Internal Processing Stages
 1. Construct Review Bundle: Gathers current blueprint, scene timings, asset licenses, and executes `probe_qc.py` to create a visual contact sheet.
@@ -297,10 +297,10 @@ Guarantees that rendering jobs do not get lost when a server restarts, workers d
 - **Database:** `runs`, `project_leases`, `idempotency_keys` tables.
 
 ### 7.5 Entry Points & Source Files
-- [`api/services/run_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/run_service.py): API-level run management.
-- [`scripts/core/run_repository.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/run_repository.py): SQL database engine for runs and leases.
-- [`scripts/core/worker.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/worker.py): Worker polling loop, lease heartbeat, and job dispatch.
-- [`scripts/core/project_lock.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/core/project_lock.py): `ProjectExecutionLock` managing exclusive project-level leases.
+- [`api/services/run_service.py`](../../../api/services/run_service.py): API-level run management.
+- [`scripts/core/run_repository.py`](../../../scripts/core/run_repository.py): SQL database engine for runs and leases.
+- [`scripts/core/worker.py`](../../../scripts/core/worker.py): Worker polling loop, lease heartbeat, and job dispatch.
+- [`scripts/core/project_lock.py`](../../../scripts/core/project_lock.py): `ProjectExecutionLock` managing exclusive project-level leases.
 
 ### 7.6 Internal Processing Stages
 1. **Enqueue:** Inserts run into SQL repository. If idempotency key matches an existing active run, returns existing run without duplicate enqueue.
@@ -343,10 +343,10 @@ Provides pixel-perfect typography, fluid spring-based animations, and exact fram
 - **Internal:** `remotion-app/`, `templates/`, `scripts/render_project.py`, `scripts/generators/materialize_project.py`.
 
 ### 8.5 Entry Points & Source Files
-- [`scripts/render_project.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/render_project.py): Canonical render orchestrator.
-- [`scripts/generators/materialize_project.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/generators/materialize_project.py): Copies required assets into the public asset root.
-- [`remotion-app/src/index.ts`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/remotion-app/src/index.ts): Remotion application entry point.
-- [`templates/effects/engine-bridge.tsx`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/templates/effects/engine-bridge.tsx): Active bridge syncing animation clock with audio timestamps.
+- [`scripts/render_project.py`](../../../scripts/render_project.py): Canonical render orchestrator.
+- [`scripts/generators/materialize_project.py`](../../../scripts/generators/materialize_project.py): Copies required assets into the public asset root.
+- [`remotion-app/src/index.ts`](../../../remotion-app/src/index.ts): Remotion application entry point.
+- [`templates/effects/engine-bridge.tsx`](../../../templates/effects/engine-bridge.tsx): Active bridge syncing animation clock with audio timestamps.
 
 ### 8.6 Internal Processing Stages
 1. **Asset Materialization:** Verifies and copies audio stems, fonts, and background media to `public/projects/{id}/`.
@@ -389,9 +389,9 @@ Guarantees that corrupt videos, black frames, silent audio tracks, desynchronize
 - **Internal:** `scripts/gates/probe_qc.py`, `scripts/gates/final_qc.py`, `scripts/gates/plan_gate.py`.
 
 ### 9.5 Entry Points & Source Files
-- [`scripts/gates/probe_qc.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/gates/probe_qc.py): Pre-render validation and thumbnail contact sheet generator.
-- [`scripts/gates/final_qc.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/gates/final_qc.py): Post-render media inspection.
-- [`scripts/gates/plan_gate.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/scripts/gates/plan_gate.py): Plan structural verification.
+- [`scripts/gates/probe_qc.py`](../../../scripts/gates/probe_qc.py): Pre-render validation and thumbnail contact sheet generator.
+- [`scripts/gates/final_qc.py`](../../../scripts/gates/final_qc.py): Post-render media inspection.
+- [`scripts/gates/plan_gate.py`](../../../scripts/gates/plan_gate.py): Plan structural verification.
 
 ### 9.6 Internal Processing Stages
 1. **Probe QC (Pre-Render):**
@@ -436,9 +436,9 @@ Enables video players (browsers, mobile apps) to stream large MP4 videos with sm
 - **Internal:** `api/services/storage_service.py`, `api/services/asset_service.py`, `api/routers/artifacts.py`.
 
 ### 10.5 Entry Points & Source Files
-- [`api/services/storage_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/storage_service.py): Local and S3-compatible content-addressable storage driver.
-- [`api/services/asset_service.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/services/asset_service.py): Asset deduplication, metadata, and lifecycle management.
-- [`api/routers/artifacts.py`](file:///home/eng_Momen/Projects/المشروع%20الحالي/Video%20maker/api/routers/artifacts.py): Download and streaming endpoints.
+- [`api/services/storage_service.py`](../../../api/services/storage_service.py): Local and S3-compatible content-addressable storage driver.
+- [`api/services/asset_service.py`](../../../api/services/asset_service.py): Asset deduplication, metadata, and lifecycle management.
+- [`api/routers/artifacts.py`](../../../api/routers/artifacts.py): Download and streaming endpoints.
 
 ### 10.6 Internal Processing Stages
 1. **Media Ingestion:** Hashes incoming binary with SHA-256; stores file under content hash; saves metadata in tenant asset catalog.
