@@ -228,20 +228,42 @@ def test_isolated_process_loopback_smoke(tmp_path: Path, monkeypatch: pytest.Mon
             assert run_resp.status_code == 202
             run_id = run_resp.json()["run_id"]
 
-            # 3. Test safe worker restart behavior across separate OS processes
-            # Spawn worker 1, simulate graceful SIGTERM termination
+            # 3. Demonstrate genuine worker crash recovery and lease transfer
+            # Step 3a: Worker 1 claims durable lease with short duration (1.0s) and starts processing
             w1_cmd = [
                 sys.executable,
                 "-c",
                 f"import sys, time; sys.path.insert(0, '.'); from scripts.core.worker import PipelineWorker; "
-                f"w = PipelineWorker(worker_id='w_temp_1', db_path='{db_file}'); time.sleep(0.5)",
+                f"w = PipelineWorker(worker_id='w_crash_victim', db_path='{db_file}', lease_duration=1.0); "
+                f"claimed = w.repo.claim_next_run(worker_id='w_crash_victim', lease_duration_seconds=1.0); "
+                f"assert claimed is not None, 'Worker 1 failed to claim run'; "
+                f"time.sleep(30)",  # Abruptly killed while holding active lease
             ]
             w1_proc = subprocess.Popen(w1_cmd, env=env, cwd=str(workspace_root))
-            time.sleep(0.2)
-            w1_proc.terminate()
+
+            # Verify in DB that Worker 1 genuinely claimed and holds the active lease
+            from scripts.core.run_repository import RunRepository
+            smoke_repo = RunRepository(db_path=db_file)
+            claimed_by_w1 = False
+            for _ in range(40):
+                time.sleep(0.1)
+                r_check = smoke_repo.get_run(run_id)
+                if r_check and r_check.worker_id == "w_crash_victim":
+                    claimed_by_w1 = True
+                    break
+            assert claimed_by_w1, "Worker 1 failed to record durable lease claim in database"
+            assert smoke_repo.is_lease_active(run_id, "w_crash_victim"), "Worker 1 lease was not active"
+
+            # Step 3b: Worker 1 terminates abruptly (hard crash via kill / SIGKILL)
+            w1_proc.kill()
             w1_proc.wait(timeout=5)
 
-            # Spawn worker 2 in a fresh OS process to process the claimed job to completion
+            # Step 3c: Wait for Worker 1's lease to expire (1.0s duration + margin)
+            time.sleep(1.2)
+            assert not smoke_repo.is_lease_active(run_id, "w_crash_victim"), "Worker 1 lease should be expired"
+
+            # Step 3d: Spawn Worker 2 in a fresh OS process.
+            # Worker 2 runs orphan recovery pass, fences/reclaims the expired run, and completes execution
             w2_cmd = [
                 sys.executable,
                 "-c",
@@ -251,6 +273,12 @@ def test_isolated_process_loopback_smoke(tmp_path: Path, monkeypatch: pytest.Mon
             ]
             w2_res = subprocess.run(w2_cmd, env=env, cwd=str(workspace_root), capture_output=True, text=True, timeout=90)
             assert w2_res.returncode == 0, f"Worker process failed:\nSTDOUT: {w2_res.stdout}\nSTDERR: {w2_res.stderr}"
+
+            # Verify that Worker 2 recovered the run and attempt counter was incremented
+            recovered_run = smoke_repo.get_run(run_id)
+            assert recovered_run is not None
+            assert recovered_run.worker_id == "w_smoke_active", f"Expected w_smoke_active, got {recovered_run.worker_id}"
+            assert recovered_run.attempt >= 2, f"Expected attempt >= 2 after crash recovery, got {recovered_run.attempt}"
 
             # 4. Verify run status via HTTP GET /projects/{id}/runs/{run_id}
             run_stat_resp = client.get(f"/projects/{project_id}/runs/{run_id}", headers=auth_headers)
