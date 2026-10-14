@@ -155,6 +155,83 @@ class TestProjectLockWorkspaceSecurity:
         post_lease = lock.repo.get_active_project_lease(proj_id)
         assert post_lease is None
 
+    def test_unregistered_project_cannot_trust_directory_name(self, tmp_path: Path, isolated_db: dict):
+        """Unregistered project under projects/ cannot infer workspace identity solely from directory name."""
+        proj_id = "proj_unregistered_spoof"
+        ws_id = "tenant_innocent_victim"
+
+        # Directory exists under projects, but project is NOT registered in database
+        proj_dir = tmp_path / "projects" / ws_id / proj_id
+        proj_dir.mkdir(parents=True, exist_ok=True)
+
+        with pytest.raises(TenantSecurityError, match="Workspace identity cannot be trusted solely from a directory name"):
+            ProjectExecutionLock(
+                project_dir=proj_dir,
+                owner_id="attacker_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=None,
+            )
+
+    def test_arbitrary_path_outside_canonical_projects_root_rejected(self, tmp_path: Path, isolated_db: dict):
+        """Project directory outside canonical projects root is strictly rejected even with valid directory name."""
+        proj_id = "proj_external_attack"
+        ws_id = "tenant_valid_syntax"
+
+        # Path under /tmp/some_random/ws_id/proj_id (grandparent is NOT 'projects')
+        proj_dir = tmp_path / "some_random_folder" / ws_id / proj_id
+        proj_dir.mkdir(parents=True, exist_ok=True)
+
+        # Case A: No explicit workspace provided -> fails closed
+        with pytest.raises(TenantSecurityError, match="Workspace identity cannot be trusted solely from a directory name"):
+            ProjectExecutionLock(
+                project_dir=proj_dir,
+                owner_id="attacker_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=None,
+            )
+
+        # Case B: Explicit workspace provided on unregistered project outside projects root -> rejected as non-canonical
+        with pytest.raises(TenantSecurityError, match="not verified to reside under a canonical projects root"):
+            ProjectExecutionLock(
+                project_dir=proj_dir,
+                owner_id="attacker_worker",
+                db_path=isolated_db["db_path"],
+                workspace_id=ws_id,
+            )
+
+    def test_primary_db_fallback_when_repo_db_unregistered(self, tmp_path: Path, isolated_db: dict, monkeypatch):
+        """When repo db has no project registration, lock queries primary database engine authoritatively."""
+        authoritative_ws = "tenant_primary_registered"
+        proj_id = "proj_multi_db_test"
+
+        # Register project in isolated_db
+        repo: TenantRepository = isolated_db["tenant_repo"]
+        repo.create_user("usr_multi", "multi@example.com")
+        repo.create_workspace(authoritative_ws, "Primary Org", created_by="usr_multi")
+        repo.create_project(proj_id, authoritative_ws, "Multi DB Video", created_by="usr_multi")
+
+        # Point get_database_engine to isolated_db
+        monkeypatch.setattr("scripts.core.database.get_database_engine", lambda: isolated_db["engine"])
+
+        # Create a secondary empty repo database (e.g. local worker runs db)
+        worker_runs_db = tmp_path / "worker_local_runs.db"
+        worker_engine = DatabaseEngine(f"sqlite:///{worker_runs_db}")
+        # Note: worker_runs_db does NOT have the project registration in its tenant table
+        worker_repo = TenantRepository(worker_engine)
+
+        proj_dir = tmp_path / "projects" / authoritative_ws / proj_id
+        proj_dir.mkdir(parents=True, exist_ok=True)
+
+        # Lock initialized with worker_runs_db where project is NOT registered
+        # It must fall back to get_database_engine() and discover authoritative_ws!
+        lock = ProjectExecutionLock(
+            project_dir=proj_dir,
+            owner_id="worker_secondary",
+            db_path=worker_runs_db,
+            workspace_id=None,
+        )
+        assert lock.workspace_id == authoritative_ws
+
 
 class TestDatabaseCredentialIsolation:
     """Finding C Security Tests: Credential Non-Disclosure & Propagation."""
