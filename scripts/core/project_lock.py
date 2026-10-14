@@ -5,6 +5,7 @@ Ensures mutual exclusion across multiple workers, API requests, and CLI executio
 Combines OS-level kernel lock (.pipeline_execution.lock) with durable database lease.
 """
 
+import os
 from pathlib import Path
 from typing import Optional
 from scripts.core.state_lock import StateLock, StateLockTimeoutError
@@ -53,20 +54,30 @@ class ProjectExecutionLock:
     def _resolve_workspace_id(self, explicit_ws: Optional[str]) -> str:
         """
         Resolves workspace ownership authoritatively with strict fail-closed security:
-        1. Checks database project registration.
-        2. Inspects filesystem parent namespace if valid.
+        1. Checks database project registration across configured engines:
+           - self.repo.db_path (local / worker runs db)
+           - get_database_engine() (primary authoritative database)
+        2. Verifies canonical projects root confinement.
         3. Validates explicit workspace against registration and filesystem.
-        4. Fails closed with TenantSecurityError on missing, ambiguous, or mismatched identity.
+        4. Rejects trusting directory name alone for unregistered projects.
+        5. Fails closed with TenantSecurityError on missing, ambiguous, or mismatched identity.
         """
         authoritative_ws: Optional[str] = None
-        try:
-            from scripts.core.database import DatabaseEngine, TenantRepository
-            engine = DatabaseEngine(f"sqlite:///{self.repo.db_path}")
-            tenant_repo = TenantRepository(engine)
-            proj_record = tenant_repo.get_project(self.project_id)
-            if proj_record and proj_record.workspace_id:
-                authoritative_ws = validate_workspace_id(proj_record.workspace_id)
-        except Exception:
+
+        # 1. Query self.repo database if available
+        if getattr(self.repo, "db_path", None):
+            try:
+                from scripts.core.database import DatabaseEngine, TenantRepository
+                engine = DatabaseEngine(f"sqlite:///{self.repo.db_path}")
+                tenant_repo = TenantRepository(engine)
+                proj_record = tenant_repo.get_project(self.project_id)
+                if proj_record and proj_record.workspace_id:
+                    authoritative_ws = validate_workspace_id(proj_record.workspace_id)
+            except Exception:
+                pass
+
+        # 2. Query configured authoritative database engine if not found in repo db
+        if not authoritative_ws:
             try:
                 from scripts.core.database import get_database_engine, TenantRepository
                 engine = get_database_engine()
@@ -77,17 +88,35 @@ class ProjectExecutionLock:
             except Exception:
                 pass
 
+        # 3. Check canonical projects root confinement
+        # In a valid tenant layout, project_dir must be: <projects_root>/<workspace_id>/<project_id>
+        # where the parent's parent directory is named 'projects'.
         parent_ws: Optional[str] = None
-        parent_name = self.project_dir.parent.name
-        if parent_name and parent_name not in ("projects", ".", "", "/") and not parent_name.startswith("."):
-            try:
-                parent_ws = validate_workspace_id(parent_name)
-            except ValueError:
-                parent_ws = None
+        is_under_canonical_projects_root = False
+        resolved_proj = self.project_dir.resolve()
 
-        # Case 1: Caller provided explicit workspace identifier
-        if explicit_ws is not None:
-            validated_explicit = validate_workspace_id(explicit_ws)
+        if len(resolved_proj.parts) >= 3 and resolved_proj.parent.parent.name == "projects":
+            is_under_canonical_projects_root = True
+            parent_name = resolved_proj.parent.name
+            if parent_name and not parent_name.startswith("."):
+                try:
+                    parent_ws = validate_workspace_id(parent_name)
+                except ValueError:
+                    parent_ws = None
+
+        # Fallback to AGY_WORKSPACE_ID environment if explicit_ws is not provided
+        effective_explicit_ws = explicit_ws
+        if effective_explicit_ws is None:
+            env_ws = os.environ.get("AGY_WORKSPACE_ID")
+            if env_ws:
+                try:
+                    effective_explicit_ws = validate_workspace_id(env_ws)
+                except ValueError:
+                    effective_explicit_ws = None
+
+        # Case 1: Caller provided explicit workspace identifier (or AGY_WORKSPACE_ID)
+        if effective_explicit_ws is not None:
+            validated_explicit = validate_workspace_id(effective_explicit_ws)
             if authoritative_ws and validated_explicit != authoritative_ws:
                 raise TenantSecurityError(
                     f"Workspace ownership mismatch for project '{self.project_id}': "
@@ -97,6 +126,11 @@ class ProjectExecutionLock:
                 raise TenantSecurityError(
                     f"Workspace ownership mismatch for project '{self.project_id}': "
                     f"explicit workspace '{validated_explicit}' conflicts with filesystem directory '{parent_ws}'."
+                )
+            if not is_under_canonical_projects_root and not authoritative_ws:
+                raise TenantSecurityError(
+                    f"Invalid project path for project '{self.project_id}': "
+                    f"path '{self.project_dir}' is not verified to reside under a canonical projects root."
                 )
             return validated_explicit
 
@@ -109,14 +143,11 @@ class ProjectExecutionLock:
                 )
             return authoritative_ws
 
-        # Case 3: Parent directory is a valid workspace identifier
-        if parent_ws:
-            return parent_ws
-
-        # Case 4: Missing or ambiguous identity must fail closed
+        # Case 3: Project is unregistered and no explicit workspace identity was provided
+        # A workspace identity CANNOT be trusted solely from a directory name. Fail closed!
         raise TenantSecurityError(
             f"Cannot acquire execution lock: missing or ambiguous workspace identity for project '{self.project_id}'. "
-            "Workspace ownership must be explicitly provided or registered authoritatively."
+            "Workspace identity cannot be trusted solely from a directory name and must be authoritatively registered in the database or explicitly provided."
         )
 
     def acquire(self) -> "ProjectExecutionLock":
