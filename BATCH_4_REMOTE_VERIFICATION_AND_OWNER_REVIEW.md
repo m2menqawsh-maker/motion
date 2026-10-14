@@ -40,8 +40,8 @@ All changes have been partitioned into reviewable, focused feature branches and 
 +----------------------------------------------------------------------------------------------------------------------------------------+
 | Branch Identifier | Branch Name                     | Head Commit | GitHub Pull Request                                      | Status     |
 | :---------------- | :------------------------------ | :---------- | :------------------------------------------------------- | :--------- |
-| **Branch C4-A**   | `feat/c4-a-runtime-and-security`| `584d907`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
-| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`     | `5da526d`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
+| **Branch C4-A**   | `feat/c4-a-runtime-and-security`| `f651aa4`   | [PR #17](https://github.com/m2menqawsh-maker/motion/pull/17) | **GREEN**  |
+| **Branch C4-B**   | `feat/c4-b-http-to-mp4-e2e`     | `a679b1b`   | [PR #18](https://github.com/m2menqawsh-maker/motion/pull/18) | **GREEN**  |
 | **Branch C4-C**   | `feat/c4-c-architecture-atlas`  | `HEAD`      | [PR #19](https://github.com/m2menqawsh-maker/motion/pull/19) | **PENDING**|
 +----------------------------------------------------------------------------------------------------------------------------------------+
 ```
@@ -232,13 +232,13 @@ The three PRs form a strict forward progression where each subsequent branch inc
 [dea7e42] main (Batch 3 Baseline)
     │
     ▼
-[584d907] PR #17 (feat/c4-a-runtime-and-security)
+[f651aa4] PR #17 (feat/c4-a-runtime-and-security)
     │     - Authoritative workspace resolution (Finding B)
     │     - Scoped pipeline DB credentials & renderer isolation (Finding C)
     │     - Comprehensive security test suite (200 tests)
     │
     ▼
-[5da526d] PR #18 (feat/c4-b-http-to-mp4-e2e)
+[a679b1b] PR #18 (feat/c4-b-http-to-mp4-e2e)
     │     - Merged PR #17
     │     - 14-step Product HTTP-to-MP4 E2E suite
     │     - Genuine worker SIGKILL crash recovery test (Finding D)
