@@ -1,10 +1,13 @@
 import asyncio
 import json
+import logging
 import os
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Optional, Any
+
+logger = logging.getLogger(__name__)
 from scripts.security.security import safe_subprocess
 from scripts.security.path_security import validate_project_id
 from scripts.core.state_store import StateStore
@@ -250,7 +253,8 @@ class PipelineService:
             execution_lock = ProjectExecutionLock(project_dir, owner_id="api", run_id=run_id)
             try:
                 execution_lock.acquire()
-            except ProjectExecutionConflictError:
+            except ProjectExecutionConflictError as exc:
+                logger.error(f"Execution lock failed for {project_id}: {exc}")
                 raise PipelineRunningError(project_id)
 
             try:

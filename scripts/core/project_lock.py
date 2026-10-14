@@ -34,12 +34,19 @@ class ProjectExecutionLock:
         run_id: Optional[str] = None,
         db_path: Optional[Path | str] = None,
         timeout: float = 0.0,
+        workspace_id: Optional[str] = None,
     ):
         self.project_dir = Path(project_dir)
         self.project_id = self.project_dir.name
         self.owner_id = owner_id
         self.run_id = run_id or f"direct_{owner_id}"
         self.timeout = timeout
+        if workspace_id:
+            self.workspace_id = workspace_id
+        elif self.project_dir.parent.name.startswith("ws_"):
+            self.workspace_id = self.project_dir.parent.name
+        else:
+            self.workspace_id = "ws_default"
         self.repo = RunRepository(db_path=db_path)
         self._file_lock: Optional[StateLock] = None
 
@@ -71,7 +78,8 @@ class ProjectExecutionLock:
                 self.project_id,
                 owner_id=self.owner_id,
                 run_id=self.run_id,
-                lease_duration_seconds=300.0
+                lease_duration_seconds=300.0,
+                workspace_id=self.workspace_id,
             )
             if not acquired:
                 self._file_lock.release()
