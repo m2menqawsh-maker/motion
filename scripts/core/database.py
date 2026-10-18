@@ -805,6 +805,7 @@ class UsageRepository:
 
 
 _global_engine: Optional[DatabaseEngine] = None
+_is_custom_engine: bool = False
 
 
 def get_database_engine(db_url: Optional[str] = None) -> DatabaseEngine:
@@ -818,5 +819,14 @@ def get_database_engine(db_url: Optional[str] = None) -> DatabaseEngine:
 
 
 def set_database_engine(engine: Optional[DatabaseEngine]) -> None:
-    global _global_engine
+    global _global_engine, _is_custom_engine
     _global_engine = engine
+    _is_custom_engine = engine is not None
+
+
+def has_explicit_database() -> bool:
+    global _is_custom_engine
+    if _is_custom_engine:
+        return True
+    return bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+

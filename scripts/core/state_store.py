@@ -202,7 +202,8 @@ class StateStore:
     @classmethod
     def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
         """Internal helper to reflect ProjectState into the relational database engine."""
-        has_configured_db = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+        from scripts.core.database import has_explicit_database
+        has_configured_db = has_explicit_database()
         is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
         if not has_configured_db:
             # Subprocesses or workers without database credentials operate on disk state
@@ -428,7 +429,8 @@ class StateStore:
         state._loaded_revision = state.revision
 
         # Ensure disk state matches authoritative SQL state when a database is explicitly configured
-        has_configured_db = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+        from scripts.core.database import has_explicit_database
+        has_configured_db = has_explicit_database()
         if getattr(state, "project_id", None) and has_configured_db:
             try:
                 from scripts.core.database import get_database_engine
