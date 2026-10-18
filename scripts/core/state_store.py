@@ -202,7 +202,11 @@ class StateStore:
     @classmethod
     def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
         """Internal helper to reflect ProjectState into the relational database engine."""
+        has_configured_db = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
         is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+        if not has_configured_db:
+            # Subprocesses or workers without database credentials operate on disk state
+            return
         try:
             from scripts.core.database import get_database_engine
             engine = get_database_engine()
@@ -423,21 +427,26 @@ class StateStore:
 
         state._loaded_revision = state.revision
 
-        # Ensure disk state matches authoritative SQL state
-        if getattr(state, "project_id", None):
+        # Ensure disk state matches authoritative SQL state when a database is explicitly configured
+        has_configured_db = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+        if getattr(state, "project_id", None) and has_configured_db:
             try:
                 from scripts.core.database import get_database_engine
                 engine = get_database_engine()
                 if engine:
                     with engine.get_connection() as conn:
                         cur = conn.execute(
-                            "SELECT revision, lifecycle_state, state_json FROM project_states WHERE project_id = ?",
+                            "SELECT workspace_id, revision, lifecycle_state, state_json FROM project_states WHERE project_id = ?",
                             (state.project_id,)
                         )
                         row = cur.fetchone()
                         if row:
-                            db_rev, _, db_state_json = row[0], row[1], row[2]
-                            if db_rev != state.revision:
+                            db_ws, db_rev, _, db_state_json = row[0], row[1], row[2], row[3]
+                            if state.workspace_id and db_ws and state.workspace_id != db_ws:
+                                logger.debug(
+                                    f"StateStore.load skipping reconciliation: workspace mismatch ({state.workspace_id} != {db_ws})"
+                                )
+                            elif db_rev != state.revision:
                                 logger.warning(
                                     f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "
                                     f"conflicts with authoritative SQL revision {db_rev}."
