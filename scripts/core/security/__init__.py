@@ -42,6 +42,10 @@ from scripts.core.security.settings import (
     get_security_settings,
     set_security_settings,
 )
+from scripts.core.security.url_policy import (
+    validate_safe_url,
+    URLSecurityViolation,
+)
 
 __all__ = [
     "Principal",
@@ -68,4 +72,6 @@ __all__ = [
     "SecuritySettings",
     "get_security_settings",
     "set_security_settings",
+    "validate_safe_url",
+    "URLSecurityViolation",
 ]

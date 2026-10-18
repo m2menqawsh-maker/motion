@@ -27,6 +27,7 @@ class TestMigrationFromLegacy:
         
         # إنشاء state.json قديم
         project_dir = tmp_path / "projects" / test_project
+        project_dir.mkdir(parents=True, exist_ok=True)
         old_state_path = project_dir / "state.json"
         
         legacy_state = {
@@ -40,7 +41,7 @@ class TestMigrationFromLegacy:
         migrate_project(test_project)
         
         # التحقق من الترحيل
-        new_state_path = PipelineService._get_project_dir(test_project) / ".pipeline_state.json"
+        new_state_path = project_dir / ".pipeline_state.json"
         new_state = json.loads(new_state_path.read_text(encoding="utf-8"))
         assert "legacy_gui_state" in new_state
         assert new_state["legacy_gui_state"]["approved_by"] == "legacy_user"

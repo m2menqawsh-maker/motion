@@ -58,11 +58,16 @@ from scripts.core.state_store import StateConflictError, StateNotFoundError, Sta
 from scripts.core.template_contract import TemplateRegistryContract
 from scripts.core.tenant_model import TenantContext
 from scripts.security.path_security import validate_project_id
+from ai.conflict.resolver import ConflictResolver
 from ai.context.adapters.knowledge_router_adapter import KnowledgeRouterAdapter
 from ai.context.builder import ContextBuilder
 from ai.context.types import ContextRequest
 from ai.contracts.common import CapabilityType
+from ai.directors.bundle import CreativeDirectorCoordinator
 from ai.memory.models import TrustedTenantContext
+from ai.planning.plan_markdown_generator import generate_master_plan_markdown
+from ai.taste.context import TasteContextBuilder
+from ai.taste.engine import TasteEngine
 from api.services.project_service import ProjectService
 
 logger = logging.getLogger("clean_video.creative_service")
@@ -101,6 +106,9 @@ class CreativeService:
     _reuse_engine = ReuseEngine(template_contract=_template_registry)
     _compose_engine = ComposeEngine(template_contract=_template_registry)
     _tier_policy = CreativeTierPolicy(reuse_engine=_reuse_engine, compose_engine=_compose_engine)
+    _taste_engine = TasteEngine()
+    _director_coordinator = CreativeDirectorCoordinator()
+    _conflict_resolver = ConflictResolver()
     _compiler = BlueprintCompiler()
     _context_builder = ContextBuilder(
         project_service=ProjectService,
@@ -279,12 +287,30 @@ class CreativeService:
             logger.error(f"Narrative planning failed: {exc}")
             raise APIError(message=f"Narrative planning failed: {exc}", status_code=422)
 
+        # 6b. Assemble TasteContext & Evaluate Taste Engine + Directors + Conflict Resolver
+        taste_ctx = TasteContextBuilder.build(
+            brief=brief,
+            narrative_plan=narrative_plan,
+            recipe=recipe,
+            active_knowledge_ids=[it.id for it in context_pkg.knowledge_context.items],
+        )
+        taste_decisions = cls._taste_engine.evaluate_taste(taste_ctx)
+        director_bundle = cls._director_coordinator.direct_all(taste_ctx)
+        guidance = cls._conflict_resolver.resolve(
+            context=taste_ctx,
+            director_bundle=director_bundle,
+            taste_decisions=taste_decisions,
+        )
+
         # 7. Advisory Creative Planning
         try:
             creative_plan: CreativePlan = cls._creative_planner.plan(
                 brief=brief,
                 narrative_plan=narrative_plan,
                 recipe=recipe,
+                taste_decisions=taste_decisions,
+                guidance=guidance,
+                director_bundle=director_bundle,
             )
         except Exception as exc:
             logger.error(f"Creative planning failed: {exc}")
@@ -311,6 +337,19 @@ class CreativeService:
                 "type": "KNOWLEDGE_RETRIEVAL",
                 "total_chunks": len(retrieved_knowledge),
                 "documents": sorted(list(set(str(k["document_id"]) for k in retrieved_knowledge if k["document_id"]))),
+            })
+
+        if taste_decisions:
+            diagnostics.append({
+                "type": "TASTE_EVALUATION",
+                "total_decisions": len(taste_decisions),
+                "rules_applied": sorted(list(set(d.rule_id for d in taste_decisions))),
+            })
+        if guidance and guidance.detected_conflicts:
+            diagnostics.append({
+                "type": "CREATIVE_CONFLICTS",
+                "total_conflicts": len(guidance.detected_conflicts),
+                "resolved_count": sum(1 for c in guidance.detected_conflicts if getattr(c.status, "value", str(c.status)) == "RESOLVED"),
             })
 
         for idx, scene in enumerate(creative_plan.scenes):
@@ -394,6 +433,15 @@ class CreativeService:
                 status_code=500,
             )
 
+        # 11. Synthesize Master Plan Markdown conforming to PlanGate & TasteGate
+        master_plan_md = generate_master_plan_markdown(
+            plan=creative_plan,
+            template_decisions=template_decisions,
+            brief=brief,
+            director_bundle=director_bundle,
+            taste_decisions=taste_decisions,
+        )
+
         proposal_id = f"prop_{uuid.uuid4().hex[:12]}"
         return CreativeProposalResponse(
             proposal_id=proposal_id,
@@ -407,6 +455,7 @@ class CreativeService:
             narrative_hook=narrative_plan.core_hook,
             creative_plan=creative_plan.model_dump(),
             candidate_blueprint=candidate_blueprint,
+            master_plan=master_plan_md,
             diagnostics=diagnostics,
             context_hash=context_hash,
             context_diagnostics=context_diagnostics,
@@ -497,6 +546,23 @@ class CreativeService:
             cls._idemp_repo.mark_failed(ws_id, project_id, operation_id, {"error": "DOCUMENT_VALIDATION_ERROR", "details": str(dve)})
             raise APIError(message=str(dve), status_code=400)
 
+        # 4b. Sync master_plan to disk if provided and project directory exists
+        from scripts.security.path_security import resolve_project_dir
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
+        except Exception:
+            proj_dir = Path("projects") / ws_id / project_id
+
+        master_plan_synced = False
+        if proj_dir.exists() and req.master_plan:
+            plan_file = proj_dir / "master_plan.md"
+            try:
+                plan_file.write_text(req.master_plan, encoding="utf-8")
+                master_plan_synced = True
+                logger.info(f"Synchronized master_plan.md to {plan_file} for project '{project_id}'")
+            except Exception as e:
+                logger.warning(f"Failed to write master_plan.md to {plan_file}: {e}")
+
         final_result = {
             "success": True,
             "operation_id": operation_id,
@@ -506,6 +572,7 @@ class CreativeService:
             "blueprint": committed_doc,
             "storage_key": storage_key,
             "provenance": provenance,
+            "master_plan_synced": master_plan_synced,
             "idempotent": False,
         }
 

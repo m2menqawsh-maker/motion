@@ -226,10 +226,12 @@ def parse_asset_ref(
             if not isinstance(url_val, str) or not url_val.strip():
                 raise MalformedAssetRefError(val, "Tagged url reference must contain non-empty string 'url'", field_path, scene_id)
             url_clean = url_val.strip()
-            parsed = urlparse(url_clean)
-            if parsed.scheme not in ("http", "https") or not parsed.netloc:
-                raise MalformedAssetRefError(val, f"Invalid external URL '{url_clean}' (must be valid http/https URL)", field_path, scene_id)
-            return ParsedAssetRef(ref_kind=AssetRefKind.URL, asset_id=None, url=url_clean, raw_ref=val)
+            try:
+                from scripts.core.security.url_policy import validate_safe_url, URLSecurityViolation
+                validated_url = validate_safe_url(url_clean)
+            except URLSecurityViolation as sec_err:
+                raise MalformedAssetRefError(val, f"URL security violation: {sec_err}", field_path, scene_id) from sec_err
+            return ParsedAssetRef(ref_kind=AssetRefKind.URL, asset_id=None, url=validated_url, raw_ref=val)
 
         else:
             raise MalformedAssetRefError(val, f"Unsupported asset reference kind: '{kind}'. Expected 'asset' or 'url'", field_path, scene_id)

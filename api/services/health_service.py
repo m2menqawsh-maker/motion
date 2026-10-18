@@ -147,13 +147,6 @@ class HealthService:
         start = time.perf_counter()
         try:
             if not target_db.exists():
-                try:
-                    from scripts.core.run_repository import RunRepository
-                    RunRepository(target_db)
-                except Exception:
-                    pass
-
-            if not target_db.exists():
                 return False, {
                     "status": "fail",
                     "reason": f"Database file does not exist at {target_db.name}",
@@ -281,16 +274,24 @@ class HealthService:
             try:
                 cursor = conn.cursor()
                 # Check for active non-expired worker leases
+                # Check for active non-expired worker leases via explicit safe queries
                 now_iso = datetime.now(timezone.utc).isoformat()
-                table_name = "project_execution_leases"
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('project_execution_leases', 'worker_leases')")
-                t_row = cursor.fetchone()
-                if t_row:
-                    table_name = t_row[0]
                 cursor.execute(
-                    f"SELECT worker_id, heartbeat_at, expires_at FROM {table_name} WHERE expires_at > ?",
-                    (now_iso,),
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name IN ('project_execution_leases', 'worker_leases')"
                 )
+                t_row = cursor.fetchone()
+                use_legacy_leases = (t_row and t_row[0] == "worker_leases")
+
+                if use_legacy_leases:
+                    cursor.execute(
+                        "SELECT worker_id, heartbeat_at, expires_at FROM worker_leases WHERE expires_at > ?",
+                        (now_iso,),
+                    )
+                else:
+                    cursor.execute(
+                        "SELECT worker_id, heartbeat_at, expires_at FROM project_execution_leases WHERE expires_at > ?",
+                        (now_iso,),
+                    )
                 rows = cursor.fetchall()
 
                 active_count = len(rows)
@@ -302,7 +303,10 @@ class HealthService:
                     }
 
                 # If no active lease, check if any lease updated heartbeat recently
-                cursor.execute(f"SELECT MAX(heartbeat_at) FROM {table_name}")
+                if use_legacy_leases:
+                    cursor.execute("SELECT MAX(heartbeat_at) FROM worker_leases")
+                else:
+                    cursor.execute("SELECT MAX(heartbeat_at) FROM project_execution_leases")
                 latest_heartbeat = cursor.fetchone()[0]
 
                 if latest_heartbeat:

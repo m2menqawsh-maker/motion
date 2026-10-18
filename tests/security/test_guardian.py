@@ -52,6 +52,31 @@ class TestGuardianAndSecurity:
             assert check_command("python scripts/render_project.py") is False
             assert check_command("python scripts/gates/asset_gate.py") is False
 
+    def test_mcp_fails_closed_on_invalid_input(self):
+        if GUARDIAN_DIR.exists():
+            # Test empty/missing command
+            result = subprocess.run(
+                [sys.executable, str(GUARDIAN_DIR / "command_guard.py")],
+                input=json.dumps({"toolCall": {"name": "run_command", "args": None}}),
+                text=True,
+                capture_output=True,
+                cwd=str(GUARDIAN_DIR.parent.parent)
+            )
+            out = json.loads(result.stdout)
+            assert out.get("decision") == "block"
+
+            # Test malformed input causing exception
+            result_err = subprocess.run(
+                [sys.executable, str(GUARDIAN_DIR / "command_guard.py")],
+                input=json.dumps({"toolCall": "not_a_dict"}),
+                text=True,
+                capture_output=True,
+                cwd=str(GUARDIAN_DIR.parent.parent)
+            )
+            out_err = json.loads(result_err.stdout)
+            assert out_err.get("decision") == "block"
+            assert "Security Exception" in out_err.get("reason", "")
+
     # 2. Python safe_subprocess Checks (The actual Runtime Guard)
     def test_safe_subprocess_rejects_arbitrary_commands(self):
         with pytest.raises(PermissionError, match="Command not allowed"):

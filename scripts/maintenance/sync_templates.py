@@ -12,7 +12,7 @@ def sync_templates():
     parser.add_argument("--index", help="Path to the markdown index file to update")
     args = parser.parse_args()
 
-    plugin_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    plugin_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     src_dir = os.path.join(plugin_root, args.source)
     dest_dir = os.path.join(plugin_root, 'remotion-app', 'src', args.source)
     

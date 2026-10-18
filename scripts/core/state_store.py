@@ -181,12 +181,13 @@ class StateStore:
                     pass
 
         is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
+        has_workspace = bool(state.workspace_id)
 
         # Sync state to relational database (PostgreSQL / SQLite) (S24.5)
         try:
             cls._sync_to_db(state, expected_revision=expected_revision)
-        except Exception:
-            if is_managed:
+        except Exception as e:
+            if is_managed or has_workspace or isinstance(e, StateConflictError):
                 # Rollback on-disk state to prevent split-brain between disk and database
                 try:
                     if prev_content is not None:
@@ -196,6 +197,7 @@ class StateStore:
                 except Exception as rb_err:
                     logger.error(f"Failed to rollback disk state during sync failure: {rb_err}")
                 raise
+
 
     @classmethod
     def _sync_to_db(cls, state: ProjectState, expected_revision: Optional[int] = None) -> None:
@@ -252,8 +254,8 @@ class StateStore:
         except Exception as e:
             if isinstance(e, StateConflictError):
                 raise
-            if is_managed:
-                logger.error(f"Failed to sync state to database in managed mode for project '{state.project_id}': {e}")
+            if is_managed or bool(state.workspace_id):
+                logger.error(f"Failed to sync state to database for project '{state.project_id}': {e}")
                 raise StateStoreError(f"Database state synchronization failed: {e}") from e
             # Non-fatal if database is unconfigured during low-level isolated unit tests
             pass
@@ -421,11 +423,8 @@ class StateStore:
 
         state._loaded_revision = state.revision
 
-        # In managed mode, ensure disk state matches authoritative SQL state
-        # Only reconcile if database credentials/URL are explicitly present in the environment
-        is_managed = os.environ.get("AGY_IS_MANAGED") == "1" or os.environ.get("MOTION_ENV") == "production"
-        has_db_env = bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
-        if is_managed and has_db_env and getattr(state, "project_id", None):
+        # Ensure disk state matches authoritative SQL state
+        if getattr(state, "project_id", None):
             try:
                 from scripts.core.database import get_database_engine
                 engine = get_database_engine()
@@ -438,7 +437,7 @@ class StateStore:
                         row = cur.fetchone()
                         if row:
                             db_rev, _, db_state_json = row[0], row[1], row[2]
-                            if db_rev != state.revision:
+                            if db_rev > state.revision:
                                 logger.warning(
                                     f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "
                                     f"conflicts with authoritative SQL revision {db_rev}."
@@ -555,4 +554,43 @@ class StateStore:
             working_copy.artifact_records
         )
         return repo.update_state_cas(project_id, workspace_id, expected_revision, working_copy)
+
+    @classmethod
+    def export_disk_cache(cls, state: ProjectState, target_dir: Optional[Path | str] = None) -> Optional[Path]:
+        """
+        Exports/syncs an authoritative ProjectState to the disk cache file .pipeline_state.json.
+        Safe and non-throwing: if the target directory does not exist on disk, returns None.
+        """
+        pdir = Path(target_dir) if target_dir else None
+        if pdir is None and getattr(state, "project_id", None):
+            try:
+                from scripts.core.security.path_policy import resolve_project_dir
+                pdir = resolve_project_dir(state.project_id, workspace_id=state.workspace_id)
+            except Exception:
+                if state.workspace_id:
+                    pdir = Path("projects") / state.workspace_id / state.project_id
+                else:
+                    pdir = Path("projects") / state.project_id
+
+        if pdir and pdir.is_dir():
+            state_file = pdir / cls.STATE_FILE
+            unique_suffix = f"{os.getpid()}.{uuid.uuid4().hex}"
+            tmp_file = pdir / f".pipeline_state.{unique_suffix}.tmp"
+            serialized = json.dumps(state.model_dump(mode='json'), ensure_ascii=False, indent=2)
+            try:
+                with open(tmp_file, "w", encoding="utf-8") as f:
+                    f.write(serialized)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(tmp_file, state_file)
+                return state_file
+            except Exception as err:
+                logger.debug(f"Failed to export disk cache for '{state.project_id}' to {pdir}: {err}")
+                if tmp_file.exists():
+                    try:
+                        tmp_file.unlink()
+                    except OSError:
+                        pass
+        return None
+
 
