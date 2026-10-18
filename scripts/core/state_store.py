@@ -437,7 +437,7 @@ class StateStore:
                         row = cur.fetchone()
                         if row:
                             db_rev, _, db_state_json = row[0], row[1], row[2]
-                            if db_rev > state.revision:
+                            if db_rev != state.revision:
                                 logger.warning(
                                     f"StateStore.load reconciling '{state.project_id}': disk revision {state.revision} "
                                     f"conflicts with authoritative SQL revision {db_rev}."

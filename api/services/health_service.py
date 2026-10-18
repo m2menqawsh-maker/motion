@@ -143,7 +143,8 @@ class HealthService:
         custom_db_path: Optional[Path],
         timeout: float,
     ) -> Tuple[bool, Dict[str, Any]]:
-        target_db = custom_db_path or (root / "data" / "runs.db")
+        env_db = os.environ.get("MOTION_RUNS_DB_PATH") or os.environ.get("RUNS_DB_PATH")
+        target_db = custom_db_path or (Path(env_db) if env_db else (root / "data" / "runs.db"))
         start = time.perf_counter()
         try:
             if not target_db.exists():
@@ -213,9 +214,12 @@ class HealthService:
             try:
                 cur = conn.execute("SELECT 1")
                 cur.fetchone()
-                cur = conn.execute("SELECT MAX(version) FROM _schema_migrations")
-                v_row = cur.fetchone()
-                schema_v = v_row[0] if v_row else 1
+                try:
+                    cur = conn.execute("SELECT MAX(version) FROM _schema_migrations")
+                    v_row = cur.fetchone()
+                    schema_v = v_row[0] if v_row else 1
+                except Exception:
+                    schema_v = 1
                 latency = round((time.perf_counter() - start) * 1000, 2)
                 return True, {
                     "status": "pass",
@@ -265,7 +269,8 @@ class HealthService:
         custom_db_path: Optional[Path],
         settings: Any,
     ) -> Tuple[bool, Dict[str, Any]]:
-        target_db = custom_db_path or (root / "data" / "runs.db")
+        env_db = os.environ.get("MOTION_RUNS_DB_PATH") or os.environ.get("RUNS_DB_PATH")
+        target_db = custom_db_path or (Path(env_db) if env_db else (root / "data" / "runs.db"))
         if not target_db.exists():
             return False, {"status": "fail", "reason": "Runs DB not available for worker lease check"}
 
