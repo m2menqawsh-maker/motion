@@ -22,6 +22,7 @@ Verifies end-to-end commercial AI creative execution:
 
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any, Dict
@@ -188,7 +189,7 @@ def test_creative_proposal_generates_taste_diagnostics_and_master_plan(phase3_en
 
     try:
         taste_gate_proc = subprocess.run(
-            [".venv/bin/python", "scripts/gates/taste_gate.py", str(tf_path)],
+            [sys.executable, "scripts/gates/taste_gate.py", str(tf_path)],
             capture_output=True,
             text=True,
         )
