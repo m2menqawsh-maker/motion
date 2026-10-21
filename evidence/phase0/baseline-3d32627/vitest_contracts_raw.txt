@@ -1,0 +1,34 @@
+
+ RUN  v5.0.0 /home/eng_Momen/Projects/CurerntProject/wt-baseline-3d32627
+
+ ✓ tests/remotion/zod_v3_v4_parity.test.ts (13 tests) 129ms
+ ✓ tests/remotion/blueprint.test.ts (17 tests) 65ms
+ ✓ tests/remotion/asset_resolution.test.ts (16 tests) 47ms
+ ✓ tests/remotion/merge.test.ts (10 tests) 54ms
+ ✓ tests/remotion/manifest.test.ts (11 tests) 51ms
+ ✓ tests/remotion/datastory_contract.test.ts (9 tests) 58ms
+ ✓ tests/remotion/ai_contracts_parity.test.ts (6 tests) 16ms
+ ✓ tests/remotion/contracts.test.ts (10 tests) 69ms
+stderr | tests/remotion/effects.test.ts > Effects Bridge & Runtime Tests > 7. timeline.tsx renders without crash via bridge
+`Infinity` is an invalid value for the `left` css style property.
+`NaN` is an invalid value for the `width` css style property.
+
+ ✓ tests/remotion/effects.test.ts (12 tests) 723ms
+   ✓ Effects Bridge & Runtime Tests (12)
+     ✓ 7. timeline.tsx renders without crash via bridge 522ms
+ ✓ tests/remotion/s17_render_input_parity.test.ts (6 tests) 35ms
+ ✓ tests/remotion/template_contract_parity.test.ts (11 tests) 44ms
+ ✓ tests/remotion/template_runtime_resolution.test.ts (19 tests) 42ms
+ ✓ tests/remotion/s16_reproductions.test.ts (6 tests) 22ms
+ ✓ tests/remotion/s16_pre_mount_gate.test.ts (20 tests) 144ms
+
+ Test Files  14 passed (14)
+      Tests  166 passed (166)
+   Start at  22:47:03
+   Duration  9.23s (transform 53%, import 34%, environment 9%, tests 3%, worker 1%)
+
+  Transform  transforming modules took 24.51s · 53% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+JUNIT report written to /home/eng_Momen/Projects/CurerntProject/Motion/evidence/phase0/baseline-3d32627/vitest_contracts_junit.xml

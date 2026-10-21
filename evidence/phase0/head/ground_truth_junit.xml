@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="ground-truth" tests="1" failures="0" errors="0" time="1">
+  <testsuite name="ground-truth" tests="1" failures="0" errors="0" time="1">
+    <testcase name="Check ground truth sync & dependencies lock" classname="ground-truth" time="1"/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="tsc-remotion-app" tests="1" failures="0" errors="0" time="15">
+  <testsuite name="tsc-remotion-app" tests="1" failures="0" errors="0" time="15">
+    <testcase name="TypeScript type check in remotion-app" classname="tsc-remotion-app" time="15"/>
+  </testsuite>
+</testsuites>

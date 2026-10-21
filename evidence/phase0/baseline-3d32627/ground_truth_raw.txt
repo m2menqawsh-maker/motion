@@ -1,0 +1,2 @@
+✅ Ground truth is synchronized and clean.
+✅ All Python dependencies are strictly locked and pinned.
