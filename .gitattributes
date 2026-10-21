@@ -1,0 +1,40 @@
+# Auto-detect text files and normalize line endings to LF on commit
+* text=auto eol=lf
+
+# Explicit binary files - never normalize or convert line endings
+*.mp4 -text
+*.mov -text
+*.webm -text
+*.avi -text
+*.mkv -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.ico -text
+*.webp -text
+*.bmp -text
+*.tiff -text
+*.mp3 -text
+*.wav -text
+*.flac -text
+*.aac -text
+*.m4a -text
+*.ogg -text
+*.db -text
+*.sqlite -text
+*.sqlite3 -text
+*.zip -text
+*.tar -text
+*.gz -text
+*.tgz -text
+*.bz2 -text
+*.xz -text
+*.7z -text
+*.woff -text
+*.woff2 -text
+*.ttf -text
+*.otf -text
+*.eot -text
+*.pdf -text
+*.bin -text
