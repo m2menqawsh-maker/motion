@@ -1,0 +1,537 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "metadata": {
+    "title": "Unified Findings Ledger Catalog",
+    "report_version": "1.0.0",
+    "baseline_git_sha": "90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1",
+    "branch": "main",
+    "repository": "https://github.com/m2menqawsh-maker/motion.git",
+    "timestamp": "2026-10-07T20:30:00Z",
+    "total_findings": 24,
+    "severity_distribution": {
+      "CRITICAL": 4,
+      "HIGH": 9,
+      "MEDIUM": 8,
+      "LOW": 2,
+      "INFO": 1
+    }
+  },
+  "baseline_sha": "90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1",
+  "baseline_git_sha": "90ec3de8d47494d5940d5cd1f9ed9a8e274ef6e1",
+  "branch": "main",
+  "report_version": "1.0.0",
+  "total_findings": 24,
+  "severity_counts": {
+    "CRITICAL": 4,
+    "HIGH": 9,
+    "MEDIUM": 8,
+    "LOW": 2,
+    "INFO": 1
+  },
+  "findings": [
+    {
+      "id": "REALITY-001",
+      "title": "Required GitHub Actions CI Completely Omits AI Platform Subsystem (`tests/ai`)",
+      "severity": "CRITICAL",
+      "domain": "CI Governance / Verification",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CI_PROVEN, CODE_PROVEN)",
+      "observed": "The primary GitHub Actions workflow `.github/workflows/remediation-ci.yml:125-126` specifies pytest testpaths that completely exclude `tests/ai/`:\n  `pytest ... tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/fault_injection tests/e2e/test_pipeline_integration.py`.\n  None of the 270 test files in `tests/ai/` are executed in CI.",
+      "expected": "All production-bound subsystems must be verified in required CI gates before merging to `main`.",
+      "evidence": "`.github/workflows/remediation-ci.yml:125-126`; grep for `tests/ai` in `.github/` returns 0 matches.",
+      "production_impact": "Any breaking changes, regressions, or syntax errors in the entire AI platform can be merged without failing CI.",
+      "affected_files": [
+        ".github/workflows/remediation-ci.yml"
+      ],
+      "related_tests": [
+        "270 test files in `tests/ai/"
+      ],
+      "required_ci": "python-tests job in remediation-ci.yml",
+      "remediation_direction": "Add `tests/ai` or create a dedicated `ai-tests` workflow job in `.github/workflows/`."
+    },
+    {
+      "id": "REALITY-002",
+      "title": "Local CI Runner Script Diverges Structurally from GitHub Actions CI",
+      "severity": "HIGH",
+      "domain": "Developer Tooling / CI Parity",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, CI_PROVEN)",
+      "observed": "`scripts/ci/run_required_checks.sh` diverges from `.github/workflows/remediation-ci.yml` in 6 distinct ways: (1) runs `tests/ai` instead of `tests/fault_injection`, (2) runs contract generation drift checks, (3) omits Ruff linter, (4) omits Trivy vulnerability scanner, (5) scans different directories with Bandit, and (6) skips Docker hermetic build and acceptance tests.",
+      "expected": "Local check scripts must faithfully replicate the required GitHub Actions CI gates.",
+      "evidence": "`scripts/ci/run_required_checks.sh:20-66` vs `.github/workflows/remediation-ci.yml:14-265`.",
+      "production_impact": "Passing checks locally gives false confidence that pull requests will pass CI, and vice versa.",
+      "affected_files": [
+        "scripts/ci/run_required_checks.sh"
+      ],
+      "related_tests": [
+        "tests/fault_injection",
+        "tests/ai",
+        "test_acc_007_docker_subcommand_validation.py"
+      ],
+      "required_ci": "All jobs in remediation-ci.yml",
+      "remediation_direction": "Harmonize `run_required_checks.sh` to execute the exact commands and flags used in `remediation-ci.yml`."
+    },
+    {
+      "id": "REALITY-003",
+      "title": "Production Run Execution Path Disconnected from AI Platform",
+      "severity": "CRITICAL",
+      "domain": "Runtime Reachability / Architecture Boundary",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, RUNTIME_REACHABILITY_PROVEN)",
+      "observed": "The production video execution path (`POST /projects/{id}/runs` $\\to$ `worker.py` $\\to$ `pipeline.py`) contains zero calls to `ai/`, `CreativePlanner`, `NarrativePlanner`, or external LLMs. It requires pre-existing `master_plan.md` and `05_blueprint.json` on disk and executes only deterministic gates and Remotion rendering.",
+      "expected": "End-to-end automated video generation should translate user requests to video via Creative Intelligence.",
+      "evidence": "`api/routers/runs.py:23-56`, `scripts/core/worker.py:289`, `scripts/pipeline.py:371,381`.",
+      "production_impact": "The AI platform is completely unreachable from the live SaaS video generation queue.",
+      "affected_files": [
+        "api/routers/runs.py",
+        "scripts/core/worker.py",
+        "scripts/pipeline.py"
+      ],
+      "related_tests": [
+        "tests/e2e/test_pipeline_integration.py",
+        "tests/ai/e2e/test_full_creative_e2e_matrix.py"
+      ],
+      "required_ci": "python-tests",
+      "remediation_direction": "Design a unified run workflow that triggers `CreativePlanner` when `master_plan.md` is absent."
+    },
+    {
+      "id": "REALITY-004",
+      "title": "Production API Lacks Natural-Language Video Generation Intake Endpoint",
+      "severity": "HIGH",
+      "domain": "API Design / Entrypoints",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "None of the 34 API endpoints mounted in `api/main.py:57-70` accept natural-language briefs, prompts, or generative instructions. All routes require pre-existing IDs, pre-authored assets, or typed mutation payloads.",
+      "expected": "A modern AI video production platform should expose a route (e.g. `POST /projects/generate` or `POST /brief`) accepting natural language.",
+      "evidence": "`api/main.py:57-70`; grep across `api/routers/` for prompt/brief parameters yields 0 results.",
+      "production_impact": "External clients and frontends cannot prompt the system for autonomous video creation.",
+      "affected_files": [
+        "api/main.py",
+        "api/routers/projects.py"
+      ],
+      "related_tests": [
+        "tests/api/test_projects.py"
+      ],
+      "required_ci": "python-tests",
+      "remediation_direction": "Implement a `POST /projects/generate` endpoint wired to `CreativePlanner`."
+    },
+    {
+      "id": "REALITY-005",
+      "title": "`/intent` Endpoint Operates Exclusively on Strongly Typed AST Mutations",
+      "severity": "MEDIUM",
+      "domain": "Authoring / API Design",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`POST /projects/{project_id}/intent` rejects freeform text. It strictly validates payloads against Zod `AuthoringRequestSchema` / `AuthoringIntentSchema` (a discriminated union of 14 typed intents like `UPDATE_TEXT`, `REPLACE_MEDIA`) and delegates to deterministic TypeScript `IntentPlanner`.",
+      "expected": "Documentation and developer intuition imply `/intent` accepts natural-language edit requests.",
+      "evidence": "`api/routers/authoring.py:104-132`, `contracts/authoring.ts:273-304`, `authoring/intent-planner.ts:5-14`.",
+      "production_impact": "Clients sending raw natural language receive HTTP 422 / Zod validation errors.",
+      "affected_files": [
+        "api/routers/authoring.py",
+        "contracts/authoring.ts"
+      ],
+      "related_tests": [
+        "tests/api/test_authoring_router.py"
+      ],
+      "required_ci": "contracts-ts",
+      "remediation_direction": "Introduce an NL-to-AuthoringIntent translation service before dispatching to `IntentPlanner`."
+    },
+    {
+      "id": "REALITY-006",
+      "title": "`ContextBuilder` Has Zero Production Callers",
+      "severity": "HIGH",
+      "domain": "AI Platform / Dependency Injection",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`ai/context/builder.py:47-91` implements `ContextBuilder`. Grep across `api/` and `scripts/` confirms zero imports or instantiations. It is called exclusively within `tests/ai/context/`.",
+      "expected": "ContextBuilder should assemble prompt context for AI planners during request processing.",
+      "evidence": "`ai/context/builder.py:47`; grep across `api/` and `scripts/` yields 0 matches.",
+      "production_impact": "Context budgeting, compression, and ranking logic are completely unused in production.",
+      "affected_files": [
+        "ai/context/builder.py"
+      ],
+      "related_tests": [
+        "tests/ai/context/test_builder.py"
+      ],
+      "required_ci": "N/A (omitted from CI)",
+      "remediation_direction": "Wire `ContextBuilder` into the planned AI generation entrypoint."
+    },
+    {
+      "id": "REALITY-007",
+      "title": "Broken Context Dependency Injection (`KnowledgeRouter` Not Injected)",
+      "severity": "MEDIUM",
+      "domain": "AI Platform / Dependency Injection",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`ContextBuilder.__init__` accepts `knowledge_retriever: Optional[KnowledgeRetriever]`, defaulting to `DeterministicKnowledgeRetriever()`. `KnowledgeRouter` does not implement this protocol and is never injected into `ContextBuilder` anywhere in the repository.",
+      "expected": "Context assembly should retrieve domain knowledge through `KnowledgeRouter`.",
+      "evidence": "`ai/context/builder.py:59-77`, `ai/knowledge/router.py:34-56`.",
+      "production_impact": "`ContextBuilder` can only retrieve hardcoded or deterministic mock knowledge.",
+      "affected_files": [
+        "ai/context/builder.py",
+        "ai/context/retrieval.py"
+      ],
+      "related_tests": [
+        "tests/ai/context/test_builder.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Implement an adapter bridging `KnowledgeRouter` to `KnowledgeRetriever` protocol."
+    },
+    {
+      "id": "REALITY-008",
+      "title": "Catalog Initialization Never Invoked in Production Runtime",
+      "severity": "MEDIUM",
+      "domain": "Knowledge Platform / Lifecycle",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`initialize_canonical_catalog()` in `ai/knowledge/router.py:58-68` is never called during FastAPI startup lifespan (`api/main.py:28-40`), worker initialization, or pipeline execution. It is invoked only in test/eval runners.",
+      "expected": "The knowledge catalog should be initialized and indexed at application boot.",
+      "evidence": "`ai/knowledge/router.py:58-68`, `api/main.py:28-40`.",
+      "production_impact": "Knowledge indexer remains unpopulated in long-running services.",
+      "affected_files": [
+        "ai/knowledge/router.py",
+        "api/main.py"
+      ],
+      "related_tests": [
+        "tests/ai/knowledge/test_knowledge_platform.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Add catalog initialization to FastAPI lifespan startup."
+    },
+    {
+      "id": "REALITY-009",
+      "title": "Root `ground-truth/` Functions as Derivative Documentation",
+      "severity": "MEDIUM",
+      "domain": "Data Architecture / Governance",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, CI_PROVEN)",
+      "observed": "Root `ground-truth/` contains 13 auto-generated JSON and Markdown files produced by `scripts/generators/build_ground_truth.py`. It is not an ML evaluation dataset or runtime authority.",
+      "expected": "System authority should reside in canonical typed registries, with documentation clearly classified.",
+      "evidence": "`scripts/generators/build_ground_truth.py:1-4`, `scripts/validators/check_ground_truth_sync.py:1-55`.",
+      "production_impact": "Creates confusion about whether `ground-truth/` is an ML training set, runtime config, or documentation index.",
+      "affected_files": [
+        "ground-truth/*",
+        "scripts/generators/build_ground_truth.py"
+      ],
+      "related_tests": [
+        "scripts/validators/check_ground_truth_sync.py"
+      ],
+      "required_ci": "ground-truth job in remediation-ci.yml",
+      "remediation_direction": "Relocate `ground-truth/` into `documentation/indexes/` or `registry/generated/`."
+    },
+    {
+      "id": "REALITY-010",
+      "title": "Zero Production Runtime Consumers for Files in Root `ground-truth/`",
+      "severity": "MEDIUM",
+      "domain": "Runtime Reachability",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "Neither `api/` nor `scripts/pipeline.py` imports or reads files from `ground-truth/`. Only offline test runners and legacy plugin tools read them.",
+      "expected": "Unconsumed artifacts should not gate production CI.",
+      "evidence": "Grep across `api/` and `scripts/` yields 0 occurrences.",
+      "production_impact": "CI enforces strict hash synchronization for files that no production process reads.",
+      "affected_files": [
+        "ground-truth/*"
+      ],
+      "related_tests": [
+        "scripts/validators/check_ground_truth_sync.py"
+      ],
+      "required_ci": "ground-truth job in remediation-ci.yml",
+      "remediation_direction": "Relax CI gating on derivative indexes once documentation is updated."
+    },
+    {
+      "id": "REALITY-011",
+      "title": "`template_catalog.json` Operates as a Derivative Metadata Index",
+      "severity": "MEDIUM",
+      "domain": "Template Governance / Authority",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`ground-truth/template_catalog.json` is a derivative compatibility catalog generated from `registry/template-registry.tsx`. The true single source of truth is `registry/template-registry-data.json`.",
+      "expected": "One canonical authority for template metadata.",
+      "evidence": "`scripts/core/template_registry_publisher.py:6-11`.",
+      "production_impact": "Developers and agents frequently edit or cite `template_catalog.json` believing it is the authority.",
+      "affected_files": [
+        "ground-truth/template_catalog.json",
+        "registry/template-registry-data.json"
+      ],
+      "related_tests": [
+        "tests/contracts/test_template_registry.py"
+      ],
+      "required_ci": "ground-truth",
+      "remediation_direction": "Clarify authority in `AGENTS.md` and deprecate `template_catalog.json`."
+    },
+    {
+      "id": "REALITY-012",
+      "title": "`RecipeRegistry` Globs and Migrates `recipes/*.json` on Boot in Memory",
+      "severity": "LOW",
+      "domain": "Recipe Management / Dataflow",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, TEST_PROVEN)",
+      "observed": "`RecipeRegistry.__init__` with default `auto_load=True` globs all 18 JSON files in `recipes/` (skipping `schema.json`), migrates legacy provider keys, and registers them in memory.",
+      "expected": "Recipes should be validated against static schema contracts without dynamic in-memory migration overhead.",
+      "evidence": "`ai/recipes/registry.py:105-125`.",
+      "production_impact": "Minor boot latency; runtime relies on on-the-fly migration rather than migrated source files.",
+      "affected_files": [
+        "ai/recipes/registry.py",
+        "recipes/*.json"
+      ],
+      "related_tests": [
+        "tests/ai/recipes/test_recipe_platform.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Migrate `recipes/*.json` files permanently on disk to conform to modern schema."
+    },
+    {
+      "id": "REALITY-013",
+      "title": "Skills Subsystem Employs Dual-Loading Architecture",
+      "severity": "LOW",
+      "domain": "Skills Platform / Extensibility",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`SkillLoader` supports both typed Python definitions (`get_canonical_skills()`) and dynamic markdown parsing (`load_from_markdown()` for `SKILL.md` files).",
+      "expected": "Consistent skill loading mechanism across agents and platform.",
+      "evidence": "`ai/skills/loader.py:62-112, 114-302`.",
+      "production_impact": "Potential discrepancy between canonical typed skills and agent-authored markdown skills.",
+      "affected_files": [
+        "ai/skills/loader.py",
+        "ai/skills/registry.py"
+      ],
+      "related_tests": [
+        "tests/ai/skills/test_skill_platform.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Maintain dual-loading but enforce strict contract schema validation on markdown imports."
+    },
+    {
+      "id": "REALITY-014",
+      "title": "Internal Product AI Strictly Forbids Raw MCP Invocations",
+      "severity": "INFO",
+      "domain": "Architecture Governance / Tool Execution",
+      "status": "PROVEN / WORKING AS DESIGNED",
+      "confidence": "PROVEN (CODE_PROVEN, TEST_PROVEN)",
+      "observed": "AST architecture guards in `tests/ai/audit/test_s28_m11_final_architecture_audit.py` strictly forbid raw MCP calls from internal code. All capabilities must route through `CapabilityRouter` and `ToolGateway` via native Python adapters.",
+      "expected": "Strongly typed, safe in-process capability execution with FastMCP as an external boundary only.",
+      "evidence": "`tests/ai/audit/test_s28_m11_final_architecture_audit.py:47-81`.",
+      "production_impact": "High performance and type safety for internal capabilities; eliminates JSON-RPC serialization overhead.",
+      "affected_files": [
+        "ai/capabilities/gateway.py",
+        "ai/tools/gateway.py"
+      ],
+      "related_tests": [
+        "tests/ai/audit/*"
+      ],
+      "required_ci": "N/A (omitted from CI)",
+      "remediation_direction": "Update `.agents/AGENTS.md` and `ROUTER.md` to reflect that raw MCP is banned internally."
+    },
+    {
+      "id": "REALITY-015",
+      "title": "`CapabilityRouter` and `ToolGateway` Have Zero Production Call Sites",
+      "severity": "CRITICAL",
+      "domain": "Runtime Reachability / AI Platform",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "Despite 32 fully modeled capabilities and a 15-stage tool execution pipeline, neither `api/main.py` nor `scripts/pipeline.py` imports or invokes `CapabilityRouter` or `ToolGateway`.",
+      "expected": "Production tasks requiring speech, vision, or image generation should dispatch through `CapabilityRouter`.",
+      "evidence": "`ai/routing/capability_router.py:69-120`; grep across `api/` and `scripts/` yields 0 matches.",
+      "production_impact": "The entire S28-M tool modernization effort is isolated from production users.",
+      "affected_files": [
+        "ai/routing/capability_router.py",
+        "ai/tools/gateway.py"
+      ],
+      "related_tests": [
+        "tests/ai/tools/test_tool_gateway.py",
+        "tests/ai/routing/test_capability_router.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Wire `CapabilityRouter` into the planned AI video generation pipeline."
+    },
+    {
+      "id": "REALITY-016",
+      "title": "`CreativePlanCompiler` Disconnected from Production Authoring Path",
+      "severity": "HIGH",
+      "domain": "Creative Pipeline / Integration",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`BlueprintCompiler` in `ai/planning/compiler.py:62-443` is the sole translator from `CreativePlan` to canonical `BlueprintV2` / `VideoDocument`. It has zero callers in `api/` or `authoring/`. Production authoring creates or edits documents via manual AST mutations.",
+      "expected": "The creative planning output must compile into canonical `VideoDocument` for authoring and rendering.",
+      "evidence": "`ai/planning/compiler.py:62-443`; grep for callers outside tests yields 0 results.",
+      "production_impact": "A `CreativePlan` cannot be turned into an editable video document in production.",
+      "affected_files": [
+        "ai/planning/compiler.py",
+        "api/services/authoring_service.py"
+      ],
+      "related_tests": [
+        "tests/ai/planning/test_compiler.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Expose a production service calling `BlueprintCompiler` to initialize authoring sessions."
+    },
+    {
+      "id": "REALITY-017",
+      "title": "Remotion Dual Reality (Contractual Adapter vs. Operational Authority)",
+      "severity": "HIGH",
+      "domain": "Renderer Independence / Coupling",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, DOCUMENTATION_ONLY)",
+      "observed": "While contracts (`contracts/renderer.ts`) and RenderPlanner define Remotion as an engine-neutral adapter, all 105 canonical templates are React TSX components importing Remotion hooks, `scripts/gates/probe_qc.py` invokes `remotion still`, and `scripts/render_project.py` falls back to `npx remotion render`.",
+      "expected": "True renderer independence allowing interchangeable rendering via Canvas or Remotion.",
+      "evidence": "`remotion/remotion-renderer-adapter.ts:8-16`, `scripts/render_project.py:128-185`, `scripts/gates/probe_qc.py`.",
+      "production_impact": "Complete lock-in to Node.js and Remotion runtime for production video generation.",
+      "affected_files": [
+        "remotion/remotion-renderer-adapter.ts",
+        "scripts/render_project.py",
+        "scripts/gates/probe_qc.py"
+      ],
+      "related_tests": [
+        "tests/remotion/*"
+      ],
+      "required_ci": "contracts-ts",
+      "remediation_direction": "Decouple template definitions from React hooks or build Canvas adapter template equivalents."
+    },
+    {
+      "id": "REALITY-018",
+      "title": "Test Reality Divergence in Suites Named \"E2E\"",
+      "severity": "HIGH",
+      "domain": "Testing / Verification Integrity",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, TEST_PROVEN)",
+      "observed": "Tests named \"E2E\" do not enter through full unmocked production paths: AI E2E tests chain in-memory classes; `true_e2e_suite.py` bypasses the API and worker daemon by invoking the CLI directly on disk fixtures; multi-tenant SaaS tests mock worker polling.",
+      "expected": "True product E2E tests should send an HTTP request to `api/`, wait for background worker polling, render the video, and verify HTTP output streaming.",
+      "evidence": "`tests/ai/e2e/test_full_creative_e2e_matrix.py:200-260`, `tests/e2e/true_e2e_suite.py:32-75`.",
+      "production_impact": "Automated tests verify isolated components but leave the full user-to-video delivery journey unverified.",
+      "affected_files": [
+        "tests/e2e/true_e2e_suite.py",
+        "tests/ai/e2e/*"
+      ],
+      "related_tests": [
+        "tests/e2e/*"
+      ],
+      "required_ci": "strict-e2e",
+      "remediation_direction": "Author a true product E2E suite that drives the entire stack via HTTP $\\to$ Worker $\\to$ Video Stream."
+    },
+    {
+      "id": "REALITY-019",
+      "title": "Development/Testing Identity Spoofing and Unauthenticated Auth Fallback",
+      "severity": "CRITICAL",
+      "domain": "Security / Authentication",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "In `api/core/auth.py:240-305`, when `MOTION_ENV != \"production\"`, callers can pass hardcoded tokens (`admin`, `system`) or unverified headers (`X-Principal-ID: root`, `X-Principal-Roles: admin`) to gain full global administrative privileges without authentication.",
+      "expected": "Cryptographic authentication enforced uniformly, with dev keys for local environments.",
+      "evidence": "`api/core/auth.py:240-305`.",
+      "production_impact": "If `MOTION_ENV=production` is omitted in any deployment, administrative auth is completely bypassed.",
+      "affected_files": [
+        "api/core/auth.py"
+      ],
+      "related_tests": [
+        "tests/security/test_s02_negative_enforcement.py"
+      ],
+      "required_ci": "security-audit",
+      "remediation_direction": "Remove token string heuristics and unverified header parsing from `auth.py`."
+    },
+    {
+      "id": "REALITY-020",
+      "title": "Disconnect Between Multi-Tenant SQL Model and Flat Filesystem Workspaces",
+      "severity": "HIGH",
+      "domain": "Multi-Tenancy / Filesystem Architecture",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`TenantRepository` enforces workspace isolation in SQL, and `StorageService` partitions object keys by workspace ID, but on the local filesystem, projects reside in a flat directory `projects/{project_id}/`.",
+      "expected": "Filesystem workspaces should be partitioned by tenant (`projects/{workspace_id}/{project_id}/`).",
+      "evidence": "`scripts/core/database.py:86`, `scripts/core/storage/storage_service.py:106`, `scripts/pipeline.py:13`.",
+      "production_impact": "Local scripts or file leaks can access projects across tenant boundaries.",
+      "affected_files": [
+        "scripts/core/storage/storage_service.py",
+        "scripts/pipeline.py"
+      ],
+      "related_tests": [
+        "tests/e2e/test_saas_multi_tenant_e2e.py"
+      ],
+      "required_ci": "python-tests",
+      "remediation_direction": "Migrate local filesystem workspaces to `projects/{workspace_id}/{project_id}`."
+    },
+    {
+      "id": "REALITY-021",
+      "title": "Agent Directive Drift in `.agents/AGENTS.md` and `references/ROUTER.md`",
+      "severity": "HIGH",
+      "domain": "Agent Governance / Documentation",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, DOCUMENTATION_ONLY)",
+      "observed": "Agent instructions prescribe ungrounded rules (e.g. 480-490 plan line count limit), mandate raw MCP servers that are banned by AST guards, cite excluded engine bridges, and recommend quarantined tools.",
+      "expected": "Agent rules must strictly mirror active runtime constraints and modern architectural patterns.",
+      "evidence": "`.agents/AGENTS.md:31,43-48,51-57`, `references/ROUTER.md:11,14,21-44`.",
+      "production_impact": "Orchestrator agents generate brittle plans, invoke obsolete tools, and fail security gates.",
+      "affected_files": [
+        ".agents/AGENTS.md",
+        "references/ROUTER.md"
+      ],
+      "related_tests": [
+        "N/A"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Rewrite `AGENTS.md` and `ROUTER.md` to align with S28-M and S28-R."
+    },
+    {
+      "id": "REALITY-022",
+      "title": "Lingering Historical Migration & Deprecated Scripts in `scripts/archive/`",
+      "severity": "MEDIUM",
+      "domain": "Codebase Hygiene / Technical Debt",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "`scripts/archive/` contains 28 unconsumed files across `phase13/`, `phase14/`, `phase15/`, `phase16/` and legacy smoke scripts, alongside partially consumed migration scripts (`migrate_legacy_projects.py`).",
+      "expected": "Clean codebase free of unconsumed migration scrap.",
+      "evidence": "`scripts/archive/` directory audit.",
+      "production_impact": "Increases repository noise and cognitive overhead during architecture audits.",
+      "affected_files": [
+        "scripts/archive/*"
+      ],
+      "related_tests": [
+        "tests/archive/test_migrate_legacy.py"
+      ],
+      "required_ci": "N/A",
+      "remediation_direction": "Delete proven 0-consumer files and retire tests that import archived scripts."
+    },
+    {
+      "id": "REALITY-023",
+      "title": "Vitest Remotion CI Exclusion (36 S28-R Test Files Unexecuted)",
+      "severity": "HIGH",
+      "domain": "CI Governance / TypeScript Verification",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN, CI_PROVEN)",
+      "observed": "In `.github/workflows/remediation-ci.yml:58`, CI runs `npm run test` in root. In `package.json:28`, `npm run test` executes only 13 test files. 36 Remotion test files in `tests/remotion/` (including all S28-R adapter, graph, and compositor tests) are omitted from the test runner.",
+      "expected": "All TypeScript unit and contract tests should be executed in required CI.",
+      "evidence": "`package.json:28`, `find tests/remotion -name \"*.test.ts\" | wc -l` (49 files).",
+      "production_impact": "Regressions in S28-R renderer adapters or compositor logic are not caught by CI.",
+      "affected_files": [
+        "package.json",
+        ".github/workflows/remediation-ci.yml"
+      ],
+      "related_tests": [
+        "36 test files in `tests/remotion/"
+      ],
+      "required_ci": "contracts-ts",
+      "remediation_direction": "Update root `package.json` test script to include `tests/remotion/**/*.test.ts`."
+    },
+    {
+      "id": "REALITY-024",
+      "title": "Zod Dependency Split Across Monorepo Roots",
+      "severity": "MEDIUM",
+      "domain": "Package Management / Type Safety",
+      "status": "OPEN / UNRESOLVED",
+      "confidence": "PROVEN (CODE_PROVEN)",
+      "observed": "Root `package.json:48` pins `zod: 3.25.76`. In contrast, `remotion-app/package.json:33,43` pins `zod: 4.5.4` with an override block (`overrides: { \"zod\": \"4.5.4\" }`).",
+      "expected": "Consistent dependency versions across workspaces in the repository.",
+      "evidence": "`package.json:48`, `remotion-app/package.json:33,43`.",
+      "production_impact": "Potential schema validation divergence or runtime incompatibility when contracts cross boundaries.",
+      "affected_files": [
+        "package.json",
+        "remotion-app/package.json"
+      ],
+      "related_tests": [
+        "tests/contracts/*"
+      ],
+      "required_ci": "contracts-ts",
+      "remediation_direction": "Align Zod version across root and `remotion-app`."
+    }
+  ]
+}
