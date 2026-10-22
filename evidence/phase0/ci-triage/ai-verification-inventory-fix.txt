@@ -1,0 +1,19 @@
+=== AI-VERIFICATION INVENTORY TRIAGE AND FIX ===
+Job Name: ai-verification
+Failing Step: Tier 1 — Fast AI Platform Verification
+Test: tests/ai/audit/test_s28_inventory.py::test_inventory_structure_and_completeness
+
+Root Cause:
+In Phase 0, commit daaa4a0 correctly untracked the log file `.agents/logs/guardrails.log` from git tracking.
+However, `documentation/audits/s28_legacy_creative_inventory.json` line 604 retained an entry (`legacy_id`: "agent-guard-log") requiring `.agents/logs/guardrails.log` to physically exist on disk via `assert src.exists()`.
+Because the log file was no longer tracked, it was absent from clean git checkouts in CI, causing `test_inventory_structure_and_completeness` to fail with AssertionError.
+
+Remediation:
+Removed the `agent-guard-log` entry from:
+- `documentation/audits/s28_legacy_creative_inventory.json`
+- `documentation/audits/s28_legacy_creative_inventory.md`
+
+Verification:
+- `pytest tests/ai/audit/test_s28_inventory.py::test_inventory_structure_and_completeness` -> 1 passed
+- `pytest tests/ai/audit/` -> 22 passed
+- Zero changes to test code or production Python/TypeScript logic.
