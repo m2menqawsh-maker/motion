@@ -1,0 +1,61 @@
+=== Run 1/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.22s
+RESULT: PASS (exit 0, duration 4.03581s)
+
+=== Run 2/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.20s
+RESULT: PASS (exit 0, duration 3.95646s)
+
+=== Run 3/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.23s
+RESULT: PASS (exit 0, duration 3.98697s)
+
+=== Run 4/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.24s
+RESULT: PASS (exit 0, duration 3.99984s)
+
+=== Run 5/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.35s
+RESULT: PASS (exit 0, duration 4.0915s)
+
+=== Run 6/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.95s
+RESULT: PASS (exit 0, duration 4.69073s)
+
+=== Run 7/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.67s
+RESULT: PASS (exit 0, duration 4.53039s)
+
+=== Run 8/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 5.95s
+RESULT: PASS (exit 0, duration 6.97654s)
+
+=== Run 9/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 4.64s
+RESULT: PASS (exit 0, duration 5.55775s)
+
+=== Run 10/10 on HEAD (80693f1) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 4.24s
+RESULT: PASS (exit 0, duration 5.14226s)
+
+SUMMARY: 10 passed, 0 failed out of 10

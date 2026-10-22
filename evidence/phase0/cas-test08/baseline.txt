@@ -1,0 +1,61 @@
+=== Run 1/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 7.05s
+RESULT: PASS (exit 0, duration 8.28086s)
+
+=== Run 2/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.88s
+RESULT: PASS (exit 0, duration 4.69423s)
+
+=== Run 3/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 4.58s
+RESULT: PASS (exit 0, duration 5.42317s)
+
+=== Run 4/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.84s
+RESULT: PASS (exit 0, duration 4.69282s)
+
+=== Run 5/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 5.34s
+RESULT: PASS (exit 0, duration 6.24801s)
+
+=== Run 6/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.85s
+RESULT: PASS (exit 0, duration 4.69563s)
+
+=== Run 7/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.67s
+RESULT: PASS (exit 0, duration 4.48625s)
+
+=== Run 8/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 4.37s
+RESULT: PASS (exit 0, duration 5.5948s)
+
+=== Run 9/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 4.49s
+RESULT: PASS (exit 0, duration 5.74724s)
+
+=== Run 10/10 on BASELINE (3d32627) ===
+CMD: TESTING=1 PYTHONPATH=. ./.venv/bin/python -m pytest "tests/core/test_state_store_cas.py::TestStateStoreConcurrencyAndCAS::test_08_process_death_releases_lock" -q
+.                                                                        [100%]
+1 passed in 3.75s
+RESULT: PASS (exit 0, duration 4.54297s)
+
+SUMMARY: 10 passed, 0 failed out of 10
