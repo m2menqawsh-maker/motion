@@ -4,7 +4,8 @@ title = "Motion Gitleaks Configuration"
 useDefault = true
 
 [allowlist]
-description = "Allowlist test evidence artifacts, mock reports, and security test audit evidence in evidence/"
+description = "Allowlist specific historical audit report JSON files in commit history containing prior scan findings"
 paths = [
-    '''(^|/)evidence/''',
+    '''^evidence/phase1/part1/gitleaks_before\.json$''',
+    '''^evidence/phase1/part1_fixes/gitleaks_findings\.json$''',
 ]
