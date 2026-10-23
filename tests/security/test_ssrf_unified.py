@@ -130,6 +130,15 @@ class TestUnifiedSSRFAllowedPublicURLs:
         assert len(resolved_ips) == 1
         assert str(resolved_ips[0]) == "93.184.216.34"
 
+    def test_nonexistent_subdomain_fails_closed_without_example_com_fallback(self):
+        """
+        Fix 4 Test:
+        Verifies that querying a non-existent subdomain (*.example.com / *.example.org)
+        fails closed with SSRFSecurityViolation and NEVER falls back to example.com.
+        """
+        with pytest.raises(SSRFSecurityViolation, match="DNS resolution failed"):
+            validate_url_security("http://fake-nonexistent-subdomain.example.com/asset.mp4", require_dns_resolution=True)
+
 
 class TestSSRFArchitectureSingleAuthority:
     """Verifies that all three wrapper entrypoints delegate to scripts.core.security.ssrf_guard."""

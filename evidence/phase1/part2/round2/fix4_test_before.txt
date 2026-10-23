@@ -1,0 +1,30 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/security/test_ssrf_unified.py::TestUnifiedSSRFAllowedPublicURLs::test_nonexistent_subdomain_fails_closed_without_example_com_fallback FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestUnifiedSSRFAllowedPublicURLs.test_nonexistent_subdomain_fails_closed_without_example_com_fallback _
+
+self = <tests.security.test_ssrf_unified.TestUnifiedSSRFAllowedPublicURLs object at 0x7f8d5dba8c20>
+
+    def test_nonexistent_subdomain_fails_closed_without_example_com_fallback(self):
+        """
+        Fix 4 Test:
+        Verifies that querying a non-existent subdomain (*.example.com / *.example.org)
+        fails closed with SSRFSecurityViolation and NEVER falls back to example.com.
+        """
+>       with pytest.raises(SSRFSecurityViolation, match="DNS resolution failed"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE SSRFSecurityViolation
+
+tests/security/test_ssrf_unified.py:139: Failed
+=========================== short test summary info ============================
+FAILED tests/security/test_ssrf_unified.py::TestUnifiedSSRFAllowedPublicURLs::test_nonexistent_subdomain_fails_closed_without_example_com_fallback
+============================== 1 failed in 0.46s ===============================
