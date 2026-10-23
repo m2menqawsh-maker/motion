@@ -1,0 +1,46 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.14.8
+Run started:2026-10-23 15:26:06.484014+00:00
+
+Test results:
+>> Issue: [B606:start_process_with_no_shell] Starting a process without a shell.
+   Severity: Low   Confidence: Medium
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b606_start_process_with_no_shell.html
+   Location: ./scripts/run_creative_cost_audit.py:35:8
+34	    except ImportError:
+35	        os.execv(str(VENV_PY), [str(VENV_PY)] + sys.argv)
+36	
+
+--------------------------------------------------
+>> Issue: [B306:blacklist] Use of insecure and deprecated function (mktemp).
+   Severity: Medium   Confidence: High
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b306-mktemp-q
+   Location: ./scripts/run_creative_cost_audit.py:278:19
+277	    started_at = datetime.now(timezone.utc)
+278	    temp_db_path = tempfile.mktemp(suffix=".db")
+279	    engine = DatabaseEngine(db_url=f"sqlite:///{temp_db_path}")
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 442
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 1
+		High: 1
+Files skipped (0):

@@ -275,176 +275,184 @@ def run_cost_audit(
     Executes creative cost audit across canonical projects and verifies efficiency bounds.
     """
     started_at = datetime.now(timezone.utc)
-    temp_db_path = tempfile.mktemp(suffix=".db")
-    engine = DatabaseEngine(db_url=f"sqlite:///{temp_db_path}")
-    trace_repo = SQLTraceRepository(engine=engine)
-    collector = CreativeUsageCollector(trace_repository=trace_repo)
-    analyzer = CreativeEfficiencyAnalyzer()
-
-    tenant_ctx = TrustedTenantContext(
-        workspace_id=workspace_id,
-        is_admin=True,
-    )
-
-    # 1. Populate baseline events
-    events = generate_baseline_telemetry(workspace_id=workspace_id)
-
-    # Optional: inject deliberate defect cases to ensure analyzer detects them
-    if include_defect_checks:
-        # Deliberate Defect 1: Duplicate planning call
-        events.append(
-            CreativeUsageEvent(
-                event_id=f"use_{uuid.uuid4().hex[:12]}",
-                workspace_id=workspace_id,
-                project_id="proj_product_ad_001",
-                run_id="run_ad_01",
-                stage="CREATIVE_PLANNING",
-                subsystem="creative_planner",
-                operation_type="AI_COMPLETION",
-                provider="openai",
-                model="gpt-4o-mini",
-                input_tokens=1200,
-                output_tokens=400,
-                latency_ms=615.0,
-                cost_provenance="ESTIMATED",
-                estimated_cost=Decimal("0.000420"),
-                currency="USD",
-                created_at=datetime.now(timezone.utc),
-                input_hash="hash_ad_plan_inputs_01",  # Identical input_hash!
-                details={"status": "SUCCESS"},
-            )
+    fd, temp_db_path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
+    try:
+        engine = DatabaseEngine(db_url=f"sqlite:///{temp_db_path}")
+        trace_repo = SQLTraceRepository(engine=engine)
+        collector = CreativeUsageCollector(trace_repository=trace_repo)
+        analyzer = CreativeEfficiencyAnalyzer()
+    
+        tenant_ctx = TrustedTenantContext(
+            workspace_id=workspace_id,
+            is_admin=True,
         )
-        # Deliberate Defect 2: Over-retrieval (20 items)
-        events.append(
-            CreativeUsageEvent(
-                event_id=f"use_{uuid.uuid4().hex[:12]}",
-                workspace_id=workspace_id,
-                project_id="proj_defect_overretrieval",
-                run_id="run_defect_01",
-                stage="KNOWLEDGE_RETRIEVAL",
-                subsystem="knowledge_router",
-                operation_type="RETRIEVAL",
-                retrieval_items=22,
-                latency_ms=120.0,
-                cost_provenance="ESTIMATED",
-                estimated_cost=Decimal("0.000000"),
-                currency="USD",
-                created_at=datetime.now(timezone.utc),
-                details={"retrieved_ids": [f"doc_{i}" for i in range(22)]},
+    
+        # 1. Populate baseline events
+        events = generate_baseline_telemetry(workspace_id=workspace_id)
+    
+        # Optional: inject deliberate defect cases to ensure analyzer detects them
+        if include_defect_checks:
+            # Deliberate Defect 1: Duplicate planning call
+            events.append(
+                CreativeUsageEvent(
+                    event_id=f"use_{uuid.uuid4().hex[:12]}",
+                    workspace_id=workspace_id,
+                    project_id="proj_product_ad_001",
+                    run_id="run_ad_01",
+                    stage="CREATIVE_PLANNING",
+                    subsystem="creative_planner",
+                    operation_type="AI_COMPLETION",
+                    provider="openai",
+                    model="gpt-4o-mini",
+                    input_tokens=1200,
+                    output_tokens=400,
+                    latency_ms=615.0,
+                    cost_provenance="ESTIMATED",
+                    estimated_cost=Decimal("0.000420"),
+                    currency="USD",
+                    created_at=datetime.now(timezone.utc),
+                    input_hash="hash_ad_plan_inputs_01",  # Identical input_hash!
+                    details={"status": "SUCCESS"},
+                )
             )
-        )
-        # Deliberate Defect 3: Generation invoked after REUSE selected
-        events.append(
-            CreativeUsageEvent(
-                event_id=f"use_{uuid.uuid4().hex[:12]}",
-                workspace_id=workspace_id,
-                project_id="proj_talking_head_003",
-                run_id="run_th_01",
-                stage="MEDIA_GENERATION",
-                subsystem="media_generator",
-                operation_type="MEDIA_GENERATION",
-                generation_count=1,
-                latency_ms=3500.0,
-                cost_provenance="ESTIMATED",
-                estimated_cost=Decimal("0.020000"),
-                currency="USD",
-                created_at=datetime.now(timezone.utc),
-                details={"status": "SUCCESS"},
+            # Deliberate Defect 2: Over-retrieval (20 items)
+            events.append(
+                CreativeUsageEvent(
+                    event_id=f"use_{uuid.uuid4().hex[:12]}",
+                    workspace_id=workspace_id,
+                    project_id="proj_defect_overretrieval",
+                    run_id="run_defect_01",
+                    stage="KNOWLEDGE_RETRIEVAL",
+                    subsystem="knowledge_router",
+                    operation_type="RETRIEVAL",
+                    retrieval_items=22,
+                    latency_ms=120.0,
+                    cost_provenance="ESTIMATED",
+                    estimated_cost=Decimal("0.000000"),
+                    currency="USD",
+                    created_at=datetime.now(timezone.utc),
+                    details={"retrieved_ids": [f"doc_{i}" for i in range(22)]},
+                )
             )
+            # Deliberate Defect 3: Generation invoked after REUSE selected
+            events.append(
+                CreativeUsageEvent(
+                    event_id=f"use_{uuid.uuid4().hex[:12]}",
+                    workspace_id=workspace_id,
+                    project_id="proj_talking_head_003",
+                    run_id="run_th_01",
+                    stage="MEDIA_GENERATION",
+                    subsystem="media_generator",
+                    operation_type="MEDIA_GENERATION",
+                    generation_count=1,
+                    latency_ms=3500.0,
+                    cost_provenance="ESTIMATED",
+                    estimated_cost=Decimal("0.020000"),
+                    currency="USD",
+                    created_at=datetime.now(timezone.utc),
+                    details={"status": "SUCCESS"},
+                )
+            )
+    
+        for ev in events:
+            collector.record_event(context=tenant_ctx, event=ev)
+    
+        # 2. Run efficiency analyzer
+        findings = analyzer.analyze(events, workspace_id=workspace_id)
+    
+        # 3. Summarize audited projects
+        project_ids = sorted(list(set(e.project_id for e in events if e.project_id)))
+        summaries = [collector.summarize_project(context=tenant_ctx, project_id=pid) for pid in project_ids]
+    
+        total_ai_calls = sum(s.ai_calls for s in summaries)
+        total_gen_calls = sum(s.generation_calls for s in summaries)
+        total_planning_tokens = sum(s.planning_tokens for s in summaries)
+        total_retrieval_tokens = sum(s.retrieval_tokens for s in summaries)
+        total_latency_ms = sum(s.total_latency_ms for s in summaries)
+        total_actual_cost = sum(s.actual_cost for s in summaries)
+        total_estimated_cost = sum(s.estimated_cost for s in summaries)
+    
+        total_reuse = sum(s.reuse_count for s in summaries)
+        total_compose = sum(s.compose_count for s in summaries)
+        total_create = sum(s.create_count for s in summaries)
+        total_scenes = total_reuse + total_compose + total_create
+    
+        reuse_rate = round(total_reuse / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
+        compose_rate = round(total_compose / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
+        create_rate = round(total_create / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
+    
+        completed_at = datetime.now(timezone.utc)
+        audit_id = f"audit_{uuid.uuid4().hex[:12]}"
+    
+        usage_totals = {
+            "total_ai_calls": total_ai_calls,
+            "total_generation_calls": total_gen_calls,
+            "total_planning_tokens": total_planning_tokens,
+            "total_retrieval_tokens": total_retrieval_tokens,
+            "total_events": len(events),
+        }
+    
+        total_known_cost_events = sum(s.known_cost_event_count for s in summaries)
+        total_unknown_cost_events = sum(s.unknown_cost_event_count for s in summaries)
+        cost_coverage_complete = all(s.cost_coverage_complete for s in summaries)
+    
+        cost_totals = {
+            "total_actual_cost": str(total_actual_cost.quantize(QUANTIZE_PRECISION)),
+            "total_estimated_cost": str(total_estimated_cost.quantize(QUANTIZE_PRECISION)),
+            "currency": "USD",
+            "cost_coverage_complete": cost_coverage_complete,
+            "known_cost_event_count": total_known_cost_events,
+            "unknown_cost_event_count": total_unknown_cost_events,
+        }
+    
+        latency_summary = {
+            "total_latency_ms": round(total_latency_ms, 2),
+            "avg_latency_ms": round(total_latency_ms / max(1, len(events)), 2),
+        }
+    
+        tier_distribution = {
+            "reuse_count": total_reuse,
+            "compose_count": total_compose,
+            "create_count": total_create,
+            "reuse_rate": reuse_rate,
+            "compose_rate": compose_rate,
+            "create_rate": create_rate,
+        }
+    
+        # Audit Verdict: If running defect checks, finding detections prove analyzer is working
+        verdict = "PASS"
+    
+        audit_run = CreativeCostAuditRun(
+            run_id=audit_id,
+            policy_version="S28-08C",
+            projects_evaluated=len(project_ids),
+            usage_totals=usage_totals,
+            cost_totals=cost_totals,
+            latency_summary=latency_summary,
+            tier_distribution=tier_distribution,
+            cost_coverage_complete=cost_coverage_complete,
+            known_cost_event_count=total_known_cost_events,
+            unknown_cost_event_count=total_unknown_cost_events,
+            findings=findings,
+            started_at=started_at,
+            completed_at=completed_at,
+            verdict=verdict,
         )
-
-    for ev in events:
-        collector.record_event(context=tenant_ctx, event=ev)
-
-    # 2. Run efficiency analyzer
-    findings = analyzer.analyze(events, workspace_id=workspace_id)
-
-    # 3. Summarize audited projects
-    project_ids = sorted(list(set(e.project_id for e in events if e.project_id)))
-    summaries = [collector.summarize_project(context=tenant_ctx, project_id=pid) for pid in project_ids]
-
-    total_ai_calls = sum(s.ai_calls for s in summaries)
-    total_gen_calls = sum(s.generation_calls for s in summaries)
-    total_planning_tokens = sum(s.planning_tokens for s in summaries)
-    total_retrieval_tokens = sum(s.retrieval_tokens for s in summaries)
-    total_latency_ms = sum(s.total_latency_ms for s in summaries)
-    total_actual_cost = sum(s.actual_cost for s in summaries)
-    total_estimated_cost = sum(s.estimated_cost for s in summaries)
-
-    total_reuse = sum(s.reuse_count for s in summaries)
-    total_compose = sum(s.compose_count for s in summaries)
-    total_create = sum(s.create_count for s in summaries)
-    total_scenes = total_reuse + total_compose + total_create
-
-    reuse_rate = round(total_reuse / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
-    compose_rate = round(total_compose / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
-    create_rate = round(total_create / max(1, total_scenes), 4) if total_scenes > 0 else 0.0
-
-    completed_at = datetime.now(timezone.utc)
-    audit_id = f"audit_{uuid.uuid4().hex[:12]}"
-
-    usage_totals = {
-        "total_ai_calls": total_ai_calls,
-        "total_generation_calls": total_gen_calls,
-        "total_planning_tokens": total_planning_tokens,
-        "total_retrieval_tokens": total_retrieval_tokens,
-        "total_events": len(events),
-    }
-
-    total_known_cost_events = sum(s.known_cost_event_count for s in summaries)
-    total_unknown_cost_events = sum(s.unknown_cost_event_count for s in summaries)
-    cost_coverage_complete = all(s.cost_coverage_complete for s in summaries)
-
-    cost_totals = {
-        "total_actual_cost": str(total_actual_cost.quantize(QUANTIZE_PRECISION)),
-        "total_estimated_cost": str(total_estimated_cost.quantize(QUANTIZE_PRECISION)),
-        "currency": "USD",
-        "cost_coverage_complete": cost_coverage_complete,
-        "known_cost_event_count": total_known_cost_events,
-        "unknown_cost_event_count": total_unknown_cost_events,
-    }
-
-    latency_summary = {
-        "total_latency_ms": round(total_latency_ms, 2),
-        "avg_latency_ms": round(total_latency_ms / max(1, len(events)), 2),
-    }
-
-    tier_distribution = {
-        "reuse_count": total_reuse,
-        "compose_count": total_compose,
-        "create_count": total_create,
-        "reuse_rate": reuse_rate,
-        "compose_rate": compose_rate,
-        "create_rate": create_rate,
-    }
-
-    # Audit Verdict: If running defect checks, finding detections prove analyzer is working
-    verdict = "PASS"
-
-    audit_run = CreativeCostAuditRun(
-        run_id=audit_id,
-        policy_version="S28-08C",
-        projects_evaluated=len(project_ids),
-        usage_totals=usage_totals,
-        cost_totals=cost_totals,
-        latency_summary=latency_summary,
-        tier_distribution=tier_distribution,
-        cost_coverage_complete=cost_coverage_complete,
-        known_cost_event_count=total_known_cost_events,
-        unknown_cost_event_count=total_unknown_cost_events,
-        findings=findings,
-        started_at=started_at,
-        completed_at=completed_at,
-        verdict=verdict,
-    )
-
-    # Write machine-readable output atomically
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    temp_path = output_path.with_name(f".{output_path.name}.tmp")
-    temp_path.write_text(audit_run.model_dump_json(indent=2) + "\n", encoding="utf-8")
-    temp_path.replace(output_path)
-
-    return audit_run
+    
+        # Write machine-readable output atomically
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        temp_path = output_path.with_name(f".{output_path.name}.tmp")
+        temp_path.write_text(audit_run.model_dump_json(indent=2) + "\n", encoding="utf-8")
+        temp_path.replace(output_path)
+    
+        return audit_run
+    finally:
+        try:
+            if os.path.exists(temp_db_path):
+                os.unlink(temp_db_path)
+        except OSError:
+            pass
 
 
 def print_audit_report(audit_run: CreativeCostAuditRun) -> None:
