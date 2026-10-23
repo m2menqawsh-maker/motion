@@ -1,0 +1,5 @@
+$ gitleaks detect --no-banner
+7:07PM INF 236 commits scanned.
+7:07PM INF scanned ~109912700 bytes (109.91 MB) in 8.32s
+7:07PM INF no leaks found
+(exit code: 0)

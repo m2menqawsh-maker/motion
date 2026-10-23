@@ -1,0 +1,5 @@
+$ gitleaks detect --no-banner
+6:26PM INF 231 commits scanned.
+6:26PM INF scanned ~109908350 bytes (109.91 MB) in 10m11s
+6:26PM WRN leaks found: 32
+(exit code: 1)
