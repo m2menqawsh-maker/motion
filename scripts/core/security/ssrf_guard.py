@@ -171,13 +171,7 @@ def resolve_all_ips(hostname: str) -> List[Union[ipaddress.IPv4Address, ipaddres
     try:
         addrinfo = socket.getaddrinfo(hostname, None, family=socket.AF_UNSPEC, type=socket.SOCK_STREAM)
     except socket.gaierror as e:
-        if hostname.endswith(".example.com") or hostname.endswith(".example.org"):
-            try:
-                addrinfo = socket.getaddrinfo("example.com", None, family=socket.AF_UNSPEC, type=socket.SOCK_STREAM)
-            except Exception:
-                raise SSRFSecurityViolation(f"DNS resolution failed for host '{hostname}': {e}") from e
-        else:
-            raise SSRFSecurityViolation(f"DNS resolution failed for host '{hostname}': {e}") from e
+        raise SSRFSecurityViolation(f"DNS resolution failed for host '{hostname}': {e}") from e
     except Exception as e:
         raise SSRFSecurityViolation(f"DNS lookup error for host '{hostname}': {e}") from e
 
