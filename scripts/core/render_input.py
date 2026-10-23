@@ -210,6 +210,19 @@ def build_render_input(
             project_id=project_id,
         )
 
+    # SEC-009 / Part 2 Item 2: External URLs must be downloaded and materialized locally.
+    # Remotion receives local files only and must never receive raw external URLs.
+    from scripts.core.asset_resolution import collect_asset_references
+    all_occurrences = collect_asset_references(bp_dict)
+    for occ in all_occurrences:
+        if occ.is_url:
+            url_str = occ.parsed.url or (occ.raw_ref.get("url") if isinstance(occ.raw_ref, dict) else str(occ.raw_ref))
+            raise RenderInputValidationError(
+                "blueprint",
+                f"External URL '{url_str}' reached render path without local acquisition. Remotion requires local materialized assets only.",
+                project_id=project_id,
+            )
+
     # 4. Project Metadata Loading
     project_json_file = project_dir / "project.json"
     if project_json_file.exists():
