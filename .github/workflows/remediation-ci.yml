@@ -347,7 +347,7 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg
+          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
 
       - name: Install Gitleaks
         run: |
@@ -361,7 +361,7 @@ jobs:
             echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
           else
             echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
-          fi xvfb
+          fi
 
       - name: Install Node Dependencies
         run: |
@@ -486,7 +486,7 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg
+          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
 
       - name: Install Gitleaks
         run: |
@@ -500,7 +500,7 @@ jobs:
             echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
           else
             echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
-          fi xvfb
+          fi
 
       - name: Install Node Dependencies
         run: |
