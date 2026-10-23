@@ -114,17 +114,17 @@ class CreativeService:
         if record is not None:
             return record
 
-        try:
-            from scripts.core.storage.storage_service import get_storage_service
-            storage = get_storage_service()
-            storage_key = f"workspaces/{workspace_id}/projects/{project_id}/proposals/{proposal_id}.json"
-            bio = storage.get_object(storage_key)
-            data = json.loads(bio.read().decode("utf-8"))
-            if isinstance(data, dict):
-                cls._proposals_store[proposal_id] = data
-                return data
-        except Exception:
-            pass
+        from scripts.core.storage.storage_service import get_storage_service
+        storage = get_storage_service()
+        storage_key = f"workspaces/{workspace_id}/projects/{project_id}/proposals/{proposal_id}.json"
+        if not storage.exists(storage_key):
+            return None
+
+        raw_bytes = storage.get(storage_key)
+        data = json.loads(raw_bytes.decode("utf-8"))
+        if isinstance(data, dict):
+            cls._proposals_store[proposal_id] = data
+            return data
 
         return None
     _template_registry = TemplateRegistryContract()
@@ -490,18 +490,14 @@ class CreativeService:
         }
         cls._proposals_store[proposal_id] = proposal_record
 
-        try:
-            from scripts.core.storage.storage_service import get_storage_service
-            import io
-            storage = get_storage_service()
-            storage_key = f"workspaces/{ws_id}/projects/{project_id}/proposals/{proposal_id}.json"
-            storage.put_object(
-                storage_key,
-                io.BytesIO(json.dumps(proposal_record, ensure_ascii=False).encode("utf-8")),
-                content_type="application/json",
-            )
-        except Exception as storage_err:
-            logger.debug(f"Optional StorageService proposal sync skipped: {storage_err}")
+        from scripts.core.storage.storage_service import get_storage_service
+        storage = get_storage_service()
+        storage_key = f"workspaces/{ws_id}/projects/{project_id}/proposals/{proposal_id}.json"
+        storage.put(
+            key=storage_key,
+            data=json.dumps(proposal_record, ensure_ascii=False).encode("utf-8"),
+            content_type="application/json",
+        )
 
         return CreativeProposalResponse(
             proposal_id=proposal_id,
