@@ -543,46 +543,6 @@ class CreativeService:
             expected_revision = curr_rev
         expected_revision = int(expected_revision)
 
-        # 1b. Server-Authoritative Proposal and Master Plan Verification (SEC-009 / Part 2 Item 3)
-        stored_master_plan: Optional[str] = None
-        if req.proposal_id:
-            proposal_record = cls._get_stored_proposal(
-                proposal_id=req.proposal_id,
-                workspace_id=ws_id,
-                project_id=project_id,
-            )
-            if proposal_record is None:
-                for pid_key, prec in cls._proposals_store.items():
-                    if pid_key == req.proposal_id:
-                        if prec.get("workspace_id") != ws_id or prec.get("project_id") != project_id:
-                            raise APIError(
-                                message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
-                                status_code=403,
-                            )
-                raise APIError(
-                    message=f"Proposal '{req.proposal_id}' not found",
-                    status_code=404,
-                )
-
-            if proposal_record.get("workspace_id") != ws_id or proposal_record.get("project_id") != project_id:
-                raise APIError(
-                    message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
-                    status_code=403,
-                )
-
-            stored_master_plan = proposal_record.get("master_plan")
-            stored_hash = proposal_record.get("master_plan_hash")
-
-            # Verify client submitted plan against server canonical hash if client provided a copy
-            client_plan_val = getattr(req, "master_plan", None)
-            if client_plan_val is not None:
-                client_hash = hashlib.sha256(client_plan_val.strip().encode("utf-8")).hexdigest()
-                if client_hash != stored_hash:
-                    raise APIError(
-                        message="master_plan hash mismatch: client modified master_plan content",
-                        status_code=400,
-                    )
-
         # 2. Durable Idempotency Check
         payload_hash = cls._compute_payload_hash(req.model_dump())
         from scripts.core.authoring_idempotency_repository import IdempotencyConflictError as RepoIdempConflictError
@@ -606,6 +566,40 @@ class CreativeService:
         if claim_status == "COMPLETED" and cached_res is not None:
             logger.info(f"Replaying cached idempotent proposal apply for '{operation_id}'")
             return {**cached_res, "idempotent": True}
+
+        # 2b. Server-Authoritative Proposal and Master Plan Verification (SEC-009 / Part 2 Item 3)
+        stored_master_plan: Optional[str] = None
+        if req.proposal_id:
+            proposal_record = cls._get_stored_proposal(
+                proposal_id=req.proposal_id,
+                workspace_id=ws_id,
+                project_id=project_id,
+            )
+            if proposal_record is None:
+                raise APIError(
+                    message=f"Proposal '{req.proposal_id}' not found",
+                    status_code=404,
+                )
+
+            if proposal_record.get("workspace_id") != ws_id or proposal_record.get("project_id") != project_id:
+                raise APIError(
+                    message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
+                    status_code=403,
+                )
+
+            stored_master_plan = proposal_record.get("master_plan")
+            stored_hash = proposal_record.get("master_plan_hash")
+
+            # Verify client submitted plan against server canonical hash if client provided a copy
+            client_plan_val = getattr(req, "master_plan", None)
+            if client_plan_val is not None:
+                client_hash = hashlib.sha256(client_plan_val.strip().encode("utf-8")).hexdigest()
+                import hmac
+                if not hmac.compare_digest(client_hash, str(stored_hash)):
+                    raise APIError(
+                        message="master_plan hash mismatch: client modified master_plan content",
+                        status_code=400,
+                    )
 
         # 3. Verify Candidate Blueprint
         try:
