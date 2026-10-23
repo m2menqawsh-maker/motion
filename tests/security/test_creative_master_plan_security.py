@@ -283,3 +283,68 @@ class TestMasterPlanServerAuthority:
         plan_file = pdir / "master_plan.md"
         assert plan_file.exists()
         assert plan_file.read_text(encoding="utf-8") == prop_data["master_plan"]
+
+    def test_proposal_persistence_survives_memory_cache_clear_and_blocks_cross_tenant(self, creative_security_env):
+        """
+        Fix 1 Test:
+        1. Propose creates proposal stored in persistent StorageService.
+        2. In-memory proposal cache is completely cleared: CreativeService._proposals_store.clear().
+        3. Authorized apply fetches from StorageService and succeeds with 200 OK.
+        4. Cross-tenant apply from another tenant (Bob) is rejected with 404 (or 403).
+           (We assert 404: In canonical multi-tenant storage layout, proposals are partitioned by
+           workspaces/{ws_id}/projects/{prj_id}/proposals/{prop_id}.json. Foreign tenant lookups
+           in their own namespace yield 404 Not Found, preventing cross-tenant existence enumeration).
+        """
+        from api.services.creative_service import CreativeService
+
+        env = creative_security_env
+        client = env["client"]
+        pid_alice = env["prj_alpha"]
+        pid_beta = env["prj_beta"]
+        token_alice = env["token_alice"]
+        token_bob = env["token_bob"]
+        pdir_alice = env["pdir_alpha"]
+
+        # 1. Alice generates proposal
+        prop_resp = client.post(
+            f"/projects/{pid_alice}/creative/proposals",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={"prompt": "Permanent storage persistence showcase", "audio_mode": "VO_MUSIC"},
+        )
+        assert prop_resp.status_code == 200
+        prop_data = prop_resp.json()
+        prop_id = prop_data["proposal_id"]
+
+        # 2. Clear memory cache entirely to simulate server restart / cache eviction
+        CreativeService._proposals_store.clear()
+        assert prop_id not in CreativeService._proposals_store
+
+        # 3. Foreign tenant (Bob) attempts to apply Alice's proposal after cache clear
+        cross_resp = client.post(
+            f"/projects/{pid_beta}/creative/apply",
+            headers={"Authorization": f"Bearer {token_bob}"},
+            json={
+                "proposal_id": prop_id,
+                "base_revision": 1,
+                "blueprint": prop_data["candidate_blueprint"],
+            },
+        )
+        assert cross_resp.status_code in (403, 404)
+
+        # 4. Legitimate tenant (Alice) applies proposal: must fetch from StorageService and succeed
+        apply_resp = client.post(
+            f"/projects/{pid_alice}/creative/apply",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={
+                "proposal_id": prop_id,
+                "base_revision": prop_data["base_revision"],
+                "blueprint": prop_data["candidate_blueprint"],
+            },
+        )
+        assert apply_resp.status_code == 200
+        assert apply_resp.json()["success"] is True
+        plan_file = pdir_alice / "master_plan.md"
+        assert plan_file.exists()
+        assert plan_file.read_text(encoding="utf-8") == prop_data["master_plan"]
+
+
