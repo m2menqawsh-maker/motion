@@ -98,6 +98,35 @@ class CreativeService:
     _doc_repo = CanonicalDocumentRepository()
     _idemp_repo = AuthoringIdempotencyRepository()
     _recipe_registry = RecipeRegistry()
+    _proposals_store: Dict[str, Dict[str, Any]] = {}
+
+    @classmethod
+    def _get_stored_proposal(
+        cls,
+        proposal_id: str,
+        workspace_id: str,
+        project_id: str,
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Retrieves a server-stored proposal, checking in-memory store then StorageService.
+        """
+        record = cls._proposals_store.get(proposal_id)
+        if record is not None:
+            return record
+
+        try:
+            from scripts.core.storage.storage_service import get_storage_service
+            storage = get_storage_service()
+            storage_key = f"workspaces/{workspace_id}/projects/{project_id}/proposals/{proposal_id}.json"
+            bio = storage.get_object(storage_key)
+            data = json.loads(bio.read().decode("utf-8"))
+            if isinstance(data, dict):
+                cls._proposals_store[proposal_id] = data
+                return data
+        except Exception:
+            pass
+
+        return None
     _template_registry = TemplateRegistryContract()
     _intent_parser = IntentParser()
     _brief_builder = CreativeBriefBuilder(parser=_intent_parser)
@@ -442,7 +471,38 @@ class CreativeService:
             taste_decisions=taste_decisions,
         )
 
+        # SEC-009 / Part 2 Item 3: Calculate canonical hash and store proposal server-side
+        canonical_plan_bytes = master_plan_md.strip().encode("utf-8")
+        master_plan_hash = hashlib.sha256(canonical_plan_bytes).hexdigest()
+
         proposal_id = f"prop_{uuid.uuid4().hex[:12]}"
+
+        # Store proposal record server-side bound to workspace_id and project_id
+        proposal_record = {
+            "proposal_id": proposal_id,
+            "workspace_id": ws_id,
+            "project_id": project_id,
+            "master_plan": master_plan_md,
+            "master_plan_hash": master_plan_hash,
+            "base_revision": curr_rev,
+            "candidate_blueprint": candidate_blueprint,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+        cls._proposals_store[proposal_id] = proposal_record
+
+        try:
+            from scripts.core.storage.storage_service import get_storage_service
+            import io
+            storage = get_storage_service()
+            storage_key = f"workspaces/{ws_id}/projects/{project_id}/proposals/{proposal_id}.json"
+            storage.put_object(
+                storage_key,
+                io.BytesIO(json.dumps(proposal_record, ensure_ascii=False).encode("utf-8")),
+                content_type="application/json",
+            )
+        except Exception as storage_err:
+            logger.debug(f"Optional StorageService proposal sync skipped: {storage_err}")
+
         return CreativeProposalResponse(
             proposal_id=proposal_id,
             status="PROPOSED",
@@ -486,6 +546,46 @@ class CreativeService:
             _, curr_rev = cls._doc_repo.get_document(workspace_id=ws_id, project_id=project_id)
             expected_revision = curr_rev
         expected_revision = int(expected_revision)
+
+        # 1b. Server-Authoritative Proposal and Master Plan Verification (SEC-009 / Part 2 Item 3)
+        stored_master_plan: Optional[str] = None
+        if req.proposal_id:
+            proposal_record = cls._get_stored_proposal(
+                proposal_id=req.proposal_id,
+                workspace_id=ws_id,
+                project_id=project_id,
+            )
+            if proposal_record is None:
+                for pid_key, prec in cls._proposals_store.items():
+                    if pid_key == req.proposal_id:
+                        if prec.get("workspace_id") != ws_id or prec.get("project_id") != project_id:
+                            raise APIError(
+                                message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
+                                status_code=403,
+                            )
+                raise APIError(
+                    message=f"Proposal '{req.proposal_id}' not found",
+                    status_code=404,
+                )
+
+            if proposal_record.get("workspace_id") != ws_id or proposal_record.get("project_id") != project_id:
+                raise APIError(
+                    message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
+                    status_code=403,
+                )
+
+            stored_master_plan = proposal_record.get("master_plan")
+            stored_hash = proposal_record.get("master_plan_hash")
+
+            # Verify client submitted plan against server canonical hash if client provided a copy
+            client_plan_val = getattr(req, "master_plan", None)
+            if client_plan_val is not None:
+                client_hash = hashlib.sha256(client_plan_val.strip().encode("utf-8")).hexdigest()
+                if client_hash != stored_hash:
+                    raise APIError(
+                        message="master_plan hash mismatch: client modified master_plan content",
+                        status_code=400,
+                    )
 
         # 2. Durable Idempotency Check
         payload_hash = cls._compute_payload_hash(req.model_dump())
@@ -546,7 +646,7 @@ class CreativeService:
             cls._idemp_repo.mark_failed(ws_id, project_id, operation_id, {"error": "DOCUMENT_VALIDATION_ERROR", "details": str(dve)})
             raise APIError(message=str(dve), status_code=400)
 
-        # 4b. Sync master_plan to disk if provided and project directory exists
+        # 4b. Sync server-stored master_plan to disk if project directory exists
         from scripts.security.path_security import resolve_project_dir
         try:
             proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
@@ -554,12 +654,12 @@ class CreativeService:
             proj_dir = Path("projects") / ws_id / project_id
 
         master_plan_synced = False
-        if proj_dir.exists() and req.master_plan:
+        if proj_dir.exists() and stored_master_plan:
             plan_file = proj_dir / "master_plan.md"
             try:
-                plan_file.write_text(req.master_plan, encoding="utf-8")
+                plan_file.write_text(stored_master_plan, encoding="utf-8")
                 master_plan_synced = True
-                logger.info(f"Synchronized master_plan.md to {plan_file} for project '{project_id}'")
+                logger.info(f"Synchronized server-stored master_plan.md to {plan_file} for project '{project_id}'")
             except Exception as e:
                 logger.warning(f"Failed to write master_plan.md to {plan_file}: {e}")
 

@@ -1,0 +1,2 @@
+557:        if proj_dir.exists() and req.master_plan:
+560:                plan_file.write_text(req.master_plan, encoding="utf-8")
