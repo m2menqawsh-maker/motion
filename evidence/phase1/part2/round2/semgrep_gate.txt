@@ -1,0 +1,52 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 598 files tracked by git with 151 Code rules:
+  Scanning 554 files with 151 python rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 2 (2 blocking)
+ • Rules run: 151
+ • Targets scanned: 554
+ • Parsed lines: ~100.0%
+ • Scan skipped: 
+   ◦ Files matching .semgrepignore patterns: 5
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 151 rules on 554 files: 2 findings.
+                   
+                   
+┌─────────────────┐
+│ 2 Code Findings │
+└─────────────────┘
+                                                   
+    ai/context/adapters/knowledge_router_adapter.py
+    ❯❱ python.lang.security.audit.logging.logger-credential-leak.python-logger-credential-disclosure
+          ❰❰ Blocking ❱❱
+          Detected a python logger call with a potential hardcoded secret "Secret pattern detected in       
+          knowledge chunk '%s'; excluding." being logged. This may lead to secret credentials being exposed.
+          Make sure that the logger is not logging  sensitive information.                                  
+          Details: https://sg.run/ydNx                                                                      
+                                                                                                            
+          107┆ logger.warning(
+          108┆     "Secret pattern detected in knowledge chunk '%s'; excluding.",
+          109┆     chunk.chunk_id,
+          110┆ )
+                                         
+    scripts/testing/ai_test_accounting.py
+   ❯❯❱ python.lang.security.use-defused-xml-parse.use-defused-xml-parse
+          ❰❰ Blocking ❱❱
+          The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks
+          can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to
+          parse untrusted input. Instead  the Python documentation recommends using `defusedxml`.           
+          Details: https://sg.run/n3jG                                                                      
+                                                                                                            
+           ▶▶┆ Autofix ▶ defusedxml.etree.ElementTree.parse(xml_path)
+           81┆ tree = ET.parse(xml_path)
+
