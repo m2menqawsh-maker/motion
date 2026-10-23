@@ -15,17 +15,21 @@ Validates:
 """
 
 import json
+import http.server
+import json
 from pathlib import Path
-from unittest.mock import AsyncMock, patch, MagicMock
 import pytest
 import socket
-import httpcore
+import socketserver
+import threading
 
 from ai.acquisition.safe_downloader import (
     safe_download_media,
     PinnedNetworkBackend,
     PinnedAsyncHTTPTransport,
 )
+from ai.acquisition.errors import UnsafeDownloadSourceError
+import scripts.core.security.ssrf_guard as ssrf_guard
 from scripts.core.render_input import (
     build_render_input,
     RenderInputValidationError,
@@ -36,65 +40,121 @@ class TestDNSRebindingPrevention:
     """Verifies that safe_download_media pins to the first validated IP and closes rebinding attacks."""
 
     @pytest.mark.asyncio
-    async def test_dns_rebinding_pins_to_first_ip_only(self):
+    async def test_dns_rebinding_pins_to_first_ip_only(self, monkeypatch: pytest.MonkeyPatch):
         """
-        Simulate a DNS rebinding attacker whose domain resolves to a safe public IP
-        first (during validation), and then switches to 127.0.0.1 (during connection).
-        With IP pinning, the TCP connection connects strictly to the first validated IP.
+        Real two-server DNS rebinding verification:
+        - Server A (127.0.0.1) serves 'GOOD' JPEG binary content.
+        - Server B (127.0.0.2) serves 'EVIL' JPEG binary content on the same port.
+        - Mock resolver returns 127.0.0.1 on resolution 1, and 127.0.0.2 on subsequent resolutions.
+        - Policy is monkeypatched inside this test only to permit loopback evaluation.
+        - Proves that PinnedAsyncHTTPTransport connects strictly to Server A (127.0.0.1),
+          receiving 'GOOD', and only 1 DNS resolution occurs during the entire request.
         """
-        public_ip = "93.184.216.34"
-        internal_ip = "127.0.0.1"
+        good_content = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00GOOD_PAYLOAD" + b"\x00" * 80
+        evil_content = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00EVIL_PAYLOAD" + b"\x00" * 80
 
-        call_count = 0
+        class ServerAHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(good_content)))
+                self.end_headers()
+                self.wfile.write(good_content)
+            def log_message(self, *args): pass
 
-        def fake_getaddrinfo(host, port, *args, **kwargs):
-            nonlocal call_count
-            call_count += 1
-            if call_count == 1:
-                # First resolution (validation pass): returns safe public IP
-                return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (public_ip, port or 443))]
-            else:
-                # Second resolution (rebinding attack): returns loopback IP
-                return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (internal_ip, port or 443))]
+        class ServerBHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(evil_content)))
+                self.end_headers()
+                self.wfile.write(evil_content)
+            def log_message(self, *args): pass
 
-        connected_remote_hosts = []
+        # Allocate ephemeral port available on both 127.0.0.1 and 127.0.0.2
+        probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        probe.bind(("127.0.0.1", 0))
+        port = probe.getsockname()[1]
+        probe.close()
 
-        jpeg_payload = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01" + b"\x00" * 90
+        srv_a = socketserver.TCPServer(("127.0.0.1", port), ServerAHandler)
+        srv_b = socketserver.TCPServer(("127.0.0.2", port), ServerBHandler)
+        th_a = threading.Thread(target=srv_a.serve_forever, daemon=True)
+        th_b = threading.Thread(target=srv_b.serve_forever, daemon=True)
+        th_a.start()
+        th_b.start()
 
-        # Spy on PinnedNetworkBackend.connect_tcp to observe which IP is actually connected
-        orig_connect_tcp = PinnedNetworkBackend.connect_tcp
+        orig_gai = socket.getaddrinfo
+        resolutions = []
 
-        async def spy_connect_tcp(self, host, port, *args, **kwargs):
-            connected_remote_hosts.append(self.pinned_ip)
-            mock_stream = MagicMock()
-            mock_stream.aclose = AsyncMock()
-            return mock_stream
+        def mock_gai(host, p, *args, **kwargs):
+            host_str = host.decode() if isinstance(host, (bytes, bytearray)) else str(host)
+            if host_str == "rebinding.test":
+                resolutions.append(len(resolutions) + 1)
+                port_num = int(p) if p else port
+                if len(resolutions) == 1:
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.1", port_num))]
+                else:
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.2", port_num))]
+            return orig_gai(host, p, *args, **kwargs)
 
-        with patch("socket.getaddrinfo", side_effect=fake_getaddrinfo):
-            with patch.object(PinnedNetworkBackend, "connect_tcp", new=spy_connect_tcp):
-                with patch("httpcore.AsyncConnectionPool.handle_async_request", new_callable=AsyncMock) as mock_handle:
-                    async def fake_handle(request):
-                        backend = PinnedNetworkBackend(pinned_ip=public_ip)
-                        await backend.connect_tcp(request.url.host.decode(), request.url.port or 443)
-                        return httpcore.Response(
-                            status=200,
-                            headers=[
-                                (b"content-type", b"image/jpeg"),
-                                (b"content-length", str(len(jpeg_payload)).encode()),
-                            ],
-                            content=jpeg_payload,
-                        )
+        monkeypatch.setattr(socket, "getaddrinfo", mock_gai)
+        monkeypatch.setattr(ssrf_guard, "is_ip_disallowed", lambda ip: (False, ""))
 
-                    mock_handle.side_effect = fake_handle
+        try:
+            payload = await safe_download_media(f"http://rebinding.test:{port}/photo.jpg")
 
-                    payload = await safe_download_media("https://rebinding-target.com/test.jpg")
+            # 1. Must receive GOOD content from 127.0.0.1
+            assert b"GOOD_PAYLOAD" in payload.content_bytes
+            assert b"EVIL_PAYLOAD" not in payload.content_bytes
 
-        # Assert that the TCP connection was pinned to the FIRST (public) IP
-        # and NEVER connected to internal_ip (127.0.0.1)
-        assert len(connected_remote_hosts) > 0
-        assert internal_ip not in connected_remote_hosts
-        assert connected_remote_hosts[0] == public_ip
-        assert payload.mime_type == "image/jpeg"
+            # 2. Must only perform exactly 1 DNS resolution (during validation)
+            assert len(resolutions) == 1
+        finally:
+            srv_a.shutdown()
+            srv_b.shutdown()
+            srv_a.server_close()
+            srv_b.server_close()
+
+    @pytest.mark.asyncio
+    async def test_redirect_hop_to_internal_ip_is_rejected(self, monkeypatch: pytest.MonkeyPatch):
+        """
+        Verifies that redirect hops are strictly re-evaluated against SSRF policy:
+        Hop 1 is permitted by policy, but redirects to an internal/forbidden IP on Hop 2.
+        Must fail closed with UnsafeDownloadSourceError.
+        """
+        class RedirectHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(302)
+                self.send_header("Location", "http://10.0.0.1/secret_exfil.jpg")
+                self.end_headers()
+            def log_message(self, *args): pass
+
+        probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        probe.bind(("127.0.0.1", 0))
+        port = probe.getsockname()[1]
+        probe.close()
+
+        srv = socketserver.TCPServer(("127.0.0.1", port), RedirectHandler)
+        th = threading.Thread(target=srv.serve_forever, daemon=True)
+        th.start()
+
+        orig_disallowed = ssrf_guard.is_ip_disallowed
+
+        def allow_only_first_server(ip):
+            if str(ip) == "127.0.0.1":
+                return False, ""
+            return orig_disallowed(ip)
+
+        monkeypatch.setattr(ssrf_guard, "is_ip_disallowed", allow_only_first_server)
+
+        try:
+            with pytest.raises(UnsafeDownloadSourceError) as exc_info:
+                await safe_download_media(f"http://127.0.0.1:{port}/image.jpg")
+            assert "SSRF blocked" in str(exc_info.value)
+        finally:
+            srv.shutdown()
+            srv.server_close()
 
 
 class TestRenderPathRejectsExternalURLs:
