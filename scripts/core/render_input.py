@@ -279,6 +279,29 @@ def build_render_input(
         else:
             for k, v in DEFAULT_BRAND_KIT["fonts"].items():
                 fonts.setdefault(k, v)
+
+        # SEC-009 / Part 2 Item 2 & Round 2 Fix 5: External URLs in brand.json must be rejected
+        logo_src = brand_data.get("logoSrc")
+        if isinstance(logo_src, str):
+            clean_logo = logo_src.strip().lower()
+            if clean_logo.startswith("http://") or clean_logo.startswith("https://") or clean_logo.startswith("//"):
+                raise RenderInputValidationError(
+                    "brand.json",
+                    f"External URL '{logo_src}' in brand logoSrc reached render path without local acquisition. Remotion requires local materialized assets only.",
+                    project_id=project_id,
+                )
+
+        fonts = brand_data.get("fonts")
+        if isinstance(fonts, dict):
+            for font_key, font_val in fonts.items():
+                if isinstance(font_val, str):
+                    clean_font = font_val.strip().lower()
+                    if clean_font.startswith("http://") or clean_font.startswith("https://") or clean_font.startswith("//"):
+                        raise RenderInputValidationError(
+                            "brand.json",
+                            f"External URL '{font_val}' in brand fonts ('{font_key}') reached render path without local acquisition. Remotion requires local materialized assets only.",
+                            project_id=project_id,
+                        )
     else:
         brand_data = {
             "brandName": DEFAULT_BRAND_KIT["brandName"],
