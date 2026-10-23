@@ -80,8 +80,8 @@ def parse_numeric_ipv4(host: str) -> Optional[ipaddress.IPv4Address]:
         except (ValueError, OverflowError):
             return None
 
-    # 2. Pure hex integer (e.g. "0x7f000001")
-    if cleaned.lower().startswith("0x"):
+    # 2. Pure hex integer (e.g. "0x7f000001") without dots
+    if cleaned.lower().startswith("0x") and "." not in cleaned:
         try:
             val = int(cleaned, 16)
             if 0 <= val <= 0xFFFFFFFF:
