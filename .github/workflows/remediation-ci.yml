@@ -13,9 +13,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
-env:
-  QC_HMAC_SALT: ${{ secrets.QC_HMAC_SALT || 'ci-remediation-qc-hmac-salt-secret-key-32b!' }}
-
 jobs:
   python-quality:
     name: python-quality
@@ -112,6 +109,20 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
 
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | sudo tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        run: |
+          if [ -n "${{ secrets.QC_HMAC_SALT }}" ]; then
+            echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
+
       - name: Install Node Dependencies
         run: |
           npm ci
@@ -158,6 +169,20 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | sudo tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        run: |
+          if [ -n "${{ secrets.QC_HMAC_SALT }}" ]; then
+            echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Install Python Dependencies
         run: |
@@ -322,7 +347,21 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | sudo tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        run: |
+          if [ -n "${{ secrets.QC_HMAC_SALT }}" ]; then
+            echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi xvfb
 
       - name: Install Node Dependencies
         run: |
@@ -447,7 +486,21 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | sudo tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        run: |
+          if [ -n "${{ secrets.QC_HMAC_SALT }}" ]; then
+            echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi xvfb
 
       - name: Install Node Dependencies
         run: |

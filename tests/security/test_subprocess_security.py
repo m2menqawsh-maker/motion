@@ -128,15 +128,17 @@ class TestSubprocessSecurity:
             with pytest.raises(PermissionError, match="Command not allowed"):
                 safe_subprocess(cmd)
 
-    def test_unvalidated_version_executes_tainted_input_proving_gate_necessity(self, monkeypatch):
+    def test_gate_bypass_simulation_behavior(self, monkeypatch):
         """
-        Fix 3: يثبت أنه بدون التحقق (عبر تعطيل validate_command)، يتسرب الأمر الملوّث لـ subprocess.
-        هذا يثبت أن الحماية قائمة تماماً على بوابة validate_command.
+        اختبار سلوك البوابة عبر المحاكاة (Gate Behavior Verification via Simulation).
+        يوثق هذا الاختبار أن بوابة CommandPolicy.validate_command هي المسؤولة حصراً عن منع
+        الأوامر الملوثة، وأنه في حال محاكاة تجاوزها ستصل المدخلات للمنفذ الفرعي.
+        ملاحظة منهجية: هذا اختبار تحليلي لسلوك البوابة وليس دليلاً على حالة سابقة (Not a before-fix failure proof).
         """
         from scripts.core.security.command_policy import CommandPolicy, CommandValidationResult
         malicious_cmd = ["python", "-c", "import os; os.system('whoami')"]
 
-        # مع غياب التحقق (محاكاة كود غير آمن يتجاوز التحقق)
+        # محاكاة تجاوز البوابة لاختبار السلوك العزلي للبوابة
         with patch('scripts.security.security.subprocess.run') as mock_run:
             mock_run.return_value = None
             monkeypatch.setattr(
@@ -154,7 +156,7 @@ class TestSubprocessSecurity:
                     violations=[]
                 )
             )
-            # في غياب التحقق، ينفذ الأمر:
+            # في حال تجاوز البوابة (محاكاة)، يصل الأمر إلى subprocess.run:
             safe_subprocess(malicious_cmd)
             mock_run.assert_called_once()
             called_cmd, _ = mock_run.call_args

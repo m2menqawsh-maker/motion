@@ -141,32 +141,46 @@ def test_qc_hmac_production_mode_fails_without_env_var(monkeypatch):
 
 def test_qc_hmac_production_mode_fails_on_weak_salt(monkeypatch):
     """
-    Fix 5: Verify production path rejects weak salt (<16 characters).
+    Verify production path rejects weak salt (<32 characters) and accepts valid salts (>=32 characters).
     """
     monkeypatch.setenv("MOTION_ENV", "production")
-    monkeypatch.setenv("QC_HMAC_SALT", "too-short")
-
-    with pytest.raises(RuntimeError, match="QC_HMAC_SALT must be at least 16 characters in production"):
+    
+    # 31 characters -> must fail
+    monkeypatch.setenv("QC_HMAC_SALT", "a" * 31)
+    with pytest.raises(RuntimeError, match="QC_HMAC_SALT must be at least 32 characters in production"):
         get_qc_salt()
 
+    # 32 characters -> must succeed
+    monkeypatch.setenv("QC_HMAC_SALT", "a" * 32)
+    salt = get_qc_salt()
+    assert salt == b"a" * 32
 
-def test_env_example_and_ci_workflows_have_qc_hmac_salt():
+
+def test_env_example_and_ci_workflows_have_no_static_fallback():
     """
-    Fix 5: Verify that .env.example and CI workflows have QC_HMAC_SALT declared.
+    Verify that .env.example specifies min 32 characters and CI workflows have no hardcoded static fallbacks.
     """
     repo_root = Path(__file__).resolve().parent.parent.parent
 
     # 1. .env.example
     env_example = repo_root / ".env.example"
     assert env_example.exists()
-    assert "QC_HMAC_SALT=" in env_example.read_text(encoding="utf-8")
+    env_content = env_example.read_text(encoding="utf-8")
+    assert "QC_HMAC_SALT=" in env_content
+    assert "32" in env_content
 
     # 2. remediation-ci.yml
     ci_file = repo_root / ".github" / "workflows" / "remediation-ci.yml"
     assert ci_file.exists()
-    assert "QC_HMAC_SALT" in ci_file.read_text(encoding="utf-8")
+    ci_content = ci_file.read_text(encoding="utf-8")
+    assert "QC_HMAC_SALT" in ci_content
+    assert "ci-remediation-qc-hmac-salt" not in ci_content
+    assert "openssl rand -hex 32" in ci_content
 
     # 3. real-e2e-nightly.yml
     nightly_file = repo_root / ".github" / "workflows" / "real-e2e-nightly.yml"
     assert nightly_file.exists()
-    assert "QC_HMAC_SALT" in nightly_file.read_text(encoding="utf-8")
+    nightly_content = nightly_file.read_text(encoding="utf-8")
+    assert "QC_HMAC_SALT" in nightly_content
+    assert "ci-nightly-qc-hmac-salt" not in nightly_content
+    assert "openssl rand -hex 32" in nightly_content

@@ -24,9 +24,6 @@ concurrency:
   group: nightly-real-e2e-${{ github.ref }}
   cancel-in-progress: false
 
-env:
-  QC_HMAC_SALT: ${{ secrets.QC_HMAC_SALT || 'ci-nightly-qc-hmac-salt-secret-key-32b!' }}
-
 jobs:
   real-e2e-mp4-render:
     name: real-e2e-mp4-render
@@ -36,6 +33,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Configure Ephemeral QC HMAC Salt
+        run: |
+          if [ -n "${{ secrets.QC_HMAC_SALT }}" ]; then
+            echo "QC_HMAC_SALT=${{ secrets.QC_HMAC_SALT }}" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Setup Node.js 20
         uses: actions/setup-node@v4

@@ -18,6 +18,7 @@ def test_gitleaksignore_exists_and_covers_false_positives():
     # Verify key commentary exists explaining false-positive categories
     assert "Synthetic Test Fixtures" in content or "false-positive" in content
     assert "generic-api-key" in content
+    assert ".pyc" not in content, ".pyc entries should not be in .gitleaksignore"
 
     # Verify non-empty fingerprints
     fingerprints = [
@@ -31,10 +32,15 @@ def test_gitleaksignore_exists_and_covers_false_positives():
 def test_gitleaks_detect_returns_zero_exit_code():
     """
     Verifies that `gitleaks detect --no-banner` runs cleanly and reports no leaks.
+    Skips cleanly if gitleaks binary is not installed in the execution environment.
     """
+    import shutil
+    if not shutil.which("gitleaks"):
+        pytest.skip("gitleaks binary not found in PATH; skipping test")
+
     repo_root = Path(__file__).resolve().parent.parent.parent
     res = subprocess.run(
-        ["gitleaks", "detect", "--no-banner"],
+        ["gitleaks", "detect", "--no-banner", "--redact", "--max-target-megabytes", "5"],
         cwd=str(repo_root),
         capture_output=True,
         text=True,

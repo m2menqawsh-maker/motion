@@ -60,8 +60,8 @@ def get_qc_salt() -> bytes:
             "No file fallback or automatic salt generation is permitted."
         )
     is_prod = os.environ.get("MOTION_ENV", "development").lower() == "production"
-    if is_prod and len(salt_val.strip()) < 16:
-        raise RuntimeError("QC_HMAC_SALT must be at least 16 characters in production environments.")
+    if is_prod and len(salt_val.strip()) < 32:
+        raise RuntimeError("QC_HMAC_SALT must be at least 32 characters in production environments.")
     return salt_val.strip().encode("utf-8")
 
 

@@ -1,0 +1,10 @@
+title = "Motion Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist test evidence artifacts, mock reports, and security test audit evidence in evidence/"
+paths = [
+    '''(^|/)evidence/''',
+]
