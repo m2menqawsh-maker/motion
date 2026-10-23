@@ -347,4 +347,54 @@ class TestMasterPlanServerAuthority:
         assert plan_file.exists()
         assert plan_file.read_text(encoding="utf-8") == prop_data["master_plan"]
 
+    def test_idempotency_conflict_evaluated_before_proposal_lookup(self, creative_security_env):
+        """
+        Fix 2 Test:
+        Verifies that replaying with a conflicting payload under an already-executed operation_id
+        is rejected with 409 Conflict, even if the proposal_id in the conflicting payload does not exist.
+        Protocol idempotency invariants strictly precede entity/proposal resolution.
+        """
+        env = creative_security_env
+        client = env["client"]
+        pid = env["prj_alpha"]
+        token = env["token_alice"]
+
+        # 1. Propose
+        prop_resp = client.post(
+            f"/projects/{pid}/creative/proposals",
+            headers={"Authorization": f"Bearer {token}"},
+            json={"prompt": "Idempotency ordering test", "audio_mode": "VO_MUSIC"},
+        )
+        assert prop_resp.status_code == 200
+        prop_data = prop_resp.json()
+
+        op_id = f"op_test_order_{uuid.uuid4().hex[:8]}"
+        apply_payload = {
+            "proposal_id": prop_data["proposal_id"],
+            "base_revision": prop_data["base_revision"],
+            "blueprint": prop_data["candidate_blueprint"],
+            "operation_id": op_id,
+        }
+
+        # 2. First apply succeeds (200)
+        resp1 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token}"},
+            json=apply_payload,
+        )
+        assert resp1.status_code == 200
+
+        # 3. Conflicting apply: same operation_id, but different / non-existent proposal_id
+        conflicting_payload = dict(apply_payload)
+        conflicting_payload["proposal_id"] = "prop_nonexistent_conflict_999"
+
+        resp2 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token}"},
+            json=conflicting_payload,
+        )
+        # Must return 409 Conflict (idempotency violation), NOT 404 Not Found
+        assert resp2.status_code == 409
+        assert "idempotency" in resp2.text.lower()
+
 

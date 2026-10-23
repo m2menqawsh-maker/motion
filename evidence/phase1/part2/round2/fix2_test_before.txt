@@ -1,0 +1,144 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/integration/test_pr003_ai_runtime_vertical_slice.py::test_idempotent_replay_and_conflict_rejection FAILED [100%]
+
+=================================== FAILURES ===================================
+________________ test_idempotent_replay_and_conflict_rejection _________________
+
+env_pr003 = {'engine': <scripts.core.database.DatabaseEngine object at 0x7f9ab661e7e0>, 'repo': <scripts.core.database.TenantRepos...age': <scripts.core.storage.storage_service.LocalStorageBackend object at 0x7f9ab660ec00>, 'ws_alpha': 'ws_alpha', ...}
+
+    def test_idempotent_replay_and_conflict_rejection(env_pr003):
+        """
+        G08: Verifies identical replay returns cached result and different payload on same key is rejected.
+        """
+        client = env_pr003["client"]
+        token_alice = env_pr003["tokens"]["alice"]
+        pid = env_pr003["prj_alpha_id"]
+    
+        prop_resp = client.post(
+            f"/projects/{pid}/creative/proposals",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={"prompt": "Fast product intro", "aspect_ratio": "9:16"},
+        )
+        prop_data = prop_resp.json()
+    
+        op_key = "op_idemp_test_key"
+        apply_payload = {
+            "proposal_id": prop_data["proposal_id"],
+            "blueprint": prop_data["candidate_blueprint"],
+            "base_revision": 1,
+            "operation_id": op_key,
+        }
+    
+        # First apply
+        resp1 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json=apply_payload,
+        )
+        assert resp1.status_code == 200
+    
+        # Idempotent replay: exact same payload
+        resp2 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json=apply_payload,
+        )
+        assert resp2.status_code == 200
+        assert resp2.json().get("idempotent") is True
+    
+        # Conflicting replay: same key, modified payload
+        conflicting_payload = dict(apply_payload)
+        conflicting_payload["proposal_id"] = "different_proposal_id"
+        resp3 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json=conflicting_payload,
+        )
+>       assert resp3.status_code == 409
+E       assert 404 == 409
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_pr003_ai_runtime_vertical_slice.py:344: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_pr003_ai_runtime_vertical_slice.py::test_idempotent_replay_and_conflict_rejection
+============================== 1 failed in 2.50s ===============================
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_conflict_evaluated_before_proposal_lookup FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestMasterPlanServerAuthority.test_idempotency_conflict_evaluated_before_proposal_lookup _
+
+self = <tests.security.test_creative_master_plan_security.TestMasterPlanServerAuthority object at 0x7f7e77a77590>
+creative_security_env = {'client': <starlette.testclient.TestClient object at 0x7f7e77aef2c0>, 'prj_alpha': 'prj_alpha_8814a375', 'prj_beta': ...alpha': PosixPath('/home/eng_Momen/Projects/CurerntProject/Motion/projects/ws_alpha_8814a375/prj_alpha_8814a375'), ...}
+
+    def test_idempotency_conflict_evaluated_before_proposal_lookup(self, creative_security_env):
+        """
+        Fix 2 Test:
+        Verifies that replaying with a conflicting payload under an already-executed operation_id
+        is rejected with 409 Conflict, even if the proposal_id in the conflicting payload does not exist.
+        Protocol idempotency invariants strictly precede entity/proposal resolution.
+        """
+        env = creative_security_env
+        client = env["client"]
+        pid = env["prj_alpha"]
+        token = env["token_alice"]
+    
+        # 1. Propose
+        prop_resp = client.post(
+            f"/projects/{pid}/creative/proposals",
+            headers={"Authorization": f"Bearer {token}"},
+            json={"prompt": "Idempotency ordering test", "audio_mode": "VO_MUSIC"},
+        )
+        assert prop_resp.status_code == 200
+        prop_data = prop_resp.json()
+    
+        op_id = f"op_test_order_{uuid.uuid4().hex[:8]}"
+        apply_payload = {
+            "proposal_id": prop_data["proposal_id"],
+            "base_revision": prop_data["base_revision"],
+            "blueprint": prop_data["candidate_blueprint"],
+            "operation_id": op_id,
+        }
+    
+        # 2. First apply succeeds (200)
+        resp1 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token}"},
+            json=apply_payload,
+        )
+        assert resp1.status_code == 200
+    
+        # 3. Conflicting apply: same operation_id, but different / non-existent proposal_id
+        conflicting_payload = dict(apply_payload)
+        conflicting_payload["proposal_id"] = "prop_nonexistent_conflict_999"
+    
+        resp2 = client.post(
+            f"/projects/{pid}/creative/apply",
+            headers={"Authorization": f"Bearer {token}"},
+            json=conflicting_payload,
+        )
+        # Must return 409 Conflict (idempotency violation), NOT 404 Not Found
+>       assert resp2.status_code == 409
+E       assert 404 == 409
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/security/test_creative_master_plan_security.py:397: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_conflict_evaluated_before_proposal_lookup
+============================== 1 failed in 2.86s ===============================
