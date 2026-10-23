@@ -65,6 +65,13 @@ def safe_subprocess(cmd_list: Union[str, List[str]], **kwargs):
         allow_database_env=allow_db_env,
     )
 
+    # Enforce safe subprocess execution invariants:
+    # 1. shell=False is always enforced (cannot be overridden by kwargs)
+    # 2. CommandPolicy validates and allowlists executable and arguments
+    # 3. Environment variables are sanitized
+    kwargs["shell"] = False
+
+    # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-tainted-env-args.dangerous-subprocess-use-tainted-env-args
     return subprocess.run(exec_cmd, **kwargs)
 
 
@@ -101,4 +108,11 @@ def safe_popen(cmd_list: Union[str, List[str]], **kwargs) -> subprocess.Popen:
         allow_database_env=allow_db_env,
     )
 
+    # Enforce safe subprocess execution invariants:
+    # 1. shell=False is always enforced (cannot be overridden by kwargs)
+    # 2. CommandPolicy validates and allowlists executable and arguments
+    # 3. Environment variables are sanitized
+    kwargs["shell"] = False
+
+    # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-tainted-env-args.dangerous-subprocess-use-tainted-env-args
     return subprocess.Popen(exec_cmd, **kwargs)

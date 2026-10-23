@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 import pytest
 from unittest.mock import patch
-from scripts.security.security import safe_subprocess
+from scripts.security.security import safe_subprocess, safe_popen
 
 class TestSubprocessSecurity:
     """أمان الـ Subprocess"""
@@ -86,3 +86,28 @@ class TestSubprocessSecurity:
         _, kwargs = mock_run.call_args
         assert kwargs.get('timeout') is not None, "Security guard MUST enforce timeout"
         assert kwargs['timeout'] > 0
+
+    @patch('scripts.security.security.subprocess.Popen')
+    def test_safe_popen_forces_shell_false(self, mock_popen):
+        """يجب أن يجبر safe_popen shell=False حتى لو تم طلب True"""
+        safe_popen(["ffmpeg", "-version"], shell=True)
+        mock_popen.assert_called_once()
+        _, kwargs = mock_popen.call_args
+        assert kwargs.get('shell') is False, "Security guard MUST force shell=False for Popen"
+
+    def test_safe_subprocess_rejects_unallowed_command(self):
+        """يجب أن يرفض safe_subprocess الأوامر غير المصرح بها فوراً (منع حقن الأوامر)"""
+        with pytest.raises(PermissionError, match="Command not allowed"):
+            safe_subprocess(["sh", "-c", "whoami"])
+
+    def test_safe_popen_rejects_unallowed_command(self):
+        """يجب أن يرفض safe_popen الأوامر غير المصرح بها فوراً (منع حقن الأوامر)"""
+        with pytest.raises(PermissionError, match="Command not allowed"):
+            safe_popen(["bash", "-i"])
+
+    def test_subprocess_nosemgrep_rationale_documented(self):
+        """التحقق من توثيق تعليق nosemgrep المبرر على مواضع subprocess"""
+        sec_file = Path(__file__).parent.parent.parent / "scripts" / "security" / "security.py"
+        content = sec_file.read_text(encoding="utf-8")
+        assert "nosemgrep" in content, "nosemgrep annotation missing from scripts/security/security.py"
+        assert "CommandPolicy validates and allowlists executable" in content, "Rationale comment missing"

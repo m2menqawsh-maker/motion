@@ -1,0 +1,42 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 151 Code rules:
+  Scanning 1 file with 151 python rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 2 (2 blocking)
+ • Rules run: 151
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 151 rules on 1 file: 2 findings.
+                   
+                   
+┌─────────────────┐
+│ 2 Code Findings │
+└─────────────────┘
+                                
+    scripts/security/security.py
+   ❯❯❱ python.lang.security.audit.dangerous-subprocess-use-tainted-env-args.dangerous-subprocess-use-tainted-env-args
+          ❰❰ Blocking ❱❱
+          Detected subprocess function 'run' with user controlled data. A malicious actor could leverage this
+          to perform command injection. You may consider using 'shlex.quote()'.                              
+          Details: https://sg.run/pLGg                                                                       
+                                                                                                             
+           68┆ return subprocess.run(exec_cmd, **kwargs)
+            ⋮┆----------------------------------------
+   ❯❯❱ python.lang.security.audit.dangerous-subprocess-use-tainted-env-args.dangerous-subprocess-use-tainted-env-args
+          ❰❰ Blocking ❱❱
+          Detected subprocess function 'Popen' with user controlled data. A malicious actor could leverage
+          this to perform command injection. You may consider using 'shlex.quote()'.                      
+          Details: https://sg.run/pLGg                                                                    
+                                                                                                          
+          104┆ return subprocess.Popen(exec_cmd, **kwargs)
+
