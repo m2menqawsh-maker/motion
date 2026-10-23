@@ -31,16 +31,14 @@ from ai.acquisition.errors import (
     MediaValidationError,
     UnsafeDownloadSourceError,
 )
-
-FORBIDDEN_SCHEMES: Set[str] = {"file", "ftp", "gopher", "data", "javascript", "blob"}
-
-BLOCKED_HOSTNAMES: Set[str] = {
-    "localhost",
-    "ip6-localhost",
-    "ip6-loopback",
-    "metadata.google.internal",
-    "instance-data",
-}
+from scripts.core.security import ssrf_guard
+from scripts.core.security.ssrf_guard import (
+    SSRFSecurityViolation,
+    validate_url_security,
+    is_ip_disallowed,
+    BLOCKED_HOSTNAMES,
+    FORBIDDEN_SCHEMES,
+)
 
 DISALLOWED_CONTENT_TYPES: Set[str] = {
     "text/html",
@@ -65,34 +63,9 @@ def check_ip_disallowed(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> Tu
     """
     Evaluates whether an IP address falls into loopback, private, link-local,
     cloud metadata, or reserved/multicast address spaces.
+    Delegates to canonical ssrf_guard authority.
     """
-    if ip.is_loopback:
-        return True, "loopback address"
-    if ip.is_private:
-        return True, "private RFC1918/ULA address"
-    if ip.is_link_local:
-        return True, "link-local address"
-    if ip.is_reserved:
-        return True, "reserved address"
-    if ip.is_multicast:
-        return True, "multicast address"
-    if ip.is_unspecified:
-        return True, "unspecified (0.0.0.0 / ::) address"
-
-    # Handle IPv4-mapped IPv6 addresses (e.g., ::ffff:127.0.0.1)
-    if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
-        return check_ip_disallowed(ip.ipv4_mapped)
-
-    ip_str = str(ip).lower()
-    if ip_str in ("169.254.169.254", "fd00:ec2::254"):
-        return True, "cloud metadata service address"
-
-    # Carrier-grade NAT (100.64.0.0/10)
-    cgnat = ipaddress.ip_network("100.64.0.0/10")
-    if isinstance(ip, ipaddress.IPv4Address) and ip in cgnat:
-        return True, "carrier-grade NAT (RFC6598) address"
-
-    return False, ""
+    return is_ip_disallowed(ip)
 
 
 def validate_svg_security(content: bytes) -> None:
@@ -126,64 +99,14 @@ class DownloadedPayload(BaseModel):
 def assert_safe_url(url: str) -> None:
     """
     Validates a URL against strict network policy and SSRF risks.
-    Resolves DNS for domain hostnames and verifies all resolved IPv4/IPv6 addresses.
+    Delegates to canonical ssrf_guard authority.
     Raises UnsafeDownloadSourceError on any violation.
     """
-    if not url or not isinstance(url, str):
-        raise UnsafeDownloadSourceError(str(url), "URL must be a non-empty string.")
-
     try:
-        parsed = urllib.parse.urlparse(url)
-    except Exception as e:
-        raise UnsafeDownloadSourceError(url, f"Malformed URL syntax: {e}")
+        ssrf_guard.validate_url_security(url, require_dns_resolution=True)
+    except SSRFSecurityViolation as e:
+        raise UnsafeDownloadSourceError(str(url), str(e)) from e
 
-    scheme = (parsed.scheme or "").lower()
-    if scheme in FORBIDDEN_SCHEMES or scheme not in ("http", "https"):
-        raise UnsafeDownloadSourceError(
-            url,
-            f"Scheme '{scheme}' is forbidden. Only HTTP and HTTPS are permitted."
-        )
-
-    hostname = (parsed.hostname or "").lower().strip()
-    if not hostname:
-        raise UnsafeDownloadSourceError(url, "URL contains no target hostname.")
-
-    if hostname in BLOCKED_HOSTNAMES or hostname.endswith(".local") or hostname.endswith(".internal"):
-        raise UnsafeDownloadSourceError(url, f"Host '{hostname}' is internal/private (SSRF blocked).")
-
-    # 1. Direct IP address check if hostname is an IP literal
-    try:
-        ip = ipaddress.ip_address(hostname)
-        disallowed, reason = check_ip_disallowed(ip)
-        if disallowed:
-            raise UnsafeDownloadSourceError(url, f"IP '{hostname}' is blocked: {reason} (SSRF blocked).")
-        return
-    except ValueError:
-        pass
-
-    # 2. DNS resolution check for domain names (fail-closed across all resolved IPv4 & IPv6 records)
-    try:
-        addrinfo = socket.getaddrinfo(hostname, None)
-    except socket.gaierror as e:
-        raise UnsafeDownloadSourceError(url, f"DNS resolution failed for '{hostname}': {e} (SSRF blocked).")
-    except Exception as e:
-        raise UnsafeDownloadSourceError(url, f"DNS lookup error for '{hostname}': {e} (SSRF blocked).")
-
-    if not addrinfo:
-        raise UnsafeDownloadSourceError(url, f"No DNS records resolved for '{hostname}' (SSRF blocked).")
-
-    for family, socktype, proto, canonname, sockaddr in addrinfo:
-        resolved_ip_str = sockaddr[0]
-        try:
-            resolved_ip = ipaddress.ip_address(resolved_ip_str)
-            disallowed, reason = check_ip_disallowed(resolved_ip)
-            if disallowed:
-                raise UnsafeDownloadSourceError(
-                    url,
-                    f"Host '{hostname}' resolved to blocked IP '{resolved_ip_str}' ({reason}) (SSRF blocked)."
-                )
-        except ValueError:
-            raise UnsafeDownloadSourceError(url, f"Invalid resolved IP '{resolved_ip_str}' for '{hostname}'.")
 
 
 def verify_magic_bytes(content: bytes, expected_media_type: Optional[StockMediaType]) -> str:

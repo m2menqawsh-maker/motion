@@ -79,79 +79,20 @@ FORBIDDEN_SCHEMES = {"file", "ftp", "gopher", "data", "javascript"}
 def validate_safe_url(url: str) -> None:
     """
     Strict SSRF and network egress validation.
-    Blocks loopback, link-local, cloud metadata endpoints, RFC1918 private ranges,
-    and non-HTTP/HTTPS schemes.
+    Delegates to canonical ssrf_guard authority.
     """
     if not url or not isinstance(url, str):
         return
 
+    from scripts.core.security.ssrf_guard import validate_url_security, SSRFSecurityViolation
     try:
-        parsed = urllib.parse.urlparse(url)
-    except Exception as e:
-        raise NetworkPolicyViolationError(f"Malformed target URL: {e}", details={"url": url})
-
-    scheme = parsed.scheme.lower()
-    if scheme in FORBIDDEN_SCHEMES or scheme not in ("http", "https"):
+        validate_url_security(url, require_dns_resolution=True)
+    except SSRFSecurityViolation as e:
         raise NetworkPolicyViolationError(
-            f"URL scheme '{scheme}' is forbidden by network security policy. Only 'http' and 'https' allowed.",
-            details={"url": url, "scheme": scheme},
-        )
+            f"Network security policy violation: {e}",
+            details={"url": url, "error": str(e)},
+        ) from e
 
-    hostname = (parsed.hostname or "").lower().strip()
-    if not hostname:
-        raise NetworkPolicyViolationError("Invalid URL: missing target hostname.", details={"url": url})
-
-    # Hostname blocklist
-    blocked_hosts = {
-        "localhost",
-        "ip6-localhost",
-        "ip6-loopback",
-        "metadata.google.internal",
-        "instance-data",
-    }
-    if hostname in blocked_hosts or hostname.endswith(".local") or hostname.endswith(".internal"):
-        raise NetworkPolicyViolationError(
-            f"Target host '{hostname}' is internal and forbidden by SSRF policy.",
-            details={"url": url, "host": hostname},
-        )
-
-    # IP address parsing & range check
-    try:
-        ip = ipaddress.ip_address(hostname)
-        if ip.is_loopback:
-            raise NetworkPolicyViolationError(f"Target IP '{hostname}' is loopback address (SSRF blocked).", details={"ip": hostname})
-        if ip.is_private:
-            raise NetworkPolicyViolationError(f"Target IP '{hostname}' is private RFC1918 address (SSRF blocked).", details={"ip": hostname})
-        if ip.is_link_local:
-            raise NetworkPolicyViolationError(f"Target IP '{hostname}' is link-local / metadata address (SSRF blocked).", details={"ip": hostname})
-        if ip.is_reserved or ip.is_multicast:
-            raise NetworkPolicyViolationError(f"Target IP '{hostname}' is reserved/multicast address (SSRF blocked).", details={"ip": hostname})
-        return
-    except ValueError:
-        pass
-
-    # DNS resolution check for domain names
-    try:
-        addrinfo = socket.getaddrinfo(hostname, None)
-    except Exception as e:
-        raise NetworkPolicyViolationError(
-            f"DNS resolution failed for '{hostname}': {e}",
-            details={"url": url, "host": hostname},
-        )
-    for family, socktype, proto, canonname, sockaddr in addrinfo:
-        resolved_ip_str = sockaddr[0]
-        try:
-            resolved_ip = ipaddress.ip_address(resolved_ip_str)
-            if resolved_ip.is_loopback:
-                raise NetworkPolicyViolationError(f"Target host '{hostname}' resolved to loopback IP '{resolved_ip_str}' (SSRF blocked).", details={"url": url, "ip": resolved_ip_str})
-            if resolved_ip.is_private:
-                raise NetworkPolicyViolationError(f"Target host '{hostname}' resolved to private IP '{resolved_ip_str}' (SSRF blocked).", details={"url": url, "ip": resolved_ip_str})
-            if resolved_ip.is_link_local:
-                raise NetworkPolicyViolationError(f"Target host '{hostname}' resolved to link-local IP '{resolved_ip_str}' (SSRF blocked).", details={"url": url, "ip": resolved_ip_str})
-            if resolved_ip.is_reserved or resolved_ip.is_multicast:
-                raise NetworkPolicyViolationError(f"Target host '{hostname}' resolved to reserved/multicast IP '{resolved_ip_str}' (SSRF blocked).", details={"url": url, "ip": resolved_ip_str})
-        except ValueError:
-            pass
 
 
 # =============================================================================
