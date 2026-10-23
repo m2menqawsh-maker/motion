@@ -9,6 +9,7 @@ from scripts.core.security.principal import Principal, PrincipalType, Role
 from api.core.auth import create_signed_token
 
 TEST_PYTEST_AUTH_SECRET = "test-signing-secret-for-pytest-harness-32-chars!"
+TEST_PYTEST_QC_HMAC_SALT = "test-qc-hmac-salt-for-pytest-harness-32-bytes!"
 
 
 def make_test_auth_headers(
@@ -65,6 +66,7 @@ def make_test_auth_headers(
 def setup_test_env():
     os.environ['TESTING'] = '1'
     os.environ.setdefault('AUTH_SECRET_KEY', TEST_PYTEST_AUTH_SECRET)
+    os.environ.setdefault('QC_HMAC_SALT', TEST_PYTEST_QC_HMAC_SALT)
     try:
         from scripts.core.database import get_database_engine, TenantRepository, Role
         repo = TenantRepository(get_database_engine())

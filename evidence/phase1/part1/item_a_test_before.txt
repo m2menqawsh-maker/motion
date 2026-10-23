@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+tests/security/test_qc_hmac_hardening.py F                               [100%]
+
+=================================== FAILURES ===================================
+__________________ test_qc_hmac_salt_missing_fails_explicitly __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-4/test_qc_hmac_salt_missing_fail0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1d29632060>
+
+    def test_qc_hmac_salt_missing_fails_explicitly(tmp_path, monkeypatch):
+        """
+        Security requirement:
+        QC_HMAC_SALT environment variable is strictly mandatory.
+        Without it, probe_qc must fail explicitly (no silent fallback to .agents/secrets/.qc_salt,
+        no auto-generation).
+        """
+        monkeypatch.delenv("QC_HMAC_SALT", raising=False)
+    
+        report_path = tmp_path / "probe_qc_report.json"
+        report_path.write_text('{"status": "PASS"}', encoding="utf-8")
+        seal_path = tmp_path / "probe_qc_report.json.seal"
+        seal_path.write_text("some-seal", encoding="utf-8")
+    
+        # In vulnerable code: verify_seal silently falls back to .agents/secrets/.qc_salt or creates it.
+        # In hardened code: it must raise an explicit RuntimeError or ValueError.
+>       with pytest.raises(RuntimeError, match="QC_HMAC_SALT"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/security/test_qc_hmac_hardening.py:26: Failed
+----------------------------- Captured stdout call -----------------------------
+🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية غير متطابقة - تقرير مزوّر)
+=========================== short test summary info ============================
+FAILED tests/security/test_qc_hmac_hardening.py::test_qc_hmac_salt_missing_fails_explicitly
+============================== 1 failed in 0.21s ===============================

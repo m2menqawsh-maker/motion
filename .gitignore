@@ -76,6 +76,8 @@ temp/
 tmp/
 scratch/
 .agents/mcp_state/
+.agents/secrets/
+.agents/secrets/.qc_salt
 *.seal
 *.analysis.json
 data/*
