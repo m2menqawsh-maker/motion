@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 2 items
+
+tests/security/test_mcp_security.py F.                                   [100%]
+
+=================================== FAILURES ===================================
+____ TestMCPSecurity.test_ffmpeg_mcp_server_sdk_version_not_vulnerable_to_cve_2025_66414 ____
+
+self = <tests.security.test_mcp_security.TestMCPSecurity object at 0x7fae830e0710>
+
+    def test_ffmpeg_mcp_server_sdk_version_not_vulnerable_to_cve_2025_66414(self):
+        ...
+>       assert (major > 1) or (major == 1 and minor >= 24), (
+            f"@modelcontextprotocol/sdk version {installed_version} is vulnerable to CVE-2025-66414 (<1.24.0)"
+        )
+E       AssertionError: @modelcontextprotocol/sdk version 0.5.0 is vulnerable to CVE-2025-66414 (<1.24.0)
+E       assert (0 > 1 or (0 == 1 and 5 >= 24))
+
+tests/security/test_mcp_security.py:27: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_mcp_security.py::TestMCPSecurity::test_ffmpeg_mcp_server_sdk_version_not_vulnerable_to_cve_2025_66414
+========================= 1 failed, 1 passed in 0.20s ==========================

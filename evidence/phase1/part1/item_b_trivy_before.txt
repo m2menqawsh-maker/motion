@@ -1,0 +1,26 @@
+$ trivy fs --severity HIGH,CRITICAL --exit-code 1 .agents/plugins/super-video-maker-plugin/tools/mcp-servers/ffmpeg-mcp-server
+2026-10-23T18:12:17+03:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-23T18:12:17+03:00	INFO	[npm] Run "npm install" to collect the license information of packages	dir="node_modules"
+2026-10-23T18:12:17+03:00	INFO	Number of language-specific files	num=1
+2026-10-23T18:12:17+03:00	INFO	[npm] Detecting vulnerabilities...
+
+Report Summary
+
+┌───────────────────┬──────┬─────────────────┬─────────┐
+│      Target       │ Type │ Vulnerabilities │ Secrets │
+├───────────────────┼──────┼─────────────────┼─────────┤
+│ package-lock.json │ npm  │        1        │    -    │
+└───────────────────┴──────┴─────────────────┴─────────┘
+
+package-lock.json (npm)
+
+Total: 1 (HIGH: 1, CRITICAL: 0)
+
+┌───────────────────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬─────────────────────────────────────────────────────────────┐
+│          Library          │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                            │
+├───────────────────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼─────────────────────────────────────────────────────────────┤
+│ @modelcontextprotocol/sdk │ CVE-2025-66414 │ HIGH     │ fixed  │ 0.5.0             │ 1.24.0        │ Model Context Protocol (MCP) TypeScript SDK does not enable │
+│                           │                │          │        │                   │               │ DNS rebinding protection...                                 │
+│                           │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-66414                  │
+└───────────────────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴─────────────────────────────────────────────────────────────┘
+(exit code: 1)

@@ -1,3 +1,2 @@
 # Trivy Ignore File
-# CVE-2025-66414: MCP TypeScript SDK DNS rebinding advisory for local CLI MCP servers
-CVE-2025-66414
+# (No active ignore rules - CVE-2025-66414 resolved by upgrading @modelcontextprotocol/sdk to >= 1.24.0)
