@@ -26,6 +26,7 @@ Validates:
      delegate directly to scripts.core.security.ssrf_guard.
 """
 
+import ipaddress
 from unittest.mock import patch
 import pytest
 
@@ -138,6 +139,19 @@ class TestUnifiedSSRFAllowedPublicURLs:
         """
         with pytest.raises(SSRFSecurityViolation, match="DNS resolution failed"):
             validate_url_security("http://fake-nonexistent-subdomain.example.com/asset.mp4", require_dns_resolution=True)
+
+    def test_parse_numeric_ipv4_dotted_hex_without_dns(self):
+        """
+        Fix 6 Test:
+        Verifies that dotted-hex IPv4 literals like '0x7f.0.0.1' are parsed directly
+        by parse_numeric_ipv4 into IPv4Address('127.0.0.1') and blocked by validate_url_security
+        even when require_dns_resolution=False (without relying on glibc resolution).
+        """
+        parsed_ip = parse_numeric_ipv4("0x7f.0.0.1")
+        assert parsed_ip == ipaddress.IPv4Address("127.0.0.1")
+
+        with pytest.raises(SSRFSecurityViolation, match="Loopback IP address prohibited"):
+            validate_url_security("http://0x7f.0.0.1/", require_dns_resolution=False)
 
 
 class TestSSRFArchitectureSingleAuthority:
