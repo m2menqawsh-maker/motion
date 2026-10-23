@@ -24,6 +24,9 @@ concurrency:
   group: nightly-real-e2e-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  QC_HMAC_SALT: ${{ secrets.QC_HMAC_SALT || 'ci-nightly-qc-hmac-salt-secret-key-32b!' }}
+
 jobs:
   real-e2e-mp4-render:
     name: real-e2e-mp4-render

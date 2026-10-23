@@ -13,6 +13,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  QC_HMAC_SALT: ${{ secrets.QC_HMAC_SALT || 'ci-remediation-qc-hmac-salt-secret-key-32b!' }}
+
 jobs:
   python-quality:
     name: python-quality
