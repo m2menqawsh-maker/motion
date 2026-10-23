@@ -94,12 +94,20 @@ def test_qc_hmac_tampered_seal_fails(tmp_path, monkeypatch):
     assert verify_seal(report_path) is False
 
 
-def test_legacy_sha256_seal_fails_with_clear_message(tmp_path, monkeypatch, capsys):
+def test_legacy_sha256_seal_strictly_rejected_without_legacy_code(tmp_path, monkeypatch, capsys):
     """
-    Requirement:
-    Old reports using sha256(data+salt) fail verification in an understandable way,
-    warning about legacy non-HMAC format.
+    Requirement (Fix 1):
+    Old reports using sha256(data+salt) must be rejected outright without special legacy
+    detection or legacy tolerance branches in verify_seal.
     """
+    import inspect
+    from scripts.gates.probe_qc import verify_seal
+
+    # Assert legacy fallback/warning logic is completely eradicated from source code
+    source = inspect.getsource(verify_seal)
+    assert "legacy_actual" not in source, "Legacy sha256(data+salt) check still present in verify_seal source"
+    assert "تنسيق ختم قديم" not in source, "Legacy seal warning branch still present in verify_seal source"
+
     salt_val = "legacy-salt-string-for-backward-check"
     monkeypatch.setenv("QC_HMAC_SALT", salt_val)
 
@@ -107,7 +115,7 @@ def test_legacy_sha256_seal_fails_with_clear_message(tmp_path, monkeypatch, caps
     data = b'{"status": "PASS", "legacy": true}'
     report_path.write_bytes(data)
 
-    # Legacy vulnerable format: sha256(data + salt)
+    # Valid legacy computation: sha256(data + salt)
     legacy_checksum = hashlib.sha256(data + salt_val.encode("utf-8")).hexdigest()
     seal_path = tmp_path / "probe_qc_report.json.seal"
     seal_path.write_text(legacy_checksum, encoding="utf-8")
@@ -116,4 +124,5 @@ def test_legacy_sha256_seal_fails_with_clear_message(tmp_path, monkeypatch, caps
     assert verify_seal(report_path) is False
 
     captured = capsys.readouterr()
-    assert "تنسيق ختم قديم غير آمن" in captured.out or "HMAC" in captured.out
+    assert "تنسيق ختم قديم غير آمن" not in captured.out
+    assert "تقرير مزوّر" in captured.out or "غير متطابقة" in captured.out

@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 5 items / 4 deselected / 1 selected
+
+tests/security/test_qc_hmac_hardening.py F                               [100%]
+
+=================================== FAILURES ===================================
+________ test_legacy_sha256_seal_strictly_rejected_without_legacy_code _________
+
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-23/test_legacy_sha256_seal_strict0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efc6358f020>
+capsys = <_pytest.capture.CaptureFixture object at 0x7efc635c2960>
+
+    def test_legacy_sha256_seal_strictly_rejected_without_legacy_code(tmp_path, monkeypatch, capsys):
+        """
+        Requirement (Fix 1):
+        Old reports using sha256(data+salt) must be rejected outright without special legacy
+        detection or legacy tolerance branches in verify_seal.
+        """
+        import inspect
+        from scripts.gates.probe_qc import verify_seal
+    
+        # Assert legacy fallback/warning logic is completely eradicated from source code
+        source = inspect.getsource(verify_seal)
+>       assert "legacy_actual" not in source, "Legacy sha256(data+salt) check still present in verify_seal source"
+E       AssertionError: Legacy sha256(data+salt) check still present in verify_seal source
+E       assert 'legacy_actual' not in 'def verify_...eturn True\n'
+E         
+E         'legacy_actual' is contained here:
+E           :
+E                   legacy_actual = hashlib.sha256(data + salt).hexdigest()
+E         ?         +++++++++++++
+E                   if hmac.compare_digest(expected, legacy_actual):
+E                       print(...
+E         
+E         ...Full output truncated (7 lines hidden), use '-vv' to show
+
+tests/security/test_qc_hmac_hardening.py:108: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_qc_hmac_hardening.py::test_legacy_sha256_seal_strictly_rejected_without_legacy_code
+======================= 1 failed, 4 deselected in 0.14s ========================

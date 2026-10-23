@@ -89,14 +89,7 @@ def verify_seal(report_path: Path | str) -> bool:
     actual = compute_seal(data, salt)
 
     if not hmac.compare_digest(expected, actual):
-        legacy_actual = hashlib.sha256(data + salt).hexdigest()
-        if hmac.compare_digest(expected, legacy_actual):
-            print(
-                "🛑 [SECURITY] تقرير Probe-QC يستخدم تنسيق ختم قديم غير آمن (SHA256 data+salt). "
-                "يرجى إعادة توليد التقرير باستخدام HMAC-SHA256."
-            )
-        else:
-            print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية HMAC غير متطابقة - تقرير مزوّر)")
+        print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية HMAC غير متطابقة - تقرير مزوّر)")
         return False
     return True
 
