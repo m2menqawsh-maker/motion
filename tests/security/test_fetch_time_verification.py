@@ -234,3 +234,57 @@ class TestRenderPathRejectsExternalURLs:
         assert envelope is not None
         assert "projectData" in envelope
         assert envelope["projectData"]["media_map"]["ast_logo"] == "projects/prj_local_test/logo.png"
+
+    def test_build_render_input_rejects_external_url_in_brand_json(self, tmp_path: Path):
+        """
+        Fix 5 Test:
+        Verifies that brand.json containing an external URL in logoSrc or fonts is strictly rejected.
+        Remotion render envelope must receive local materialized assets only.
+        """
+        project_dir = tmp_path / "prj_brand_url_test"
+        project_dir.mkdir(parents=True)
+
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_url_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+
+        blueprint_dict = {
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_url_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }
+        (project_dir / "05_blueprint.json").write_text(json.dumps(blueprint_dict), encoding="utf-8")
+
+        # 1. brand.json with external URL in logoSrc (e.g. metadata exfiltration target)
+        brand_dict = {
+            "brandName": "TestBrand",
+            "logoSrc": "http://169.254.169.254/latest/meta-data/iam/",
+        }
+        (project_dir / "brand.json").write_text(json.dumps(brand_dict), encoding="utf-8")
+
+        with pytest.raises(RenderInputValidationError) as exc_info:
+            build_render_input(
+                project_dir_or_id=project_dir,
+                verify_files_on_disk=False,
+                write_to_disk=False,
+            )
+        assert "External URL" in str(exc_info.value)
+        assert "brand logoSrc" in str(exc_info.value)
+
+        # 2. brand.json with external URL in fonts
+        brand_dict_fonts = {
+            "brandName": "TestBrand",
+            "logoSrc": None,
+            "fonts": {"primary": "http://evil.com/font.ttf"},
+        }
+        (project_dir / "brand.json").write_text(json.dumps(brand_dict_fonts), encoding="utf-8")
+
+        with pytest.raises(RenderInputValidationError) as exc_info2:
+            build_render_input(
+                project_dir_or_id=project_dir,
+                verify_files_on_disk=False,
+                write_to_disk=False,
+            )
+        assert "External URL" in str(exc_info2.value)
+        assert "brand fonts" in str(exc_info2.value)

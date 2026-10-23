@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_build_render_input_rejects_external_url_in_brand_json FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestRenderPathRejectsExternalURLs.test_build_render_input_rejects_external_url_in_brand_json _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f54ac4b79e0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-83/test_build_render_input_reject0')
+
+    def test_build_render_input_rejects_external_url_in_brand_json(self, tmp_path: Path):
+        """
+        Fix 5 Test:
+        Verifies that brand.json containing an external URL in logoSrc or fonts is strictly rejected.
+        Remotion render envelope must receive local materialized assets only.
+        """
+        project_dir = tmp_path / "prj_brand_url_test"
+        project_dir.mkdir(parents=True)
+    
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_url_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+    
+        blueprint_dict = {
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_url_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }
+        (project_dir / "05_blueprint.json").write_text(json.dumps(blueprint_dict), encoding="utf-8")
+    
+        # 1. brand.json with external URL in logoSrc (e.g. metadata exfiltration target)
+        brand_dict = {
+            "brandName": "TestBrand",
+            "logoSrc": "http://169.254.169.254/latest/meta-data/iam/",
+        }
+        (project_dir / "brand.json").write_text(json.dumps(brand_dict), encoding="utf-8")
+    
+>       with pytest.raises(RenderInputValidationError) as exc_info:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:266: Failed
+=========================== short test summary info ============================
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_build_render_input_rejects_external_url_in_brand_json
+============================== 1 failed in 0.52s ===============================
