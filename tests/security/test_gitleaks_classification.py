@@ -40,7 +40,7 @@ def test_gitleaks_detect_returns_zero_exit_code():
 
     repo_root = Path(__file__).resolve().parent.parent.parent
     res = subprocess.run(
-        ["gitleaks", "detect", "--no-banner", "--redact", "--max-target-megabytes", "5"],
+        ["gitleaks", "detect", "--no-banner", "--redact"],
         cwd=str(repo_root),
         capture_output=True,
         text=True,

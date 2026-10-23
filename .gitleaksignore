@@ -98,3 +98,21 @@ f5864cf0b8905c5059d9a1410d2e404fc4a50389:tests/fault_injection/test_fi_09_idempo
 
 # .env.example:56 (generic-api-key)
 5b538322ffa48bcf9db71b97e512fadcaef95a0f:.env.example:generic-api-key:56
+
+# scripts/validators/check_secrets.py:36 (aws-access-token)
+9e6e2896f69f0534645b50fe1b6254434db60f30:scripts/validators/check_secrets.py:aws-access-token:36
+
+# contracts/editor-session.ts:79 (generic-api-key)
+426a035a12478b4ec4efd2848a92a0b9168fe481:contracts/editor-session.ts:generic-api-key:79
+
+# tests/ai/context/test_retrieval.py:48 (aws-access-token)
+0036ebb9da9c62a4d27ed5d24eea788e7e4b6837:tests/ai/context/test_retrieval.py:aws-access-token:48
+
+# tests/ai/observability/test_redaction.py:48 (aws-access-token)
+0036ebb9da9c62a4d27ed5d24eea788e7e4b6837:tests/ai/observability/test_redaction.py:aws-access-token:48
+
+# tests/ai/observability/test_redaction.py:51 (aws-access-token)
+0036ebb9da9c62a4d27ed5d24eea788e7e4b6837:tests/ai/observability/test_redaction.py:aws-access-token:51
+
+# tests/ai/security/test_ai_security.py:163 (aws-access-token)
+0036ebb9da9c62a4d27ed5d24eea788e7e4b6837:tests/ai/security/test_ai_security.py:aws-access-token:163
