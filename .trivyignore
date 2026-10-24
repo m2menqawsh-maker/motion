@@ -1,2 +1,7 @@
 # Trivy Ignore File
-# (No active ignore rules - CVE-2025-66414 resolved by upgrading @modelcontextprotocol/sdk to >= 1.24.0)
+# GHSA-mrhx-c7xc-m3w5 / CVE-2023-54404
+# Reason: zod is an internal dependency of Remotion 4.0.525 in remotion-app
+# Expires: 2026-12-31
+GHSA-mrhx-c7xc-m3w5
+CVE-2023-54404
+

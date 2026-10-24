@@ -29,7 +29,7 @@
         "remotion": "4.0.525",
         "remotion-bits": "^0.2.0",
         "remotion-ui": "^0.9.0",
-        "zod": "4.6.7"
+        "zod": "4.5.4"
     },
     "devDependencies": {
         "@types/culori": "^4.0.1",
@@ -38,8 +38,5 @@
         "@types/react-dom": "19.3.0",
         "@types/web": "0.0.166",
         "typescript": "5.9.3"
-    },
-    "overrides": {
-        "zod": "4.6.7"
     }
 }

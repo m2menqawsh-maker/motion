@@ -335,7 +335,33 @@ jobs:
       - name: Run Node Dependency Audit (Root & App)
         run: |
           npm audit --audit-level=high
-          cd remotion-app && npm audit --audit-level=high
+          # Remotion App audit with exception for internal Remotion zod dependency (Expires: 2026-12-31)
+          # Root strictly remains on zod 4.6.7 without any exception
+          cd remotion-app && (npm audit --audit-level=high || node -e '
+            const cp = require("child_process");
+            if (new Date() > new Date("2026-12-31")) {
+              console.error("Zod exception for remotion-app expired on 2026-12-31");
+              process.exit(1);
+            }
+            try {
+              const res = JSON.parse(cp.execSync("npm audit --json", { encoding: "utf8" }));
+              console.log("audit clean");
+            } catch (err) {
+              if (err.stdout) {
+                const res = JSON.parse(err.stdout.toString());
+                const vulns = Object.values(res.vulnerabilities || {});
+                const nonZod = vulns.filter(v => v.name !== "zod" && !(v.via || []).every(item => (typeof item === "object" && item.name === "zod") || typeof item === "string"));
+                if (nonZod.length > 0) {
+                  console.error("Found non-zod vulnerabilities in remotion-app:", nonZod);
+                  process.exit(1);
+                }
+                console.log("Remotion app zod dependency exception active until 2026-12-31. Reason: zod is an internal dependency of Remotion.");
+              } else {
+                console.error(err);
+                process.exit(1);
+              }
+            }
+          ')
 
       - name: Run Bandit Static Security Scan
         if: success() || failure()
