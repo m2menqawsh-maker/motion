@@ -6,7 +6,6 @@ import pytest
 import asyncio
 from pathlib import Path
 
-pytestmark = pytest.mark.serial
 from api.services.pipeline_service import PipelineService
 from api.core.errors import UnsupportedGateOperationError
 from scripts.core.lifecycle_service import LifecyclePreconditionFailedError

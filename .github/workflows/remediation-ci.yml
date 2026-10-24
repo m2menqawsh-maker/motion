@@ -146,16 +146,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-cov pytest-asyncio pytest-xdist==3.8.0
+          pip install pytest pytest-cov pytest-asyncio
 
       - name: Run Pytest with Coverage Threshold
         env:
           PYTHONPATH: .
           TESTING: '1'
         run: |
-          pytest -n auto -m "not serial" --cov=api --cov=scripts/core --cov-report=xml --cov-report=term --cov-fail-under=48 \
-            tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/fault_injection tests/security tests/api tests/integration/test_pr003_ai_runtime_vertical_slice.py tests/integration/test_pr004_state_consistency.py tests/integration/test_pr005_process_hard_death_recovery.py tests/integration/test_pr005_run_blueprint_provenance.py tests/e2e/test_pipeline_integration.py tests/integration/test_b1_context_knowledge_creative_proposal.py tests/integration/test_b2_capability_gateway_integration.py
-          pytest -m serial --cov=api --cov=scripts/core --cov-report=xml --cov-append \
+          pytest --cov=api --cov=scripts/core --cov-report=xml --cov-report=term --cov-fail-under=48 \
             tests/core tests/gates tests/generators tests/validators tests/architecture tests/contracts tests/fault_injection tests/security tests/api tests/integration/test_pr003_ai_runtime_vertical_slice.py tests/integration/test_pr004_state_consistency.py tests/integration/test_pr005_process_hard_death_recovery.py tests/integration/test_pr005_run_blueprint_provenance.py tests/e2e/test_pipeline_integration.py tests/integration/test_b1_context_knowledge_creative_proposal.py tests/integration/test_b2_capability_gateway_integration.py
 
       - name: Upload Python Coverage Artifact

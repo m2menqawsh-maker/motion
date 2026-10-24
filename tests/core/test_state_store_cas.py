@@ -318,7 +318,6 @@ class TestStateStoreConcurrencyAndCAS:
             assert res_b.revision == 2
             assert elapsed < 1.0, f"Project B update took too long ({elapsed}s), was blocked by Project A lock!"
 
-    @pytest.mark.serial
     def test_08_process_death_releases_lock(self, tmp_path):
         """
         Test 8:
@@ -376,7 +375,6 @@ class TestStateStoreConcurrencyAndCAS:
         assert not (pdir / f"{StateStore.STATE_FILE}.tmp").exists()
         assert len(list(pdir.glob(".pipeline_state.*.tmp"))) == 0
 
-    @pytest.mark.serial
     def test_10_lifecycle_service_real_path_concurrency(self, tmp_path):
         """
         Test 10:

@@ -455,7 +455,6 @@ def test_sanitized_failures_and_injection_defense(env_pr003):
     assert resp_empty.status_code == 400
 
 
-@pytest.mark.serial
 def test_absence_of_auto_approval_and_independent_run_enqueue(env_pr003):
     """
     G07, G09:

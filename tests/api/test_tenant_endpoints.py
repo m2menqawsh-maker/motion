@@ -23,9 +23,6 @@ from scripts.core.state_store import StateStore
 from tests.conftest import make_test_auth_headers
 
 
-pytestmark = pytest.mark.serial
-
-
 @pytest.fixture
 def saas_env(tmp_path):
     # Setup hermetic DB
