@@ -41,6 +41,21 @@ def test_sanitize_environment_preserves_qc_hmac_salt_for_final_qc():
     assert clean["QC_HMAC_SALT"] == "b" * 64
 
 
+def test_sanitize_environment_preserves_qc_hmac_salt_for_pipeline():
+    """Authorized pipeline orchestrator scripts/pipeline.py must receive QC_HMAC_SALT."""
+    base_env = {
+        "PATH": "/usr/bin",
+        "QC_HMAC_SALT": "c" * 64,
+    }
+    clean = CommandPolicy.sanitize_environment(
+        base_env=base_env,
+        target_script="scripts/pipeline.py",
+        is_production=True,
+    )
+    assert "QC_HMAC_SALT" in clean, "QC_HMAC_SALT must be preserved for scripts/pipeline.py"
+    assert clean["QC_HMAC_SALT"] == "c" * 64
+
+
 def test_sanitize_environment_strips_qc_hmac_salt_for_render_scripts():
     """Regular render scripts must have QC_HMAC_SALT stripped."""
     base_env = {
