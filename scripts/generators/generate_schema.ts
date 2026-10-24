@@ -3,8 +3,19 @@ import { BlueprintSchema, StyleSurfaceSchema } from "../../contracts/blueprint";
 import * as fs from "fs";
 import * as path from "path";
 
-// Generate JSON Schema using native Zod 4 z.toJSONSchema
-const jsonSchema = z.toJSONSchema(BlueprintSchema, { target: "draft-07", io: "input" }) as any;
+// Enforce additionalProperties: false for all closed z.object instances (not passthrough and not catchall)
+const enforceClosedObjects = ({ zodSchema, jsonSchema }: any) => {
+  if (zodSchema?.def?.type === "object" && !zodSchema?.def?.catchall) {
+    jsonSchema.additionalProperties = false;
+  }
+};
+
+// Generate JSON Schema using native Zod 4 z.toJSONSchema with io: "input" and closed object enforcement
+const jsonSchema = z.toJSONSchema(BlueprintSchema, {
+  target: "draft-07",
+  io: "input",
+  override: enforceClosedObjects,
+}) as any;
 
 // Canonical definitions required for external schema references (e.g. overrides.schema.json#/definitions/styleSurface)
 const hexColorDef = {
@@ -32,7 +43,11 @@ const fontKeyDef = {
   description: "مفتاح الخط من القائمة المعتمدة",
 };
 
-const styleSurfaceSchemaRaw = z.toJSONSchema(StyleSurfaceSchema, { target: "draft-07", io: "input" }) as any;
+const styleSurfaceSchemaRaw = z.toJSONSchema(StyleSurfaceSchema, {
+  target: "draft-07",
+  io: "input",
+  override: enforceClosedObjects,
+}) as any;
 delete styleSurfaceSchemaRaw["$schema"];
 
 const styleSurfaceDef = {
@@ -84,6 +99,7 @@ const finalSchema = {
     ...(jsonSchema.definitions || {}),
   },
   ...jsonSchema,
+  additionalProperties: false,
 } as any;
 
 // Clean up non-standard properties if present
