@@ -1,0 +1,55 @@
+# npm audit report
+
+zod  <4.6.6
+Severity: high
+Zod can exhaust memory while validating oversized constrained collections - https://github.com/advisories/GHSA-mrhx-c7xc-m3w5
+fix available via `npm audit fix --force`
+Will install ondajs@0.3.0, which is a breaking change
+node_modules/zod
+  @modelcontextprotocol/sdk  <=1.22.0
+  Depends on vulnerable versions of zod
+  node_modules/@modelcontextprotocol/sdk
+  @remotion/light-leaks  >=4.0.429
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/light-leaks
+  @remotion/media  >=4.0.429
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/media
+    @remotion/studio  >=4.0.278
+    Depends on vulnerable versions of @remotion/media
+    Depends on vulnerable versions of @remotion/studio-protocol
+    Depends on vulnerable versions of zod
+    node_modules/@remotion/studio
+      @remotion/bundler  4.0.278 - 4.0.538
+      Depends on vulnerable versions of @remotion/studio
+      node_modules/@remotion/bundler
+        @remotion/cli  4.0.278 - 4.0.538
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio
+        Depends on vulnerable versions of @remotion/studio-server
+        node_modules/@remotion/cli
+        @remotion/studio-server  >=4.0.278
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio-protocol
+        Depends on vulnerable versions of zod
+        node_modules/@remotion/studio-server
+  @remotion/studio-protocol  >=4.0.520
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/studio-protocol
+  ondajs  >=0.4.0
+  Depends on vulnerable versions of zod
+  node_modules/ondajs
+  remotion-ui  <=0.9.0
+  Depends on vulnerable versions of zod
+  node_modules/remotion-ui
+  zod-to-json-schema  <=3.24.6
+  Depends on vulnerable versions of zod
+  node_modules/zod-to-json-schema
+
+12 high severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
