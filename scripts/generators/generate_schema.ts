@@ -1,10 +1,10 @@
-import { zodToJsonSchema } from "zod-to-json-schema";
+import { z } from "zod";
 import { BlueprintSchema } from "../../contracts/blueprint";
 import * as fs from "fs";
 import * as path from "path";
 
-// Generate JSON Schema
-const jsonSchema = zodToJsonSchema(BlueprintSchema, "BlueprintSchema");
+// Generate JSON Schema using native Zod 4 z.toJSONSchema
+const jsonSchema = z.toJSONSchema(BlueprintSchema, { target: "draft-07", io: "input" });
 
 // Ensure it matches the expected Draft-07 format and adds titles/descriptions
 const finalSchema = {
@@ -12,20 +12,11 @@ const finalSchema = {
   $id: "blueprint.schema.json",
   title: "المخطط التنفيذي — Blueprint (مصدر الحقيقة الوحيد المولد آلياً من Zod)",
   description: "عقد المخطط التنفيذي: يصف المشاهد والأنماط والحركات والأصوات — المصدر الوحيد للحقيقة لبناء الفيديو",
-  ...jsonSchema.definitions?.BlueprintSchema,
-  definitions: {
-    // Inject inner dependencies from Zod output
-    ...(jsonSchema.definitions || {})
-  }
+  ...jsonSchema,
 } as any;
 
-// Cleanup definitions structure
-if (finalSchema.definitions && finalSchema.definitions.BlueprintSchema) {
-    delete finalSchema.definitions.BlueprintSchema;
-}
-if (finalSchema.definitions && Object.keys(finalSchema.definitions).length === 0) {
-    delete finalSchema.definitions;
-}
+// Clean up non-standard properties if present
+delete finalSchema["~standard"];
 
 const outputPath = path.resolve(process.cwd(), "schemas/blueprint.schema.json");
 fs.writeFileSync(outputPath, JSON.stringify(finalSchema, null, 2), "utf-8");
