@@ -1,0 +1,92 @@
+# npm audit report
+
+@vitest/mocker  5.0.0-beta.1 - 5.0.2
+Severity: moderate
+Vitest: Code injection via unauthenticated manual mock registration - https://github.com/advisories/GHSA-qxg6-89mg-rqv8
+Vitest: Windows backslash traversal bypasses the @vitest/mocker redirect allowlist fix - https://github.com/advisories/GHSA-xp26-3454-mjgp
+fix available via `npm audit fix`
+node_modules/@vitest/mocker
+  vitest  5.0.0-beta.1 - 5.0.2
+  Depends on vulnerable versions of @vitest/mocker
+  node_modules/vitest
+
+body-parser  2.0.0 - 2.3.0
+Severity: high
+body-parser vulnerable to Denial of Service via trailing bytes after a compressed request body - https://github.com/advisories/GHSA-27r3-jxmh-p828
+fix available via `npm audit fix`
+node_modules/body-parser
+
+fast-uri  3.0.0 - 3.1.8
+Severity: moderate
+fast-uri vulnerable to URI scheme spoofing via percent-encoded scheme decoding - https://github.com/advisories/GHSA-w74x-v6f9-j3xg
+fast-uri vulnerable to improper path equivalence in relative reference normalization - https://github.com/advisories/GHSA-xhq7-xmqj-769h
+fast-uri vulnerable to host confusion via unchecked WHATWG host canonicalization - https://github.com/advisories/GHSA-wjr9-j795-jxcr
+fast-uri vulnerable to scheme injection via an unescaped first-segment colon in suffix references - https://github.com/advisories/GHSA-333x-w4r6-6crp
+fix available via `npm audit fix`
+node_modules/fast-uri
+
+hono  4.12.4 - 4.13.10
+Severity: moderate
+Hono: `serveStatic` decodes the request path a second time, leading to bypass of middleware on static paths - https://github.com/advisories/GHSA-5r4p-p66f-jhc7
+fix available via `npm audit fix`
+node_modules/hono
+
+ip-address  <=10.7.3
+Severity: moderate
+ip-address: Address6 matches a zone identifier in quadratic time ahead of its length limit, allowing a single long string to stall the process - https://github.com/advisories/GHSA-rxp7-6hxx-x8q5
+fix available via `npm audit fix`
+node_modules/ip-address
+
+vite  8.3.0 - 8.3.2
+Severity: high
+launch-editor: escapeCmdArgs() omits % escaping on Windows - https://github.com/advisories/GHSA-698v-4r3x-3vcv
+launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors - https://github.com/advisories/GHSA-r825-w8mm-5pxw
+launch-editor: `fs.existsSync()` existence check can be bypassed on Windows - https://github.com/advisories/GHSA-587h-7wmj-h5pm
+Vite: Cross origin script execution through Vite custom middleware - https://github.com/advisories/GHSA-9jrq-w75r-8gcw
+Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine - https://github.com/advisories/GHSA-rq7h-c2jc-7f22
+Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` - https://github.com/advisories/GHSA-vfpm-58rq-9qcg
+fix available via `npm audit fix`
+node_modules/vite
+
+zod  <4.6.6
+Severity: high
+Zod can exhaust memory while validating oversized constrained collections - https://github.com/advisories/GHSA-mrhx-c7xc-m3w5
+fix available via `npm audit fix --force`
+Will install zod@4.6.7, which is a breaking change
+node_modules/@remotion/media/node_modules/zod
+node_modules/@remotion/studio-protocol/node_modules/zod
+node_modules/@remotion/studio-server/node_modules/zod
+node_modules/@remotion/studio/node_modules/zod
+node_modules/zod
+  @remotion/media  >=4.0.429
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/media
+    @remotion/studio  >=4.0.278
+    Depends on vulnerable versions of @remotion/media
+    Depends on vulnerable versions of @remotion/studio-protocol
+    Depends on vulnerable versions of zod
+    node_modules/@remotion/studio
+      @remotion/bundler  4.0.278 - 4.0.538
+      Depends on vulnerable versions of @remotion/studio
+      node_modules/@remotion/bundler
+        @remotion/cli  4.0.278 - 4.0.538
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio
+        Depends on vulnerable versions of @remotion/studio-server
+        node_modules/@remotion/cli
+        @remotion/studio-server  >=4.0.278
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio-protocol
+        Depends on vulnerable versions of zod
+        node_modules/@remotion/studio-server
+  @remotion/studio-protocol  >=4.0.520
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/studio-protocol
+
+14 vulnerabilities (5 moderate, 9 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
