@@ -286,5 +286,75 @@ class TestRenderPathRejectsExternalURLs:
                 verify_files_on_disk=False,
                 write_to_disk=False,
             )
-        assert "External URL" in str(exc_info2.value)
+        assert "External URL" in str(exc_info2.value) or "Non-local asset path" in str(exc_info2.value)
         assert "brand fonts" in str(exc_info2.value)
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+        with pytest.raises(RenderInputValidationError) as exc:
+            build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
+        assert "Non-local asset path" in str(exc.value) or "External URL" in str(exc.value)
+
+        # Test fonts rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": None,
+            "fonts": {"primary": invalid_path},
+        }), encoding="utf-8")
+        with pytest.raises(RenderInputValidationError) as exc:
+            build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
+        assert "Non-local asset path" in str(exc.value) or "External URL" in str(exc.value)
+
+    def test_brand_json_accepts_valid_local_relative_path(self, tmp_path: Path):
+        """Verifies that valid local relative path in brand.json is accepted."""
+        project_dir = tmp_path / "prj_brand_valid_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_valid_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_valid_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": "assets/logo.png",
+            "fonts": {"primary": "fonts/custom.woff2"},
+        }), encoding="utf-8")
+
+        envelope = build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
+        assert envelope["projectData"]["brand"]["logoSrc"] == "assets/logo.png"
+        assert envelope["projectData"]["brand"]["fonts"]["primary"] == "fonts/custom.woff2"

@@ -1,0 +1,292 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 14 items / 5 deselected / 9 selected
+
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[http:/169.254.169.254/] FAILED [ 11%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[\\\\169.254.169.254\\x] FAILED [ 22%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[file:///etc/passwd] FAILED [ 33%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=] FAILED [ 44%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[blob:http://evil/x] FAILED [ 55%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[HTTP://evil.com/asset.png] PASSED [ 66%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[   http://evil.com/asset.png] PASSED [ 77%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[javascript:alert(1)] FAILED [ 88%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_accepts_valid_local_relative_path PASSED [100%]
+
+=================================== FAILURES ===================================
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[http:/169.254.169.254/] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa644bc0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo0')
+invalid_path = 'http:/169.254.169.254/'
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[\\\\169.254.169.254\\x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa644fe0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo1')
+invalid_path = '\\\\169.254.169.254\\x'
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[file:///etc/passwd] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa645070>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo2')
+invalid_path = 'file:///etc/passwd'
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa5effb0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo3')
+invalid_path = 'data:image/svg+xml;base64,PHN2Zz48L3N2Zz4='
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[blob:http://evil/x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa5efce0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo4')
+invalid_path = 'blob:http://evil/x'
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_non_local_path_schemes_and_unc[javascript:alert(1)] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7fddfa5ef7d0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-2/test_brand_json_rejects_non_lo7')
+invalid_path = 'javascript:alert(1)'
+
+    @pytest.mark.parametrize("invalid_path", [
+        "http:/169.254.169.254/",
+        r"\\169.254.169.254\x",
+        "file:///etc/passwd",
+        "data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=",
+        "blob:http://evil/x",
+        "HTTP://evil.com/asset.png",
+        "   http://evil.com/asset.png",
+        "javascript:alert(1)",
+    ])
+    def test_brand_json_rejects_non_local_path_schemes_and_unc(self, tmp_path: Path, invalid_path: str):
+        """
+        Blocker 2 Test:
+        Verifies that brand.json rejects all non-local relative path schemes, UNC paths, and WHATWG bypasses
+        for both logoSrc and fonts.
+        """
+        project_dir = tmp_path / "prj_brand_whitelist_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_whitelist_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_whitelist_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": invalid_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:325: Failed
+=========================== short test summary info ============================
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[http:/169.254.169.254/]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[\\\\169.254.169.254\\x]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[file:///etc/passwd]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[blob:http://evil/x]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_non_local_path_schemes_and_unc[javascript:alert(1)]
+================== 6 failed, 3 passed, 5 deselected in 0.81s ===================
