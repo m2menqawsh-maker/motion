@@ -15,7 +15,7 @@ dependencies = [
     "librosa==1.0.0",
     "mysql-connector-python==26.7.0",
     "openai==3.19.2",
-    "pillow==12.3.0",
+    "pillow==13.0.0",
     "playwright==1.63.0",
     "pydantic==2.13.5",
     "python-dotenv==1.2.3",
