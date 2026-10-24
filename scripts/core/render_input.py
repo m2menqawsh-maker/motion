@@ -96,6 +96,56 @@ class RenderInputProjectMismatchError(RenderInputError):
 
 # ─── Helper Functions ─────────────────────────────────────────────────────────
 
+def _validate_brand_local_relative_path(val: Any, field_desc: str, project_id: Optional[str] = None) -> None:
+    """
+    Validates that a path provided in brand.json (logoSrc or fonts) is strictly a local relative path.
+    Rejects:
+    - Absolute paths starting with '/' or '\'
+    - Windows UNC paths (starting with '\\')
+    - Directory traversal sequences ('..')
+    - Any URI scheme (presence of ':' before the first '/' or '\', or any colon if no separator exists)
+    """
+    if val is None:
+        return
+    if not isinstance(val, str):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Expected string path for {field_desc}, got {type(val).__name__}",
+            project_id=project_id,
+        )
+    cleaned = val.strip()
+    if not cleaned:
+        return
+
+    # Check for leading slashes / backslashes / UNC paths
+    if cleaned.startswith("/") or cleaned.startswith("\\"):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Non-local asset path or External URL '{val}' in {field_desc} rejected. Remotion requires local relative paths only.",
+            project_id=project_id,
+        )
+
+    # Check for directory traversal
+    if ".." in cleaned:
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Directory traversal in path '{val}' in {field_desc} rejected.",
+            project_id=project_id,
+        )
+
+    # Check for URI schemes or drives: any ':' before first '/' or '\', or colon when no slash exists
+    seps = [i for i in [cleaned.find("/"), cleaned.find("\\")] if i != -1]
+    first_sep = min(seps) if seps else -1
+    colon_idx = cleaned.find(":")
+    if colon_idx != -1:
+        if first_sep == -1 or colon_idx < first_sep:
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Non-local asset path or External URL scheme in '{val}' for {field_desc} rejected. Remotion requires local materialized assets only.",
+                project_id=project_id,
+            )
+
+
 def resolve_project_dir(
     project_dir_or_id: Union[Path, str],
     workspace_root: Optional[Union[Path, str]] = None,
@@ -280,28 +330,16 @@ def build_render_input(
             for k, v in DEFAULT_BRAND_KIT["fonts"].items():
                 fonts.setdefault(k, v)
 
-        # SEC-009 / Part 2 Item 2 & Round 2 Fix 5: External URLs in brand.json must be rejected
+        # SEC-009 / Part 2 Item 2 & Round 3 Blocker 2: Whitelist brand.json local relative paths
         logo_src = brand_data.get("logoSrc")
-        if isinstance(logo_src, str):
-            clean_logo = logo_src.strip().lower()
-            if clean_logo.startswith("http://") or clean_logo.startswith("https://") or clean_logo.startswith("//"):
-                raise RenderInputValidationError(
-                    "brand.json",
-                    f"External URL '{logo_src}' in brand logoSrc reached render path without local acquisition. Remotion requires local materialized assets only.",
-                    project_id=project_id,
-                )
+        if logo_src is not None:
+            _validate_brand_local_relative_path(logo_src, "brand logoSrc", project_id=project_id)
 
         fonts = brand_data.get("fonts")
         if isinstance(fonts, dict):
             for font_key, font_val in fonts.items():
-                if isinstance(font_val, str):
-                    clean_font = font_val.strip().lower()
-                    if clean_font.startswith("http://") or clean_font.startswith("https://") or clean_font.startswith("//"):
-                        raise RenderInputValidationError(
-                            "brand.json",
-                            f"External URL '{font_val}' in brand fonts ('{font_key}') reached render path without local acquisition. Remotion requires local materialized assets only.",
-                            project_id=project_id,
-                        )
+                if font_val is not None:
+                    _validate_brand_local_relative_path(font_val, f"brand fonts ('{font_key}')", project_id=project_id)
     else:
         brand_data = {
             "brandName": DEFAULT_BRAND_KIT["brandName"],
