@@ -1,0 +1,2855 @@
+--- /tmp/blueprint.schema.before.json	2026-10-24 18:16:20.839987973 +0200
++++ schemas/blueprint.schema.json	2026-10-24 18:24:47.867868182 +0200
+@@ -46,11 +46,13 @@
+           },
+           "startFrame": {
+             "type": "integer",
+-            "minimum": 0
++            "minimum": 0,
++            "maximum": 9007199254740991
+           },
+           "durationFrames": {
+             "type": "integer",
+-            "minimum": 1
++            "minimum": 1,
++            "maximum": 9007199254740991
+           },
+           "content": {
+             "type": "object",
+@@ -82,8 +84,7 @@
+                     "word",
+                     "startMs",
+                     "endMs"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 }
+               },
+               "images": {
+@@ -95,7 +96,7 @@
+                       "minLength": 1
+                     },
+                     {
+-                      "anyOf": [
++                      "oneOf": [
+                         {
+                           "type": "object",
+                           "properties": {
+@@ -112,8 +113,7 @@
+                           "required": [
+                             "kind",
+                             "asset_id"
+-                          ],
+-                          "additionalProperties": false
++                          ]
+                         },
+                         {
+                           "type": "object",
+@@ -130,8 +130,7 @@
+                           "required": [
+                             "kind",
+                             "url"
+-                          ],
+-                          "additionalProperties": false
++                          ]
+                         }
+                       ]
+                     }
+@@ -139,7 +138,51 @@
+                 }
+               },
+               "screen": {
+-                "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                "anyOf": [
++                  {
++                    "type": "string",
++                    "minLength": 1
++                  },
++                  {
++                    "oneOf": [
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "asset"
++                          },
++                          "asset_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "asset_id"
++                        ]
++                      },
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "url"
++                          },
++                          "url": {
++                            "type": "string",
++                            "format": "uri"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "url"
++                        ]
++                      }
++                    ]
++                  }
++                ]
+               },
+               "numbers": {
+                 "type": "array",
+@@ -160,8 +203,7 @@
+                 "required": [
+                   "from",
+                   "to"
+-                ],
+-                "additionalProperties": false
++                ]
+               },
+               "path": {
+                 "type": "string"
+@@ -169,11 +211,99 @@
+               "icons": {
+                 "type": "array",
+                 "items": {
+-                  "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                  "anyOf": [
++                    {
++                      "type": "string",
++                      "minLength": 1
++                    },
++                    {
++                      "oneOf": [
++                        {
++                          "type": "object",
++                          "properties": {
++                            "kind": {
++                              "type": "string",
++                              "const": "asset"
++                            },
++                            "asset_id": {
++                              "type": "string",
++                              "minLength": 1,
++                              "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                            }
++                          },
++                          "required": [
++                            "kind",
++                            "asset_id"
++                          ]
++                        },
++                        {
++                          "type": "object",
++                          "properties": {
++                            "kind": {
++                              "type": "string",
++                              "const": "url"
++                            },
++                            "url": {
++                              "type": "string",
++                              "format": "uri"
++                            }
++                          },
++                          "required": [
++                            "kind",
++                            "url"
++                          ]
++                        }
++                      ]
++                    }
++                  ]
+                 }
+               },
+               "audioRef": {
+-                "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                "anyOf": [
++                  {
++                    "type": "string",
++                    "minLength": 1
++                  },
++                  {
++                    "oneOf": [
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "asset"
++                          },
++                          "asset_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "asset_id"
++                        ]
++                      },
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "url"
++                          },
++                          "url": {
++                            "type": "string",
++                            "format": "uri"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "url"
++                        ]
++                      }
++                    ]
++                  }
++                ]
+               },
+               "spectrum": {
+                 "type": "array",
+@@ -184,19 +314,27 @@
+                   }
+                 }
+               }
+-            },
+-            "additionalProperties": false
++            }
+           },
+           "template_props": {
+             "type": "object",
++            "propertyNames": {
++              "type": "string"
++            },
+             "additionalProperties": {}
+           },
+           "props": {
+             "type": "object",
++            "propertyNames": {
++              "type": "string"
++            },
+             "additionalProperties": {}
+           },
+           "surface": {
+             "type": "object",
++            "propertyNames": {
++              "type": "string"
++            },
+             "additionalProperties": {}
+           },
+           "layout": {
+@@ -212,13 +350,12 @@
+                 "minimum": 0,
+                 "maximum": 100
+               }
+-            },
+-            "additionalProperties": false
++            }
+           },
+           "layers": {
+             "type": "array",
+             "items": {
+-              "anyOf": [
++              "oneOf": [
+                 {
+                   "type": "object",
+                   "properties": {
+@@ -232,126 +369,129 @@
+                       "properties": {
+                         "startFrame": {
+                           "type": "integer",
+-                          "minimum": 0
++                          "minimum": 0,
++                          "maximum": 9007199254740991
+                         },
+                         "durationFrames": {
+                           "type": "integer",
+-                          "minimum": 1
++                          "minimum": 1,
++                          "maximum": 9007199254740991
+                         },
+                         "endFrame": {
+                           "type": "integer",
+-                          "minimum": 1
++                          "minimum": 1,
++                          "maximum": 9007199254740991
+                         }
+                       },
+                       "required": [
+                         "startFrame",
+                         "durationFrames",
+                         "endFrame"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     },
+                     "transform": {
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
+                       "type": "object",
+                       "properties": {
+                         "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
+                           "type": "object",
+                           "properties": {
+                             "x": {
+-                              "type": "number",
+-                              "default": 0
++                              "default": 0,
++                              "type": "number"
+                             },
+                             "y": {
+-                              "type": "number",
+-                              "default": 0
++                              "default": 0,
++                              "type": "number"
+                             }
+-                          },
+-                          "additionalProperties": false,
+-                          "default": {
+-                            "x": 0,
+-                            "y": 0
+                           }
+                         },
+                         "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
+                           "type": "object",
+                           "properties": {
+                             "x": {
+-                              "type": "number",
+-                              "default": 1
++                              "default": 1,
++                              "type": "number"
+                             },
+                             "y": {
+-                              "type": "number",
+-                              "default": 1
++                              "default": 1,
++                              "type": "number"
+                             }
+-                          },
+-                          "additionalProperties": false,
+-                          "default": {
+-                            "x": 1,
+-                            "y": 1
+                           }
+                         },
+                         "rotation": {
+-                          "type": "number",
+-                          "default": 0
++                          "default": 0,
++                          "type": "number"
+                         },
+                         "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
+                           "type": "object",
+                           "properties": {
+                             "x": {
+-                              "type": "number",
+-                              "default": 0.5
++                              "default": 0.5,
++                              "type": "number"
+                             },
+                             "y": {
+-                              "type": "number",
+-                              "default": 0.5
++                              "default": 0.5,
++                              "type": "number"
+                             }
+-                          },
+-                          "additionalProperties": false,
+-                          "default": {
+-                            "x": 0.5,
+-                            "y": 0.5
+                           }
+                         },
+                         "opacity": {
++                          "default": 1,
+                           "type": "number",
+                           "minimum": 0,
+-                          "maximum": 1,
+-                          "default": 1
++                          "maximum": 1
+                         }
+-                      },
+-                      "additionalProperties": false,
+-                      "default": {
+-                        "position": {
+-                          "x": 0,
+-                          "y": 0
+-                        },
+-                        "scale": {
+-                          "x": 1,
+-                          "y": 1
+-                        },
+-                        "rotation": 0,
+-                        "anchor": {
+-                          "x": 0.5,
+-                          "y": 0.5
+-                        },
+-                        "opacity": 1
+                       }
+                     },
+                     "opacity": {
++                      "default": 1,
+                       "type": "number",
+                       "minimum": 0,
+-                      "maximum": 1,
+-                      "default": 1
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
++                      "default": [],
+                       "type": "array",
+                       "items": {
+                         "type": "object",
+                         "properties": {
+                           "channel_id": {
+-                            "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
+                           },
+                           "target": {
+                             "type": "string",
+@@ -372,7 +512,9 @@
+                               "type": "object",
+                               "properties": {
+                                 "keyframe_id": {
+-                                  "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
+                                 },
+                                 "frame": {
+                                   "type": "number",
+@@ -382,6 +524,7 @@
+                                   "type": "number"
+                                 },
+                                 "interpolation": {
++                                  "default": "LINEAR",
+                                   "type": "string",
+                                   "enum": [
+                                     "STEP",
+@@ -389,8 +532,7 @@
+                                     "EASE",
+                                     "SPRING",
+                                     "CUBIC_BEZIER"
+-                                  ],
+-                                  "default": "LINEAR"
++                                  ]
+                                 },
+                                 "easing": {
+                                   "type": "string",
+@@ -403,8 +545,6 @@
+                                 },
+                                 "bezier": {
+                                   "type": "array",
+-                                  "minItems": 4,
+-                                  "maxItems": 4,
+                                   "items": [
+                                     {
+                                       "type": "number"
+@@ -418,40 +558,41 @@
+                                     {
+                                       "type": "number"
+                                     }
+-                                  ]
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
+                                 },
+                                 "spring": {
+                                   "type": "object",
+                                   "properties": {
+                                     "damping": {
++                                      "default": 10,
+                                       "type": "number",
+-                                      "exclusiveMinimum": 0,
+-                                      "default": 10
++                                      "exclusiveMinimum": 0
+                                     },
+                                     "stiffness": {
++                                      "default": 100,
+                                       "type": "number",
+-                                      "exclusiveMinimum": 0,
+-                                      "default": 100
++                                      "exclusiveMinimum": 0
+                                     },
+                                     "mass": {
++                                      "default": 1,
+                                       "type": "number",
+-                                      "exclusiveMinimum": 0,
+-                                      "default": 1
++                                      "exclusiveMinimum": 0
+                                     },
+                                     "overshootClamping": {
+-                                      "type": "boolean",
+-                                      "default": false
++                                      "default": false,
++                                      "type": "boolean"
+                                     }
+-                                  },
+-                                  "additionalProperties": false
++                                  }
+                                 }
+                               },
+                               "required": [
+                                 "keyframe_id",
+                                 "frame",
+                                 "value"
+-                              ],
+-                              "additionalProperties": false
++                              ]
+                             }
+                           }
+                         },
+@@ -459,18 +600,18 @@
+                           "channel_id",
+                           "target",
+                           "keyframes"
+-                        ],
+-                        "additionalProperties": false
+-                      },
+-                      "default": []
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "type": "boolean",
+-                      "default": true
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
++                      "default": 0,
+                       "type": "integer",
+-                      "default": 0
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+@@ -533,8 +674,7 @@
+                       "required": [
+                         "fontFamily",
+                         "fontSize"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     }
+                   },
+                   "required": [
+@@ -543,52 +683,325 @@
+                     "kind",
+                     "text",
+                     "typography"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 },
+                 {
+                   "type": "object",
+                   "properties": {
+                     "layer_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "time_range": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/time_range"
++                      "type": "object",
++                      "properties": {
++                        "startFrame": {
++                          "type": "integer",
++                          "minimum": 0,
++                          "maximum": 9007199254740991
++                        },
++                        "durationFrames": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        },
++                        "endFrame": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        }
++                      },
++                      "required": [
++                        "startFrame",
++                        "durationFrames",
++                        "endFrame"
++                      ]
+                     },
+                     "transform": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/transform"
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
++                      "type": "object",
++                      "properties": {
++                        "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 1,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 1,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "rotation": {
++                          "default": 0,
++                          "type": "number"
++                        },
++                        "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0.5,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0.5,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "opacity": {
++                          "default": 1,
++                          "type": "number",
++                          "minimum": 0,
++                          "maximum": 1
++                        }
++                      }
+                     },
+                     "opacity": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/opacity"
++                      "default": 1,
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/parent_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/channels"
++                      "default": [],
++                      "type": "array",
++                      "items": {
++                        "type": "object",
++                        "properties": {
++                          "channel_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
++                          },
++                          "target": {
++                            "type": "string",
++                            "enum": [
++                              "TRANSFORM_X",
++                              "TRANSFORM_Y",
++                              "SCALE_X",
++                              "SCALE_Y",
++                              "SCALE",
++                              "ROTATION",
++                              "OPACITY",
++                              "VOLUME"
++                            ]
++                          },
++                          "keyframes": {
++                            "type": "array",
++                            "items": {
++                              "type": "object",
++                              "properties": {
++                                "keyframe_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
++                                },
++                                "frame": {
++                                  "type": "number",
++                                  "minimum": 0
++                                },
++                                "value": {
++                                  "type": "number"
++                                },
++                                "interpolation": {
++                                  "default": "LINEAR",
++                                  "type": "string",
++                                  "enum": [
++                                    "STEP",
++                                    "LINEAR",
++                                    "EASE",
++                                    "SPRING",
++                                    "CUBIC_BEZIER"
++                                  ]
++                                },
++                                "easing": {
++                                  "type": "string",
++                                  "enum": [
++                                    "linear",
++                                    "ease-in",
++                                    "ease-out",
++                                    "ease-in-out"
++                                  ]
++                                },
++                                "bezier": {
++                                  "type": "array",
++                                  "items": [
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    }
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
++                                },
++                                "spring": {
++                                  "type": "object",
++                                  "properties": {
++                                    "damping": {
++                                      "default": 10,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "stiffness": {
++                                      "default": 100,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "mass": {
++                                      "default": 1,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "overshootClamping": {
++                                      "default": false,
++                                      "type": "boolean"
++                                    }
++                                  }
++                                }
++                              },
++                              "required": [
++                                "keyframe_id",
++                                "frame",
++                                "value"
++                              ]
++                            }
++                          }
++                        },
++                        "required": [
++                          "channel_id",
++                          "target",
++                          "keyframes"
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/visible"
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/z_index"
++                      "default": 0,
++                      "type": "integer",
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+                       "const": "image"
+                     },
+                     "asset_ref": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                      "anyOf": [
++                        {
++                          "type": "string",
++                          "minLength": 1
++                        },
++                        {
++                          "oneOf": [
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "asset"
++                                },
++                                "asset_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "asset_id"
++                              ]
++                            },
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "url"
++                                },
++                                "url": {
++                                  "type": "string",
++                                  "format": "uri"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "url"
++                              ]
++                            }
++                          ]
++                        }
++                      ]
+                     },
+                     "fit": {
++                      "default": "contain",
+                       "type": "string",
+                       "enum": [
+                         "contain",
+                         "cover",
+                         "fill",
+                         "none"
+-                      ],
+-                      "default": "contain"
++                      ]
+                     },
+                     "crop": {
+                       "type": "object",
+@@ -615,8 +1028,7 @@
+                         "y",
+                         "width",
+                         "height"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     }
+                   },
+                   "required": [
+@@ -624,85 +1036,359 @@
+                     "time_range",
+                     "kind",
+                     "asset_ref"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 },
+                 {
+                   "type": "object",
+                   "properties": {
+                     "layer_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "time_range": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/time_range"
++                      "type": "object",
++                      "properties": {
++                        "startFrame": {
++                          "type": "integer",
++                          "minimum": 0,
++                          "maximum": 9007199254740991
++                        },
++                        "durationFrames": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        },
++                        "endFrame": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        }
++                      },
++                      "required": [
++                        "startFrame",
++                        "durationFrames",
++                        "endFrame"
++                      ]
+                     },
+                     "transform": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/transform"
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
++                      "type": "object",
++                      "properties": {
++                        "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 1,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 1,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "rotation": {
++                          "default": 0,
++                          "type": "number"
++                        },
++                        "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0.5,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0.5,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "opacity": {
++                          "default": 1,
++                          "type": "number",
++                          "minimum": 0,
++                          "maximum": 1
++                        }
++                      }
+                     },
+                     "opacity": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/opacity"
++                      "default": 1,
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/parent_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/channels"
++                      "default": [],
++                      "type": "array",
++                      "items": {
++                        "type": "object",
++                        "properties": {
++                          "channel_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
++                          },
++                          "target": {
++                            "type": "string",
++                            "enum": [
++                              "TRANSFORM_X",
++                              "TRANSFORM_Y",
++                              "SCALE_X",
++                              "SCALE_Y",
++                              "SCALE",
++                              "ROTATION",
++                              "OPACITY",
++                              "VOLUME"
++                            ]
++                          },
++                          "keyframes": {
++                            "type": "array",
++                            "items": {
++                              "type": "object",
++                              "properties": {
++                                "keyframe_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
++                                },
++                                "frame": {
++                                  "type": "number",
++                                  "minimum": 0
++                                },
++                                "value": {
++                                  "type": "number"
++                                },
++                                "interpolation": {
++                                  "default": "LINEAR",
++                                  "type": "string",
++                                  "enum": [
++                                    "STEP",
++                                    "LINEAR",
++                                    "EASE",
++                                    "SPRING",
++                                    "CUBIC_BEZIER"
++                                  ]
++                                },
++                                "easing": {
++                                  "type": "string",
++                                  "enum": [
++                                    "linear",
++                                    "ease-in",
++                                    "ease-out",
++                                    "ease-in-out"
++                                  ]
++                                },
++                                "bezier": {
++                                  "type": "array",
++                                  "items": [
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    }
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
++                                },
++                                "spring": {
++                                  "type": "object",
++                                  "properties": {
++                                    "damping": {
++                                      "default": 10,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "stiffness": {
++                                      "default": 100,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "mass": {
++                                      "default": 1,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "overshootClamping": {
++                                      "default": false,
++                                      "type": "boolean"
++                                    }
++                                  }
++                                }
++                              },
++                              "required": [
++                                "keyframe_id",
++                                "frame",
++                                "value"
++                              ]
++                            }
++                          }
++                        },
++                        "required": [
++                          "channel_id",
++                          "target",
++                          "keyframes"
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/visible"
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/z_index"
++                      "default": 0,
++                      "type": "integer",
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+                       "const": "video"
+                     },
+                     "asset_ref": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                      "anyOf": [
++                        {
++                          "type": "string",
++                          "minLength": 1
++                        },
++                        {
++                          "oneOf": [
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "asset"
++                                },
++                                "asset_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "asset_id"
++                              ]
++                            },
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "url"
++                                },
++                                "url": {
++                                  "type": "string",
++                                  "format": "uri"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "url"
++                              ]
++                            }
++                          ]
++                        }
++                      ]
+                     },
+                     "fit": {
++                      "default": "contain",
+                       "type": "string",
+                       "enum": [
+                         "contain",
+                         "cover",
+                         "fill",
+                         "none"
+-                      ],
+-                      "default": "contain"
++                      ]
+                     },
+                     "playback_rate": {
++                      "default": 1,
+                       "type": "number",
+-                      "exclusiveMinimum": 0,
+-                      "default": 1
++                      "exclusiveMinimum": 0
+                     },
+                     "volume": {
++                      "default": 1,
+                       "type": "number",
+                       "minimum": 0,
+-                      "maximum": 1,
+-                      "default": 1
++                      "maximum": 1
+                     },
+                     "muted": {
+-                      "type": "boolean",
+-                      "default": false
++                      "default": false,
++                      "type": "boolean"
+                     },
+                     "source_range": {
+                       "type": "object",
+                       "properties": {
+                         "startFrame": {
+                           "type": "integer",
+-                          "minimum": 0
++                          "minimum": 0,
++                          "maximum": 9007199254740991
+                         },
+                         "durationFrames": {
+                           "type": "integer",
+-                          "minimum": 1
++                          "minimum": 1,
++                          "maximum": 9007199254740991
+                         }
+                       },
+                       "required": [
+                         "startFrame",
+                         "durationFrames"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     }
+                   },
+                   "required": [
+@@ -710,70 +1396,344 @@
+                     "time_range",
+                     "kind",
+                     "asset_ref"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 },
+                 {
+                   "type": "object",
+                   "properties": {
+                     "layer_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "time_range": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/time_range"
++                      "type": "object",
++                      "properties": {
++                        "startFrame": {
++                          "type": "integer",
++                          "minimum": 0,
++                          "maximum": 9007199254740991
++                        },
++                        "durationFrames": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        },
++                        "endFrame": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        }
++                      },
++                      "required": [
++                        "startFrame",
++                        "durationFrames",
++                        "endFrame"
++                      ]
+                     },
+                     "transform": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/transform"
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
++                      "type": "object",
++                      "properties": {
++                        "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 1,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 1,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "rotation": {
++                          "default": 0,
++                          "type": "number"
++                        },
++                        "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0.5,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0.5,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "opacity": {
++                          "default": 1,
++                          "type": "number",
++                          "minimum": 0,
++                          "maximum": 1
++                        }
++                      }
+                     },
+                     "opacity": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/opacity"
++                      "default": 1,
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/parent_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/channels"
++                      "default": [],
++                      "type": "array",
++                      "items": {
++                        "type": "object",
++                        "properties": {
++                          "channel_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
++                          },
++                          "target": {
++                            "type": "string",
++                            "enum": [
++                              "TRANSFORM_X",
++                              "TRANSFORM_Y",
++                              "SCALE_X",
++                              "SCALE_Y",
++                              "SCALE",
++                              "ROTATION",
++                              "OPACITY",
++                              "VOLUME"
++                            ]
++                          },
++                          "keyframes": {
++                            "type": "array",
++                            "items": {
++                              "type": "object",
++                              "properties": {
++                                "keyframe_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
++                                },
++                                "frame": {
++                                  "type": "number",
++                                  "minimum": 0
++                                },
++                                "value": {
++                                  "type": "number"
++                                },
++                                "interpolation": {
++                                  "default": "LINEAR",
++                                  "type": "string",
++                                  "enum": [
++                                    "STEP",
++                                    "LINEAR",
++                                    "EASE",
++                                    "SPRING",
++                                    "CUBIC_BEZIER"
++                                  ]
++                                },
++                                "easing": {
++                                  "type": "string",
++                                  "enum": [
++                                    "linear",
++                                    "ease-in",
++                                    "ease-out",
++                                    "ease-in-out"
++                                  ]
++                                },
++                                "bezier": {
++                                  "type": "array",
++                                  "items": [
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    }
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
++                                },
++                                "spring": {
++                                  "type": "object",
++                                  "properties": {
++                                    "damping": {
++                                      "default": 10,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "stiffness": {
++                                      "default": 100,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "mass": {
++                                      "default": 1,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "overshootClamping": {
++                                      "default": false,
++                                      "type": "boolean"
++                                    }
++                                  }
++                                }
++                              },
++                              "required": [
++                                "keyframe_id",
++                                "frame",
++                                "value"
++                              ]
++                            }
++                          }
++                        },
++                        "required": [
++                          "channel_id",
++                          "target",
++                          "keyframes"
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/visible"
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/z_index"
++                      "default": 0,
++                      "type": "integer",
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+                       "const": "audio"
+                     },
+                     "asset_ref": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                      "anyOf": [
++                        {
++                          "type": "string",
++                          "minLength": 1
++                        },
++                        {
++                          "oneOf": [
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "asset"
++                                },
++                                "asset_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "asset_id"
++                              ]
++                            },
++                            {
++                              "type": "object",
++                              "properties": {
++                                "kind": {
++                                  "type": "string",
++                                  "const": "url"
++                                },
++                                "url": {
++                                  "type": "string",
++                                  "format": "uri"
++                                }
++                              },
++                              "required": [
++                                "kind",
++                                "url"
++                              ]
++                            }
++                          ]
++                        }
++                      ]
+                     },
+                     "volume": {
++                      "default": 1,
+                       "type": "number",
+                       "minimum": 0,
+-                      "maximum": 1,
+-                      "default": 1
++                      "maximum": 1
+                     },
+                     "muted": {
+-                      "type": "boolean",
+-                      "default": false
++                      "default": false,
++                      "type": "boolean"
+                     },
+                     "source_range": {
+                       "type": "object",
+                       "properties": {
+                         "startFrame": {
+                           "type": "integer",
+-                          "minimum": 0
++                          "minimum": 0,
++                          "maximum": 9007199254740991
+                         },
+                         "durationFrames": {
+                           "type": "integer",
+-                          "minimum": 1
++                          "minimum": 1,
++                          "maximum": 9007199254740991
+                         }
+                       },
+                       "required": [
+                         "startFrame",
+                         "durationFrames"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     }
+                   },
+                   "required": [
+@@ -781,35 +1741,264 @@
+                     "time_range",
+                     "kind",
+                     "asset_ref"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 },
+                 {
+                   "type": "object",
+                   "properties": {
+                     "layer_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "time_range": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/time_range"
++                      "type": "object",
++                      "properties": {
++                        "startFrame": {
++                          "type": "integer",
++                          "minimum": 0,
++                          "maximum": 9007199254740991
++                        },
++                        "durationFrames": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        },
++                        "endFrame": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        }
++                      },
++                      "required": [
++                        "startFrame",
++                        "durationFrames",
++                        "endFrame"
++                      ]
+                     },
+                     "transform": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/transform"
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
++                      "type": "object",
++                      "properties": {
++                        "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 1,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 1,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "rotation": {
++                          "default": 0,
++                          "type": "number"
++                        },
++                        "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0.5,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0.5,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "opacity": {
++                          "default": 1,
++                          "type": "number",
++                          "minimum": 0,
++                          "maximum": 1
++                        }
++                      }
+                     },
+                     "opacity": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/opacity"
++                      "default": 1,
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/parent_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/channels"
++                      "default": [],
++                      "type": "array",
++                      "items": {
++                        "type": "object",
++                        "properties": {
++                          "channel_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
++                          },
++                          "target": {
++                            "type": "string",
++                            "enum": [
++                              "TRANSFORM_X",
++                              "TRANSFORM_Y",
++                              "SCALE_X",
++                              "SCALE_Y",
++                              "SCALE",
++                              "ROTATION",
++                              "OPACITY",
++                              "VOLUME"
++                            ]
++                          },
++                          "keyframes": {
++                            "type": "array",
++                            "items": {
++                              "type": "object",
++                              "properties": {
++                                "keyframe_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
++                                },
++                                "frame": {
++                                  "type": "number",
++                                  "minimum": 0
++                                },
++                                "value": {
++                                  "type": "number"
++                                },
++                                "interpolation": {
++                                  "default": "LINEAR",
++                                  "type": "string",
++                                  "enum": [
++                                    "STEP",
++                                    "LINEAR",
++                                    "EASE",
++                                    "SPRING",
++                                    "CUBIC_BEZIER"
++                                  ]
++                                },
++                                "easing": {
++                                  "type": "string",
++                                  "enum": [
++                                    "linear",
++                                    "ease-in",
++                                    "ease-out",
++                                    "ease-in-out"
++                                  ]
++                                },
++                                "bezier": {
++                                  "type": "array",
++                                  "items": [
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    }
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
++                                },
++                                "spring": {
++                                  "type": "object",
++                                  "properties": {
++                                    "damping": {
++                                      "default": 10,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "stiffness": {
++                                      "default": 100,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "mass": {
++                                      "default": 1,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "overshootClamping": {
++                                      "default": false,
++                                      "type": "boolean"
++                                    }
++                                  }
++                                }
++                              },
++                              "required": [
++                                "keyframe_id",
++                                "frame",
++                                "value"
++                              ]
++                            }
++                          }
++                        },
++                        "required": [
++                          "channel_id",
++                          "target",
++                          "keyframes"
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/visible"
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/z_index"
++                      "default": 0,
++                      "type": "integer",
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+@@ -838,8 +2027,7 @@
+                       "required": [
+                         "width",
+                         "height"
+-                      ],
+-                      "additionalProperties": false
++                      ]
+                     },
+                     "fillColor": {
+                       "type": "string"
+@@ -865,54 +2053,284 @@
+                     "kind",
+                     "shape_type",
+                     "size"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 },
+                 {
+                   "type": "object",
+                   "properties": {
+                     "layer_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "time_range": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/time_range"
++                      "type": "object",
++                      "properties": {
++                        "startFrame": {
++                          "type": "integer",
++                          "minimum": 0,
++                          "maximum": 9007199254740991
++                        },
++                        "durationFrames": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        },
++                        "endFrame": {
++                          "type": "integer",
++                          "minimum": 1,
++                          "maximum": 9007199254740991
++                        }
++                      },
++                      "required": [
++                        "startFrame",
++                        "durationFrames",
++                        "endFrame"
++                      ]
+                     },
+                     "transform": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/transform"
++                      "default": {
++                        "position": {
++                          "x": 0,
++                          "y": 0
++                        },
++                        "scale": {
++                          "x": 1,
++                          "y": 1
++                        },
++                        "rotation": 0,
++                        "anchor": {
++                          "x": 0.5,
++                          "y": 0.5
++                        },
++                        "opacity": 1
++                      },
++                      "type": "object",
++                      "properties": {
++                        "position": {
++                          "default": {
++                            "x": 0,
++                            "y": 0
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "scale": {
++                          "default": {
++                            "x": 1,
++                            "y": 1
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 1,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 1,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "rotation": {
++                          "default": 0,
++                          "type": "number"
++                        },
++                        "anchor": {
++                          "default": {
++                            "x": 0.5,
++                            "y": 0.5
++                          },
++                          "type": "object",
++                          "properties": {
++                            "x": {
++                              "default": 0.5,
++                              "type": "number"
++                            },
++                            "y": {
++                              "default": 0.5,
++                              "type": "number"
++                            }
++                          }
++                        },
++                        "opacity": {
++                          "default": 1,
++                          "type": "number",
++                          "minimum": 0,
++                          "maximum": 1
++                        }
++                      }
+                     },
+                     "opacity": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/opacity"
++                      "default": 1,
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 1
+                     },
+                     "parent_id": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/parent_id"
++                      "type": "string",
++                      "minLength": 1,
++                      "pattern": "^[a-zA-Z0-9_\\-]+$"
+                     },
+                     "channels": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/channels"
++                      "default": [],
++                      "type": "array",
++                      "items": {
++                        "type": "object",
++                        "properties": {
++                          "channel_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-]+$"
++                          },
++                          "target": {
++                            "type": "string",
++                            "enum": [
++                              "TRANSFORM_X",
++                              "TRANSFORM_Y",
++                              "SCALE_X",
++                              "SCALE_Y",
++                              "SCALE",
++                              "ROTATION",
++                              "OPACITY",
++                              "VOLUME"
++                            ]
++                          },
++                          "keyframes": {
++                            "type": "array",
++                            "items": {
++                              "type": "object",
++                              "properties": {
++                                "keyframe_id": {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "pattern": "^[a-zA-Z0-9_\\-]+$"
++                                },
++                                "frame": {
++                                  "type": "number",
++                                  "minimum": 0
++                                },
++                                "value": {
++                                  "type": "number"
++                                },
++                                "interpolation": {
++                                  "default": "LINEAR",
++                                  "type": "string",
++                                  "enum": [
++                                    "STEP",
++                                    "LINEAR",
++                                    "EASE",
++                                    "SPRING",
++                                    "CUBIC_BEZIER"
++                                  ]
++                                },
++                                "easing": {
++                                  "type": "string",
++                                  "enum": [
++                                    "linear",
++                                    "ease-in",
++                                    "ease-out",
++                                    "ease-in-out"
++                                  ]
++                                },
++                                "bezier": {
++                                  "type": "array",
++                                  "items": [
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    },
++                                    {
++                                      "type": "number"
++                                    }
++                                  ],
++                                  "additionalItems": false,
++                                  "minItems": 4,
++                                  "maxItems": 4
++                                },
++                                "spring": {
++                                  "type": "object",
++                                  "properties": {
++                                    "damping": {
++                                      "default": 10,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "stiffness": {
++                                      "default": 100,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "mass": {
++                                      "default": 1,
++                                      "type": "number",
++                                      "exclusiveMinimum": 0
++                                    },
++                                    "overshootClamping": {
++                                      "default": false,
++                                      "type": "boolean"
++                                    }
++                                  }
++                                }
++                              },
++                              "required": [
++                                "keyframe_id",
++                                "frame",
++                                "value"
++                              ]
++                            }
++                          }
++                        },
++                        "required": [
++                          "channel_id",
++                          "target",
++                          "keyframes"
++                        ]
++                      }
+                     },
+                     "visible": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/visible"
++                      "default": true,
++                      "type": "boolean"
+                     },
+                     "z_index": {
+-                      "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/z_index"
++                      "default": 0,
++                      "type": "integer",
++                      "minimum": -9007199254740991,
++                      "maximum": 9007199254740991
+                     },
+                     "kind": {
+                       "type": "string",
+                       "const": "group"
+                     },
+                     "children_ids": {
++                      "default": [],
+                       "type": "array",
+                       "items": {
+-                        "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/layers/items/anyOf/0/properties/layer_id"
+-                      },
+-                      "default": []
++                        "type": "string",
++                        "minLength": 1,
++                        "pattern": "^[a-zA-Z0-9_\\-]+$"
++                      }
+                     }
+                   },
+                   "required": [
+                     "layer_id",
+                     "time_range",
+                     "kind"
+-                  ],
+-                  "additionalProperties": false
++                  ]
+                 }
+               ]
+             }
+@@ -920,13 +2338,101 @@
+           "media_refs": {
+             "type": "array",
+             "items": {
+-              "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++              "anyOf": [
++                {
++                  "type": "string",
++                  "minLength": 1
++                },
++                {
++                  "oneOf": [
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "asset"
++                        },
++                        "asset_id": {
++                          "type": "string",
++                          "minLength": 1,
++                          "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "asset_id"
++                      ]
++                    },
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "url"
++                        },
++                        "url": {
++                          "type": "string",
++                          "format": "uri"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "url"
++                      ]
++                    }
++                  ]
++                }
++              ]
+             }
+           },
+           "sfx_ref": {
+             "anyOf": [
+               {
+-                "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                "anyOf": [
++                  {
++                    "type": "string",
++                    "minLength": 1
++                  },
++                  {
++                    "oneOf": [
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "asset"
++                          },
++                          "asset_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "asset_id"
++                        ]
++                      },
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "url"
++                          },
++                          "url": {
++                            "type": "string",
++                            "format": "uri"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "url"
++                        ]
++                      }
++                    ]
++                  }
++                ]
+               },
+               {
+                 "type": "null"
+@@ -936,7 +2442,51 @@
+           "captions_ref": {
+             "anyOf": [
+               {
+-                "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                "anyOf": [
++                  {
++                    "type": "string",
++                    "minLength": 1
++                  },
++                  {
++                    "oneOf": [
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "asset"
++                          },
++                          "asset_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "asset_id"
++                        ]
++                      },
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "url"
++                          },
++                          "url": {
++                            "type": "string",
++                            "format": "uri"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "url"
++                        ]
++                      }
++                    ]
++                  }
++                ]
+               },
+               {
+                 "type": "null"
+@@ -947,6 +2497,7 @@
+             "type": "object",
+             "properties": {
+               "type": {
++                "default": "fade",
+                 "type": "string",
+                 "enum": [
+                   "fade",
+@@ -959,13 +2510,13 @@
+                   "dissolve",
+                   "iris",
+                   "none"
+-                ],
+-                "default": "fade"
++                ]
+               },
+               "durationFrames": {
++                "default": 15,
+                 "type": "integer",
+                 "minimum": 1,
+-                "default": 15
++                "maximum": 9007199254740991
+               },
+               "timing": {
+                 "type": "string",
+@@ -975,15 +2526,14 @@
+                 ]
+               },
+               "overlap_semantics": {
++                "default": "overlap",
+                 "type": "string",
+                 "enum": [
+                   "overlap",
+                   "insert"
+-                ],
+-                "default": "overlap"
++                ]
+               }
+-            },
+-            "additionalProperties": false
++            }
+           },
+           "effects": {
+             "type": "array",
+@@ -995,23 +2545,25 @@
+                   "minLength": 1
+                 },
+                 "apply": {
++                  "default": "scene",
+                   "type": "string",
+                   "enum": [
+                     "scene",
+                     "overlay"
+-                  ],
+-                  "default": "scene"
++                  ]
+                 },
+                 "params": {
++                  "default": {},
+                   "type": "object",
+-                  "additionalProperties": {},
+-                  "default": {}
++                  "propertyNames": {
++                    "type": "string"
++                  },
++                  "additionalProperties": {}
+                 }
+               },
+               "required": [
+                 "effect"
+-              ],
+-              "additionalProperties": false
++              ]
+             }
+           }
+         },
+@@ -1020,8 +2572,7 @@
+           "template",
+           "startFrame",
+           "durationFrames"
+-        ],
+-        "additionalProperties": false
++        ]
+       }
+     },
+     "audio": {
+@@ -1031,94 +2582,184 @@
+           "type": "object",
+           "properties": {
+             "asset_ref": {
+-              "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++              "anyOf": [
++                {
++                  "type": "string",
++                  "minLength": 1
++                },
++                {
++                  "oneOf": [
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "asset"
++                        },
++                        "asset_id": {
++                          "type": "string",
++                          "minLength": 1,
++                          "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "asset_id"
++                      ]
++                    },
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "url"
++                        },
++                        "url": {
++                          "type": "string",
++                          "format": "uri"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "url"
++                      ]
++                    }
++                  ]
++                }
++              ]
+             },
+             "volume": {
++              "default": 1,
+               "type": "number",
+               "minimum": 0,
+-              "maximum": 1,
+-              "default": 1
++              "maximum": 1
+             },
+             "startFrame": {
++              "default": 0,
+               "type": "integer",
+               "minimum": 0,
+-              "default": 0
++              "maximum": 9007199254740991
+             },
+             "durationFrames": {
+               "type": "integer",
+-              "minimum": 1
++              "minimum": 1,
++              "maximum": 9007199254740991
+             },
+             "mute": {
+-              "type": "boolean",
+-              "default": false
++              "default": false,
++              "type": "boolean"
+             }
+           },
+           "required": [
+             "asset_ref"
+-          ],
+-          "additionalProperties": false
++          ]
+         },
+         "music": {
+           "type": "object",
+           "properties": {
+             "asset_ref": {
+-              "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++              "anyOf": [
++                {
++                  "type": "string",
++                  "minLength": 1
++                },
++                {
++                  "oneOf": [
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "asset"
++                        },
++                        "asset_id": {
++                          "type": "string",
++                          "minLength": 1,
++                          "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "asset_id"
++                      ]
++                    },
++                    {
++                      "type": "object",
++                      "properties": {
++                        "kind": {
++                          "type": "string",
++                          "const": "url"
++                        },
++                        "url": {
++                          "type": "string",
++                          "format": "uri"
++                        }
++                      },
++                      "required": [
++                        "kind",
++                        "url"
++                      ]
++                    }
++                  ]
++                }
++              ]
+             },
+             "volume": {
++              "default": 0.15,
+               "type": "number",
+               "minimum": 0,
+-              "maximum": 1,
+-              "default": 0.15
++              "maximum": 1
+             },
+             "startFrame": {
++              "default": 0,
+               "type": "integer",
+               "minimum": 0,
+-              "default": 0
++              "maximum": 9007199254740991
+             },
+             "durationFrames": {
+               "type": "integer",
+-              "minimum": 1
++              "minimum": 1,
++              "maximum": 9007199254740991
+             },
+             "loop": {
+-              "type": "boolean",
+-              "default": true
++              "default": true,
++              "type": "boolean"
+             },
+             "mute": {
+-              "type": "boolean",
+-              "default": false
++              "default": false,
++              "type": "boolean"
+             },
+             "ducking": {
+               "type": "object",
+               "properties": {
+                 "enabled": {
+-                  "type": "boolean",
+-                  "default": true
++                  "default": true,
++                  "type": "boolean"
+                 },
+                 "ducking_volume": {
++                  "default": 0.05,
+                   "type": "number",
+                   "minimum": 0,
+-                  "maximum": 1,
+-                  "default": 0.05
++                  "maximum": 1
+                 },
+                 "duck_under": {
++                  "default": [
++                    "voiceover"
++                  ],
+                   "type": "array",
+                   "items": {
+                     "type": "string"
+-                  },
+-                  "default": [
+-                    "voiceover"
+-                  ]
++                  }
+                 }
+-              },
+-              "additionalProperties": false
++              }
+             }
+           },
+           "required": [
+             "asset_ref"
+-          ],
+-          "additionalProperties": false
++          ]
+         },
+         "global_sfx": {
++          "default": [],
+           "type": "array",
+           "items": {
+             "type": "object",
+@@ -1127,39 +2768,83 @@
+                 "type": "string"
+               },
+               "asset_ref": {
+-                "$ref": "#/definitions/BlueprintSchema/properties/scenes/items/properties/content/properties/images/items"
++                "anyOf": [
++                  {
++                    "type": "string",
++                    "minLength": 1
++                  },
++                  {
++                    "oneOf": [
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "asset"
++                          },
++                          "asset_id": {
++                            "type": "string",
++                            "minLength": 1,
++                            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "asset_id"
++                        ]
++                      },
++                      {
++                        "type": "object",
++                        "properties": {
++                          "kind": {
++                            "type": "string",
++                            "const": "url"
++                          },
++                          "url": {
++                            "type": "string",
++                            "format": "uri"
++                          }
++                        },
++                        "required": [
++                          "kind",
++                          "url"
++                        ]
++                      }
++                    ]
++                  }
++                ]
+               },
+               "startFrame": {
++                "default": 0,
+                 "type": "integer",
+                 "minimum": 0,
+-                "default": 0
++                "maximum": 9007199254740991
+               },
+               "durationFrames": {
+                 "type": "integer",
+-                "minimum": 1
++                "minimum": 1,
++                "maximum": 9007199254740991
+               },
+               "volume": {
++                "default": 1,
+                 "type": "number",
+                 "minimum": 0,
+-                "maximum": 1,
+-                "default": 1
++                "maximum": 1
+               },
+               "mute": {
+-                "type": "boolean",
+-                "default": false
++                "default": false,
++                "type": "boolean"
+               }
+             },
+             "required": [
+               "asset_ref"
+-            ],
+-            "additionalProperties": false
+-          },
+-          "default": []
++            ]
++          }
+         }
+-      },
+-      "additionalProperties": false
++      }
+     },
+     "meta": {
++      "default": {},
+       "type": "object",
+       "properties": {
+         "motion_personality": {
+@@ -1175,20 +2860,20 @@
+           "type": "string"
+         }
+       },
+-      "additionalProperties": true,
+-      "default": {}
++      "additionalProperties": {}
+     },
+     "revision": {
++      "default": 0,
+       "type": "integer",
+       "minimum": 0,
+-      "default": 0
++      "maximum": 9007199254740991
+     },
+     "applied_mutations": {
++      "default": [],
+       "type": "array",
+       "items": {
+         "type": "string"
+-      },
+-      "default": []
++      }
+     }
+   },
+   "required": [
+@@ -1197,6 +2882,5 @@
+     "fps",
+     "aspect_ratio",
+     "scenes"
+-  ],
+-  "additionalProperties": false
++  ]
+ }
+\ No newline at end of file
