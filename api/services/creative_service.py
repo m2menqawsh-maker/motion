@@ -623,6 +623,20 @@ class CreativeService:
             cls._idemp_repo.mark_failed(ws_id, project_id, operation_id, {"error": "INVALID_BLUEPRINT", "details": str(exc)})
             raise APIError(message=f"Candidate blueprint rejected by schema validation: {exc}", status_code=400)
 
+        # 3b. Resolve project directory BEFORE database mutation; fail closed if invalid
+        from scripts.security.path_security import resolve_project_dir
+        try:
+            proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
+        except Exception as p_err:
+            cls._idemp_repo.mark_failed(
+                ws_id, project_id, operation_id,
+                {"error": "PATH_RESOLUTION_FAILED", "details": str(p_err)},
+            )
+            raise APIError(
+                message=f"Failed to resolve project directory for project '{project_id}': {p_err}",
+                status_code=400,
+            )
+
         # 4. Transactional CAS Commit to SQL + StorageService
         try:
             provenance = {
@@ -651,13 +665,7 @@ class CreativeService:
             cls._idemp_repo.mark_failed(ws_id, project_id, operation_id, {"error": "DOCUMENT_VALIDATION_ERROR", "details": str(dve)})
             raise APIError(message=str(dve), status_code=400)
 
-        # 4b. Sync server-stored master_plan to disk if project directory exists
-        from scripts.security.path_security import resolve_project_dir
-        try:
-            proj_dir = resolve_project_dir(project_id, workspace_id=ws_id)
-        except Exception:
-            proj_dir = Path("projects") / ws_id / project_id
-
+        # 4b. Sync server-stored master_plan to disk if project directory exists on disk
         master_plan_synced = False
         if proj_dir.exists() and stored_master_plan:
             plan_file = proj_dir / "master_plan.md"

@@ -157,9 +157,9 @@ class CanonicalDocumentRepository:
                 if not disk_path.exists():
                     disk_path = proj_dir / "blueprint.json"
             except Exception:
-                disk_path = Path("projects") / workspace_id / project_id / "05_blueprint.json"
+                disk_path = None
 
-            if disk_path.exists():
+            if disk_path and disk_path.exists():
                 disk_bytes = disk_path.read_bytes()
                 doc = json.loads(disk_bytes.decode("utf-8"))
                 disk_rev = doc.get("revision", 1)
@@ -236,6 +236,10 @@ class CanonicalDocumentRepository:
         self.storage.put(candidate_key, doc_bytes, content_type="application/json")
 
         now_iso = datetime.now(timezone.utc).isoformat()
+
+        # Resolve project directory BEFORE database mutation; fail if invalid/unconfined
+        from scripts.security.path_security import resolve_project_dir
+        proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
 
         # 3. Transactional CAS in SQL
         with self.db.transaction("IMMEDIATE") as conn:
@@ -373,12 +377,7 @@ class CanonicalDocumentRepository:
                 ),
             )
 
-        # 4. Sync to local disk for dev / local tooling compatibility
-        from scripts.security.path_security import resolve_project_dir
-        try:
-            proj_dir = resolve_project_dir(project_id, workspace_id=workspace_id)
-        except Exception:
-            proj_dir = Path("projects") / workspace_id / project_id
+        # 4. Sync to local disk for dev / local tooling compatibility if project directory exists on disk
         if proj_dir.exists():
             disk_file = proj_dir / "05_blueprint.json"
             try:
