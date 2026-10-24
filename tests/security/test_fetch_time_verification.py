@@ -358,3 +358,52 @@ class TestRenderPathRejectsExternalURLs:
         envelope = build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
         assert envelope["projectData"]["brand"]["logoSrc"] == "assets/logo.png"
         assert envelope["projectData"]["brand"]["fonts"]["primary"] == "fonts/custom.woff2"
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+        with pytest.raises(RenderInputValidationError) as exc:
+            build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
+        assert "brand logoSrc" in str(exc.value)
+
+        # Test fonts rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": None,
+            "fonts": {"primary": evasion_path},
+        }), encoding="utf-8")
+        with pytest.raises(RenderInputValidationError) as exc:
+            build_render_input(project_dir_or_id=project_dir, verify_files_on_disk=False, write_to_disk=False)
+        assert "brand fonts" in str(exc.value)
