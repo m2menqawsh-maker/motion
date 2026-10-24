@@ -444,9 +444,9 @@ class TestMasterPlanServerAuthority:
 
         # Propose in Alpha to get a valid proposal
         prop_resp = client.post(
-            f"/projects/{pid_a}/creative/propose",
+            f"/projects/{pid_a}/creative/proposals",
             headers={"Authorization": f"Bearer {token_a}"},
-            json={"recipe_id": "explainer_standard"},
+            json={"prompt": "SaaS product showcase tutorial", "audio_mode": "VO_MUSIC"},
         )
         assert prop_resp.status_code == 200
         prop_data = prop_resp.json()

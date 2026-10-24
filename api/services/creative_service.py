@@ -576,12 +576,23 @@ class CreativeService:
                 project_id=project_id,
             )
             if proposal_record is None:
+                cls._idemp_repo.mark_failed(
+                    ws_id, project_id, operation_id,
+                    {"error": "PROPOSAL_NOT_FOUND", "details": f"Proposal '{req.proposal_id}' not found"},
+                )
                 raise APIError(
                     message=f"Proposal '{req.proposal_id}' not found",
                     status_code=404,
                 )
 
             if proposal_record.get("workspace_id") != ws_id or proposal_record.get("project_id") != project_id:
+                cls._idemp_repo.mark_failed(
+                    ws_id, project_id, operation_id,
+                    {
+                        "error": "CROSS_TENANT_PROPOSAL",
+                        "details": f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
+                    },
+                )
                 raise APIError(
                     message=f"Proposal '{req.proposal_id}' does not belong to workspace '{ws_id}' and project '{project_id}'",
                     status_code=403,
@@ -596,6 +607,10 @@ class CreativeService:
                 client_hash = hashlib.sha256(client_plan_val.strip().encode("utf-8")).hexdigest()
                 import hmac
                 if not hmac.compare_digest(client_hash, str(stored_hash)):
+                    cls._idemp_repo.mark_failed(
+                        ws_id, project_id, operation_id,
+                        {"error": "PLAN_HASH_MISMATCH", "details": "master_plan hash mismatch: client modified master_plan content"},
+                    )
                     raise APIError(
                         message="master_plan hash mismatch: client modified master_plan content",
                         status_code=400,
