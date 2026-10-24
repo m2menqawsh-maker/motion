@@ -2,9 +2,9 @@ name: Remediation Fortress CI
 
 on:
   push:
-    branches: [main, "remediation/*", "feature/*", "feat/*"]
+    branches: [main]
   pull_request:
-    branches: [main, "feature/*", "feat/*"]
+    branches: [main, "feature/*", "feat/*", "ci/*"]
 
 permissions:
   contents: read
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -41,6 +43,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,6 +73,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -94,6 +100,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -161,6 +169,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -239,6 +249,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -298,6 +310,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -346,6 +360,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -490,6 +506,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           submodules: recursive
 
       - name: Setup Node.js
