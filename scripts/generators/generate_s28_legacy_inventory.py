@@ -136,7 +136,7 @@ def build_inventory_records() -> List[Dict[str, Any]]:
         ("agent-guard-circuit", ".agents/guardian/circuit_breaker.json", "Circuit breaker state for agent failures", "Guardian Hooks", "Security Guard", "Security Core", "KEEP"),
         ("agent-guard-utils", ".agents/guardian/utils.py", "Helper utilities for Guardian security hooks", "Guardian Hooks", "Security Guard", "Security Core", "KEEP"),
         ("agent-guard-log", ".agents/logs/guardrails.log", "Audit log of guardian hook executions and blocks", "Audit System", "Security Audit", "Security Core", "KEEP"),
-        ("agent-qc-salt", ".agents/secrets/.qc_salt", "HMAC secret salt for authenticating QC signatures", "SmartQC / ReviewService", "Cryptographic Secret", "Core Security", "KEEP"),
+        ("agent-qc-salt", "scripts/gates/probe_qc.py", "HMAC secret salt authentication for QC signatures via QC_HMAC_SALT environment variable", "SmartQC / ReviewService", "Cryptographic Secret", "Core Security", "KEEP"),
         ("agent-docker-remotion", ".agents/docker/Dockerfile.remotion", "Docker container definition for hermetic Remotion rendering", "CI / Docker Runner", "DevOps Contract", "Core Render", "KEEP"),
     ]
     for r in guardian_files:
