@@ -1,0 +1,27 @@
+diff --git a/scripts/run_creative_cost_audit.py b/scripts/run_creative_cost_audit.py
+index 6a3e0a7..250b900 100644
+--- a/scripts/run_creative_cost_audit.py
++++ b/scripts/run_creative_cost_audit.py
+@@ -275,7 +275,8 @@ def run_cost_audit(
+     Executes creative cost audit across canonical projects and verifies efficiency bounds.
+     """
+     started_at = datetime.now(timezone.utc)
+-    temp_db_path = tempfile.mktemp(suffix=".db")
++    fd, temp_db_path = tempfile.mkstemp(suffix=".db")
++    os.close(fd)
+     engine = DatabaseEngine(db_url=f"sqlite:///{temp_db_path}")
+     trace_repo = SQLTraceRepository(engine=engine)
+     collector = CreativeUsageCollector(trace_repository=trace_repo)
+@@ -444,6 +445,12 @@ def run_cost_audit(
+     temp_path.write_text(audit_run.model_dump_json(indent=2) + "\n", encoding="utf-8")
+     temp_path.replace(output_path)
+ 
++    try:
++        if os.path.exists(temp_db_path):
++            os.unlink(temp_db_path)
++    except OSError:
++        pass
++
+     return audit_run
+ 
+ 

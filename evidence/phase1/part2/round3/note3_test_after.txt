@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 8 items / 7 deselected / 1 selected
+
+tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_record_marked_failed_on_proposal_errors PASSED [100%]
+
+======================= 1 passed, 7 deselected in 4.22s ========================

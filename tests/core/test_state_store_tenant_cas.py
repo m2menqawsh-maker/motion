@@ -2,6 +2,7 @@
 tests/core/test_state_store_tenant_cas.py — Unit Tests for Tenant-Aware StateStore CAS (S24.5).
 """
 
+import json
 from pathlib import Path
 import pytest
 
@@ -72,3 +73,105 @@ def test_state_store_disk_syncs_with_db(tmp_path: Path, clean_db):
     db_state = StateStore.load_by_id("prj_db_cas")
     assert db_state.revision == 2
     assert db_state.lifecycle_state == LifecycleState.ASSETS_READY
+
+
+def test_db_update_syncs_to_disk_cache(tmp_path: Path, clean_db, monkeypatch):
+    """
+    State Authority: Mutations via database (API/Worker) MUST automatically export/sync
+    the read-only cache to .pipeline_state.json on disk so CLI tools never diverge.
+    """
+    proj_dir = tmp_path / "projects" / "ws_cas" / "prj_db_cas"
+    proj_dir.mkdir(parents=True, exist_ok=True)
+    monkeypatch.chdir(tmp_path)
+
+    # Initial save to disk creates revision 1
+    state = StateStore.load_by_id("prj_db_cas")
+    StateStore.save(proj_dir, state, expected_revision=1)
+    assert (proj_dir / StateStore.STATE_FILE).exists()
+
+    # Mutation applied via database engine / repository (e.g. API mutation)
+    def mutator(st: ProjectState):
+        st.lifecycle_state = LifecycleState.PLAN_READY
+
+    updated = StateStore.atomic_update_by_id(
+        project_id="prj_db_cas",
+        workspace_id="ws_cas",
+        expected_revision=1,
+        mutator=mutator,
+    )
+    assert updated.revision == 2
+
+    # Verify on-disk cache was updated to rev 2 automatically!
+    disk_content = json.loads((proj_dir / StateStore.STATE_FILE).read_text(encoding="utf-8"))
+    assert disk_content["revision"] == 2
+    assert disk_content["lifecycle_state"] == LifecycleState.PLAN_READY.value
+
+
+def test_load_reconciles_from_authoritative_db_even_without_managed_env(tmp_path: Path, clean_db):
+    """
+    When disk state file has an older revision than DB, StateStore.load() must ALWAYS
+    reconcile from the authoritative database, returning rev 2 and healing the disk file.
+    """
+    proj_dir = tmp_path / "prj_db_cas"
+    proj_dir.mkdir(parents=True, exist_ok=True)
+
+    # Initial save to disk creates revision 1
+    state = StateStore.load_by_id("prj_db_cas")
+    StateStore.save(proj_dir, state, expected_revision=1)
+
+    # Advance DB directly to revision 2 without updating disk
+    from scripts.core.database import TenantStateRepository
+    repo = TenantStateRepository(clean_db)
+    state2 = repo.load_state("prj_db_cas")
+    state2.lifecycle_state = LifecycleState.ASSETS_READY
+    repo.update_state_cas("prj_db_cas", "ws_cas", expected_revision=1, new_state=state2)
+
+    # On disk, .pipeline_state.json is still rev 1
+    disk_file = proj_dir / StateStore.STATE_FILE
+    assert json.loads(disk_file.read_text(encoding="utf-8"))["revision"] == 1
+
+    # StateStore.load(proj_dir) MUST reconcile from DB and return rev 2
+    loaded = StateStore.load(proj_dir)
+    assert loaded.revision == 2
+    assert loaded.lifecycle_state == LifecycleState.ASSETS_READY
+
+    # And heal the disk cache file
+    assert json.loads(disk_file.read_text(encoding="utf-8"))["revision"] == 2
+
+
+def test_atomic_update_fails_closed_on_db_cas_conflict(tmp_path: Path, clean_db):
+    """
+    If the authoritative database has advanced ahead of disk, StateStore.atomic_update()
+    must detect the DB conflict, fail closed, rollback disk, and raise StateConflictError.
+    """
+    proj_dir = tmp_path / "prj_db_cas"
+    proj_dir.mkdir(parents=True, exist_ok=True)
+
+    # Initial save to disk creates revision 1
+    state = StateStore.load_by_id("prj_db_cas")
+    StateStore.save(proj_dir, state, expected_revision=1)
+
+    # Advance DB directly to revision 3
+    from scripts.core.database import TenantStateRepository
+    repo = TenantStateRepository(clean_db)
+    state2 = repo.load_state("prj_db_cas")
+    state2.lifecycle_state = LifecycleState.ASSETS_READY
+    repo.update_state_cas("prj_db_cas", "ws_cas", expected_revision=1, new_state=state2)
+    state3 = repo.load_state("prj_db_cas")
+    state3.lifecycle_state = LifecycleState.PLAN_READY
+    repo.update_state_cas("prj_db_cas", "ws_cas", expected_revision=2, new_state=state3)
+
+    # Calling atomic_update on disk expecting revision 1 must raise StateConflictError because DB is at rev 3
+    def mutator(st: ProjectState):
+        st.lifecycle_state = LifecycleState.FINAL_QC_PASSED
+
+    with pytest.raises(StateConflictError) as exc_info:
+        StateStore.atomic_update(proj_dir, expected_revision=1, mutator=mutator)
+    assert exc_info.value.expected_revision == 1
+    assert exc_info.value.actual_revision == 3
+
+    # And disk was healed to the authoritative DB revision 3 (not corrupted or advanced to 2)
+    disk_file = proj_dir / StateStore.STATE_FILE
+    assert json.loads(disk_file.read_text(encoding="utf-8"))["revision"] == 3
+
+

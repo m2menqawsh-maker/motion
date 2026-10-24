@@ -1,0 +1,10 @@
+
+> check:template-contract
+> python scripts/generators/generate_template_contract.py --check
+
+✅ OK: contracts/template-runtime-contract.json and registry/template-aliases.ts are up-to-date.
+
+> check:ai-contracts
+> python scripts/generate_ai_contracts.py --check
+
+✅ Ground Truth Parity: AI contracts, schemas, and TypeScript definitions are fully synchronized.

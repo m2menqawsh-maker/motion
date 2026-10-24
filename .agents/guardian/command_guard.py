@@ -31,7 +31,7 @@ def main():
             command = tool_input
         
         if not command:
-            allow("Empty Command")
+            block("🛑 Command Guard: Empty or missing command.", command="")
             
         cb_err = check_circuit_breaker(tool_name, command)
         if cb_err:
@@ -96,7 +96,7 @@ def main():
         allow(command)
         
     except Exception as e:
-        allow("Exception Occurred")
+        block(f"🛑 Security Exception in Command Guard: {e}", command=command if 'command' in locals() else "")
 
 def check_materialize_ready(project_id: str) -> bool:
     proj_dir = Path(f"projects/{project_id}")

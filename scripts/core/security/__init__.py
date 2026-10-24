@@ -42,6 +42,16 @@ from scripts.core.security.settings import (
     get_security_settings,
     set_security_settings,
 )
+from scripts.core.security.url_policy import (
+    validate_safe_url,
+    URLSecurityViolation,
+)
+from scripts.core.security.ssrf_guard import (
+    SSRFSecurityViolation,
+    validate_url_security,
+    is_ip_disallowed,
+    parse_numeric_ipv4,
+)
 
 __all__ = [
     "Principal",
@@ -68,4 +78,10 @@ __all__ = [
     "SecuritySettings",
     "get_security_settings",
     "set_security_settings",
+    "validate_safe_url",
+    "URLSecurityViolation",
+    "SSRFSecurityViolation",
+    "validate_url_security",
+    "is_ip_disallowed",
+    "parse_numeric_ipv4",
 ]

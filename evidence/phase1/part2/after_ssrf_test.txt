@@ -1,0 +1,49 @@
+=== RAW AFTER RESULTS: url_policy.validate_safe_url ===
+BLOCKED          | http://2130706433/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://0x7f000001/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://localtest.me/ | Host 'localtest.me' resolved to prohibited IP '::1' (Loopback IP address prohibited: '::1') (SSRF blocked).
+BLOCKED          | http://169.254.169.254.nip.io/ | Host '169.254.169.254.nip.io' resolved to prohibited IP '169.254.169.254' (Link-local / Cloud metadata IP prohibited: '169.254.169.254') (SSRF blocked).
+BLOCKED          | http://metadata.google.internal/ | Target host 'metadata.google.internal' is prohibited (loopback/cloud metadata).
+BLOCKED          | http://0177.0.0.1/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://0x7f.0.0.1/ | Host '0x7f.0.0.1' resolved to prohibited IP '127.0.0.1' (Loopback IP address prohibited: '127.0.0.1') (SSRF blocked).
+BLOCKED          | http://[::1]/ | Loopback access prohibited: '::1'
+BLOCKED          | http://::ffff:127.0.0.1/ | Invalid URL without hostname: 'http://::ffff:127.0.0.1/'
+BLOCKED          | http://0.0.0.0/ | Loopback access prohibited: '0.0.0.0'
+BLOCKED          | http://10.0.0.1/ | Private network IP address prohibited: '10.0.0.1'
+BLOCKED          | http://172.16.0.1/ | Private network IP address prohibited: '172.16.0.1'
+BLOCKED          | http://192.168.1.1/ | Private network IP address prohibited: '192.168.1.1'
+BLOCKED          | http://169.254.1.1/ | Link-local / Cloud metadata IP prohibited: '169.254.1.1'
+BLOCKED          | http://[fe80::1]/ | Link-local / Cloud metadata IP prohibited: 'fe80::1'
+BLOCKED          | http://100.64.0.1/ | Non-global IP address prohibited: '100.64.0.1'
+BLOCKED          | http://224.0.0.1/ | Multicast IP address prohibited: '224.0.0.1'
+BLOCKED          | http://evil@127.0.0.1/ | Loopback access prohibited: '127.0.0.1'
+BLOCKED          | http://127.0.0.1#@good.com | Loopback access prohibited: '127.0.0.1'
+BLOCKED          | file:///etc/passwd | Prohibited URL scheme 'file': only 'http' and 'https' are allowed.
+BLOCKED          | gopher://127.0.0.1/ | Prohibited URL scheme 'gopher': only 'http' and 'https' are allowed.
+BLOCKED          | ftp://example.com/ | Prohibited URL scheme 'ftp': only 'http' and 'https' are allowed.
+BLOCKED          | data:text/plain;base64,SGVsbG8= | Prohibited URL scheme 'data': only 'http' and 'https' are allowed.
+
+=== RAW AFTER RESULTS: SSRFProtection.validate_url ===
+BLOCKED          | http://2130706433/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://0x7f000001/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://localtest.me/ | Host 'localtest.me' resolved to prohibited IP '::1' (Loopback IP address prohibited: '::1') (SSRF blocked).
+BLOCKED          | http://169.254.169.254.nip.io/ | Host '169.254.169.254.nip.io' resolved to prohibited IP '169.254.169.254' (Link-local / Cloud metadata IP prohibited: '169.254.169.254') (SSRF blocked).
+BLOCKED          | http://metadata.google.internal/ | Target host 'metadata.google.internal' is prohibited (loopback/cloud metadata).
+BLOCKED          | http://0177.0.0.1/ | Loopback IP address prohibited: '127.0.0.1'
+BLOCKED          | http://0x7f.0.0.1/ | Host '0x7f.0.0.1' resolved to prohibited IP '127.0.0.1' (Loopback IP address prohibited: '127.0.0.1') (SSRF blocked).
+BLOCKED          | http://[::1]/ | Loopback access prohibited: '::1'
+BLOCKED          | http://::ffff:127.0.0.1/ | Invalid URL without hostname: 'http://::ffff:127.0.0.1/'
+BLOCKED          | http://0.0.0.0/ | Loopback access prohibited: '0.0.0.0'
+BLOCKED          | http://10.0.0.1/ | Private network IP address prohibited: '10.0.0.1'
+BLOCKED          | http://172.16.0.1/ | Private network IP address prohibited: '172.16.0.1'
+BLOCKED          | http://192.168.1.1/ | Private network IP address prohibited: '192.168.1.1'
+BLOCKED          | http://169.254.1.1/ | Link-local / Cloud metadata IP prohibited: '169.254.1.1'
+BLOCKED          | http://[fe80::1]/ | Link-local / Cloud metadata IP prohibited: 'fe80::1'
+BLOCKED          | http://100.64.0.1/ | Non-global IP address prohibited: '100.64.0.1'
+BLOCKED          | http://224.0.0.1/ | Multicast IP address prohibited: '224.0.0.1'
+BLOCKED          | http://evil@127.0.0.1/ | Loopback access prohibited: '127.0.0.1'
+BLOCKED          | http://127.0.0.1#@good.com | Loopback access prohibited: '127.0.0.1'
+BLOCKED          | file:///etc/passwd | Prohibited URL scheme 'file': only 'http' and 'https' are allowed.
+BLOCKED          | gopher://127.0.0.1/ | Prohibited URL scheme 'gopher': only 'http' and 'https' are allowed.
+BLOCKED          | ftp://example.com/ | Prohibited URL scheme 'ftp': only 'http' and 'https' are allowed.
+BLOCKED          | data:text/plain;base64,SGVsbG8= | Prohibited URL scheme 'data': only 'http' and 'https' are allowed.

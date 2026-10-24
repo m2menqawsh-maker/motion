@@ -1,0 +1,30 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/eng_Momen/Projects/CurerntProject/wt-baseline-3d32627
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 148 items
+
+tests/ai/candidates/test_candidate_adversarial_closure.py .....          [  3%]
+tests/ai/candidates/test_candidate_architecture_guards.py ...........    [ 10%]
+tests/ai/candidates/test_candidate_concurrency.py .                      [ 11%]
+tests/ai/candidates/test_candidate_contracts.py .....                    [ 14%]
+tests/ai/candidates/test_candidate_hashing.py .....                      [ 18%]
+tests/ai/candidates/test_candidate_lifecycle_e2e.py .......              [ 22%]
+tests/ai/candidates/test_candidate_promotion_service.py ................ [ 33%]
+..........................                                               [ 51%]
+tests/ai/candidates/test_candidate_registry_isolation.py ...             [ 53%]
+tests/ai/candidates/test_candidate_review_workflow.py .................. [ 65%]
+...                                                                      [ 67%]
+tests/ai/candidates/test_candidate_runtime_validation.py ............... [ 77%]
+....                                                                     [ 80%]
+tests/ai/candidates/test_candidate_service.py ....                       [ 83%]
+tests/ai/candidates/test_candidate_static_validation.py ................ [ 93%]
+..                                                                       [ 95%]
+tests/ai/candidates/test_candidate_storage.py ...                        [ 97%]
+tests/ai/candidates/test_candidate_tenant_isolation.py ..                [ 98%]
+tests/ai/candidates/test_candidate_validation_tenant_isolation.py ..     [100%]
+
+- generated xml file: /home/eng_Momen/Projects/CurerntProject/Motion/evidence/phase0/baseline-3d32627/pytest_ai_tier2_junit.xml -
+======================= 148 passed in 669.41s (0:11:09) ========================

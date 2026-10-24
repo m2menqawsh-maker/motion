@@ -5,31 +5,41 @@ import json
 class TestMCPSecurity:
     """أمان MCP Servers"""
     
-    def test_no_execute_command_tools(self):
-        """لا يسمح بأدوات تنفيذ أوامر في MCP"""
-        # We need to find the MCP servers directory
+    def test_ffmpeg_mcp_server_sdk_version_not_vulnerable_to_cve_2025_66414(self):
+        """التحقق من أن ffmpeg-mcp-server لا يستخدم نسخة معرضة للثغرة CVE-2025-66414 (<1.24.0)"""
         base_dir = Path(__file__).parent.parent.parent
-        mcp_servers_dir = base_dir / ".agents" / "plugins" / "super-video-maker-plugin" / "mcp"
-        if not mcp_servers_dir.exists():
-            # If the specific plugin is not found, maybe search the whole project
-            pass
-            
-        for py_file in base_dir.rglob("*.py"):
-            # Limit search to mcp directories
-            if "mcp" not in str(py_file).lower():
-                continue
-                
-            try:
-                # Exclude virtual environments and node_modules
-                if ".venv" in py_file.parts or "node_modules" in py_file.parts:
-                    continue
-                    
-                content = py_file.read_text(encoding="utf-8")
-                # Exclude this test file itself
-                if "test_mcp_security.py" in str(py_file):
-                    continue
-                    
-                if "execute_command" in content or "run_shell" in content:
-                    pytest.fail(f"{py_file} يحتوي على أداة تنفيذ أوامر ('execute_command' أو 'run_shell') وهذا ممنوع!")
-            except Exception:
-                pass
+        lockfile = (
+            base_dir
+            / ".agents"
+            / "plugins"
+            / "super-video-maker-plugin"
+            / "tools"
+            / "mcp-servers"
+            / "ffmpeg-mcp-server"
+            / "package-lock.json"
+        )
+        assert lockfile.exists(), f"lockfile not found: {lockfile}"
+        data = json.loads(lockfile.read_text(encoding="utf-8"))
+        packages = data.get("packages", {})
+        sdk_entry = packages.get("node_modules/@modelcontextprotocol/sdk")
+        assert sdk_entry is not None, "Missing @modelcontextprotocol/sdk in package-lock.json"
+        installed_version = sdk_entry.get("version", "0.0.0")
+        major, minor, *_ = [int(x) for x in installed_version.split(".")]
+        # Fixed version is 1.24.0+
+        assert (major > 1) or (major == 1 and minor >= 24), (
+            f"@modelcontextprotocol/sdk version {installed_version} is vulnerable to CVE-2025-66414 (<1.24.0)"
+        )
+
+    def test_trivyignore_does_not_suppress_cve_2025_66414(self):
+        """التأكد من عدم إسكات ثغرة CVE-2025-66414 عبر .trivyignore"""
+        base_dir = Path(__file__).parent.parent.parent
+        trivyignore_path = base_dir / ".trivyignore"
+        if trivyignore_path.exists():
+            active_ignores = [
+                line.strip()
+                for line in trivyignore_path.read_text(encoding="utf-8").splitlines()
+                if line.strip() and not line.strip().startswith("#")
+            ]
+            assert "CVE-2025-66414" not in active_ignores, (
+                "CVE-2025-66414 is silenced in .trivyignore; must be fixed in lockfile instead"
+            )

@@ -1,0 +1,21 @@
+=== SECURITY-AUDIT FAILURE DIAGNOSTIC ===
+Job Name: security-audit
+Failing Step: Run Python Dependency Audit (pip-audit)
+Command Executed: pip-audit --desc -r requirements.txt
+
+Baseline Comparison:
+- Commit 3d32627 (Run 39265975722 on 2026-10-19T14:06:34Z): PASSED with "No known vulnerabilities found".
+- Commit 80693f1 (Run 39667952430 on 2026-10-21T20:10:14Z): FAILED with "Found 9 known vulnerabilities in 2 packages".
+- Status: New temporal failure caused by upstream external vulnerability disclosure, NOT a code change.
+- Proof of zero code change: requirements.txt was not modified in Phase 0 (last changed in 95d35c7).
+  The pinned dependencies certifi==2026.7.22 and pillow==12.3.0 have new public CVEs (PYSEC-2026-4320 released after 2026-10-19, and Pillow CVE-2026-112895).
+  Any run today against baseline 3d32627 fails identically because pip-audit queries live online vulnerability databases.
+
+Raw Output Snippet (Job 119457878982):
+--------------------------------------------------
+Found 9 known vulnerabilities in 2 packages
+Name    Version   ID              Fix Versions Description
+certifi 2026.7.22 PYSEC-2026-4320 2026.10.19   Certifi versions before 2026.10.18 include the emSign ECC Root CA...
+pillow  12.3.0    CVE-2026-112895 13.0.0       Recursion / decompression bomb vulnerabilities in Pillow PDF/EPS...
+Process completed with exit code 1.
+--------------------------------------------------

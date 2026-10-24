@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS project_artifact_versions (
     FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_artifact_versions_lookup ON project_artifact_versions(workspace_id, project_id, artifact_kind);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_artifact_version ON project_artifact_versions(workspace_id, project_id, artifact_kind, revision);
 
 CREATE TABLE IF NOT EXISTS runs (
     run_id TEXT PRIMARY KEY,
@@ -355,6 +356,13 @@ class DatabaseEngine:
     def _init_schema(self) -> None:
         """Executes DDL statements to ensure all multi-tenant tables exist."""
         with self.transaction("IMMEDIATE") as conn:
+            # 1. Execute base schema DDL first to ensure all tables exist
+            for statement in SCHEMA_SQL.strip().split(";"):
+                stmt = statement.strip()
+                if stmt:
+                    conn.execute(stmt)
+
+            # 2. Backward compatibility migrations for existing installations
             if self.is_sqlite:
                 cur = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='canonical_assets'")
                 if cur.fetchone():
@@ -410,11 +418,6 @@ class DatabaseEngine:
                         conn.execute(f"ALTER TABLE runs ADD COLUMN IF NOT EXISTS {col_name} {col_type}")
                     except Exception:
                         pass
-
-            for statement in SCHEMA_SQL.strip().split(";"):
-                stmt = statement.strip()
-                if stmt:
-                    conn.execute(stmt)
 
 
 class TenantRepository:
@@ -743,9 +746,16 @@ class TenantStateRepository:
 
             # Update projects table timestamp
             conn.execute("UPDATE projects SET updated_at = ? WHERE id = ?", (now, project_id))
-
             new_state._loaded_revision = next_revision
-            return new_state
+
+        # Export/sync updated state to disk cache (.pipeline_state.json)
+        try:
+            from scripts.core.state_store import StateStore
+            StateStore.export_disk_cache(new_state)
+        except Exception:
+            pass
+
+        return new_state
 
 
 class UsageRepository:
@@ -795,6 +805,7 @@ class UsageRepository:
 
 
 _global_engine: Optional[DatabaseEngine] = None
+_is_custom_engine: bool = False
 
 
 def get_database_engine(db_url: Optional[str] = None) -> DatabaseEngine:
@@ -808,5 +819,14 @@ def get_database_engine(db_url: Optional[str] = None) -> DatabaseEngine:
 
 
 def set_database_engine(engine: Optional[DatabaseEngine]) -> None:
-    global _global_engine
+    global _global_engine, _is_custom_engine
     _global_engine = engine
+    _is_custom_engine = engine is not None
+
+
+def has_explicit_database() -> bool:
+    global _is_custom_engine
+    if _is_custom_engine:
+        return True
+    return bool(os.environ.get("DATABASE_URL") or os.environ.get("MOTION_DATABASE_URL"))
+

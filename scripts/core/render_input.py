@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import json
 import os
+import unicodedata
+import urllib.parse
 from pathlib import Path
 from typing import Dict, Any, Optional, Union
 
@@ -95,6 +97,94 @@ class RenderInputProjectMismatchError(RenderInputError):
 
 
 # ─── Helper Functions ─────────────────────────────────────────────────────────
+
+def _validate_brand_local_relative_path(val: Any, field_desc: str, project_id: Optional[str] = None) -> None:
+    """
+    Validates that a path provided in brand.json (logoSrc or fonts) is strictly a local relative path.
+    Rejects:
+    - Non-string types (if not None)
+    - Control characters (< 0x20, 0x7f) anywhere in the raw string
+    - Non-ASCII spaces, formatting, and control characters (Unicode categories Cc, Cf, Cs, Co, Cn, and Zs != ' ')
+    - Percent-encoded traversal sequences (%2e, %2f, %5c)
+    - Absolute paths starting with '/' or '\'
+    - Windows UNC or protocol-relative paths (starting with '\\' or '//')
+    - Directory traversal sequences ('..')
+    - Any URI scheme (presence of ':' before the first '/' or '\', or any colon if no separator exists)
+    """
+    if val is None:
+        return
+    if not isinstance(val, str):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Expected string path for {field_desc}, got {type(val).__name__}",
+            project_id=project_id,
+        )
+
+    # 1. C0 control characters and Unicode formatting/whitespace check on the RAW value
+    for ch in val:
+        code = ord(ch)
+        if code < 0x20 or code == 0x7F:
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Control character {hex(code)} in path '{val}' in {field_desc} rejected.",
+                project_id=project_id,
+            )
+        cat = unicodedata.category(ch)
+        if cat in ("Cc", "Cf", "Cs", "Co", "Cn") or (cat == "Zs" and ch != " "):
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Invalid Unicode character '{ch}' (category {cat}) in path '{val}' in {field_desc} rejected.",
+                project_id=project_id,
+            )
+
+    # 2. Check for percent-encoded evasion (case-insensitive %2e, %2f, %5c)
+    lower_val = val.lower()
+    if "%2e" in lower_val or "%2f" in lower_val or "%5c" in lower_val:
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Percent-encoded traversal or separator sequence in path '{val}' in {field_desc} rejected.",
+            project_id=project_id,
+        )
+
+    # 3. Check raw value and cleaned value for leading separators / protocol-relative / UNC paths
+    if val.startswith("/") or val.startswith("\\"):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Non-local asset path or External URL '{val}' in {field_desc} rejected. Remotion requires local relative paths only.",
+            project_id=project_id,
+        )
+
+    cleaned = val.strip()
+    if not cleaned:
+        return
+
+    if cleaned.startswith("/") or cleaned.startswith("\\"):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Non-local asset path or External URL '{val}' in {field_desc} rejected. Remotion requires local relative paths only.",
+            project_id=project_id,
+        )
+
+    # 4. Check for directory traversal
+    if ".." in cleaned or ".." in urllib.parse.unquote(val):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Directory traversal in path '{val}' in {field_desc} rejected.",
+            project_id=project_id,
+        )
+
+    # 5. Check for URI schemes or drives: any ':' before first '/' or '\', or colon when no slash exists
+    seps = [i for i in [cleaned.find("/"), cleaned.find("\\")] if i != -1]
+    first_sep = min(seps) if seps else -1
+    colon_idx = cleaned.find(":")
+    if colon_idx != -1:
+        if first_sep == -1 or colon_idx < first_sep:
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Non-local asset path or External URL scheme in '{val}' for {field_desc} rejected. Remotion requires local materialized assets only.",
+                project_id=project_id,
+            )
+
 
 def resolve_project_dir(
     project_dir_or_id: Union[Path, str],
@@ -210,6 +300,19 @@ def build_render_input(
             project_id=project_id,
         )
 
+    # SEC-009 / Part 2 Item 2: External URLs must be downloaded and materialized locally.
+    # Remotion receives local files only and must never receive raw external URLs.
+    from scripts.core.asset_resolution import collect_asset_references
+    all_occurrences = collect_asset_references(bp_dict)
+    for occ in all_occurrences:
+        if occ.is_url:
+            url_str = occ.parsed.url or (occ.raw_ref.get("url") if isinstance(occ.raw_ref, dict) else str(occ.raw_ref))
+            raise RenderInputValidationError(
+                "blueprint",
+                f"External URL '{url_str}' reached render path without local acquisition. Remotion requires local materialized assets only.",
+                project_id=project_id,
+            )
+
     # 4. Project Metadata Loading
     project_json_file = project_dir / "project.json"
     if project_json_file.exists():
@@ -266,6 +369,17 @@ def build_render_input(
         else:
             for k, v in DEFAULT_BRAND_KIT["fonts"].items():
                 fonts.setdefault(k, v)
+
+        # SEC-009 / Part 2 Item 2 & Round 3 Blocker 2: Whitelist brand.json local relative paths
+        logo_src = brand_data.get("logoSrc")
+        if logo_src is not None:
+            _validate_brand_local_relative_path(logo_src, "brand logoSrc", project_id=project_id)
+
+        fonts = brand_data.get("fonts")
+        if isinstance(fonts, dict):
+            for font_key, font_val in fonts.items():
+                if font_val is not None:
+                    _validate_brand_local_relative_path(font_val, f"brand fonts ('{font_key}')", project_id=project_id)
     else:
         brand_data = {
             "brandName": DEFAULT_BRAND_KIT["brandName"],

@@ -1,0 +1,32 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 239 items
+
+tests/security/test_cost_audit_tempfile.py ..                            [  0%]
+tests/security/test_gitleaks_classification.py ..                        [  1%]
+tests/security/test_guardian.py ........                                 [  5%]
+tests/security/test_guardrails.py ...                                    [  6%]
+tests/security/test_mcp_security.py ..                                   [  7%]
+tests/security/test_path_traversal.py ....                               [  8%]
+tests/security/test_pr001_authentication_hardening.py .................. [ 16%]
+........................................................................ [ 46%]
+.                                                                        [ 46%]
+tests/security/test_pr002_integration_gate.py ...........                [ 51%]
+tests/security/test_pr002_tenant_isolation.py ..............             [ 57%]
+tests/security/test_project_lock_and_credential_isolation.py ........... [ 61%]
+......                                                                   [ 64%]
+tests/security/test_qc_hmac_hardening.py ........                        [ 67%]
+tests/security/test_race_conditions.py ..                                [ 68%]
+tests/security/test_s02_negative_enforcement.py ........................ [ 78%]
+....                                                                     [ 80%]
+tests/security/test_security_path_traversal.py .....                     [ 82%]
+tests/security/test_subprocess_security.py ..........                    [ 86%]
+tests/security/test_tenant_authorization.py ..                           [ 87%]
+tests/security/test_tenant_path_isolation.py ....................        [ 95%]
+tests/security/test_url_security.py ..........                           [100%]
+
+============================= 239 passed in 35.83s =============================

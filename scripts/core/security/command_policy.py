@@ -138,6 +138,14 @@ AI_AUTHORIZED_SCRIPTS: Set[str] = {
     "scripts/core/worker.py",
 }
 
+# Whitelist of trusted scripts authorized to receive QC HMAC secret salt
+QC_AUTHORIZED_SCRIPTS: Set[str] = {
+    "scripts/pipeline.py",
+    "scripts/gates/probe_qc.py",
+    "scripts/gates/final_qc.py",
+}
+
+
 # Allowed read-only subcommands for git development and maintenance utilities
 ALLOWED_GIT_READONLY_SUBCOMMANDS: Set[str] = {
     "ls-files",
@@ -209,12 +217,26 @@ class CommandPolicy:
             )
         )
 
+        # Targeted, explicit grant for authorized QC scripts to receive QC_HMAC_SALT
+        is_qc_authorized = (
+            target_script is not None and any(
+                target_script == s or target_script.endswith("/" + s) or Path(target_script).name == Path(s).name
+                for s in QC_AUTHORIZED_SCRIPTS
+            )
+        )
+
         if not is_production:
             safe_keys.update({"SKIP_STRICT_QC", "DEBUG_SECURITY"})
 
         for k, v in raw.items():
             # Strip forbidden bypass flags in production
             if is_production and k in FORBIDDEN_PRODUCTION_ENV_VARS:
+                continue
+
+            # QC secret HMAC salt: only pass if QC gate is authorized
+            if k == "QC_HMAC_SALT":
+                if is_qc_authorized:
+                    clean[k] = v
                 continue
 
             # Database / Auth credentials: only pass if database is authorized

@@ -128,7 +128,7 @@ export const IntermediateArtifactSchema = z.object({
   directoryPath: z.string().optional(),
   mediaInfo: IntermediateArtifactMediaInfoSchema,
   contentFingerprint: z.string().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type IntermediateArtifact = z.infer<typeof IntermediateArtifactSchema>;

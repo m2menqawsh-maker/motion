@@ -403,7 +403,7 @@ export function getExecutableEffectIds(): string[] {
 // ─── Semantic Effect Reference Schema (Pure Fail-Closed Validation) ───────────
 
 export const EffectRefSchema = z.object({
-  effect: z.string().min(1).superRefine((val: string, ctx: z.RefinementCtx) => {
+  effect: z.string().min(1).superRefine((val, ctx) => {
     if (!isExecutableEffect(val)) {
       const entry = SEMANTIC_EFFECTS_CATALOG[val];
       ctx.addIssue({

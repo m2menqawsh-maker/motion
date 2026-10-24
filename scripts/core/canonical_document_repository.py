@@ -309,9 +309,18 @@ class CanonicalDocumentRepository:
                     ),
                 )
             except Exception as insert_err:
+                try:
+                    cur_act = conn.execute(
+                        "SELECT MAX(revision) FROM project_artifact_versions WHERE workspace_id = ? AND project_id = ? AND artifact_kind = 'blueprint'",
+                        (workspace_id, project_id),
+                    )
+                    act_row = cur_act.fetchone()
+                    act_rev = act_row[0] if act_row and act_row[0] is not None else None
+                except Exception:
+                    act_rev = None
                 raise RevisionConflictError(
                     expected_revision=expected_revision,
-                    actual_revision=None,
+                    actual_revision=act_rev,
                     message=f"Concurrent CAS race committing revision on project '{project_id}': {insert_err}",
                 ) from insert_err
 

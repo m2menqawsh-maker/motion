@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="166" failures="0" errors="0" time="1.498940179">
+    <testsuite name="tests/remotion/ai_contracts_parity.test.ts" timestamp="2026-10-21T19:47:13.171Z" hostname="Laptop" tests="6" failures="0" errors="0" skipped="0" time="0.016486484">
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that AIRequest interface compiles and types match canonical schema" time="0.007126792">
+        </testcase>
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that AIResponse interface compiles and matches canonical schema" time="0.001443443">
+        </testcase>
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that ToolCall and ToolResult interfaces compile and enforce type safety" time="0.00097995">
+        </testcase>
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that AIRun and AIStep interfaces compile correctly" time="0.000489489">
+        </testcase>
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that AICacheEntry interface compiles and matches canonical schema (S27.12)" time="0.001174928">
+        </testcase>
+        <testcase classname="tests/remotion/ai_contracts_parity.test.ts" name="AI Contracts TypeScript Parity (S27.1) &gt; validates that MediaIntelligence and SpeechIntelligence compile and match schema (S27.13 / S27.14)" time="0.001756618">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/asset_resolution.test.ts" timestamp="2026-10-21T19:47:13.176Z" hostname="Laptop" tests="16" failures="0" errors="0" skipped="0" time="0.047378617">
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_1_valid_logical_asset_ref: Valid logical asset ID string resolved via media_map" time="0.006502453">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_2_valid_tagged_logical_asset_ref: Valid tagged logical asset reference object resolved via media_map" time="0.001214961">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_3_unknown_logical_asset_ref: Logical asset ID not present in media_map must fail closed" time="0.003083286">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_4_explicit_literal_external_url: Explicit tagged external URL ref passes through without requiring media_map" time="0.000484316">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_5_raw_url_string_disallowed: Raw URL as plain string is rejected and cannot guess URL semantics" time="0.000940073">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_6_raw_filesystem_path_disallowed: Raw local path as plain string is rejected and cannot guess path semantics" time="0.000625509">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_7_empty_asset_ref_disallowed: Empty string asset reference is rejected" time="0.000659264">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; Cross-Language Golden Fixtures &gt; case_8_malformed_tagged_ref_unknown_kind: Tagged ref with unsupported kind is rejected" time="0.000513907">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; ASSET-005: Declarative Resolution Across All Surfaces &gt; resolves media_refs, sfx_ref, captions_ref, logoSrc, and all content fields via media_map" time="0.011179328">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; ASSET-012: Fail-Closed UnknownAssetReferenceError &gt; throws UnknownAssetReferenceError when media_refs contains unknown asset" time="0.001727144">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; ASSET-012: Fail-Closed UnknownAssetReferenceError &gt; throws UnknownAssetReferenceError when content.images contains unknown asset" time="0.000716362">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; ASSET-012: Fail-Closed UnknownAssetReferenceError &gt; throws UnknownAssetReferenceError when audio.voiceover contains unknown asset" time="0.001563551">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; LED-033: Mandatory media_map Loader &amp; Error Surface &gt; throws RequiredArtifactMissingError when media_map.json is missing and isMandatory=true" time="0.002037074">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; LED-033: Mandatory media_map Loader &amp; Error Surface &gt; returns empty map when media_map.json is missing and isMandatory=false" time="0.002060221">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; LED-033: Mandatory media_map Loader &amp; Error Surface &gt; throws ArtifactCorruptedError when media_map.json is malformed JSON" time="0.002090435">
+        </testcase>
+        <testcase classname="tests/remotion/asset_resolution.test.ts" name="S14 Canonical AssetRef &amp; Fail-Closed Resolution Suite (TypeScript) &gt; LED-033: Mandatory media_map Loader &amp; Error Surface &gt; loads valid media_map.json object successfully" time="0.001878497">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/blueprint.test.ts" timestamp="2026-10-21T19:47:13.182Z" hostname="Laptop" tests="17" failures="0" errors="0" skipped="0" time="0.064957341">
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; accepts valid_minimal_blueprint.json" time="0.015723744">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; accepts valid_multi_scene_blueprint.json" time="0.00562741">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; accepts valid_audio_plan_blueprint.json with matching manifest" time="0.005828964">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_version_blueprint.json" time="0.006258984">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_project_id_blueprint.json" time="0.002373768">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_fps_blueprint.json" time="0.001557515">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_aspect_ratio_blueprint.json" time="0.001284959">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_start_frame_blueprint.json" time="0.001241171">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_duration_frames_blueprint.json" time="0.002310636">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_audio_volume_blueprint.json" time="0.001966964">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_audio_asset_kind_blueprint.json when slot expects vo but kind is image" time="0.001764253">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects invalid_transition_type_blueprint.json" time="0.001411294">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects missing_required_fields_blueprint.json" time="0.002008268">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; migrates legacy_v1_blueprint.json to canonical v2" time="0.003068037">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; rejects project_id mismatch against expectedProjectId" time="0.001112232">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; ensures BlueprintV2 has no assets catalog, keeping Manifest v2 as sole authority" time="0.000473523">
+        </testcase>
+        <testcase classname="tests/remotion/blueprint.test.ts" name="Blueprint Canonical Contract &amp; Validator (S12) &gt; validates canonical supported transitions and rejects unknown transitions fail-closed" time="0.002461952">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/contracts.test.ts" timestamp="2026-10-21T19:47:13.186Z" hostname="Laptop" tests="10" failures="0" errors="0" skipped="0" time="0.068691157">
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; validates a correct StyleSurface object" time="0.022549543">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; rejects styleOverride with disallowed key &apos;zIndex&apos;" time="0.002107754">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; rejects styleOverride with disallowed key &apos;onclick&apos;" time="0.000936883">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; rejects dangerous content in styleOverride values" time="0.000766019">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; assertFontKey successfully validates a correct font key" time="0.0008902">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; assertFontKey throws on invalid font key" time="0.003590501">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; ANIMATION_REGISTRY contains exactly 13 animations" time="0.011231618">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; applyAnimation returns {progress:1, opacity:1} for &apos;none&apos;" time="0.002931044">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; applyAnimation &apos;fade_in&apos; starts with opacity 0 at frame 0" time="0.001957879">
+        </testcase>
+        <testcase classname="tests/remotion/contracts.test.ts" name="Contracts Module &gt; applyAnimation &apos;fade_in&apos; ends with opacity 1 at frame 100" time="0.001135988">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/datastory_contract.test.ts" timestamp="2026-10-21T19:47:13.188Z" hostname="Laptop" tests="9" failures="0" errors="0" skipped="0" time="0.057831379">
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 1. Canonical Historical Defaults on Omission &gt; has exact historical defaults from commit 9dcb888b" time="0.009103426">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 1. Canonical Historical Defaults on Omission &gt; accepts empty object and parses successfully" time="0.008204546">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 1. Canonical Historical Defaults on Omission &gt; renders DataStory without throwing when props are omitted" time="0.003854036">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 2. Explicit Empty Array Preservation (Omitted != Empty) &gt; parses explicit empty arrays without error" time="0.001918858">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 2. Explicit Empty Array Preservation (Omitted != Empty) &gt; preserves explicit [] in component execution" time="0.004699924">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 3. Custom Valid Data Propagation &gt; passes customized data through successfully" time="0.008517034">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 4. Fail-Closed Malformed Input Rejection &gt; rejects malformed barData (string, null, object, bad items)" time="0.007279489">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 4. Fail-Closed Malformed Input Rejection &gt; rejects malformed metrics (string, null, object, bad items)" time="0.003577089">
+        </testcase>
+        <testcase classname="tests/remotion/datastory_contract.test.ts" name="DataStory Prop Contract &amp; Runtime Behavior &gt; 4. Fail-Closed Malformed Input Rejection &gt; rejects malformed steps (string, null, object, bad items)" time="0.003410975">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/effects.test.ts" timestamp="2026-10-21T19:47:13.190Z" hostname="Laptop" tests="12" failures="0" errors="0" skipped="0" time="0.723056354">
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 1. Deterministic: same frame + params -&gt; same transform" time="0.089860127">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 2. Wrappers nest in correct order: [outer, inner] -&gt; outer wraps inner" time="0.00270807">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 3. Overlay renders as AbsoluteFill layer" time="0.067135218">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 4. Unregistered effect id causes validation error" time="0.001371213">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 5. Stagger logic handles children effectively" time="0.013898711">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 6. gen_spectrum.ts is deterministic (same input -&gt; same output)" time="0.00310376">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 7. timeline.tsx renders without crash via bridge" time="0.522469261">
+            <system-err>
+`Infinity` is an invalid value for the `left` css style property.
+`NaN` is an invalid value for the `width` css style property.
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 8. Wrapper applies to element, not as overlay" time="0.000975601">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 9. apply: &apos;overlay&apos; yields AbsoluteFill structurally" time="0.001066905">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 10. Empty params passes without crashing on components" time="0.005934326">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 11. Scene with effects=[] renders without crashing" time="0.003777908">
+        </testcase>
+        <testcase classname="tests/remotion/effects.test.ts" name="Effects Bridge &amp; Runtime Tests &gt; 12. unbridged effect safely skipped without crash" time="0.000930143">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/manifest.test.ts" timestamp="2026-10-21T19:47:13.192Z" hostname="Laptop" tests="11" failures="0" errors="0" skipped="0" time="0.050883966">
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; validates canonical valid_manifest_v2.json fixture successfully" time="0.022761578">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects duplicate_id_manifest.json fixture with duplicate error" time="0.00199665">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects invalid_kind_manifest.json fixture with invalid kind error" time="0.002682456">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects invalid_provenance_manifest.json fixture with invalid provenance error" time="0.002170154">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects invalid_status_manifest.json fixture with invalid status error" time="0.002215719">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects unsupported_version_manifest.json fixture" time="0.001310523">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects project_id_mismatch_manifest.json fixture when expected project ID differs" time="0.001649318">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; accepts version &apos;2.0.0&apos;" time="0.00142838">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; accepts version &apos;2.0&apos;" time="0.002353677">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects version &apos;3.0.0&apos;" time="0.001773231">
+        </testcase>
+        <testcase classname="tests/remotion/manifest.test.ts" name="Manifest v2 Cross-Language Contract (TypeScript) &gt; rejects unversioned manifest in strict TypeScript validation" time="0.002206769">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/merge.test.ts" timestamp="2026-10-21T19:47:13.194Z" hostname="Laptop" tests="10" failures="0" errors="0" skipped="0" time="0.053713064">
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 1. defaults تُطبق عند غياب props" time="0.007366274">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 2. props تتغلب على defaults" time="0.004947091">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 3. overrides تتغلب على props" time="0.002247492">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 4. &apos;brand.primary&apos; يُحل إلى hex النهائي" time="0.001203155">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 5. token غير معروف يبقى literal بدون كراش" time="0.001209435">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 6. overrides.timing يستبدل startFrame/durationFrames" time="0.001196805">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 7. styleOverride بمفتاح مرفوض يُحذف ولا يكسر الدمج" time="0.009772773">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 8. غياب brand.json → default brand بدون كراش" time="0.010482491">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 9. المشاهد مرتبة تصاعدياً في المخرج" time="0.005416231">
+        </testcase>
+        <testcase classname="tests/remotion/merge.test.ts" name="Merge &amp; Load Project Data Tests &gt; 10. غياب 05_blueprint.json → خطأ واضح (رسالة تحتوي &apos;blueprint&apos;)" time="0.005408607">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/s16_pre_mount_gate.test.ts" timestamp="2026-10-21T19:47:13.197Z" hostname="Laptop" tests="20" failures="0" errors="0" skipped="0" time="0.144359872">
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects null or non-object input fail-closed" time="0.005300462">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects missing blueprint in render input" time="0.00152629">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects invalid blueprint schema (e.g. invalid fps or negative startFrame)" time="0.003801043">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects duplicate scene_id fail-closed" time="0.002352266">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects malformed brand with missing mandatory colors or fonts (fail closed without hiding via defaults)" time="0.00215654">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; A. Malformed Top-Level Render Input Rejection (LED-044) &gt; rejects malformed project metadata without silent fallback" time="0.001049135">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; B. Supported Scene Transitions End-to-End (LED-043) &gt; preserves supported transition through parse -&gt; merge -&gt; MergedScene" time="0.003886218">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; B. Supported Scene Transitions End-to-End (LED-043) &gt; renders TransitionSeries.Transition for supported transition in BlueprintVideo" time="0.087962401">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; B. Supported Scene Transitions End-to-End (LED-043) &gt; proves exhaustive 1:1 parity between SUPPORTED_TRANSITION_TYPES and TRANSITION_PRESENTATIONS" time="0.002536837">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; C. Unknown Transition Rejection (LED-043) &gt; rejects unknown transition type in parseRenderInput fail-closed" time="0.001554153">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; D. Unknown Effects Rejection (LED-046) &gt; rejects unknown effect in parseRenderInput fail-closed" time="0.002056435">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; D. Unknown Effects Rejection (LED-046) &gt; rejects unknown effect during mergeScene fail-closed" time="0.000771644">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; E. Known Effects Passed Through (LED-046) &gt; accepts registered effects from EFFECTS_RUNTIME without error" time="0.002004596">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; E. Known Effects Passed Through (LED-046) &gt; proves exhaustive invariant: every known effect is either executable or rejected before render" time="0.002354926">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; F. Valid Template Payload Passes (LED-045) &gt; DataStory passes with valid barData and metrics" time="0.001507964">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; F. Valid Template Payload Passes (LED-045) &gt; AnimatedText passes with valid transition props" time="0.001329012">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; G. Invalid Template Payload Rejection (LED-045) &gt; DataStory rejects non-array barData fail-closed" time="0.000941819">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; G. Invalid Template Payload Rejection (LED-045) &gt; AnimatedText rejects invalid transition.splitStagger fail-closed" time="0.000852447">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; H. Acceptance Gate: Invalid Payload NEVER Reaches Component Mount &gt; proves with component spy that invalid payload is rejected before mount" time="0.001979544">
+        </testcase>
+        <testcase classname="tests/remotion/s16_pre_mount_gate.test.ts" name="S16 Comprehensive Gate: Pre-Mount Verification &amp; Fail-Closed Boundaries &gt; H. Acceptance Gate: Invalid Payload NEVER Reaches Component Mount &gt; proves direct BlueprintVideo mount with invalid payload also rejects before component mount" time="0.009977668">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/s16_reproductions.test.ts" timestamp="2026-10-21T19:47:13.201Z" hostname="Laptop" tests="6" failures="0" errors="0" skipped="0" time="0.021891818">
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-043: Transition end-to-end propagation and fail-closed validation &gt; REPRODUCTION: supported transition must NOT be dropped by mergeProject" time="0.009313036">
+        </testcase>
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-043: Transition end-to-end propagation and fail-closed validation &gt; REPRODUCTION: unknown transition must fail closed before mount" time="0.00251593">
+        </testcase>
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-044: parseRenderInput is the single canonical runtime gate &gt; REPRODUCTION: live render input currently reaches mergeProject without full blueprint schema validation" time="0.000932541">
+        </testcase>
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-045: Template payload validation before mount &gt; REPRODUCTION: DataStory rejects invalid barData payload before mount" time="0.002466393">
+        </testcase>
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-045: Template payload validation before mount &gt; REPRODUCTION: AnimatedText rejects invalid transition payload before mount" time="0.001573036">
+        </testcase>
+        <testcase classname="tests/remotion/s16_reproductions.test.ts" name="S16 Red Reproductions: LED-043, LED-044, LED-045, LED-046 &gt; LED-046: Unknown effects fail-closed before render &gt; REPRODUCTION: unknown effect must throw fail-closed error before mount" time="0.001105968">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/s17_render_input_parity.test.ts" timestamp="2026-10-21T19:47:13.202Z" hostname="Laptop" tests="6" failures="0" errors="0" skipped="0" time="0.03486613">
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 1. parseRenderInput parses the canonical S17 envelope successfully" time="0.01857102">
+        </testcase>
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 2. mergeProject cleanly consumes the validated canonical render input" time="0.006111169">
+        </testcase>
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 3. parseRenderInput handles unwrapped projectData identically" time="0.002294632">
+        </testcase>
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 4. rejects missing blueprint fail-closed" time="0.001390918">
+        </testcase>
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 5. rejects null or empty render input fail-closed" time="0.00107455">
+        </testcase>
+        <testcase classname="tests/remotion/s17_render_input_parity.test.ts" name="S17: Unified Render Input Parity &amp; parseRenderInput Integration &gt; 6. validates live generated render_props.json from Python build_render_input" time="0.000801312">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/template_contract_parity.test.ts" timestamp="2026-10-21T19:47:13.203Z" hostname="Laptop" tests="11" failures="0" errors="0" skipped="0" time="0.04440343">
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 1. Contract Integrity &amp; Canonical ID Invariants &gt; has 105 canonical templates and matching stats" time="0.006076202">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 1. Contract Integrity &amp; Canonical ID Invariants &gt; enforces canonical ID naming regex on all entries" time="0.00814621">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 1. Contract Integrity &amp; Canonical ID Invariants &gt; verifies all registered templates are runtime_available" time="0.002137804">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 2. Bidirectional Bijection between Contract and Runtime Registry &gt; every canonical template in contract resolves in runtime registry to itself" time="0.005989506">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 2. Bidirectional Bijection between Contract and Runtime Registry &gt; every alias in contract resolves in runtime registry to the expected canonical ID" time="0.010079133">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 2. Bidirectional Bijection between Contract and Runtime Registry &gt; every runtime alias in TEMPLATE_ALIASES is registered in contract" time="0.00352002">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 3. Fail-Closed Resolution Semantics (LED-039) &gt; returns undefined for unknown template IDs" time="0.000870688">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 3. Fail-Closed Resolution Semantics (LED-039) &gt; returns undefined for non-template metadata names" time="0.000537873">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 3. Fail-Closed Resolution Semantics (LED-039) &gt; returns undefined for malformed or whitespace identifiers" time="0.000402614">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 4. Concrete Exemplars (LED-037, LED-040, LED-042) &gt; rui-hero-device-assemble resolves identically by canonical and by alias" time="0.000708633">
+        </testcase>
+        <testcase classname="tests/remotion/template_contract_parity.test.ts" name="S15: Template Runtime Contract Parity &amp; Canonical Identity &gt; 4. Concrete Exemplars (LED-037, LED-040, LED-042) &gt; animatedtext-element is canonical and resolves existing aliases seamlessly" time="0.000528976">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/template_runtime_resolution.test.ts" timestamp="2026-10-21T19:47:13.205Z" hostname="Laptop" tests="19" failures="0" errors="0" skipped="0" time="0.041842941">
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves HeroDeviceAssembleWrapper by ground-truth name to rui-hero-device-assemble" time="0.004849115">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves HeroDeviceAssembleWrapper by component stem to rui-hero-device-assemble" time="0.000950631">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves canonical ID rui-hero-device-assemble directly" time="0.000641881">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves SplitScreenWrapper by ground-truth name to rui-split-screen" time="0.000550264">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves SplitScreenWrapper by component stem to rui-split-screen" time="0.000394364">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves canonical ID rui-split-screen directly" time="0.000435233">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves LandingCodeShowcaseWrapper by ground-truth name to rui-landing-code-showcase" time="0.000304332">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves LandingCodeShowcaseWrapper by component stem to rui-landing-code-showcase" time="0.000340811">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves canonical ID rui-landing-code-showcase directly" time="0.000628753">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves DataStoryWrapper by ground-truth name to rui-data-story" time="0.000552339">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves DataStoryWrapper by component stem to rui-data-story" time="0.000203947">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves canonical ID rui-data-story directly" time="0.000139446">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves CreatorReelWrapper by ground-truth name to rui-creator-reel" time="0.000160638">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves CreatorReelWrapper by component stem to rui-creator-reel" time="0.000143252">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 1. Target Clean-Room Blueprint Templates &gt; resolves canonical ID rui-creator-reel directly" time="0.000156923">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 2. Comprehensive Active Production Templates Invariant &gt; verifies all 105 active templates resolve by ground-truth name and stem" time="0.014050538">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 3. Fail-Closed Behavior for Unknown Templates &gt; returns undefined for UnknownFakeTemplate123" time="0.000699266">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 3. Fail-Closed Behavior for Unknown Templates &gt; mergeProject throws when encountering an unknown template" time="0.004027022">
+        </testcase>
+        <testcase classname="tests/remotion/template_runtime_resolution.test.ts" name="CRD-019: Runtime Template Resolution Tests &gt; 3. Fail-Closed Behavior for Unknown Templates &gt; mergeProject succeeds for all five target templates" time="0.007599612">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/remotion/zod_v3_v4_parity.test.ts" timestamp="2026-10-21T19:47:13.208Z" hostname="Laptop" tests="13" failures="0" errors="0" skipped="0" time="0.128577626">
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; verifies installed Zod versions match expected baseline" time="0.015893157">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 1. Required versus Optional fields &gt; accepts valid required and optional fields symmetrically" time="0.025398078">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 1. Required versus Optional fields &gt; accepts omitted optional field symmetrically" time="0.002570794">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 1. Required versus Optional fields &gt; rejects omitted required field symmetrically" time="0.005928566">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 2. Null versus Undefined handling &gt; handles null and undefined according to schema contract" time="0.005988503">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 3. Discriminated Unions &gt; parses valid union variants with equal semantics" time="0.012335695">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 3. Discriminated Unions &gt; rejects unknown discriminator or invalid branch payload symmetrically" time="0.005103229">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 4. Unknown Object Keys (strip vs strict vs passthrough) &gt; strips unknown keys by default in both versions" time="0.002812007">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 4. Unknown Object Keys (strip vs strict vs passthrough) &gt; rejects unknown keys in strict mode in both versions" time="0.004595947">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 4. Unknown Object Keys (strip vs strict vs passthrough) &gt; preserves unknown keys in passthrough mode in both versions" time="0.00301138">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 5. Type Coercion and Defaults &gt; coerces values and applies defaults symmetrically" time="0.007676453">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 6. Canonical BlueprintV2 Structure Validation Parity &gt; validates representative BlueprintV2 JSON payload across both versions with identical result" time="0.02040653">
+        </testcase>
+        <testcase classname="tests/remotion/zod_v3_v4_parity.test.ts" name="PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite &gt; 6. Canonical BlueprintV2 Structure Validation Parity &gt; rejects invalid aspect ratio or schema version across both versions" time="0.00651153">
+        </testcase>
+    </testsuite>
+</testsuites>

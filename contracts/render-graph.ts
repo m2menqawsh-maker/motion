@@ -178,7 +178,7 @@ export const RenderNodeSchema = z.object({
   outputArtifactType: IntermediateArtifactTypeSchema,
   fragmentDoc: z.any().optional(), // Engine-neutral BlueprintV2 sub-document
   status: RenderNodeStatusSchema.default("pending"),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 export type RenderNode = z.infer<typeof RenderNodeSchema>;
 
@@ -194,7 +194,7 @@ export const RenderEdgeSchema = z.object({
   fromNodeId: z.string().min(1),
   toNodeId: z.string().min(1),
   type: RenderEdgeTypeSchema,
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 export type RenderEdge = z.infer<typeof RenderEdgeSchema>;
 
@@ -212,11 +212,11 @@ export type RenderExecutionGroup = z.infer<typeof RenderExecutionGroupSchema>;
 export const RenderGraphSchema = z.object({
   id: z.string().min(1),
   documentRevision: z.union([z.string(), z.number()]),
-  nodes: z.record(RenderNodeSchema),
+  nodes: z.record(z.string(), RenderNodeSchema),
   edges: z.array(RenderEdgeSchema),
   rootNodeId: z.string().optional(),
   executionGroups: z.array(RenderExecutionGroupSchema),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 export type RenderGraph = z.infer<typeof RenderGraphSchema>;
 

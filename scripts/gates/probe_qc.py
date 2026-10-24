@@ -17,6 +17,7 @@ from __future__ import annotations
 import concurrent.futures
 from datetime import datetime, timezone
 import hashlib
+import hmac
 import inspect
 import json
 import os
@@ -47,13 +48,31 @@ from scripts.core.state_model import LifecycleState
 from scripts.security.security import safe_subprocess
 
 
+def get_qc_salt() -> bytes:
+    """Retrieves cryptographic HMAC salt from QC_HMAC_SALT environment variable.
+    Strictly mandatory: fails explicitly if QC_HMAC_SALT is not set or empty.
+    No file fallback and no automatic salt generation is permitted.
+    """
+    salt_val = os.environ.get("QC_HMAC_SALT")
+    if not salt_val or not salt_val.strip():
+        raise RuntimeError(
+            "QC_HMAC_SALT environment variable is required for QC report sealing and verification. "
+            "No file fallback or automatic salt generation is permitted."
+        )
+    is_prod = os.environ.get("MOTION_ENV", "development").lower() == "production"
+    if is_prod and len(salt_val.strip()) < 32:
+        raise RuntimeError("QC_HMAC_SALT must be at least 32 characters in production environments.")
+    return salt_val.strip().encode("utf-8")
+
+
 def get_or_create_salt() -> bytes:
-    """Retrieves or generates cryptographic salt for probe report seal."""
-    salt_file = Path(".agents/secrets/.qc_salt")
-    if not salt_file.exists():
-        salt_file.parent.mkdir(parents=True, exist_ok=True)
-        salt_file.write_bytes(secrets.token_bytes(32))
-    return salt_file.read_bytes()
+    """Backward compatibility alias for get_qc_salt."""
+    return get_qc_salt()
+
+
+def compute_seal(data: bytes, salt: bytes) -> str:
+    """Computes HMAC-SHA256 seal for report data using cryptographic salt."""
+    return hmac.new(salt, data, hashlib.sha256).hexdigest()
 
 
 def verify_seal(report_path: Path | str) -> bool:
@@ -68,12 +87,12 @@ def verify_seal(report_path: Path | str) -> bool:
         return False
     expected = seal_file.read_text(encoding="utf-8").strip()
 
-    salt = get_or_create_salt()
-    data = p.read_bytes() + salt
-    actual = hashlib.sha256(data).hexdigest()
+    salt = get_qc_salt()
+    data = p.read_bytes()
+    actual = compute_seal(data, salt)
 
-    if expected != actual:
-        print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية غير متطابقة - تقرير مزوّر)")
+    if not hmac.compare_digest(expected, actual):
+        print("🛑 [SECURITY] تقرير Probe-QC تم تعديله يدوياً (البصمة الرقمية HMAC غير متطابقة - تقرير مزوّر)")
         return False
     return True
 
@@ -629,11 +648,11 @@ def _execute_probe_qc_core(
 
     # 8. Cryptographic Seal
     seal_file = report_path.with_suffix(report_path.suffix + ".seal")
-    salt = get_or_create_salt()
-    data = report_path.read_bytes() + salt
-    checksum = hashlib.sha256(data).hexdigest()
+    salt = get_qc_salt()
+    data = report_path.read_bytes()
+    checksum = compute_seal(data, salt)
     seal_file.write_text(checksum, encoding="utf-8")
-    print(f"🔏 تم ختم التقرير ببصمة رقمية معماة SHA-256 ({checksum[:12]}...)")
+    print(f"🔏 تم ختم التقرير ببصمة رقمية HMAC-SHA256 ({checksum[:12]}...)")
 
     if not verify_seal(report_path):
         print("🛑 تقرير Probe-QC فشل التحقق من الختم")

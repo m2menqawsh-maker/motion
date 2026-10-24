@@ -36,6 +36,7 @@ class DurableIdempotencyStore:
     def __init__(self, repo: Optional[SQLIdempotencyRepository] = None) -> None:
         self._entries: Dict[str, Tuple[str, CapabilityResult]] = {}
         self._in_flight: Dict[str, Tuple[str, asyncio.Future[CapabilityResult]]] = {}
+        self._background_tasks: set[asyncio.Task] = set()
         self._repo: Optional[SQLIdempotencyRepository] = repo
         if self._repo is None:
             try:
@@ -43,6 +44,12 @@ class DurableIdempotencyStore:
             except Exception as e:
                 logger.warning(f"SQLIdempotencyRepository initialization fallback: {e}")
                 self._repo = None
+
+    def _create_tracked_task(self, coro) -> asyncio.Task:
+        task = asyncio.create_task(coro)
+        self._background_tasks.add(task)
+        task.add_done_callback(self._background_tasks.discard)
+        return task
 
     def get(self, key: str) -> Optional[Tuple[str, CapabilityResult]]:
         # 1. In-process cache check
@@ -74,7 +81,7 @@ class DurableIdempotencyStore:
                     fut: asyncio.Future[CapabilityResult] = loop.create_future()
                     p_hash = rec["payload_hash"]
                     self._in_flight[key] = (p_hash, fut)
-                    asyncio.create_task(self._poll_durable(key, p_hash, fut))
+                    self._create_tracked_task(self._poll_durable(key, p_hash, fut))
                     return (p_hash, fut)
             except Exception as e:
                 logger.warning(f"DurableIdempotencyStore.get_in_flight failed: {e}")
@@ -126,7 +133,7 @@ class DurableIdempotencyStore:
         # IN_PROGRESS by another worker
         fut = loop.create_future()
         self._in_flight[key] = (payload_hash, fut)
-        asyncio.create_task(self._poll_durable(key, payload_hash, fut))
+        self._create_tracked_task(self._poll_durable(key, payload_hash, fut))
         return fut, False
 
     def complete(self, key: str, payload_hash: str, result: CapabilityResult) -> None:

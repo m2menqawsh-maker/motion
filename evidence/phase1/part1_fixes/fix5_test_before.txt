@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+collected 3 items
+
+tests/security/test_qc_hmac_hardening.py ..F                             [100%]
+
+=================================== FAILURES ===================================
+_____________ test_env_example_and_ci_workflows_have_qc_hmac_salt ______________
+
+    def test_env_example_and_ci_workflows_have_qc_hmac_salt():
+        repo_root = Path(__file__).resolve().parent.parent.parent
+        env_example = repo_root / ".env.example"
+>       assert "QC_HMAC_SALT=" in env_example.read_text(encoding="utf-8")
+E       AssertionError: assert 'QC_HMAC_SALT=' in '# ==========================================\n# Storage and URLs\n...'
+
+tests/security/test_qc_hmac_hardening.py:160: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_qc_hmac_hardening.py::test_env_example_and_ci_workflows_have_qc_hmac_salt
+========================= 1 failed, 2 passed in 0.22s ==========================

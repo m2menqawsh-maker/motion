@@ -1,0 +1,91 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/security/test_fetch_time_verification.py::TestDNSRebindingPrevention::test_dns_rebinding_pins_to_first_ip_only FAILED [100%]
+
+=================================== FAILURES ===================================
+_____ TestDNSRebindingPrevention.test_dns_rebinding_pins_to_first_ip_only ______
+
+self = <tests.security.test_fetch_time_verification.TestDNSRebindingPrevention object at 0x7f90be3fce60>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f90be1a7f80>
+
+    @pytest.mark.asyncio
+    async def test_dns_rebinding_pins_to_first_ip_only(self, monkeypatch: pytest.MonkeyPatch):
+        """
+        Real two-server DNS rebinding verification:
+        - Server A (127.0.0.1) serves 'GOOD' JPEG binary content.
+        - Server B (127.0.0.2) serves 'EVIL' JPEG binary content on the same port.
+        - Mock resolver returns 127.0.0.1 on resolution 1, and 127.0.0.2 on subsequent resolutions.
+        - Policy is monkeypatched inside this test only to permit loopback evaluation.
+        - Proves that PinnedAsyncHTTPTransport connects strictly to Server A (127.0.0.1),
+          receiving 'GOOD', and only 1 DNS resolution occurs during the entire request.
+        """
+        good_content = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00GOOD_PAYLOAD" + b"\x00" * 80
+        evil_content = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00EVIL_PAYLOAD" + b"\x00" * 80
+    
+        class ServerAHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(good_content)))
+                self.end_headers()
+                self.wfile.write(good_content)
+            def log_message(self, *args): pass
+    
+        class ServerBHandler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(evil_content)))
+                self.end_headers()
+                self.wfile.write(evil_content)
+            def log_message(self, *args): pass
+    
+        # Allocate ephemeral port available on both 127.0.0.1 and 127.0.0.2
+        probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        probe.bind(("127.0.0.1", 0))
+        port = probe.getsockname()[1]
+        probe.close()
+    
+        srv_a = socketserver.TCPServer(("127.0.0.1", port), ServerAHandler)
+        srv_b = socketserver.TCPServer(("127.0.0.2", port), ServerBHandler)
+        th_a = threading.Thread(target=srv_a.serve_forever, daemon=True)
+        th_b = threading.Thread(target=srv_b.serve_forever, daemon=True)
+        th_a.start()
+        th_b.start()
+    
+        orig_gai = socket.getaddrinfo
+        resolutions = []
+    
+        def mock_gai(host, p, *args, **kwargs):
+            host_str = host.decode() if isinstance(host, (bytes, bytearray)) else str(host)
+            if host_str == "rebinding.test":
+                resolutions.append(len(resolutions) + 1)
+                port_num = int(p) if p else port
+                if len(resolutions) == 1:
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.1", port_num))]
+                else:
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.2", port_num))]
+            return orig_gai(host, p, *args, **kwargs)
+    
+        monkeypatch.setattr(socket, "getaddrinfo", mock_gai)
+        monkeypatch.setattr(ssrf_guard, "is_ip_disallowed", lambda ip: (False, ""))
+    
+        try:
+            payload = await safe_download_media(f"http://rebinding.test:{port}/photo.jpg")
+    
+            # 1. Must receive GOOD content from 127.0.0.1
+>           assert b"GOOD_PAYLOAD" in payload.content_bytes
+E           AssertionError: assert b'GOOD_PAYLOAD' in b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00EVIL_PAYLOAD\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+E            +  where b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00EVIL_PAYLOAD\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00' = DownloadedPayload(content_bytes=b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00EVIL_PAYLOAD\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00', content_hash='e5f7fc67058d43af49043314b7b26953979a8cb3c47efd941a104a58d8c612be', mime_type='image/jpeg', file_size_bytes=112, suggested_extension='.jpg').content_bytes
+
+tests/security/test_fetch_time_verification.py:108: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_fetch_time_verification.py::TestDNSRebindingPrevention::test_dns_rebinding_pins_to_first_ip_only
+============================== 1 failed in 1.30s ===============================

@@ -22,6 +22,8 @@ import re
 import socket
 import urllib.parse
 from typing import Optional, Set, Tuple
+import httpcore
+from httpcore._backends.anyio import AnyIOBackend
 import httpx
 from pydantic import BaseModel, Field
 
@@ -31,16 +33,14 @@ from ai.acquisition.errors import (
     MediaValidationError,
     UnsafeDownloadSourceError,
 )
-
-FORBIDDEN_SCHEMES: Set[str] = {"file", "ftp", "gopher", "data", "javascript", "blob"}
-
-BLOCKED_HOSTNAMES: Set[str] = {
-    "localhost",
-    "ip6-localhost",
-    "ip6-loopback",
-    "metadata.google.internal",
-    "instance-data",
-}
+from scripts.core.security import ssrf_guard
+from scripts.core.security.ssrf_guard import (
+    SSRFSecurityViolation,
+    validate_url_security,
+    is_ip_disallowed,
+    BLOCKED_HOSTNAMES,
+    FORBIDDEN_SCHEMES,
+)
 
 DISALLOWED_CONTENT_TYPES: Set[str] = {
     "text/html",
@@ -49,6 +49,45 @@ DISALLOWED_CONTENT_TYPES: Set[str] = {
     "application/x-javascript",
     "application/xhtml+xml",
 }
+
+
+class PinnedNetworkBackend(AnyIOBackend):
+    """Network backend pinning TCP socket connections to a pre-validated IP address."""
+    def __init__(self, pinned_ip: str):
+        super().__init__()
+        self.pinned_ip = pinned_ip
+
+    async def connect_tcp(
+        self,
+        host: str,
+        port: int,
+        timeout: Optional[float] = None,
+        local_address: Optional[str] = None,
+        socket_options: Optional[Any] = None,
+    ) -> Any:
+        # Connect directly to the validated pinned_ip, bypassing any secondary DNS resolution.
+        # This completely closes the DNS rebinding window.
+        return await super().connect_tcp(
+            self.pinned_ip,
+            port,
+            timeout=timeout,
+            local_address=local_address,
+            socket_options=socket_options,
+        )
+
+
+class PinnedAsyncHTTPTransport(httpx.AsyncHTTPTransport):
+    """Transport ensuring TCP socket connects directly to pinned IP while preserving SNI & Host."""
+    def __init__(self, pinned_ip: str, **kwargs: Any):
+        super().__init__(**kwargs)
+        ssl_context = self._pool._ssl_context
+        self._pool = httpcore.AsyncConnectionPool(
+            ssl_context=ssl_context,
+            network_backend=PinnedNetworkBackend(pinned_ip),
+            http1=True,
+            http2=False,
+        )
+
 
 SVG_FORBIDDEN_PATTERNS = [
     (re.compile(r"<\s*script\b", re.IGNORECASE), "executable <script> tags are forbidden"),
@@ -65,34 +104,9 @@ def check_ip_disallowed(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> Tu
     """
     Evaluates whether an IP address falls into loopback, private, link-local,
     cloud metadata, or reserved/multicast address spaces.
+    Delegates to canonical ssrf_guard authority.
     """
-    if ip.is_loopback:
-        return True, "loopback address"
-    if ip.is_private:
-        return True, "private RFC1918/ULA address"
-    if ip.is_link_local:
-        return True, "link-local address"
-    if ip.is_reserved:
-        return True, "reserved address"
-    if ip.is_multicast:
-        return True, "multicast address"
-    if ip.is_unspecified:
-        return True, "unspecified (0.0.0.0 / ::) address"
-
-    # Handle IPv4-mapped IPv6 addresses (e.g., ::ffff:127.0.0.1)
-    if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
-        return check_ip_disallowed(ip.ipv4_mapped)
-
-    ip_str = str(ip).lower()
-    if ip_str in ("169.254.169.254", "fd00:ec2::254"):
-        return True, "cloud metadata service address"
-
-    # Carrier-grade NAT (100.64.0.0/10)
-    cgnat = ipaddress.ip_network("100.64.0.0/10")
-    if isinstance(ip, ipaddress.IPv4Address) and ip in cgnat:
-        return True, "carrier-grade NAT (RFC6598) address"
-
-    return False, ""
+    return is_ip_disallowed(ip)
 
 
 def validate_svg_security(content: bytes) -> None:
@@ -126,64 +140,14 @@ class DownloadedPayload(BaseModel):
 def assert_safe_url(url: str) -> None:
     """
     Validates a URL against strict network policy and SSRF risks.
-    Resolves DNS for domain hostnames and verifies all resolved IPv4/IPv6 addresses.
+    Delegates to canonical ssrf_guard authority.
     Raises UnsafeDownloadSourceError on any violation.
     """
-    if not url or not isinstance(url, str):
-        raise UnsafeDownloadSourceError(str(url), "URL must be a non-empty string.")
-
     try:
-        parsed = urllib.parse.urlparse(url)
-    except Exception as e:
-        raise UnsafeDownloadSourceError(url, f"Malformed URL syntax: {e}")
+        ssrf_guard.validate_url_security(url, require_dns_resolution=True)
+    except SSRFSecurityViolation as e:
+        raise UnsafeDownloadSourceError(str(url), f"{e} (SSRF blocked)") from e
 
-    scheme = (parsed.scheme or "").lower()
-    if scheme in FORBIDDEN_SCHEMES or scheme not in ("http", "https"):
-        raise UnsafeDownloadSourceError(
-            url,
-            f"Scheme '{scheme}' is forbidden. Only HTTP and HTTPS are permitted."
-        )
-
-    hostname = (parsed.hostname or "").lower().strip()
-    if not hostname:
-        raise UnsafeDownloadSourceError(url, "URL contains no target hostname.")
-
-    if hostname in BLOCKED_HOSTNAMES or hostname.endswith(".local") or hostname.endswith(".internal"):
-        raise UnsafeDownloadSourceError(url, f"Host '{hostname}' is internal/private (SSRF blocked).")
-
-    # 1. Direct IP address check if hostname is an IP literal
-    try:
-        ip = ipaddress.ip_address(hostname)
-        disallowed, reason = check_ip_disallowed(ip)
-        if disallowed:
-            raise UnsafeDownloadSourceError(url, f"IP '{hostname}' is blocked: {reason} (SSRF blocked).")
-        return
-    except ValueError:
-        pass
-
-    # 2. DNS resolution check for domain names (fail-closed across all resolved IPv4 & IPv6 records)
-    try:
-        addrinfo = socket.getaddrinfo(hostname, None)
-    except socket.gaierror as e:
-        raise UnsafeDownloadSourceError(url, f"DNS resolution failed for '{hostname}': {e} (SSRF blocked).")
-    except Exception as e:
-        raise UnsafeDownloadSourceError(url, f"DNS lookup error for '{hostname}': {e} (SSRF blocked).")
-
-    if not addrinfo:
-        raise UnsafeDownloadSourceError(url, f"No DNS records resolved for '{hostname}' (SSRF blocked).")
-
-    for family, socktype, proto, canonname, sockaddr in addrinfo:
-        resolved_ip_str = sockaddr[0]
-        try:
-            resolved_ip = ipaddress.ip_address(resolved_ip_str)
-            disallowed, reason = check_ip_disallowed(resolved_ip)
-            if disallowed:
-                raise UnsafeDownloadSourceError(
-                    url,
-                    f"Host '{hostname}' resolved to blocked IP '{resolved_ip_str}' ({reason}) (SSRF blocked)."
-                )
-        except ValueError:
-            raise UnsafeDownloadSourceError(url, f"Invalid resolved IP '{resolved_ip_str}' for '{hostname}'.")
 
 
 def verify_magic_bytes(content: bytes, expected_media_type: Optional[StockMediaType]) -> str:
@@ -270,19 +234,36 @@ async def safe_download_media(
     max_redirects: int = 3,
 ) -> DownloadedPayload:
     """
-    Downloads media from remote URL enforcing all security boundaries.
+    Downloads media from remote URL enforcing all security boundaries:
+    - Resolves and verifies destination IP against SSRF policy.
+    - Pins TCP socket connection to verified IP (closes DNS rebinding window).
+    - Preserves TLS SNI and Host header.
+    - Validates each redirect hop against SSRF policy and re-pins.
+    - Enforces maximum payload budget ceiling.
+    - Verifies content-type and binary magic bytes.
     """
     current_url = url
     redirect_count = 0
 
-    assert_safe_url(current_url)
+    while True:
+        try:
+            cleaned_url, resolved_ips = validate_url_security(current_url, require_dns_resolution=True)
+        except SSRFSecurityViolation as e:
+            raise UnsafeDownloadSourceError(current_url, f"{e} (SSRF blocked)") from e
 
-    async with httpx.AsyncClient(
-        follow_redirects=False,
-        timeout=httpx.Timeout(timeout_seconds, connect=5.0),
-        headers={"User-Agent": "CleanVideoWorkspace/2.0 (MediaAcquisitionService)"},
-    ) as client:
-        while True:
+        if not resolved_ips:
+            raise UnsafeDownloadSourceError(current_url, "No valid IP addresses resolved for target.")
+
+        pinned_ip = str(resolved_ips[0])
+        current_url = cleaned_url
+
+        transport = PinnedAsyncHTTPTransport(pinned_ip=pinned_ip)
+        async with httpx.AsyncClient(
+            transport=transport,
+            follow_redirects=False,
+            timeout=httpx.Timeout(timeout_seconds, connect=5.0),
+            headers={"User-Agent": "CleanVideoWorkspace/2.0 (MediaAcquisitionService)"},
+        ) as client:
             try:
                 response = await client.get(current_url)
             except httpx.TimeoutException as e:
@@ -290,7 +271,7 @@ async def safe_download_media(
             except httpx.RequestError as e:
                 raise DownloadFailedError(current_url, f"Network request error: {e}")
 
-            # Handle redirects manually to validate destination URLs against SSRF policy
+            # Handle redirects manually to validate destination URLs against SSRF policy and re-pin
             if response.status_code in (301, 302, 303, 307, 308):
                 redirect_count += 1
                 if redirect_count > max_redirects:
@@ -302,7 +283,6 @@ async def safe_download_media(
 
                 # Resolve relative redirects
                 next_url = urllib.parse.urljoin(current_url, redirect_location)
-                assert_safe_url(next_url)
                 current_url = next_url
                 continue
 

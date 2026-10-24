@@ -4,6 +4,7 @@ tests/ai/migration/test_legacy_migration.py
 Legacy Migration Audit, Preservation, and Workflow Parity Test Suite (S27.23 / AI-15).
 """
 
+import os
 from pathlib import Path
 import pytest
 
@@ -45,6 +46,12 @@ def test_legacy_tree_inventory_preserved():
 
     for rel_path, classification in LEGACY_INVENTORY_CLASSIFICATION.items():
         full_path = repo_root / rel_path
+        if rel_path == ".agents/secrets/.qc_salt":
+            # QC salt was rotated to QC_HMAC_SALT env variable and removed from git tracking
+            assert os.environ.get("QC_HMAC_SALT") is not None or full_path.exists(), (
+                "QC HMAC salt must be provided via QC_HMAC_SALT environment variable or local dev file"
+            )
+            continue
         assert full_path.exists(), f"Critical legacy component missing: {rel_path} (classified as {classification})"
 
     # Specifically verify Guardian remains intact for development agent safety

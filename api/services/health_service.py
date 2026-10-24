@@ -143,16 +143,10 @@ class HealthService:
         custom_db_path: Optional[Path],
         timeout: float,
     ) -> Tuple[bool, Dict[str, Any]]:
-        target_db = custom_db_path or (root / "data" / "runs.db")
+        env_db = os.environ.get("MOTION_RUNS_DB_PATH") or os.environ.get("RUNS_DB_PATH")
+        target_db = custom_db_path or (Path(env_db) if env_db else (root / "data" / "runs.db"))
         start = time.perf_counter()
         try:
-            if not target_db.exists():
-                try:
-                    from scripts.core.run_repository import RunRepository
-                    RunRepository(target_db)
-                except Exception:
-                    pass
-
             if not target_db.exists():
                 return False, {
                     "status": "fail",
@@ -220,9 +214,12 @@ class HealthService:
             try:
                 cur = conn.execute("SELECT 1")
                 cur.fetchone()
-                cur = conn.execute("SELECT MAX(version) FROM _schema_migrations")
-                v_row = cur.fetchone()
-                schema_v = v_row[0] if v_row else 1
+                try:
+                    cur = conn.execute("SELECT MAX(version) FROM _schema_migrations")
+                    v_row = cur.fetchone()
+                    schema_v = v_row[0] if v_row else 1
+                except Exception:
+                    schema_v = 1
                 latency = round((time.perf_counter() - start) * 1000, 2)
                 return True, {
                     "status": "pass",
@@ -272,7 +269,8 @@ class HealthService:
         custom_db_path: Optional[Path],
         settings: Any,
     ) -> Tuple[bool, Dict[str, Any]]:
-        target_db = custom_db_path or (root / "data" / "runs.db")
+        env_db = os.environ.get("MOTION_RUNS_DB_PATH") or os.environ.get("RUNS_DB_PATH")
+        target_db = custom_db_path or (Path(env_db) if env_db else (root / "data" / "runs.db"))
         if not target_db.exists():
             return False, {"status": "fail", "reason": "Runs DB not available for worker lease check"}
 
@@ -281,16 +279,24 @@ class HealthService:
             try:
                 cursor = conn.cursor()
                 # Check for active non-expired worker leases
+                # Check for active non-expired worker leases via explicit safe queries
                 now_iso = datetime.now(timezone.utc).isoformat()
-                table_name = "project_execution_leases"
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('project_execution_leases', 'worker_leases')")
-                t_row = cursor.fetchone()
-                if t_row:
-                    table_name = t_row[0]
                 cursor.execute(
-                    f"SELECT worker_id, heartbeat_at, expires_at FROM {table_name} WHERE expires_at > ?",
-                    (now_iso,),
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name IN ('project_execution_leases', 'worker_leases')"
                 )
+                t_row = cursor.fetchone()
+                use_legacy_leases = (t_row and t_row[0] == "worker_leases")
+
+                if use_legacy_leases:
+                    cursor.execute(
+                        "SELECT worker_id, heartbeat_at, expires_at FROM worker_leases WHERE expires_at > ?",
+                        (now_iso,),
+                    )
+                else:
+                    cursor.execute(
+                        "SELECT worker_id, heartbeat_at, expires_at FROM project_execution_leases WHERE expires_at > ?",
+                        (now_iso,),
+                    )
                 rows = cursor.fetchall()
 
                 active_count = len(rows)
@@ -302,7 +308,10 @@ class HealthService:
                     }
 
                 # If no active lease, check if any lease updated heartbeat recently
-                cursor.execute(f"SELECT MAX(heartbeat_at) FROM {table_name}")
+                if use_legacy_leases:
+                    cursor.execute("SELECT MAX(heartbeat_at) FROM worker_leases")
+                else:
+                    cursor.execute("SELECT MAX(heartbeat_at) FROM project_execution_leases")
                 latest_heartbeat = cursor.fetchone()[0]
 
                 if latest_heartbeat:

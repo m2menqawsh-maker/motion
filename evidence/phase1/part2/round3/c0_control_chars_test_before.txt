@@ -1,0 +1,352 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 24 items / 14 deselected / 10 selected
+
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x01//169.254.169.254/x] FAILED [ 10%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x7f//evil.com/x] FAILED [ 20%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[ht\ttp://evil.com] PASSED [ 30%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/lo\ngo.png] FAILED [ 40%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[//evil.com/x] PASSED [ 50%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2e%2e/%2e%2e/x] FAILED [ 60%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2fetc/passwd] FAILED [ 70%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%5cetc] FAILED [ 80%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\u200b//169.254.169.254/x] FAILED [ 90%]
+tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\xa0//169.254.169.254/x] PASSED [100%]
+
+=================================== FAILURES ===================================
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x01//169.254.169.254/x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba582c0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro0')
+evasion_path = '\x01//169.254.169.254/x'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x7f//evil.com/x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba59400>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro1')
+evasion_path = '\x7f//evil.com/x'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/lo\ngo.png] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba59580>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro3')
+evasion_path = 'assets/lo\ngo.png'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2e%2e/%2e%2e/x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba59700>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro5')
+evasion_path = 'assets/%2e%2e/%2e%2e/x'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2fetc/passwd] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba597c0>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro6')
+evasion_path = 'assets/%2fetc/passwd'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%5cetc] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba59880>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro7')
+evasion_path = 'assets/%5cetc'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+_ TestRenderPathRejectsExternalURLs.test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\u200b//169.254.169.254/x] _
+
+self = <tests.security.test_fetch_time_verification.TestRenderPathRejectsExternalURLs object at 0x7f13cba59940>
+tmp_path = PosixPath('/tmp/pytest-of-eng_Momen/pytest-21/test_brand_json_rejects_contro8')
+evasion_path = '\u200b//169.254.169.254/x'
+
+    @pytest.mark.parametrize("evasion_path", [
+        "\x01//169.254.169.254/x",
+        "\x7f//evil.com/x",
+        "ht\ttp://evil.com",
+        "assets/lo\ngo.png",
+        "//evil.com/x",
+        "assets/%2e%2e/%2e%2e/x",
+        "assets/%2fetc/passwd",
+        "assets/%5cetc",
+        "\u200b//169.254.169.254/x",
+        "\u00a0//169.254.169.254/x",
+    ])
+    def test_brand_json_rejects_control_chars_and_percent_encoding_evasion(self, tmp_path: Path, evasion_path: str):
+        """
+        Round 3 Final Hardening:
+        Verifies that brand.json rejects C0 control characters (<0x20, 0x7f),
+        non-ASCII spaces/formatting (Cc, Cf, Zs), and percent-encoded directory traversals (%2e, %2f, %5c).
+        """
+        project_dir = tmp_path / "prj_brand_control_char_test"
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "project.json").write_text('{"project_id": "prj_brand_control_char_test", "title": "Test"}', encoding="utf-8")
+        (project_dir / "media_map.json").write_text('{}', encoding="utf-8")
+        (project_dir / "05_blueprint.json").write_text(json.dumps({
+            "blueprint_version": "2.0.0",
+            "project_id": "prj_brand_control_char_test",
+            "fps": 30,
+            "aspect_ratio": "16:9",
+            "scenes": [],
+        }), encoding="utf-8")
+    
+        # Test logoSrc rejection
+        (project_dir / "brand.json").write_text(json.dumps({
+            "brandName": "TestBrand",
+            "logoSrc": evasion_path,
+        }), encoding="utf-8")
+>       with pytest.raises(RenderInputValidationError) as exc:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RenderInputValidationError
+
+tests/security/test_fetch_time_verification.py:397: Failed
+=========================== short test summary info ============================
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x01//169.254.169.254/x]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\x7f//evil.com/x]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/lo\ngo.png]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2e%2e/%2e%2e/x]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%2fetc/passwd]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[assets/%5cetc]
+FAILED tests/security/test_fetch_time_verification.py::TestRenderPathRejectsExternalURLs::test_brand_json_rejects_control_chars_and_percent_encoding_evasion[\u200b//169.254.169.254/x]
+================== 7 failed, 3 passed, 14 deselected in 0.86s ==================

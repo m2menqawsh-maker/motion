@@ -2,9 +2,9 @@ name: Remediation Fortress CI
 
 on:
   push:
-    branches: [main, "remediation/*", "feature/*", "feat/*"]
+    branches: [main]
   pull_request:
-    branches: [main, "feature/*", "feat/*"]
+    branches: [main, "feature/*", "feat/*", "ci/*"]
 
 permissions:
   contents: read
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -41,6 +43,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,6 +73,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -94,6 +100,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -108,6 +116,26 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          GITLEAKS_SHA256="6298c9235dfc9278c14b28afd9b7fa4e6f4a289cb1974bd27949fc1e9122bdee"
+          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
+          rm -f /tmp/gitleaks.tar.gz
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        env:
+          INPUT_SALT: ${{ secrets.QC_HMAC_SALT }}
+        run: |
+          if [ -n "$INPUT_SALT" ]; then
+            echo "QC_HMAC_SALT=$INPUT_SALT" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Install Node Dependencies
         run: |
@@ -141,6 +169,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -155,6 +185,26 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          GITLEAKS_SHA256="6298c9235dfc9278c14b28afd9b7fa4e6f4a289cb1974bd27949fc1e9122bdee"
+          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
+          rm -f /tmp/gitleaks.tar.gz
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        env:
+          INPUT_SALT: ${{ secrets.QC_HMAC_SALT }}
+        run: |
+          if [ -n "$INPUT_SALT" ]; then
+            echo "QC_HMAC_SALT=$INPUT_SALT" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Install Python Dependencies
         run: |
@@ -199,6 +249,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
@@ -258,6 +310,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -281,24 +335,29 @@ jobs:
       - name: Run Node Dependency Audit (Root & App)
         run: |
           npm audit --audit-level=high
-          cd remotion-app && npm audit --audit-level=high
+          # Remotion App audit with pinned tool and explicit allowlist for Remotion internal zod dependency
+          # Root strictly remains on zod 4.6.7 without any exception
+          cd remotion-app && npx --yes audit-ci@7.1.0 --high --allowlist GHSA-mrhx-c7xc-m3w5
 
       - name: Run Bandit Static Security Scan
+        if: success() || failure()
         run: |
           bandit -r api/ scripts/core/ -lll
 
       - name: Run Static Secret Scanner
+        if: success() || failure()
         run: |
           python scripts/validators/check_secrets.py
 
       - name: Run Trivy Container Security Scan
+        if: success() || failure()
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: 'fs'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
-          trivyignores: '.trivyignore'
+          trivyignores: '.trivyignore.yaml'
 
   remotion-verification:
     name: remotion-verification
@@ -306,6 +365,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -320,6 +381,26 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          GITLEAKS_SHA256="6298c9235dfc9278c14b28afd9b7fa4e6f4a289cb1974bd27949fc1e9122bdee"
+          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
+          rm -f /tmp/gitleaks.tar.gz
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        env:
+          INPUT_SALT: ${{ secrets.QC_HMAC_SALT }}
+        run: |
+          if [ -n "$INPUT_SALT" ]; then
+            echo "QC_HMAC_SALT=$INPUT_SALT" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Install Node Dependencies
         run: |
@@ -422,7 +503,7 @@ jobs:
         ports:
           - 54329:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres -d test_memory"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -430,6 +511,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           submodules: recursive
 
       - name: Setup Node.js
@@ -445,6 +527,26 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.18.2"
+          GITLEAKS_SHA256="6298c9235dfc9278c14b28afd9b7fa4e6f4a289cb1974bd27949fc1e9122bdee"
+          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
+          rm -f /tmp/gitleaks.tar.gz
+          gitleaks version
+
+      - name: Configure Ephemeral QC HMAC Salt
+        env:
+          INPUT_SALT: ${{ secrets.QC_HMAC_SALT }}
+        run: |
+          if [ -n "$INPUT_SALT" ]; then
+            echo "QC_HMAC_SALT=$INPUT_SALT" >> "$GITHUB_ENV"
+          else
+            echo "QC_HMAC_SALT=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          fi
 
       - name: Install Node Dependencies
         run: |

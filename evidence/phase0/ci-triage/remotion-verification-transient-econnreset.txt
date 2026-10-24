@@ -1,0 +1,27 @@
+=== REMOTION-VERIFICATION FAILURE DIAGNOSTIC ===
+Job Name: remotion-verification
+Run ID (push): 39667952430 (Job ID 119457879243) -> FAILED
+Run ID (pull_request): 39667961746 (Job ID 119457909990) -> SUCCESS (on exact same commit SHA 80693f1)
+
+Failing Step: Install Node Dependencies
+Failing Command: cd remotion-app && npm ci
+
+Root Cause:
+Transient network failure (TCP connection reset) during npm package download on GitHub Actions runner.
+Exit code: 152
+
+Raw Log Extract (Job 119457879243):
+--------------------------------------------------
+remotion-verification  UNKNOWN STEP  2026-10-21T20:10:41.6831783Z ##[group]Run npm ci
+remotion-verification  UNKNOWN STEP  2026-10-21T20:10:41.6831960Z npm ci
+remotion-verification  UNKNOWN STEP  2026-10-21T20:10:41.6832085Z cd remotion-app && npm ci
+...
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1461824Z npm error code ECONNRESET
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1462129Z npm error syscall read
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1462495Z npm error errno -104
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1462865Z npm error network read ECONNRESET
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1463390Z npm error network This is a problem related to network connectivity.
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1464167Z npm error network In most cases you are behind a proxy or have bad network settings.
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1470999Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-10-21T20_10_41_731Z-debug-0.log
+remotion-verification  UNKNOWN STEP  2026-10-21T20:11:11.1683650Z ##[error]Process completed with exit code 152.
+--------------------------------------------------

@@ -1,4 +1,5 @@
 import os
+import socket
 import pytest
 import shutil
 import asyncio
@@ -8,7 +9,40 @@ from typing import Optional, Set, Dict, Union, Iterable
 from scripts.core.security.principal import Principal, PrincipalType, Role
 from api.core.auth import create_signed_token
 
+ORIG_GETADDRINFO = socket.getaddrinfo
+HERMETIC_PUBLIC_IP = "93.184.216.34"
+
+
+@pytest.fixture(autouse=True)
+def hermetic_suite_dns(monkeypatch: pytest.MonkeyPatch):
+    """
+    Suite-wide autouse fixture ensuring standard RFC 2606 test domains
+    (*.example.com, *.example.org, example.com, example.org) and safe fixtures
+    (images.unsplash.com) resolve offline to safe public IPs across the entire test suite,
+    without requiring internet DNS or fallbacks in production code.
+    Any host containing 'nonexistent' or designated for failure tests bypasses this and fails closed.
+    """
+    def hermetic_getaddrinfo(host, port=None, *args, **kwargs):
+        host_str = host.decode() if isinstance(host, (bytes, bytearray)) else str(host)
+        if host_str:
+            host_lower = host_str.lower().strip()
+            if "nonexistent" not in host_lower:
+                if (
+                    host_lower == "example.com"
+                    or host_lower.endswith(".example.com")
+                    or host_lower == "example.org"
+                    or host_lower.endswith(".example.org")
+                    or host_lower == "images.unsplash.com"
+                ):
+                    p = int(port) if port else 0
+                    return [(socket.AF_INET, socket.SOCK_STREAM, 6, "", (HERMETIC_PUBLIC_IP, p))]
+        return ORIG_GETADDRINFO(host, port, *args, **kwargs)
+
+    monkeypatch.setattr(socket, "getaddrinfo", hermetic_getaddrinfo)
+
+
 TEST_PYTEST_AUTH_SECRET = "test-signing-secret-for-pytest-harness-32-chars!"
+TEST_PYTEST_QC_HMAC_SALT = "test-qc-hmac-salt-for-pytest-harness-32-bytes!"
 
 
 def make_test_auth_headers(
@@ -65,6 +99,7 @@ def make_test_auth_headers(
 def setup_test_env():
     os.environ['TESTING'] = '1'
     os.environ.setdefault('AUTH_SECRET_KEY', TEST_PYTEST_AUTH_SECRET)
+    os.environ.setdefault('QC_HMAC_SALT', TEST_PYTEST_QC_HMAC_SALT)
     try:
         from scripts.core.database import get_database_engine, TenantRepository, Role
         repo = TenantRepository(get_database_engine())

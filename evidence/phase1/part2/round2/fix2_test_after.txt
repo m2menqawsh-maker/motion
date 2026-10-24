@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 2 items
+
+tests/integration/test_pr003_ai_runtime_vertical_slice.py::test_idempotent_replay_and_conflict_rejection PASSED [ 50%]
+tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_conflict_evaluated_before_proposal_lookup PASSED [100%]
+
+============================== 2 passed in 1.85s ===============================

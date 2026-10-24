@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+collected 2 items
+
+tests/security/test_gitleaks_classification.py .F                        [100%]
+
+=================================== FAILURES ===================================
+___________________ test_gitleaks_detect_returns_zero_exit_code ___________________
+
+    def test_gitleaks_detect_returns_zero_exit_code():
+        repo_root = Path(__file__).resolve().parent.parent.parent
+        res = subprocess.run(
+            ["gitleaks", "detect", "--no-banner"],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+        )
+>       assert res.returncode == 0, f"gitleaks detect failed with code {res.returncode}: {res.stderr}\n{res.stdout}"
+E       AssertionError: gitleaks detect failed with code 1: 
+E       6:26PM WRN leaks found: 32
+E       assert 1 == 0
+
+tests/security/test_gitleaks_classification.py:38: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_gitleaks_classification.py::test_gitleaks_detect_returns_zero_exit_code
+========================= 1 failed, 1 passed in 8.42s ==========================

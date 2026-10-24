@@ -1,0 +1,307 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 3 items
+
+tests/core/test_asset_resolution.py::test_cross_language_golden_fixtures FAILED [ 33%]
+tests/core/test_suite_hermetic_dns.py::test_hermetic_dns_resolution_for_example_domains_outside_security_dir FAILED [ 66%]
+tests/core/test_suite_hermetic_dns.py::test_nonexistent_subdomain_still_fails_closed_outside_security_dir PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_cross_language_golden_fixtures ______________________
+
+hostname = 'assets.example.com'
+
+    def resolve_all_ips(hostname: str) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
+        """
+        Resolves all IPv4 (A) and IPv6 (AAAA) addresses for a given hostname.
+        Fails closed on resolution failures or empty results.
+        For RFC 2606 reserved documentation subdomains (*.example.com), falls back
+        to resolving example.com to support offline/documentation unit tests.
+        """
+        addrinfo = None
+        try:
+>           addrinfo = socket.getaddrinfo(hostname, None, family=socket.AF_UNSPEC, type=socket.SOCK_STREAM)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+scripts/core/security/ssrf_guard.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+host = 'assets.example.com', port = None, family = <AddressFamily.AF_UNSPEC: 0>
+type = <SocketKind.SOCK_STREAM: 1>, proto = 0, flags = 0
+
+    def getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+        """Resolve host and port into list of address info entries.
+    
+        Translate the host/port argument into a sequence of 5-tuples that contain
+        all the necessary arguments for creating a socket connected to that service.
+        host is a domain name, a string representation of an IPv4/v6 address or
+        None. port is a string service name such as 'http', a numeric port number or
+        None. By passing None as the value of host and port, you can pass NULL to
+        the underlying C API.
+    
+        The family, type and proto arguments can be optionally specified in order to
+        narrow the list of addresses returned. Passing zero as a value for each of
+        these arguments selects the full range of results.
+        """
+        # We override this function since we want to translate the numeric family
+        # and socket type values to enum constants.
+        addrlist = []
+>       for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       socket.gaierror: [Errno -5] No address associated with hostname
+
+../../../.local/share/uv/python/cpython-3.12-linux-x86_64-gnu/lib/python3.12/socket.py:978: gaierror
+
+The above exception was the direct cause of the following exception:
+
+val = {'kind': 'url', 'url': 'https://assets.example.com/branding/logo.png'}
+field_path = '', scene_id = None
+
+    def parse_asset_ref(
+        val: Any,
+        field_path: str = "",
+        scene_id: Optional[str] = None
+    ) -> ParsedAssetRef:
+        """
+        Authoritative parser for Asset References.
+        Strictly distinguishes logical references from literal external resources.
+        Disallows guessing URLs or filesystem paths from bare strings.
+        """
+        if val is None:
+            raise MalformedAssetRefError(val, "Reference cannot be null", field_path, scene_id)
+    
+        # 1. String format: Must be logical asset ID
+        if isinstance(val, str):
+            cleaned = val.strip()
+            if not cleaned:
+                raise MalformedAssetRefError(val, "Asset reference string cannot be empty", field_path, scene_id)
+    
+            # Ban guessing URLs from strings
+            if cleaned.startswith("http://") or cleaned.startswith("https://"):
+                raise MalformedAssetRefError(
+                    val,
+                    "String reference looks like a URL. External URLs must use tagged format: {'kind': 'url', 'url': '...'}",
+                    field_path,
+                    scene_id
+                )
+    
+            # Ban guessing filesystem paths from strings
+            if cleaned.startswith("/") or cleaned.startswith("./") or cleaned.startswith("../") or "\\" in cleaned:
+                raise MalformedAssetRefError(
+                    val,
+                    "String reference looks like a filesystem path. Logical references must be asset IDs, not local paths",
+                    field_path,
+                    scene_id
+                )
+    
+            if not ASSET_ID_REGEX.match(cleaned):
+                raise MalformedAssetRefError(
+                    val,
+                    f"Asset ID '{cleaned}' contains invalid characters (must match ^[a-zA-Z0-9_\\-\\.]+$)",
+                    field_path,
+                    scene_id
+                )
+    
+            return ParsedAssetRef(ref_kind=AssetRefKind.ASSET, asset_id=cleaned, url=None, raw_ref=val)
+    
+        # 2. Tagged Dict format
+        if isinstance(val, dict):
+            kind = val.get("kind")
+            if not kind:
+                raise MalformedAssetRefError(val, "Missing required 'kind' property in tagged asset reference", field_path, scene_id)
+    
+            if kind == AssetRefKind.ASSET.value:
+                aid = val.get("asset_id")
+                if not isinstance(aid, str) or not aid.strip():
+                    raise MalformedAssetRefError(val, "Tagged asset reference must contain non-empty string 'asset_id'", field_path, scene_id)
+                aid_clean = aid.strip()
+                if not ASSET_ID_REGEX.match(aid_clean):
+                    raise MalformedAssetRefError(val, f"asset_id '{aid_clean}' contains invalid characters", field_path, scene_id)
+                return ParsedAssetRef(ref_kind=AssetRefKind.ASSET, asset_id=aid_clean, url=None, raw_ref=val)
+    
+            elif kind == AssetRefKind.URL.value:
+                url_val = val.get("url")
+                if not isinstance(url_val, str) or not url_val.strip():
+                    raise MalformedAssetRefError(val, "Tagged url reference must contain non-empty string 'url'", field_path, scene_id)
+                url_clean = url_val.strip()
+                try:
+                    from scripts.core.security.url_policy import validate_safe_url, URLSecurityViolation
+>                   validated_url = validate_safe_url(url_clean)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+scripts/core/asset_resolution.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/core/security/url_policy.py:19: in validate_safe_url
+    return ssrf_guard.validate_safe_url(url, allow_private_networks=allow_private_networks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/core/security/ssrf_guard.py:296: in validate_safe_url
+    cleaned, _ = validate_url_security(url, allow_private_networks=allow_private_networks, require_dns_resolution=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/core/security/ssrf_guard.py:278: in validate_url_security
+    resolved_ips = resolve_all_ips(hostname_clean)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+hostname = 'assets.example.com'
+
+    def resolve_all_ips(hostname: str) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
+        """
+        Resolves all IPv4 (A) and IPv6 (AAAA) addresses for a given hostname.
+        Fails closed on resolution failures or empty results.
+        For RFC 2606 reserved documentation subdomains (*.example.com), falls back
+        to resolving example.com to support offline/documentation unit tests.
+        """
+        addrinfo = None
+        try:
+            addrinfo = socket.getaddrinfo(hostname, None, family=socket.AF_UNSPEC, type=socket.SOCK_STREAM)
+        except socket.gaierror as e:
+>           raise SSRFSecurityViolation(f"DNS resolution failed for host '{hostname}': {e}") from e
+E           scripts.core.security.ssrf_guard.SSRFSecurityViolation: DNS resolution failed for host 'assets.example.com': [Errno -5] No address associated with hostname
+
+scripts/core/security/ssrf_guard.py:174: SSRFSecurityViolation
+
+The above exception was the direct cause of the following exception:
+
+    def test_cross_language_golden_fixtures():
+        """Verify that Python adheres to the shared golden fixture identically to TypeScript."""
+        assert GOLDEN_FIXTURE_PATH.exists(), f"Golden fixture missing at {GOLDEN_FIXTURE_PATH}"
+        data = json.loads(GOLDEN_FIXTURE_PATH.read_text(encoding="utf-8"))
+    
+        for tc in data["test_cases"]:
+            ref = tc["ref"]
+            media_map = tc["media_map"]
+            should_succeed = tc["should_succeed"]
+    
+            if should_succeed:
+>               res = resolve_asset_reference(ref, media_map)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/core/test_asset_resolution.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/core/asset_resolution.py:512: in resolve_asset_reference
+    parsed = parse_asset_ref(ref, field_path=field_path, scene_id=scene_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+val = {'kind': 'url', 'url': 'https://assets.example.com/branding/logo.png'}
+field_path = '', scene_id = None
+
+    def parse_asset_ref(
+        val: Any,
+        field_path: str = "",
+        scene_id: Optional[str] = None
+    ) -> ParsedAssetRef:
+        """
+        Authoritative parser for Asset References.
+        Strictly distinguishes logical references from literal external resources.
+        Disallows guessing URLs or filesystem paths from bare strings.
+        """
+        if val is None:
+            raise MalformedAssetRefError(val, "Reference cannot be null", field_path, scene_id)
+    
+        # 1. String format: Must be logical asset ID
+        if isinstance(val, str):
+            cleaned = val.strip()
+            if not cleaned:
+                raise MalformedAssetRefError(val, "Asset reference string cannot be empty", field_path, scene_id)
+    
+            # Ban guessing URLs from strings
+            if cleaned.startswith("http://") or cleaned.startswith("https://"):
+                raise MalformedAssetRefError(
+                    val,
+                    "String reference looks like a URL. External URLs must use tagged format: {'kind': 'url', 'url': '...'}",
+                    field_path,
+                    scene_id
+                )
+    
+            # Ban guessing filesystem paths from strings
+            if cleaned.startswith("/") or cleaned.startswith("./") or cleaned.startswith("../") or "\\" in cleaned:
+                raise MalformedAssetRefError(
+                    val,
+                    "String reference looks like a filesystem path. Logical references must be asset IDs, not local paths",
+                    field_path,
+                    scene_id
+                )
+    
+            if not ASSET_ID_REGEX.match(cleaned):
+                raise MalformedAssetRefError(
+                    val,
+                    f"Asset ID '{cleaned}' contains invalid characters (must match ^[a-zA-Z0-9_\\-\\.]+$)",
+                    field_path,
+                    scene_id
+                )
+    
+            return ParsedAssetRef(ref_kind=AssetRefKind.ASSET, asset_id=cleaned, url=None, raw_ref=val)
+    
+        # 2. Tagged Dict format
+        if isinstance(val, dict):
+            kind = val.get("kind")
+            if not kind:
+                raise MalformedAssetRefError(val, "Missing required 'kind' property in tagged asset reference", field_path, scene_id)
+    
+            if kind == AssetRefKind.ASSET.value:
+                aid = val.get("asset_id")
+                if not isinstance(aid, str) or not aid.strip():
+                    raise MalformedAssetRefError(val, "Tagged asset reference must contain non-empty string 'asset_id'", field_path, scene_id)
+                aid_clean = aid.strip()
+                if not ASSET_ID_REGEX.match(aid_clean):
+                    raise MalformedAssetRefError(val, f"asset_id '{aid_clean}' contains invalid characters", field_path, scene_id)
+                return ParsedAssetRef(ref_kind=AssetRefKind.ASSET, asset_id=aid_clean, url=None, raw_ref=val)
+    
+            elif kind == AssetRefKind.URL.value:
+                url_val = val.get("url")
+                if not isinstance(url_val, str) or not url_val.strip():
+                    raise MalformedAssetRefError(val, "Tagged url reference must contain non-empty string 'url'", field_path, scene_id)
+                url_clean = url_val.strip()
+                try:
+                    from scripts.core.security.url_policy import validate_safe_url, URLSecurityViolation
+                    validated_url = validate_safe_url(url_clean)
+                except URLSecurityViolation as sec_err:
+>                   raise MalformedAssetRefError(val, f"URL security violation: {sec_err}", field_path, scene_id) from sec_err
+E                   scripts.core.asset_resolution.MalformedAssetRefError: MALFORMED_ASSET_REF: Malformed asset reference '{'kind': 'url', 'url': 'https://assets.example.com/branding/logo.png'}': URL security violation: DNS resolution failed for host 'assets.example.com': [Errno -5] No address associated with hostname
+
+scripts/core/asset_resolution.py:233: MalformedAssetRefError
+____ test_hermetic_dns_resolution_for_example_domains_outside_security_dir _____
+
+    def test_hermetic_dns_resolution_for_example_domains_outside_security_dir():
+        """Verify *.example.com and *.example.org resolve hermetically outside tests/security/."""
+>       ips = socket.getaddrinfo("assets.example.com", 80)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/core/test_suite_hermetic_dns.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+host = 'assets.example.com', port = 80, family = 0, type = 0, proto = 0
+flags = 0
+
+    def getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+        """Resolve host and port into list of address info entries.
+    
+        Translate the host/port argument into a sequence of 5-tuples that contain
+        all the necessary arguments for creating a socket connected to that service.
+        host is a domain name, a string representation of an IPv4/v6 address or
+        None. port is a string service name such as 'http', a numeric port number or
+        None. By passing None as the value of host and port, you can pass NULL to
+        the underlying C API.
+    
+        The family, type and proto arguments can be optionally specified in order to
+        narrow the list of addresses returned. Passing zero as a value for each of
+        these arguments selects the full range of results.
+        """
+        # We override this function since we want to translate the numeric family
+        # and socket type values to enum constants.
+        addrlist = []
+>       for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       socket.gaierror: [Errno -5] No address associated with hostname
+
+../../../.local/share/uv/python/cpython-3.12-linux-x86_64-gnu/lib/python3.12/socket.py:978: gaierror
+=========================== short test summary info ============================
+FAILED tests/core/test_asset_resolution.py::test_cross_language_golden_fixtures
+FAILED tests/core/test_suite_hermetic_dns.py::test_hermetic_dns_resolution_for_example_domains_outside_security_dir
+========================= 2 failed, 1 passed in 0.18s ==========================

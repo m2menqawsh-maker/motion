@@ -1,0 +1,76 @@
+# npm audit report
+
+body-parser  2.0.0 - 2.3.0
+Severity: high
+body-parser vulnerable to Denial of Service via trailing bytes after a compressed request body - https://github.com/advisories/GHSA-27r3-jxmh-p828
+fix available via `npm audit fix`
+node_modules/body-parser
+
+fast-uri  3.0.0 - 3.1.8
+Severity: moderate
+fast-uri vulnerable to URI scheme spoofing via percent-encoded scheme decoding - https://github.com/advisories/GHSA-w74x-v6f9-j3xg
+fast-uri vulnerable to improper path equivalence in relative reference normalization - https://github.com/advisories/GHSA-xhq7-xmqj-769h
+fast-uri vulnerable to host confusion via unchecked WHATWG host canonicalization - https://github.com/advisories/GHSA-wjr9-j795-jxcr
+fast-uri vulnerable to scheme injection via an unescaped first-segment colon in suffix references - https://github.com/advisories/GHSA-333x-w4r6-6crp
+fix available via `npm audit fix`
+node_modules/fast-uri
+
+ip-address  <=10.7.3
+Severity: moderate
+ip-address: Address6 matches a zone identifier in quadratic time ahead of its length limit, allowing a single long string to stall the process - https://github.com/advisories/GHSA-rxp7-6hxx-x8q5
+fix available via `npm audit fix`
+node_modules/ip-address
+
+zod  <4.6.6
+Severity: high
+Zod can exhaust memory while validating oversized constrained collections - https://github.com/advisories/GHSA-mrhx-c7xc-m3w5
+fix available via `npm audit fix --force`
+Will install @remotion/media@4.0.428, which is a breaking change
+node_modules/zod
+  @modelcontextprotocol/sdk  <=1.22.0
+  Depends on vulnerable versions of zod
+  node_modules/@modelcontextprotocol/sdk
+  @remotion/light-leaks  >=4.0.429
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/light-leaks
+  @remotion/media  >=4.0.429
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/media
+    @remotion/studio  >=4.0.278
+    Depends on vulnerable versions of @remotion/media
+    Depends on vulnerable versions of @remotion/studio-protocol
+    Depends on vulnerable versions of zod
+    node_modules/@remotion/studio
+      @remotion/bundler  4.0.278 - 4.0.538
+      Depends on vulnerable versions of @remotion/studio
+      node_modules/@remotion/bundler
+        @remotion/cli  4.0.278 - 4.0.538
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio
+        Depends on vulnerable versions of @remotion/studio-server
+        node_modules/@remotion/cli
+        @remotion/studio-server  >=4.0.278
+        Depends on vulnerable versions of @remotion/bundler
+        Depends on vulnerable versions of @remotion/studio-protocol
+        Depends on vulnerable versions of zod
+        node_modules/@remotion/studio-server
+  @remotion/studio-protocol  >=4.0.520
+  Depends on vulnerable versions of zod
+  node_modules/@remotion/studio-protocol
+  ondajs  >=0.4.0
+  Depends on vulnerable versions of zod
+  node_modules/ondajs
+  remotion-ui  <=0.9.0
+  Depends on vulnerable versions of zod
+  node_modules/remotion-ui
+  zod-to-json-schema  <=3.24.6
+  Depends on vulnerable versions of zod
+  node_modules/@modelcontextprotocol/sdk/node_modules/zod-to-json-schema
+
+15 vulnerabilities (2 moderate, 13 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force

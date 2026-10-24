@@ -208,3 +208,23 @@ def test_fi09_duplicate_on_completed_run_returns_terminal_state(fi09_env):
     data2 = resp2.json()
     assert data2["run_id"] == run_id
     assert data2["status"] == "SUCCEEDED"
+
+
+@pytest.mark.asyncio
+async def test_durable_idempotency_store_tracks_background_tasks():
+    import asyncio
+    from scripts.core.idempotency_store import DurableIdempotencyStore
+
+    store = DurableIdempotencyStore(repo=None)
+    assert len(store._background_tasks) == 0
+
+    async def sample_coro():
+        await asyncio.sleep(0.01)
+        return "done"
+
+    task = store._create_tracked_task(sample_coro())
+    assert task in store._background_tasks
+    await task
+    # After completion, done_callback discards the task from the set
+    assert len(store._background_tasks) == 0
+

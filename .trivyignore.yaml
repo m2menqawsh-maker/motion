@@ -1,0 +1,13 @@
+# Trivy Granular Ignore Configuration
+# Scoped suppression for internal Remotion zod dependency
+vulnerabilities:
+  - id: CVE-2023-54404
+    paths:
+      - "remotion-app/package-lock.json"
+    expired_at: 2026-12-31
+    statement: "zod is an internal dependency of Remotion 4.0.525 in remotion-app"
+  - id: GHSA-mrhx-c7xc-m3w5
+    paths:
+      - "remotion-app/package-lock.json"
+    expired_at: 2026-12-31
+    statement: "zod is an internal dependency of Remotion 4.0.525 in remotion-app"

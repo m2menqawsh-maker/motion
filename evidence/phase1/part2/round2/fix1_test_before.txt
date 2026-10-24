@@ -1,0 +1,82 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_proposal_persistence_survives_memory_cache_clear_and_blocks_cross_tenant FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestMasterPlanServerAuthority.test_proposal_persistence_survives_memory_cache_clear_and_blocks_cross_tenant _
+
+self = <tests.security.test_creative_master_plan_security.TestMasterPlanServerAuthority object at 0x7fcb47652db0>
+creative_security_env = {'client': <starlette.testclient.TestClient object at 0x7fcb475fe660>, 'prj_alpha': 'prj_alpha_82aa414f', 'prj_beta': ...alpha': PosixPath('/home/eng_Momen/Projects/CurerntProject/Motion/projects/ws_alpha_82aa414f/prj_alpha_82aa414f'), ...}
+
+    def test_proposal_persistence_survives_memory_cache_clear_and_blocks_cross_tenant(self, creative_security_env):
+        """
+        Fix 1 Test:
+        1. Propose creates proposal stored in persistent StorageService.
+        2. In-memory proposal cache is completely cleared: CreativeService._proposals_store.clear().
+        3. Authorized apply fetches from StorageService and succeeds with 200 OK.
+        4. Cross-tenant apply from another tenant (Bob) is rejected with 404 (or 403).
+           (We assert 404: In canonical multi-tenant storage layout, proposals are partitioned by
+           workspaces/{ws_id}/projects/{prj_id}/proposals/{prop_id}.json. Foreign tenant lookups
+           in their own namespace yield 404 Not Found, preventing cross-tenant existence enumeration).
+        """
+        from api.services.creative_service import CreativeService
+    
+        env = creative_security_env
+        client = env["client"]
+        pid_alice = env["prj_alpha"]
+        pid_beta = env["prj_beta"]
+        token_alice = env["token_alice"]
+        token_bob = env["token_bob"]
+        pdir_alice = env["pdir_alpha"]
+    
+        # 1. Alice generates proposal
+        prop_resp = client.post(
+            f"/projects/{pid_alice}/creative/proposals",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={"prompt": "Permanent storage persistence showcase", "audio_mode": "VO_MUSIC"},
+        )
+        assert prop_resp.status_code == 200
+        prop_data = prop_resp.json()
+        prop_id = prop_data["proposal_id"]
+    
+        # 2. Clear memory cache entirely to simulate server restart / cache eviction
+        CreativeService._proposals_store.clear()
+        assert prop_id not in CreativeService._proposals_store
+    
+        # 3. Foreign tenant (Bob) attempts to apply Alice's proposal after cache clear
+        cross_resp = client.post(
+            f"/projects/{pid_beta}/creative/apply",
+            headers={"Authorization": f"Bearer {token_bob}"},
+            json={
+                "proposal_id": prop_id,
+                "base_revision": 1,
+                "blueprint": prop_data["candidate_blueprint"],
+            },
+        )
+        assert cross_resp.status_code in (403, 404)
+    
+        # 4. Legitimate tenant (Alice) applies proposal: must fetch from StorageService and succeed
+        apply_resp = client.post(
+            f"/projects/{pid_alice}/creative/apply",
+            headers={"Authorization": f"Bearer {token_alice}"},
+            json={
+                "proposal_id": prop_id,
+                "base_revision": prop_data["base_revision"],
+                "blueprint": prop_data["candidate_blueprint"],
+            },
+        )
+>       assert apply_resp.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/security/test_creative_master_plan_security.py:344: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_proposal_persistence_survives_memory_cache_clear_and_blocks_cross_tenant
+============================== 1 failed in 2.35s ===============================
