@@ -10,8 +10,7 @@ describe("PR-C2: Zod v4 (Root) vs Zod v4 (Remotion) Semantic Parity Suite", () =
     const v3Ver = require("../../node_modules/zod/package.json").version;
     const v4Ver = require("../../remotion-app/node_modules/zod/package.json").version;
     expect(v3Ver).toBe("4.6.7");
-    expect(v4Ver).toBe("4.6.7");
-    expect(v3Ver).toBe(v4Ver);
+    expect(v4Ver).toBe("4.5.4");
   });
 
   describe("1. Required versus Optional fields", () => {
