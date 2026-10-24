@@ -1,0 +1,36 @@
+
+> test
+> vitest run tests/remotion/contracts.test.ts tests/remotion/merge.test.ts tests/remotion/template_runtime_resolution.test.ts tests/remotion/datastory_contract.test.ts tests/remotion/manifest.test.ts tests/remotion/blueprint.test.ts tests/remotion/asset_resolution.test.ts tests/remotion/template_contract_parity.test.ts tests/remotion/effects.test.ts tests/remotion/s16_reproductions.test.ts tests/remotion/s16_pre_mount_gate.test.ts tests/remotion/s17_render_input_parity.test.ts tests/remotion/ai_contracts_parity.test.ts tests/remotion/zod_v3_v4_parity.test.ts
+
+
+ RUN  v5.0.5 /home/eng_Momen/Projects/CurerntProject/Motion
+
+ ✓ tests/remotion/manifest.test.ts (11 tests) 56ms
+ ✓ tests/remotion/blueprint.test.ts (17 tests) 116ms
+ ✓ tests/remotion/merge.test.ts (10 tests) 95ms
+ ✓ tests/remotion/zod_v3_v4_parity.test.ts (13 tests) 208ms
+ ✓ tests/remotion/asset_resolution.test.ts (16 tests) 131ms
+ ✓ tests/remotion/datastory_contract.test.ts (9 tests) 81ms
+ ✓ tests/remotion/contracts.test.ts (10 tests) 73ms
+ ✓ tests/remotion/ai_contracts_parity.test.ts (6 tests) 22ms
+stderr | tests/remotion/effects.test.ts > Effects Bridge & Runtime Tests > 7. timeline.tsx renders without crash via bridge
+`Infinity` is an invalid value for the `left` css style property.
+`NaN` is an invalid value for the `width` css style property.
+
+ ✓ tests/remotion/effects.test.ts (12 tests) 773ms
+   ✓ Effects Bridge & Runtime Tests (12)
+     ✓ 7. timeline.tsx renders without crash via bridge 507ms
+ ✓ tests/remotion/s17_render_input_parity.test.ts (6 tests) 75ms
+ ✓ tests/remotion/template_contract_parity.test.ts (11 tests) 57ms
+ ✓ tests/remotion/template_runtime_resolution.test.ts (19 tests) 62ms
+ ✓ tests/remotion/s16_pre_mount_gate.test.ts (20 tests) 223ms
+ ✓ tests/remotion/s16_reproductions.test.ts (6 tests) 32ms
+
+ Test Files  14 passed (14)
+      Tests  166 passed (166)
+   Start at  18:28:19
+   Duration  7.51s (import 59%, transform 20%, environment 14%, tests 5%, worker 1%)
+
+    Isolate  14 workers spawned · ~741ms startup each (spawn + environment, per file)
+             at least ~741ms faster with isolate: false — reuses workers across files instead of one per file
+

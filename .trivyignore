@@ -1,2 +1,0 @@
-# Trivy Ignore File
-# (No active ignore rules - CVE-2025-66414 resolved by upgrading @modelcontextprotocol/sdk to >= 1.24.0)
