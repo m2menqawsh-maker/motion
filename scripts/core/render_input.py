@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import json
 import os
+import unicodedata
+import urllib.parse
 from pathlib import Path
 from typing import Dict, Any, Optional, Union
 
@@ -100,8 +102,12 @@ def _validate_brand_local_relative_path(val: Any, field_desc: str, project_id: O
     """
     Validates that a path provided in brand.json (logoSrc or fonts) is strictly a local relative path.
     Rejects:
+    - Non-string types (if not None)
+    - Control characters (< 0x20, 0x7f) anywhere in the raw string
+    - Non-ASCII spaces, formatting, and control characters (Unicode categories Cc, Cf, Cs, Co, Cn, and Zs != ' ')
+    - Percent-encoded traversal sequences (%2e, %2f, %5c)
     - Absolute paths starting with '/' or '\'
-    - Windows UNC paths (starting with '\\')
+    - Windows UNC or protocol-relative paths (starting with '\\' or '//')
     - Directory traversal sequences ('..')
     - Any URI scheme (presence of ':' before the first '/' or '\', or any colon if no separator exists)
     """
@@ -113,11 +119,45 @@ def _validate_brand_local_relative_path(val: Any, field_desc: str, project_id: O
             f"Expected string path for {field_desc}, got {type(val).__name__}",
             project_id=project_id,
         )
+
+    # 1. C0 control characters and Unicode formatting/whitespace check on the RAW value
+    for ch in val:
+        code = ord(ch)
+        if code < 0x20 or code == 0x7F:
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Control character {hex(code)} in path '{val}' in {field_desc} rejected.",
+                project_id=project_id,
+            )
+        cat = unicodedata.category(ch)
+        if cat in ("Cc", "Cf", "Cs", "Co", "Cn") or (cat == "Zs" and ch != " "):
+            raise RenderInputValidationError(
+                "brand.json",
+                f"Invalid Unicode character '{ch}' (category {cat}) in path '{val}' in {field_desc} rejected.",
+                project_id=project_id,
+            )
+
+    # 2. Check for percent-encoded evasion (case-insensitive %2e, %2f, %5c)
+    lower_val = val.lower()
+    if "%2e" in lower_val or "%2f" in lower_val or "%5c" in lower_val:
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Percent-encoded traversal or separator sequence in path '{val}' in {field_desc} rejected.",
+            project_id=project_id,
+        )
+
+    # 3. Check raw value and cleaned value for leading separators / protocol-relative / UNC paths
+    if val.startswith("/") or val.startswith("\\"):
+        raise RenderInputValidationError(
+            "brand.json",
+            f"Non-local asset path or External URL '{val}' in {field_desc} rejected. Remotion requires local relative paths only.",
+            project_id=project_id,
+        )
+
     cleaned = val.strip()
     if not cleaned:
         return
 
-    # Check for leading slashes / backslashes / UNC paths
     if cleaned.startswith("/") or cleaned.startswith("\\"):
         raise RenderInputValidationError(
             "brand.json",
@@ -125,15 +165,15 @@ def _validate_brand_local_relative_path(val: Any, field_desc: str, project_id: O
             project_id=project_id,
         )
 
-    # Check for directory traversal
-    if ".." in cleaned:
+    # 4. Check for directory traversal
+    if ".." in cleaned or ".." in urllib.parse.unquote(val):
         raise RenderInputValidationError(
             "brand.json",
             f"Directory traversal in path '{val}' in {field_desc} rejected.",
             project_id=project_id,
         )
 
-    # Check for URI schemes or drives: any ':' before first '/' or '\', or colon when no slash exists
+    # 5. Check for URI schemes or drives: any ':' before first '/' or '\', or colon when no slash exists
     seps = [i for i in [cleaned.find("/"), cleaned.find("\\")] if i != -1]
     first_sep = min(seps) if seps else -1
     colon_idx = cleaned.find(":")
