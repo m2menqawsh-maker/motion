@@ -85,7 +85,7 @@
 | `agent-guard-post` | `.agents/guardian/post_executor.py` | Guardian post-execution validation hook | hooks.json | Security Guard | `Security Core` | **`KEEP`** |
 | `agent-guard-circuit` | `.agents/guardian/circuit_breaker.json` | Circuit breaker state for agent failures | Guardian Hooks | Security Guard | `Security Core` | **`KEEP`** |
 | `agent-guard-utils` | `.agents/guardian/utils.py` | Helper utilities for Guardian security hooks | Guardian Hooks | Security Guard | `Security Core` | **`KEEP`** |
-| `agent-qc-salt` | `.agents/secrets/.qc_salt` | HMAC secret salt for authenticating QC signatures | SmartQC / ReviewService | Cryptographic Secret | `Core Security` | **`KEEP`** |
+| `agent-qc-salt` | `scripts/gates/probe_qc.py` | HMAC secret salt authentication for QC signatures via QC_HMAC_SALT environment variable | SmartQC / ReviewService | Cryptographic Secret | `Core Security` | **`KEEP`** |
 | `agent-docker-remotion` | `.agents/docker/Dockerfile.remotion` | Docker container definition for hermetic Remotion rendering | CI / Docker Runner | DevOps Contract | `Core Render` | **`KEEP`** |
 | `tool-ad-quality-gate` | `.agents/plugins/super-video-maker-plugin/tools/ad_quality_gate.py` | Quality checks for paid-social ads (aspect ratio, duration, hooks) | Agent, QC Runner | Local Script | `scripts/gates/` | **`WRAP`** |
 | `tool-broll-layout-qc` | `.agents/plugins/super-video-maker-plugin/tools/broll_layout_qc.py` | B-roll layout and safe-zone verification tool | Agent, QC Runner | Local Script | `scripts/gates/` | **`WRAP`** |
