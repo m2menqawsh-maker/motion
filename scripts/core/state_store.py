@@ -577,11 +577,11 @@ class StateStore:
             try:
                 from scripts.core.security.path_policy import resolve_project_dir
                 pdir = resolve_project_dir(state.project_id, workspace_id=state.workspace_id)
-            except Exception:
-                if state.workspace_id:
-                    pdir = Path("projects") / state.workspace_id / state.project_id
-                else:
-                    pdir = Path("projects") / state.project_id
+            except Exception as e:
+                logger.error(
+                    f"Failed to resolve project directory for export_disk_cache on project '{state.project_id}': {e}"
+                )
+                return None
 
         if pdir and pdir.is_dir():
             state_file = pdir / cls.STATE_FILE
