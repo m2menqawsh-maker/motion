@@ -1,0 +1,69 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /home/eng_Momen/Projects/CurerntProject/Motion/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/eng_Momen/Projects/CurerntProject/Motion
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 8 items / 7 deselected / 1 selected
+
+tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_record_marked_failed_on_proposal_errors FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestMasterPlanServerAuthority.test_idempotency_record_marked_failed_on_proposal_errors _
+
+self = <tests.security.test_creative_master_plan_security.TestMasterPlanServerAuthority object at 0x7f62199a31a0>
+creative_security_env = {'client': <starlette.testclient.TestClient object at 0x7f6219980440>, 'prj_alpha': 'prj_alpha_644db479', 'prj_beta': ...alpha': PosixPath('/home/eng_Momen/Projects/CurerntProject/Motion/projects/ws_alpha_644db479/prj_alpha_644db479'), ...}
+
+    def test_idempotency_record_marked_failed_on_proposal_errors(self, creative_security_env):
+        """
+        Note 3 Test:
+        Verifies that when apply_proposal fails due to:
+        - 404: nonexistent proposal_id
+        - 403: cross-tenant proposal_id
+        - 400: client-modified master_plan hash mismatch
+        the idempotency record is immediately transitioned from IN_PROGRESS to FAILED
+        via mark_failed, preventing stuck leader locks.
+        """
+        env = creative_security_env
+        client = env["client"]
+        pid_a = env["prj_alpha"]
+        pid_b = env["prj_beta"]
+        token_a = env["token_alice"]
+        token_b = env["token_bob"]
+    
+        from scripts.core.database import get_database_engine
+        engine = get_database_engine()
+    
+        def get_idemp_status(op_id: str):
+            with engine.transaction() as conn:
+                row = conn.execute(
+                    "SELECT status, error_json FROM authoring_idempotency_records WHERE operation_id = ?",
+                    (op_id,),
+                ).fetchone()
+                return (row[0], row[1]) if row else (None, None)
+    
+        # 1. Test 404: Nonexistent proposal_id
+        op_404 = f"op_test_fail_404_{uuid.uuid4().hex[:6]}"
+        resp_404 = client.post(
+            f"/projects/{pid_a}/creative/apply",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={
+                "proposal_id": "prop_nonexistent_999",
+                "base_revision": 1,
+                "blueprint": {"blueprint_version": "2.0.0", "project_id": pid_a, "fps": 30, "aspect_ratio": "16:9", "scenes": []},
+                "operation_id": op_404,
+            },
+        )
+        assert resp_404.status_code == 404
+        status_404, err_404 = get_idemp_status(op_404)
+>       assert status_404 == "FAILED"
+E       AssertionError: assert 'IN_PROGRESS' == 'FAILED'
+E         
+E         - FAILED
+E         + IN_PROGRESS
+
+tests/security/test_creative_master_plan_security.py:442: AssertionError
+=========================== short test summary info ============================
+FAILED tests/security/test_creative_master_plan_security.py::TestMasterPlanServerAuthority::test_idempotency_record_marked_failed_on_proposal_errors
+======================= 1 failed, 7 deselected in 3.13s ========================

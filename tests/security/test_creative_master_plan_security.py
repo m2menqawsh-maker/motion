@@ -397,4 +397,94 @@ class TestMasterPlanServerAuthority:
         assert resp2.status_code == 409
         assert "idempotency" in resp2.text.lower()
 
+    def test_idempotency_record_marked_failed_on_proposal_errors(self, creative_security_env):
+        """
+        Note 3 Test:
+        Verifies that when apply_proposal fails due to:
+        - 404: nonexistent proposal_id
+        - 403: cross-tenant proposal_id
+        - 400: client-modified master_plan hash mismatch
+        the idempotency record is immediately transitioned from IN_PROGRESS to FAILED
+        via mark_failed, preventing stuck leader locks.
+        """
+        env = creative_security_env
+        client = env["client"]
+        pid_a = env["prj_alpha"]
+        pid_b = env["prj_beta"]
+        token_a = env["token_alice"]
+        token_b = env["token_bob"]
+
+        from scripts.core.database import get_database_engine
+        engine = get_database_engine()
+
+        def get_idemp_status(op_id: str):
+            with engine.transaction() as conn:
+                row = conn.execute(
+                    "SELECT status, error_json FROM authoring_idempotency_records WHERE operation_id = ?",
+                    (op_id,),
+                ).fetchone()
+                return (row[0], row[1]) if row else (None, None)
+
+        # 1. Test 404: Nonexistent proposal_id
+        op_404 = f"op_test_fail_404_{uuid.uuid4().hex[:6]}"
+        resp_404 = client.post(
+            f"/projects/{pid_a}/creative/apply",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={
+                "proposal_id": "prop_nonexistent_999",
+                "base_revision": 1,
+                "blueprint": {"blueprint_version": "2.0.0", "project_id": pid_a, "fps": 30, "aspect_ratio": "16:9", "scenes": []},
+                "operation_id": op_404,
+            },
+        )
+        assert resp_404.status_code == 404
+        status_404, err_404 = get_idemp_status(op_404)
+        assert status_404 == "FAILED"
+        assert err_404 is not None and "PROPOSAL_NOT_FOUND" in err_404
+
+        # Propose in Alpha to get a valid proposal
+        prop_resp = client.post(
+            f"/projects/{pid_a}/creative/propose",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={"recipe_id": "explainer_standard"},
+        )
+        assert prop_resp.status_code == 200
+        prop_data = prop_resp.json()
+        valid_prop_id = prop_data["proposal_id"]
+
+        # 2. Test 403: Cross-tenant proposal_id
+        op_403 = f"op_test_fail_403_{uuid.uuid4().hex[:6]}"
+        resp_403 = client.post(
+            f"/projects/{pid_b}/creative/apply",
+            headers={"Authorization": f"Bearer {token_b}"},
+            json={
+                "proposal_id": valid_prop_id,
+                "base_revision": 1,
+                "blueprint": {"blueprint_version": "2.0.0", "project_id": pid_b, "fps": 30, "aspect_ratio": "16:9", "scenes": []},
+                "operation_id": op_403,
+            },
+        )
+        assert resp_403.status_code == 403
+        status_403, err_403 = get_idemp_status(op_403)
+        assert status_403 == "FAILED"
+        assert err_403 is not None and "CROSS_TENANT_PROPOSAL" in err_403
+
+        # 3. Test 400: Tampered master_plan
+        op_400 = f"op_test_fail_400_{uuid.uuid4().hex[:6]}"
+        resp_400 = client.post(
+            f"/projects/{pid_a}/creative/apply",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={
+                "proposal_id": valid_prop_id,
+                "base_revision": prop_data["base_revision"],
+                "blueprint": prop_data["candidate_blueprint"],
+                "master_plan": "# Tampered Master Plan by Malicious Client",
+                "operation_id": op_400,
+            },
+        )
+        assert resp_400.status_code == 400
+        status_400, err_400 = get_idemp_status(op_400)
+        assert status_400 == "FAILED"
+        assert err_400 is not None and "PLAN_HASH_MISMATCH" in err_400
+
 
