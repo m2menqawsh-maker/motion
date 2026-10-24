@@ -5,12 +5,13 @@ const require = createRequire(import.meta.url);
 const z3 = require("../../node_modules/zod").z;
 const z4 = require("../../remotion-app/node_modules/zod").z;
 
-describe("PR-C2: Zod v3 (Root) vs Zod v4 (Remotion) Semantic Parity Suite", () => {
+describe("PR-C2: Zod v4 (Root) vs Zod v4 (Remotion) Semantic Parity Suite", () => {
   it("verifies installed Zod versions match expected baseline", () => {
     const v3Ver = require("../../node_modules/zod/package.json").version;
     const v4Ver = require("../../remotion-app/node_modules/zod/package.json").version;
-    expect(v3Ver).toBe("3.25.76");
-    expect(v4Ver).toBe("4.5.4");
+    expect(v3Ver).toBe("4.6.7");
+    expect(v4Ver).toBe("4.6.7");
+    expect(v3Ver).toBe(v4Ver);
   });
 
   describe("1. Required versus Optional fields", () => {
