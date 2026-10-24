@@ -5,6 +5,8 @@ import shutil
 import pytest
 import asyncio
 from pathlib import Path
+
+pytestmark = pytest.mark.serial
 from api.services.pipeline_service import PipelineService
 from api.core.errors import UnsupportedGateOperationError
 from scripts.core.lifecycle_service import LifecyclePreconditionFailedError
@@ -30,6 +32,8 @@ def run(cmd):
 def unmock_pipeline_service_project_dir(monkeypatch):
     """Ensure PipelineService uses the canonical workspace projects directory for real CLI integration."""
     from api.services.pipeline_service import PipelineService
+    from scripts.core.database import set_database_engine
+    set_database_engine(None)
     monkeypatch.setenv("MOTION_PROJECTS_ROOT", str(Path("projects").resolve()))
     monkeypatch.setattr(PipelineService, "_get_project_dir", classmethod(lambda cls, pid: Path(f"projects/ws_integration/{pid}")))
 

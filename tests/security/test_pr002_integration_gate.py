@@ -21,6 +21,9 @@ from scripts.core.database import DatabaseEngine, TenantRepository
 from scripts.core.security.principal import Principal, PrincipalType, Role
 
 
+pytestmark = pytest.mark.serial
+
+
 @pytest.fixture
 def gate_env(tmp_path, monkeypatch):
     """Isolated environment with isolated database and projects directory."""

@@ -19,6 +19,9 @@ from scripts.core.security.principal import Principal, PrincipalType, Role
 from scripts.core.storage import LocalStorageBackend, set_storage_service
 
 
+pytestmark = pytest.mark.serial
+
+
 @pytest.fixture
 def b1_env(tmp_path, monkeypatch):
     """Hermetic SaaS environment for Workstream B1 testing."""
